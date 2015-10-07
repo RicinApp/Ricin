@@ -1,0 +1,72 @@
+language: vala
+sudo: required
+compiler:
+ - gcc
+
+install:
+# Utils
+ - sudo apt-get install -y checkinstall build-essential libglib2.0-dev libgdk-pixbuf2.0-dev libgtk-3-dev libjson-glib-dev
+
+before_script:
+# Valac 0.29.3
+ - wget http://download.gnome.org/sources/vala/0.29/vala-0.29.3.tar.xz > /dev/null
+ - tar --xz -xvf vala-0.29.3.tar.xz > /dev/null
+ - cd vala-0.29.3
+ - ./configure > /dev/null
+ - make > /dev/null
+ - sudo make install > /dev/null
+ - cd ..
+ # libopus
+ - wget http://downloads.xiph.org/releases/opus/opus-1.0.3.tar.gz > /dev/null
+ - tar xzf opus-1.0.3.tar.gz > /dev/null
+ - cd opus-1.0.3
+ - ./configure > /dev/null
+ - make -j$(nproc) > /dev/null
+ - sudo make install > /dev/null
+ - cd ..
+# ffmpeg
+ - if [ ! -e "libs" ]; then mkdir libs; fi
+ - if [ ! -e "ffmpeg" ]; then mkdir ffmpeg; fi
+#
+ - cd libs/
+ - export PREFIX_DIR="$PWD"
+#
+ - cd ../ffmpeg
+ - wget http://ffmpeg.org/releases/ffmpeg-2.7.2.tar.bz2
+ - tar xf ffmpeg*
+ - cd ffmpeg*
+ - ./configure --prefix="$PREFIX_DIR" --enable-shared --disable-static --disable-programs --disable-protocols --disable-doc --disable-sdl --disable-avfilter --disable-avresample --disable-filters --disable-iconv --disable-network --disable-muxers --disable-postproc --disable-swresample --disable-swscale-alpha --disable-dct --disable-dwt --disable-lsp --disable-lzo --disable-mdct --disable-rdft --disable-fft --disable-faan --disable-vaapi --disable-vdpau --disable-zlib --disable-xlib --disable-bzlib --disable-lzma --disable-encoders --disable-yasm --enable-memalign-hack
+ - make -j$(nproc)
+ - make install
+ - cd ../../
+# filter_audio
+ - git clone https://github.com/irungentoo/filter_audio
+ - cd filter_audio
+ - make -j$(nproc)
+ - sudo make install
+ - cd ..
+# libsodium
+ - git clone git://github.com/jedisct1/libsodium.git
+ - cd libsodium
+ - git checkout tags/1.0.3
+ - ./autogen.sh
+ - ./configure && make -j$(nproc)
+ - sudo checkinstall --install --pkgname libsodium --pkgversion 1.0.0 --nodoc -y
+ - sudo ldconfig
+ - cd ..
+# Toxcore
+ - git clone https://github.com/irungentoo/toxcore.git
+ - cd toxcore
+ - autoreconf -if
+ - ./configure
+ - make -j$(nproc)
+ - sudo make install
+ - echo '/usr/local/lib/' | sudo tee -a /etc/ld.so.conf.d/locallib.conf
+ - sudo ldconfig
+ - cd ..
+
+script:
+ - mkdir build && cd build
+ - cmake ..
+ - make -j10
+ - sudo make install
