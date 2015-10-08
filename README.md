@@ -26,30 +26,24 @@
 </table>
 
 # Introduction
-**Ricin** aims to be a _secure_, _lightweight_, _hackable_ and _fully-customizable_ chat client using the awesome and open-source **Toxcore** library. **We know** that their is several Tox clients on the "market" but this project was initialy made because the others clients are still missing many features that users have been waiting for **over many months**. Ricin is a simple but powerfull cross-platform client written in **Vala** and using Gtk+ 3.0.
+**Ricin** aims to be a _secure_, _lightweight_, _hackable_ and _fully-customizable_ chat client using the awesome and open-source **ToxCore** library. We know that there are several Tox clients but this project was initially made because the other clients are still missing many features that users have been waiting for over many months. Ricin is a simple but powerful cross-platform client written in Vala and using Gtk+ 3.0.
 
 # Dependencies
 | Package name     | Version   | Comment             |
 |------------------|-----------|---------------------|
 | valac            | >=0.28.1  | **Required**        |
 | libgio           | >=2.0     |                     |
-| libglib          | >=1.0     |                     |
+| libglib          | >=2.32    |                     |
 | libjson-glib     | >=1.0     |                     |
-| libsoup          | >=1.0     |                     |
-| libnotify        | >=1.0     |                     |
-| libpeas          | >=1.0     |                     |
-| sqlite3          | >=1.0     |                     |
+| libsoup          | >=2.4     |                     |
+| libnotify        |           |                     |
 
 # Compiling
-> **NOTE**:  
-> The following guide is written to work on Linux, but you should be able to compile Ricin under Windows (using mingw for Windows) and under Mac OSX (via a simple C compiler ^.^)  
->  
+> **NOTE**:
 > Before compiling Ricin, make sure that you have installed all the needed dependencies, then follow the guide :)
 
-**Note that you can follow the [Install.md guide](https://github.com/RicinApp/Ricin/blob/master/Install.md) to get a more detailed way to compile :)**
-
 ### Cloning the Ricin repository
-To compile from the latest commit you must first clone the repository by using the followin command (type it in a Terminal).
+To compile from the latest commit you must first clone the repository by using the following command (type it in a Terminal).
 
 ```bash
 git clone --recursive https://github.com/RicinApp/Ricin.git Ricin-client
@@ -67,15 +61,15 @@ sudo make install
 ```
 
 # Contribute
-You can contribute on improving Ricin by [proposing Pull-requests](https://github.com/RicinApp/Ricin/pulls), reporting bugs or suggestions using the GitHub [issues tracker](https://github.com/RicinApp/Ricin/issues), [submiting a Bounty](https://www.bountysource.com/teams/RicinApp).
+You can contribute to improving Ricin by [proposing Pull-requests](https://github.com/RicinApp/Ricin/pulls), reporting bugs or suggestions using the GitHub [issues tracker](https://github.com/RicinApp/Ricin/issues), [submiting a Bounty](https://www.bountysource.com/teams/RicinApp).
 
 > _Section to complete..._
 
-# Supports Ricin developement
+# Support Ricin developement
 You can support the Ricin client developement by
 - [Paying us a Bounty](https://www.bountysource.com/teams/RicinApp)
 - Submiting donations via Bitcoin: [12VAyWXpe8uDKCPb25nhdhBHyiEf1pioBc](bitcoin:12VAyWXpe8uDKCPb25nhdhBHyiEf1pioBc)
-- Backing an issue via Bountsource to make peoples able to work on at full-time! :)
+- Backing an issue via Bountsource to make people able to work on it full-time! :)
 
 # Vala resources to get started
 Before clicking on any link beside, you must know what is Vala and why it is so powerful and easy to use: [What is Vala?](https://wiki.gnome.org/Projects/Vala/About)
