@@ -14,7 +14,7 @@ public class Contact : IContact, GLib.Object {
   public string name { get; set; default = "Ricin user"; }
   public string alias { get; set; default = ""; }
   public string status_message { get; set; default = "Proodly using Ricin !"; }
-  public DateTime last_seen { get; private set; default = null; }
+  public DateTime? last_seen { get; private set; default = null; }
   public UserStatus status { get; set; default = UserStatus.NONE; }
   public Gdk.Pixbuf? avatar { get; set; default = null; }
 
