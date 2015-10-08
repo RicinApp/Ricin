@@ -82,3 +82,7 @@ Before clicking on any link beside, you must know what is Vala and why it is so 
 - [Vala for Java Programmers](https://wiki.gnome.org/Projects/Vala/ValaForJavaProgrammers): (English) (Russian)
 - [Vala memory management explained](https://wiki.gnome.org/Projects/Vala/ReferenceHandling)
 - [Writing VAPI files](https://wiki.gnome.org/Projects/Vala/LegacyBindings): A document that explains how to write VAPI binding files for a C library.
+
+# Mockups
+
+See https://github.com/gnome-design-team/gnome-mockups/tree/master/chat and https://wiki.gnome.org/Design/Apps/Chat
