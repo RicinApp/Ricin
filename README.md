@@ -10,11 +10,11 @@
       <a href="#dependencies">Dependencies</a> -
       <a href="#compiling">Compiling</a> -
       <a href="#contribute">Contribute</a> -
-      <a href="#supports-ricin-developement">Support us</a> -
+      <a href="#support-ricin-developement">Support us</a> -
       <a href="#vala-resources-to-get-started">Get started with Vala</a>
     </td>
     <td align="center" width="20%">
-      <img src="https://img.shields.io/badge/version-0.0.1_beta-brightgreen.svg?style=flat">
+      <img src="https://img.shields.io/badge/version-0.0.1-brightgreen.svg?style=flat">
       <a href="https://travis-ci.org/RicinApp/Ricin">
         <img src="https://api.travis-ci.org/RicinApp/Ricin.svg" alt="Travis-CI">
       </a>
