@@ -5,7 +5,7 @@ compiler:
 
 install:
 # Utils
- - sudo apt-get install -y checkinstall build-essential libglib2.0-dev libgdk-pixbuf2.0-dev libgtk-3-dev libjson-glib-dev
+ - sudo apt-get install -y checkinstall build-essential libglib2.0-dev libgtk-3-dev libgdk-pixbuf2.0-dev libsoup-dev libjson-glib-dev
 
 before_script:
 # Valac 0.29.3
