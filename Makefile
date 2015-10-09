@@ -9,7 +9,16 @@ ricin:
 		--pkg=libsoup-2.4 \
 		--pkg=json-glib-1.0 \
 		--pkg=libtoxcore \
-		src/Ricin.vala \
-		src/MainWindow.vala \
-		src/ProfileChooser.vala \
-		src/Util.vala
+		src/*.vala
+
+style:
+	astyle \
+		--style=attach \
+		--indent=spaces=2 \
+		--indent-namespaces \
+		--indent-switches \
+		--add-one-line-brackets \
+		src/*.vala
+
+run: ricin
+	./Ricin
