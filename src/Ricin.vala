@@ -1,6 +1,11 @@
-class Ricin : Gtk.Application {
-    private ToxCore.Tox tox;
+public class Ricin.Ricin : Gtk.Application {
+    public ToxCore.Tox tox;
     private bool connected = false;
+
+    public Ricin () {
+        Object (application_id: "chat.tox.ricin",
+                flags: ApplicationFlags.FLAGS_NONE);
+    }
 
     public override void activate () {
         debug ("ToxCore Version %u.%u.%u", ToxCore.Version.MAJOR, ToxCore.Version.MINOR, ToxCore.Version.PATCH);
@@ -11,12 +16,9 @@ class Ricin : Gtk.Application {
             proxy_type = ToxCore.ProxyType.NONE
         };
 
-        // TODO: show list of profiles on start
         /*
-        if (FileUtils.test (this.TOX_SAVE, FileTest.EXISTS)) {
-            FileUtils.get_data (this.TOX_SAVE, out options.savedata_data);
-            options.savedata_type = SaveDataType.TOX_SAVE;
-        }
+        FileUtils.get_data ("~/.config/tox/profile.tox", out options.savedata_data);
+        options.savedata_type = SaveDataType.TOX_SAVE;
         */
 
         this.tox = new ToxCore.Tox (options, null);
@@ -35,6 +37,8 @@ class Ricin : Gtk.Application {
                 this.connected = false;
             }
         });
+
+        new MainWindow (this);
     }
 
     private class Server : Object {
@@ -83,5 +87,5 @@ class Ricin : Gtk.Application {
 }
 
 int main(string[] args) {
-    return new Ricin ().run (args);
+    return new Ricin.Ricin ().run (args);
 }

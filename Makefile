@@ -10,4 +10,6 @@ ricin:
 		--pkg=json-glib-1.0 \
 		--pkg=libtoxcore \
 		src/Ricin.vala \
+		src/MainWindow.vala \
+		src/ProfileChooser.vala \
 		src/Util.vala
