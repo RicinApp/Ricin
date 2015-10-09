@@ -10,11 +10,7 @@ public class Ricin.Ricin : Gtk.Application {
     public override void activate () {
         debug ("ToxCore Version %u.%u.%u", ToxCore.Version.MAJOR, ToxCore.Version.MINOR, ToxCore.Version.PATCH);
 
-        var options = ToxCore.Options () {
-            ipv6_enabled = true,
-            udp_enabled = true,
-            proxy_type = ToxCore.ProxyType.NONE
-        };
+        var options = new ToxCore.Options (null);
 
         /*
         FileUtils.get_data ("~/.config/tox/profile.tox", out options.savedata_data);

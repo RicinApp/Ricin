@@ -9,6 +9,7 @@ ricin:
 		--pkg=libsoup-2.4 \
 		--pkg=json-glib-1.0 \
 		--pkg=libtoxcore \
+		-o Ricin \
 		src/*.vala
 
 style:
@@ -20,5 +21,5 @@ style:
 		--add-one-line-brackets \
 		src/*.vala
 
-run: ricin
-	./Ricin
+debug: ricin
+	G_MESSAGES_DEBUG=all GOBJECT_DEBUG=instance-count ./Ricin
