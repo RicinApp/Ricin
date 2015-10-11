@@ -65,14 +65,14 @@ namespace Tox {
             this.bootstrap.begin ();
         }
 
-		public void run_loop () {
-			this.schedule_loop_iteration ();
-		}
+        public void run_loop () {
+            this.schedule_loop_iteration ();
+        }
 
         private void schedule_loop_iteration () {
             Timeout.add (this.handle.iteration_interval (), () => {
                 this.handle.iterate ();
-				this.schedule_loop_iteration ();
+                this.schedule_loop_iteration ();
                 return Source.REMOVE;
             });
         }
@@ -141,16 +141,16 @@ namespace Tox {
         }
 
         public Friend? accept_friend_request (string id) {
-			debug (@"accepting friend request from $id");
-			uint32 num = this.handle.friend_add_norequest (id.data, null);
-			if (num != uint32.MAX) {
-				var friend = new Friend (this, num);
-				this.friends[num] = friend;
-				return friend;
-			} else {
-				error ("something happened");
-			}
-		}
+            debug (@"accepting friend request from $id");
+            uint32 num = this.handle.friend_add_norequest (id.data, null);
+            if (num != uint32.MAX) {
+                var friend = new Friend (this, num);
+                this.friends[num] = friend;
+                return friend;
+            } else {
+                error ("something happened");
+            }
+        }
     }
 
     class Options : Object {
