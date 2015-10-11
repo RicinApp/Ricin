@@ -15,10 +15,10 @@ ricin:
 style:
 	astyle \
 		--style=attach \
-		--indent=spaces=2 \
+		--indent=spaces=4 \
 		--indent-namespaces \
 		--indent-switches \
-		--add-one-line-brackets \
+		--add-brackets \
 		src/*.vala
 
 debug: ricin
