@@ -5,7 +5,7 @@ using ToxCore; // only in this file
 namespace Tox {
     class Tox : Object {
         private ToxCore.Tox handle;
-        private HashTable<uint32, Friend> friends = new HashTable<uint32, Friend> (int_hash, int_equal);
+        private HashTable<uint32, Friend> friends = new HashTable<uint32, Friend> (direct_hash, direct_equal);
 
         public bool connected { get; set; default = false; }
         public string id {
