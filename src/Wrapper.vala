@@ -25,6 +25,17 @@ namespace Tox {
             this.handle = new ToxCore.Tox (opts, null);
 
             this.handle.callback_self_connection_status ((self, status) => {
+                switch (status) {
+                    case ConnectionStatus.NONE:
+                        debug ("Connection: none");
+                        break;
+                    case ConnectionStatus.TCP:
+                        debug ("Connection: TCP");
+                        break;
+                    case ConnectionStatus.UDP:
+                        debug ("Connection: UDP");
+                        break;
+                }
                 this.connected = (status != ConnectionStatus.NONE);
             });
 
@@ -72,6 +83,22 @@ namespace Tox {
         private void schedule_loop_iteration () {
             Timeout.add (this.handle.iteration_interval (), () => {
                 this.handle.iterate ();
+
+                var connection = this.handle.self_get_connection_status ();
+                switch (connection) {
+                    case ConnectionStatus.NONE:
+                        if (this.connected) {
+                            this.connected = false;
+                        }
+                        break;
+                    case ConnectionStatus.TCP:
+                    case ConnectionStatus.UDP:
+                        if (!this.connected) {
+                            this.connected = true;
+                        }
+                        break;
+                }
+
                 this.schedule_loop_iteration ();
                 return Source.REMOVE;
             });
@@ -142,13 +169,14 @@ namespace Tox {
 
         public Friend? accept_friend_request (string id) {
             debug (@"accepting friend request from $id");
-            uint32 num = this.handle.friend_add_norequest (id.data, null);
-            if (num != uint32.MAX) {
+            ERR_FRIEND_ADD err;
+            uint32 num = this.handle.friend_add_norequest (id.data, out err);
+            if (num != uint32.MAX && err == ERR_FRIEND_ADD.OK) {
                 var friend = new Friend (this, num);
                 this.friends[num] = friend;
                 return friend;
             } else {
-                error ("something happened");
+                error ("friend_add_norequest: %d", err);
             }
         }
     }
