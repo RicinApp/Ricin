@@ -140,7 +140,17 @@ namespace Tox {
             }
         }
 
-        //public Friend reply_friend_request
+        public Friend? accept_friend_request (string id) {
+			debug (@"accepting friend request from $id");
+			uint32 num = this.handle.friend_add_norequest (id.data, null);
+			if (num != uint32.MAX) {
+				var friend = new Friend (this, num);
+				this.friends[num] = friend;
+				return friend;
+			} else {
+				error ("something happened");
+			}
+		}
     }
 
     class Options : Object {
