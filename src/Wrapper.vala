@@ -8,6 +8,14 @@ namespace Tox {
         private HashTable<uint32, Friend> friends = new HashTable<uint32, Friend> (int_hash, int_equal);
 
         public bool connected { get; set; default = false; }
+        public string id {
+            owned get {
+                //uint8 address[ToxCore.ADDRESS_SIZE]; // vala bug #756376
+                uint8[] address = new uint8[ToxCore.ADDRESS_SIZE];
+                this.handle.self_get_address (address);
+                return Util.bin2hex (address);
+            }
+        }
 
         public signal void friend_request (string id, string message);
 
@@ -48,8 +56,10 @@ namespace Tox {
 
             this.handle.callback_friend_request ((self, pubkey, message) => {
                 pubkey.length = ToxCore.PUBLIC_KEY_SIZE;
-                string id = Util.arr2str (pubkey);
+                string id = Util.bin2hex (pubkey);
                 string msg = Util.arr2str (message);
+                debug (@"Friend request from $id: $msg");
+                this.friend_request (id, msg);
             });
 
             this.bootstrap.begin ();
@@ -158,10 +168,6 @@ namespace Tox {
 
         public signal void message (string message);
         public signal void action (string message);
-
-        public void respond_friend_request () {
-
-        }
 
         //public bool unfriend () {}
 

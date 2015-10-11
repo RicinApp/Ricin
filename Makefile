@@ -22,4 +22,4 @@ style:
 		src/*.vala
 
 debug: ricin
-	G_MESSAGES_DEBUG=all GOBJECT_DEBUG=instance-count ./Ricin
+	G_MESSAGES_DEBUG=all GOBJECT_DEBUG=instance-count gdb -ex run ./Ricin

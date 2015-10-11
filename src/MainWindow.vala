@@ -10,6 +10,10 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
 
         tox.run_loop ();
 
+        var label = new Gtk.Label (tox.id);
+        label.selectable = true;
+        this.add (label);
+
         this.show_all ();
     }
 }
