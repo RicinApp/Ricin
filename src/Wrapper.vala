@@ -65,10 +65,15 @@ namespace Tox {
             this.bootstrap.begin ();
         }
 
-        public void run_loop () {
+		public void run_loop () {
+			this.schedule_loop_iteration ();
+		}
+
+        private void schedule_loop_iteration () {
             Timeout.add (this.handle.iteration_interval (), () => {
                 this.handle.iterate ();
-                return Source.CONTINUE;
+				this.schedule_loop_iteration ();
+                return Source.REMOVE;
             });
         }
 
