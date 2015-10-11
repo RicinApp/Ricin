@@ -3,3 +3,6 @@ Ricin
 
 # AStyle orig files
 *.orig
+
+# gdb log
+.gdb_history
