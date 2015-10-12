@@ -1,8 +1,17 @@
 [GtkTemplate (ui="/chat/tox/Ricin/main-window.ui")]
 public class Ricin.MainWindow : Gtk.ApplicationWindow {
     [GtkChild] Gtk.ListBox friendlist;
-    [GtkChild] Gtk.Label log;
+
+    [GtkChild] Gtk.Image connection_image;
+    [GtkChild] Gtk.Label id_label;
+
+    [GtkChild] Gtk.ListBox messages_list;
+
+    [GtkChild] Gtk.Entry entry;
+    [GtkChild] Gtk.Button send;
+
     private ListStore friends = new ListStore (typeof (Tox.Friend));
+    private ListStore messages = new ListStore (typeof (Gtk.Label));
 
     Tox.Tox tox;
 
@@ -10,15 +19,17 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
         Object (application: app);
 
         this.friendlist.bind_model (this.friends, fr => new FriendListRow (fr as Tox.Friend));
+        this.messages_list.bind_model (this.messages, l => l as Gtk.Widget);
+
         var options = Tox.Options.create ();
         options.ipv6_enabled = true;
         options.udp_enabled = true;
         this.tox = new Tox.Tox (options);
 
-        log.label = "Your ID: " + this.tox.id + "\n\n";
+        id_label.label += this.tox.id;
 
         tox.notify["connected"].connect ((src, prop) => {
-            log.label += @"Connected: $(tox.connected)\n";
+            this.connection_image.icon_name = tox.connected ? "gtk-yes" : "gtk-no";
         });
 
         tox.friend_request.connect ((id, message) => {
@@ -28,11 +39,8 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
                 if (response == Gtk.ResponseType.ACCEPT) {
                     var friend = tox.accept_friend_request (id);
                     if (friend != null) {
-                        log.label += @"Friended $id\n";
-                        friend.message.connect (msg => {
-                            log.label += @"$(friend.name): $msg\n";
-                        });
                         friends.append (friend);
+                        friend.message.connect (msg => messages.append (new Gtk.Label (@"$(friend.name): $msg")));
                     }
                 }
                 dialog.destroy ();
