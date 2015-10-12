@@ -28,6 +28,14 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
 
         id_label.label += this.tox.id;
 
+        send.clicked.connect (() => {
+            var label = new Gtk.Label ("Me: " +entry.text);
+            label.halign = Gtk.Align.START;
+            messages.append (label);
+            (friends.get_item (0) as Tox.Friend).send_message (entry.text);
+            entry.text = "";
+        });
+
         tox.notify["connected"].connect ((src, prop) => {
             this.connection_image.icon_name = tox.connected ? "gtk-yes" : "gtk-no";
         });
