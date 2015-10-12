@@ -1,16 +1,23 @@
 ricin:
+	glib-compile-resources \
+		--generate-source \
+		--sourcedir=res/ \
+		--target=resources.c \
+		res/ricin.gresource.xml
 	valac \
 		-g \
 		-X -fsanitize=address \
 		--vapidir=tox-vapi/vapi/ \
-		--target-glib=2.32 \
+		--target-glib=2.38 \
 		--pkg=gio-2.0 \
 		--pkg=gtk+-3.0 \
 		--pkg=libsoup-2.4 \
 		--pkg=json-glib-1.0 \
 		--pkg=libtoxcore \
+		--gresources=res/ricin.gresource.xml \
 		-o Ricin \
-		src/*.vala
+		src/*.vala \
+		resources.c
 
 style:
 	astyle \

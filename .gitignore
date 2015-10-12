@@ -6,3 +6,5 @@ Ricin
 
 # gdb log
 .gdb_history
+
+resources.c

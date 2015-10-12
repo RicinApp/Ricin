@@ -1,4 +1,8 @@
+[GtkTemplate (ui="/chat/tox/Ricin/main-window.ui")]
 public class Ricin.MainWindow : Gtk.ApplicationWindow {
+    [GtkChild] Gtk.ListBox friendlist;
+    [GtkChild] Gtk.Label log;
+
     Tox.Tox tox;
 
     public MainWindow (Ricin app) {
@@ -9,16 +13,10 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
         options.udp_enabled = true;
         this.tox = new Tox.Tox (options);
 
-        var sw = new Gtk.ScrolledWindow (null, null);
-        var vp = new Gtk.Viewport (null, null);
-        var label = new Gtk.Label (@"Your ID: $(tox.id)\n\n");
-        label.selectable = true;
-        vp.add (label);
-        sw.add (vp);
-        this.add (sw);
+        log.label = "Your ID: " + this.tox.id + "\n\n";
 
         tox.notify["connected"].connect ((src, prop) => {
-            label.label += @"Connected: $(tox.connected)\n";
+            log.label += @"Connected: $(tox.connected)\n";
         });
 
         tox.friend_request.connect ((id, message) => {
@@ -28,9 +26,9 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
                 if (response == Gtk.ResponseType.ACCEPT) {
                     var friend = tox.accept_friend_request (id);
                     if (friend != null) {
-                        label.label += @"Friended $id\n";
+                        log.label += @"Friended $id\n";
                         friend.message.connect (msg => {
-                            label.label += @"$(friend.name): $msg\n";
+                            log.label += @"$(friend.name): $msg\n";
                         });
                     }
                 }

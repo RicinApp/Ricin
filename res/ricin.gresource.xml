@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gresources>
+    <gresource prefix="/chat/tox/Ricin">
+        <file preprocess="xml-stripblanks" compressed="true">main-window.ui</file>
+        <file preprocess="xml-stripblanks" compressed="true">friend-list-row.ui</file>
+    </gresource>
+</gresources>

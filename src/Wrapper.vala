@@ -180,7 +180,7 @@ namespace Tox {
 
     class Friend : Object {
         private weak Tox tox;
-        private uint32 num;// libtoxcore identifier
+        private uint32 num; // libtoxcore identifier
 
         public Friend (Tox tox, uint32 num) {
             this.tox = tox;
