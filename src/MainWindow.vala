@@ -40,7 +40,11 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
                     var friend = tox.accept_friend_request (id);
                     if (friend != null) {
                         friends.append (friend);
-                        friend.message.connect (msg => messages.append (new Gtk.Label (@"$(friend.name): $msg")));
+                        friend.message.connect (msg => {
+                            var label = new Gtk.Label (@"$(friend.name): $msg");
+                            label.halign = Gtk.Align.START;
+                            messages.append (label);
+                        });
                     }
                 }
                 dialog.destroy ();
