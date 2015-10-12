@@ -3,10 +3,17 @@ using ToxCore; // only in this file
 // so we don't conflict with libtoxcore
 [CCode (cprefix="ToxWrapper", lower_case_cprefix="tox_wrapper_")]
 namespace Tox {
+    enum UserStatus {
+        ONLINE,
+        AWAY,
+        BUSY
+    }
+
     class Tox : Object {
-        private ToxCore.Tox handle;
+        internal ToxCore.Tox handle;
         private HashTable<uint32, Friend> friends = new HashTable<uint32, Friend> (direct_hash, direct_equal);
 
+        public UserStatus status { get; set; }
         public bool connected { get; set; default = false; }
         public string id {
             owned get {
@@ -23,6 +30,8 @@ namespace Tox {
             debug ("ToxCore Version %u.%u.%u", ToxCore.Version.MAJOR, ToxCore.Version.MINOR, ToxCore.Version.PATCH);
 
             this.handle = new ToxCore.Tox (opts, null);
+
+            this.handle.status = (ToxCore.UserStatus) this.status; // if the enum values are the same we can cast
 
             this.handle.callback_self_connection_status ((self, status) => {
                 switch (status) {
@@ -48,13 +57,7 @@ namespace Tox {
             });
 
             this.handle.callback_friend_status ((self, num, status) => {
-                if (status == ToxCore.UserStatus.NONE) {
-                    this.friends[num].status = UserStatus.ONLINE;
-                } else if (status == ToxCore.UserStatus.AWAY) {
-                    this.friends[num].status = UserStatus.AWAY;
-                } else if (status == ToxCore.UserStatus.BUSY) {
-                    this.friends[num].status = UserStatus.BUSY;
-                }
+                this.friends[num].status = (UserStatus) status;
             });
 
             this.handle.callback_friend_status_message ((self, num, message) => {
@@ -190,12 +193,6 @@ namespace Tox {
             // TODO: convert to exceptions
             return new ToxCore.Options (null);
         }
-    }
-
-    enum UserStatus {
-        ONLINE,
-        AWAY,
-        BUSY
     }
 
     class Friend : Object {
