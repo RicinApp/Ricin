@@ -23,19 +23,16 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
 
         tox.friend_request.connect ((id, message) => {
             var dialog = new Gtk.MessageDialog (this, Gtk.DialogFlags.MODAL, Gtk.MessageType.QUESTION, Gtk.ButtonsType.NONE, "Friend Request\nID: %s\n%s", id, message);
-            dialog.add_buttons ("Accept", Gtk.ResponseType.ACCEPT,
-                                "Reject", Gtk.ResponseType.REJECT);
+            dialog.add_buttons ("Accept", Gtk.ResponseType.ACCEPT, "Reject", Gtk.ResponseType.REJECT);
             dialog.response.connect (response => {
                 if (response == Gtk.ResponseType.ACCEPT) {
                     var friend = tox.accept_friend_request (id);
                     if (friend != null) {
                         label.label += @"Friended $id\n";
                         friend.message.connect (msg => {
-                            label.label += @"$(friend.name): msg";
+                            label.label += @"$(friend.name): $msg\n";
                         });
                     }
-                } else {
-
                 }
                 dialog.destroy ();
             });

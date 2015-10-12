@@ -61,6 +61,10 @@ namespace Tox {
                 this.friends[num].status_message = Util.arr2str (message);
             });
 
+            this.handle.callback_friend_message ((self, num, type, msg) => {
+                this.friends[num].message (Util.arr2str (msg));
+            });
+
             this.handle.callback_friend_typing ((self, num, is_typing) => {
                 this.friends[num].typing = is_typing;
             });
@@ -217,6 +221,10 @@ namespace Tox {
         /*
         public static bool exists (string id) {
 
+        public void send_message (string msg) {
+            debug (@"sending \"$msg\" to friend $num");
+            ERR_FRIEND_SEND_MESSAGE err;
+            tox.handle.friend_send_message (this.num, MessageType.NORMAL, msg.data, out err);
         }
         */
     }
