@@ -6,6 +6,7 @@ ricin:
 		res/ricin.gresource.xml
 	valac \
 		-g \
+		-X -ggdb \
 		-X -fsanitize=address \
 		--vapidir=tox-vapi/vapi/ \
 		--target-glib=2.38 \
