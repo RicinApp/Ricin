@@ -170,7 +170,7 @@ namespace Tox {
         public Friend? accept_friend_request (string id) {
             debug (@"accepting friend request from $id");
             ERR_FRIEND_ADD err;
-            uint32 num = this.handle.friend_add_norequest (id.data, out err);
+            uint32 num = this.handle.friend_add_norequest (Util.hex2bin(id), out err);
             if (num != uint32.MAX && err == ERR_FRIEND_ADD.OK) {
                 var friend = new Friend (this, num);
                 this.friends[num] = friend;
