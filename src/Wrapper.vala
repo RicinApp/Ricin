@@ -90,22 +90,6 @@ namespace Tox {
         private void schedule_loop_iteration () {
             Timeout.add (this.handle.iteration_interval (), () => {
                 this.handle.iterate ();
-
-                var connection = this.handle.self_get_connection_status ();
-                switch (connection) {
-                    case ConnectionStatus.NONE:
-                        if (this.connected) {
-                            this.connected = false;
-                        }
-                        break;
-                    case ConnectionStatus.TCP:
-                    case ConnectionStatus.UDP:
-                        if (!this.connected) {
-                            this.connected = true;
-                        }
-                        break;
-                }
-
                 this.schedule_loop_iteration ();
                 return Source.REMOVE;
             });
@@ -164,11 +148,10 @@ namespace Tox {
                 error ("Message too long");
             }
 
-            ERR_FRIEND_ADD error;
-            uint32 friend_num = this.handle.friend_add (id.data, message.data, out error);
+            ERR_FRIEND_ADD err;
+            uint32 friend_num = this.handle.friend_add (id.data, message.data, out err);
             if (friend_num == uint32.MAX) {
-                //error ("oops");
-                return null;
+                error ("oops");
             } else {
                 return new Friend (this, friend_num);
             }
@@ -213,16 +196,10 @@ namespace Tox {
         public signal void message (string message);
         public signal void action (string message);
 
-        //public bool unfriend () {}
-
-        /*
-        public static bool exists (string id) {
-
         public void send_message (string msg) {
             debug (@"sending \"$msg\" to friend $num");
             ERR_FRIEND_SEND_MESSAGE err;
             tox.handle.friend_send_message (this.num, MessageType.NORMAL, msg.data, out err);
         }
-        */
     }
 }
