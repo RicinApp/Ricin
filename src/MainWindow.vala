@@ -1,5 +1,6 @@
 [GtkTemplate (ui="/chat/tox/Ricin/main-window.ui")]
 public class Ricin.MainWindow : Gtk.ApplicationWindow {
+
   [GtkChild] Gtk.Entry entry_name;
   [GtkChild] Gtk.Entry entry_mood;
   [GtkChild] Gtk.ListBox friendlist;
@@ -39,25 +40,17 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
     this.toxid.label += this.tox.id;
 
     this.entry_name.key_press_event.connect ((event) => {
-      if (
-        event.keyval == Gdk.Key.Return ||
-        event.keyval == Gdk.Key.ISO_Enter ||
-        event.keyval == Gdk.Key.KP_Enter
-      ) {
+      if (event.keyval == Gdk.Key.Return) {
         this.tox.set_username (this.entry_name.get_text ());
       }
-      return true;
+      return false;
     });
 
     this.entry_mood.key_press_event.connect ((event) => {
-      if (
-        event.keyval == Gdk.Key.Return ||
-        event.keyval == Gdk.Key.ISO_Enter ||
-        event.keyval == Gdk.Key.KP_Enter
-      ) {
+      if (event.keyval == Gdk.Key.Return) {
         this.tox.set_mood (this.entry_mood.get_text ());
       }
-      return true;
+      return false;
     });
 
     this.button_add_friend.clicked.connect (() => {
