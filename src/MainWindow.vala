@@ -6,7 +6,8 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
   [GtkChild] Gtk.Entry entry_friend_id;
   [GtkChild] Gtk.Button button_add_friend;
   [GtkChild] Gtk.Image connection_image;
-  [GtkChild] Gtk.Label id_label;
+  //[GtkChild] Gtk.Label id_label;
+  [GtkChild] Gtk.Button button_show_toxid;
   [GtkChild] Gtk.Stack chat_stack;
 
 
@@ -36,7 +37,13 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
     this.tox.set_username (this.entry_name.get_text ());
     this.tox.set_mood (this.entry_mood.get_text ());
 
-    id_label.label += this.tox.id;
+    //id_label.label += this.tox.id;
+    this.button_show_toxid.clicked.connect (() => {
+      Gtk.MessageDialog msg = new Gtk.MessageDialog (this, Gtk.DialogFlags.MODAL, Gtk.MessageType.OTHER, Gtk.ButtonsType.OK, "Your ToxID");
+      msg.secondary_text = this.tox.id;
+      msg.response.connect (response => { msg.destroy (); });
+      msg.show ();
+    });
 
     this.entry_name.key_press_event.connect ((event) => {
       if (
@@ -72,7 +79,7 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
       } else if (tox_id.index_of ("@") != -1) {
         error_message = "Ricin doesn't supports ToxDNS yet.";
       } else {
-        error_message = "Invalid ToxID."
+        error_message = "Invalid ToxID.";
       }
 
       Gtk.MessageDialog msg = new Gtk.MessageDialog (this, Gtk.DialogFlags.MODAL, Gtk.MessageType.ERROR, Gtk.ButtonsType.OK, error_message);
@@ -85,7 +92,8 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
     });
 
     this.tox.friend_request.connect ((id, message) => {
-      var dialog = new Gtk.MessageDialog (this, Gtk.DialogFlags.MODAL, Gtk.MessageType.QUESTION, Gtk.ButtonsType.NONE, "Friend Request\nID: %s\n%s", id, message);
+      var dialog = new Gtk.MessageDialog (this, Gtk.DialogFlags.MODAL, Gtk.MessageType.QUESTION, Gtk.ButtonsType.NONE, "Friend request from:");
+      dialog.secondary_text = id + "\n\n\"" + message + "\"";
       dialog.add_buttons ("Accept", Gtk.ResponseType.ACCEPT, "Reject", Gtk.ResponseType.REJECT);
       dialog.response.connect (response => {
         if (response == Gtk.ResponseType.ACCEPT) {
