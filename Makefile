@@ -23,7 +23,7 @@ ricin:
 style:
 	astyle \
 		--style=attach \
-		--indent=spaces=4 \
+		--indent=spaces=2 \
 		--indent-namespaces \
 		--indent-switches \
 		--add-brackets \
