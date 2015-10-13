@@ -69,6 +69,7 @@ class Ricin.ChatView : Gtk.Box {
   }
 
   private void send_message () {
+    var user = this.handle.name;
     var message = this.entry.get_text ();
     var label = new Gtk.Label ("");
     label.halign = Gtk.Align.START;
@@ -78,15 +79,15 @@ class Ricin.ChatView : Gtk.Box {
 
     if (message.has_prefix ("/me ")) {
       message = message.splice(0, 4); // Removes the "/me " part.
-      label.set_markup (@"<span color=\"#3498db\">* <b>Me</b> $message</span>");
+      label.set_markup (@"<span color=\"#3498db\">* <b>$user</b> $message</span>");
       fr.send_action (message);
     } else if (message.has_prefix (">")) {
       var regex = new Regex (">(.*)");
       var quote = regex.replace (message, message.length, 0, "<span color=\"#2ecc71\">>\\1</span>");
-      label.set_markup ("<b>Me:</b> " + quote);
+      label.set_markup (@"<b>$user:</b> " + quote);
       fr.send_message (message);
     } else {
-      label.set_markup (@"<b>Me:</b> $message");
+      label.set_markup (@"<b>$user:</b> $message");
       fr.send_message (message);
     }
 
