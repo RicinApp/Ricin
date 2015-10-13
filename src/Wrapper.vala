@@ -64,6 +64,9 @@ namespace Tox {
       });
 
       this.handle.callback_friend_connection_status ((self, num, status) => {
+        if (this.friends[num] == null)
+          this.friends[num] = new Friend (this, num);
+
         this.friends[num].connected = (status != ConnectionStatus.NONE);
       });
 
@@ -159,7 +162,7 @@ namespace Tox {
       }
     }
 
-    public Friend add_friend (string id, string message) {
+    public Friend? add_friend (string id, string message) {
       if (id.length != ToxCore.ADDRESS_SIZE && id.index_of_char ('@') != -1) {
         error ("Invalid Tox ID");
       }
@@ -169,10 +172,14 @@ namespace Tox {
       }
 
       ERR_FRIEND_ADD err;
-      uint32 friend_num = this.handle.friend_add (id.data, message.data, out err);
+      uint32 friend_num = this.handle.friend_add (Util.hex2bin (id), message.data, out err);
+      if ((int) err != 0) debug ("Error code: %d", (int) err);
+
       if (friend_num == uint32.MAX) {
-        error ("oops");
+        debug ("Oops friend_num == uint3.MAX");
+        return null;
       } else {
+        debug (@"Sent a friend request\n--- $id\n--- $message");
         return new Friend (this, friend_num);
       }
     }
