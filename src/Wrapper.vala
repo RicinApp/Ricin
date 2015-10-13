@@ -13,6 +13,8 @@ namespace Tox {
     internal ToxCore.Tox handle;
     private HashTable<uint32, Friend> friends = new HashTable<uint32, Friend> (direct_hash, direct_equal);
 
+    public string name { get; set; }
+    public string status_message { get; set; }
     public UserStatus status { get; set; }
     public bool connected { get; set; default = false; }
     public string id {
@@ -25,6 +27,19 @@ namespace Tox {
     }
 
     public signal void friend_request (string id, string message);
+    public signal void system_message (string message);
+
+    public void set_username (string user_name) {
+      debug (@"Name set to `$name`");
+      this.name = user_name;
+      this.handle.self_set_name (this.name.data, null);
+    }
+
+    public void set_mood (string user_status_message) {
+      debug (@"Status message set to `$status_message`");
+      this.status_message = user_status_message;
+      this.handle.self_set_status_message (this.status_message.data, null);
+    }
 
     public Tox (ToxCore.Options? opts = null) {
       debug ("ToxCore Version %u.%u.%u", ToxCore.Version.MAJOR, ToxCore.Version.MINOR, ToxCore.Version.PATCH);
@@ -53,6 +68,7 @@ namespace Tox {
       });
 
       this.handle.callback_friend_name ((self, num, name) => {
+        this.system_message (this.friends[num].name + " is now known as " + Util.arr2str (name));
         this.friends[num].name = Util.arr2str (name);
       });
 

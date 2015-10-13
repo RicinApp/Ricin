@@ -1,9 +1,12 @@
 [GtkTemplate (ui="/chat/tox/Ricin/main-window.ui")]
 public class Ricin.MainWindow : Gtk.ApplicationWindow {
+  [GtkChild] Gtk.Entry entry_name;
+  [GtkChild] Gtk.Entry entry_mood;
   [GtkChild] Gtk.ListBox friendlist;
   [GtkChild] Gtk.Image connection_image;
   [GtkChild] Gtk.Label id_label;
   [GtkChild] Gtk.Stack chat_stack;
+
 
   private ListStore friends = new ListStore (typeof (Tox.Friend));
 
@@ -28,13 +31,38 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
     options.udp_enabled = true;
     this.tox = new Tox.Tox (options);
 
+    this.tox.set_username (this.entry_name.get_text ());
+    this.tox.set_mood (this.entry_mood.get_text ());
+
     id_label.label += this.tox.id;
 
-    tox.notify["connected"].connect ((src, prop) => {
-      this.connection_image.icon_name = tox.connected ? "gtk-yes" : "gtk-no";
+    this.entry_name.key_press_event.connect ((event) => {
+      if (
+        event.keyval == Gdk.Key.Return ||
+        event.keyval == Gdk.Key.ISO_Enter ||
+        event.keyval == Gdk.Key.KP_Enter
+      ) {
+        this.tox.set_username (this.entry_name.get_text ());
+      }
+      return true;
     });
 
-    tox.friend_request.connect ((id, message) => {
+    this.entry_mood.key_press_event.connect ((event) => {
+      if (
+        event.keyval == Gdk.Key.Return ||
+        event.keyval == Gdk.Key.ISO_Enter ||
+        event.keyval == Gdk.Key.KP_Enter
+      ) {
+        this.tox.set_mood (this.entry_mood.get_text ());
+      }
+      return true;
+    });
+
+    this.tox.notify["connected"].connect ((src, prop) => {
+      this.connection_image.icon_name = this.tox.connected ? "gtk-yes" : "gtk-no";
+    });
+
+    this.tox.friend_request.connect ((id, message) => {
       var dialog = new Gtk.MessageDialog (this, Gtk.DialogFlags.MODAL, Gtk.MessageType.QUESTION, Gtk.ButtonsType.NONE, "Friend Request\nID: %s\n%s", id, message);
       dialog.add_buttons ("Accept", Gtk.ResponseType.ACCEPT, "Reject", Gtk.ResponseType.REJECT);
       dialog.response.connect (response => {
@@ -42,7 +70,7 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
           var friend = tox.accept_friend_request (id);
           if (friend != null) {
             friends.append (friend);
-            chat_stack.add_named (new ChatView (friend), friend.name);
+            chat_stack.add_named (new ChatView (this.tox, friend), friend.name);
           }
         }
         dialog.destroy ();
@@ -50,7 +78,7 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
       dialog.show ();
     });
 
-    tox.run_loop ();
+    this.tox.run_loop ();
 
     this.show_all ();
   }

@@ -8,3 +8,7 @@ Ricin
 .gdb_history
 
 resources.c
+
+# Glade stupid temp files.
+*.ui~
+*.ui#

@@ -6,9 +6,11 @@ class Ricin.ChatView : Gtk.Box {
 
   private ListStore messages = new ListStore (typeof (Gtk.Label));
 
+  private weak Tox.Tox handle;
   public Tox.Friend fr;
 
-  public ChatView (Tox.Friend fr) {
+  public ChatView (Tox.Tox handle, Tox.Friend fr) {
+    this.handle = handle;
     this.fr = fr;
     this.messages_list.bind_model (this.messages, l => l as Gtk.Widget);
     this.entry.placeholder_text = "Enter your message and press Enter...";
@@ -17,8 +19,21 @@ class Ricin.ChatView : Gtk.Box {
   }
 
   private void init_signals () {
-    this.key_press_event.connect ((event) => {
-      if (event.keyval == Gdk.Key.Return) {
+    this.handle.system_message.connect ((message) => {
+      var label = new Gtk.Label ("");
+      label.halign = Gtk.Align.START;
+      label.use_markup = true;
+
+      label.set_markup (@"<span color=\"#2980b9\">** <i>$message</i></span>");
+      messages.append (label);
+    });
+
+    this.entry.key_press_event.connect ((event) => {
+      if (
+        event.keyval == Gdk.Key.Return ||
+        event.keyval == Gdk.Key.ISO_Enter ||
+        event.keyval == Gdk.Key.KP_Enter
+      ) {
         this.send_message ();
       }
 
