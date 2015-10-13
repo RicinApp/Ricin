@@ -29,6 +29,7 @@ namespace Tox {
     public signal void friend_request (string id, string message);
     public signal void system_message (string message);
 
+    //TODO
     public void set_username (string user_name) {
       debug (@"Name set to `$name`");
       this.name = user_name;

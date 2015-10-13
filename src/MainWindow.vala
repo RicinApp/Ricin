@@ -6,8 +6,7 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
   [GtkChild] Gtk.Entry entry_friend_id;
   [GtkChild] Gtk.Button button_add_friend;
   [GtkChild] Gtk.Image connection_image;
-  //[GtkChild] Gtk.Label id_label;
-  [GtkChild] Gtk.Button button_show_toxid;
+  [GtkChild] Gtk.Label toxid;
   [GtkChild] Gtk.Stack chat_stack;
 
 
@@ -37,13 +36,7 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
     this.tox.set_username (this.entry_name.get_text ());
     this.tox.set_mood (this.entry_mood.get_text ());
 
-    //id_label.label += this.tox.id;
-    this.button_show_toxid.clicked.connect (() => {
-      Gtk.MessageDialog msg = new Gtk.MessageDialog (this, Gtk.DialogFlags.MODAL, Gtk.MessageType.OTHER, Gtk.ButtonsType.OK, "Your ToxID");
-      msg.secondary_text = this.tox.id;
-      msg.response.connect (response => { msg.destroy (); });
-      msg.show ();
-    });
+    this.toxid.label += this.tox.id;
 
     this.entry_name.key_press_event.connect ((event) => {
       if (

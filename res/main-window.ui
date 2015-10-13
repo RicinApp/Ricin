@@ -35,8 +35,8 @@
                           <object class="GtkEntry" id="entry_name">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
-                            <property name="text" translatable="yes">Walter White</property>
-                            <property name="placeholder_text" translatable="yes">Enter your name</property>
+                            <property name="caps_lock_warning">False</property>
+                            <property name="placeholder_text" translatable="yes">name</property>
                           </object>
                           <packing>
                             <property name="expand">True</property>
@@ -48,10 +48,8 @@
                           <object class="GtkEntry" id="entry_mood">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
-                            <property name="text" translatable="yes">Making ricin to kill Saul.</property>
                             <property name="caps_lock_warning">False</property>
-                            <property name="placeholder_text" translatable="yes">Enter your status message</property>
-                            <property name="input_purpose">alpha</property>
+                            <property name="placeholder_text" translatable="yes">status</property>
                           </object>
                           <packing>
                             <property name="expand">True</property>
@@ -59,6 +57,9 @@
                             <property name="position">1</property>
                           </packing>
                         </child>
+                        <style>
+                          <class name="linked"/>
+                        </style>
                       </object>
                       <packing>
                         <property name="expand">False</property>
@@ -86,10 +87,11 @@
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="max_width_chars">76</property>
-                            <property name="placeholder_text" translatable="yes">ToxID to add...</property>
+                            <property name="caps_lock_warning">False</property>
+                            <property name="placeholder_text" translatable="yes">tox ID</property>
                           </object>
                           <packing>
-                            <property name="expand">False</property>
+                            <property name="expand">True</property>
                             <property name="fill">True</property>
                             <property name="position">0</property>
                           </packing>
@@ -105,6 +107,7 @@
                           <packing>
                             <property name="expand">False</property>
                             <property name="fill">True</property>
+                            <property name="pack_type">end</property>
                             <property name="position">1</property>
                           </packing>
                         </child>
@@ -150,11 +153,13 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkButton" id="button_show_toxid">
-                    <property name="label" translatable="yes">Show my ToxID</property>
+                  <object class="GtkLabel" id="toxid">
                     <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="receives_default">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="label" translatable="yes">Your ID: </property>
+                    <property name="selectable">True</property>
+                    <property name="ellipsize">end</property>
+                    <property name="single_line_mode">True</property>
                   </object>
                   <packing>
                     <property name="expand">False</property>

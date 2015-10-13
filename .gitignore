@@ -7,7 +7,8 @@ Ricin
 # gdb log
 .gdb_history
 
-resources.c
+# this is a vala project
+*.c
 
 # Glade stupid temp files.
 *.ui~
