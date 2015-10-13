@@ -48,7 +48,13 @@ class Ricin.ChatView : Gtk.Box {
       var label = new Gtk.Label ("");
       label.halign = Gtk.Align.START;
       label.use_markup = true;
-      label.set_markup (@"<b>$(fr.name):</b> $message");
+      if (message.has_prefix (">")) {
+        var regex = new Regex (">(.*)");
+        var quote = regex.replace (message, message.length, 0, "<span color=\"#2ecc71\">>\\1</span>");
+        label.set_markup (@"<b>$(fr.name):</b> " + quote);
+      } else {
+        label.set_markup (@"<b>$(fr.name):</b> $message");
+      }
       messages.append (label);
     });
 
@@ -74,6 +80,11 @@ class Ricin.ChatView : Gtk.Box {
       message = message.splice(0, 4); // Removes the "/me " part.
       label.set_markup (@"<span color=\"#3498db\">* <b>Me</b> $message</span>");
       fr.send_action (message);
+    } else if (message.has_prefix (">")) {
+      var regex = new Regex (">(.*)");
+      var quote = regex.replace (message, message.length, 0, "<span color=\"#2ecc71\">>\\1</span>");
+      label.set_markup ("<b>Me:</b> " + quote);
+      fr.send_message (message);
     } else {
       label.set_markup (@"<b>Me:</b> $message");
       fr.send_message (message);

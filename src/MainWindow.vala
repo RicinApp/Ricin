@@ -62,19 +62,22 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
 
     this.button_add_friend.clicked.connect (() => {
       var tox_id = this.entry_friend_id.get_text ();
+      var error_message = "";
 
       if (tox_id.length == 76) {
         var friend = tox.add_friend (tox_id, "Hello, I'm " + this.tox.name + ". Currently using Ricin, please add this friend request.");
+        this.entry_friend_id.set_text (""); // Clear the entry after adding a friend.
+        return;
         //this.friends.append (friend);
       } else if (tox_id.index_of ("@") != -1) {
-        Gtk.MessageDialog msg = new Gtk.MessageDialog (this, Gtk.DialogFlags.MODAL, Gtk.MessageType.ERROR, Gtk.ButtonsType.OK, "Ricin doesn't supports ToxDNS yet.");
-        msg.response.connect (response => { msg.destroy (); });
-        msg.show ();
+        error_message = "Ricin doesn't supports ToxDNS yet.";
       } else {
-        Gtk.MessageDialog msg = new Gtk.MessageDialog (this, Gtk.DialogFlags.MODAL, Gtk.MessageType.ERROR, Gtk.ButtonsType.OK, "Invalid ToxID.");
-        msg.response.connect (response => { msg.destroy (); });
-        msg.show ();
+        error_message = "Invalid ToxID."
       }
+
+      Gtk.MessageDialog msg = new Gtk.MessageDialog (this, Gtk.DialogFlags.MODAL, Gtk.MessageType.ERROR, Gtk.ButtonsType.OK, error_message);
+      msg.response.connect (response => { msg.destroy (); });
+      msg.show ();
     });
 
     this.tox.notify["connected"].connect ((src, prop) => {
