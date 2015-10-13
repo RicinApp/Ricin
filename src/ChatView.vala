@@ -23,6 +23,7 @@ class Ricin.ChatView : Gtk.Box {
       var label = new Gtk.Label ("");
       label.halign = Gtk.Align.START;
       label.use_markup = true;
+      label.set_line_wrap (true);
 
       label.set_markup (@"<span color=\"#2980b9\">** <i>$message</i></span>");
       messages.append (label);
@@ -48,6 +49,8 @@ class Ricin.ChatView : Gtk.Box {
       var label = new Gtk.Label ("");
       label.halign = Gtk.Align.START;
       label.use_markup = true;
+      label.set_line_wrap (true);
+
       if (message.has_prefix (">")) {
         var regex = new Regex (">(.*)");
         var quote = regex.replace (message, message.length, 0, "<span color=\"#2ecc71\">>\\1</span>");
@@ -62,6 +65,7 @@ class Ricin.ChatView : Gtk.Box {
       var label = new Gtk.Label ("");
       label.halign = Gtk.Align.START;
       label.use_markup = true;
+      label.set_line_wrap (true);
 
       label.set_markup (@"<span color=\"#3498db\">* <b>$(fr.name)</b> $message</span>");
       messages.append (label);
@@ -74,6 +78,7 @@ class Ricin.ChatView : Gtk.Box {
     var label = new Gtk.Label ("");
     label.halign = Gtk.Align.START;
     label.use_markup = true;
+    label.set_line_wrap (true);
 
     messages.append (label);
 
