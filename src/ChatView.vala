@@ -3,6 +3,7 @@ class Ricin.ChatView : Gtk.Box {
   [GtkChild] Gtk.ListBox messages_list;
   [GtkChild] Gtk.Entry entry;
   [GtkChild] Gtk.Button send;
+  [GtkChild] Gtk.Revealer friend_typing;
 
   private ListStore messages = new ListStore (typeof (Gtk.Label));
 
@@ -30,7 +31,7 @@ class Ricin.ChatView : Gtk.Box {
     this.entry.activate.connect (this.send_message);
     this.send.clicked.connect (() => this.send_message ());
 
-    this.fr.message.connect (message => {
+    fr.message.connect (message => {
       string message_escaped = Util.escape_html (message);
       if (message[0] == '>') {
         var regex = new Regex ("^&gt;(.*)+?", RegexCompileFlags.MULTILINE);
@@ -44,6 +45,10 @@ class Ricin.ChatView : Gtk.Box {
     fr.action.connect (message => {
       string message_escaped = Util.escape_html (message);
       this.add_row (@"<span color=\"#3498db\">* <b>$(fr.name)</b> $message_escaped</span>");
+    });
+
+    fr.notify["typing"].connect ((obj, prop) => {
+      friend_typing.set_reveal_child (fr.typing);
     });
   }
 
