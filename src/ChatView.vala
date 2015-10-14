@@ -3,7 +3,7 @@ class Ricin.ChatView : Gtk.Box {
   [GtkChild] Gtk.Label username;
   [GtkChild] Gtk.Label status_message;
   [GtkChild] Gtk.ListBox messages_list;
-  [GtkChild] Gtk.Entry entry;
+  [GtkChild] public Gtk.Entry entry;
   [GtkChild] Gtk.Button send;
   [GtkChild] Gtk.Revealer friend_typing;
 

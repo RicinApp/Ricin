@@ -32,6 +32,7 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
       foreach (var view in chat_stack.get_children ()) {
         if ((view as ChatView).fr == fr) {
           chat_stack.set_visible_child (view);
+          (view as ChatView).entry.grab_focus ();
           break;
         }
       }
