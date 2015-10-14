@@ -30,14 +30,9 @@ class Ricin.ChatView : Gtk.Box {
     });
 
     this.entry.key_press_event.connect ((event) => {
-      if (
-        event.keyval == Gdk.Key.Return ||
-        event.keyval == Gdk.Key.ISO_Enter ||
-        event.keyval == Gdk.Key.KP_Enter
-      ) {
+      if (event.keyval == Gdk.Key.Return) {
         this.send_message ();
       }
-
       return false;
     });
 
@@ -73,7 +68,7 @@ class Ricin.ChatView : Gtk.Box {
   }
 
   private void send_message () {
-    var user = this.handle.name;
+    var user = this.handle.username;
     var message = this.entry.get_text ();
     var label = new Gtk.Label ("");
     label.halign = Gtk.Align.START;

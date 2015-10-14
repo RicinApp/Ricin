@@ -32,7 +32,7 @@
           </packing>
         </child>
         <child>
-          <object class="GtkLabel" id="name">
+          <object class="GtkLabel" id="username">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="halign">start</property>

@@ -13,8 +13,30 @@ namespace Tox {
     internal ToxCore.Tox handle;
     private HashTable<uint32, Friend> friends = new HashTable<uint32, Friend> (direct_hash, direct_equal);
 
-    public string name { get; set; }
-    public string status_message { get; set; }
+    public string username {
+      owned get {
+        uint8[] chars = new uint8[this.handle.self_get_name_size ()];
+        this.handle.self_get_name (chars);
+        return Util.arr2str (chars);
+      }
+      set {
+        this.handle.self_set_name (value.data, null);
+      }
+      default = "Ricin User"
+    }
+
+    public string status_message {
+      owned get {
+        uint8[] chars = new uint8[this.handle.self_get_status_message_size ()];
+        this.handle.self_get_status_message (chars);
+        return Util.arr2str (chars);
+      }
+      set {
+        this.handle.self_set_status_message (value.data, null);
+      }
+      default = "Hello, World"
+    }
+
     public UserStatus status { get; set; }
     public bool connected { get; set; default = false; }
     public string id {
@@ -27,27 +49,11 @@ namespace Tox {
     }
 
     public signal void friend_request (string id, string message);
-    public signal void system_message (string message);
-
-    //TODO
-    public void set_username (string user_name) {
-      debug (@"Name set to `$name`");
-      this.name = user_name;
-      this.handle.self_set_name (this.name.data, null);
-    }
-
-    public void set_mood (string user_status_message) {
-      debug (@"Status message set to `$status_message`");
-      this.status_message = user_status_message;
-      this.handle.self_set_status_message (this.status_message.data, null);
-    }
 
     public Tox (ToxCore.Options? opts = null) {
       debug ("ToxCore Version %u.%u.%u", ToxCore.Version.MAJOR, ToxCore.Version.MINOR, ToxCore.Version.PATCH);
 
       this.handle = new ToxCore.Tox (opts, null);
-
-      //this.handle.status = (ToxCore.UserStatus) this.status; // if the enum values are the same we can cast
 
       this.handle.callback_self_connection_status ((self, status) => {
         switch (status) {
@@ -65,8 +71,9 @@ namespace Tox {
       });
 
       this.handle.callback_friend_connection_status ((self, num, status) => {
-        if (this.friends[num] == null)
+        if (this.friends[num] == null) { // new friends
           this.friends[num] = new Friend (this, num);
+        }
 
         this.friends[num].connected = (status != ConnectionStatus.NONE);
       });
@@ -174,13 +181,12 @@ namespace Tox {
 
       ERR_FRIEND_ADD err;
       uint32 friend_num = this.handle.friend_add (Util.hex2bin (id), message.data, out err);
-      if ((int) err != 0) debug ("Error code: %d", (int) err);
 
       if (friend_num == uint32.MAX) {
-        debug ("Oops friend_num == uint3.MAX");
+        debug ("tox_self_friend_add: %d", err);
         return null;
       } else {
-        debug (@"Sent a friend request\n--- $id\n--- $message");
+        debug (@"Friend request to $id: \"$message\"");
         return new Friend (this, friend_num);
       }
     }

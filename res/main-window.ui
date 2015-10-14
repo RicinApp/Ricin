@@ -45,7 +45,7 @@
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkEntry" id="entry_mood">
+                          <object class="GtkEntry" id="entry_status">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="caps_lock_warning">False</property>

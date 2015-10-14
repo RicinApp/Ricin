@@ -1,8 +1,7 @@
 [GtkTemplate (ui="/chat/tox/Ricin/main-window.ui")]
 public class Ricin.MainWindow : Gtk.ApplicationWindow {
-
   [GtkChild] Gtk.Entry entry_name;
-  [GtkChild] Gtk.Entry entry_mood;
+  [GtkChild] Gtk.Entry entry_status;
   [GtkChild] Gtk.ListBox friendlist;
   [GtkChild] Gtk.Entry entry_friend_id;
   [GtkChild] Gtk.Button button_add_friend;
@@ -10,13 +9,19 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
   [GtkChild] Gtk.Label toxid;
   [GtkChild] Gtk.Stack chat_stack;
 
-
   private ListStore friends = new ListStore (typeof (Tox.Friend));
 
   Tox.Tox tox;
 
   public MainWindow (Ricin app) {
     Object (application: app);
+
+    var options = Tox.Options.create ();
+    options.ipv6_enabled = true;
+    options.udp_enabled = true;
+    this.tox = new Tox.Tox (options);
+
+    this.toxid.label += this.tox.id;
 
     this.friendlist.bind_model (this.friends, fr => new FriendListRow (fr as Tox.Friend));
     this.friendlist.row_activated.connect ((lb, row) => {
@@ -29,36 +34,26 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
       }
     });
 
-    var options = Tox.Options.create ();
-    options.ipv6_enabled = true;
-    options.udp_enabled = true;
-    this.tox = new Tox.Tox (options);
-
-    this.tox.set_username (this.entry_name.get_text ());
-    this.tox.set_mood (this.entry_mood.get_text ());
-
-    this.toxid.label += this.tox.id;
-
     this.entry_name.key_press_event.connect ((event) => {
       if (event.keyval == Gdk.Key.Return) {
-        this.tox.set_username (this.entry_name.get_text ());
+        this.tox.username = this.entry_name.text;
       }
       return false;
     });
 
-    this.entry_mood.key_press_event.connect ((event) => {
+    this.entry_status.key_press_event.connect ((event) => {
       if (event.keyval == Gdk.Key.Return) {
-        this.tox.set_mood (this.entry_mood.get_text ());
+        this.tox.status_message = this.entry_status.text;
       }
       return false;
     });
 
     this.button_add_friend.clicked.connect (() => {
-      var tox_id = this.entry_friend_id.get_text ();
+      var tox_id = this.entry_friend_id.text;
       var error_message = "";
 
       if (tox_id.length == 76) {
-        var friend = tox.add_friend (tox_id, "Hello, I'm " + this.tox.name + ". Currently using Ricin, please add this friend request.");
+        var friend = tox.add_friend (tox_id, "Hello, I'm " + this.tox.username + ". Currently using Ricin, please add this friend request.");
         this.entry_friend_id.set_text (""); // Clear the entry after adding a friend.
         return;
         //this.friends.append (friend);
@@ -69,7 +64,7 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
       }
 
       Gtk.MessageDialog msg = new Gtk.MessageDialog (this, Gtk.DialogFlags.MODAL, Gtk.MessageType.ERROR, Gtk.ButtonsType.OK, error_message);
-      msg.response.connect (response => { msg.destroy (); });
+      msg.response.connect (response => msg.destroy ());
       msg.show ();
     });
 
