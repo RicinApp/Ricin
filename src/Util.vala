@@ -26,4 +26,8 @@ namespace Util {
     assert (result.validate ());
     return result;
   }
+
+  public static string escape_html (string text) {
+    return text.replace ("<", "&lt;").replace (">", "&gt;");
+  }
 }

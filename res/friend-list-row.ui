@@ -40,6 +40,8 @@
             <property name="margin_right">5</property>
             <property name="margin_top">5</property>
             <property name="label" translatable="yes">name</property>
+            <property name="ellipsize">end</property>
+            <property name="single_line_mode">True</property>
           </object>
           <packing>
             <property name="left_attach">1</property>
@@ -55,6 +57,8 @@
             <property name="margin_right">5</property>
             <property name="margin_bottom">5</property>
             <property name="label" translatable="yes">status</property>
+            <property name="ellipsize">end</property>
+            <property name="single_line_mode">True</property>
           </object>
           <packing>
             <property name="left_attach">1</property>

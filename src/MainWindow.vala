@@ -34,7 +34,7 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
       }
     });
 
-    this.entry_name.activate.connect (() => this.tox.username = this.entry_name.text);
+    this.entry_name.activate.connect (() => this.tox.username = Util.escape_html (this.entry_name.text));
     this.entry_status.bind_property ("text", this.tox, "status_message", BindingFlags.BIDIRECTIONAL | BindingFlags.SYNC_CREATE);
 
     this.button_add_friend.clicked.connect (() => {
@@ -63,7 +63,7 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
 
     this.tox.friend_request.connect ((id, message) => {
       var dialog = new Gtk.MessageDialog (this, Gtk.DialogFlags.MODAL, Gtk.MessageType.QUESTION, Gtk.ButtonsType.NONE, "Friend request from:");
-      dialog.secondary_text = id + "\n\n\"" + message + "\"";
+      dialog.secondary_text = id + "\n\n\"" + Util.escape_html (message) + "\"";
       dialog.add_buttons ("Accept", Gtk.ResponseType.ACCEPT, "Reject", Gtk.ResponseType.REJECT);
       dialog.response.connect (response => {
         if (response == Gtk.ResponseType.ACCEPT) {

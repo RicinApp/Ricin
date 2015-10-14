@@ -10,5 +10,11 @@ class Ricin.FriendListRow : Gtk.ListBoxRow {
     this.fr = fr;
     fr.bind_property ("name", username, "label", BindingFlags.DEFAULT);
     fr.bind_property ("status-message", status, "label", BindingFlags.DEFAULT);
+    fr.notify["typing"].connect ((obj, prop) => {
+      if (fr.typing)
+        this.status.set_markup ("<i>" + fr.name + " is typing...</i>");
+      else
+        this.status.label = fr.status_message;
+    });
   }
 }
