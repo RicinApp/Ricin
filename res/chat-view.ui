@@ -36,7 +36,7 @@
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <property name="transition_type">slide-up</property>
-        <property name="reveal_child">True</property>
+        <property name="reveal_child">False</property>
         <child>
           <object class="GtkBox" id="box1">
             <property name="visible">True</property>
