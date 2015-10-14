@@ -41,6 +41,9 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
       return false;
     });
 
+    this.entry_name.bind_property ("text", this.tox, "username", BindingFlags.BIDIRECTIONAL | BindingFlags.SYNC_CREATE);
+    this.entry_status.bind_property ("text", this.tox, "status_message", BindingFlags.BIDIRECTIONAL | BindingFlags.SYNC_CREATE);
+
     this.entry_status.key_press_event.connect ((event) => {
       if (event.keyval == Gdk.Key.Return) {
         this.tox.status_message = this.entry_status.text;
