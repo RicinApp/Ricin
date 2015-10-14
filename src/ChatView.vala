@@ -13,12 +13,7 @@ class Ricin.ChatView : Gtk.Box {
     this.handle = handle;
     this.fr = fr;
     this.messages_list.bind_model (this.messages, l => l as Gtk.Widget);
-    this.entry.placeholder_text = "Enter your message and press Enter...";
 
-    this.init_signals ();
-  }
-
-  private void init_signals () {
     this.handle.system_message.connect ((message) => {
       var label = new Gtk.Label ("");
       label.halign = Gtk.Align.START;
@@ -29,16 +24,9 @@ class Ricin.ChatView : Gtk.Box {
       messages.append (label);
     });
 
-    this.entry.key_press_event.connect ((event) => {
-      if (event.keyval == Gdk.Key.Return) {
-        this.send_message ();
-      }
-      return false;
-    });
+    this.entry.activate.connect (this.send_message);
 
-    send.clicked.connect (() => {
-      this.send_message ();
-    });
+    send.clicked.connect (() => this.send_message ());
 
     fr.message.connect (message => {
       var label = new Gtk.Label ("");
