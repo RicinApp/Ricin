@@ -34,22 +34,8 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
       }
     });
 
-    this.entry_name.key_press_event.connect ((event) => {
-      if (event.keyval == Gdk.Key.Return) {
-        this.tox.username = this.entry_name.text;
-      }
-      return false;
-    });
-
     this.entry_name.activate.connect (() => this.tox.username = this.entry_name.text);
     this.entry_status.bind_property ("text", this.tox, "status_message", BindingFlags.BIDIRECTIONAL | BindingFlags.SYNC_CREATE);
-
-    this.entry_status.key_press_event.connect ((event) => {
-      if (event.keyval == Gdk.Key.Return) {
-        this.tox.status_message = this.entry_status.text;
-      }
-      return false;
-    });
 
     this.button_add_friend.clicked.connect (() => {
       var tox_id = this.entry_friend_id.text;
