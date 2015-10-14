@@ -49,6 +49,11 @@ class Ricin.ChatView : Gtk.Box {
       this.add_row (@"<span color=\"#3498db\">* <b>$(fr.name)</b> $message_escaped</span>");
     });
 
+    fr.notify["connected"].connect ((obj, prop) => {
+      this.entry.sensitive = fr.connected;
+      this.send.sensitive = fr.connected;
+    });
+
     fr.notify["typing"].connect ((obj, prop) => {
       friend_typing.set_reveal_child (fr.typing);
     });

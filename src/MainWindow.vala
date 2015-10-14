@@ -1,11 +1,14 @@
+using Tox;
+
 [GtkTemplate (ui="/chat/tox/Ricin/main-window.ui")]
 public class Ricin.MainWindow : Gtk.ApplicationWindow {
   [GtkChild] Gtk.Entry entry_name;
   [GtkChild] Gtk.Entry entry_status;
+  [GtkChild] Gtk.Button button_user_status;
+  [GtkChild] Gtk.Image image_user_status;
   [GtkChild] Gtk.ListBox friendlist;
   [GtkChild] Gtk.Entry entry_friend_id;
   [GtkChild] Gtk.Button button_add_friend;
-  [GtkChild] Gtk.Image connection_image;
   [GtkChild] Gtk.Label toxid;
   [GtkChild] Gtk.Stack chat_stack;
 
@@ -37,6 +40,30 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
     this.entry_name.activate.connect (() => this.tox.username = Util.escape_html (this.entry_name.text));
     this.entry_status.bind_property ("text", this.tox, "status_message", BindingFlags.BIDIRECTIONAL | BindingFlags.SYNC_CREATE);
 
+    this.button_user_status.clicked.connect (() => {
+      var status = this.tox.status;
+      switch (status) {
+        case UserStatus.ONLINE:
+          // Set status to away.
+          this.tox.status = UserStatus.AWAY;
+          this.image_user_status.icon_name = "user-away";
+          break;
+        case UserStatus.AWAY:
+          // Set status to busy.
+          this.tox.status = UserStatus.BUSY;
+          this.image_user_status.icon_name = "user-busy";
+          break;
+        case UserStatus.BUSY:
+          // Set status to online.
+          this.tox.status = UserStatus.ONLINE;
+          this.image_user_status.icon_name = "user-available";
+          break;
+        default:
+          this.image_user_status.icon_name = "user-offline";
+          break;
+      }
+    });
+
     this.button_add_friend.clicked.connect (() => {
       var tox_id = this.entry_friend_id.text;
       var error_message = "";
@@ -58,7 +85,8 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
     });
 
     this.tox.notify["connected"].connect ((src, prop) => {
-      this.connection_image.icon_name = this.tox.connected ? "gtk-yes" : "gtk-no";
+      this.image_user_status.icon_name = this.tox.connected ? "user-available" : "user-offline";
+      this.button_user_status.sensitive = this.tox.connected;
     });
 
     this.tox.friend_request.connect ((id, message) => {

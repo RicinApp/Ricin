@@ -36,7 +36,14 @@ namespace Tox {
       }
     }
 
-    public UserStatus status { get; set; }
+    public UserStatus status {
+      get {
+        return (UserStatus) this.handle.status;
+      } set {
+        this.handle.status = (ToxCore.UserStatus) value;
+      }
+    }
+
     public bool connected { get; set; default = false; }
     public string id {
       owned get {

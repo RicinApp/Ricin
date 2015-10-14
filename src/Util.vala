@@ -28,6 +28,10 @@ namespace Util {
   }
 
   public static string escape_html (string text) {
-    return text.replace ("<", "&lt;").replace (">", "&gt;").replace("&", "&amp;");
+    var buffer = text;
+    buffer = text.replace ("&", "&amp;");
+    buffer = text.replace (">", "&gt;");
+    buffer = text.replace ("<", "&lt;");
+    return buffer;
   }
 }
