@@ -42,10 +42,8 @@ class Ricin.ChatView : Gtk.Box {
       this.add_row (@"<span color=\"#3498db\">* <b>$(fr.name)</b> $message_escaped</span>");
     });
 
-    fr.notify["connected"].connect ((obj, prop) => {
-      this.entry.sensitive = fr.connected;
-      this.send.sensitive = fr.connected;
-    });
+    fr.bind_property ("connected", entry, "sensitive", BindingFlags.DEFAULT);
+    fr.bind_property ("connected", send, "sensitive", BindingFlags.DEFAULT);
     fr.bind_property ("typing", friend_typing, "reveal_child", BindingFlags.DEFAULT);
     fr.bind_property ("name", username, "label", BindingFlags.DEFAULT);
     fr.bind_property ("status-message", status_message, "label", BindingFlags.DEFAULT);
