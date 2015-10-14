@@ -28,10 +28,22 @@ namespace Util {
   }
 
   public static string escape_html (string text) {
-    var buffer = text;
-    buffer = text.replace ("&", "&amp;");
-    buffer = text.replace (">", "&gt;");
-    buffer = text.replace ("<", "&lt;");
-    return buffer;
+    return text
+      .replace ("&", "&amp;")
+      .replace ("<", "&lt;")
+      .replace (">", "&gt;");
+  }
+
+  public static string add_markup (string text) {
+    var sb = new StringBuilder ();
+    foreach (string line in text.split ("\n")) { // multiple lines
+      string xfmd = escape_html (line);
+      if (line[0] == '>') // greentext
+        xfmd = @"<span color=\"#2ecc71\">$xfmd</span>";
+      sb.append (xfmd);
+      sb.append_c ('\n');
+    }
+    sb.truncate (sb.len-1);
+    return sb.str;
   }
 }

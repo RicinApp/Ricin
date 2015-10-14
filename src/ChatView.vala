@@ -34,14 +34,7 @@ class Ricin.ChatView : Gtk.Box {
     this.send.clicked.connect (() => this.send_message ());
 
     fr.message.connect (message => {
-      string message_escaped = Util.escape_html (message);
-      if (message[0] == '>') {
-        var regex = new Regex ("^&gt;(.*)+?", RegexCompileFlags.MULTILINE);
-        var quote = regex.replace (message_escaped, message_escaped.length, 0, "<span color=\"#2ecc71\">>\\1</span>");
-        this.add_row (@"<b>$(fr.name):</b> $quote");
-      } else {
-        this.add_row (@"<b>$(fr.name):</b> $message_escaped");
-      }
+      this.add_row (@"<b>$(fr.name):</b> $(Util.add_markup (message))");
     });
 
     fr.action.connect (message => {
@@ -53,34 +46,27 @@ class Ricin.ChatView : Gtk.Box {
       this.entry.sensitive = fr.connected;
       this.send.sensitive = fr.connected;
     });
-
-    fr.notify["typing"].connect ((obj, prop) => {
-      friend_typing.set_reveal_child (fr.typing);
-    });
-
+    fr.bind_property ("typing", friend_typing, "reveal_child", BindingFlags.DEFAULT);
     fr.bind_property ("name", username, "label", BindingFlags.DEFAULT);
     fr.bind_property ("status-message", status_message, "label", BindingFlags.DEFAULT);
   }
 
   private void send_message () {
     var user = this.handle.username;
+    string markup;
+
     var message = this.entry.get_text ();
-    var message_escaped = Util.escape_html (message);
-    var markup = "";
 
     if (message.strip () == "")
       return;
 
     if (message.has_prefix ("/me ")) {
-      // Ugly.
-      message = message.splice(0, 4); // Removes the "/me " part.
-      message_escaped = Util.escape_html (message); // Fix a bug.
-      markup = @"<span color=\"#3498db\">* <b>$user</b> $message_escaped</span>";
-      fr.send_action (message);
+      var action = message.substring (4);
+      var escaped = Util.escape_html (action);
+      markup = @"<span color=\"#3498db\">* <b>$user</b> $escaped</span>";
+      fr.send_action (action);
     } else if (message[0] == '>') {
-      var regex = new Regex ("^&gt;(.*)+?", RegexCompileFlags.MULTILINE);
-      var quote = regex.replace (message_escaped, message_escaped.length, 0, "<span color=\"#2ecc71\">>\\1</span>");
-      markup = @"<b>$user:</b> $quote";
+      markup = @"<b>$user:</b> $(Util.add_markup (message))";
       fr.send_message (message);
     } else {
       markup = @"<b>$user:</b> $message";
