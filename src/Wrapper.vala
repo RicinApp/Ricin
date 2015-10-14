@@ -22,7 +22,6 @@ namespace Tox {
       set {
         this.handle.self_set_name (value.data, null);
       }
-      default = "Ricin User"
     }
 
     public string status_message {
@@ -34,7 +33,6 @@ namespace Tox {
       set {
         this.handle.self_set_status_message (value.data, null);
       }
-      default = "Hello, World"
     }
 
     public UserStatus status { get; set; }
@@ -49,11 +47,17 @@ namespace Tox {
     }
 
     public signal void friend_request (string id, string message);
+    public signal void system_message (string message);
 
     public Tox (ToxCore.Options? opts = null) {
       debug ("ToxCore Version %u.%u.%u", ToxCore.Version.MAJOR, ToxCore.Version.MINOR, ToxCore.Version.PATCH);
 
       this.handle = new ToxCore.Tox (opts, null);
+
+      if (this.username == "")
+        this.username = "Ricin User";
+      if (this.status_message == "")
+        this.status_message = "Hello, World";
 
       this.handle.callback_self_connection_status ((self, status) => {
         switch (status) {
