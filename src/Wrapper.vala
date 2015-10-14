@@ -150,15 +150,26 @@ namespace Tox {
         });
         while (!this.connected) {
           for (int i = 0; i < 4; ++i) { // bootstrap to 4 random nodes
-            int index = Random.int_range (0, servers.length);
-            debug ("Bootstrapping to %s:%llu by %s", servers[index].ipv4, servers[index].port, servers[index].owner);
-            // TODO ipv6 check
-            this.handle.bootstrap (
-              servers[index].ipv4,
-              (uint16) servers[index].port,
-              Util.hex2bin (servers[index].pubkey),
-              null
-            );
+            Server srv = servers[Random.int_range (0, servers.length)];
+
+            bool success = false;
+            bool try_ipv6 = this.opts.ipv6_enabled && srv.ipv6 != null;
+            if (!success && try_ipv6) {
+              debug ("UDP bootstrap %s:%llu by %s", srv.ipv6, srv.port, srv.owner);
+              success = this.handle.bootstrap (srv.ipv6, (uint16) srv.port, Util.hex2bin (srv.pubkey), null);
+            }
+            if (!success) {
+              debug ("UDP bootstrap %s:%llu by %s", srv.ipv4, srv.port, srv.owner);
+              success = this.handle.bootstrap (srv.ipv4, (uint16) srv.port, Util.hex2bin (srv.pubkey), null);
+            }
+            if (!success && try_ipv6) {
+              debug ("TCP bootstrap %s:%llu by %s", srv.ipv6, srv.port, srv.owner);
+              success = this.handle.add_tcp_relay (srv.ipv6, (uint16) srv.port, Util.hex2bin (srv.pubkey), null);
+            }
+            if (!success) {
+              debug ("TCP bootstrap %s:%llu by %s", srv.ipv4, srv.port, srv.owner);
+              success = this.handle.add_tcp_relay (srv.ipv4, (uint16) srv.port, Util.hex2bin (srv.pubkey), null);
+            }
           }
 
           // wait 5 seconds without blocking main loop
