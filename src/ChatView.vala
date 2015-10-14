@@ -33,7 +33,7 @@ class Ricin.ChatView : Gtk.Box {
     this.fr.message.connect (message => {
       string message_escaped = Util.escape_html (message);
       if (message[0] == '>') {
-        var regex = new Regex ("&gt;(.*)+?");
+        var regex = new Regex ("^&gt;(.*)+?", RegexCompileFlags.MULTILINE);
         var quote = regex.replace (message_escaped, message_escaped.length, 0, "<span color=\"#2ecc71\">>\\1</span>");
         this.add_row (@"<b>$(fr.name):</b> $quote");
       } else {
@@ -58,7 +58,7 @@ class Ricin.ChatView : Gtk.Box {
       markup = @"<span color=\"#3498db\">* <b>$user</b> $message_escaped</span>";
       fr.send_action (message);
     } else if (message[0] == '>') {
-      var regex = new Regex ("&gt;(.*)+?");
+      var regex = new Regex ("^&gt;(.*)+?", RegexCompileFlags.MULTILINE);
       var quote = regex.replace (message_escaped, message_escaped.length, 0, "<span color=\"#2ecc71\">>\\1</span>");
       markup = @"<b>$user:</b> $quote";
       fr.send_message (message);
