@@ -9,19 +9,22 @@ class Ricin.ChatView : Gtk.Box {
   private weak Tox.Tox handle;
   public Tox.Friend fr;
 
+  private void add_row (string markup) {
+    var label = new Gtk.Label (null);
+    label.use_markup = true;
+    label.set_markup (markup);
+    label.halign = Gtk.Align.START;
+    label.set_line_wrap (true);
+    messages.append (label);
+  }
+
   public ChatView (Tox.Tox handle, Tox.Friend fr) {
     this.handle = handle;
     this.fr = fr;
     this.messages_list.bind_model (this.messages, l => l as Gtk.Widget);
 
     this.handle.system_message.connect ((message) => {
-      var label = new Gtk.Label ("");
-      label.halign = Gtk.Align.START;
-      label.use_markup = true;
-      label.set_line_wrap (true);
-
-      label.set_markup (@"<span color=\"#2980b9\">** <i>$message</i></span>");
-      messages.append (label);
+      this.add_row (@"<span color=\"#2980b9\">** <i>$message</i></span>");
     });
 
     this.entry.activate.connect (this.send_message);
@@ -45,39 +48,30 @@ class Ricin.ChatView : Gtk.Box {
     });
 
     fr.action.connect (message => {
-      var label = new Gtk.Label ("");
-      label.halign = Gtk.Align.START;
-      label.use_markup = true;
-      label.set_line_wrap (true);
-
-      label.set_markup (@"<span color=\"#3498db\">* <b>$(fr.name)</b> $message</span>");
-      messages.append (label);
+      this.add_row (@"<span color=\"#3498db\">* <b>$(fr.name)</b> $message</span>");
     });
   }
 
   private void send_message () {
     var user = this.handle.username;
     var message = this.entry.get_text ();
-    var label = new Gtk.Label ("");
-    label.halign = Gtk.Align.START;
-    label.use_markup = true;
-    label.set_line_wrap (true);
-
-    messages.append (label);
+    var markup = "";
 
     if (message.has_prefix ("/me ")) {
       message = message.splice(0, 4); // Removes the "/me " part.
-      label.set_markup (@"<span color=\"#3498db\">* <b>$user</b> $message</span>");
+      markup = @"<span color=\"#3498db\">* <b>$user</b> $message</span>";
       fr.send_action (message);
     } else if (message.has_prefix (">")) {
       var regex = new Regex (">(.*)");
       var quote = regex.replace (message, message.length, 0, "<span color=\"#2ecc71\">>\\1</span>");
-      label.set_markup (@"<b>$user:</b> " + quote);
+      markup = @"<b>$user:</b> " + quote;
       fr.send_message (message);
     } else {
-      label.set_markup (@"<b>$user:</b> $message");
+      markup = @"<b>$user:</b> $message";
       fr.send_message (message);
     }
+
+    this.add_row (markup);
 
     // Clear and focus the entry.
     this.entry.text = "";

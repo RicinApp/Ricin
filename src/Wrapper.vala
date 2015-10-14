@@ -54,11 +54,6 @@ namespace Tox {
 
       this.handle = new ToxCore.Tox (opts, null);
 
-      if (this.username == "")
-        this.username = "Ricin User";
-      if (this.status_message == "")
-        this.status_message = "Hello, World";
-
       this.handle.callback_self_connection_status ((self, status) => {
         switch (status) {
           case ConnectionStatus.NONE:
@@ -75,7 +70,7 @@ namespace Tox {
       });
 
       this.handle.callback_friend_connection_status ((self, num, status) => {
-        if (this.friends[num] == null) { // new friends
+        if (this.friends[num] == null) { // new friend
           this.friends[num] = new Friend (this, num);
         }
 
@@ -83,8 +78,9 @@ namespace Tox {
       });
 
       this.handle.callback_friend_name ((self, num, name) => {
-        this.system_message (this.friends[num].name + " is now known as " + Util.arr2str (name));
-        this.friends[num].name = Util.arr2str (name);
+        var new_name = Util.arr2str (name);
+        this.system_message (this.friends[num].name + " is now known as " + new_name);
+        this.friends[num].name = new_name;
       });
 
       this.handle.callback_friend_status ((self, num, status) => {
@@ -225,7 +221,20 @@ namespace Tox {
       this.num = num;
     }
 
+    /* We could implement this as just a get { } that goes to libtoxcore, and
+     * use GLib.Object.notify_property () in the callbacks, but the name is not
+     * set until we leave the callback so we'll just keep our own copy.
+     */
     public string name { get; set; }
+
+    public string pubkey {
+      owned get {
+        uint8[] chars = new uint8[ToxCore.PUBLIC_KEY_SIZE];
+        tox.handle.friend_get_public_key (num, chars, null);
+        return Util.bin2hex (chars);
+      }
+    }
+
     public UserStatus status { get; set; }
     public string status_message { get; set; }
     public bool connected { get; set; }

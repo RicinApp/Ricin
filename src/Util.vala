@@ -18,7 +18,7 @@ namespace Util {
     return b.str;
   }
 
-  public static string arr2str (uint8[] array) {
+  public inline static string arr2str (uint8[] array) {
     uint8[] str = new uint8[array.length + 1];
     Memory.copy (str, array, sizeof(uint8) * array.length);
     str[array.length] = '\0';
