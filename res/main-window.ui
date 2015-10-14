@@ -36,7 +36,7 @@
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="caps_lock_warning">False</property>
-                            <property name="placeholder_text" translatable="yes">name</property>
+                            <property name="placeholder_text" translatable="yes">Your username...</property>
                           </object>
                           <packing>
                             <property name="expand">True</property>
@@ -48,8 +48,9 @@
                           <object class="GtkEntry" id="entry_status">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
+                            <property name="shadow_type">none</property>
                             <property name="caps_lock_warning">False</property>
-                            <property name="placeholder_text" translatable="yes">status</property>
+                            <property name="placeholder_text" translatable="yes">Your status message...</property>
                           </object>
                           <packing>
                             <property name="expand">True</property>
@@ -88,7 +89,7 @@
                             <property name="can_focus">True</property>
                             <property name="max_width_chars">76</property>
                             <property name="caps_lock_warning">False</property>
-                            <property name="placeholder_text" translatable="yes">tox ID</property>
+                            <property name="placeholder_text" translatable="yes">ToxID...</property>
                           </object>
                           <packing>
                             <property name="expand">True</property>

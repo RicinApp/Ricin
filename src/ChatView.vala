@@ -1,5 +1,7 @@
 [GtkTemplate (ui="/chat/tox/Ricin/chat-view.ui")]
 class Ricin.ChatView : Gtk.Box {
+  [GtkChild] Gtk.Label username;
+  [GtkChild] Gtk.Label status_message;
   [GtkChild] Gtk.ListBox messages_list;
   [GtkChild] Gtk.Entry entry;
   [GtkChild] Gtk.Button send;
@@ -50,6 +52,9 @@ class Ricin.ChatView : Gtk.Box {
     fr.notify["typing"].connect ((obj, prop) => {
       friend_typing.set_reveal_child (fr.typing);
     });
+
+    fr.bind_property ("name", username, "label", BindingFlags.DEFAULT);
+    fr.bind_property ("status-message", status_message, "label", BindingFlags.DEFAULT);
   }
 
   private void send_message () {
@@ -64,7 +69,7 @@ class Ricin.ChatView : Gtk.Box {
     if (message.has_prefix ("/me ")) {
       // Ugly.
       message = message.splice(0, 4); // Removes the "/me " part.
-      message_escaped = message_escaped.slice(0, 4);
+      message_escaped = Util.escape_html (message); // Fix a bug.
       markup = @"<span color=\"#3498db\">* <b>$user</b> $message_escaped</span>";
       fr.send_action (message);
     } else if (message[0] == '>') {
