@@ -11,6 +11,7 @@ namespace Tox {
 
   class Tox : Object {
     internal ToxCore.Tox handle;
+    internal ToxCore.Options opts;
     private HashTable<uint32, Friend> friends = new HashTable<uint32, Friend> (direct_hash, direct_equal);
 
     public string username {
@@ -52,6 +53,7 @@ namespace Tox {
     public Tox (ToxCore.Options? opts = null) {
       debug ("ToxCore Version %u.%u.%u", ToxCore.Version.MAJOR, ToxCore.Version.MINOR, ToxCore.Version.PATCH);
 
+      this.opts = Options.copy (opts);
       this.handle = new ToxCore.Tox (opts, null);
 
       this.handle.callback_self_connection_status ((self, status) => {
@@ -206,6 +208,20 @@ namespace Tox {
   }
 
   class Options : Object {
+    public static ToxCore.Options copy (ToxCore.Options o) {
+      var opts = create ();
+      opts.ipv6_enabled = o.ipv6_enabled;
+      opts.udp_enabled = o.udp_enabled;
+      opts.proxy_type = o.proxy_type;
+      opts.proxy_host = o.proxy_host;
+      opts.proxy_port = o.proxy_port;
+      opts.start_port = o.end_port;
+      opts.tcp_port = o.tcp_port;
+      opts.savedata_type = o.savedata_type;
+      opts.savedata_data = o.savedata_data;
+      return opts;
+    }
+
     public static ToxCore.Options create () {
       // TODO: convert to exceptions
       return new ToxCore.Options (null);
