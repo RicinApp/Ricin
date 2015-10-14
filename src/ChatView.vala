@@ -58,8 +58,13 @@ class Ricin.ChatView : Gtk.Box {
     var message_escaped = Util.escape_html (message);
     var markup = "";
 
+    if (message.strip () == "")
+      return;
+
     if (message.has_prefix ("/me ")) {
+      // Ugly.
       message = message.splice(0, 4); // Removes the "/me " part.
+      message_escaped = message_escaped.slice(0, 4);
       markup = @"<span color=\"#3498db\">* <b>$user</b> $message_escaped</span>";
       fr.send_action (message);
     } else if (message[0] == '>') {
