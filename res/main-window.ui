@@ -16,7 +16,6 @@
     <property name="visible">True</property>
     <property name="can_focus">False</property>
     <property name="icon_name">user-offline</property>
-    <property name="icon_size">6</property>
   </object>
   <template class="RicinMainWindow" parent="GtkApplicationWindow">
     <property name="width_request">700</property>
@@ -76,7 +75,6 @@
                                   <object class="GtkEntry" id="entry_status">
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
-                                    <property name="shadow_type">none</property>
                                     <property name="caps_lock_warning">False</property>
                                     <property name="placeholder_text" translatable="yes">Your status message...</property>
                                   </object>
