@@ -10,20 +10,21 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
   [GtkChild] Gtk.Button button_add_friend_show;
 
   // Add friend revealer.
-  [GtkChild] Gtk.Revealer add_friend;
-  [GtkChild] Gtk.Entry entry_friend_id;
+  [GtkChild] public Gtk.Revealer add_friend;
+  [GtkChild] public Gtk.Entry entry_friend_id;
   [GtkChild] Gtk.TextView entry_friend_message;
   [GtkChild] Gtk.Label label_add_error;
   [GtkChild] Gtk.Button button_add_friend;
   [GtkChild] Gtk.Button button_cancel_add;
 
   // System notify.
-  [GtkChild] Gtk.Revealer revealer_system_notify;
-  [GtkChild] Gtk.Label label_system_notify;
+  [GtkChild] public Gtk.Revealer revealer_system_notify;
+  [GtkChild] public Gtk.Label label_system_notify;
 
   private ListStore friends = new ListStore (typeof (Tox.Friend));
-
   public Tox.Tox tox;
+
+  public signal void notify_message (string message, int timeout = 5000);
 
   public MainWindow (Gtk.Application app, string profile) {
     Object (application: app);
@@ -132,12 +133,8 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
             friends.append (friend);
             chat_stack.add_named (new ChatView (this.tox, friend), friend.name);
 
-            this.label_system_notify.set_text ("The friend request has been accepted. Please wait the contact to appear.");
-            this.revealer_system_notify.reveal_child = true;
-            Timeout.add (5000, () => {
-              this.revealer_system_notify.reveal_child = false;
-              return Source.REMOVE;
-            });
+            var info_message = "The friend request has been accepted. Please wait the contact to appears online.";
+            this.notify_message (@"<span color=\"#27ae60\">$info_message</span>", 5000);
           }
         }
         dialog.destroy ();
@@ -150,6 +147,16 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
         friends.append (friend);
         chat_stack.add_named (new ChatView (this.tox, friend), friend.name);
       }
+    });
+
+    this.notify_message.connect ((message, timeout) =>  {
+      this.label_system_notify.use_markup = true;
+      this.label_system_notify.set_markup (message);
+      this.revealer_system_notify.reveal_child = true;
+      Timeout.add (timeout, () => {
+        this.revealer_system_notify.reveal_child = false;
+        return Source.REMOVE;
+      });
     });
 
     this.delete_event.connect ((event) => {

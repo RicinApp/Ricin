@@ -20,6 +20,7 @@ class Ricin.ChatView : Gtk.Box {
     label.selectable = true;
     label.set_line_wrap (true);
     label.set_markup (markup);
+    label.activate_link.connect (this.handle_links);
     messages.append (label);
   }
 
@@ -76,5 +77,24 @@ class Ricin.ChatView : Gtk.Box {
     // Clear and focus the entry.
     this.entry.text = "";
     this.entry.grab_focus_without_selecting ();
+  }
+
+  private bool handle_links (string uri) {
+    if (!uri.has_prefix ("tox:")) {
+      return false; // Default behavior.
+    }
+
+    var main_window = (MainWindow) this.get_ancestor (typeof (MainWindow));
+    var toxid = uri.split ("tox:")[1];
+
+    if (toxid.length == ToxCore.ADDRESS_SIZE * 2) {
+      main_window.entry_friend_id.set_text (toxid);
+      main_window.add_friend.reveal_child = true;
+    } else {
+      var info_message = "ToxDNS is not supported yet.";
+      main_window.notify_message (@"<span color=\"#e74c3c\">$info_message</span>");
+    }
+
+    return true;
   }
 }
