@@ -12,6 +12,15 @@ class Ricin.ChatView : Gtk.Box {
   private weak Tox.Tox handle;
   public Tox.Friend fr;
 
+  private void add_row (string markup) {
+    var label = new Gtk.Label (null);
+    label.use_markup = true;
+    label.set_markup (markup);
+    label.halign = Gtk.Align.START;
+    label.set_line_wrap (true);
+    messages.append (label);
+  }
+
   public ChatView (Tox.Tox handle, Tox.Friend fr) {
     this.handle = handle;
     this.fr = fr;
@@ -38,15 +47,6 @@ class Ricin.ChatView : Gtk.Box {
     fr.bind_property ("typing", friend_typing, "reveal_child", BindingFlags.DEFAULT);
     fr.bind_property ("name", username, "label", BindingFlags.DEFAULT);
     fr.bind_property ("status-message", status_message, "label", BindingFlags.DEFAULT);
-  }
-
-  private void add_row (string markup) {
-    var label = new Gtk.Label (null);
-    label.use_markup = true;
-    label.set_markup (markup);
-    label.halign = Gtk.Align.START;
-    label.set_line_wrap (true);
-    messages.append (label);
   }
 
   private void send_message () {
