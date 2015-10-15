@@ -15,9 +15,11 @@ class Ricin.ChatView : Gtk.Box {
   private void add_row (string markup) {
     var label = new Gtk.Label (null);
     label.use_markup = true;
-    label.set_markup (markup);
     label.halign = Gtk.Align.START;
+    label.wrap_mode = Pango.WrapMode.CHAR;
+    label.selectable = true;
     label.set_line_wrap (true);
+    label.set_markup (markup);
     messages.append (label);
   }
 
