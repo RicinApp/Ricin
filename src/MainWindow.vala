@@ -129,11 +129,9 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
         if (response == Gtk.ResponseType.ACCEPT) {
           var friend = tox.accept_friend_request (id);
           if (friend != null) {
-            /**
-            * FIXME: Do something to notify the user it request is gone!
-            * friends.append (friend);
-            * chat_stack.add_named (new ChatView (this.tox, friend), friend.name);
-            */
+            friends.append (friend);
+            chat_stack.add_named (new ChatView (this.tox, friend), friend.name);
+
             this.label_system_notify.set_text ("The friend request has been accepted. Please wait the contact to appear.");
             this.revealer_system_notify.reveal_child = true;
             Timeout.add (5000, () => {
