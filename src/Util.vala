@@ -46,4 +46,37 @@ namespace Util {
     sb.truncate (sb.len-1);
     return sb.str;
   }
+
+  public static string get_tox_profiles_dir () {
+    return Environment.get_home_dir () + "/.config/tox/";
+  }
+
+  public static string[]? get_tox_profiles () {
+    var dir = Util.get_tox_profiles_dir ();
+    var config_dir = File.new_for_path (dir);
+    string[] files = {};
+    if (!config_dir.query_exists ()) {
+      config_dir.make_directory ();
+    } else {
+      var enumerator = config_dir.enumerate_children (FileAttribute.STANDARD_NAME, 0);
+      FileInfo info;
+      while ((info = enumerator.next_file ()) != null) {
+        if (info.get_name ().has_suffix (".tox")) {
+          files += info.get_name ();
+        }
+      }
+
+      return files;
+    }
+
+    return null;
+  }
+
+  public static bool save_data (ref Tox.Tox handle, string path) {
+    debug ("Saving data to " + path);
+    uint32 size = handle.get_savedata_size ();
+    uint8[] buffer = new uint8[size];
+    handle.get_savedata (buffer);
+    return FileUtils.set_data (path, buffer);
+  }
 }

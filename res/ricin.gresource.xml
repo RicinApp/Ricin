@@ -2,6 +2,7 @@
 <gresources>
     <gresource prefix="/chat/tox/Ricin">
         <file preprocess="xml-stripblanks" compressed="true">main-window.ui</file>
+        <file preprocess="xml-stripblanks" compressed="true">profile-chooser-window.ui</file>
         <file preprocess="xml-stripblanks" compressed="true">friend-list-row.ui</file>
         <file preprocess="xml-stripblanks" compressed="true">chat-view.ui</file>
     </gresource>

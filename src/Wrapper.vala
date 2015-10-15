@@ -3,13 +3,13 @@ using ToxCore; // only in this file
 // so we don't conflict with libtoxcore
 [CCode (cprefix="ToxWrapper", lower_case_cprefix="tox_wrapper_")]
 namespace Tox {
-  enum UserStatus {
+  public enum UserStatus {
     ONLINE,
     AWAY,
     BUSY
   }
 
-  class Tox : Object {
+  public class Tox : Object {
     internal ToxCore.Tox handle;
     internal ToxCore.Options opts;
     private HashTable<uint32, Friend> friends = new HashTable<uint32, Friend> (direct_hash, direct_equal);
@@ -225,9 +225,17 @@ namespace Tox {
         error ("friend_add_norequest: %d", err);
       }
     }
+
+    public uint32 get_savedata_size () {
+      return this.handle.get_savedata_size ();
+    }
+
+    public void get_savedata (uint8[] buffer) {
+      this.handle.get_savedata (buffer);
+    }
   }
 
-  class Options : Object {
+  public class Options : Object {
     public static ToxCore.Options copy (ToxCore.Options o) {
       var opts = create ();
       opts.ipv6_enabled = o.ipv6_enabled;
@@ -248,7 +256,7 @@ namespace Tox {
     }
   }
 
-  class Friend : Object {
+  public class Friend : Object {
     private weak Tox tox;
     private uint32 num; // libtoxcore identifier
 

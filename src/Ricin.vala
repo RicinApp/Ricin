@@ -5,7 +5,8 @@ public class Ricin.Ricin : Gtk.Application {
   }
 
   public override void activate () {
-    new MainWindow (this);
+    new ProfileChooserWindow (this);
+    Gtk.main ();
   }
 
   public static int main(string[] args) {

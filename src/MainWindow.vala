@@ -1,4 +1,5 @@
 using Tox;
+using ToxCore;
 
 [GtkTemplate (ui="/chat/tox/Ricin/main-window.ui")]
 public class Ricin.MainWindow : Gtk.ApplicationWindow {
@@ -24,20 +25,24 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
   [GtkChild] Gtk.Label label_system_notify;
 
   private ListStore friends = new ListStore (typeof (Tox.Friend));
+  private string profile_path;
 
-  Tox.Tox tox;
+  public Tox.Tox tox;
 
-  public MainWindow (Ricin app) {
+  public MainWindow (Ricin app, ToxCore.Options options, string profile_path) {
     Object (application: app);
 
-    var options = Tox.Options.create ();
-    options.ipv6_enabled = true;
-    options.udp_enabled = true;
-    this.tox = new Tox.Tox (options);
+    this.profile_path = profile_path;
+
+    var opts = Tox.Options.copy (options);
+    opts.ipv6_enabled = true;
+    opts.udp_enabled = true;
+    this.tox = new Tox.Tox (opts);
 
     this.toxid.label += this.tox.id;
+    this.entry_name.set_text (this.tox.username);
+    this.entry_status.set_text (this.tox.status_message);
 
-    /* TEMP ZONE */
     this.button_add_friend_show.clicked.connect (() => {
       this.entry_friend_message.buffer.text = "Hello, I'm " + this.tox.username + ". Currently using Ricin, please add this friend request then we could talk!";
       this.button_add_friend_show.visible = false;
@@ -49,6 +54,13 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
       var tox_id = this.entry_friend_id.get_text ();
       var message = this.entry_friend_message.buffer.text;
       var error_message = "";
+
+      /* DEBUG CODE TO REMOVE ONCE PROFILE CHOOSER FINISHED.
+      if (tox_id == "profile-chooser") {
+        var pc = new ProfileChooserWindow ();
+        return;
+      }
+      DEBUG CODE TO REMOVE ONCE PROFILE CHOOSER FINISHED. */
 
       if (tox_id.length == 76) {
         var friend = tox.add_friend (tox_id, message);
@@ -75,7 +87,6 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
       this.add_friend.reveal_child = false;
       this.button_add_friend_show.visible = true;
     });
-    /* TEMP ZONE */
 
     this.friendlist.bind_model (this.friends, fr => new FriendListRow (fr as Tox.Friend));
     this.friendlist.row_activated.connect ((lb, row) => {
@@ -93,27 +104,31 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
     this.entry_status.bind_property ("text", this.tox, "status_message", BindingFlags.BIDIRECTIONAL | BindingFlags.SYNC_CREATE);
 
     this.button_user_status.clicked.connect (() => {
+      /**
+      * FIXME: error: var declaration not allowed with non-typed initializer
+      *        var status = this.tox.status;
+      *
       var status = this.tox.status;
       switch (status) {
-        case UserStatus.ONLINE:
+        case Tox.UserStatus.ONLINE:
           // Set status to away.
-          this.tox.status = UserStatus.AWAY;
+          this.tox.status = Tox.UserStatus.AWAY;
           this.image_user_status.icon_name = "user-away";
           break;
-        case UserStatus.AWAY:
+        case Tox.UserStatus.AWAY:
           // Set status to busy.
-          this.tox.status = UserStatus.BUSY;
+          this.tox.status = Tox.UserStatus.BUSY;
           this.image_user_status.icon_name = "user-busy";
           break;
-        case UserStatus.BUSY:
+        case Tox.UserStatus.BUSY:
           // Set status to online.
-          this.tox.status = UserStatus.ONLINE;
+          this.tox.status = Tox.UserStatus.ONLINE;
           this.image_user_status.icon_name = "user-available";
           break;
         default:
           this.image_user_status.icon_name = "user-offline";
           break;
-      }
+      }*/
     });
 
     this.tox.notify["connected"].connect ((src, prop) => {
@@ -129,6 +144,8 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
         if (response == Gtk.ResponseType.ACCEPT) {
           var friend = tox.accept_friend_request (id);
           if (friend != null) {
+            Util.save_data (ref this.tox, this.profile_path);
+
             friends.append (friend);
             chat_stack.add_named (new ChatView (this.tox, friend), friend.name);
 
