@@ -56,7 +56,7 @@ git clone https://github.com/RicinApp/tox-vapi tox-vapi
 ```
 
 ### Compiling Ricin client
-Now that you just cloned the repository from GitHub, you will surely want to compile the application. It's super-simple to do as it only takes 4 lines!
+Now that you just cloned the repository from GitHub, you will surely want to compile the application. It's super-simple to do as it only takes 1 line!
 
 ```bash
 make ricin
