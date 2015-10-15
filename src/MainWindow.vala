@@ -11,13 +11,17 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
   [GtkChild] Gtk.Stack chat_stack;
   [GtkChild] Gtk.Button button_add_friend_show;
 
-  // Add friend revealer
+  // Add friend revealer.
   [GtkChild] Gtk.Revealer add_friend;
   [GtkChild] Gtk.Entry entry_friend_id;
   [GtkChild] Gtk.TextView entry_friend_message;
   [GtkChild] Gtk.Label label_add_error;
   [GtkChild] Gtk.Button button_add_friend;
   [GtkChild] Gtk.Button button_cancel_add;
+
+  // System notify.
+  [GtkChild] Gtk.Revealer revealer_system_notify;
+  [GtkChild] Gtk.Label label_system_notify;
 
   private ListStore friends = new ListStore (typeof (Tox.Friend));
 
@@ -125,8 +129,17 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
         if (response == Gtk.ResponseType.ACCEPT) {
           var friend = tox.accept_friend_request (id);
           if (friend != null) {
-            friends.append (friend);
-            chat_stack.add_named (new ChatView (this.tox, friend), friend.name);
+            /**
+            * FIXME: Do something to notify the user it request is gone!
+            * friends.append (friend);
+            * chat_stack.add_named (new ChatView (this.tox, friend), friend.name);
+            */
+            this.label_system_notify.set_text ("The friend request has been accepted. Please wait the contact to appear.");
+            this.revealer_system_notify.reveal_child = true;
+            Timeout.add (5000, () => {
+              this.revealer_system_notify.reveal_child = false;
+              return Source.REMOVE;
+            });
           }
         }
         dialog.destroy ();
