@@ -28,17 +28,19 @@
 # Introduction
 **Ricin** aims to be a _secure_, _lightweight_, _hackable_ and _fully-customizable_ chat client using the awesome and open-source **ToxCore** library. We know that there are several Tox clients but this project was initially made because the other clients are still missing many features that users have been waiting for over many months. Ricin is a simple but powerful cross-platform client written in Vala and using Gtk+ 3.0.
 
-![Early version](http://i.imgur.com/FlFo9wT.png)
+[![Early version](http://i.imgur.com/FlFo9wT.png)](http://a.uguu.se/aoajsu.webm)
+**Click the picture to see a video demonstration of Ricin in action**
 
 # Dependencies
-| Package name     | Version   | Comment             |
-|------------------|-----------|---------------------|
-| valac            | >=0.28.1  | **Required**        |
-| libgio           | >=2.0     |                     |
-| libglib          | >=2.32    |                     |
-| libjson-glib     | >=1.0     |                     |
-| libsoup          | >=2.4     |                     |
-| libnotify        |           |                     |
+| Package name     | Version   | Comment                   |
+|------------------|-----------|---------------------------|
+| valac            | >=0.28.1  | **Required**              |
+| libtoxcore       | 0.0.0     | Toxcore don't version yet |
+| libgio           | >=2.0     |                           |
+| libglib          | >=2.32    |                           |
+| libjson-glib     | >=1.0     |                           |
+| libsoup          | >=2.4     |                           |
+| libnotify        |           |                           |
 
 # Compiling
 > **NOTE**:
@@ -48,18 +50,17 @@
 To compile from the latest commit you must first clone the repository by using the following command (type it in a Terminal).
 
 ```bash
-git clone --recursive https://github.com/RicinApp/Ricin.git Ricin-client
+git clone https://github.com/RicinApp/Ricin.git Ricin-client
 cd Ricin-client
+git clone https://github.com/RicinApp/tox-vapi tox-vapi
 ```
 
 ### Compiling Ricin client
 Now that you just cloned the repository from GitHub, you will surely want to compile the application. It's super-simple to do as it only takes 4 lines!
 
 ```bash
-mkdir build && cd build
-cmake ..
-make
-sudo make install
+make ricin
+make debug # To run Ricin with gdb [Debug only]
 ```
 
 # Contribute
