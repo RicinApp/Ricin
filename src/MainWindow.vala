@@ -49,7 +49,7 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
       var message = this.entry_friend_message.buffer.text;
       var error_message = "";
 
-      if (tox_id.length == ToxCore.ADDRESS_SIZE) {
+      if (tox_id.length == ToxCore.ADDRESS_SIZE*2) { // bytes -> chars
         var friend = tox.add_friend (tox_id, message);
         this.entry_friend_id.set_text (""); // Clear the entry after adding a friend.
         return;
