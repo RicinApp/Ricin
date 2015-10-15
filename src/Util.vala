@@ -72,7 +72,7 @@ namespace Util {
     return null;
   }
 
-  public static bool save_data (ref Tox.Tox handle, string path) {
+  public static bool save_data (Tox.Tox handle, string path) {
     debug ("Saving data to " + path);
     uint32 size = handle.get_savedata_size ();
     uint8[] buffer = new uint8[size];

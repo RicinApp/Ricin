@@ -181,6 +181,6 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
   }
 
   public void save_profile () {
-    Util.save_data (ref this.tox, this.profile_path);
+    Util.save_data (this.tox, this.profile_path);
   }
 }
