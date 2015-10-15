@@ -3,7 +3,7 @@ using ToxCore;
 
 [GtkTemplate (ui="/chat/tox/Ricin/main-window.ui")]
 public class Ricin.MainWindow : Gtk.ApplicationWindow {
-  [GtkChild] Gtk.Entry entry_name;
+  [GtkChild] public Gtk.Entry entry_name;
   [GtkChild] Gtk.Entry entry_status;
   [GtkChild] Gtk.Button button_user_status;
   [GtkChild] Gtk.Image image_user_status;
@@ -107,7 +107,7 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
       /**
       * FIXME: error: var declaration not allowed with non-typed initializer
       *        var status = this.tox.status;
-      *
+      */
       var status = this.tox.status;
       switch (status) {
         case Tox.UserStatus.ONLINE:
@@ -128,7 +128,7 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
         default:
           this.image_user_status.icon_name = "user-offline";
           break;
-      }*/
+      }
     });
 
     this.tox.notify["connected"].connect ((src, prop) => {
@@ -144,7 +144,7 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
         if (response == Gtk.ResponseType.ACCEPT) {
           var friend = tox.accept_friend_request (id);
           if (friend != null) {
-            Util.save_data (ref this.tox, this.profile_path);
+            this.save_profile ();
 
             friends.append (friend);
             chat_stack.add_named (new ChatView (this.tox, friend), friend.name);
@@ -169,8 +169,18 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
       }
     });
 
+    this.destroy_event.connect ((event) => {
+      // Always save profile while closing window.
+      this.save_profile ();
+      return true;
+    });
+
     this.tox.run_loop ();
 
     this.show_all ();
+  }
+
+  public void save_profile () {
+    Util.save_data (ref this.tox, this.profile_path);
   }
 }
