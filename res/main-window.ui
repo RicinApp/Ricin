@@ -5,18 +5,17 @@
   <object class="GtkImage" id="image1">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
-    <property name="icon_name">window-close</property>
+    <property name="icon_name">window-close-symbolic</property>
   </object>
   <object class="GtkImage" id="image2">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
-    <property name="icon_name">object-select</property>
+    <property name="icon_name">object-select-symbolic</property>
   </object>
   <object class="GtkImage" id="image_user_status">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
     <property name="icon_name">user-offline</property>
-    <property name="icon_size">6</property>
   </object>
   <template class="RicinMainWindow" parent="GtkApplicationWindow">
     <property name="can_focus">False</property>
@@ -129,14 +128,19 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkSearchEntry" id="search_friend">
+                      <object class="GtkSearchBar" id="searchbar1">
                         <property name="visible">True</property>
-                        <property name="can_focus">True</property>
-                        <property name="has_frame">False</property>
-                        <property name="primary_icon_name">edit-find-symbolic</property>
-                        <property name="primary_icon_activatable">False</property>
-                        <property name="primary_icon_sensitive">False</property>
-                        <property name="placeholder_text" translatable="yes">Search a friend...</property>
+                        <property name="can_focus">False</property>
+                        <property name="search_mode_enabled">True</property>
+                        <child>
+                          <object class="GtkSearchEntry" id="search_friend">
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="primary_icon_name">edit-find-symbolic</property>
+                            <property name="primary_icon_activatable">False</property>
+                            <property name="primary_icon_sensitive">False</property>
+                          </object>
+                        </child>
                       </object>
                       <packing>
                         <property name="expand">False</property>
