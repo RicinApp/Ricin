@@ -9,10 +9,15 @@ namespace Tox {
     BUSY
   }
 
+  public string profile_dir () {
+    return Environment.get_home_dir () + "/.config/tox/";
+  }
+
   public class Tox : Object {
     internal ToxCore.Tox handle;
-    internal ToxCore.Options opts;
     private HashTable<uint32, Friend> friends = new HashTable<uint32, Friend> (direct_hash, direct_equal);
+    private bool ipv6_enabled = true;
+    private string? profile = null;
 
     public string username {
       owned get {
@@ -39,12 +44,14 @@ namespace Tox {
     public UserStatus status {
       get {
         return (UserStatus) this.handle.status;
-      } set {
+      }
+      set {
         this.handle.status = (ToxCore.UserStatus) value;
       }
     }
 
     public bool connected { get; set; default = false; }
+
     public string id {
       owned get {
         //uint8 address[ToxCore.ADDRESS_SIZE]; // vala bug #756376
@@ -58,10 +65,19 @@ namespace Tox {
     public signal void friend_online (Friend friend);
     public signal void system_message (string message);
 
-    public Tox (ToxCore.Options? opts = null) {
+    public Tox (ToxCore.Options? opts = null, string? profile = null) {
       debug ("ToxCore Version %u.%u.%u", ToxCore.Version.MAJOR, ToxCore.Version.MINOR, ToxCore.Version.PATCH);
 
-      this.opts = Options.copy (opts);
+      if (profile != null) {
+        this.profile = profile;
+        if (FileUtils.test (profile, FileTest.EXISTS)) { // load file
+          FileUtils.get_data (profile, out opts.savedata_data);
+          opts.savedata_type = ToxCore.SaveDataType.TOX_SAVE;
+        } else { // create new file
+          File.new_for_path (profile).create (FileCreateFlags.NONE, null);
+        }
+      }
+      this.ipv6_enabled = opts.ipv6_enabled;
       this.handle = new ToxCore.Tox (opts, null);
 
       this.handle.callback_self_connection_status ((self, status) => {
@@ -89,8 +105,9 @@ namespace Tox {
       });
 
       this.handle.callback_friend_name ((self, num, name) => {
+        var old_name = this.friends[num].name ?? (this.friends[num].pubkey.slice (0, 16) + "...");
         var new_name = Util.arr2str (name);
-        this.system_message (this.friends[num].name + " is now known as " + new_name);
+        this.system_message (old_name + " is now known as " + new_name);
         this.friends[num].name = new_name;
       });
 
@@ -162,7 +179,7 @@ namespace Tox {
             Server srv = servers[Random.int_range (0, servers.length)];
 
             bool success = false;
-            bool try_ipv6 = this.opts.ipv6_enabled && srv.ipv6 != null;
+            bool try_ipv6 = this.ipv6_enabled && srv.ipv6 != null;
             if (!success && try_ipv6) {
               debug ("UDP bootstrap %s:%llu by %s", srv.ipv6, srv.port, srv.owner);
               success = this.handle.bootstrap (srv.ipv6, (uint16) srv.port, Util.hex2bin (srv.pubkey), null);
@@ -226,12 +243,13 @@ namespace Tox {
       }
     }
 
-    public uint32 get_savedata_size () {
-      return this.handle.get_savedata_size ();
-    }
-
-    public void get_savedata (uint8[] buffer) {
-      this.handle.get_savedata (buffer);
+    public void save_data () {
+      if (this.profile != null) {
+        debug ("Saving data to " + this.profile);
+        uint8[] data = new uint8[this.handle.get_savedata_size ()];
+        this.handle.get_savedata (data);
+        FileUtils.set_data (this.profile, data);
+      }
     }
   }
 

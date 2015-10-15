@@ -1,6 +1,3 @@
-using Tox;
-using ToxCore;
-
 [GtkTemplate (ui="/chat/tox/Ricin/main-window.ui")]
 public class Ricin.MainWindow : Gtk.ApplicationWindow {
   [GtkChild] public Gtk.Entry entry_name;
@@ -25,19 +22,16 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
   [GtkChild] Gtk.Label label_system_notify;
 
   private ListStore friends = new ListStore (typeof (Tox.Friend));
-  private string profile_path;
 
   public Tox.Tox tox;
 
-  public MainWindow (Ricin app, ToxCore.Options options, string profile_path) {
+  public MainWindow (Gtk.Application app, string profile) {
     Object (application: app);
 
-    this.profile_path = profile_path;
-
-    var opts = Tox.Options.copy (options);
+    var opts = Tox.Options.create ();
     opts.ipv6_enabled = true;
     opts.udp_enabled = true;
-    this.tox = new Tox.Tox (opts);
+    this.tox = new Tox.Tox (opts, profile);
 
     this.toxid.label += this.tox.id;
     this.entry_name.set_text (this.tox.username);
@@ -55,14 +49,7 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
       var message = this.entry_friend_message.buffer.text;
       var error_message = "";
 
-      /* DEBUG CODE TO REMOVE ONCE PROFILE CHOOSER FINISHED.
-      if (tox_id == "profile-chooser") {
-        var pc = new ProfileChooserWindow ();
-        return;
-      }
-      DEBUG CODE TO REMOVE ONCE PROFILE CHOOSER FINISHED. */
-
-      if (tox_id.length == 76) {
+      if (tox_id.length == ToxCore.ADDRESS_SIZE) {
         var friend = tox.add_friend (tox_id, message);
         this.entry_friend_id.set_text (""); // Clear the entry after adding a friend.
         return;
@@ -104,10 +91,6 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
     this.entry_status.bind_property ("text", this.tox, "status_message", BindingFlags.BIDIRECTIONAL | BindingFlags.SYNC_CREATE);
 
     this.button_user_status.clicked.connect (() => {
-      /**
-      * FIXME: error: var declaration not allowed with non-typed initializer
-      *        var status = this.tox.status;
-      */
       var status = this.tox.status;
       switch (status) {
         case Tox.UserStatus.ONLINE:
@@ -144,7 +127,7 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
         if (response == Gtk.ResponseType.ACCEPT) {
           var friend = tox.accept_friend_request (id);
           if (friend != null) {
-            this.save_profile ();
+            this.tox.save_data ();
 
             friends.append (friend);
             chat_stack.add_named (new ChatView (this.tox, friend), friend.name);
@@ -169,18 +152,13 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
       }
     });
 
-    this.destroy_event.connect ((event) => {
-      // Always save profile while closing window.
-      this.save_profile ();
-      return true;
+    this.delete_event.connect ((event) => {
+      this.tox.save_data ();
+      return false;
     });
 
     this.tox.run_loop ();
 
     this.show_all ();
-  }
-
-  public void save_profile () {
-    Util.save_data (this.tox, this.profile_path);
   }
 }

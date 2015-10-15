@@ -31,7 +31,7 @@ class Ricin.ChatView : Gtk.Box {
     });
 
     this.entry.activate.connect (this.send_message);
-    this.send.clicked.connect (() => this.send_message ());
+    this.send.clicked.connect (this.send_message);
 
     fr.message.connect (message => {
       this.add_row (@"<b>$(fr.name):</b> $(Util.add_markup (message))");
@@ -55,8 +55,9 @@ class Ricin.ChatView : Gtk.Box {
 
     var message = this.entry.get_text ();
 
-    if (message.strip () == "")
+    if (message.strip () == "") {
       return;
+    }
 
     if (message.has_prefix ("/me ")) {
       var action = message.substring (4);
