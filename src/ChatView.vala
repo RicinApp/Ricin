@@ -64,11 +64,8 @@ class Ricin.ChatView : Gtk.Box {
       var escaped = Util.escape_html (action);
       markup = @"<span color=\"#3498db\">* <b>$user</b> $escaped</span>";
       fr.send_action (action);
-    } else if (message[0] == '>') {
-      markup = @"<b>$user:</b> $(Util.add_markup (message))";
-      fr.send_message (message);
     } else {
-      markup = @"<b>$user:</b> $message";
+      markup = @"<b>$user:</b> $(Util.add_markup (message))";
       fr.send_message (message);
     }
 

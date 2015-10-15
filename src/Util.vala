@@ -45,6 +45,6 @@ namespace Util {
       sb.append_c ('\n');
     }
     sb.truncate (sb.len-1);
-    return sb.str;
+    return /(\w+:\S+)/.replace (sb.str, -1, 0, "<a href=\"\\1\">\\1</a>");
   }
 }
