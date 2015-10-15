@@ -58,13 +58,13 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
       }
 
       if (error_message.strip () != "") {
-        this.label_add_error.set_text (error_message);
-        //this.label_add_error.height = 20;
         this.label_add_error.visible = true;
-      } else {
-        this.add_friend.reveal_child = false;
-        this.button_add_friend_show.visible = true;
+        this.label_add_error.set_text (error_message);
+        return;
       }
+
+      this.add_friend.reveal_child = false;
+      this.button_add_friend_show.visible = true;
     });
 
     this.button_cancel_add.clicked.connect (() => {
@@ -132,6 +132,13 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
         dialog.destroy ();
       });
       dialog.show ();
+    });
+
+    this.tox.friend_online.connect ((friend) => {
+      if (friend != null) {
+        friends.append (friend);
+        chat_stack.add_named (new ChatView (this.tox, friend), friend.name);
+      }
     });
 
     this.tox.run_loop ();

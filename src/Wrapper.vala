@@ -55,6 +55,7 @@ namespace Tox {
     }
 
     public signal void friend_request (string id, string message);
+    public signal void friend_online (Friend friend);
     public signal void system_message (string message);
 
     public Tox (ToxCore.Options? opts = null) {
@@ -81,6 +82,7 @@ namespace Tox {
       this.handle.callback_friend_connection_status ((self, num, status) => {
         if (this.friends[num] == null) { // new friend
           this.friends[num] = new Friend (this, num);
+          this.friend_online (this.friends[num]);
         }
 
         this.friends[num].connected = (status != ConnectionStatus.NONE);
