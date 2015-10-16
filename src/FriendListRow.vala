@@ -14,7 +14,6 @@ class Ricin.FriendListRow : Gtk.ListBoxRow {
     fr.bind_property ("name", username, "label", BindingFlags.DEFAULT);
     fr.bind_property ("status-message", status, "label", BindingFlags.DEFAULT);
     fr.notify["status"].connect ((obj, prop) => {
-      var icon = "";
       switch (fr.status) {
         case UserStatus.ONLINE:
           this.userstatus.icon_name = "user-available";

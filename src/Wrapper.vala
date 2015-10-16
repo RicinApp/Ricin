@@ -101,36 +101,24 @@ namespace Tox {
       this.handle = new ToxCore.Tox (opts, out error);
 
       switch (error) {
-        case ERR_NEW.OK:
-          debug ("Tox handle created without errors.");
-          break; // All went nice, continue.
         case ERR_NEW.NULL:
           throw new ErrNew.Null ("One of the arguments to the function was NULL when it was not expected.");
-          break;
         case ERR_NEW.MALLOC:
           throw new ErrNew.Malloc ("The function was unable to allocate enough memory to store the internal structures for the Tox object.");
-          break;
         case ERR_NEW.PORT_ALLOC:
           throw new ErrNew.PortAlloc ("The function was unable to bind to a port.");
-          break;
         case ERR_NEW.PROXY_BAD_TYPE:
           throw new ErrNew.BadProxy ("proxy_type was invalid.");
-          break;
         case ERR_NEW.PROXY_BAD_HOST:
           throw new ErrNew.BadProxy ("proxy_type was valid but the proxy_host passed had an invalid format or was NULL.");
-          break;
         case ERR_NEW.PROXY_BAD_PORT:
           throw new ErrNew.BadProxy ("proxy_type was valid, but the proxy_port was invalid.");
-          break;
         case ERR_NEW.PROXY_NOT_FOUND:
           throw new ErrNew.BadProxy ("The proxy address passed could not be resolved.");
-          break;
         case ERR_NEW.LOAD_ENCRYPTED:
           throw new ErrNew.LoadFailed ("The byte array to be loaded contained an encrypted save.");
-          break;
         case ERR_NEW.LOAD_BAD_FORMAT:
           throw new ErrNew.LoadFailed ("The data format was invalid. This can happen when loading data that was saved by an older version of Tox, or when the data has been corrupted. When loading from badly formatted data, some data may have been loaded, and the rest is discarded. Passing an invalid length parameter also causes this error.");
-          break;
       }
 
       this.handle.callback_self_connection_status ((self, status) => {
@@ -274,34 +262,25 @@ namespace Tox {
         case ERR_FRIEND_ADD.OK:
           debug (@"Friend request sent to $id: \"$message\"");
           return new Friend (this, friend_num);
-          break;
         case ERR_FRIEND_ADD.NULL:
           throw new ErrFriendAdd.Null ("One of the arguments to the function was NULL when it was not expected.");
-          break;
         case ERR_FRIEND_ADD.TOO_LONG:
           throw new ErrFriendAdd.TooLong ("The friend request message is too long.");
-          break;
         case ERR_FRIEND_ADD.NO_MESSAGE:
           throw new ErrFriendAdd.NoMessage ("The friend request message was empty.");
-          break;
         case ERR_FRIEND_ADD.OWN_KEY:
           throw new ErrFriendAdd.OwnKey ("You cannot add yourself.");
-          break;
         case ERR_FRIEND_ADD.ALREADY_SENT:
           throw new ErrFriendAdd.AlreadySent ("You already added this friend.");
-          break;
         case ERR_FRIEND_ADD.BAD_CHECKSUM:
           throw new ErrFriendAdd.BadChecksum ("ToxID is invalid.");
-          break;
         case ERR_FRIEND_ADD.SET_NEW_NOSPAM:
           throw new ErrFriendAdd.BadNospam ("This ToxID have a new nospam.");
-          break;
         case ERR_FRIEND_ADD.MALLOC:
           throw new ErrFriendAdd.Malloc ("A memory allocation failed when trying to increase the friend list size.");
-          break;
+        default:
+          return null;
       }
-
-      return null;
     }
 
     public Friend? accept_friend_request (string id) {
