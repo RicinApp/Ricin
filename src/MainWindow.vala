@@ -146,6 +146,10 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
       if (friend != null) {
         friends.append (friend);
         chat_stack.add_named (new ChatView (this.tox, friend), friend.name);
+
+        // TEST ZONE: SEND AVATAR.
+        //friend.send_avatar ();
+        // TEST ZONE: SEND AVATAR.
       }
     });
 

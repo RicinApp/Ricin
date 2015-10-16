@@ -318,5 +318,28 @@ namespace Tox {
       ERR_FRIEND_SEND_MESSAGE err;
       tox.handle.friend_send_message (this.num, MessageType.ACTION, action_message.data, out err);
     }
+
+    /**
+    * FIXME: Find a way to make tox.hash working.
+    * FIXME: Program received signal SIGSEGV, Segmentation fault.
+    *        SHA256_Transform (state=state@entry=0x7fffffffbcc0, block=block@entry=0x625000230000 "")
+    *        at crypto_hash/sha256/cp/hash_sha256.c:114
+    *        114	crypto_hash/sha256/cp/hash_sha256.c: No file or folder of this type.
+    *
+    public void send_avatar () {
+      uint8[] avatar_id = new uint8[ToxCore.FILE_ID_LENGTH];
+      Gdk.Pixbuf avatar = new Gdk.Pixbuf.from_resource_at_scale (
+        "/chat/tox/Ricin/assets/avatar-test.png",
+        48, 48, true
+      );
+      ERR_FILE_SEND err;
+
+      this.tox.handle.hash (avatar_id, avatar.get_pixels ());
+      uint64 avatar_size = avatar_id.length;
+      this.tox.handle.file_send (this.num, FileKind.AVATAR, avatar_size, avatar_id, "avatar.png".data, out err);
+
+      debug ("Avatar state: %d", (int) err);
+    }
+    */
   }
 }
