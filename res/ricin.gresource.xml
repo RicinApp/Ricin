@@ -7,5 +7,14 @@
         <file preprocess="xml-stripblanks" compressed="true">chat-view.ui</file>
 
         <file>assets/avatar-test.png</file>
+        <file>assets/status/busy.png</file>
+        <file>assets/status/busy_notification.png</file>
+        <file>assets/status/idle.png</file>
+        <file>assets/status/idle_notification.png</file>
+        <file>assets/status/online.png</file>
+        <file>assets/status/online_notification.png</file>
+        <file>assets/status/offline.png</file>
+        <file>assets/status/offline_notification.png</file>
+        <file>assets/status/invisible.png</file>
     </gresource>
 </gresources>
