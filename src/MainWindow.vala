@@ -45,7 +45,6 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
     this.toxid.label += this.tox.id;
     this.entry_name.set_text (this.tox.username);
     this.entry_status.set_text (this.tox.status_message);
-    this.button_user_status.grab_focus ();
 
     this.button_add_friend_show.clicked.connect (() => {
       this.entry_friend_message.buffer.text = "Hello, I'm " + this.tox.username + ". Currently using Ricin, please add this friend request then we could talk!";
@@ -110,11 +109,8 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
         if ((view as ChatView).fr == fr) {
           chat_stack.set_visible_child (view);
           (view as ChatView).entry.grab_focus ();
-          (view as ChatView).focused = true;
-          fr.unread_messages = false;
+          break;
         }
-
-        (view as ChatView).focused = false;
       }
     });
 
@@ -127,31 +123,26 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
         case Tox.UserStatus.ONLINE:
           // Set status to away.
           this.tox.status = Tox.UserStatus.AWAY;
-          this.image_user_status.set_from_resource ("/chat/tox/Ricin/assets/status/idle.png");
+          this.image_user_status.icon_name = "user-away";
           break;
         case Tox.UserStatus.AWAY:
           // Set status to busy.
           this.tox.status = Tox.UserStatus.BUSY;
-          this.image_user_status.set_from_resource ("/chat/tox/Ricin/assets/status/busy.png");
+          this.image_user_status.icon_name = "user-busy";
           break;
         case Tox.UserStatus.BUSY:
           // Set status to online.
           this.tox.status = Tox.UserStatus.ONLINE;
-          this.image_user_status.set_from_resource ("/chat/tox/Ricin/assets/status/online.png");
+          this.image_user_status.icon_name = "user-available";
           break;
         default:
-          this.tox.status = Tox.UserStatus.OFFLINE;
-          this.image_user_status.set_from_resource ("/chat/tox/Ricin/assets/status/offline.png");
+          this.image_user_status.icon_name = "user-offline";
           break;
       }
     });
 
     this.tox.notify["connected"].connect ((src, prop) => {
-      if (this.tox.connected) {
-        this.image_user_status.set_from_resource ("/chat/tox/Ricin/assets/status/online.png");
-      } else {
-        this.image_user_status.set_from_resource ("/chat/tox/Ricin/assets/status/offline.png");
-      }
+      this.image_user_status.icon_name = this.tox.connected ? "user-available" : "user-offline";
       this.button_user_status.sensitive = this.tox.connected;
     });
 
@@ -181,12 +172,10 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
       if (friend != null) {
         friends.append (friend);
         chat_stack.add_named (new ChatView (this.tox, friend), friend.name);
-      }
-    });
 
-    this.tox.friend_offline.connect ((friend) => {
-      if (friend != null) {
-        friend.status = Tox.UserStatus.OFFLINE;
+        // TEST ZONE: SEND AVATAR.
+        //friend.send_avatar ();
+        // TEST ZONE: SEND AVATAR.
       }
     });
 

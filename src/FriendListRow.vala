@@ -17,41 +17,16 @@ class Ricin.FriendListRow : Gtk.ListBoxRow {
       var icon = "";
       switch (fr.status) {
         case UserStatus.ONLINE:
-          icon = (fr.unread_messages) ? "online_notification" : "online";
+          this.userstatus.icon_name = "user-available";
           break;
         case UserStatus.AWAY:
-          icon = (fr.unread_messages) ? "idle_notification" : "idle";
+          this.userstatus.icon_name = "user-away";
           break;
         case UserStatus.BUSY:
-          icon = (fr.unread_messages) ? "busy_notification" : "busy";
+          this.userstatus.icon_name = "user-busy";
           break;
-        case UserStatus.OFFLINE:
-          icon = (fr.unread_messages) ? "offline_notification" : "offline";
-          break;
-      }
-
-      this.userstatus.set_from_resource ("/chat/tox/Ricin/assets/status/" + icon + ".png");
-    });
-
-    /**
-    * TODO: Find a better way to do this.
-    */
-    fr.notify["unread_messages"].connect ((obj, prop) => {
-      debug ("Unread messages ? %s", (string) fr.unread_messages);
-
-      var icon = "";
-      switch (fr.status) {
-        case UserStatus.ONLINE:
-          icon = (fr.unread_messages) ? "online_notification" : "online";
-          break;
-        case UserStatus.AWAY:
-          icon = (fr.unread_messages) ? "idle_notification" : "idle";
-          break;
-        case UserStatus.BUSY:
-          icon = (fr.unread_messages) ? "busy_notification" : "busy";
-          break;
-        case UserStatus.OFFLINE:
-          icon = (fr.unread_messages) ? "offline_notification" : "offline";
+        default:
+          this.userstatus.icon_name = "user-status-pending";
           break;
       }
 
