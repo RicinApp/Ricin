@@ -29,8 +29,6 @@ class Ricin.FriendListRow : Gtk.ListBoxRow {
           this.userstatus.icon_name = "user-status-pending";
           break;
       }
-
-      this.userstatus.set_from_resource ("/chat/tox/Ricin/assets/status/" + icon + ".png");
     });
   }
 }
