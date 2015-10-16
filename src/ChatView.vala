@@ -29,8 +29,12 @@ class Ricin.ChatView : Gtk.Box {
     this.fr = fr;
     this.messages_list.bind_model (this.messages, l => l as Gtk.Widget);
 
-    this.handle.system_message.connect ((message) => {
+    this.fr.friend_info.connect ((message) => {
       this.add_row (@"<span color=\"#2980b9\">** <i>$message</i></span>");
+    });
+
+    this.handle.global_info.connect ((message) => {
+      this.add_row (@"<span color=\"#2980b9\">** $message</span>");
     });
 
     this.entry.activate.connect (this.send_message);

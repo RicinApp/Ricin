@@ -63,7 +63,7 @@ namespace Tox {
 
     public signal void friend_request (string id, string message);
     public signal void friend_online (Friend friend);
-    public signal void system_message (string message);
+    public signal void global_info (string message);
 
     public Tox (ToxCore.Options? opts = null, string? profile = null) {
       debug ("ToxCore Version %u.%u.%u", ToxCore.Version.MAJOR, ToxCore.Version.MINOR, ToxCore.Version.PATCH);
@@ -107,7 +107,7 @@ namespace Tox {
       this.handle.callback_friend_name ((self, num, name) => {
         var old_name = this.friends[num].name ?? (this.friends[num].pubkey.slice (0, 16) + "...");
         var new_name = Util.arr2str (name);
-        this.system_message (old_name + " is now known as " + new_name);
+        this.friends[num].friend_info (old_name + " is now known as " + new_name);
         this.friends[num].name = new_name;
       });
 
@@ -277,6 +277,8 @@ namespace Tox {
   public class Friend : Object {
     private weak Tox tox;
     private uint32 num; // libtoxcore identifier
+
+    public signal void friend_info (string message);
 
     public Friend (Tox tox, uint32 num) {
       this.tox = tox;
