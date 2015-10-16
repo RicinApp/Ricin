@@ -28,6 +28,7 @@
 # Introduction
 **Ricin** aims to be a _secure_, _lightweight_, _hackable_ and _fully-customizable_ chat client using the awesome and open-source **ToxCore** library. We know that there are several Tox clients but this project was initially made because the other clients are still missing many features that users have been waiting for over many months. Ricin is a simple but powerful cross-platform client written in Vala and using Gtk+ 3.0.
 
+_Screenshot might be outdated but it should give you a general idea of what is Ricin_
 [![Early version](http://i.imgur.com/FlFo9wT.png)](http://a.uguu.se/aoajsu.webm)
 **Click the picture to see a video demonstration of Ricin in action**
 
@@ -50,9 +51,9 @@
 To compile from the latest commit you must first clone the repository by using the following command (type it in a Terminal).
 
 ```bash
-git clone https://github.com/RicinApp/Ricin.git Ricin-client
-cd Ricin-client
-git clone https://github.com/RicinApp/tox-vapi tox-vapi
+# Don't forgot the --recursive flag, else it won't clone submodules
+# and you won't be able to compile without cloning tox-vapi too. :x
+git clone --recursive https://github.com/RicinApp/Ricin.git Ricin-client
 ```
 
 ### Compiling Ricin client
