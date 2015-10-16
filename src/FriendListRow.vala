@@ -16,46 +16,16 @@ class Ricin.FriendListRow : Gtk.ListBoxRow {
     fr.notify["status"].connect ((obj, prop) => {
       switch (fr.status) {
         case UserStatus.ONLINE:
-          this.userstatus.set_from_resource ("/chat/tox/Ricin/assets/status/online.png");
+          this.userstatus.icon_name = "user-available";
           break;
         case UserStatus.AWAY:
-          this.userstatus.set_from_resource ("/chat/tox/Ricin/assets/status/idle.png");
+          this.userstatus.icon_name = "user-away";
           break;
         case UserStatus.BUSY:
-          this.userstatus.set_from_resource ("/chat/tox/Ricin/assets/status/busy.png");
-          break;
-        case UserStatus.OFFLINE:
-          this.userstatus.set_from_resource ("/chat/tox/Ricin/assets/status/offline.png");
+          this.userstatus.icon_name = "user-busy";
           break;
         default:
-          this.userstatus.set_from_resource ("/chat/tox/Ricin/assets/status/invisible.png");
-          break;
-      }
-    });
-
-    /**
-    * TODO: Find a better way to do this.
-    */
-    fr.notify["unread_messages"].connect ((obj, prop) => {
-      switch (fr.status) {
-        case UserStatus.ONLINE:
-          var icon = (fr.unread_messages) ? "online_notification" : "online";
-          this.userstatus.set_from_resource ("/chat/tox/Ricin/assets/status/" + icon + ".png");
-          break;
-        case UserStatus.AWAY:
-          var icon = (fr.unread_messages) ? "idle_notification" : "idle";
-          this.userstatus.set_from_resource ("/chat/tox/Ricin/assets/status/" + icon + ".png");
-          break;
-        case UserStatus.BUSY:
-          var icon = (fr.unread_messages) ? "busy_notification" : "busy";
-          this.userstatus.set_from_resource ("/chat/tox/Ricin/assets/status/" + icon + ".png");
-          break;
-        case UserStatus.OFFLINE:
-          var icon = (fr.unread_messages) ? "offline_notification" : "offline";
-          this.userstatus.set_from_resource ("/chat/tox/Ricin/assets/status/" + icon + ".png");
-          break;
-        default:
-          this.userstatus.set_from_resource ("/chat/tox/Ricin/assets/status/invisible.png");
+          this.userstatus.icon_name = "user-status-pending";
           break;
       }
     });

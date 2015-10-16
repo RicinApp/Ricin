@@ -6,8 +6,7 @@ namespace Tox {
   public enum UserStatus {
     ONLINE,
     AWAY,
-    BUSY,
-    OFFLINE
+    BUSY
   }
 
   public string profile_dir () {
@@ -64,7 +63,6 @@ namespace Tox {
 
     public signal void friend_request (string id, string message);
     public signal void friend_online (Friend friend);
-    public signal void friend_offline (Friend friend);
     public signal void global_info (string message);
 
     public Tox (ToxCore.Options? opts = null, string? profile = null) {
@@ -100,10 +98,7 @@ namespace Tox {
       this.handle.callback_friend_connection_status ((self, num, status) => {
         if (this.friends[num] == null) { // new friend
           this.friends[num] = new Friend (this, num);
-          if (status != ConnectionStatus.NONE)
-            this.friend_online (this.friends[num]);
-          else
-            this.friend_offline (this.friends[num]);
+          this.friend_online (this.friends[num]);
         }
 
         this.friends[num].connected = (status != ConnectionStatus.NONE);
@@ -308,7 +303,6 @@ namespace Tox {
     public string status_message { get; set; }
     public bool connected { get; set; }
     public bool typing { get; set; }
-    public bool unread_messages { get; set; }
 
     public signal void message (string message);
     public signal void action (string message);

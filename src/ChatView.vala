@@ -11,7 +11,6 @@ class Ricin.ChatView : Gtk.Box {
 
   private weak Tox.Tox handle;
   public Tox.Friend fr;
-  public bool focused = false;
 
   private void add_row (string markup) {
     var label = new Gtk.Label (null);
@@ -43,16 +42,11 @@ class Ricin.ChatView : Gtk.Box {
 
     fr.message.connect (message => {
       this.add_row (@"<b>$(fr.name):</b> $(Util.add_markup (message))");
-
-      if (!this.focused)
-        fr.unread_messages = true;
     });
 
     fr.action.connect (message => {
       string message_escaped = Util.escape_html (message);
       this.add_row (@"<span color=\"#3498db\">* <b>$(fr.name)</b> $message_escaped</span>");
-      if (!this.focused)
-        fr.unread_messages = true;
     });
 
     fr.bind_property ("connected", entry, "sensitive", BindingFlags.DEFAULT);
