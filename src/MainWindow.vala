@@ -45,7 +45,6 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
     this.toxid.label += this.tox.id;
     this.entry_name.set_text (this.tox.username);
     this.entry_status.set_text (this.tox.status_message);
-    this.image_user_status.set_from_resource ("/chat/tox/Ricin/assets/status/offline.png");
     this.button_user_status.grab_focus ();
 
     this.button_add_friend_show.clicked.connect (() => {
