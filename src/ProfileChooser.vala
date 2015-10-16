@@ -58,6 +58,16 @@ class Ricin.ProfileChooser : Gtk.ApplicationWindow {
     this.button_login.clicked.connect (this.login);
     this.button_register.clicked.connect (this.register);
 
+    this.entry_register_name.key_press_event.connect (() => {
+      var label = this.label_create_profile.get_text ();
+      var label_default = "Enter a name for the profile";
+      if (label != label_default) {
+        this.label_create_profile.set_text (label_default);
+      }
+
+      return false;
+    });
+
     this.show_all ();
   }
 
@@ -70,15 +80,22 @@ class Ricin.ProfileChooser : Gtk.ApplicationWindow {
       this.close ();
     } else {
       // file deleted?
-      this.label_select_profile.set_text ("The selected profile doesn't exists.");
+      this.label_select_profile.set_markup ("<span color=\"#e74c3c\">The selected profile doesn't exists.</span>");
     }
   }
 
   private void register () {
-    var profile = Tox.profile_dir () + this.entry_register_name.text.replace (" ", "-") + ".tox";
+    var entry = this.entry_register_name.get_text ();
+
+    if (entry.strip () == "") {
+      this.label_create_profile.set_markup ("<span color=\"#e74c3c\">Please enter a profile name.</span>");
+      return;
+    }
+
+    var profile = Tox.profile_dir () + entry.replace (" ", "-") + ".tox";
 
     if (FileUtils.test (profile, FileTest.EXISTS)) {
-      this.label_create_profile.set_text ("Profile name already taken.");
+      this.label_create_profile.set_markup ("<span color=\"#e74c3c\">Profile name already taken.</span>");
     } else {
       this.entry_register_name.sensitive = false; // To prevent issue.
       this.button_register.sensitive = false; // To prevent issue.
