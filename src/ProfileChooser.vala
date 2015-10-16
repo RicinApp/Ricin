@@ -12,9 +12,25 @@ class Ricin.ProfileChooser : Gtk.ApplicationWindow {
   [GtkChild] Gtk.Entry entry_register_name;
   [GtkChild] Gtk.Button button_register;
 
-  public ProfileChooser (Gtk.Application app) {
+  public ProfileChooser (Gtk.Application app, string error = "") {
     Object (application: app);
     this.title = "Ricin - Select a profile";
+
+    if (error != "") {
+      Gtk.MessageDialog error_dialog = new Gtk.MessageDialog (
+        this, Gtk.DialogFlags.MODAL, Gtk.MessageType.WARNING,
+        Gtk.ButtonsType.OK, "Error while loading the profile"
+      );
+
+      error_dialog.secondary_use_markup = true;
+      error_dialog.format_secondary_markup (@"<span color=\"#e74c3c\">$error</span>");
+      error_dialog.response.connect ((response_id) => {
+        error_dialog.destroy();
+        this.close(); // To avoid having 10000x profile chooser opened.
+        return;
+      });
+      error_dialog.show ();
+    }
 
     var dir = File.new_for_path (Tox.profile_dir ());
 
@@ -49,6 +65,7 @@ class Ricin.ProfileChooser : Gtk.ApplicationWindow {
     var profile = Tox.profile_dir () + this.combobox_profiles.get_active_text ();
 
     if (FileUtils.test (profile, FileTest.EXISTS)) {
+      this.button_login.sensitive = true; // To prevent issue.
       new MainWindow (this.application, profile);
       this.close ();
     } else {
@@ -63,6 +80,8 @@ class Ricin.ProfileChooser : Gtk.ApplicationWindow {
     if (FileUtils.test (profile, FileTest.EXISTS)) {
       this.label_create_profile.set_text ("Profile name already taken.");
     } else {
+      this.entry_register_name.sensitive = false; // To prevent issue.
+      this.button_register.sensitive = false; // To prevent issue.
       new MainWindow (this.application, profile);
       this.close ();
     }

@@ -14,50 +14,48 @@ class Ricin.FriendListRow : Gtk.ListBoxRow {
     fr.bind_property ("name", username, "label", BindingFlags.DEFAULT);
     fr.bind_property ("status-message", status, "label", BindingFlags.DEFAULT);
     fr.notify["status"].connect ((obj, prop) => {
+      var icon = "";
       switch (fr.status) {
         case UserStatus.ONLINE:
-          this.userstatus.set_from_resource ("/chat/tox/Ricin/assets/status/online.png");
+          icon = (fr.unread_messages) ? "online_notification" : "online";
           break;
         case UserStatus.AWAY:
-          this.userstatus.set_from_resource ("/chat/tox/Ricin/assets/status/idle.png");
+          icon = (fr.unread_messages) ? "idle_notification" : "idle";
           break;
         case UserStatus.BUSY:
-          this.userstatus.set_from_resource ("/chat/tox/Ricin/assets/status/busy.png");
+          icon = (fr.unread_messages) ? "busy_notification" : "busy";
           break;
         case UserStatus.OFFLINE:
-          this.userstatus.set_from_resource ("/chat/tox/Ricin/assets/status/offline.png");
-          break;
-        default:
-          this.userstatus.set_from_resource ("/chat/tox/Ricin/assets/status/invisible.png");
+          icon = (fr.unread_messages) ? "offline_notification" : "offline";
           break;
       }
+
+      this.userstatus.set_from_resource ("/chat/tox/Ricin/assets/status/" + icon + ".png");
     });
 
     /**
     * TODO: Find a better way to do this.
     */
     fr.notify["unread_messages"].connect ((obj, prop) => {
+      debug ("Unread messages ? %s", (string) fr.unread_messages);
+
+      var icon = "";
       switch (fr.status) {
         case UserStatus.ONLINE:
-          var icon = (fr.unread_messages) ? "online_notification" : "online";
-          this.userstatus.set_from_resource ("/chat/tox/Ricin/assets/status/" + icon + ".png");
+          icon = (fr.unread_messages) ? "online_notification" : "online";
           break;
         case UserStatus.AWAY:
-          var icon = (fr.unread_messages) ? "idle_notification" : "idle";
-          this.userstatus.set_from_resource ("/chat/tox/Ricin/assets/status/" + icon + ".png");
+          icon = (fr.unread_messages) ? "idle_notification" : "idle";
           break;
         case UserStatus.BUSY:
-          var icon = (fr.unread_messages) ? "busy_notification" : "busy";
-          this.userstatus.set_from_resource ("/chat/tox/Ricin/assets/status/" + icon + ".png");
+          icon = (fr.unread_messages) ? "busy_notification" : "busy";
           break;
         case UserStatus.OFFLINE:
-          var icon = (fr.unread_messages) ? "offline_notification" : "offline";
-          this.userstatus.set_from_resource ("/chat/tox/Ricin/assets/status/" + icon + ".png");
-          break;
-        default:
-          this.userstatus.set_from_resource ("/chat/tox/Ricin/assets/status/invisible.png");
+          icon = (fr.unread_messages) ? "offline_notification" : "offline";
           break;
       }
+
+      this.userstatus.set_from_resource ("/chat/tox/Ricin/assets/status/" + icon + ".png");
     });
   }
 }

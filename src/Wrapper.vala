@@ -14,6 +14,25 @@ namespace Tox {
     return Environment.get_home_dir () + "/.config/tox/";
   }
 
+  public errordomain ErrNew {
+    Null,
+    Malloc,
+    PortAlloc,
+    BadProxy,
+    LoadFailed
+  }
+
+  public errordomain ErrFriendAdd {
+    Null,
+    TooLong,
+    NoMessage,
+    OwnKey,
+    AlreadySent,
+    BadChecksum,
+    BadNospam,
+    Malloc
+  }
+
   public class Tox : Object {
     internal ToxCore.Tox handle;
     private HashTable<uint32, Friend> friends = new HashTable<uint32, Friend> (direct_hash, direct_equal);
@@ -67,7 +86,7 @@ namespace Tox {
     public signal void friend_offline (Friend friend);
     public signal void global_info (string message);
 
-    public Tox (ToxCore.Options? opts = null, string? profile = null) {
+    public Tox (ToxCore.Options? opts = null, string? profile = null) throws ErrNew {
       debug ("ToxCore Version %u.%u.%u", ToxCore.Version.MAJOR, ToxCore.Version.MINOR, ToxCore.Version.PATCH);
 
       if (profile != null) {
@@ -80,7 +99,41 @@ namespace Tox {
         }
       }
       this.ipv6_enabled = opts.ipv6_enabled;
-      this.handle = new ToxCore.Tox (opts, null);
+      ERR_NEW error;
+      this.handle = new ToxCore.Tox (opts, out error);
+
+      switch (error) {
+        case ERR_NEW.OK:
+          debug ("Tox handle created without errors.");
+          break; // All went nice, continue.
+        case ERR_NEW.NULL:
+          throw new ErrNew.Null ("One of the arguments to the function was NULL when it was not expected.");
+          break;
+        case ERR_NEW.MALLOC:
+          throw new ErrNew.Malloc ("The function was unable to allocate enough memory to store the internal structures for the Tox object.");
+          break;
+        case ERR_NEW.PORT_ALLOC:
+          throw new ErrNew.PortAlloc ("The function was unable to bind to a port.");
+          break;
+        case ERR_NEW.PROXY_BAD_TYPE:
+          throw new ErrNew.BadProxy ("proxy_type was invalid.");
+          break;
+        case ERR_NEW.PROXY_BAD_HOST:
+          throw new ErrNew.BadProxy ("proxy_type was valid but the proxy_host passed had an invalid format or was NULL.");
+          break;
+        case ERR_NEW.PROXY_BAD_PORT:
+          throw new ErrNew.BadProxy ("proxy_type was valid, but the proxy_port was invalid.");
+          break;
+        case ERR_NEW.PROXY_NOT_FOUND:
+          throw new ErrNew.BadProxy ("The proxy address passed could not be resolved.");
+          break;
+        case ERR_NEW.LOAD_ENCRYPTED:
+          throw new ErrNew.LoadFailed ("The byte array to be loaded contained an encrypted save.");
+          break;
+        case ERR_NEW.LOAD_BAD_FORMAT:
+          throw new ErrNew.LoadFailed ("The data format was invalid. This can happen when loading data that was saved by an older version of Tox, or when the data has been corrupted. When loading from badly formatted data, some data may have been loaded, and the rest is discarded. Passing an invalid length parameter also causes this error.");
+          break;
+      }
 
       this.handle.callback_self_connection_status ((self, status) => {
         switch (status) {
@@ -214,25 +267,46 @@ namespace Tox {
       }
     }
 
-    public Friend? add_friend (string id, string message) {
+    public Friend? add_friend (string id, string message) throws ErrFriendAdd {
       if (id.length != ToxCore.ADDRESS_SIZE && id.index_of_char ('@') != -1) {
         error ("Invalid Tox ID");
       }
 
-      if (message.length > ToxCore.MAX_FRIEND_REQUEST_LENGTH) {
-        error ("Message too long");
+      ERR_FRIEND_ADD error;
+      uint32 friend_num = this.handle.friend_add (Util.hex2bin (id), message.data, out error);
+
+      switch (error) {
+        case ERR_FRIEND_ADD.OK:
+          debug (@"Friend request sent to $id: \"$message\"");
+          return new Friend (this, friend_num);
+          break;
+        case ERR_FRIEND_ADD.NULL:
+          throw new ErrFriendAdd.Null ("One of the arguments to the function was NULL when it was not expected.");
+          break;
+        case ERR_FRIEND_ADD.TOO_LONG:
+          throw new ErrFriendAdd.TooLong ("The friend request message is too long.");
+          break;
+        case ERR_FRIEND_ADD.NO_MESSAGE:
+          throw new ErrFriendAdd.NoMessage ("The friend request message was empty.");
+          break;
+        case ERR_FRIEND_ADD.OWN_KEY:
+          throw new ErrFriendAdd.OwnKey ("You cannot add yourself.");
+          break;
+        case ERR_FRIEND_ADD.ALREADY_SENT:
+          throw new ErrFriendAdd.AlreadySent ("You already added this friend.");
+          break;
+        case ERR_FRIEND_ADD.BAD_CHECKSUM:
+          throw new ErrFriendAdd.BadChecksum ("ToxID is invalid.");
+          break;
+        case ERR_FRIEND_ADD.SET_NEW_NOSPAM:
+          throw new ErrFriendAdd.BadNospam ("This ToxID have a new nospam.");
+          break;
+        case ERR_FRIEND_ADD.MALLOC:
+          throw new ErrFriendAdd.Malloc ("A memory allocation failed when trying to increase the friend list size.");
+          break;
       }
 
-      ERR_FRIEND_ADD err;
-      uint32 friend_num = this.handle.friend_add (Util.hex2bin (id), message.data, out err);
-
-      if (friend_num == uint32.MAX) {
-        debug ("tox_self_friend_add: %d", err);
-        return null;
-      } else {
-        debug (@"Friend request to $id: \"$message\"");
-        return new Friend (this, friend_num);
-      }
+      return null;
     }
 
     public Friend? accept_friend_request (string id) {
