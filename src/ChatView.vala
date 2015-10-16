@@ -92,8 +92,7 @@ class Ricin.ChatView : Gtk.Box {
     var toxid = uri.split ("tox:")[1];
 
     if (toxid.length == ToxCore.ADDRESS_SIZE * 2) {
-      main_window.entry_friend_id.set_text (toxid);
-      main_window.add_friend.reveal_child = true;
+      main_window.show_add_friend_popover (toxid);
     } else {
       var info_message = "ToxDNS is not supported yet.";
       main_window.notify_message (@"<span color=\"#e74c3c\">$info_message</span>");

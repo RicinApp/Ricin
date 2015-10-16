@@ -7,7 +7,7 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
   [GtkChild] Gtk.ListBox friendlist;
   [GtkChild] Gtk.Label toxid;
   [GtkChild] Gtk.Stack chat_stack;
-  [GtkChild] Gtk.Button button_add_friend_show;
+  [GtkChild] public Gtk.Button button_add_friend_show;
 
   // Add friend revealer.
   [GtkChild] public Gtk.Revealer add_friend;
@@ -47,10 +47,7 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
     this.entry_status.set_text (this.tox.status_message);
 
     this.button_add_friend_show.clicked.connect (() => {
-      this.entry_friend_message.buffer.text = "Hello, I'm " + this.tox.username + ". Currently using Ricin, please add this friend request then we could talk!";
-      this.button_add_friend_show.visible = false;
-      //this.label_add_error.visible = false;
-      this.add_friend.reveal_child = true;
+      this.show_add_friend_popover ();
     });
 
     this.button_add_friend.clicked.connect (() => {
@@ -172,10 +169,6 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
       if (friend != null) {
         friends.append (friend);
         chat_stack.add_named (new ChatView (this.tox, friend), friend.name);
-
-        // TEST ZONE: SEND AVATAR.
-        //friend.send_avatar ();
-        // TEST ZONE: SEND AVATAR.
       }
     });
 
@@ -197,5 +190,18 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
     this.tox.run_loop ();
 
     this.show_all ();
+  }
+
+  public void show_add_friend_popover (string toxid = "", string message = "") {
+    var friend_message = "";
+
+    if (message.strip () == "") {
+      friend_message = "Hello, I'm " + this.tox.username + ". Currently using Ricin, please add this friend request then we could talk!";
+    }
+
+    this.entry_friend_id.set_text (toxid);
+    this.entry_friend_message.buffer.text = friend_message;
+    this.button_add_friend_show.visible = false;
+    this.add_friend.reveal_child = true;
   }
 }
