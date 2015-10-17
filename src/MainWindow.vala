@@ -36,9 +36,19 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
     try {
       this.tox = new Tox.Tox (opts, profile);
     } catch (Tox.ErrNew error) {
-      critical ("Tox init failed: %s", error.message);
-      new ProfileChooser (app, error.message);
-      this.close ();
+      warning ("Tox init failed: %s", error.message);
+      this.destroy ();
+      var error_dialog = new Gtk.MessageDialog (null,
+                                                Gtk.DialogFlags.MODAL,
+                                                Gtk.MessageType.WARNING,
+                                                Gtk.ButtonsType.OK,
+                                                "Can't load the profile");
+      error_dialog.secondary_use_markup = true;
+      error_dialog.format_secondary_markup (@"<span color=\"#e74c3c\">$(error.message)</span>");
+      error_dialog.response.connect (response_id => {
+        error_dialog.destroy ();
+      });
+      error_dialog.show ();
       return;
     }
 
