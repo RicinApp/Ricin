@@ -29,10 +29,9 @@ style:
 		--add-brackets \
 		src/*.vala
 
-clean: style
-	rm res/*.ui~
-	rm res/#*.ui#
-	echo "Cleaned."
+clean:
+	-rm res/*.ui~
+	-rm res/#*.ui#
 
 debug: ricin
 	G_MESSAGES_DEBUG=all GOBJECT_DEBUG=instance-count gdb -ex run ./Ricin
