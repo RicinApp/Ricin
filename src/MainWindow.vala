@@ -196,7 +196,7 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
     var friend_message = "";
 
     if (message.strip () == "") {
-      friend_message = "Hello! I'm " + this.tox.username + ", using Ricin. Can you accept me so we can talk?";
+      friend_message = "Hello! It's " + this.tox.username + ", let's be friends.";
     }
 
     this.entry_friend_id.set_text (toxid);
