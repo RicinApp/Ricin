@@ -43,12 +43,8 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
     }
 
     this.toxid.label += this.tox.id;
-
-    if (this.tox.username.strip () != "")
-      this.entry_name.set_text (this.tox.username);
-
-    if (this.tox.status_message.strip () != "")
-      this.entry_status.set_text (this.tox.status_message);
+    this.entry_name.set_text (this.tox.username);
+    this.entry_status.set_text (this.tox.status_message);
 
     this.button_add_friend_show.clicked.connect (() => {
       this.show_add_friend_popover ();
