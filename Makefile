@@ -7,7 +7,6 @@ ricin:
 	valac \
 		-g \
 		-X -ggdb \
-		-X -fsanitize=address \
 		--vapidir=tox-vapi/vapi/ \
 		--target-glib=2.38 \
 		--pkg=gio-2.0 \
