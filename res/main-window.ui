@@ -67,8 +67,9 @@
                                   <object class="GtkEntry" id="entry_name">
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
+                                    <property name="text" translatable="yes">Ricin user</property>
                                     <property name="caps_lock_warning">False</property>
-                                    <property name="placeholder_text" translatable="yes">Your username...</property>
+                                    <property name="placeholder_text" translatable="yes">Enter an username and press Enter...</property>
                                   </object>
                                   <packing>
                                     <property name="expand">True</property>
@@ -80,6 +81,7 @@
                                   <object class="GtkEntry" id="entry_status">
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
+                                    <property name="text" translatable="yes">Toxing on Ricin!</property>
                                     <property name="caps_lock_warning">False</property>
                                     <property name="placeholder_text" translatable="yes">Your status message...</property>
                                   </object>
