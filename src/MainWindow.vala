@@ -27,6 +27,7 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
 
   private ListStore friends = new ListStore (typeof (Tox.Friend));
   public Tox.Tox tox;
+  private File avatar_cached;
 
   public signal void notify_message (string message, int timeout = 5000);
 
@@ -57,6 +58,10 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
     }
 
     //this.toxid.label += this.tox.id;
+    this.avatar_cached = File.new_for_path (Tox.profile_dir () + "avatars/" + this.tox.pubkey + ".png");
+    var pixbuf = new Gdk.Pixbuf.from_file_at_scale (this.avatar_cached.get_path (), 46, 46, true);
+    this.avatar_image.pixbuf = pixbuf;
+
     this.entry_name.set_text (this.tox.username);
     this.entry_status.set_text (this.tox.status_message);
 
@@ -196,6 +201,9 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
         friends.append (friend);
         var view_name = "chat-%s".printf (friend.pubkey);
         chat_stack.add_named (new ChatView (this.tox, friend), view_name);
+
+        // Send our avatar.
+        this.tox.send_avatar (this.avatar_cached.get_path (), friend);
       }
     });
 
@@ -225,8 +233,16 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
         string filename = chooser.get_filename ();
         this.tox.send_avatar (filename);
 
-        var pixbuf = new Gdk.Pixbuf.from_file_at_scale (filename, 46, 46, true);
-        this.avatar_image.pixbuf = pixbuf;
+        var pixel = new Gdk.Pixbuf.from_file_at_scale (filename, 46, 46, true);
+        this.avatar_image.pixbuf = pixel;
+
+        // Copy avatar in ~/.config/tox/avatars/
+        try {
+          File av = File.new_for_path (filename);
+          av.copy (this.avatar_cached, FileCopyFlags.OVERWRITE);
+        } catch (Error err) {
+          warning ("Cannot save the avatar in cache: %s", err.message);
+        }
       }
 
       chooser.close ();

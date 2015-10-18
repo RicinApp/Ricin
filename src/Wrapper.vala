@@ -70,10 +70,15 @@ namespace Tox {
       }
     }
 
-    public void send_avatar (string path) {
+    public void send_avatar (string path, Friend? friend = null) {
       this.avatar = new Gdk.Pixbuf.from_file (path);
       debug (@"avatar = $path");
-      foreach (var friend in friends.get_values ()) {
+
+      if (friend == null) {
+        foreach (var _friend in friends.get_values ()) {
+          _friend.send_avatar ();
+        }
+      } else {
         friend.send_avatar ();
       }
     }
@@ -86,6 +91,14 @@ namespace Tox {
         uint8[] address = new uint8[ToxCore.ADDRESS_SIZE];
         this.handle.self_get_address (address);
         return Util.bin2hex (address);
+      }
+    }
+
+    public string pubkey {
+      owned get {
+        uint8[] pkey = new uint8[ToxCore.PUBLIC_KEY_SIZE];
+        this.handle.self_get_public_key (pkey);
+        return Util.bin2hex (pkey);
       }
     }
 
