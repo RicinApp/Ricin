@@ -27,9 +27,12 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
 
   private ListStore friends = new ListStore (typeof (Tox.Friend));
   public Tox.Tox tox;
-  private File avatar_cached;
 
   public signal void notify_message (string message, int timeout = 5000);
+
+  private string avatar_path () {
+     return Tox.profile_dir () + "avatars/" + this.tox.pubkey + ".png";
+  }
 
   public MainWindow (Gtk.Application app, string profile) {
     Object (application: app);
@@ -58,9 +61,12 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
     }
 
     //this.toxid.label += this.tox.id;
-    this.avatar_cached = File.new_for_path (Tox.profile_dir () + "avatars/" + this.tox.pubkey + ".png");
-    var pixbuf = new Gdk.Pixbuf.from_file_at_scale (this.avatar_cached.get_path (), 46, 46, true);
-    this.avatar_image.pixbuf = pixbuf;
+    var path = avatar_path ();
+    if (FileUtils.test (path, FileTest.EXISTS)) {
+      this.tox.send_avatar (path);
+      var pixbuf = new Gdk.Pixbuf.from_file_at_scale (path, 46, 46, true);
+      this.avatar_image.pixbuf = pixbuf;
+    }
 
     this.entry_name.set_text (this.tox.username);
     this.entry_status.set_text (this.tox.status_message);
@@ -203,7 +209,7 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
         chat_stack.add_named (new ChatView (this.tox, friend), view_name);
 
         // Send our avatar.
-        this.tox.send_avatar (this.avatar_cached.get_path (), friend);
+        friend.send_avatar ();
       }
     });
 
@@ -230,16 +236,13 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
       });
       chooser.filter = filter;
       if (chooser.run () == Gtk.ResponseType.ACCEPT) {
-        string filename = chooser.get_filename ();
-        this.tox.send_avatar (filename);
+        File avatar = chooser.get_file ();
+        this.tox.send_avatar (avatar.get_path ());
+        this.avatar_image.pixbuf = new Gdk.Pixbuf.from_file_at_scale (avatar.get_path (), 46, 46, true);
 
-        var pixel = new Gdk.Pixbuf.from_file_at_scale (filename, 46, 46, true);
-        this.avatar_image.pixbuf = pixel;
-
-        // Copy avatar in ~/.config/tox/avatars/
+        // Copy avatar to ~/.config/tox/avatars/
         try {
-          File av = File.new_for_path (filename);
-          av.copy (this.avatar_cached, FileCopyFlags.OVERWRITE);
+          avatar.copy (File.new_for_path (this.avatar_path ()), FileCopyFlags.OVERWRITE);
         } catch (Error err) {
           warning ("Cannot save the avatar in cache: %s", err.message);
         }

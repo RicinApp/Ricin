@@ -70,15 +70,11 @@ namespace Tox {
       }
     }
 
-    public void send_avatar (string path, Friend? friend = null) {
+    public void send_avatar (string path) {
       this.avatar = new Gdk.Pixbuf.from_file (path);
       debug (@"avatar = $path");
 
-      if (friend == null) {
-        foreach (var _friend in friends.get_values ()) {
-          _friend.send_avatar ();
-        }
-      } else {
+      foreach (var friend in friends.get_values ()) {
         friend.send_avatar ();
       }
     }
@@ -395,7 +391,6 @@ namespace Tox {
     public Friend (Tox tox, uint32 num) {
       this.tox = tox;
       this.num = num;
-      this.send_avatar ();
     }
 
     /* We could implement this as just a get { } that goes to libtoxcore, and
