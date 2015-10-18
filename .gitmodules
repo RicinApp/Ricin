@@ -1,3 +1,3 @@
 [submodule "tox-vapi"]
 	path = tox-vapi
-	url = git@github.com:RicinApp/tox-vapi.git
+	url = https://github.com/RicinApp/tox-vapi.git
