@@ -204,10 +204,6 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
         var mime = info.mime_type;
         return mime.has_prefix ("image/") && mime != "image/gif";
       });
-      filter.add_mime_type ("image/jpeg");
-      filter.add_mime_type ("image/png");
-      filter.add_mime_type ("image/bmp");
-      filter.add_mime_type ("image/tiff");
       chooser.filter = filter;
       if (chooser.run () == Gtk.ResponseType.ACCEPT) {
         string filename = chooser.get_filename ();
