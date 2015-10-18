@@ -42,13 +42,15 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
       warning ("Tox init failed: %s", error.message);
       this.destroy ();
       var error_dialog = new Gtk.MessageDialog (null,
-                                                Gtk.DialogFlags.MODAL,
-                                                Gtk.MessageType.WARNING,
-                                                Gtk.ButtonsType.OK,
-                                                "Can't load the profile");
+          Gtk.DialogFlags.MODAL,
+          Gtk.MessageType.WARNING,
+          Gtk.ButtonsType.OK,
+          "Can't load the profile");
       error_dialog.secondary_use_markup = true;
       error_dialog.format_secondary_markup (@"<span color=\"#e74c3c\">$(error.message)</span>");
-      error_dialog.response.connect (response_id => { error_dialog.destroy (); });
+      error_dialog.response.connect (response_id => {
+        error_dialog.destroy ();
+      });
       error_dialog.show ();
       return;
     }
@@ -195,10 +197,10 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
 
     this.avatar_button.clicked.connect (e => {
       var chooser = new Gtk.FileChooserDialog ("Select your avatar",
-                                               this,
-                                               Gtk.FileChooserAction.OPEN,
-                                               "_Cancel", Gtk.ResponseType.CANCEL,
-                                               "_Open", Gtk.ResponseType.ACCEPT);
+          this,
+          Gtk.FileChooserAction.OPEN,
+          "_Cancel", Gtk.ResponseType.CANCEL,
+          "_Open", Gtk.ResponseType.ACCEPT);
       var filter = new Gtk.FileFilter ();
       filter.add_custom (Gtk.FileFilterFlags.MIME_TYPE, info => {
         var mime = info.mime_type;

@@ -73,8 +73,9 @@ namespace Tox {
     public void send_avatar (string path) {
       this.avatar = new Gdk.Pixbuf.from_file (path);
       debug (@"avatar = $path");
-      foreach (var friend in friends.get_values ())
+      foreach (var friend in friends.get_values ()) {
         friend.send_avatar ();
+      }
     }
 
     public bool connected { get; set; default = false; }
@@ -429,8 +430,9 @@ namespace Tox {
         debug (@"sending avatar to friend $num");
         ERR_FILE_SEND err;
         uint32 transfer = this.tox.handle.file_send (this.num, FileKind.AVATAR, pixels.length, avatar_id, null, out err);
-        if (err != ERR_FILE_SEND.OK)
+        if (err != ERR_FILE_SEND.OK) {
           debug ("tox_file_send: %d", err);
+        }
 
         this.files[transfer] = new Bytes (pixels);
       }
