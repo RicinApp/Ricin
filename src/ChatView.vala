@@ -2,6 +2,7 @@
 class Ricin.ChatView : Gtk.Box {
   [GtkChild] Gtk.Label username;
   [GtkChild] Gtk.Label status_message;
+  [GtkChild] Gtk.ScrolledWindow scroll_messages;
   [GtkChild] Gtk.ListBox messages_list;
   [GtkChild] public Gtk.Entry entry;
   [GtkChild] Gtk.Button send;
@@ -16,6 +17,11 @@ class Ricin.ChatView : Gtk.Box {
     this.handle = handle;
     this.fr = fr;
     this.messages_list.bind_model (this.messages, l => l as Gtk.Widget);
+    this.messages_list.size_allocate.connect (() => {
+      var adjustment = this.scroll_messages.get_vadjustment ();
+      adjustment.set_value (adjustment.get_upper () - adjustment.get_page_size ());
+    });
+    //this.handle.bind_property ("typing")
 
     this.fr.friend_info.connect ((message) => {
       this.add_row (@"<span color=\"#2980b9\">** <i>$message</i></span>");

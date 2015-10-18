@@ -17,7 +17,6 @@ class Ricin.ProfileChooser : Gtk.ApplicationWindow {
     this.title = "Ricin - Select a profile";
 
     var dir = File.new_for_path (Tox.profile_dir ());
-
     string[] profiles = {};
     if (!dir.query_exists ()) {
       dir.make_directory ();
