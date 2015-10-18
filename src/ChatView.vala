@@ -41,7 +41,14 @@ class Ricin.ChatView : Gtk.Box {
     fr.bind_property ("connected", send, "sensitive", BindingFlags.DEFAULT);
     fr.bind_property ("typing", friend_typing, "reveal_child", BindingFlags.DEFAULT);
     fr.bind_property ("name", username, "label", BindingFlags.DEFAULT);
-    fr.bind_property ("status-message", status_message, "label", BindingFlags.DEFAULT);
+    fr.bind_property ("status-message", status_message, "label", BindingFlags.DEFAULT, (binding, val, ref target) => {
+      string status_message = (string) val;
+      target.set_string (Util.add_markup (status_message));
+      return true;
+    });
+    /*fr.notify["status_message"].connect ((s, p) => {
+      this.status_message.set_text (Util.add_markup (fr.status_message));
+    });*/
   }
 
   private void add_row (string markup) {
@@ -65,23 +72,6 @@ class Ricin.ChatView : Gtk.Box {
     if (message.strip () == "") {
       return;
     }
-
-    // TEMP DEV ZONE //
-    if (message == "/settings") {
-      var main_window = (MainWindow) this.get_ancestor (typeof (MainWindow));
-      var settings_view = main_window.chat_stack.get_child_by_name ("settings");
-
-      if (settings_view != null) {
-        main_window.chat_stack.set_visible_child (settings_view);
-      } else {
-        var view = new SettingsView (this.handle);
-        main_window.chat_stack.add_named (view, "settings");
-        main_window.chat_stack.set_visible_child (view);
-      }
-
-      return;
-    }
-    // TEMP DEV ZONE //
 
     if (message.has_prefix ("/me ")) {
       var action = message.substring (4);

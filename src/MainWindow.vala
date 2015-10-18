@@ -8,9 +8,10 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
   [GtkChild] Gtk.Image image_user_status;
 
   [GtkChild] Gtk.ListBox friendlist;
-  [GtkChild] Gtk.Label toxid;
+  // [GtkChild] Gtk.Label toxid;
   [GtkChild] public Gtk.Stack chat_stack;
   [GtkChild] public Gtk.Button button_add_friend_show;
+  [GtkChild] public Gtk.Button button_settings;
 
   // Add friend revealer.
   [GtkChild] public Gtk.Revealer add_friend;
@@ -55,12 +56,24 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
       return;
     }
 
-    this.toxid.label += this.tox.id;
+    //this.toxid.label += this.tox.id;
     this.entry_name.set_text (this.tox.username);
     this.entry_status.set_text (this.tox.status_message);
 
     this.button_add_friend_show.clicked.connect (() => {
       this.show_add_friend_popover ();
+    });
+
+    this.button_settings.clicked.connect (() => {
+      var settings_view = this.chat_stack.get_child_by_name ("settings");
+
+      if (settings_view != null) {
+        this.chat_stack.set_visible_child (settings_view);
+      } else {
+        var view = new SettingsView (this.tox);
+        this.chat_stack.add_named (view, "settings");
+        this.chat_stack.set_visible_child (view);
+      }
     });
 
     this.button_add_friend.clicked.connect (() => {
@@ -119,6 +132,7 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
 
       if (chat_view != null) {
         this.chat_stack.set_visible_child (chat_view);
+        //chat_view.entry.grab_focus ();
       }
     });
 
