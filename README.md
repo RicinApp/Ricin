@@ -36,7 +36,8 @@ _Screenshot might be outdated but it should give you a general idea of what is R
 | Package name     | Version   | Comment                   |
 |------------------|-----------|---------------------------|
 | valac            | >=0.28.1  | **Required**              |
-| libtoxcore       | 0.0.0     | Toxcore don't version yet |
+| gtk+             | >=3.14    | **Required**              |
+| [libtoxcore]     | 0.0.0     | Toxcore don't version yet |
 | libgio           | >=2.0     |                           |
 | libglib          | >=2.32    |                           |
 | libjson-glib     | >=1.0     |                           |
@@ -90,3 +91,5 @@ Before clicking on any link beside, you must know what is Vala and why it is so 
 # Mockups
 
 See https://github.com/gnome-design-team/gnome-mockups/tree/master/chat and https://wiki.gnome.org/Design/Apps/Chat
+
+[libtoxcore]: https://github.com/irungentoo/toxcore/blob/master/INSTALL.md
