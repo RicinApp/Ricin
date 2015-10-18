@@ -6,7 +6,7 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
   [GtkChild] Gtk.Image image_user_status;
   [GtkChild] Gtk.ListBox friendlist;
   [GtkChild] Gtk.Label toxid;
-  [GtkChild] Gtk.Stack chat_stack;
+  [GtkChild] public Gtk.Stack chat_stack;
   [GtkChild] public Gtk.Button button_add_friend_show;
 
   // Add friend revealer.
@@ -45,9 +45,7 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
                                                 "Can't load the profile");
       error_dialog.secondary_use_markup = true;
       error_dialog.format_secondary_markup (@"<span color=\"#e74c3c\">$(error.message)</span>");
-      error_dialog.response.connect (response_id => {
-        error_dialog.destroy ();
-      });
+      error_dialog.response.connect (response_id => { error_dialog.destroy (); });
       error_dialog.show ();
       return;
     }
@@ -93,7 +91,6 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
       }
 
       if (error_message.strip () != "") {
-        //this.label_add_error.visible = true;
         this.label_add_error.set_markup (@"<span color=\"#e74c3c\">$error_message</span>");
         return;
       }
@@ -111,13 +108,13 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
 
     this.friendlist.bind_model (this.friends, fr => new FriendListRow (fr as Tox.Friend));
     this.friendlist.row_activated.connect ((lb, row) => {
-      var fr = (row as FriendListRow).fr;
-      foreach (var view in chat_stack.get_children ()) {
-        if ((view as ChatView).fr == fr) {
-          chat_stack.set_visible_child (view);
-          (view as ChatView).entry.grab_focus ();
-          break;
-        }
+      var friend = (row as FriendListRow).fr;
+      var view_name = "chat-%s".printf (friend.pubkey);
+      var chat_view = this.chat_stack.get_child_by_name (view_name);
+      debug ("ChatView name: %s", view_name);
+
+      if (chat_view != null) {
+        this.chat_stack.set_visible_child (chat_view);
       }
     });
 
@@ -164,7 +161,8 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
             this.tox.save_data (); // Needed to avoid breaking profiles if app crash.
 
             friends.append (friend);
-            chat_stack.add_named (new ChatView (this.tox, friend), friend.name);
+            var view_name = "chat-%s".printf (friend.pubkey);
+            chat_stack.add_named (new ChatView (this.tox, friend), view_name);
 
             var info_message = "The friend request has been accepted. Please wait the contact to appears online.";
             this.notify_message (@"<span color=\"#27ae60\">$info_message</span>", 5000);
@@ -178,7 +176,8 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
     this.tox.friend_online.connect ((friend) => {
       if (friend != null) {
         friends.append (friend);
-        chat_stack.add_named (new ChatView (this.tox, friend), friend.name);
+        var view_name = "chat-%s".printf (friend.pubkey);
+        chat_stack.add_named (new ChatView (this.tox, friend), view_name);
       }
     });
 
@@ -198,7 +197,6 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
     });
 
     this.tox.run_loop ();
-
     this.show_all ();
   }
 

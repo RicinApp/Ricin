@@ -329,7 +329,7 @@ namespace Tox {
 
   public class Friend : Object {
     private weak Tox tox;
-    private uint32 num; // libtoxcore identifier
+    public uint32 num; // libtoxcore identifier
 
     public signal void friend_info (string message);
 

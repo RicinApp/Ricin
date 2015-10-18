@@ -66,6 +66,23 @@ class Ricin.ChatView : Gtk.Box {
       return;
     }
 
+    // TEMP DEV ZONE //
+    if (message == "/settings") {
+      var main_window = (MainWindow) this.get_ancestor (typeof (MainWindow));
+      var settings_view = main_window.chat_stack.get_child_by_name ("settings");
+
+      if (settings_view != null) {
+        main_window.chat_stack.set_visible_child (settings_view);
+      } else {
+        var view = new SettingsView (this.handle);
+        main_window.chat_stack.add_named (view, "settings");
+        main_window.chat_stack.set_visible_child (view);
+      }
+
+      return;
+    }
+    // TEMP DEV ZONE //
+
     if (message.has_prefix ("/me ")) {
       var action = message.substring (4);
       var escaped = Util.escape_html (action);
