@@ -37,6 +37,7 @@ namespace Tox {
     private HashTable<uint32, Friend> friends = new HashTable<uint32, Friend> (direct_hash, direct_equal);
     private bool ipv6_enabled = true;
     private string? profile = null;
+    internal Gdk.Pixbuf? avatar = null;
 
     public string username {
       owned get {
@@ -70,9 +71,10 @@ namespace Tox {
     }
 
     public void send_avatar (string path) {
-      var avatar = new Gdk.Pixbuf.from_file (path);
-      foreach (unowned Friend f in friends.get_values ())
-        f.send_avatar (avatar);
+      this.avatar = new Gdk.Pixbuf.from_file (path);
+      debug (@"avatar = $path");
+      foreach (var friend in friends.get_values ())
+        friend.send_avatar ();
     }
 
     public bool connected { get; set; default = false; }
@@ -379,6 +381,7 @@ namespace Tox {
     public Friend (Tox tox, uint32 num) {
       this.tox = tox;
       this.num = num;
+      this.send_avatar ();
     }
 
     /* We could implement this as just a get { } that goes to libtoxcore, and
@@ -415,19 +418,22 @@ namespace Tox {
       tox.handle.friend_send_message (this.num, MessageType.ACTION, action_message.data, out err);
     }
 
-    internal void send_avatar (Gdk.Pixbuf avatar) {
-      uint8[] pixels;
-      avatar.save_to_buffer (out pixels, "png");
+    public void send_avatar () {
+      if (tox.avatar != null) {
+        uint8[] pixels;
+        tox.avatar.save_to_buffer (out pixels, "png");
 
-      uint8[] avatar_id = new uint8[ToxCore.HASH_LENGTH];
-      this.tox.handle.hash (avatar_id, pixels);
+        uint8[] avatar_id = new uint8[ToxCore.HASH_LENGTH];
+        this.tox.handle.hash (avatar_id, pixels);
 
-      ERR_FILE_SEND err;
-      uint32 transfer = this.tox.handle.file_send (this.num, FileKind.AVATAR, pixels.length, avatar_id, null, out err);
-      if (err != ERR_FILE_SEND.OK)
-        debug ("tox_file_send: %d", err);
+        debug (@"sending avatar to friend $num");
+        ERR_FILE_SEND err;
+        uint32 transfer = this.tox.handle.file_send (this.num, FileKind.AVATAR, pixels.length, avatar_id, null, out err);
+        if (err != ERR_FILE_SEND.OK)
+          debug ("tox_file_send: %d", err);
 
-      this.files[transfer] = new Bytes (pixels);
+        this.files[transfer] = new Bytes (pixels);
+      }
     }
   }
 }
