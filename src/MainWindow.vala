@@ -1,9 +1,12 @@
 [GtkTemplate (ui="/chat/tox/Ricin/main-window.ui")]
 public class Ricin.MainWindow : Gtk.ApplicationWindow {
-  [GtkChild] public Gtk.Entry entry_name;
+  [GtkChild] Gtk.Button avatar_button;
+  [GtkChild] Gtk.Image avatar_image;
+  [GtkChild] Gtk.Entry entry_name;
   [GtkChild] Gtk.Entry entry_status;
   [GtkChild] Gtk.Button button_user_status;
   [GtkChild] Gtk.Image image_user_status;
+
   [GtkChild] Gtk.ListBox friendlist;
   [GtkChild] Gtk.Label toxid;
   [GtkChild] public Gtk.Stack chat_stack;
@@ -97,7 +100,6 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
 
       this.add_friend.reveal_child = false;
       this.button_add_friend_show.visible = true;
-      return;
     });
 
     this.button_cancel_add.clicked.connect (() => {
@@ -189,6 +191,33 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
         this.revealer_system_notify.reveal_child = false;
         return Source.REMOVE;
       });
+    });
+
+    this.avatar_button.clicked.connect (e => {
+      var chooser = new Gtk.FileChooserDialog ("Select your avatar",
+                                               this,
+                                               Gtk.FileChooserAction.OPEN,
+                                               "_Cancel", Gtk.ResponseType.CANCEL,
+                                               "_Open", Gtk.ResponseType.ACCEPT);
+      var filter = new Gtk.FileFilter ();
+      filter.add_custom (Gtk.FileFilterFlags.MIME_TYPE, info => {
+        var mime = info.mime_type;
+        return mime.has_prefix ("image/") && mime != "image/gif";
+      });
+      filter.add_mime_type ("image/jpeg");
+      filter.add_mime_type ("image/png");
+      filter.add_mime_type ("image/bmp");
+      filter.add_mime_type ("image/tiff");
+      chooser.filter = filter;
+      if (chooser.run () == Gtk.ResponseType.ACCEPT) {
+        string filename = chooser.get_filename ();
+        this.tox.send_avatar (filename);
+
+        var pixbuf = new Gdk.Pixbuf.from_file_at_scale (filename, 46, 46, true);
+        this.avatar_image.pixbuf = pixbuf;
+      }
+
+      chooser.close ();
     });
 
     this.delete_event.connect ((event) => {

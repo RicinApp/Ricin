@@ -69,6 +69,12 @@ namespace Tox {
       }
     }
 
+    public void send_avatar (string path) {
+      var avatar = new Gdk.Pixbuf.from_file (path);
+      foreach (unowned Friend f in friends.get_values ())
+        f.send_avatar (avatar);
+    }
+
     public bool connected { get; set; default = false; }
 
     public string id {
@@ -178,6 +184,42 @@ namespace Tox {
         string msg = Util.arr2str (message);
         debug (@"Friend request from $id: $msg");
         this.friend_request (id, msg);
+      });
+
+      this.handle.callback_file_recv_control ((self, friend, file, control) => {
+        if (control == FileControl.CANCEL) {
+          debug (@"friend $friend, file $file: cancelled");
+          this.friends[friend].files.remove (file);
+        } else if (control == FileControl.PAUSE) {
+          debug (@"friend $friend, file $file: paused");
+        } else if (control == FileControl.RESUME) {
+          debug (@"friend $friend, file $file: resumed");
+        } else {
+          assert_not_reached ();
+        }
+      });
+      this.handle.callback_file_chunk_request ((self, friend, file, position, length) => {
+        if (length == 0) { // file transfer finished
+          debug (@"friend $friend, file $file: done");
+          this.friends[friend].files.remove (file);
+          return;
+        }
+        debug (@"friend $friend, file $file: chunk request, pos=$position, len=$length");
+
+        Bytes full_data = this.friends[friend].files[file];
+        Bytes slice = full_data.slice ((int) position, (int) (position + length));
+
+        ERR_FILE_SEND_CHUNK err;
+        this.handle.file_send_chunk (friend, file, position, slice.get_data (), out err);
+
+        if (err != ERR_FILE_SEND_CHUNK.OK)
+          debug ("file_send_chunk: %d", err);
+      });
+      this.handle.callback_file_recv ((self, friend, file, kind, size, filename) => {
+
+      });
+      this.handle.callback_file_recv_chunk ((self, friend, num, position, data) => {
+
       });
 
       this.bootstrap.begin ();
@@ -330,6 +372,7 @@ namespace Tox {
   public class Friend : Object {
     private weak Tox tox;
     public uint32 num; // libtoxcore identifier
+    internal HashTable<uint32, Bytes> files = new HashTable<uint32, Bytes> (direct_hash, direct_equal);
 
     public signal void friend_info (string message);
 
@@ -372,27 +415,19 @@ namespace Tox {
       tox.handle.friend_send_message (this.num, MessageType.ACTION, action_message.data, out err);
     }
 
-    /**
-    * FIXME: Find a way to make tox.hash working.
-    * FIXME: Program received signal SIGSEGV, Segmentation fault.
-    *        SHA256_Transform (state=state@entry=0x7fffffffbcc0, block=block@entry=0x625000230000 "")
-    *        at crypto_hash/sha256/cp/hash_sha256.c:114
-    *        114	crypto_hash/sha256/cp/hash_sha256.c: No file or folder of this type.
-    *
-    public void send_avatar () {
-      uint8[] avatar_id = new uint8[ToxCore.FILE_ID_LENGTH];
-      Gdk.Pixbuf avatar = new Gdk.Pixbuf.from_resource_at_scale (
-        "/chat/tox/Ricin/assets/avatar-test.png",
-        48, 48, true
-      );
+    internal void send_avatar (Gdk.Pixbuf avatar) {
+      uint8[] pixels;
+      avatar.save_to_buffer (out pixels, "png");
+
+      uint8[] avatar_id = new uint8[ToxCore.HASH_LENGTH];
+      this.tox.handle.hash (avatar_id, pixels);
+
       ERR_FILE_SEND err;
+      uint32 transfer = this.tox.handle.file_send (this.num, FileKind.AVATAR, pixels.length, avatar_id, null, out err);
+      if (err != ERR_FILE_SEND.OK)
+        debug ("tox_file_send: %d", err);
 
-      this.tox.handle.hash (avatar_id, avatar.get_pixels ());
-      uint64 avatar_size = avatar_id.length;
-      this.tox.handle.file_send (this.num, FileKind.AVATAR, avatar_size, avatar_id, "avatar.png".data, out err);
-
-      debug ("Avatar state: %d", (int) err);
+      this.files[transfer] = new Bytes (pixels);
     }
-    */
   }
 }
