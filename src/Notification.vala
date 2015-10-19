@@ -1,5 +1,3 @@
-using Gdk; // required by Pixbuf
-
 class Ricin.Notification : Object {
   private static bool initialized = false;
 
@@ -16,7 +14,7 @@ class Ricin.Notification : Object {
       initialized = true;
     }
 
-    Pixbuf icon = new Pixbuf.from_file("../res/icon.png"); // path to icon.png
+    Gdk.Pixbuf icon = new Gdk.Pixbuf.from_file("../res/icon.png"); // path to icon.png
 
     try {
       Notify.Notification notif = new Notify.Notification (sendeur, message, null);
