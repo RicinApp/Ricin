@@ -14,7 +14,7 @@ class Ricin.Notification : Object {
       initialized = true;
     }
 
-    Gdk.Pixbuf icon = new Gdk.Pixbuf.from_ressource ("../res/icon.png"); // path to icon.png
+    Gdk.Pixbuf icon = new Gdk.Pixbuf.from_ressource ("../res/images/icons/Ricin-96x96.png"); // path to icon.png
 
     try {
       Notify.Notification notif = new Notify.Notification (sendeur, message, null);
