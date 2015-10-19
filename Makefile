@@ -14,6 +14,7 @@ ricin:
 		--pkg=libsoup-2.4 \
 		--pkg=json-glib-1.0 \
 		--pkg=libtoxcore \
+		--pkg=libnotify \
 		--gresources=res/ricin.gresource.xml \
 		-o Ricin \
 		src/*.vala \
