@@ -1,11 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gresources>
     <gresource prefix="/chat/tox/ricin">
-        <file preprocess="xml-stripblanks" compressed="true">main-window.ui</file>
-        <file preprocess="xml-stripblanks" compressed="true">profile-chooser-window.ui</file>
-        <file preprocess="xml-stripblanks" compressed="true">friend-list-row.ui</file>
-        <file preprocess="xml-stripblanks" compressed="true">chat-view.ui</file>
-        <file preprocess="xml-stripblanks" compressed="true">settings-view.ui</file>
-        <file compressed="true">style.css</file>
+        <file preprocess="xml-stripblanks" compressed="true">ui/main-window.ui</file>
+        <file preprocess="xml-stripblanks" compressed="true">ui/profile-chooser-window.ui</file>
+        <file preprocess="xml-stripblanks" compressed="true">ui/friend-list-row.ui</file>
+        <file preprocess="xml-stripblanks" compressed="true">ui/chat-view.ui</file>
+        <file preprocess="xml-stripblanks" compressed="true">ui/settings-view.ui</file>
+
+        <file compressed="true">themes/default.css</file>
+
+        <file>images/icons/Ricin-48x48.png</file>
+        <file>images/icons/Ricin-96x96.png</file>
+        <file>images/icons/Ricin-128x128.png</file>
+        <file>images/icons/Ricin-150x150.png</file>
+        <file>images/icons/Ricin-256x256.png</file>
+        <file>images/icons/Ricin-512x512.png</file>
+        <file>images/icons/Ricin-600x600.png</file>
     </gresource>
 </gresources>

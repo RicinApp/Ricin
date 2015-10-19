@@ -1,4 +1,4 @@
-[GtkTemplate (ui="/chat/tox/ricin/chat-view.ui")]
+[GtkTemplate (ui="/chat/tox/ricin/ui/chat-view.ui")]
 class Ricin.ChatView : Gtk.Box {
   [GtkChild] Gtk.Label username;
   [GtkChild] Gtk.Label status_message;

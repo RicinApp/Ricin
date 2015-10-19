@@ -1,4 +1,4 @@
-[GtkTemplate (ui="/chat/tox/ricin/settings-view.ui")]
+[GtkTemplate (ui="/chat/tox/ricin/ui/settings-view.ui")]
 class Ricin.SettingsView : Gtk.Notebook {
   // General settings tab.
   [GtkChild] Gtk.Button button_toxid_copy;
