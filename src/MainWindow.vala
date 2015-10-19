@@ -1,4 +1,4 @@
-[GtkTemplate (ui="/chat/tox/Ricin/main-window.ui")]
+[GtkTemplate (ui="/chat/tox/ricin/main-window.ui")]
 public class Ricin.MainWindow : Gtk.ApplicationWindow {
   [GtkChild] Gtk.Button avatar_button;
   [GtkChild] Gtk.Image avatar_image;

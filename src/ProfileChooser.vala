@@ -1,4 +1,4 @@
-[GtkTemplate (ui="/chat/tox/Ricin/profile-chooser-window.ui")]
+[GtkTemplate (ui="/chat/tox/ricin/profile-chooser-window.ui")]
 class Ricin.ProfileChooser : Gtk.ApplicationWindow {
   [GtkChild] Gtk.Notebook notebook_switcher;
 

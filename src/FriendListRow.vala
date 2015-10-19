@@ -1,6 +1,6 @@
 using Tox;
 
-[GtkTemplate (ui="/chat/tox/Ricin/friend-list-row.ui")]
+[GtkTemplate (ui="/chat/tox/ricin/friend-list-row.ui")]
 class Ricin.FriendListRow : Gtk.ListBoxRow {
   [GtkChild] Gtk.Image avatar;
   [GtkChild] Gtk.Label username;
