@@ -29,5 +29,6 @@ class Ricin.FriendListRow : Gtk.ListBoxRow {
           break;
       }
     });
+    fr.avatar.connect (p => avatar.pixbuf = p);
   }
 }

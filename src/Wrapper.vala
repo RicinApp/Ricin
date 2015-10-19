@@ -198,27 +198,16 @@ namespace Tox {
         this.friend_request (id, msg);
       });
 
-      this.handle.callback_file_recv_control ((self, friend, file, control) => {
-        if (control == FileControl.CANCEL) {
-          debug (@"friend $friend, file $file: cancelled");
-          this.friends[friend].files.remove (file);
-        } else if (control == FileControl.PAUSE) {
-          debug (@"friend $friend, file $file: paused");
-        } else if (control == FileControl.RESUME) {
-          debug (@"friend $friend, file $file: resumed");
-        } else {
-          assert_not_reached ();
-        }
-      });
+      // send
       this.handle.callback_file_chunk_request ((self, friend, file, position, length) => {
         if (length == 0) { // file transfer finished
           debug (@"friend $friend, file $file: done");
-          this.friends[friend].files.remove (file);
+          this.friends[friend].files_send.remove (file);
           return;
         }
         debug (@"friend $friend, file $file: chunk request, pos=$position, len=$length");
 
-        Bytes full_data = this.friends[friend].files[file];
+        Bytes full_data = this.friends[friend].files_send[file];
         Bytes slice = full_data.slice ((int) position, (int) (position + length));
 
         ERR_FILE_SEND_CHUNK err;
@@ -227,11 +216,52 @@ namespace Tox {
         if (err != ERR_FILE_SEND_CHUNK.OK)
           debug ("file_send_chunk: %d", err);
       });
-      this.handle.callback_file_recv ((self, friend, file, kind, size, filename) => {
 
+      // recv
+      this.handle.callback_file_recv_control ((self, friend, file, control) => {
+        if (control == FileControl.CANCEL) {
+          debug (@"friend $friend, file $file: cancelled");
+          this.friends[friend].files_recv.remove (file);
+        } else if (control == FileControl.PAUSE) {
+          debug (@"friend $friend, file $file: paused");
+        } else if (control == FileControl.RESUME) {
+          debug (@"friend $friend, file $file: resumed");
+        } else {
+          assert_not_reached ();
+        }
       });
-      this.handle.callback_file_recv_chunk ((self, friend, num, position, data) => {
 
+      // recv
+      this.handle.callback_file_recv ((self, friend, file, kind, size, filename) => {
+        if (kind == FileKind.AVATAR) {
+          debug (@"friend $friend, file $file: receive avatar");
+          this.friends[friend].files_recv[file] = new FileDownload (FileKind.AVATAR);
+          this.handle.file_control (friend, file, FileControl.RESUME, null);
+        } else {
+          debug (@"friend $friend, file $file: file_recv");
+          this.handle.file_control (friend, file, FileControl.CANCEL, null); // TODO
+        }
+      });
+
+      // recv
+      this.handle.callback_file_recv_chunk ((self, friend, file, position, data) => {
+        var fr = this.friends[friend];
+        if (data.length == 0) {
+          debug (@"friend $friend, file $file: done");
+          FileDownload dl = fr.files_recv[file];
+          Bytes bytes = ByteArray.free_to_bytes (dl.data);
+          if (dl.kind == FileKind.AVATAR) {
+            var stream = new MemoryInputStream.from_bytes (bytes);
+            var pixbuf = new Gdk.Pixbuf.from_stream_at_scale (stream, 48, 48, true);
+            fr.avatar (pixbuf);
+          } else {
+            fr.file_done (bytes);
+          }
+          fr.files_recv.remove (file);
+          return;
+        }
+        assert (fr.files_recv[file].data.len == position);
+        fr.files_recv[file].data.append (data);
       });
 
       this.bootstrap.begin ();
@@ -384,7 +414,10 @@ namespace Tox {
   public class Friend : Object {
     private weak Tox tox;
     public uint32 num; // libtoxcore identifier
-    internal HashTable<uint32, Bytes> files = new HashTable<uint32, Bytes> (direct_hash, direct_equal);
+    // Bytes is immutable
+    internal HashTable<uint32, Bytes> files_send = new HashTable<uint32, Bytes> (direct_hash, direct_equal);
+    // ByteArray is mutable
+    internal HashTable<uint32, FileDownload> files_recv = new HashTable<uint32, FileDownload> (direct_hash, direct_equal);
 
     public signal void friend_info (string message);
 
@@ -414,6 +447,9 @@ namespace Tox {
 
     public signal void message (string message);
     public signal void action (string message);
+    public signal void avatar (Gdk.Pixbuf pixbuf);
+    public signal void file_transfer ();
+    public signal void file_done (Bytes data);
 
     public void send_message (string message) {
       debug (@"sending \"$message\" to friend $num");
@@ -442,8 +478,18 @@ namespace Tox {
           debug ("tox_file_send: %d", err);
         }
 
-        this.files[transfer] = new Bytes (pixels);
+        this.files_send[transfer] = new Bytes (pixels);
       }
+    }
+  }
+
+  private class FileDownload : Object {
+    public FileKind kind;
+    public bool paused = false;
+    public ByteArray data = new ByteArray ();
+
+    public FileDownload (FileKind kind = FileKind.DATA) {
+      this.kind = kind;
     }
   }
 }
