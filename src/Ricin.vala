@@ -10,6 +10,8 @@ public class Ricin.Ricin : Gtk.Application {
     Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (),
         provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
 
+    Notify.init ("Ricin");
+
     new ProfileChooser (this);
   }
 
