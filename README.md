@@ -41,7 +41,8 @@ _Screenshot might be outdated but it should give you a general idea of what is R
 | glib2            | >=2.38    |
 | json-glib        | >=1.0     |
 | libsoup          | >=2.4     |
-
+| libnotify        | >=0.0.0   |
+ 
 # Compiling
 > **NOTE**:
 > Before compiling Ricin, make sure that you have installed all the needed dependencies, then follow the guide :)
