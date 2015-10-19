@@ -10,13 +10,17 @@ class Ricin.Notification : Object {
       initialized = true;
     }
 
-    if (icon == null) {
-      icon = new Gdk.Pixbuf.from_resource ("/chat/tox/ricin/images/icons/Ricin-48x48.png");
-    }
-
     try {
-      Notify.Notification notif = new Notify.Notification (sender, message, null);
-      notif.set_image_from_pixbuf (icon);
+      Notify.Notification notif;
+
+      if (icon == null) {
+        notif = new Notify.Notification (sender, message, "dialog-information");
+      } else {
+        notif = new Notify.Notification (sender, message, null);
+        notif.set_image_from_pixbuf (icon);
+      }
+      notif.set_category("im.received");
+      notif.set_hint("sound-name", new Variant.string("message-new-instant"));
       notif.set_timeout (timeout);
       notif.show ();
     } catch (Error error) {

@@ -10,12 +10,17 @@ class Ricin.ChatView : Gtk.Box {
 
   private ListStore messages = new ListStore (typeof (Gtk.Label));
 
-  private weak Tox.Tox handle;
   public Tox.Friend fr;
+  private weak Tox.Tox handle;
+  private weak Gtk.Stack stack;
+  private string view_name;
 
-  public ChatView (Tox.Tox handle, Tox.Friend fr) {
+  public ChatView (Tox.Tox handle, Tox.Friend fr, Gtk.Stack stack, string view_name) {
     this.handle = handle;
     this.fr = fr;
+    this.stack = stack;
+    this.view_name = view_name;
+
     this.messages_list.bind_model (this.messages, l => l as Gtk.Widget);
     this.messages_list.size_allocate.connect (() => {
       var adjustment = this.scroll_messages.get_vadjustment ();
@@ -35,10 +40,28 @@ class Ricin.ChatView : Gtk.Box {
     this.send.clicked.connect (this.send_message);
 
     fr.message.connect (message => {
+      var visible_child = this.stack.get_visible_child_name ();
+      debug ("Visible: %s\nCurrent: %s", visible_child, this.view_name);
+
+      if (visible_child != this.view_name) {
+        /**
+        * TODO: Add friend avatar at 4th argument.
+        */
+        Notification.notify (fr.name, message, 5000);
+      }
+
       this.add_row (@"<b>$(fr.name):</b> $(Util.add_markup (message))");
     });
 
     fr.action.connect (message => {
+      var visible_child = this.stack.get_visible_child_name ();
+      if (visible_child != this.view_name) {
+        /**
+        * TODO: Add friend avatar at 4th argument.
+        */
+        Notification.notify (fr.name, message, 5000);
+      }
+
       string message_escaped = Util.escape_html (message);
       this.add_row (@"<span color=\"#3498db\">* <b>$(fr.name)</b> $message_escaped</span>");
     });
@@ -103,7 +126,6 @@ class Ricin.ChatView : Gtk.Box {
 
     var main_window = (MainWindow) this.get_ancestor (typeof (MainWindow));
     var toxid = uri.split ("tox:")[1];
-
     if (toxid.length == ToxCore.ADDRESS_SIZE * 2) {
       main_window.show_add_friend_popover (toxid);
     } else {

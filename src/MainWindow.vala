@@ -26,6 +26,7 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
 
   private ListStore friends = new ListStore (typeof (Tox.Friend));
   public Tox.Tox tox;
+  public string focused_view;
   private Gtk.Menu menu_statusicon_main;
   private Gtk.StatusIcon statusicon_main;
 
@@ -87,6 +88,7 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
         var view = new SettingsView (this.tox);
         this.chat_stack.add_named (view, "settings");
         this.chat_stack.set_visible_child (view);
+        this.focused_view = "settings";
       }
     });
 
@@ -145,8 +147,9 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
       debug ("ChatView name: %s", view_name);
 
       if (chat_view != null) {
+        //(chat_view as ChatView).name = view_name;
+        (chat_view as ChatView).entry.grab_focus ();
         this.chat_stack.set_visible_child (chat_view);
-        //chat_view.entry.grab_focus ();
       }
     });
 
@@ -194,7 +197,7 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
 
             friends.append (friend);
             var view_name = "chat-%s".printf (friend.pubkey);
-            chat_stack.add_named (new ChatView (this.tox, friend), view_name);
+            chat_stack.add_named (new ChatView (this.tox, friend, this.chat_stack, view_name), view_name);
 
             var info_message = "The friend request has been accepted. Please wait the contact to appears online.";
             this.notify_message (@"<span color=\"#27ae60\">$info_message</span>", 5000);
@@ -209,7 +212,7 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
       if (friend != null) {
         friends.append (friend);
         var view_name = "chat-%s".printf (friend.pubkey);
-        chat_stack.add_named (new ChatView (this.tox, friend), view_name);
+        chat_stack.add_named (new ChatView (this.tox, friend, this.chat_stack, view_name), view_name);
 
         // Send our avatar.
         friend.send_avatar ();
