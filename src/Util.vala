@@ -28,10 +28,7 @@ namespace Util {
   }
 
   public static string escape_html (string text) {
-    return text
-           .replace ("&", "&amp;")
-           .replace ("<", "&lt;")
-           .replace (">", "&gt;");
+    return Markup.escape_text (text);
   }
 
   public static string add_markup (string text) {
