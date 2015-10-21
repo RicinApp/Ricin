@@ -58,10 +58,15 @@ class Ricin.ChatView : Gtk.Box {
     fr.message.connect (message => {
       var visible_child = this.stack.get_visible_child_name ();
       if (visible_child != this.view_name) {
-        /**
-        * TODO: Add friend avatar at 4th argument.
-        */
-        Notification.notify (fr.name, message, 5000);
+
+        var avatar_path = Tox.profile_dir () + "avatars/" + this.fr.pubkey + ".png";
+        if (FileUtils.test (avatar_path, FileTest.EXISTS)) {
+          var pixbuf = new Gdk.Pixbuf.from_file_at_scale (avatar_path, 46, 46, true);
+          Notification.notify (fr.name, message, 5000, pixbuf);
+        } else {
+          Notification.notify (fr.name, message, 5000);
+        }
+
       }
 
       this.add_row (@"<b>$(fr.name):</b> $(Util.add_markup (message))");
@@ -70,10 +75,15 @@ class Ricin.ChatView : Gtk.Box {
     fr.action.connect (message => {
       var visible_child = this.stack.get_visible_child_name ();
       if (visible_child != this.view_name) {
-        /**
-        * TODO: Add friend avatar at 4th argument.
-        */
-        Notification.notify (fr.name, message, 5000);
+
+        var avatar_path = Tox.profile_dir () + "avatars/" + this.fr.pubkey + ".png";
+        if (FileUtils.test (avatar_path, FileTest.EXISTS)) {
+          var pixbuf = new Gdk.Pixbuf.from_file_at_scale (avatar_path, 46, 46, true);
+          Notification.notify (fr.name, message, 5000, pixbuf);
+        } else {
+          Notification.notify (fr.name, message, 5000);
+        }
+        
       }
 
       string message_escaped = Util.escape_html (message);
