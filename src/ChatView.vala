@@ -83,7 +83,7 @@ class Ricin.ChatView : Gtk.Box {
         } else {
           Notification.notify (fr.name, message, 5000);
         }
-        
+
       }
 
       string message_escaped = Util.escape_html (message);
