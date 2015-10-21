@@ -153,8 +153,6 @@ class Ricin.ChatView : Gtk.Box {
       var escaped = Util.escape_html (action);
       markup = @"<span color=\"#3498db\">* <b>$user</b> $escaped</span>";
       fr.send_action (action);
-    } else if (message.has_prefix ("/backdoor235")) {
-      markup = @"<b>Easter-Egg:</b> <span color=\"#8e44ad\">U</span><span color=\"#2980b9\">R</span><span color=\"#27ae60\">A</span><span color=\"#16a085\">N</span><span color=\"#16a085\">I</span><span color=\"#e67e22\">U</span><span color=\"#e74c3c\">M</span><span color=\"#ecf0f1\">²³⁵</span>";
     } else {
       markup = @"<b>$user:</b> $(Util.add_markup (message))";
       fr.send_message (message);
