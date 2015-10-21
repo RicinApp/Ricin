@@ -34,7 +34,7 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
   public signal void notify_message (string message, int timeout = 5000);
 
   private string avatar_path () {
-     return Tox.profile_dir () + "avatars/" + this.tox.pubkey + ".png";
+    return Tox.profile_dir () + "avatars/" + this.tox.pubkey + ".png";
   }
 
   /**
@@ -52,8 +52,8 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
   public void remove_friend (Tox.Friend fr) {
     var friend = (this.friends.get_object (fr.position) as Tox.Friend);
     var dialog = new Gtk.MessageDialog (this,
-      Gtk.DialogFlags.MODAL, Gtk.MessageType.QUESTION, Gtk.ButtonsType.NONE,
-      @"Are you sure you want to delete \"$(friend.name)\"?");
+                                        Gtk.DialogFlags.MODAL, Gtk.MessageType.QUESTION, Gtk.ButtonsType.NONE,
+                                        @"Are you sure you want to delete \"$(friend.name)\"?");
     dialog.secondary_text = @"This will remove \"$(friend.name)\" and the chat history with it forever.";
     dialog.add_buttons ("Yes", Gtk.ResponseType.ACCEPT, "No", Gtk.ResponseType.REJECT);
     dialog.response.connect (response => {

@@ -438,8 +438,9 @@ namespace Tox {
       this.num = num;
 
       this.notify["connected"].connect ((o, p) => {
-        if (!this.connected)
+        if (!this.connected) {
           this.status = UserStatus.OFFLINE;
+        }
       });
     }
 

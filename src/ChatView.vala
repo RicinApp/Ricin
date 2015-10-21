@@ -45,8 +45,8 @@ class Ricin.ChatView : Gtk.Box {
     this.send.clicked.connect (this.send_message);
     this.send_file.clicked.connect (() => {
       var chooser = new Gtk.FileChooserDialog ("Choose a File", null, Gtk.FileChooserAction.OPEN,
-        "_Cancel", Gtk.ResponseType.CANCEL,
-        "_Open", Gtk.ResponseType.ACCEPT);
+          "_Cancel", Gtk.ResponseType.CANCEL,
+          "_Open", Gtk.ResponseType.ACCEPT);
       if (chooser.run () == Gtk.ResponseType.ACCEPT) {
         var filename = chooser.get_filename ();
         fr.send_file (filename);
@@ -98,8 +98,9 @@ class Ricin.ChatView : Gtk.Box {
       // get unique filename
       string filename = name;
       int i = 0;
-      while (FileUtils.test (downloads + filename, FileTest.EXISTS))
+      while (FileUtils.test (downloads + filename, FileTest.EXISTS)) {
         filename = @"$name-$(++i)";
+      }
 
       FileUtils.set_data (downloads + filename, bytes.get_data ());
       fr.friend_info (@"File downloaded to $downloads$filename");
