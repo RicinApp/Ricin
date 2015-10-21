@@ -6,6 +6,7 @@ class Ricin.ChatView : Gtk.Box {
   [GtkChild] Gtk.ListBox messages_list;
   [GtkChild] public Gtk.Entry entry;
   [GtkChild] Gtk.Button send;
+  [GtkChild] Gtk.Button send_file;
   [GtkChild] Gtk.Revealer friend_typing;
 
   private ListStore messages = new ListStore (typeof (Gtk.Label));
@@ -43,6 +44,17 @@ class Ricin.ChatView : Gtk.Box {
 
     this.entry.activate.connect (this.send_message);
     this.send.clicked.connect (this.send_message);
+    this.send_file.clicked.connect (() => {
+      var chooser = new Gtk.FileChooserDialog ("Choose a File", null, Gtk.FileChooserAction.OPEN,
+        "_Cancel", Gtk.ResponseType.CANCEL,
+        "_Open", Gtk.ResponseType.ACCEPT);
+      if (chooser.run () == Gtk.ResponseType.ACCEPT) {
+        var filename = chooser.get_filename ();
+        fr.send_file (filename);
+        fr.friend_info (@"Sending file $filename");
+      }
+      chooser.close ();
+    });
 
     fr.message.connect (message => {
       var visible_child = this.stack.get_visible_child_name ();

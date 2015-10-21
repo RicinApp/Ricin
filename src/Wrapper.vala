@@ -497,6 +497,16 @@ namespace Tox {
       }
     }
 
+    public void send_file (string path) {
+      debug (@"Sending $path to friend $num");
+      var file = File.new_for_path (path);
+      var info = file.query_info ("standard::size", FileQueryInfoFlags.NONE);
+      var id = this.tox.handle.file_send (this.num, FileKind.DATA, info.get_size (), null, file.get_basename ().data, null);
+      uint8[] data;
+      FileUtils.get_data (path, out data);
+      this.files_send[id] = new Bytes.take (data);
+    }
+
     public bool delete () throws ErrFriendDelete {
       ERR_FRIEND_DELETE err;
       var retval = this.tox.handle.friend_delete (this.num, out err);
