@@ -13,6 +13,13 @@ class Ricin.FriendListRow : Gtk.ListBoxRow {
     this.fr = fr;
     fr.bind_property ("name", username, "label", BindingFlags.DEFAULT);
     fr.bind_property ("status-message", status, "label", BindingFlags.DEFAULT);
+    fr.avatar.connect (p => avatar.pixbuf = p);
+    fr.notify["connected"].connect ((obj, prop) => {
+      if (!fr.connected) {
+      	this.userstatus.icon_name = "user-offline";
+      }
+    });
+
     fr.notify["status"].connect ((obj, prop) => {
       switch (fr.status) {
         case UserStatus.ONLINE:
@@ -29,6 +36,5 @@ class Ricin.FriendListRow : Gtk.ListBoxRow {
           break;
       }
     });
-    fr.avatar.connect (p => avatar.pixbuf = p);
   }
 }
