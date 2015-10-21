@@ -11,6 +11,17 @@ class Ricin.FriendListRow : Gtk.ListBoxRow {
 
   public FriendListRow (Tox.Friend fr) {
     this.fr = fr;
+
+    /**
+    * Load the avatar from the avatar cache located in:
+    * ~/.config/tox/avatars/
+    */
+    var avatar_path = Tox.profile_dir () + "avatars/" + this.fr.pubkey + ".png";
+    if (FileUtils.test (avatar_path, FileTest.EXISTS)) {
+      var pixbuf = new Gdk.Pixbuf.from_file_at_scale (avatar_path, 46, 46, true);
+      this.avatar.pixbuf = pixbuf;
+    }
+
     fr.bind_property ("name", username, "label", BindingFlags.DEFAULT);
     fr.bind_property ("status-message", status, "label", BindingFlags.DEFAULT);
     fr.avatar.connect (p => avatar.pixbuf = p);

@@ -251,9 +251,13 @@ namespace Tox {
           FileDownload dl = fr.files_recv[file];
           Bytes bytes = ByteArray.free_to_bytes (dl.data);
           if (dl.kind == FileKind.AVATAR) {
-            var stream = new MemoryInputStream.from_bytes (bytes);
-            var pixbuf = new Gdk.Pixbuf.from_stream_at_scale (stream, 48, 48, true);
-            fr.avatar (pixbuf);
+            try {
+              var stream = new MemoryInputStream.from_bytes (bytes);
+              var pixbuf = new Gdk.Pixbuf.from_stream_at_scale (stream, 48, 48, true);
+              fr.avatar (pixbuf);
+            } catch (Error e) {
+              warning ("Error processing friend avatar: %s", e.message);
+            }
           } else {
             fr.file_done (bytes);
           }
