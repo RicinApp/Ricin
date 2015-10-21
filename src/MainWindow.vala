@@ -40,25 +40,20 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
   /**
   * This is the sort method used for sorting contacts based on:
   * Contact is online (top) → Contact is offline (end)
-  * Contact status: Online → Busy → Away.
+  * Contact status: Online → Away → Busy → Offline.
   */
   public static int sort_friendlist_online (Gtk.Widget row1, Gtk.Widget row2) {
     var friend1 = (row1 as FriendListRow);
     var friend2 = (row2 as FriendListRow);
 
-    if (friend1.fr.status > friend2.fr.status)
-      return 1;
-    else if (friend1.fr.status == friend2.fr.status)
-      return 0;
-    else
-      return -1;
+    return friend1.fr.status - friend2.fr.status;
   }
 
   public void remove_friend (Tox.Friend fr) {
     var friend = (this.friends.get_object (fr.position) as Tox.Friend);
     var dialog = new Gtk.MessageDialog (this,
       Gtk.DialogFlags.MODAL, Gtk.MessageType.QUESTION, Gtk.ButtonsType.NONE,
-      @"Are you sure you want to delete \"$(friend.name)\" ?");
+      @"Are you sure you want to delete \"$(friend.name)\"?");
     dialog.secondary_text = @"This will remove \"$(friend.name)\" and the chat history with it forever.";
     dialog.add_buttons ("Yes", Gtk.ResponseType.ACCEPT, "No", Gtk.ResponseType.REJECT);
     dialog.response.connect (response => {
@@ -70,7 +65,6 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
       }
 
       dialog.destroy ();
-      return;
     });
 
     dialog.show ();

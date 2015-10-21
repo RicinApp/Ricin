@@ -5,8 +5,8 @@ using ToxCore; // only in this file
 namespace Tox {
   public enum UserStatus {
     ONLINE,
-    BUSY,
     AWAY,
+    BUSY,
     OFFLINE
   }
 

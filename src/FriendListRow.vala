@@ -12,8 +12,7 @@ class Ricin.FriendListRow : Gtk.ListBoxRow {
 
   public FriendListRow (Tox.Friend fr) {
     this.fr = fr;
-    if (this.fr.name == null)
-    {
+    if (this.fr.name == null) {
       this.username.set_text (this.fr.pubkey);
       this.status.set_text ("");
     }
@@ -59,17 +58,13 @@ class Ricin.FriendListRow : Gtk.ListBoxRow {
   private void init_context_menu () {
     debug ("Initializing context menu for friend.");
 
-    this.button_press_event.connect ((event) => {
-      if (event.button == 3) {
-        //this.popup_menu (this, event);
-        debug ("Right click detected.");
+    this.button_press_event.connect (event => {
+      if (event.button == Gdk.BUTTON_SECONDARY) {
         this.menu_friend.popup (null, null, null, event.button, event.time);
-        return true;
+        return Gdk.EVENT_STOP;
       }
-
-      return false;
+      return Gdk.EVENT_PROPAGATE;
     });
-
 
     this.menu_friend = new Gtk.Menu ();
     var delete_friend = new Gtk.ImageMenuItem.with_label ("Delete friend");

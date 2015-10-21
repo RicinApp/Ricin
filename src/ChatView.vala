@@ -22,8 +22,7 @@ class Ricin.ChatView : Gtk.Box {
     this.stack = stack;
     this.view_name = view_name;
 
-    if (this.fr.name == null)
-    {
+    if (this.fr.name == null) {
       this.username.set_text (this.fr.pubkey);
       this.status_message.set_markup ("");
     }
