@@ -1,5 +1,5 @@
 class Ricin.Notification : Object {
-  public static void notify (string sender, string message, int timeout = 5000, Gdk.Pixbuf? icon = null) {
+  public static new void notify (string sender, string message, int timeout = 5000, Gdk.Pixbuf? icon = null) {
     try {
       Notify.Notification notif;
 

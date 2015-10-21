@@ -491,7 +491,7 @@ namespace Tox {
         tox.avatar.save_to_buffer (out pixels, "png");
 
         uint8[] avatar_id = new uint8[ToxCore.HASH_LENGTH];
-        this.tox.handle.hash (avatar_id, pixels);
+        ToxCore.Tox.hash (avatar_id, pixels);
 
         debug (@"sending avatar to friend $num");
         ERR_FILE_SEND err;
