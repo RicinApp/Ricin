@@ -11,7 +11,7 @@ namespace Tox {
   }
 
   public string profile_dir () {
-    return Environment.get_home_dir () + "/.config/tox/";
+    return Environment.get_user_config_dir () + "/tox/";
   }
 
   public errordomain ErrNew {
