@@ -81,6 +81,31 @@ class Ricin.ChatView : Gtk.Box {
       this.add_row (@"<span color=\"#3498db\">* <b>$(fr.name)</b> $message_escaped</span>");
     });
 
+    fr.file_transfer.connect ((name, size, id) => {
+      var window = this.get_ancestor (typeof (Gtk.Window));
+      var dialog = new Gtk.MessageDialog ((Gtk.Window) window,
+                                          Gtk.DialogFlags.MODAL,
+                                          Gtk.MessageType.QUESTION,
+                                          Gtk.ButtonsType.NONE,
+                                          "File transfer from " + fr.name);
+      dialog.secondary_text = @"$name\n$size bytes";
+      dialog.add_buttons ("Save", Gtk.ResponseType.ACCEPT, "Cancel", Gtk.ResponseType.CANCEL);
+      fr.reply_file_transfer (dialog.run () == Gtk.ResponseType.ACCEPT, id);
+      dialog.close ();
+    });
+    fr.file_done.connect ((name, bytes) => {
+      string downloads = Environment.get_home_dir () + "/Downloads/";
+
+      // get unique filename
+      string filename = name;
+      int i = 0;
+      while (FileUtils.test (downloads + filename, FileTest.EXISTS))
+        filename = @"$name-$(++i)";
+
+      FileUtils.set_data (downloads + filename, bytes.get_data ());
+      fr.friend_info (@"File downloaded to $downloads$filename");
+    });
+
     fr.bind_property ("connected", entry, "sensitive", BindingFlags.DEFAULT);
     fr.bind_property ("connected", send, "sensitive", BindingFlags.DEFAULT);
     fr.bind_property ("typing", friend_typing, "reveal_child", BindingFlags.DEFAULT);

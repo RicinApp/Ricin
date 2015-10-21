@@ -240,17 +240,19 @@ namespace Tox {
       this.handle.callback_file_recv ((self, friend, file, kind, size, filename) => {
         if (kind == FileKind.AVATAR) {
           debug (@"friend $friend, file $file: receive avatar");
-          this.friends[friend].files_recv[file] = new FileDownload (FileKind.AVATAR);
+          this.friends[friend].files_recv[file] = new FileDownload.avatar ();
           this.handle.file_control (friend, file, FileControl.RESUME, null);
         } else {
           debug (@"friend $friend, file $file: file_recv");
-          this.handle.file_control (friend, file, FileControl.CANCEL, null); // TODO
+          this.friends[friend].files_recv[file] = new FileDownload (Util.arr2str (filename));
+          this.friends[friend].file_transfer (Util.arr2str (filename), size, file);
         }
       });
 
       // recv
       this.handle.callback_file_recv_chunk ((self, friend, file, position, data) => {
         var fr = this.friends[friend];
+        assert (fr.files_recv.contains (file));
         if (data.length == 0) {
           debug (@"friend $friend, file $file: done");
           FileDownload dl = fr.files_recv[file];
@@ -264,7 +266,7 @@ namespace Tox {
               warning ("Error processing friend avatar: %s", e.message);
             }
           } else {
-            fr.file_done (bytes);
+            fr.file_done (dl.name, bytes);
           }
           fr.files_recv.remove (file);
           return;
@@ -463,8 +465,12 @@ namespace Tox {
     public signal void message (string message);
     public signal void action (string message);
     public signal void avatar (Gdk.Pixbuf pixbuf);
-    public signal void file_transfer ();
-    public signal void file_done (Bytes data);
+    public signal void file_transfer (string filename, uint64 file_size, uint32 id);
+    public signal void file_done (string filename, Bytes data);
+
+    public void reply_file_transfer (bool accept, uint32 id) {
+      tox.handle.file_control (this.num, id, accept ? FileControl.RESUME : FileControl.CANCEL, null);
+    }
 
     public void send_message (string message) {
       debug (@"sending \"$message\" to friend $num");
@@ -522,11 +528,17 @@ namespace Tox {
 
   private class FileDownload : Object {
     public FileKind kind;
-    public bool paused = false;
+    public string? name = null;
+    //public bool paused = false;
     public ByteArray data = new ByteArray ();
 
-    public FileDownload (FileKind kind = FileKind.DATA) {
-      this.kind = kind;
+    public FileDownload (string name) {
+      this.name = name;
+      this.kind = FileKind.DATA;
+    }
+
+    public FileDownload.avatar () {
+      this.kind = FileKind.AVATAR;
     }
   }
 }
