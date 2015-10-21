@@ -103,7 +103,7 @@ class Ricin.ChatView : Gtk.Box {
       dialog.close ();
     });
     fr.file_done.connect ((name, bytes) => {
-      string downloads = Environment.get_home_dir () + "/Downloads/";
+      string downloads = Environment.get_user_special_dir (UserDirectory.DOWNLOAD) + "/";
 
       // get unique filename
       string filename = name;
