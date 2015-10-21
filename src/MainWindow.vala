@@ -54,6 +54,28 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
       return -1;
   }
 
+  public void remove_friend (Tox.Friend fr) {
+    var friend = (this.friends.get_object (fr.position) as Tox.Friend);
+    var dialog = new Gtk.MessageDialog (this,
+      Gtk.DialogFlags.MODAL, Gtk.MessageType.QUESTION, Gtk.ButtonsType.NONE,
+      @"Are you sure you want to delete \"$(friend.name)\" ?");
+    dialog.secondary_text = @"This will remove \"$(friend.name)\" and the chat history with it forever.";
+    dialog.add_buttons ("Yes", Gtk.ResponseType.ACCEPT, "No", Gtk.ResponseType.REJECT);
+    dialog.response.connect (response => {
+      if (response == Gtk.ResponseType.ACCEPT) {
+        bool result = friend.delete ();
+        if (result) {
+          this.friends.remove (friend.position);
+        }
+      }
+
+      dialog.destroy ();
+      return;
+    });
+
+    dialog.show ();
+  }
+
   public MainWindow (Gtk.Application app, string profile) {
     Object (application: app);
 
@@ -80,9 +102,11 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
       return;
     }
 
-    this.init_tray_icon ();
+    // Display the settings window while their is no friends online.
+    var settings = new SettingsView (this.tox);
+    this.chat_stack.add_named (settings, "settings");
+    this.chat_stack.set_visible_child (settings);
 
-    //this.toxid.label += this.tox.id;
     var path = avatar_path ();
     if (FileUtils.test (path, FileTest.EXISTS)) {
       this.tox.send_avatar (path);
@@ -90,11 +114,10 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
       this.avatar_image.pixbuf = pixbuf;
     }
 
+    this.init_tray_icon ();
     this.entry_name.set_text (this.tox.username);
     this.entry_status.set_text (this.tox.status_message);
-
     this.friendlist.set_sort_func (sort_friendlist_online);
-    //friend_tree.set_sort_func (1, sort_friendlist_status);
 
     this.button_add_friend_show.clicked.connect (() => {
       this.show_add_friend_popover ();
@@ -168,7 +191,6 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
       debug ("ChatView name: %s", view_name);
 
       if (chat_view != null) {
-        //(chat_view as ChatView).name = view_name;
         (chat_view as ChatView).entry.grab_focus ();
         this.chat_stack.set_visible_child (chat_view);
       }
@@ -202,7 +224,7 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
     });
 
     this.tox.notify["connected"].connect ((src, prop) => {
-      this.image_user_status.icon_name = this.tox.connected ? "user-available" : "user-offline";
+      this.image_user_status.icon_name = this.tox.connected ? "user-available-symbolic" : "user-offline-symbolic";
       this.button_user_status.sensitive = this.tox.connected;
     });
 
@@ -216,6 +238,8 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
           if (friend != null) {
             this.tox.save_data (); // Needed to avoid breaking profiles if app crash.
 
+            friend.position = friends.get_n_items ();
+            debug ("Friend position: %u", friend.position);
             friends.append (friend);
             var view_name = "chat-%s".printf (friend.pubkey);
             chat_stack.add_named (new ChatView (this.tox, friend, this.chat_stack, view_name), view_name);
@@ -231,6 +255,8 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
 
     this.tox.friend_online.connect ((friend) => {
       if (friend != null) {
+        friend.position = friends.get_n_items ();
+        debug ("Friend position: %u", friend.position);
         friends.append (friend);
         var view_name = "chat-%s".printf (friend.pubkey);
         chat_stack.add_named (new ChatView (this.tox, friend, this.chat_stack, view_name), view_name);

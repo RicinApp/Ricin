@@ -5,8 +5,8 @@ using ToxCore; // only in this file
 namespace Tox {
   public enum UserStatus {
     ONLINE,
-    AWAY,
     BUSY,
+    AWAY,
     OFFLINE
   }
 
@@ -31,6 +31,10 @@ namespace Tox {
     BadChecksum,
     BadNospam,
     Malloc
+  }
+
+  public errordomain ErrFriendDelete {
+    NotFound
   }
 
   public class Tox : Object {
@@ -419,6 +423,7 @@ namespace Tox {
   public class Friend : Object {
     private weak Tox tox;
     public uint32 num; // libtoxcore identifier
+    public uint position;
     // Bytes is immutable
     internal HashTable<uint32, Bytes> files_send = new HashTable<uint32, Bytes> (direct_hash, direct_equal);
     // ByteArray is mutable
@@ -490,6 +495,18 @@ namespace Tox {
 
         this.files_send[transfer] = new Bytes (pixels);
       }
+    }
+
+    public bool delete () throws ErrFriendDelete {
+      ERR_FRIEND_DELETE err;
+      var retval = this.tox.handle.friend_delete (this.num, out err);
+
+      switch (err) {
+        case ERR_FRIEND_DELETE.FRIEND_NOT_FOUND:
+          throw new ErrFriendDelete.NotFound ("There was no friend with the given friend number. No friends were deleted.");
+      }
+
+      return retval;
     }
   }
 

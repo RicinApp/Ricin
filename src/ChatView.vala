@@ -21,12 +21,17 @@ class Ricin.ChatView : Gtk.Box {
     this.stack = stack;
     this.view_name = view_name;
 
+    if (this.fr.name == null)
+    {
+      this.username.set_text (this.fr.pubkey);
+      this.status_message.set_markup ("");
+    }
+
     this.messages_list.bind_model (this.messages, l => l as Gtk.Widget);
     this.messages_list.size_allocate.connect (() => {
       var adjustment = this.scroll_messages.get_vadjustment ();
       adjustment.set_value (adjustment.get_upper () - adjustment.get_page_size ());
     });
-    //this.handle.bind_property ("typing")
 
     this.fr.friend_info.connect ((message) => {
       this.add_row (@"<span color=\"#2980b9\">** <i>$message</i></span>");
@@ -41,8 +46,6 @@ class Ricin.ChatView : Gtk.Box {
 
     fr.message.connect (message => {
       var visible_child = this.stack.get_visible_child_name ();
-      debug ("Visible: %s\nCurrent: %s", visible_child, this.view_name);
-
       if (visible_child != this.view_name) {
         /**
         * TODO: Add friend avatar at 4th argument.
@@ -68,20 +71,13 @@ class Ricin.ChatView : Gtk.Box {
 
     fr.bind_property ("connected", entry, "sensitive", BindingFlags.DEFAULT);
     fr.bind_property ("connected", send, "sensitive", BindingFlags.DEFAULT);
-    fr.bind_property ("typing", friend_typing, "reveal_child", BindingFlags.DEFAULT, (binding, val, ref target) => {
-      var adjustment = this.scroll_messages.get_vadjustment ();
-      adjustment.set_value (adjustment.get_upper () - adjustment.get_page_size ());
-      return true;
-    });
+    fr.bind_property ("typing", friend_typing, "reveal_child", BindingFlags.DEFAULT);
     fr.bind_property ("name", username, "label", BindingFlags.DEFAULT);
     fr.bind_property ("status-message", status_message, "label", BindingFlags.DEFAULT, (binding, val, ref target) => {
       string status_message = (string) val;
       target.set_string (Util.add_markup (status_message));
       return true;
     });
-    /*fr.notify["status_message"].connect ((s, p) => {
-      this.status_message.set_text (Util.add_markup (fr.status_message));
-    });*/
   }
 
   private void add_row (string markup) {
@@ -101,7 +97,6 @@ class Ricin.ChatView : Gtk.Box {
     string markup;
 
     var message = this.entry.get_text ();
-
     if (message.strip () == "") {
       return;
     }
@@ -116,9 +111,8 @@ class Ricin.ChatView : Gtk.Box {
       fr.send_message (message);
     }
 
+    // Add message, clear and focus the entry.
     this.add_row (markup);
-
-    // Clear and focus the entry.
     this.entry.text = "";
     this.entry.grab_focus_without_selecting ();
   }
