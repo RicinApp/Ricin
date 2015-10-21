@@ -25,6 +25,7 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
   [GtkChild] public Gtk.Label label_system_notify;
 
   private ListStore friends = new ListStore (typeof (Tox.Friend));
+
   public Tox.Tox tox;
   public string focused_view;
   private Gtk.Menu menu_statusicon_main;
@@ -34,6 +35,23 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
 
   private string avatar_path () {
      return Tox.profile_dir () + "avatars/" + this.tox.pubkey + ".png";
+  }
+
+  /**
+  * This is the sort method used for sorting contacts based on:
+  * Contact is online (top) → Contact is offline (end)
+  * Contact status: Online → Busy → Away.
+  */
+  public static int sort_friendlist_online (Gtk.Widget row1, Gtk.Widget row2) {
+    var friend1 = (row1 as FriendListRow);
+    var friend2 = (row2 as FriendListRow);
+
+    if (friend1.fr.status > friend2.fr.status)
+      return 1;
+    else if (friend1.fr.status == friend2.fr.status)
+      return 0;
+    else
+      return -1;
   }
 
   public MainWindow (Gtk.Application app, string profile) {
@@ -74,6 +92,9 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
 
     this.entry_name.set_text (this.tox.username);
     this.entry_status.set_text (this.tox.status_message);
+
+    this.friendlist.set_sort_func (sort_friendlist_online);
+    //friend_tree.set_sort_func (1, sort_friendlist_status);
 
     this.button_add_friend_show.clicked.connect (() => {
       this.show_add_friend_popover ();

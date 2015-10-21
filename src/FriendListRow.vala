@@ -3,7 +3,7 @@ using Tox;
 [GtkTemplate (ui="/chat/tox/ricin/ui/friend-list-row.ui")]
 class Ricin.FriendListRow : Gtk.ListBoxRow {
   [GtkChild] Gtk.Image avatar;
-  [GtkChild] Gtk.Label username;
+  [GtkChild] public Gtk.Label username;
   [GtkChild] Gtk.Label status;
   [GtkChild] Gtk.Image userstatus;
 
@@ -28,6 +28,7 @@ class Ricin.FriendListRow : Gtk.ListBoxRow {
     fr.notify["connected"].connect ((obj, prop) => {
       if (!fr.connected) {
       	this.userstatus.icon_name = "user-offline";
+        this.changed ();
       }
     });
 
@@ -46,6 +47,7 @@ class Ricin.FriendListRow : Gtk.ListBoxRow {
           this.userstatus.icon_name = "user-status-pending";
           break;
       }
+      this.changed ();
     });
   }
 }

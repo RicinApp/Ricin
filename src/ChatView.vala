@@ -68,7 +68,11 @@ class Ricin.ChatView : Gtk.Box {
 
     fr.bind_property ("connected", entry, "sensitive", BindingFlags.DEFAULT);
     fr.bind_property ("connected", send, "sensitive", BindingFlags.DEFAULT);
-    fr.bind_property ("typing", friend_typing, "reveal_child", BindingFlags.DEFAULT);
+    fr.bind_property ("typing", friend_typing, "reveal_child", BindingFlags.DEFAULT, (binding, val, ref target) => {
+      var adjustment = this.scroll_messages.get_vadjustment ();
+      adjustment.set_value (adjustment.get_upper () - adjustment.get_page_size ());
+      return true;
+    });
     fr.bind_property ("name", username, "label", BindingFlags.DEFAULT);
     fr.bind_property ("status-message", status_message, "label", BindingFlags.DEFAULT, (binding, val, ref target) => {
       string status_message = (string) val;

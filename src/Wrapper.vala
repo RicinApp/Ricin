@@ -6,7 +6,8 @@ namespace Tox {
   public enum UserStatus {
     ONLINE,
     AWAY,
-    BUSY
+    BUSY,
+    OFFLINE
   }
 
   public string profile_dir () {
@@ -428,6 +429,11 @@ namespace Tox {
     public Friend (Tox tox, uint32 num) {
       this.tox = tox;
       this.num = num;
+
+      this.notify["connected"].connect ((o, p) => {
+        if (!this.connected)
+          this.status = UserStatus.OFFLINE;
+      });
     }
 
     /* We could implement this as just a get { } that goes to libtoxcore, and
