@@ -23,6 +23,9 @@ class Ricin.SettingsView : Gtk.Notebook {
 
     this.button_toxid_copy.clicked.connect (this.copy_toxid);
     this.button_toxid_change_nospam.clicked.connect (this.change_nospam);
+    this.switch_udp_enabled.state_set.connect (this.udp_state_changed);
+    this.switch_ipv6_enabled.state_set.connect (this.ipv6_state_changed);
+    this.switch_proxy_enabled.state_set.connect (this.proxy_state_changed);
   }
 
   private void copy_toxid () {
@@ -36,4 +39,11 @@ class Ricin.SettingsView : Gtk.Notebook {
     this.handle.nospam = rand.next_int ();
     this.label_tox_id.set_text (this.handle.id); // Update the ToxID.
   }
+
+  /**
+  * TODO: Make these functions working.
+  */
+  private void udp_state_changed (bool state) {}
+  private void ipv6_state_changed (bool state) {}
+  private void proxy_state_changed (bool state) {}
 }

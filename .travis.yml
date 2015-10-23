@@ -5,9 +5,14 @@ compiler:
 
 install:
 # Utils
- - sudo apt-get install -y checkinstall build-essential libglib2.0-dev libgtk-3-dev libgdk-pixbuf2.0-dev libsoup-dev libjson-glib-dev
+ - sudo apt-get update
+ - sudo apt-get install -y checkinstall build-essential libglib2.0-dev libgtk-3-dev libgdk-pixbuf2.0-dev libsoup-dev libjson-glib-dev libnotify-bin ninja-build python3
 
 before_script:
+# MesonBuild
+ - git clone https://github.com/mesonbuild/meson.git
+ - cd meson
+ - ./install_meson.py
 # Valac 0.29.3
  - wget http://download.gnome.org/sources/vala/0.29/vala-0.29.3.tar.xz > /dev/null
  - tar --xz -xvf vala-0.29.3.tar.xz > /dev/null
@@ -16,7 +21,7 @@ before_script:
  - make > /dev/null
  - sudo make install > /dev/null
  - cd ..
- # libopus
+# libopus
  - wget http://downloads.xiph.org/releases/opus/opus-1.0.3.tar.gz > /dev/null
  - tar xzf opus-1.0.3.tar.gz > /dev/null
  - cd opus-1.0.3
@@ -67,6 +72,6 @@ before_script:
 
 script:
  - mkdir build && cd build
- - cmake ..
- - make -j10
- - sudo make install
+ - meson ..
+ - cd ..
+ - make debug
