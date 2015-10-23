@@ -89,6 +89,9 @@ Before clicking on any link beside, you must know what is Vala and why it is so 
 
 # Mockups
 
-See https://github.com/gnome-design-team/gnome-mockups/tree/master/chat and https://wiki.gnome.org/Design/Apps/Chat
+See 
+- https://github.com/gnome-design-team/gnome-mockups/tree/master/chat
+- https://wiki.gnome.org/Design/Apps/Chat
+- (misc/mockup2.png)[misc/mockup2.png]
 
 [libtoxcore]: https://github.com/irungentoo/toxcore/blob/master/INSTALL.md
