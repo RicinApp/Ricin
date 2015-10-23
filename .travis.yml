@@ -10,9 +10,12 @@ install:
 
 before_script:
 # MesonBuild
- - git clone https://github.com/mesonbuild/meson.git
- - cd meson
- - sudo ./install_meson.py
+ - wget https://github.com/mesonbuild/meson/releases/download/0.26.0/meson_0.26.0.tar.gz
+ - tar -xvf meson_0.26.0.tar.gz
+ - cd meson-0.26.0
+ - python3.4 install_meson.py --prefix /home/`whoami`/meson
+ - cd ..
+ - rm -rf meson-0.26.0 meson_0.26.0.tar.gz
 # Valac 0.29.3
  - wget http://download.gnome.org/sources/vala/0.29/vala-0.29.3.tar.xz > /dev/null
  - tar --xz -xvf vala-0.29.3.tar.xz > /dev/null
