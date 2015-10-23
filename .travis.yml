@@ -12,7 +12,7 @@ before_script:
 # MesonBuild
  - git clone https://github.com/mesonbuild/meson.git
  - cd meson
- - ./install_meson.py
+ - sudo ./install_meson.py
 # Valac 0.29.3
  - wget http://download.gnome.org/sources/vala/0.29/vala-0.29.3.tar.xz > /dev/null
  - tar --xz -xvf vala-0.29.3.tar.xz > /dev/null
