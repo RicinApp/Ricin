@@ -50,13 +50,8 @@ _Screenshot might be outdated but it should give you a general idea of what is R
 ```bash
 git clone --recursive https://github.com/RicinApp/Ricin.git
 cd Ricin
-mkdir build && cd build
-meson ..
-# ninja is called ninja-build on Debian, Ubuntu and Fedora
-ninja
-./Ricin
-
-# debugging
+mkdir build
+meson . build
 make debug
 ```
 
