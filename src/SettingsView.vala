@@ -21,8 +21,19 @@ class Ricin.SettingsView : Gtk.Notebook {
     this.label_tox_id.set_text (this.handle.id);
     this.clipboard = Gtk.Clipboard.get (Gdk.SELECTION_CLIPBOARD);
 
-    this.button_toxid_copy.clicked.connect (() => {
-      this.clipboard.set_text (this.label_tox_id.get_text (), -1);
-    });
+    this.button_toxid_copy.clicked.connect (this.copy_toxid);
+    this.button_toxid_change_nospam.clicked.connect (this.change_nospam);
+  }
+
+  private void copy_toxid () {
+    this.clipboard.set_text (this.label_tox_id.get_text (), -1);
+  }
+
+  private void change_nospam () {
+    var rand = new Rand ();
+    rand.set_seed (rand.next_int ());
+
+    this.handle.nospam = rand.next_int ();
+    this.label_tox_id.set_text (this.handle.id); // Update the ToxID.
   }
 }

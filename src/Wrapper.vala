@@ -75,6 +75,15 @@ namespace Tox {
       }
     }
 
+    public uint32 nospam {
+      get {
+        return this.handle.nospam;
+      }
+      set {
+        this.handle.nospam = value;
+      }
+    }
+
     public void send_avatar (string path) {
       this.avatar = new Gdk.Pixbuf.from_file (path);
       debug (@"avatar = $path");
