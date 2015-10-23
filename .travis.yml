@@ -13,7 +13,7 @@ before_script:
  - wget https://github.com/mesonbuild/meson/releases/download/0.26.0/meson_0.26.0.tar.gz
  - tar -xvf meson_0.26.0.tar.gz
  - cd meson-0.26.0
- - python3.4 install_meson.py --prefix /home/`whoami`/meson
+ - python install_meson.py --prefix /home/`whoami`/meson
  - cd ..
  - rm -rf meson-0.26.0 meson_0.26.0.tar.gz
 # Valac 0.29.3
