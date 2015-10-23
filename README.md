@@ -52,7 +52,8 @@ git clone --recursive https://github.com/RicinApp/Ricin.git
 cd Ricin
 mkdir build && cd build
 meson ..
-ninja # may be called ninja-build
+# ninja is called ninja-build on Debian, Ubuntu and Fedora
+ninja
 ./Ricin
 
 # debugging
