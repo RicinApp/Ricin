@@ -35,6 +35,8 @@ _Screenshot might be outdated but it should give you a general idea of what is R
 # Dependencies
 | Package name     | Version   |
 |------------------|-----------|
+| [meson] (building) |           |
+| ninja (building) |           |
 | valac            | >=0.28.1  |
 | gtk+3            | >=3.16    |
 | [libtoxcore]     | >=0.0.0   |
@@ -44,24 +46,17 @@ _Screenshot might be outdated but it should give you a general idea of what is R
 | libnotify        | >=0.0.0   |
  
 # Compiling
-> **NOTE**:
-> Before compiling Ricin, make sure that you have installed all the needed dependencies, then follow the guide :)
-
-### Cloning the Ricin repository
-To compile from the latest commit you must first clone the repository by using the following command (type it in a Terminal).
 
 ```bash
-# Don't forgot the --recursive flag, else it won't clone submodules
-# and you won't be able to compile without cloning tox-vapi too. :x
-git clone --recursive https://github.com/RicinApp/Ricin.git Ricin-client
-```
+git clone --recursive https://github.com/RicinApp/Ricin.git
+cd Ricin
+mkdir build && cd build
+meson ..
+ninja
+./Ricin
 
-### Compiling Ricin client
-Now that you just cloned the repository from GitHub, you will surely want to compile the application. It's super-simple to do as it only takes 1 line!
-
-```bash
-make ricin
-make debug # To run Ricin with gdb [Debug only]
+# debugging
+make debug
 ```
 
 # Contribute
@@ -95,3 +90,4 @@ See
 - [misc/mockup2.png](misc/mockup2.png)
 
 [libtoxcore]: https://github.com/irungentoo/toxcore/blob/master/INSTALL.md
+[meson]: http://mesonbuild.com/
