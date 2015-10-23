@@ -1,6 +1,9 @@
 # build dir
 build/
 
+# Binary
+Ricin
+
 # AStyle orig files
 *.orig
 

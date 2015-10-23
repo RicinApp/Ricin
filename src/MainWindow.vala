@@ -104,7 +104,7 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
     var path = avatar_path ();
     if (FileUtils.test (path, FileTest.EXISTS)) {
       this.tox.send_avatar (path);
-      var pixbuf = new Gdk.Pixbuf.from_file_at_scale (path, 46, 46, true);
+      var pixbuf = new Gdk.Pixbuf.from_file_at_scale (path, 48, 48, false);
       this.avatar_image.pixbuf = pixbuf;
     }
 
