@@ -52,7 +52,7 @@ git clone --recursive https://github.com/RicinApp/Ricin.git
 cd Ricin
 mkdir build && cd build
 meson ..
-ninja
+ninja # may be called ninja-build
 ./Ricin
 
 # debugging
