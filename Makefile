@@ -7,5 +7,6 @@ style:
 		--add-brackets \
 		src/*.vala
 
-debug: ./build/Ricin
+debug: ./build/
+	ninja -C build
 	G_MESSAGES_DEBUG=all GOBJECT_DEBUG=instance-count gdb -ex run ./build/Ricin
