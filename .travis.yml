@@ -76,5 +76,5 @@ before_script:
 
 script:
  - mkdir build && cd build
- - /home/`whoami`/meson/bin/meson . build
+ - /home/travis/meson/bin/meson . build
  - make debug
