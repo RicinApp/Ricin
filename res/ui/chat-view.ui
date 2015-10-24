@@ -68,6 +68,7 @@
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="selection_mode">none</property>
+                <signal name="size-allocate" handler="scroll_to_bottom" swapped="no"/>
               </object>
             </child>
           </object>
@@ -89,6 +90,7 @@
             <property name="visible">True</property>
             <property name="sensitive">False</property>
             <property name="can_focus">True</property>
+            <signal name="activate" handler="send_message" swapped="no"/>
           </object>
           <packing>
             <property name="expand">True</property>
@@ -104,6 +106,7 @@
             <property name="receives_default">True</property>
             <property name="image_position">right</property>
             <property name="always_show_image">True</property>
+            <signal name="clicked" handler="send_message" swapped="no"/>
             <child>
               <object class="GtkImage" id="image2">
                 <property name="visible">True</property>
@@ -123,6 +126,7 @@
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
+            <signal name="clicked" handler="choose_file_to_send" swapped="no"/>
             <child>
               <object class="GtkImage" id="image3">
                 <property name="visible">True</property>

@@ -6,7 +6,6 @@ class Ricin.ChatView : Gtk.Box {
   [GtkChild] Gtk.ListBox messages_list;
   [GtkChild] public Gtk.Entry entry;
   [GtkChild] Gtk.Button send;
-  [GtkChild] Gtk.Button send_file;
   [GtkChild] Gtk.Revealer friend_typing;
 
   private ListStore messages = new ListStore (typeof (Gtk.Label));
@@ -28,10 +27,6 @@ class Ricin.ChatView : Gtk.Box {
     }
 
     this.messages_list.bind_model (this.messages, l => l as Gtk.Widget);
-    this.messages_list.size_allocate.connect (() => {
-      var adjustment = this.scroll_messages.get_vadjustment ();
-      adjustment.set_value (adjustment.get_upper () - adjustment.get_page_size ());
-    });
 
     fr.friend_info.connect ((message) => {
       this.add_row (@"<span color=\"#2980b9\">** <i>$message</i></span>");
@@ -39,20 +34,6 @@ class Ricin.ChatView : Gtk.Box {
 
     handle.global_info.connect ((message) => {
       this.add_row (@"<span color=\"#2980b9\">** $message</span>");
-    });
-
-    this.entry.activate.connect (this.send_message);
-    this.send.clicked.connect (this.send_message);
-    this.send_file.clicked.connect (() => {
-      var chooser = new Gtk.FileChooserDialog ("Choose a File", null, Gtk.FileChooserAction.OPEN,
-          "_Cancel", Gtk.ResponseType.CANCEL,
-          "_Open", Gtk.ResponseType.ACCEPT);
-      if (chooser.run () == Gtk.ResponseType.ACCEPT) {
-        var filename = chooser.get_filename ();
-        fr.send_file (filename);
-        fr.friend_info (@"Sending file $filename");
-      }
-      chooser.close ();
     });
 
     fr.message.connect (message => {
@@ -140,6 +121,7 @@ class Ricin.ChatView : Gtk.Box {
     messages.append (label);
   }
 
+  [GtkCallback]
   private void send_message () {
     var user = this.handle.username;
     string markup;
@@ -180,5 +162,24 @@ class Ricin.ChatView : Gtk.Box {
     }
 
     return true;
+  }
+
+  [GtkCallback]
+  private void choose_file_to_send () {
+    var chooser = new Gtk.FileChooserDialog ("Choose a File", null, Gtk.FileChooserAction.OPEN,
+        "_Cancel", Gtk.ResponseType.CANCEL,
+        "_Open", Gtk.ResponseType.ACCEPT);
+    if (chooser.run () == Gtk.ResponseType.ACCEPT) {
+      var filename = chooser.get_filename ();
+      fr.send_file (filename);
+      fr.friend_info (@"Sending file $filename");
+    }
+    chooser.close ();
+  }
+
+  [GtkCallback]
+  private void scroll_to_bottom () {
+    var adjustment = this.scroll_messages.get_vadjustment ();
+    adjustment.set_value (adjustment.get_upper () - adjustment.get_page_size ());
   }
 }
