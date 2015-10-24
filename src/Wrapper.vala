@@ -7,11 +7,28 @@ namespace Tox {
     ONLINE,
     AWAY,
     BUSY,
-    OFFLINE
+    OFFLINE,
+    BLOCKED
   }
 
   public string profile_dir () {
     return Environment.get_user_config_dir () + "/tox/";
+  }
+
+  public ToxCore.UserStatus wrapper_to_core_status (UserStatus st) {
+    if (st == UserStatus.AWAY)
+      return ToxCore.UserStatus.AWAY;
+    if (st == UserStatus.BUSY)
+      return ToxCore.UserStatus.BUSY;
+    return ToxCore.UserStatus.NONE;
+  }
+
+  public UserStatus core_to_wrapper_status (ToxCore.UserStatus st) {
+    if (st == ToxCore.UserStatus.AWAY)
+      return UserStatus.AWAY;
+    if (st == ToxCore.UserStatus.BUSY)
+      return UserStatus.BUSY;
+    return UserStatus.ONLINE;
   }
 
   public errordomain ErrNew {
@@ -68,10 +85,14 @@ namespace Tox {
 
     public UserStatus status {
       get {
-        return (UserStatus) this.handle.status;
+        if (connected) {
+          return core_to_wrapper_status (handle.status);
+        } else {
+          return UserStatus.OFFLINE;
+        }
       }
       set {
-        this.handle.status = (ToxCore.UserStatus) value;
+        this.handle.status = wrapper_to_core_status (value);
       }
     }
 
@@ -172,7 +193,7 @@ namespace Tox {
       handle.callback_friend_connection_status ((self, num, status) => {
         if (this.friends[num] == null) { // new friend
           this.friends[num] = new Friend (this, num);
-          this.friend_online (this.friends[num]);
+          this.friend_online (this.friends[num]); // TODO
         }
 
         this.friends[num].connected = (status != ConnectionStatus.NONE);
@@ -186,11 +207,11 @@ namespace Tox {
       });
 
       handle.callback_friend_status ((self, num, status) => {
-        this.friends[num].status = (UserStatus) status;
+        this.friends[num].set_user_status (status);
       });
 
       this.handle.callback_friend_status_message ((self, num, message) => {
-        if (this.friends[num].is_blocked) {
+        if (this.friends[num].blocked) {
           return;
         }
 
@@ -198,7 +219,7 @@ namespace Tox {
       });
 
       this.handle.callback_friend_message ((self, num, type, message) => {
-        if (this.friends[num].is_blocked) {
+        if (this.friends[num].blocked) {
           return;
         }
 
@@ -210,7 +231,7 @@ namespace Tox {
       });
 
       this.handle.callback_friend_typing ((self, num, is_typing) => {
-        if (this.friends[num].is_blocked) {
+        if (this.friends[num].blocked) {
           return;
         }
 
@@ -246,7 +267,7 @@ namespace Tox {
 
       // recv
       this.handle.callback_file_recv_control ((self, friend, file, control) => {
-        if (this.friends[friend].is_blocked) {
+        if (this.friends[friend].blocked) {
           return;
         }
 
@@ -264,7 +285,8 @@ namespace Tox {
 
       // recv
       this.handle.callback_file_recv ((self, friend, file, kind, size, filename) => {
-        if (this.friends[friend].is_blocked) {
+        if (this.friends[friend].blocked) {
+          this.handle.file_control (friend, file, FileControl.CANCEL, null);
           return;
         }
 
@@ -281,7 +303,8 @@ namespace Tox {
 
       // recv
       this.handle.callback_file_recv_chunk ((self, friend, file, position, data) => {
-        if (this.friends[friend].is_blocked) {
+        if (this.friends[friend].blocked) {
+          this.handle.file_control (friend, file, FileControl.CANCEL, null);
           return;
         }
 
@@ -477,11 +500,11 @@ namespace Tox {
       }
     }
 
-    public UserStatus status { get; set; }
+    public UserStatus status { get; private set; }
     public string status_message { get; set; }
     public bool connected { get; set; }
     public bool typing { get; set; }
-    public bool is_blocked { get; set; default = false; }
+    public bool blocked { get; set; default = false; }
 
     public signal void message (string message);
     public signal void action (string message);
@@ -494,11 +517,22 @@ namespace Tox {
       this.tox = tox;
       this.num = num;
 
-      this.notify["connected"].connect ((o, p) => {
-        if (!this.connected) {
-          this.status = UserStatus.OFFLINE;
-        }
-      });
+      this.notify["connected"].connect ((o, p) => update_user_status ());
+      this.notify["blocked"].connect ((o, p) => update_user_status ());
+    }
+
+    public void set_user_status (ToxCore.UserStatus status) {
+      if (blocked) {
+        this.status = UserStatus.BLOCKED;
+      } else if (!connected) {
+        this.status = UserStatus.OFFLINE;
+      } else {
+        this.status = core_to_wrapper_status (status);
+      }
+    }
+
+    public void update_user_status () {
+      this.set_user_status (tox.handle.friend_get_status (num, null));
     }
 
     public void reply_file_transfer (bool accept, uint32 id) {

@@ -11,7 +11,6 @@ class Ricin.FriendListRow : Gtk.ListBoxRow {
   private string current_status_icon = "";
   private Gtk.Menu menu_friend;
   private Gtk.ImageMenuItem block_friend;
-  private const int icon_size = 16;
 
   public FriendListRow (Tox.Friend fr) {
     this.fr = fr;
@@ -40,6 +39,9 @@ class Ricin.FriendListRow : Gtk.ListBoxRow {
       string icon = "";
 
       switch (fr.status) {
+        case UserStatus.BLOCKED:
+          icon = "action-unavailable-symbolic";
+          break;
         case UserStatus.ONLINE:
           icon = "user-available";
           break;
@@ -55,17 +57,11 @@ class Ricin.FriendListRow : Gtk.ListBoxRow {
           break;
       }
       this.userstatus.set_from_icon_name (icon, Gtk.IconSize.BUTTON);
-      this.userstatus.set_pixel_size (this.icon_size); // Fix a weird issue.
-      this.current_status_icon = this.userstatus.icon_name;
-      this.changed ();
+      this.changed (); // we sort by user status
     });
 
-    fr.notify["is-blocked"].connect ((obj, prop) => {
-      this.block_friend.set_label ((this.fr.is_blocked) ? "Unblock friend" : "Block friend");
-      var cur_icon = (this.current_status_icon != "") ? this.current_status_icon : "user-status-pending-symbolic";
-      var icon = (this.fr.is_blocked) ? "action-unavailable-symbolic" : cur_icon;
-      this.userstatus.set_from_icon_name (icon, Gtk.IconSize.BUTTON);
-      this.userstatus.set_pixel_size (this.icon_size); // Fix a weird issue.
+    fr.notify["blocked"].connect ((obj, prop) => {
+      this.block_friend.set_label ((this.fr.blocked) ? "Unblock friend" : "Block friend");
     });
   }
 
@@ -90,13 +86,13 @@ class Ricin.FriendListRow : Gtk.ListBoxRow {
       main_window.remove_friend (this.fr);
     });
 
-    var block_friend_label = (this.fr.is_blocked) ? "Unblock friend" : "Block friend";
+    var block_friend_label = (this.fr.blocked) ? "Unblock friend" : "Block friend";
     var block_friend_icon = new Gtk.Image.from_icon_name ("action-unavailable-symbolic", Gtk.IconSize.MENU);
     this.block_friend = new Gtk.ImageMenuItem.with_label (block_friend_label);
     this.block_friend.always_show_image = true;
     this.block_friend.set_image (block_friend_icon);
     this.block_friend.activate.connect (() => {
-      this.fr.is_blocked = !this.fr.is_blocked;
+      this.fr.blocked = !this.fr.blocked;
     });
 
     this.menu_friend.append (block_friend);
