@@ -61,6 +61,7 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
         bool result = friend.delete ();
         if (result) {
           this.friends.remove (friend.position);
+          this.tox.save_data ();
         }
       }
 
