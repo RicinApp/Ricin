@@ -38,22 +38,10 @@ class Ricin.ProfileChooser : Gtk.ApplicationWindow {
       this.notebook_switcher.page = 1;
     }
 
-    this.button_login.clicked.connect (this.login);
-    this.button_register.clicked.connect (this.register);
-
-    this.entry_register_name.key_press_event.connect (() => {
-      var label = this.label_create_profile.get_text ();
-      var label_default = "Enter a name for the profile";
-      if (label != label_default) {
-        this.label_create_profile.set_text (label_default);
-      }
-
-      return false;
-    });
-
     this.show_all ();
   }
 
+  [GtkCallback]
   private void login () {
     var profile = Tox.profile_dir () + this.combobox_profiles.get_active_text ();
 
@@ -66,6 +54,7 @@ class Ricin.ProfileChooser : Gtk.ApplicationWindow {
     }
   }
 
+  [GtkCallback]
   private void register () {
     var entry = this.entry_register_name.get_text ();
 
@@ -83,6 +72,15 @@ class Ricin.ProfileChooser : Gtk.ApplicationWindow {
       this.button_register.sensitive = false; // To prevent issue.
       new MainWindow (this.application, profile);
       this.close ();
+    }
+  }
+
+  [GtkCallback]
+  private void reset_warning_label () {
+    var label = this.label_create_profile.get_text ();
+    var label_default = "Enter a name for the profile";
+    if (label != label_default) {
+      this.label_create_profile.set_text (label_default);
     }
   }
 }
