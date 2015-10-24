@@ -41,19 +41,17 @@ class Ricin.FriendListRow : Gtk.ListBoxRow {
 
       switch (fr.status) {
         case UserStatus.ONLINE:
-          icon = "user-available-symbolic";
+          icon = "user-available";
           break;
         case UserStatus.AWAY:
-          icon = "user-away-symbolic";
+          icon = "user-away";
           break;
         case UserStatus.BUSY:
-          icon = "user-busy-symbolic";
+          icon = "user-busy";
           break;
         case UserStatus.OFFLINE:
-          icon = "user-offline-symbolic";
-          break;
         default:
-          icon = "user-status-pending-symbolic";
+          icon = "user-offline";
           break;
       }
       this.userstatus.set_from_icon_name (icon, Gtk.IconSize.BUTTON);

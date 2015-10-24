@@ -199,26 +199,26 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
         case Tox.UserStatus.ONLINE:
           // Set status to away.
           this.tox.status = Tox.UserStatus.AWAY;
-          this.image_user_status.icon_name = "user-away-symbolic";
+          this.image_user_status.icon_name = "user-away";
           break;
         case Tox.UserStatus.AWAY:
           // Set status to busy.
           this.tox.status = Tox.UserStatus.BUSY;
-          this.image_user_status.icon_name = "user-busy-symbolic";
+          this.image_user_status.icon_name = "user-busy";
           break;
         case Tox.UserStatus.BUSY:
           // Set status to online.
           this.tox.status = Tox.UserStatus.ONLINE;
-          this.image_user_status.icon_name = "user-available-symbolic";
+          this.image_user_status.icon_name = "user-available";
           break;
         default:
-          this.image_user_status.icon_name = "user-offline-symbolic";
+          this.image_user_status.icon_name = "user-offline";
           break;
       }
     });
 
     tox.notify["connected"].connect ((src, prop) => {
-      this.image_user_status.icon_name = this.tox.connected ? "user-available-symbolic" : "user-offline-symbolic";
+      this.image_user_status.icon_name = this.tox.connected ? "user-available" : "user-offline";
       this.button_user_status.sensitive = this.tox.connected;
     });
 
@@ -335,7 +335,7 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
 
     // ONLINE
     var menuOnline = new Gtk.ImageMenuItem.with_label("Online");
-    var menuOnlineImage = new Gtk.Image.from_icon_name("user-available-symbolic", Gtk.IconSize.MENU);
+    var menuOnlineImage = new Gtk.Image.from_icon_name("user-available", Gtk.IconSize.MENU);
     menuOnline.always_show_image = true;
     menuOnline.set_image(menuOnlineImage);
     menuOnline.activate.connect (() => {
@@ -345,7 +345,7 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
 
     // BUSY
     var menuBusy = new Gtk.ImageMenuItem.with_label("Busy");
-    var menuBusyImage = new Gtk.Image.from_icon_name("user-busy-symbolic", Gtk.IconSize.MENU);
+    var menuBusyImage = new Gtk.Image.from_icon_name("user-busy", Gtk.IconSize.MENU);
     menuBusy.always_show_image = true;
     menuBusy.set_image(menuBusyImage);
     menuBusy.activate.connect (() => {
@@ -355,7 +355,7 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
 
     // AWAY
     var menuAway = new Gtk.ImageMenuItem.with_label("Away");
-    var menuAwayImage = new Gtk.Image.from_icon_name("user-away-symbolic", Gtk.IconSize.MENU);
+    var menuAwayImage = new Gtk.Image.from_icon_name("user-away", Gtk.IconSize.MENU);
     menuAway.always_show_image = true;
     menuAway.set_image(menuAwayImage);
     menuAway.activate.connect (() => {
@@ -365,7 +365,7 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
 
     // QUIT
     var menuQuit = new Gtk.ImageMenuItem.with_label("Quit");
-    var menuQuitImage = new Gtk.Image.from_icon_name("window-close-symbolic", Gtk.IconSize.MENU);
+    var menuQuitImage = new Gtk.Image.from_icon_name("window-close", Gtk.IconSize.MENU);
     menuQuit.always_show_image = true;
     menuQuit.set_image(menuQuitImage);
     menuQuit.activate.connect(this.close);
