@@ -358,8 +358,8 @@ namespace Tox {
 
     private async void bootstrap () {
       var json = new Json.Parser ();
-      var stream = resources_open_stream ("/chat/tox/ricin/nodes.json", ResourceLookupFlags.NONE);
-      if (yield json.load_from_stream_async (stream, null)) {
+      var bytes = resources_lookup_data ("/chat/tox/ricin/nodes.json", ResourceLookupFlags.NONE);
+      if (json.load_from_data ((string) bytes.get_data (), bytes.length)) {
         Server[] servers = {};
         var array = json.get_root ().get_object ().get_array_member ("servers");
         array.foreach_element ((arr, index, node) => {
