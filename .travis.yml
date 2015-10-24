@@ -14,6 +14,7 @@ before_script:
 # ninja
  - git clone git://github.com/martine/ninja.git
  - cd ninja
+ - git checkout release
  - ./configure.py --bootstrap
  - sudo cp ./ninja /usr/bin/ninja
  - cd ..
