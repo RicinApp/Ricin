@@ -8,9 +8,15 @@ install:
 # Utils
  - sudo apt-add-repository ppa:vala-team/ppa -y
  - sudo apt-get update -q
- - sudo apt-get install -y checkinstall build-essential libglib2.0-dev libgtk-3-dev libgdk-pixbuf2.0-dev libsoup2.4-dev libjson-glib-dev libnotify-bin ninja-build python3 valac-0.30 libnotify-dev libopus-dev
+ - sudo apt-get install -y checkinstall build-essential libglib2.0-dev libgtk-3-dev libgdk-pixbuf2.0-dev libsoup2.4-dev libjson-glib-dev libnotify-bin python3 valac-0.30 libnotify-dev libopus-dev
 
 before_script:
+# ninja
+ - git clone git://github.com/martine/ninja.git
+ - cd ninja
+ - ./bootstrap.py
+ - sudo cp ./ninja /usr/bin/ninja
+ - cd ..
 # meson
  - wget https://github.com/mesonbuild/meson/releases/download/0.26.0/meson_0.26.0.tar.gz
  - tar -xvf meson_0.26.0.tar.gz
@@ -61,4 +67,4 @@ before_script:
 script:
  - mkdir build && cd build
  - meson ..
- - ninja-build
+ - ninja
