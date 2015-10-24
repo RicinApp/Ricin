@@ -334,10 +334,8 @@ namespace Tox {
     }
 
     private async void bootstrap () {
-      var sess = new Soup.Session ();
-      var msg = new Soup.Message ("GET", "https://build.tox.chat/job/nodefile_build_linux_x86_64_release/lastSuccessfulBuild/artifact/Nodefile.json");
-      var stream = yield sess.send_async (msg, null);
       var json = new Json.Parser ();
+      var stream = resources_open_stream ("/chat/tox/ricin/nodes.json", ResourceLookupFlags.NONE);
       if (yield json.load_from_stream_async (stream, null)) {
         Server[] servers = {};
         var array = json.get_root ().get_object ().get_array_member ("servers");
