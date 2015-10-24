@@ -57,6 +57,7 @@
                             <property name="can_focus">True</property>
                             <property name="receives_default">True</property>
                             <property name="relief">half</property>
+                            <signal name="clicked" handler="copy_toxid" swapped="no"/>
                           </object>
                           <packing>
                             <property name="expand">False</property>
@@ -70,6 +71,7 @@
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">True</property>
+                            <signal name="clicked" handler="change_nospam" swapped="no"/>
                           </object>
                           <packing>
                             <property name="expand">False</property>
