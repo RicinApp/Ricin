@@ -6,6 +6,7 @@ class Ricin.ChatView : Gtk.Box {
   [GtkChild] Gtk.ListBox messages_list;
   [GtkChild] public Gtk.Entry entry;
   [GtkChild] Gtk.Button send;
+  [GtkChild] Gtk.Button send_file;
   [GtkChild] Gtk.Revealer friend_typing;
 
   private ListStore messages = new ListStore (typeof (Gtk.Label));
@@ -100,6 +101,7 @@ class Ricin.ChatView : Gtk.Box {
 
     fr.bind_property ("connected", entry, "sensitive", BindingFlags.DEFAULT);
     fr.bind_property ("connected", send, "sensitive", BindingFlags.DEFAULT);
+    fr.bind_property ("connected", send_file, "sensitive", BindingFlags.DEFAULT);
     fr.bind_property ("typing", friend_typing, "reveal_child", BindingFlags.DEFAULT);
     fr.bind_property ("name", username, "label", BindingFlags.DEFAULT);
     fr.bind_property ("status-message", status_message, "label", BindingFlags.DEFAULT, (binding, val, ref target) => {
