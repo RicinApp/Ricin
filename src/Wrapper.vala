@@ -131,6 +131,7 @@ namespace Tox {
       this.ipv6_enabled = opts.ipv6_enabled;
       ERR_NEW error;
       this.handle = new ToxCore.Tox (opts, out error);
+      unowned ToxCore.Tox handle = this.handle;
 
       switch (error) {
         case ERR_NEW.NULL:
@@ -153,7 +154,7 @@ namespace Tox {
           throw new ErrNew.LoadFailed ("The data format was invalid. This can happen when loading data that was saved by an older version of Tox, or when the data has been corrupted. When loading from badly formatted data, some data may have been loaded, and the rest is discarded. Passing an invalid length parameter also causes this error.");
       }
 
-      this.handle.callback_self_connection_status ((self, status) => {
+      handle.callback_self_connection_status ((self, status) => {
         switch (status) {
           case ConnectionStatus.NONE:
             debug ("Connection: none");
@@ -168,7 +169,7 @@ namespace Tox {
         this.connected = (status != ConnectionStatus.NONE);
       });
 
-      this.handle.callback_friend_connection_status ((self, num, status) => {
+      handle.callback_friend_connection_status ((self, num, status) => {
         if (this.friends[num] == null) { // new friend
           this.friends[num] = new Friend (this, num);
           this.friend_online (this.friends[num]);
@@ -177,22 +178,22 @@ namespace Tox {
         this.friends[num].connected = (status != ConnectionStatus.NONE);
       });
 
-      this.handle.callback_friend_name ((self, num, name) => {
+      handle.callback_friend_name ((self, num, name) => {
         var old_name = this.friends[num].name ?? (this.friends[num].pubkey.slice (0, 16) + "...");
         var new_name = Util.arr2str (name);
         this.friends[num].friend_info (old_name + " is now known as " + new_name);
         this.friends[num].name = new_name;
       });
 
-      this.handle.callback_friend_status ((self, num, status) => {
+      handle.callback_friend_status ((self, num, status) => {
         this.friends[num].status = (UserStatus) status;
       });
 
-      this.handle.callback_friend_status_message ((self, num, message) => {
+      handle.callback_friend_status_message ((self, num, message) => {
         this.friends[num].status_message = Util.arr2str (message);
       });
 
-      this.handle.callback_friend_message ((self, num, type, message) => {
+      handle.callback_friend_message ((self, num, type, message) => {
         if (type == MessageType.NORMAL) {
           this.friends[num].message (Util.arr2str (message));
         } else {
@@ -200,11 +201,11 @@ namespace Tox {
         }
       });
 
-      this.handle.callback_friend_typing ((self, num, is_typing) => {
+      handle.callback_friend_typing ((self, num, is_typing) => {
         this.friends[num].typing = is_typing;
       });
 
-      this.handle.callback_friend_request ((self, pubkey, message) => {
+      handle.callback_friend_request ((self, pubkey, message) => {
         pubkey.length = ToxCore.PUBLIC_KEY_SIZE;
         string id = Util.bin2hex (pubkey);
         string msg = Util.arr2str (message);
@@ -213,7 +214,7 @@ namespace Tox {
       });
 
       // send
-      this.handle.callback_file_chunk_request ((self, friend, file, position, length) => {
+      handle.callback_file_chunk_request ((self, friend, file, position, length) => {
         if (length == 0) { // file transfer finished
           debug (@"friend $friend, file $file: done");
           this.friends[friend].files_send.remove (file);
@@ -232,7 +233,7 @@ namespace Tox {
       });
 
       // recv
-      this.handle.callback_file_recv_control ((self, friend, file, control) => {
+      handle.callback_file_recv_control ((self, friend, file, control) => {
         if (control == FileControl.CANCEL) {
           debug (@"friend $friend, file $file: cancelled");
           this.friends[friend].files_recv.remove (file);
@@ -246,7 +247,7 @@ namespace Tox {
       });
 
       // recv
-      this.handle.callback_file_recv ((self, friend, file, kind, size, filename) => {
+      handle.callback_file_recv ((self, friend, file, kind, size, filename) => {
         if (kind == FileKind.AVATAR) {
           debug (@"friend $friend, file $file: receive avatar");
           this.friends[friend].files_recv[file] = new FileDownload.avatar ();
@@ -259,7 +260,7 @@ namespace Tox {
       });
 
       // recv
-      this.handle.callback_file_recv_chunk ((self, friend, file, position, data) => {
+      handle.callback_file_recv_chunk ((self, friend, file, position, data) => {
         var fr = this.friends[friend];
         assert (fr.files_recv.contains (file));
         if (data.length == 0) {

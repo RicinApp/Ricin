@@ -12,7 +12,7 @@ class Ricin.FriendListRow : Gtk.ListBoxRow {
 
   public FriendListRow (Tox.Friend fr) {
     this.fr = fr;
-    if (this.fr.name == null) {
+    if (fr.name == null) {
       this.username.set_text (this.fr.pubkey);
       this.status.set_text ("");
     }

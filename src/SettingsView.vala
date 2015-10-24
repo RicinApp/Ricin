@@ -18,7 +18,7 @@ class Ricin.SettingsView : Gtk.Notebook {
 
   public SettingsView (Tox.Tox handle) {
     this.handle = handle;
-    this.label_tox_id.set_text (this.handle.id);
+    this.label_tox_id.set_text (handle.id);
     this.clipboard = Gtk.Clipboard.get (Gdk.SELECTION_CLIPBOARD);
 
     this.button_toxid_copy.clicked.connect (this.copy_toxid);

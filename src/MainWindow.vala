@@ -77,8 +77,10 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
     opts.ipv6_enabled = true;
     opts.udp_enabled = true;
 
+    Tox.Tox tox;
     try {
-      this.tox = new Tox.Tox (opts, profile);
+      tox = new Tox.Tox (opts, profile);
+      this.tox = tox;
     } catch (Tox.ErrNew error) {
       warning ("Tox init failed: %s", error.message);
       this.destroy ();
@@ -89,7 +91,7 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
           "Can't load the profile");
       error_dialog.secondary_use_markup = true;
       error_dialog.format_secondary_markup (@"<span color=\"#e74c3c\">$(error.message)</span>");
-      error_dialog.response.connect (response_id => {
+      error_dialog.response.connect (response_id => { // TODO
         error_dialog.destroy ();
       });
       error_dialog.show ();
@@ -103,14 +105,14 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
 
     var path = avatar_path ();
     if (FileUtils.test (path, FileTest.EXISTS)) {
-      this.tox.send_avatar (path);
+      tox.send_avatar (path);
       var pixbuf = new Gdk.Pixbuf.from_file_at_scale (path, 48, 48, false);
       this.avatar_image.pixbuf = pixbuf;
     }
 
     this.init_tray_icon ();
-    this.entry_name.set_text (this.tox.username);
-    this.entry_status.set_text (this.tox.status_message);
+    this.entry_name.set_text (tox.username);
+    this.entry_status.set_text (tox.status_message);
     this.friendlist.set_sort_func (sort_friendlist_online);
 
     this.button_add_friend_show.clicked.connect (() => {
@@ -123,7 +125,7 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
       if (settings_view != null) {
         this.chat_stack.set_visible_child (settings_view);
       } else {
-        var view = new SettingsView (this.tox);
+        var view = new SettingsView (tox);
         this.chat_stack.add_named (view, "settings");
         this.chat_stack.set_visible_child (view);
         this.focused_view = "settings";
@@ -144,7 +146,7 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
       if (tox_id.length == ToxCore.ADDRESS_SIZE*2) { // bytes -> chars
         try {
           var friend = tox.add_friend (tox_id, message);
-          this.tox.save_data (); // Needed to avoid breaking profiles if app crash.
+          tox.save_data (); // Needed to avoid breaking profiles if app crash.
           this.entry_friend_id.set_text (""); // Clear the entry after adding a friend.
           this.add_friend.reveal_child = false;
           this.label_add_error.set_text ("Add a friend");
@@ -191,7 +193,7 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
     });
 
     this.entry_name.activate.connect (() => this.tox.username = Util.escape_html (this.entry_name.text));
-    this.entry_status.bind_property ("text", this.tox, "status_message", BindingFlags.BIDIRECTIONAL | BindingFlags.SYNC_CREATE);
+    this.entry_status.bind_property ("text", tox, "status_message", BindingFlags.BIDIRECTIONAL | BindingFlags.SYNC_CREATE);
 
     this.button_user_status.clicked.connect (() => {
       var status = this.tox.status;
@@ -217,12 +219,12 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
       }
     });
 
-    this.tox.notify["connected"].connect ((src, prop) => {
+    tox.notify["connected"].connect ((src, prop) => {
       this.image_user_status.icon_name = this.tox.connected ? "user-available-symbolic" : "user-offline-symbolic";
       this.button_user_status.sensitive = this.tox.connected;
     });
 
-    this.tox.friend_request.connect ((id, message) => {
+    tox.friend_request.connect ((id, message) => {
       var dialog = new Gtk.MessageDialog (this, Gtk.DialogFlags.MODAL, Gtk.MessageType.QUESTION, Gtk.ButtonsType.NONE, "Friend request from:");
       dialog.secondary_text = @"$id\n\n$message";
       dialog.add_buttons ("Accept", Gtk.ResponseType.ACCEPT, "Reject", Gtk.ResponseType.REJECT);
@@ -247,7 +249,7 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
       dialog.show ();
     });
 
-    this.tox.friend_online.connect ((friend) => {
+    tox.friend_online.connect ((friend) => {
       if (friend != null) {
         friend.position = friends.get_n_items ();
         debug ("Friend position: %u", friend.position);
@@ -303,7 +305,7 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
       return false;
     });
 
-    this.tox.run_loop ();
+    tox.run_loop ();
     this.show_all ();
   }
 

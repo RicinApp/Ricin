@@ -22,8 +22,8 @@ class Ricin.ChatView : Gtk.Box {
     this.stack = stack;
     this.view_name = view_name;
 
-    if (this.fr.name == null) {
-      this.username.set_text (this.fr.pubkey);
+    if (fr.name == null) {
+      this.username.set_text (fr.pubkey);
       this.status_message.set_markup ("");
     }
 
@@ -33,11 +33,11 @@ class Ricin.ChatView : Gtk.Box {
       adjustment.set_value (adjustment.get_upper () - adjustment.get_page_size ());
     });
 
-    this.fr.friend_info.connect ((message) => {
+    fr.friend_info.connect ((message) => {
       this.add_row (@"<span color=\"#2980b9\">** <i>$message</i></span>");
     });
 
-    this.handle.global_info.connect ((message) => {
+    handle.global_info.connect ((message) => {
       this.add_row (@"<span color=\"#2980b9\">** $message</span>");
     });
 
@@ -102,6 +102,7 @@ class Ricin.ChatView : Gtk.Box {
       fr.reply_file_transfer (dialog.run () == Gtk.ResponseType.ACCEPT, id);
       dialog.close ();
     });
+
     fr.file_done.connect ((name, bytes) => {
       string downloads = Environment.get_user_special_dir (UserDirectory.DOWNLOAD) + "/";
 
