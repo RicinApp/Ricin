@@ -1,6 +1,5 @@
 [GtkTemplate (ui="/chat/tox/ricin/ui/main-window.ui")]
 public class Ricin.MainWindow : Gtk.ApplicationWindow {
-  [GtkChild] Gtk.Button avatar_button;
   [GtkChild] Gtk.Image avatar_image;
   [GtkChild] Gtk.Entry entry_name;
   [GtkChild] Gtk.Entry entry_status;
@@ -16,7 +15,6 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
   [GtkChild] public Gtk.Entry entry_friend_id;
   [GtkChild] Gtk.TextView entry_friend_message;
   [GtkChild] Gtk.Label label_add_error;
-  //[GtkChild] Gtk.Button button_add_friend;
 
   // System notify.
   [GtkChild] public Gtk.Revealer revealer_system_notify;
