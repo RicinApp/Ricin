@@ -61,4 +61,4 @@ before_script:
 script:
  - mkdir build && cd build
  - meson ..
- - ninja build
+ - ninja-build
