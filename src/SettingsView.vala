@@ -43,7 +43,7 @@ class Ricin.SettingsView : Gtk.Notebook {
   /**
   * TODO: Make these functions working.
   */
-  private void udp_state_changed (bool state) {}
-  private void ipv6_state_changed (bool state) {}
-  private void proxy_state_changed (bool state) {}
+  private bool udp_state_changed (bool state) { return true; }
+  private bool ipv6_state_changed (bool state) { return true; }
+  private bool proxy_state_changed (bool state) { return true; }
 }
