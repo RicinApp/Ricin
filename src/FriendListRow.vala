@@ -8,7 +8,10 @@ class Ricin.FriendListRow : Gtk.ListBoxRow {
   [GtkChild] Gtk.Image userstatus;
 
   public Tox.Friend fr;
+  private string current_status_icon = "";
   private Gtk.Menu menu_friend;
+  private Gtk.ImageMenuItem block_friend;
+  private const int icon_size = 16;
 
   public FriendListRow (Tox.Friend fr) {
     this.fr = fr;
@@ -34,24 +37,37 @@ class Ricin.FriendListRow : Gtk.ListBoxRow {
     fr.avatar.connect (p => avatar.pixbuf = p);
 
     fr.notify["status"].connect ((obj, prop) => {
+      string icon = "";
+
       switch (fr.status) {
         case UserStatus.ONLINE:
-          this.userstatus.icon_name = "user-available";
+          icon = "user-available-symbolic";
           break;
         case UserStatus.AWAY:
-          this.userstatus.icon_name = "user-away";
+          icon = "user-away-symbolic";
           break;
         case UserStatus.BUSY:
-          this.userstatus.icon_name = "user-busy";
+          icon = "user-busy-symbolic";
           break;
         case UserStatus.OFFLINE:
-          this.userstatus.icon_name = "user-offline";
+          icon = "user-offline-symbolic";
           break;
         default:
-          this.userstatus.icon_name = "user-status-pending";
+          icon = "user-status-pending-symbolic";
           break;
       }
+      this.userstatus.set_from_icon_name (icon, Gtk.IconSize.BUTTON);
+      this.userstatus.set_pixel_size (this.icon_size); // Fix a weird issue.
+      this.current_status_icon = this.userstatus.icon_name;
       this.changed ();
+    });
+
+    fr.notify["is-blocked"].connect ((obj, prop) => {
+      this.block_friend.set_label ((this.fr.is_blocked) ? "Unblock friend" : "Block friend");
+      var cur_icon = (this.current_status_icon != "") ? this.current_status_icon : "user-status-pending-symbolic";
+      var icon = (this.fr.is_blocked) ? "action-unavailable-symbolic" : cur_icon;
+      this.userstatus.set_from_icon_name (icon, Gtk.IconSize.BUTTON);
+      this.userstatus.set_pixel_size (this.icon_size); // Fix a weird issue.
     });
   }
 
@@ -76,6 +92,16 @@ class Ricin.FriendListRow : Gtk.ListBoxRow {
       main_window.remove_friend (this.fr);
     });
 
+    var block_friend_label = (this.fr.is_blocked) ? "Unblock friend" : "Block friend";
+    var block_friend_icon = new Gtk.Image.from_icon_name ("action-unavailable-symbolic", Gtk.IconSize.MENU);
+    this.block_friend = new Gtk.ImageMenuItem.with_label (block_friend_label);
+    this.block_friend.always_show_image = true;
+    this.block_friend.set_image (block_friend_icon);
+    this.block_friend.activate.connect (() => {
+      this.fr.is_blocked = !this.fr.is_blocked;
+    });
+
+    this.menu_friend.append (block_friend);
     this.menu_friend.append (delete_friend);
     this.menu_friend.attach_to_widget (this, null);
     this.menu_friend.show_all ();
