@@ -189,11 +189,19 @@ namespace Tox {
         this.friends[num].status = (UserStatus) status;
       });
 
-      handle.callback_friend_status_message ((self, num, message) => {
+      this.handle.callback_friend_status_message ((self, num, message) => {
+        if (this.friends[num].is_blocked) {
+          return;
+        }
+
         this.friends[num].status_message = Util.arr2str (message);
       });
 
-      handle.callback_friend_message ((self, num, type, message) => {
+      this.handle.callback_friend_message ((self, num, type, message) => {
+        if (this.friends[num].is_blocked) {
+          return;
+        }
+
         if (type == MessageType.NORMAL) {
           this.friends[num].message (Util.arr2str (message));
         } else {
@@ -201,7 +209,11 @@ namespace Tox {
         }
       });
 
-      handle.callback_friend_typing ((self, num, is_typing) => {
+      this.handle.callback_friend_typing ((self, num, is_typing) => {
+        if (this.friends[num].is_blocked) {
+          return;
+        }
+
         this.friends[num].typing = is_typing;
       });
 
@@ -233,7 +245,11 @@ namespace Tox {
       });
 
       // recv
-      handle.callback_file_recv_control ((self, friend, file, control) => {
+      this.handle.callback_file_recv_control ((self, friend, file, control) => {
+        if (this.friends[friend].is_blocked) {
+          return;
+        }
+
         if (control == FileControl.CANCEL) {
           debug (@"friend $friend, file $file: cancelled");
           this.friends[friend].files_recv.remove (file);
@@ -247,7 +263,11 @@ namespace Tox {
       });
 
       // recv
-      handle.callback_file_recv ((self, friend, file, kind, size, filename) => {
+      this.handle.callback_file_recv ((self, friend, file, kind, size, filename) => {
+        if (this.friends[friend].is_blocked) {
+          return;
+        }
+
         if (kind == FileKind.AVATAR) {
           debug (@"friend $friend, file $file: receive avatar");
           this.friends[friend].files_recv[file] = new FileDownload.avatar ();
@@ -260,7 +280,11 @@ namespace Tox {
       });
 
       // recv
-      handle.callback_file_recv_chunk ((self, friend, file, position, data) => {
+      this.handle.callback_file_recv_chunk ((self, friend, file, position, data) => {
+        if (this.friends[friend].is_blocked) {
+          return;
+        }
+
         var fr = this.friends[friend];
         assert (fr.files_recv.contains (file));
         if (data.length == 0) {
@@ -441,19 +465,6 @@ namespace Tox {
     // ByteArray is mutable
     internal HashTable<uint32, FileDownload> files_recv = new HashTable<uint32, FileDownload> (direct_hash, direct_equal);
 
-    public signal void friend_info (string message);
-
-    public Friend (Tox tox, uint32 num) {
-      this.tox = tox;
-      this.num = num;
-
-      this.notify["connected"].connect ((o, p) => {
-        if (!this.connected) {
-          this.status = UserStatus.OFFLINE;
-        }
-      });
-    }
-
     /* We could implement this as just a get { } that goes to libtoxcore, and
      * use GLib.Object.notify_property () in the callbacks, but the name is not
      * set until we leave the callback so we'll just keep our own copy.
@@ -472,12 +483,25 @@ namespace Tox {
     public string status_message { get; set; }
     public bool connected { get; set; }
     public bool typing { get; set; }
+    public bool is_blocked { get; set; default = false; }
 
     public signal void message (string message);
     public signal void action (string message);
     public signal void avatar (Gdk.Pixbuf pixbuf);
+    public signal void friend_info (string message);
     public signal void file_transfer (string filename, uint64 file_size, uint32 id);
     public signal void file_done (string filename, Bytes data);
+
+    public Friend (Tox tox, uint32 num) {
+      this.tox = tox;
+      this.num = num;
+
+      this.notify["connected"].connect ((o, p) => {
+        if (!this.connected) {
+          this.status = UserStatus.OFFLINE;
+        }
+      });
+    }
 
     public void reply_file_transfer (bool accept, uint32 id) {
       tox.handle.file_control (this.num, id, accept ? FileControl.RESUME : FileControl.CANCEL, null);
