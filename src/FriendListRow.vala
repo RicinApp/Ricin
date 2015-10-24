@@ -72,7 +72,7 @@ class Ricin.FriendListRow : Gtk.ListBoxRow {
     delete_friend.always_show_image = true;
     delete_friend.set_image (delete_friend_icon);
     delete_friend.activate.connect (() => {
-      var main_window = (MainWindow) this.get_ancestor (typeof (MainWindow));
+      var main_window = this.get_toplevel () as MainWindow;
       main_window.remove_friend (this.fr);
     });
 

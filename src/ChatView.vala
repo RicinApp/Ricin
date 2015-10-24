@@ -91,8 +91,8 @@ class Ricin.ChatView : Gtk.Box {
     });
 
     fr.file_transfer.connect ((name, size, id) => {
-      var window = this.get_ancestor (typeof (Gtk.Window));
-      var dialog = new Gtk.MessageDialog ((Gtk.Window) window,
+      var window = this.get_toplevel () as Gtk.Window;
+      var dialog = new Gtk.MessageDialog (window,
                                           Gtk.DialogFlags.MODAL,
                                           Gtk.MessageType.QUESTION,
                                           Gtk.ButtonsType.NONE,
@@ -169,7 +169,7 @@ class Ricin.ChatView : Gtk.Box {
       return false; // Default behavior.
     }
 
-    var main_window = (MainWindow) this.get_ancestor (typeof (MainWindow));
+    var main_window = this.get_toplevel () as MainWindow;
     var toxid = uri.split ("tox:")[1];
     if (toxid.length == ToxCore.ADDRESS_SIZE * 2) {
       main_window.show_add_friend_popover (toxid);
