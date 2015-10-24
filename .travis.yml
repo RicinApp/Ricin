@@ -55,3 +55,6 @@ script:
  - mkdir build && cd build
  - meson ..
  - ninja
+
+notifications:
+  email: false
