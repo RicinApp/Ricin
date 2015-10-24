@@ -59,6 +59,6 @@ before_script:
  - cd ..
 
 script:
- - mkdir build
- - meson . build
+ - mkdir build && cd build
+ - meson ..
  - ninja build
