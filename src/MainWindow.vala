@@ -91,9 +91,7 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
           "Can't load the profile");
       error_dialog.secondary_use_markup = true;
       error_dialog.format_secondary_markup (@"<span color=\"#e74c3c\">$(error.message)</span>");
-      error_dialog.response.connect (response_id => { // TODO
-        error_dialog.destroy ();
-      });
+      error_dialog.response.connect (resp => error_dialog.destroy ()); // if we don't use a signal the profile chooser closes
       error_dialog.show ();
       return;
     }
