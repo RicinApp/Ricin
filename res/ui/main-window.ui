@@ -65,6 +65,7 @@
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
                         <property name="relief">none</property>
+                        <signal name="clicked" handler="choose_avatar" swapped="no"/>
                         <child>
                           <object class="GtkImage" id="avatar_image">
                             <property name="visible">True</property>
@@ -91,6 +92,7 @@
                             <property name="can_focus">True</property>
                             <property name="caps_lock_warning">False</property>
                             <property name="placeholder_text" translatable="yes">Name</property>
+                            <signal name="activate" handler="set_username_from_entry" swapped="no"/>
                           </object>
                           <packing>
                             <property name="expand">True</property>
@@ -132,6 +134,7 @@
                         <property name="relief">none</property>
                         <property name="focus_on_click">False</property>
                         <property name="always_show_image">True</property>
+                        <signal name="clicked" handler="cycle_user_status" swapped="no"/>
                       </object>
                       <packing>
                         <property name="expand">False</property>
@@ -170,6 +173,7 @@
                       <object class="GtkListBox" id="friendlist">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
+                        <signal name="row-activated" handler="show_friend_chatview" swapped="no"/>
                       </object>
                     </child>
                   </object>
@@ -275,6 +279,7 @@
                                 <property name="image">image2</property>
                                 <property name="relief">none</property>
                                 <property name="always_show_image">True</property>
+                                <signal name="clicked" handler="ui_add_friend" swapped="no"/>
                               </object>
                               <packing>
                                 <property name="expand">False</property>
@@ -292,6 +297,7 @@
                                 <property name="image">image1</property>
                                 <property name="relief">none</property>
                                 <property name="always_show_image">True</property>
+                                <signal name="clicked" handler="hide_add_friend_popover" swapped="no"/>
                               </object>
                               <packing>
                                 <property name="expand">False</property>
@@ -337,6 +343,7 @@
                     <property name="image">image3</property>
                     <property name="relief">none</property>
                     <property name="always_show_image">True</property>
+                    <signal name="clicked" handler="show_add_friend_popover" swapped="no"/>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -353,6 +360,7 @@
                     <property name="image">image4</property>
                     <property name="relief">none</property>
                     <property name="always_show_image">True</property>
+                    <signal name="clicked" handler="show_settings" swapped="no"/>
                   </object>
                   <packing>
                     <property name="expand">False</property>

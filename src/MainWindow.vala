@@ -10,15 +10,13 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
   [GtkChild] Gtk.ListBox friendlist;
   [GtkChild] public Gtk.Stack chat_stack;
   [GtkChild] public Gtk.Button button_add_friend_show;
-  [GtkChild] public Gtk.Button button_settings;
 
   // Add friend revealer.
   [GtkChild] public Gtk.Revealer add_friend;
   [GtkChild] public Gtk.Entry entry_friend_id;
   [GtkChild] Gtk.TextView entry_friend_message;
   [GtkChild] Gtk.Label label_add_error;
-  [GtkChild] Gtk.Button button_add_friend;
-  [GtkChild] Gtk.Button button_cancel_add;
+  //[GtkChild] Gtk.Button button_add_friend;
 
   // System notify.
   [GtkChild] public Gtk.Revealer revealer_system_notify;
@@ -78,10 +76,8 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
     opts.ipv6_enabled = true;
     opts.udp_enabled = true;
 
-    Tox.Tox tox;
     try {
-      tox = new Tox.Tox (opts, profile);
-      this.tox = tox;
+      this.tox = new Tox.Tox (opts, profile);
     } catch (Tox.ErrNew error) {
       warning ("Tox init failed: %s", error.message);
       this.destroy ();
@@ -110,120 +106,21 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
     }
 
     this.init_tray_icon ();
+    // TODO
     this.entry_name.set_text (tox.username);
     this.entry_status.set_text (tox.status_message);
     this.friendlist.set_sort_func (sort_friendlist_online);
 
-    this.button_add_friend_show.clicked.connect (() => {
-      this.show_add_friend_popover ();
-    });
-
-    this.button_settings.clicked.connect (() => {
-      var settings_view = this.chat_stack.get_child_by_name ("settings");
-
-      if (settings_view != null) {
-        this.chat_stack.set_visible_child (settings_view);
-      } else {
-        var view = new SettingsView (tox);
-        this.chat_stack.add_named (view, "settings");
-        this.chat_stack.set_visible_child (view);
-        this.focused_view = "settings";
-      }
-    });
-
-    this.button_add_friend.clicked.connect (() => {
-      var tox_id = this.entry_friend_id.get_text ();
-      var message = this.entry_friend_message.buffer.text;
-      var error_message = "";
-      this.label_add_error.use_markup = true;
-      this.label_add_error.use_markup = true;
-      this.label_add_error.halign = Gtk.Align.CENTER;
-      this.label_add_error.wrap_mode = Pango.WrapMode.CHAR;
-      this.label_add_error.selectable = true;
-      this.label_add_error.set_line_wrap (true);
-
-      if (tox_id.length == ToxCore.ADDRESS_SIZE*2) { // bytes -> chars
-        try {
-          var friend = tox.add_friend (tox_id, message);
-          tox.save_data (); // Needed to avoid breaking profiles if app crash.
-          this.entry_friend_id.set_text (""); // Clear the entry after adding a friend.
-          this.add_friend.reveal_child = false;
-          this.label_add_error.set_text ("Add a friend");
-          this.button_add_friend_show.visible = true;
-          return;
-        } catch (Tox.ErrFriendAdd error) {
-          debug ("Adding friend failed: %s", error.message);
-          error_message = error.message;
-        }
-      } else if (tox_id.index_of ("@") != -1) {
-        error_message = "Ricin doesn't supports ToxDNS yet.";
-      } else if (tox_id.strip () == "") {
-        error_message = "ToxID can't be empty.";
-      } else {
-        error_message = "ToxID is invalid.";
-      }
-
-      if (error_message.strip () != "") {
-        this.label_add_error.set_markup (@"<span color=\"#e74c3c\">$error_message</span>");
-        return;
-      }
-
-      this.add_friend.reveal_child = false;
-      this.button_add_friend_show.visible = true;
-    });
-
-    this.button_cancel_add.clicked.connect (() => {
-      this.add_friend.reveal_child = false;
-      this.label_add_error.set_text ("Add a friend");
-      this.button_add_friend_show.visible = true;
-    });
-
     this.friendlist.bind_model (this.friends, fr => new FriendListRow (fr as Tox.Friend));
-    this.friendlist.row_activated.connect ((lb, row) => {
-      var friend = (row as FriendListRow).fr;
-      var view_name = "chat-%s".printf (friend.pubkey);
-      var chat_view = this.chat_stack.get_child_by_name (view_name);
-      debug ("ChatView name: %s", view_name);
 
-      if (chat_view != null) {
-        (chat_view as ChatView).entry.grab_focus ();
-        this.chat_stack.set_visible_child (chat_view);
-      }
-    });
-
-    this.entry_name.activate.connect (() => this.tox.username = Util.escape_html (this.entry_name.text));
     this.entry_status.bind_property ("text", tox, "status_message", BindingFlags.BIDIRECTIONAL | BindingFlags.SYNC_CREATE);
-
-    this.button_user_status.clicked.connect (() => {
-      var status = this.tox.status;
-      switch (status) {
-        case Tox.UserStatus.ONLINE:
-          // Set status to away.
-          this.tox.status = Tox.UserStatus.AWAY;
-          this.image_user_status.icon_name = "user-away";
-          break;
-        case Tox.UserStatus.AWAY:
-          // Set status to busy.
-          this.tox.status = Tox.UserStatus.BUSY;
-          this.image_user_status.icon_name = "user-busy";
-          break;
-        case Tox.UserStatus.BUSY:
-          // Set status to online.
-          this.tox.status = Tox.UserStatus.ONLINE;
-          this.image_user_status.icon_name = "user-available";
-          break;
-        default:
-          this.image_user_status.icon_name = "user-offline";
-          break;
-      }
-    });
 
     tox.notify["connected"].connect ((src, prop) => {
       this.image_user_status.icon_name = this.tox.connected ? "user-available" : "user-offline";
       this.button_user_status.sensitive = this.tox.connected;
     });
 
-    tox.friend_request.connect ((id, message) => {
+    this.tox.friend_request.connect ((id, message) => {
       var dialog = new Gtk.MessageDialog (this, Gtk.DialogFlags.MODAL, Gtk.MessageType.QUESTION, Gtk.ButtonsType.NONE, "Friend request from:");
       dialog.secondary_text = @"$id\n\n$message";
       dialog.add_buttons ("Accept", Gtk.ResponseType.ACCEPT, "Reject", Gtk.ResponseType.REJECT);
@@ -248,7 +145,7 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
       dialog.show ();
     });
 
-    tox.friend_online.connect ((friend) => {
+    this.tox.friend_online.connect ((friend) => {
       if (friend != null) {
         friend.position = friends.get_n_items ();
         debug ("Friend position: %u", friend.position);
@@ -271,44 +168,15 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
       });
     });
 
-    this.avatar_button.clicked.connect (e => {
-      var chooser = new Gtk.FileChooserDialog ("Select your avatar",
-          this,
-          Gtk.FileChooserAction.OPEN,
-          "_Cancel", Gtk.ResponseType.CANCEL,
-          "_Open", Gtk.ResponseType.ACCEPT);
-      var filter = new Gtk.FileFilter ();
-      filter.add_custom (Gtk.FileFilterFlags.MIME_TYPE, info => {
-        var mime = info.mime_type;
-        return mime.has_prefix ("image/") && mime != "image/gif";
-      });
-      chooser.filter = filter;
-      if (chooser.run () == Gtk.ResponseType.ACCEPT) {
-        File avatar = chooser.get_file ();
-        this.tox.send_avatar (avatar.get_path ());
-        this.avatar_image.pixbuf = new Gdk.Pixbuf.from_file_at_scale (avatar.get_path (), 46, 46, true);
-
-        // Copy avatar to ~/.config/tox/avatars/
-        try {
-          avatar.copy (File.new_for_path (this.avatar_path ()), FileCopyFlags.OVERWRITE);
-        } catch (Error err) {
-          warning ("Cannot save the avatar in cache: %s", err.message);
-        }
-      }
-
-      chooser.close ();
-    });
-
-    this.delete_event.connect ((event) => {
-      this.tox.save_data ();
-      return false;
-    });
-
-    tox.run_loop ();
+    this.tox.run_loop ();
     this.show_all ();
   }
 
-  public void show_add_friend_popover (string toxid = "", string message = "") {
+  ~MainWindow () {
+    this.tox.save_data ();
+  }
+
+  public void show_add_friend_popover_with_text (string toxid = "", string message = "") {
     var friend_message = "";
 
     if (message.strip () == "") {
@@ -381,5 +249,146 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
     });
 
     this.menu_statusicon_main.show_all ();
+  }
+
+  [GtkCallback]
+  private void show_settings () {
+    var settings_view = this.chat_stack.get_child_by_name ("settings");
+
+    if (settings_view != null) {
+      this.chat_stack.set_visible_child (settings_view);
+    } else {
+      var view = new SettingsView (tox);
+      this.chat_stack.add_named (view, "settings");
+      this.chat_stack.set_visible_child (view);
+      this.focused_view = "settings";
+    }
+  }
+
+  [GtkCallback]
+  public void show_add_friend_popover () {
+    this.show_add_friend_popover_with_text ();
+  }
+
+  [GtkCallback]
+  private void hide_add_friend_popover () {
+    this.add_friend.reveal_child = false;
+    this.label_add_error.set_text ("Add a friend");
+    this.button_add_friend_show.visible = true;
+  }
+
+  [GtkCallback]
+  private void ui_add_friend () {
+    debug ("add_friend");
+    var tox_id = this.entry_friend_id.get_text ();
+    var message = this.entry_friend_message.buffer.text;
+    var error_message = "";
+    this.label_add_error.use_markup = true;
+    this.label_add_error.use_markup = true;
+    this.label_add_error.halign = Gtk.Align.CENTER;
+    this.label_add_error.wrap_mode = Pango.WrapMode.CHAR;
+    this.label_add_error.selectable = true;
+    this.label_add_error.set_line_wrap (true);
+
+    if (tox_id.length == ToxCore.ADDRESS_SIZE*2) { // bytes -> chars
+      try {
+        var friend = tox.add_friend (tox_id, message);
+        this.tox.save_data (); // Needed to avoid breaking profiles if app crash.
+        this.entry_friend_id.set_text (""); // Clear the entry after adding a friend.
+        this.add_friend.reveal_child = false;
+        this.label_add_error.set_text ("Add a friend");
+        this.button_add_friend_show.visible = true;
+        return;
+      } catch (Tox.ErrFriendAdd error) {
+        debug ("Adding friend failed: %s", error.message);
+        error_message = error.message;
+      }
+    } else if (tox_id.index_of ("@") != -1) {
+      error_message = "Ricin doesn't supports ToxDNS yet.";
+    } else if (tox_id.strip () == "") {
+      error_message = "ToxID can't be empty.";
+    } else {
+      error_message = "ToxID is invalid.";
+    }
+
+    if (error_message.strip () != "") {
+      this.label_add_error.set_markup (@"<span color=\"#e74c3c\">$error_message</span>");
+      return;
+    }
+
+    this.add_friend.reveal_child = false;
+    this.button_add_friend_show.visible = true;
+  }
+
+  [GtkCallback]
+  private void show_friend_chatview (Gtk.ListBoxRow row) {
+    var friend = (row as FriendListRow).fr;
+    var view_name = "chat-%s".printf (friend.pubkey);
+    var chat_view = this.chat_stack.get_child_by_name (view_name);
+    debug ("ChatView name: %s", view_name);
+
+    if (chat_view != null) {
+      (chat_view as ChatView).entry.grab_focus ();
+      this.chat_stack.set_visible_child (chat_view);
+    }
+  }
+
+  [GtkCallback]
+  private void set_username_from_entry () {
+    this.tox.username = Util.escape_html (this.entry_name.text);
+  }
+
+  [GtkCallback]
+  private void cycle_user_status () {
+    var status = this.tox.status;
+    switch (status) {
+      case Tox.UserStatus.ONLINE:
+        // Set status to away.
+        this.tox.status = Tox.UserStatus.AWAY;
+        this.image_user_status.icon_name = "user-away";
+        break;
+      case Tox.UserStatus.AWAY:
+        // Set status to busy.
+        this.tox.status = Tox.UserStatus.BUSY;
+        this.image_user_status.icon_name = "user-busy";
+        break;
+      case Tox.UserStatus.BUSY:
+        // Set status to online.
+        this.tox.status = Tox.UserStatus.ONLINE;
+        this.image_user_status.icon_name = "user-available";
+        break;
+      default:
+        this.image_user_status.icon_name = "user-offline";
+        break;
+    }
+  }
+
+  [GtkCallback]
+  private void choose_avatar () {
+    var chooser = new Gtk.FileChooserDialog ("Select your avatar",
+        this,
+        Gtk.FileChooserAction.OPEN,
+        "_Cancel", Gtk.ResponseType.CANCEL,
+        "_Open", Gtk.ResponseType.ACCEPT);
+    var filter = new Gtk.FileFilter ();
+    filter.add_custom (Gtk.FileFilterFlags.MIME_TYPE, info => {
+      var mime = info.mime_type;
+      return mime.has_prefix ("image/") && mime != "image/gif";
+    });
+    chooser.filter = filter;
+    if (chooser.run () == Gtk.ResponseType.ACCEPT) {
+      File avatar = chooser.get_file ();
+      this.tox.send_avatar (avatar.get_path ());
+      this.avatar_image.pixbuf = new Gdk.Pixbuf.from_file_at_scale (avatar.get_path (), 46, 46, true);
+
+      // Copy avatar to ~/.config/tox/avatars/
+      try {
+        avatar.copy (File.new_for_path (this.avatar_path ()), FileCopyFlags.OVERWRITE);
+      } catch (Error err) {
+        warning ("Cannot save the avatar in cache: %s", err.message);
+      }
+    }
+
+    chooser.close ();
   }
 }
