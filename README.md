@@ -52,7 +52,7 @@ git clone --recursive https://github.com/RicinApp/Ricin.git
 cd Ricin
 mkdir build
 meson . build
-make debug
+ninja
 ```
 
 # Contribute
