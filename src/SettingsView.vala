@@ -34,8 +34,6 @@ class Ricin.SettingsView : Gtk.Notebook {
 
   private void change_nospam () {
     var rand = new Rand ();
-    rand.set_seed (rand.next_int ());
-
     this.handle.nospam = rand.next_int ();
     this.label_tox_id.set_text (this.handle.id); // Update the ToxID.
   }
