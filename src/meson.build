@@ -2,6 +2,8 @@
 
 src = files([
     'ChatView.vala',
+    'SystemMessageListRow.vala',
+    'MessageListRow.vala',
     'FriendListRow.vala',
     'MainWindow.vala',
     'Notification.vala',

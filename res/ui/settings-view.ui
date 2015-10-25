@@ -23,7 +23,7 @@
                 <property name="margin_top">10</property>
                 <property name="margin_bottom">10</property>
                 <property name="orientation">vertical</property>
-                <property name="spacing">20</property>
+                <property name="spacing">10</property>
                 <child>
                   <object class="GtkBox" id="box_tox_id">
                     <property name="visible">True</property>
@@ -87,10 +87,23 @@
                       </packing>
                     </child>
                     <child>
+                      <object class="GtkSeparator" id="separator4">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="margin_top">10</property>
+                        <property name="margin_bottom">10</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">1</property>
+                      </packing>
+                    </child>
+                    <child>
                       <object class="GtkLabel" id="label_tox_id">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="halign">start</property>
+                        <property name="halign">center</property>
                         <property name="label" translatable="yes">DFB4958A86122ACF81BB852DBC767DB8A3A7281A8EDBC83121B30C294E295869121B298FEEA2</property>
                         <property name="selectable">True</property>
                         <property name="ellipsize">end</property>
@@ -101,7 +114,7 @@
                       <packing>
                         <property name="expand">False</property>
                         <property name="fill">True</property>
-                        <property name="position">1</property>
+                        <property name="position">2</property>
                       </packing>
                     </child>
                   </object>
@@ -109,6 +122,19 @@
                     <property name="expand">False</property>
                     <property name="fill">True</property>
                     <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkSeparator" id="separator1">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="margin_top">2</property>
+                    <property name="margin_bottom">2</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">1</property>
                   </packing>
                 </child>
                 <child>
@@ -134,9 +160,10 @@
                       <object class="GtkComboBoxText" id="combobox_languages">
                         <property name="width_request">250</property>
                         <property name="visible">True</property>
-                        <property name="can_focus">False</property>
+                        <property name="can_focus">True</property>
                         <property name="opacity">0.98999999999999999</property>
-                        <property name="active">1</property>
+                        <property name="active">0</property>
+                        <property name="button_sensitivity">on</property>
                       </object>
                       <packing>
                         <property name="expand">False</property>
@@ -148,7 +175,7 @@
                   <packing>
                     <property name="expand">False</property>
                     <property name="fill">True</property>
-                    <property name="position">1</property>
+                    <property name="position">2</property>
                   </packing>
                 </child>
               </object>
@@ -206,6 +233,19 @@
                         <property name="expand">False</property>
                         <property name="fill">True</property>
                         <property name="position">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkSeparator" id="separator3">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="margin_top">10</property>
+                        <property name="margin_bottom">10</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">1</property>
                       </packing>
                     </child>
                     <child>
@@ -270,7 +310,7 @@
                       <packing>
                         <property name="expand">False</property>
                         <property name="fill">False</property>
-                        <property name="position">1</property>
+                        <property name="position">2</property>
                       </packing>
                     </child>
                   </object>
@@ -278,6 +318,19 @@
                     <property name="expand">False</property>
                     <property name="fill">True</property>
                     <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkSeparator" id="separator2">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="margin_top">2</property>
+                    <property name="margin_bottom">2</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">1</property>
                   </packing>
                 </child>
                 <child>
@@ -373,7 +426,7 @@
                   <packing>
                     <property name="expand">False</property>
                     <property name="fill">True</property>
-                    <property name="position">1</property>
+                    <property name="position">2</property>
                   </packing>
                 </child>
               </object>
@@ -409,6 +462,10 @@
               <object class="GtkLabel" id="label_coming_soon">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
+                <property name="margin_left">10</property>
+                <property name="margin_right">10</property>
+                <property name="margin_top">10</property>
+                <property name="margin_bottom">10</property>
                 <property name="label" translatable="yes">Nothing here yet...</property>
               </object>
             </child>

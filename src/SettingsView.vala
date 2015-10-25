@@ -2,9 +2,9 @@
 class Ricin.SettingsView : Gtk.Notebook {
   // General settings tab.
   [GtkChild] Gtk.Label label_tox_id;
-  /* TODO
   [GtkChild] Gtk.ComboBoxText combobox_languages;
 
+  /* TODO
   // Network settings tab.
   [GtkChild] Gtk.Switch switch_udp_enabled;
   [GtkChild] Gtk.Switch switch_ipv6_enabled;
@@ -18,6 +18,9 @@ class Ricin.SettingsView : Gtk.Notebook {
   public SettingsView (Tox.Tox handle) {
     this.handle = handle;
     this.label_tox_id.set_text (handle.id);
+
+    this.combobox_languages.append ("english", "English (default)");
+    this.combobox_languages.set_active_id ("english");
 
     /* TODO
     this.switch_udp_enabled.state_set.connect (this.udp_state_changed);

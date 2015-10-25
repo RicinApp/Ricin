@@ -1,5 +1,6 @@
 [GtkTemplate (ui="/chat/tox/ricin/ui/chat-view.ui")]
 class Ricin.ChatView : Gtk.Box {
+  [GtkChild] Gtk.Image user_avatar;
   [GtkChild] Gtk.Label username;
   [GtkChild] Gtk.Label status_message;
   [GtkChild] Gtk.ScrolledWindow scroll_messages;
@@ -7,9 +8,11 @@ class Ricin.ChatView : Gtk.Box {
   [GtkChild] public Gtk.Entry entry;
   [GtkChild] Gtk.Button send;
   [GtkChild] Gtk.Button send_file;
+  [GtkChild] Gtk.Button button_audio_call;
+  [GtkChild] Gtk.Button button_video_call;
   [GtkChild] Gtk.Revealer friend_typing;
 
-  private ListStore messages = new ListStore (typeof (Gtk.Label));
+  private ListStore messages = new ListStore (typeof (Gtk.ListBoxRow));
 
   public Tox.Friend fr;
   private weak Tox.Tox handle;
@@ -27,14 +30,18 @@ class Ricin.ChatView : Gtk.Box {
       this.status_message.set_markup ("");
     }
 
-    this.messages_list.bind_model (this.messages, l => l as Gtk.Widget);
+    this.messages_list.bind_model (this.messages, message => new MessageListRow ("", "", ""));
 
     fr.friend_info.connect ((message) => {
-      this.add_row (@"<span color=\"#2980b9\">** <i>$message</i></span>");
+      this.add_row (fr.name, @"<span color=\"#2980b9\">** <i>$message</i></span>", "00:00.00");
     });
 
     handle.global_info.connect ((message) => {
-      this.add_row (@"<span color=\"#2980b9\">** $message</span>");
+      this.add_row (fr.name, @"<span color=\"#2980b9\">** $message</span>", "00:00.00");
+    });
+
+    fr.avatar.connect (p => {
+      this.user_avatar.pixbuf = p;
     });
 
     fr.message.connect (message => {
@@ -51,7 +58,7 @@ class Ricin.ChatView : Gtk.Box {
 
       }
 
-      this.add_row (@"<b>$(fr.name):</b> $(Util.add_markup (message))");
+      this.add_row (fr.name, @"<b>$(fr.name):</b> $(Util.add_markup (message))", "00:00.00");
     });
 
     fr.action.connect (message => {
@@ -69,7 +76,8 @@ class Ricin.ChatView : Gtk.Box {
       }
 
       string message_escaped = Util.escape_html (message);
-      this.add_row (@"<span color=\"#3498db\">* <b>$(fr.name)</b> $message_escaped</span>");
+      var markup = @"<span color=\"#3498db\">* <b>$(fr.name)</b> $message_escaped</span>";
+      this.add_row (fr.name, markup, "00:00.00");
     });
 
     fr.file_transfer.connect ((name, size, id) => {
@@ -106,21 +114,17 @@ class Ricin.ChatView : Gtk.Box {
     fr.bind_property ("name", username, "label", BindingFlags.DEFAULT);
     fr.bind_property ("status-message", status_message, "label", BindingFlags.DEFAULT, (binding, val, ref target) => {
       string status_message = (string) val;
-      target.set_string (Util.add_markup (status_message));
+      target.set_string ("<span size=\"10\">" + Util.add_markup (status_message) + "</span>");
       return true;
     });
   }
 
-  private void add_row (string markup) {
-    var label = new Gtk.Label (null);
-    label.use_markup = true;
-    label.halign = Gtk.Align.START;
-    label.wrap_mode = Pango.WrapMode.CHAR;
-    label.selectable = true;
-    label.set_line_wrap (true);
-    label.set_markup (markup);
-    label.activate_link.connect (this.handle_links);
-    messages.append (label);
+  private void add_row (string name, string markup, string timestamp) {
+    MessageListRow message = new MessageListRow (name, markup, timestamp);
+    messages.append (message);
+
+    /*SystemMessageListRow system_message = new SystemMessageListRow ("lol");
+    messages.append ((system_message as Gtk.ListBoxRow));*/
   }
 
   [GtkCallback]
@@ -139,17 +143,17 @@ class Ricin.ChatView : Gtk.Box {
       markup = @"<span color=\"#3498db\">* <b>$user</b> $escaped</span>";
       fr.send_action (action);
     } else {
-      markup = @"<b>$user:</b> $(Util.add_markup (message))";
+      markup = @"$(Util.add_markup (message))";
       fr.send_message (message);
     }
 
     // Add message, clear and focus the entry.
-    this.add_row (markup);
+    this.add_row (fr.name, markup, "00:00.00");
     this.entry.text = "";
     this.entry.grab_focus_without_selecting ();
   }
 
-  private bool handle_links (string uri) {
+  /*private bool handle_links (string uri) {
     if (!uri.has_prefix ("tox:")) {
       return false; // Default behavior.
     }
@@ -164,7 +168,7 @@ class Ricin.ChatView : Gtk.Box {
     }
 
     return true;
-  }
+  }*/
 
   [GtkCallback]
   private void choose_file_to_send () {
