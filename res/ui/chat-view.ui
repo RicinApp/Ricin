@@ -145,7 +145,7 @@
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="pixel_size">32</property>
-                    <property name="icon_name">document-send-symbolic</property>
+                    <property name="icon_name">mail-attachment-symbolic</property>
                   </object>
                 </child>
               </object>
@@ -206,6 +206,8 @@
             <property name="visible">True</property>
             <property name="sensitive">False</property>
             <property name="can_focus">True</property>
+            <property name="max_width_chars">5</property>
+            <property name="placeholder_text" translatable="yes">Type a message then press Enter...</property>
             <signal name="activate" handler="send_message" swapped="no"/>
           </object>
           <packing>

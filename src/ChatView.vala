@@ -32,6 +32,12 @@ class Ricin.ChatView : Gtk.Box {
       this.status_message.set_markup ("");
     }
 
+    var _avatar_path = Tox.profile_dir () + "avatars/" + this.fr.pubkey + ".png";
+    if (FileUtils.test (_avatar_path, FileTest.EXISTS)) {
+      var pixbuf = new Gdk.Pixbuf.from_file_at_scale (_avatar_path, 48, 48, false);
+      this.user_avatar.pixbuf = pixbuf;
+    }
+
     fr.friend_info.connect ((message) => {
       messages_list.add (new SystemMessageListRow (message));
     });
@@ -97,11 +103,21 @@ class Ricin.ChatView : Gtk.Box {
       string filename = name;
       int i = 0;
       while (FileUtils.test (downloads + filename, FileTest.EXISTS)) {
-        filename = @"$name-$(++i)";
+        filename = @"$(++i)-$name";
       }
 
-      FileUtils.set_data (downloads + filename, bytes.get_data ());
-      fr.friend_info (@"File downloaded to $downloads$filename");
+
+      var path = @"/tmp/$filename";
+      FileUtils.set_data (path, bytes.get_data ());
+      var file_content_type = ContentType.guess (path, null, null);
+
+      if (file_content_type.has_prefix ("image/")) {
+        var pixbuf = new Gdk.Pixbuf.from_file_at_scale (path, 400, 250, true);
+        messages_list.add (new InlineImageMessageListRow (fr.name, path, pixbuf, time ()));
+      } else {
+        FileUtils.set_data (downloads + filename, bytes.get_data ());
+        fr.friend_info (@"File downloaded to $downloads$filename");
+      }
     });
 
     fr.bind_property ("connected", entry, "sensitive", BindingFlags.DEFAULT);
