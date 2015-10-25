@@ -10,8 +10,8 @@ class Ricin.MessageListRow : Gtk.ListBoxRow {
     this.label_timestamp.set_text ("03:38:10");*/
 
     //if (name.strip () != "" && message.strip () != "" && timestamp != "") {}
-    this.label_name.set_markup ("<b>User</b>");
-    this.label_message.set_text ("Message");
-    this.label_timestamp.set_text ("00:00.00");
+    this.label_name.set_markup (@"<b>$name</b>");
+    this.label_message.set_markup (message);
+    this.label_timestamp.set_text (timestamp);
   }
 }

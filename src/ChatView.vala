@@ -12,12 +12,14 @@ class Ricin.ChatView : Gtk.Box {
   [GtkChild] Gtk.Button button_video_call;
   [GtkChild] Gtk.Revealer friend_typing;
 
-  private ListStore messages = new ListStore (typeof (Gtk.ListBoxRow));
-
   public Tox.Friend fr;
   private weak Tox.Tox handle;
   private weak Gtk.Stack stack;
   private string view_name;
+
+  private string time () {
+    return new DateTime.now_local ().format ("%I:%M:%S %p");
+  }
 
   public ChatView (Tox.Tox handle, Tox.Friend fr, Gtk.Stack stack, string view_name) {
     this.handle = handle;
@@ -30,14 +32,12 @@ class Ricin.ChatView : Gtk.Box {
       this.status_message.set_markup ("");
     }
 
-    this.messages_list.bind_model (this.messages, message => new MessageListRow ("", "", ""));
-
     fr.friend_info.connect ((message) => {
-      this.add_row (fr.name, @"<span color=\"#2980b9\">** <i>$message</i></span>", "00:00.00");
+      messages_list.add (new SystemMessageListRow (message));
     });
 
     handle.global_info.connect ((message) => {
-      this.add_row (fr.name, @"<span color=\"#2980b9\">** $message</span>", "00:00.00");
+      messages_list.add (new SystemMessageListRow (message));
     });
 
     fr.avatar.connect (p => {
@@ -47,7 +47,6 @@ class Ricin.ChatView : Gtk.Box {
     fr.message.connect (message => {
       var visible_child = this.stack.get_visible_child_name ();
       if (visible_child != this.view_name) {
-
         var avatar_path = Tox.profile_dir () + "avatars/" + this.fr.pubkey + ".png";
         if (FileUtils.test (avatar_path, FileTest.EXISTS)) {
           var pixbuf = new Gdk.Pixbuf.from_file_at_scale (avatar_path, 46, 46, true);
@@ -55,10 +54,9 @@ class Ricin.ChatView : Gtk.Box {
         } else {
           Notification.notify (fr.name, message, 5000);
         }
-
       }
 
-      this.add_row (fr.name, @"<b>$(fr.name):</b> $(Util.add_markup (message))", "00:00.00");
+      messages_list.add (new MessageListRow (fr.name, Util.add_markup (message), time ()));
     });
 
     fr.action.connect (message => {
@@ -76,8 +74,7 @@ class Ricin.ChatView : Gtk.Box {
       }
 
       string message_escaped = Util.escape_html (message);
-      var markup = @"<span color=\"#3498db\">* <b>$(fr.name)</b> $message_escaped</span>";
-      this.add_row (fr.name, markup, "00:00.00");
+      messages_list.add (new SystemMessageListRow (message_escaped));
     });
 
     fr.file_transfer.connect ((name, size, id) => {
@@ -119,14 +116,6 @@ class Ricin.ChatView : Gtk.Box {
     });
   }
 
-  private void add_row (string name, string markup, string timestamp) {
-    MessageListRow message = new MessageListRow (name, markup, timestamp);
-    messages.append (message);
-
-    /*SystemMessageListRow system_message = new SystemMessageListRow ("lol");
-    messages.append ((system_message as Gtk.ListBoxRow));*/
-  }
-
   [GtkCallback]
   private void send_message () {
     var user = this.handle.username;
@@ -143,14 +132,13 @@ class Ricin.ChatView : Gtk.Box {
       markup = @"<span color=\"#3498db\">* <b>$user</b> $escaped</span>";
       fr.send_action (action);
     } else {
-      markup = @"$(Util.add_markup (message))";
+      markup = Util.add_markup (message);
       fr.send_message (message);
     }
 
-    // Add message, clear and focus the entry.
-    this.add_row (fr.name, markup, "00:00.00");
+    // Add message and clear the entry
+    messages_list.add (new MessageListRow (user, markup, time ()));
     this.entry.text = "";
-    this.entry.grab_focus_without_selecting ();
   }
 
   /*private bool handle_links (string uri) {
