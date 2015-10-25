@@ -51,12 +51,8 @@
             <property name="label" translatable="yes">label</property>
             <property name="ellipsize">end</property>
             <property name="single_line_mode">True</property>
-            <attributes>
-              <attribute name="weight" value="bold"/>
-              <attribute name="foreground" value="#7373d2d21616"/>
-            </attributes>
             <style>
-              <class name="info_message"/>
+              <class name="info-message"/>
             </style>
           </object>
           <packing>

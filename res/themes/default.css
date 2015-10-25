@@ -1,1 +1,3 @@
-GtkLabel.info_message { color: $theme_fg_color; }
+GtkLabel.info-message {
+    color: @theme_selected_bg_color;
+}
