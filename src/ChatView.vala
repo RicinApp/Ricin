@@ -73,7 +73,7 @@ class Ricin.ChatView : Gtk.Box {
 
       }
 
-      string message_escaped = Util.escape_html (message);
+      string message_escaped = Util.escape_html (@"$(fr.name) $message");
       messages_list.add (new SystemMessageListRow (message_escaped));
     });
 
@@ -129,15 +129,16 @@ class Ricin.ChatView : Gtk.Box {
     if (message.has_prefix ("/me ")) {
       var action = message.substring (4);
       var escaped = Util.escape_html (action);
-      markup = @"<span color=\"#3498db\">* <b>$user</b> $escaped</span>";
+      markup = @"<span color=\"#3498db\">* <b>$(this.handle.username)</b> $escaped</span>";
+      messages_list.add (new SystemMessageListRow (message));
       fr.send_action (action);
     } else {
       markup = Util.add_markup (message);
+      messages_list.add (new MessageListRow (user, markup, time ()));
       fr.send_message (message);
     }
 
-    // Add message and clear the entry
-    messages_list.add (new MessageListRow (user, markup, time ()));
+    // clear the entry
     this.entry.text = "";
   }
 
