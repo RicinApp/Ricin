@@ -3,8 +3,9 @@ class Ricin.InlineImageMessageListRow : Gtk.ListBoxRow {
   [GtkChild] Gtk.Label label_name;
   [GtkChild] Gtk.Image image_inline;
   [GtkChild] Gtk.Label label_timestamp;
-  [GtkChild] Gtk.Label label_image_info;
-  [GtkChild] Gtk.Button button_save_inline;
+  [GtkChild] Gtk.Label label_image_name;
+  [GtkChild] Gtk.Label label_image_size;
+  [GtkChild] public Gtk.Button button_save_inline;
   [GtkChild] Gtk.Image image_save_inline;
 
   private File image;
@@ -21,7 +22,8 @@ class Ricin.InlineImageMessageListRow : Gtk.ListBoxRow {
     FileInfo info = this.image.query_info ("standard::*", 0);
     this.image_name = info.get_display_name ();
     var image_size = info.get_size () / 1000;
-    this.label_image_info.set_markup (@"$image_name ($image_size kb)");
+    this.label_image_name.set_text (@"$image_name");
+    this.label_image_size.set_text (@"($image_size kb)");
 
     this.button_save_inline.clicked.connect (this.save_image);
   }

@@ -85,8 +85,9 @@
                     <property name="width_request">400</property>
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
+                    <property name="halign">start</property>
                     <child>
-                      <object class="GtkLabel" id="label_image_info">
+                      <object class="GtkLabel" id="label_image_name">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="halign">start</property>
@@ -94,15 +95,41 @@
                         <property name="margin_right">5</property>
                         <property name="margin_top">2</property>
                         <property name="margin_bottom">2</property>
-                        <property name="label" translatable="yes">file_name.ext (0 Kb)</property>
+                        <property name="label" translatable="yes">file_name.ext</property>
+                        <property name="ellipsize">end</property>
+                        <property name="max_width_chars">30</property>
                         <attributes>
                           <attribute name="foreground" value="#bababdbdb6b6"/>
                         </attributes>
                       </object>
                       <packing>
-                        <property name="expand">True</property>
+                        <property name="expand">False</property>
                         <property name="fill">True</property>
                         <property name="position">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="label_image_size">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="halign">start</property>
+                        <property name="label" translatable="yes">(0 Kb)</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">1</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="label1">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                      </object>
+                      <packing>
+                        <property name="expand">True</property>
+                        <property name="fill">True</property>
+                        <property name="position">2</property>
                       </packing>
                     </child>
                     <child>
@@ -124,7 +151,7 @@
                       <packing>
                         <property name="expand">False</property>
                         <property name="fill">True</property>
-                        <property name="position">1</property>
+                        <property name="position">3</property>
                       </packing>
                     </child>
                     <style>

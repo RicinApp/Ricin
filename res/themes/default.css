@@ -3,29 +3,21 @@ GtkLabel.info-message {
 }
 
 .image-desc {
-  background-color: #404552;
+  background-color: #21252B;
   padding: 5px 5px 5px 5px;
 }
 
 .btn-save-image {
   background-image: none;
-  background-color: #404552;
+  background-color: #21252B;
   border: none;
   border-radius: 0;
   color: white;
 }
 
-.btn-save-image:hover, .btn-save:insensitive {
+.btn-save-image:hover, .btn-save-image:insensitive {
   background-image: none;
-  background-color: #2c3039;
-  border: none;
-  border-radius: 0;
-  color: white;
-}
-
-.btn-save-image:insensitive {
-  background-image: none;
-  background-color: #2c2f37;
+  background-color: #292D35;
   border: none;
   border-radius: 0;
   color: white;

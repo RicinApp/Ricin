@@ -110,7 +110,6 @@ class Ricin.ChatView : Gtk.Box {
       var path = @"/tmp/$filename";
       FileUtils.set_data (path, bytes.get_data ());
       var file_content_type = ContentType.guess (path, null, null);
-
       if (file_content_type.has_prefix ("image/")) {
         var pixbuf = new Gdk.Pixbuf.from_file_at_scale (path, 400, 250, true);
         messages_list.add (new InlineImageMessageListRow (fr.name, path, pixbuf, time ()));
@@ -183,7 +182,16 @@ class Ricin.ChatView : Gtk.Box {
     if (chooser.run () == Gtk.ResponseType.ACCEPT) {
       var filename = chooser.get_filename ();
       fr.send_file (filename);
-      fr.friend_info (@"Sending file $filename");
+
+      var file_content_type = ContentType.guess (filename, null, null);
+      if (file_content_type.has_prefix ("image/")) {
+        var pixbuf = new Gdk.Pixbuf.from_file_at_scale (filename, 400, 250, true);
+        var image_widget = new InlineImageMessageListRow (this.handle.username, filename, pixbuf, time ());
+        image_widget.button_save_inline.visible = false;
+        messages_list.add (image_widget);
+      } else {
+        fr.friend_info (@"Sending file $filename");
+      }
     }
     chooser.close ();
   }
