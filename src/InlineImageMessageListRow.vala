@@ -18,16 +18,14 @@ class Ricin.InlineImageMessageListRow : Gtk.ListBoxRow {
     this.image_inline.set_from_pixbuf (image_inline);
     this.label_timestamp.set_text (timestamp);
 
-
     FileInfo info = this.image.query_info ("standard::*", 0);
     this.image_name = info.get_display_name ();
     var image_size = info.get_size () / 1000;
     this.label_image_name.set_text (@"$image_name");
     this.label_image_size.set_text (@"($image_size kb)");
-
-    this.button_save_inline.clicked.connect (this.save_image);
   }
 
+  [GtkCallback]
   private void save_image () {
     string downloads = Environment.get_user_special_dir (UserDirectory.DOWNLOAD) + "/";
     File image_destination = File.new_for_path (downloads + this.image_name);
