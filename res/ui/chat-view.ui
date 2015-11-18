@@ -68,7 +68,7 @@
                 <property name="justify">center</property>
                 <property name="wrap">True</property>
                 <property name="selectable">True</property>
-                <property name="ellipsize">middle</property>
+                <property name="ellipsize">end</property>
                 <property name="max_width_chars">256</property>
                 <property name="lines">2</property>
               </object>

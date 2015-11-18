@@ -17,6 +17,15 @@ class Ricin.ChatView : Gtk.Box {
   private weak Gtk.Stack stack;
   private string view_name;
 
+  private enum MessageRowType {
+    Normal,
+    Action,
+    System,
+    InlineImage,
+    InlineFile,
+    GtkListBoxRow
+  }
+
   private string time () {
     return new DateTime.now_local ().format ("%I:%M:%S %p");
   }
@@ -29,8 +38,9 @@ class Ricin.ChatView : Gtk.Box {
 
     if (fr.name == null) {
       this.username.set_text (fr.pubkey);
-      this.status_message.set_markup ("");
     }
+
+    this.status_message.set_markup (Util.add_markup (fr.status_message));
 
     var _avatar_path = Tox.profile_dir () + "avatars/" + this.fr.pubkey + ".png";
     if (FileUtils.test (_avatar_path, FileTest.EXISTS)) {
@@ -40,10 +50,12 @@ class Ricin.ChatView : Gtk.Box {
 
     fr.friend_info.connect ((message) => {
       messages_list.add (new SystemMessageListRow (message));
+      //this.add_row (MessageRowType.System, new SystemMessageListRow (message));
     });
 
     handle.global_info.connect ((message) => {
       messages_list.add (new SystemMessageListRow (message));
+      //this.add_row (MessageRowType.System, new SystemMessageListRow (message));
     });
 
     fr.avatar.connect (p => {
@@ -63,6 +75,7 @@ class Ricin.ChatView : Gtk.Box {
       }
 
       messages_list.add (new MessageListRow (fr.name, Util.add_markup (message), time ()));
+      //this.add_row (MessageRowType.Normal, new MessageListRow (fr.name, Util.add_markup (message), time ()));
     });
 
     fr.action.connect (message => {
@@ -81,31 +94,39 @@ class Ricin.ChatView : Gtk.Box {
 
       string message_escaped = Util.escape_html (@"$(fr.name) $message");
       messages_list.add (new SystemMessageListRow (message_escaped));
+      //this.add_row (MessageRowType.Action, new SystemMessageListRow (message_escaped));
     });
 
     fr.file_transfer.connect ((name, size, id) => {
-      var window = this.get_toplevel () as Gtk.Window;
-      var dialog = new Gtk.MessageDialog (window,
-                                          Gtk.DialogFlags.MODAL,
-                                          Gtk.MessageType.QUESTION,
-                                          Gtk.ButtonsType.NONE,
-                                          "File transfer from " + fr.name);
-      dialog.secondary_text = @"$name\n$size bytes";
-      dialog.add_buttons ("Save", Gtk.ResponseType.ACCEPT, "Cancel", Gtk.ResponseType.CANCEL);
-      fr.reply_file_transfer (dialog.run () == Gtk.ResponseType.ACCEPT, id);
-      dialog.close ();
+      string downloads = Environment.get_user_special_dir (UserDirectory.DOWNLOAD) + "/";
+      string filename = name;
+      int i = 0;
+
+      while (FileUtils.test (downloads + filename, FileTest.EXISTS))
+        filename = @"$(++i)-$name";
+
+      //FileUtils.set_data (path, bytes.get_data ());
+      var path = @"/tmp/$name";
+      var file_content_type = ContentType.guess (path, null, null);
+
+      if (file_content_type.has_prefix ("image/")) {
+        return;
+      } else {
+        var file_row = new InlineFileMessageListRow (fr, id, fr.name, path, size, time ());
+        file_row.accept_file.connect ((response, file_id) => {
+          fr.reply_file_transfer (response, file_id);
+        });
+        messages_list.add (file_row);
+      }
     });
 
-    fr.file_done.connect ((name, bytes) => {
+    /*fr.file_done.connect ((name, bytes) => {
       string downloads = Environment.get_user_special_dir (UserDirectory.DOWNLOAD) + "/";
-
-      // get unique filename
       string filename = name;
       int i = 0;
       while (FileUtils.test (downloads + filename, FileTest.EXISTS)) {
         filename = @"$(++i)-$name";
       }
-
 
       var path = @"/tmp/$filename";
       FileUtils.set_data (path, bytes.get_data ());
@@ -113,11 +134,8 @@ class Ricin.ChatView : Gtk.Box {
       if (file_content_type.has_prefix ("image/")) {
         var pixbuf = new Gdk.Pixbuf.from_file_at_scale (path, 400, 250, true);
         messages_list.add (new InlineImageMessageListRow (fr.name, path, pixbuf, time ()));
-      } else {
-        FileUtils.set_data (downloads + filename, bytes.get_data ());
-        fr.friend_info (@"File downloaded to $downloads$filename");
       }
-    });
+    });*/
 
     fr.bind_property ("connected", entry, "sensitive", BindingFlags.DEFAULT);
     fr.bind_property ("connected", send, "sensitive", BindingFlags.DEFAULT);
@@ -144,7 +162,7 @@ class Ricin.ChatView : Gtk.Box {
     if (message.has_prefix ("/me ")) {
       var action = message.substring (4);
       var escaped = Util.escape_html (action);
-      markup = @"<span color=\"#3498db\">* <b>$(this.handle.username)</b> $escaped</span>";
+      markup = @"<span color=\"#3498db\">* <b>$user</b> $escaped</span>";
       messages_list.add (new SystemMessageListRow (message));
       fr.send_action (action);
     } else {
@@ -181,16 +199,21 @@ class Ricin.ChatView : Gtk.Box {
         "_Open", Gtk.ResponseType.ACCEPT);
     if (chooser.run () == Gtk.ResponseType.ACCEPT) {
       var filename = chooser.get_filename ();
-      fr.send_file (filename);
-
+      File file = File.new_for_path (filename);
+      FileInfo info = file.query_info ("standard::*", 0);
+      var file_id = fr.send_file (filename);
       var file_content_type = ContentType.guess (filename, null, null);
+      var size = info.get_size ();
+
       if (file_content_type.has_prefix ("image/")) {
         var pixbuf = new Gdk.Pixbuf.from_file_at_scale (filename, 400, 250, true);
         var image_widget = new InlineImageMessageListRow (this.handle.username, filename, pixbuf, time ());
         image_widget.button_save_inline.visible = false;
         messages_list.add (image_widget);
       } else {
-        fr.friend_info (@"Sending file $filename");
+        //fr.friend_info (@"Sending file $filename");
+        var file_row = new InlineFileMessageListRow (fr, file_id, this.handle.username, filename, size, time ());
+        messages_list.add (file_row);
       }
     }
     chooser.close ();
@@ -201,4 +224,39 @@ class Ricin.ChatView : Gtk.Box {
     var adjustment = this.scroll_messages.get_vadjustment ();
     adjustment.set_value (adjustment.get_upper () - adjustment.get_page_size ());
   }
+
+  /*private void add_row (MessageRowType type, IMessageListRow row) {
+    switch (type) {
+      case MessageRowType.Normal:
+        debug ("Appending a Normal MessageRow");
+        this.messages_list.add (row);
+        row.position = this.messages_list.get_n_items ();
+        break;
+      case MessageRowType.Action:
+        debug ("Appending an Action MessageRow");
+        this.messages_list.add (row);
+        row.position = this.messages_list.get_n_items ();
+        break;
+      case MessageRowType.System:
+        debug ("Appending a System MessageRow");
+        this.messages_list.add (row);
+        row.position = this.messages_list.get_n_items ();
+        break;
+      case MessageRowType.InlineImage:
+        debug ("Appending an InlineImage MessageRow");
+        this.messages_list.add (row);
+        row.position = this.messages_list.get_n_items ();
+        break;
+      case MessageRowType.InlineFile:
+        debug ("Appending an InlineFile MessageRow");
+        this.messages_list.add (row);
+        row.position = this.messages_list.get_n_items ();
+        break;
+      case MessageRowType.GtkListBoxRow:
+        debug ("Appending a Gtk.ListBoxRow");
+        this.messages_list.add (row);
+        //row.position = this.messages_list.get_n_items ();
+        break;
+    }
+  }*/
 }

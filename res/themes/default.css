@@ -22,3 +22,39 @@ GtkLabel.info-message {
   border-radius: 0;
   color: white;
 }
+
+/**
+* CANCELED FILE
+**/
+
+.canceled-file {
+  background-color: #c0392b;
+  color: white;
+}
+
+.canceled-file .label_file_name {
+  color: white;
+}
+
+.canceled-file .btn-save-image,
+.canceled-file .btn-save-image :insensitive {
+  background-color: #e74c3c;
+}
+
+/**
+* SAVED FILE
+**/
+
+.saved-file {
+  background-color: #27ae60;
+  color: white;
+}
+
+.saved-file .label_file_name {
+  color: white;
+}
+
+.saved-file .btn-save-image,
+.saved-file .btn-save-image:insensitive {
+  background-color: #2ecc71;
+}

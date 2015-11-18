@@ -10,6 +10,7 @@ class Ricin.InlineImageMessageListRow : Gtk.ListBoxRow {
 
   private File image;
   private string image_name;
+  private uint position;
 
   public InlineImageMessageListRow (string name, string image_path, Gdk.Pixbuf image_inline, string timestamp) {
     this.image = File.new_for_path (image_path);

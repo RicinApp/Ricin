@@ -251,6 +251,7 @@ namespace Tox {
         if (length == 0) { // file transfer finished
           debug (@"friend $friend, file $file: done");
           this.friends[friend].files_send.remove (file);
+          this.friends[friend].file_received (file);
           return;
         }
         debug (@"friend $friend, file $file: chunk request, pos=$position, len=$length");
@@ -273,11 +274,14 @@ namespace Tox {
 
         if (control == FileControl.CANCEL) {
           debug (@"friend $friend, file $file: cancelled");
+          this.friends[friend].file_canceled (file);
           this.friends[friend].files_recv.remove (file);
         } else if (control == FileControl.PAUSE) {
           debug (@"friend $friend, file $file: paused");
+          this.friends[friend].file_paused (file);
         } else if (control == FileControl.RESUME) {
           debug (@"friend $friend, file $file: resumed");
+          this.friends[friend].file_resumed (file);
         } else {
           assert_not_reached ();
         }
@@ -323,7 +327,7 @@ namespace Tox {
               warning ("Error processing friend avatar: %s", e.message);
             }
           } else {
-            fr.file_done (dl.name, bytes);
+            fr.file_done (dl.name, bytes, file);
           }
           fr.files_recv.remove (file);
           return;
@@ -511,7 +515,11 @@ namespace Tox {
     public signal void avatar (Gdk.Pixbuf pixbuf);
     public signal void friend_info (string message);
     public signal void file_transfer (string filename, uint64 file_size, uint32 id);
-    public signal void file_done (string filename, Bytes data);
+    public signal void file_paused (uint32 id);
+    public signal void file_resumed (uint32 id);
+    public signal void file_done (string filename, Bytes data, uint32 id);
+    public signal void file_canceled (uint32 id);
+    public signal void file_received (uint32 id);
 
     public Friend (Tox tox, uint32 num) {
       this.tox = tox;
@@ -570,7 +578,7 @@ namespace Tox {
       }
     }
 
-    public void send_file (string path) {
+    public uint32 send_file (string path) {
       debug (@"Sending $path to friend $num");
       var file = File.new_for_path (path);
       var info = file.query_info ("standard::size", FileQueryInfoFlags.NONE);
@@ -578,6 +586,8 @@ namespace Tox {
       uint8[] data;
       FileUtils.get_data (path, out data);
       this.files_send[id] = new Bytes.take (data);
+
+      return id;
     }
 
     public bool delete () throws ErrFriendDelete {

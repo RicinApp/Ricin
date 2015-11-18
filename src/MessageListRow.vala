@@ -3,6 +3,7 @@ class Ricin.MessageListRow : Gtk.ListBoxRow {
   [GtkChild] Gtk.Label label_name;
   [GtkChild] Gtk.Label label_message;
   [GtkChild] Gtk.Label label_timestamp;
+  private uint position;
 
   public MessageListRow (string name, string message, string timestamp) {
     /*this.label_name.set_text ("SkyzohKey");

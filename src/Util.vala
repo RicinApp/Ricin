@@ -36,7 +36,7 @@ namespace Util {
     foreach (string line in text.split ("\n")) { // multiple lines
       string xfmd = escape_html (line);
       if (line[0] == '>') { // greentext
-        xfmd = @"<span color=\"#2ecc71\">$xfmd</span>";
+        xfmd = @"<span color=\"#2ecc71\"><b>$xfmd</b></span>";
       }
       sb.append (xfmd);
       sb.append_c ('\n');
