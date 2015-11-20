@@ -31,6 +31,16 @@ namespace Util {
     return Markup.escape_text (text);
   }
 
+  public static string render_litemd (string text) {
+    var bold = /\*\*([^\*\*]*)\*\*/.replace (text, -1, 0, "<b>\\1</b>");
+    var italic = /_([^_]*)_/.replace(bold, -1, 0, "<i>\\1</i>");
+    var underline = /-([^-]*)-/.replace(italic, -1, 0, "<u>\\1</u>");
+    var striked = /~([^~]*)~/.replace(underline, -1, 0, "<s>\\1</s>");
+
+    var final_text = striked;
+    return final_text;
+  }
+
   public static string add_markup (string text) {
     var sb = new StringBuilder ();
     foreach (string line in text.split ("\n")) { // multiple lines
@@ -42,6 +52,8 @@ namespace Util {
       sb.append_c ('\n');
     }
     sb.truncate (sb.len-1);
-    return /(\w+:\S+)/.replace (sb.str, -1, 0, "<a href=\"\\1\">\\1</a>");
+
+    var md = Util.render_litemd (sb.str);
+    return /(\w+:\S+)/.replace (md, -1, 0, "<a href=\"\\1\">\\1</a>");
   }
 }
