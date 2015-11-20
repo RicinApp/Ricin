@@ -1,4 +1,4 @@
-<table width="100%">
+<table align="center" width="100%">
   <tr>
     <td>
       <strong><a href="#">Ricin</a></strong>: A Lightweight and Fully-Hackable Tox client powered by Vala & Gtk3!
