@@ -32,10 +32,10 @@ namespace Util {
   }
 
   public static string render_litemd (string text) {
-    var bold = /\*\*([^\*\*]*)\*\*/.replace (text, -1, 0, "<b>\\1</b>");
-    var italic = /_([^_]*)_/.replace(bold, -1, 0, "<i>\\1</i>");
-    var underline = /-([^-]*)-/.replace(italic, -1, 0, "<u>\\1</u>");
-    var striked = /~([^~]*)~/.replace(underline, -1, 0, "<s>\\1</s>");
+    var bold = /\B\*\*([^\*\*]*)\*\*\B/.replace (text, -1, 0, "<b>\\1</b>");
+    var italic = /\b_([^_]*)_\b/.replace(bold, -1, 0, "<i>\\1</i>");
+    var underline = /\B-([^-]*)-\B/.replace(italic, -1, 0, "<u>\\1</u>");
+    var striked = /\B~([^~]*)~\B/.replace(underline, -1, 0, "<s>\\1</s>");
 
     var final_text = striked;
     return final_text;
