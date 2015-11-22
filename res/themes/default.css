@@ -23,6 +23,16 @@ GtkLabel.info-message {
   color: white;
 }
 
+.progress-bg {
+  background-color: #2ecc71;
+}
+.progress-bg GtkLabel {
+  color: black;
+}
+.progress-fg {
+  background-color: #27ae60;
+}
+
 /**
 * CANCELED FILE
 **/

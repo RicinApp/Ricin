@@ -56,4 +56,25 @@ namespace Util {
     var md = Util.render_litemd (sb.str);
     return /(\w+:\S+)/.replace (md, -1, 0, "<a href=\"\\1\">\\1</a>");
   }
+
+  public static string size_to_string (uint64 size) {
+    string sizeString = "";
+
+    if (size >= 1073741824)
+      sizeString = "%s Gb".printf ((size / 1073741824).to_string ());
+    else if (size >= 1048576)
+      sizeString = "%s Mb".printf ((size / 1048576).to_string ());
+    else if (size >= 1024)
+      sizeString = "%s Kb".printf ((size / 1024).to_string ());
+    else if (size > 1)
+      sizeString = "%s bytes".printf ((size).to_string ());
+    else if (size == 1)
+      sizeString = "%s byte".printf ((size).to_string ());
+    else
+      sizeString = "0 bytes";
+
+    debug(@"Converted size: %s", sizeString);
+
+    return sizeString;
+  }
 }

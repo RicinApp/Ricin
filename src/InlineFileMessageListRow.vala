@@ -10,6 +10,9 @@ class Ricin.InlineFileMessageListRow : Gtk.ListBoxRow {
   [GtkChild] public Gtk.Button button_reject;
   [GtkChild] Gtk.Image image_save_inline;
   [GtkChild] Gtk.Image image_reject_inline;
+  [GtkChild] Gtk.Box box_background;
+  [GtkChild] Gtk.Label label_foreground;
+  [GtkChild] Gtk.ProgressBar progressbar_buffer;
 
   private File file;
   private uint32 file_id;
@@ -35,7 +38,7 @@ class Ricin.InlineFileMessageListRow : Gtk.ListBoxRow {
     this.label_name.set_markup (@"<b>$username</b>");
     this.label_timestamp.set_text (timestamp);
     this.label_file_name.set_text (this.file_name);
-    this.label_file_size.set_text (@"($(this.file_size) kB)");
+    this.label_file_size.set_text (Util.size_to_string (this.file_size));
 
     this.sender.file_done.connect ((name, bytes, id) => {
       if (id != this.file_id)
@@ -65,7 +68,6 @@ class Ricin.InlineFileMessageListRow : Gtk.ListBoxRow {
       this.button_save.set_size_request (65, 20);
       this.button_reject.visible = false;
       this.image_save_inline.icon_name = "folder-open-symbolic";
-      //this.button_save.sensitive = false;
     });
 
     this.sender.file_received.connect (id => {
@@ -78,7 +80,21 @@ class Ricin.InlineFileMessageListRow : Gtk.ListBoxRow {
       this.button_save.set_size_request (65, 20);
       this.button_reject.visible = false;
       this.button_save.sensitive = false;
+      //this.label_foreground.width_request = -1;
       this.image_save_inline.icon_name = "object-select-symbolic";
+    });
+
+    this.sender.file_progress.connect ((id, position) => {
+      if (id != this.file_id)
+        return;
+
+      var percent = position / this.file_size * this.width_request;
+      debug (@"Received %s% of file %s", percent, id);
+      /*this.progressbar_buffer.set_fraction ((int) percent);
+
+      this.progressbar_buffer.notify["fraction"].connect((o, p) => {
+        this.label_foreground.width_request = (int) this.progressbar_buffer.fraction * 100;
+      });*/
     });
 
     this.sender.file_paused.connect (id => {
@@ -103,6 +119,7 @@ class Ricin.InlineFileMessageListRow : Gtk.ListBoxRow {
       this.box_widget.get_style_context().add_class ("canceled-file");
       this.button_reject.set_size_request (65, 20);
       this.button_reject.sensitive = false;
+      //this.label_foreground.width_request = -1;
       this.button_save.visible = false;
     });
   }
@@ -112,10 +129,12 @@ class Ricin.InlineFileMessageListRow : Gtk.ListBoxRow {
     /**
     * TODO: Handle multiple state of the button using a less hacky way.
     **/
-
     if (this.downloaded == false) {
       debug ("Requested to save file");
       this.accept_file (true, this.file_id);
+      /*this.box_widget.get_style_context().add_class ("progress-bg");
+      this.label_foreground.get_style_context().add_class ("progress-fg");
+      this.progress_transfers.visible = true;*/
     } else {
       /**
       * TODO: Open the file in folder.
@@ -127,27 +146,11 @@ class Ricin.InlineFileMessageListRow : Gtk.ListBoxRow {
     if (this.paused == false) {
       this.paused = !this.paused;
       this.image_save_inline.icon_name = "media-playback-pause-symbolic";
+      //this.label_foreground.width_request = this.label_foreground.width_request + 10;
     } else {
       this.paused = !this.paused;
       this.image_save_inline.icon_name = "media-playback-start-symbolic";
     }
-
-
-    /*
-    string downloads = Environment.get_user_special_dir (UserDirectory.DOWNLOAD) + "/";
-    File file_destination = File.new_for_path (downloads + this.file_name);
-
-    int i = 0;
-    string filename = this.file_name;
-    while (FileUtils.test (file_destination.get_path (), FileTest.EXISTS)) {
-      filename = @"$(++i)-$(this.file_name)";
-    }
-
-    file_destination = File.new_for_path (downloads + this.file_name);
-    this.file.copy (file_destination, FileCopyFlags.NONE);
-
-    if (FileUtils.test (file_destination.get_path (), FileTest.EXISTS)) {
-      this.file.delete ();*/
 
     /**
     * TODO: Change box_widget background to progress.
@@ -172,6 +175,7 @@ class Ricin.InlineFileMessageListRow : Gtk.ListBoxRow {
     this.box_widget.get_style_context().add_class ("canceled-file");
 
     //this.button_reject.label = "Canceled";
+    /*this.progress_transfers.visible = false;*/
     this.button_reject.set_size_request (65, 20);
     this.button_reject.sensitive = false;
     this.button_save.visible = false;

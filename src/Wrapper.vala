@@ -248,6 +248,10 @@ namespace Tox {
 
       // send
       handle.callback_file_chunk_request ((self, friend, file, position, length) => {
+        if (this.friends[friend].blocked) {
+          return;
+        }
+
         if (length == 0) { // file transfer finished
           debug (@"friend $friend, file $file: done");
           this.friends[friend].files_send.remove (file);
@@ -255,6 +259,7 @@ namespace Tox {
           return;
         }
         debug (@"friend $friend, file $file: chunk request, pos=$position, len=$length");
+        this.friends[friend].file_progress (file, position);
 
         Bytes full_data = this.friends[friend].files_send[file];
         Bytes slice = full_data.slice ((int) position, (int) (position + length));
@@ -516,6 +521,7 @@ namespace Tox {
     public signal void friend_info (string message);
     public signal void file_transfer (string filename, uint64 file_size, uint32 id);
     public signal void file_paused (uint32 id);
+    public signal void file_progress (uint32 id, uint64 position);
     public signal void file_resumed (uint32 id);
     public signal void file_done (string filename, Bytes data, uint32 id);
     public signal void file_canceled (uint32 id);
