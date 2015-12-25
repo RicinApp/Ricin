@@ -24,11 +24,13 @@ class Ricin.InlineFileMessageListRow : Gtk.ListBoxRow {
   private bool downloaded = false;
   private bool paused = false;
 
+  private weak Tox.Tox handle;
   private weak Tox.Friend sender;
 
   public signal void accept_file (bool response, uint32 file_id);
 
-  public InlineFileMessageListRow (Tox.Friend sender, uint32 file_id, string username, string file_path, uint64 file_size, string timestamp) {
+  public InlineFileMessageListRow (Tox.Tox handle, Tox.Friend sender, uint32 file_id, string username, string file_path, uint64 file_size, string timestamp) {
+    this.handle = handle;
     this.sender = sender;
     this.file = File.new_for_path (file_path);
     this.file_id = file_id;
@@ -39,6 +41,12 @@ class Ricin.InlineFileMessageListRow : Gtk.ListBoxRow {
     this.label_timestamp.set_text (timestamp);
     this.label_file_name.set_text (this.file_name);
     this.label_file_size.set_text (Util.size_to_string (this.file_size));
+
+    // If message is our (ugly&hacky way).
+    if (this.handle.username == name) {
+      debug ("Keeping names in sync !");
+      this.handle.bind_property ("username", label_name, "label", BindingFlags.DEFAULT);
+    }
 
     this.sender.file_done.connect ((name, bytes, id) => {
       if (id != this.file_id)

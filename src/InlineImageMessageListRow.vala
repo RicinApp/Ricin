@@ -11,8 +11,10 @@ class Ricin.InlineImageMessageListRow : Gtk.ListBoxRow {
   private File image;
   private string image_name;
   private uint position;
+  private weak Tox.Tox handle;
 
-  public InlineImageMessageListRow (string name, string image_path, Gdk.Pixbuf image_inline, string timestamp) {
+  public InlineImageMessageListRow (Tox.Tox handle, string name, string image_path, Gdk.Pixbuf image_inline, string timestamp) {
+    this.handle = handle;
     this.image = File.new_for_path (image_path);
 
     this.label_name.set_markup (@"<b>$name</b>");
@@ -24,6 +26,11 @@ class Ricin.InlineImageMessageListRow : Gtk.ListBoxRow {
     var image_size = info.get_size () / 1000;
     this.label_image_name.set_text (@"$image_name");
     this.label_image_size.set_text (@"($image_size kb)");
+
+    // If message is our (ugly&hacky way).
+    if (this.handle.username == name) {
+      this.handle.bind_property ("username", label_name, "label", BindingFlags.DEFAULT);
+    }
   }
 
   [GtkCallback]

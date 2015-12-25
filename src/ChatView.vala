@@ -17,6 +17,9 @@ class Ricin.ChatView : Gtk.Box {
   private weak Gtk.Stack stack;
   private string view_name;
 
+  /**
+  * TODO: Use this enum to determine the current message type.
+  **/
   private enum MessageRowType {
     Normal,
     Action,
@@ -74,7 +77,7 @@ class Ricin.ChatView : Gtk.Box {
         }
       }
 
-      messages_list.add (new MessageListRow (fr.name, Util.add_markup (message), time ()));
+      messages_list.add (new MessageListRow (this.handle, fr.name, Util.add_markup (message), time ()));
       //this.add_row (MessageRowType.Normal, new MessageListRow (fr.name, Util.add_markup (message), time ()));
     });
 
@@ -110,9 +113,11 @@ class Ricin.ChatView : Gtk.Box {
       var file_content_type = ContentType.guess (path, null, null);
 
       if (file_content_type.has_prefix ("image/")) {
-        return;
+        var pixbuf = new Gdk.Pixbuf.from_file_at_scale (path, 400, 250, true);
+        messages_list.add (new InlineImageMessageListRow (this.handle, fr.name, path, pixbuf, time ()));
+        //return;
       } else {
-        var file_row = new InlineFileMessageListRow (fr, id, fr.name, path, size, time ());
+        var file_row = new InlineFileMessageListRow (this.handle, fr, id, fr.name, path, size, time ());
         file_row.accept_file.connect ((response, file_id) => {
           fr.reply_file_transfer (response, file_id);
         });
@@ -167,7 +172,7 @@ class Ricin.ChatView : Gtk.Box {
       fr.send_action (action);
     } else {
       markup = Util.add_markup (message);
-      messages_list.add (new MessageListRow (user, markup, time ()));
+      messages_list.add (new MessageListRow (this.handle, user, markup, time ()));
       fr.send_message (message);
     }
 
@@ -207,12 +212,12 @@ class Ricin.ChatView : Gtk.Box {
 
       if (file_content_type.has_prefix ("image/")) {
         var pixbuf = new Gdk.Pixbuf.from_file_at_scale (filename, 400, 250, true);
-        var image_widget = new InlineImageMessageListRow (this.handle.username, filename, pixbuf, time ());
+        var image_widget = new InlineImageMessageListRow (this.handle, this.handle.username, filename, pixbuf, time ());
         image_widget.button_save_inline.visible = false;
         messages_list.add (image_widget);
       } else {
         //fr.friend_info (@"Sending file $filename");
-        var file_row = new InlineFileMessageListRow (fr, file_id, this.handle.username, filename, size, time ());
+        var file_row = new InlineFileMessageListRow (this.handle, fr, file_id, this.handle.username, filename, size, time ());
         messages_list.add (file_row);
       }
     }
