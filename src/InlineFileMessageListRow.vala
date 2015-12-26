@@ -43,7 +43,7 @@ class Ricin.InlineFileMessageListRow : Gtk.ListBoxRow {
     this.label_file_size.set_text (Util.size_to_string (this.file_size));
 
     // If message is our (ugly&hacky way).
-    if (this.handle.username == name) {
+    if (this.handle.username == username) {
       debug ("Keeping names in sync !");
       this.handle.bind_property ("username", label_name, "label", BindingFlags.DEFAULT);
     }
