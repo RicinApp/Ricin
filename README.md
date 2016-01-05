@@ -36,7 +36,7 @@ _Screenshot might be outdated but it should give you a general idea of what is R
 | Package name        | Version   |
 |---------------------|-----------|
 | [meson] \(building) |           |
-| [ninja] \(building) |           |
+| [ninja] \(building) | >=1.5.1   |
 | valac               | >=0.28.1  |
 | gtk+3               | >=3.16    |
 | [libtoxcore]        | >=0.0.0   |
@@ -51,7 +51,9 @@ _Screenshot might be outdated but it should give you a general idea of what is R
 git clone --recursive https://github.com/RicinApp/Ricin.git
 cd Ricin
 mkdir build
-meson . build
+cd build
+meson ..
+cd ..
 make debug
 ```
 
