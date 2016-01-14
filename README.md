@@ -51,9 +51,7 @@ _Screenshot might be outdated but it should give you a general idea of what is R
 git clone --recursive https://github.com/RicinApp/Ricin.git
 cd Ricin
 mkdir build
-cd build
-meson ..
-cd ..
+meson . build
 make debug
 ```
 
