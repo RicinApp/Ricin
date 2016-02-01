@@ -4,7 +4,7 @@
       <strong><a href="#">Ricin</a></strong>: A Lightweight and Fully-Hackable Tox client powered by Vala & Gtk3!
     </td>
     <td>
-      <img src="https://img.shields.io/badge/version-0.0.1-brightgreen.svg?style=flat">
+      <img src="https://img.shields.io/badge/version-0.0.2-brightgreen.svg?style=flat">
       <a href="https://travis-ci.org/RicinApp/Ricin">
         <img src="https://api.travis-ci.org/RicinApp/Ricin.svg" alt="Travis-CI">
       </a>
