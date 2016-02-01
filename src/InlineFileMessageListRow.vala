@@ -12,7 +12,7 @@ class Ricin.InlineFileMessageListRow : Gtk.ListBoxRow {
   [GtkChild] Gtk.Image image_reject_inline;
   [GtkChild] Gtk.Box box_background;
   [GtkChild] Gtk.Label label_foreground;
-  [GtkChild] Gtk.ProgressBar progressbar_buffer;
+  [GtkChild] Gtk.ProgressBar progress_file_percent;
 
   private File file;
   private uint32 file_id;
@@ -41,6 +41,7 @@ class Ricin.InlineFileMessageListRow : Gtk.ListBoxRow {
     this.label_timestamp.set_text (timestamp);
     this.label_file_name.set_text (this.file_name);
     this.label_file_size.set_text (Util.size_to_string (this.file_size));
+    this.progress_file_percent.set_fraction (0.0);
 
     // If message is our (ugly&hacky way).
     if (this.handle.username == username) {
@@ -53,6 +54,10 @@ class Ricin.InlineFileMessageListRow : Gtk.ListBoxRow {
         return;
 
       debug (@"File $(this.file_id) done!");
+
+      // Set the progressbar to 100% and hide it.
+      this.progress_file_percent.set_fraction (1.0);
+      this.progress_file_percent.visible = false;
 
       string downloads = Environment.get_user_special_dir (UserDirectory.DOWNLOAD) + "/";
       File file_destination = File.new_for_path (downloads + this.file_name);
@@ -92,18 +97,20 @@ class Ricin.InlineFileMessageListRow : Gtk.ListBoxRow {
       this.image_save_inline.icon_name = "object-select-symbolic";
     });
 
-    this.sender.file_progress.connect ((id, position) => {
+    /*this.sender.file_progress.connect ((id, position) => {
       if (id != this.file_id)
         return;
 
-      var percent = position / this.file_size * this.width_request;
-      debug (@"Received %s% of file %s", percent, id);
-      /*this.progressbar_buffer.set_fraction ((int) percent);
+      var percent = (int)position / this.file_size;
+      debug (@"File $id - Size: $(this.file_size) - Position: $position");
+      debug (@"Progress percent: $percent");
+      //debug (@"Received %s% of file %s", percent, id);
+      this.progressbar_buffer.set_fraction ((int) percent);
 
       this.progressbar_buffer.notify["fraction"].connect((o, p) => {
         this.label_foreground.width_request = (int) this.progressbar_buffer.fraction * 100;
-      });*/
-    });
+      });
+    });*/
 
     this.sender.file_paused.connect (id => {
       if (id != this.file_id)
@@ -129,7 +136,15 @@ class Ricin.InlineFileMessageListRow : Gtk.ListBoxRow {
       this.button_reject.sensitive = false;
       //this.label_foreground.width_request = -1;
       this.button_save.visible = false;
+      this.progress_file_percent.visible = false;
     });
+
+    /*this.sender.file_progress.connect ((id, position) => {
+      if (id != this.file_id)
+        return;
+
+      debug (@"File Progress: id: $id - position: $position");
+    });*/
   }
 
   [GtkCallback]

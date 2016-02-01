@@ -14,8 +14,49 @@ class Ricin.MessageListRow : Gtk.ListBoxRow {
     this.label_timestamp.set_text ("03:38:10");*/
 
     //if (name.strip () != "" && message.strip () != "" && timestamp != "") {}
+
+    /**
+    * TEMP DEV ZONE:
+    * EMOJI SUPPORT.
+    **/
+    var msg = message
+      .replace (":)", "😄")
+      .replace ("+1", "👍")
+      .replace ("-1", "👎")
+      .replace (":@", "😠")
+      .replace (">:(", "😠")
+      .replace (":$", "😊")
+      .replace ("<3", "💙")
+      .replace (":3", "🐱")
+      .replace (":/", "😕")
+      .replace (":'(", "😢")
+      .replace (":-'(", "😢")
+      .replace (":o", "😵")
+      .replace (":O", "😵")
+      .replace (":(", "😦")
+      .replace (":-(", "😦")
+      .replace (":-[", "😦")
+      .replace (":[", "😦")
+      .replace ("xD", "😁")
+      .replace ("XD", "😁")
+      .replace ("0:)", "😇")
+      .replace (":D", "😆")
+      .replace (":-D", "😆")
+      .replace (":|", "😐")
+      .replace (":-|", "😐")
+      .replace (":p", "😛")
+      .replace (":-p", "😛")
+      .replace (":P", "😛")
+      .replace (":-P", "😛")
+      .replace ("8)", "😎")
+      .replace ("8-)", "😎");
+    /**
+    * TEMP DEV ZONE:
+    * EMOJI SUPPORT.
+    **/
+
     this.label_name.set_markup (@"<b>$name</b>");
-    this.label_message.set_markup (message);
+    this.label_message.set_markup (msg);
     this.label_timestamp.set_text (timestamp);
 
     this.label_message.activate_link.connect (this.handle_links);

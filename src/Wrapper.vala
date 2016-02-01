@@ -216,6 +216,8 @@ namespace Tox {
         }
 
         this.friends[num].status_message = Util.arr2str (message);
+        debug (@"Util: $(Util.arr2str (message))");
+        debug (@"Status: $(this.friends[num].status_message)");
       });
 
       this.handle.callback_friend_message ((self, num, type, message) => {
@@ -500,6 +502,7 @@ namespace Tox {
      * set until we leave the callback so we'll just keep our own copy.
      */
     public string name { get; set; }
+    public string status_message { get; set; }
 
     public string pubkey {
       owned get {
@@ -510,7 +513,6 @@ namespace Tox {
     }
 
     public UserStatus status { get; private set; }
-    public string status_message { get; set; }
     public bool connected { get; set; }
     public bool typing { get; set; }
     public bool blocked { get; set; default = false; }

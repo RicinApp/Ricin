@@ -199,5 +199,8 @@
         </child>
       </object>
     </child>
+    <style>
+      <class name="message"/>
+    </style>
   </template>
 </interface>

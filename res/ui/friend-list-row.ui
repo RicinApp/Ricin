@@ -21,12 +21,11 @@
                 <property name="height_request">36</property>
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="halign">start</property>
                 <property name="margin_left">5</property>
                 <property name="margin_right">5</property>
                 <property name="margin_top">5</property>
                 <property name="margin_bottom">5</property>
-                <property name="pixel_size">48</property>
+                <property name="pixel_size">36</property>
                 <property name="icon_name">avatar-default</property>
                 <property name="icon_size">6</property>
               </object>
@@ -46,13 +45,18 @@
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="halign">start</property>
-                    <property name="margin_top">5</property>
+                    <property name="margin_left">5</property>
+                    <property name="margin_right">5</property>
+                    <property name="margin_top">7</property>
                     <property name="label" translatable="yes">name</property>
                     <property name="ellipsize">end</property>
                     <property name="single_line_mode">True</property>
+                    <attributes>
+                      <attribute name="weight" value="bold"/>
+                    </attributes>
                   </object>
                   <packing>
-                    <property name="expand">False</property>
+                    <property name="expand">True</property>
                     <property name="fill">True</property>
                     <property name="position">0</property>
                   </packing>
@@ -62,13 +66,19 @@
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="halign">start</property>
-                    <property name="margin_bottom">5</property>
+                    <property name="valign">end</property>
+                    <property name="margin_left">5</property>
+                    <property name="margin_right">5</property>
+                    <property name="margin_bottom">7</property>
                     <property name="label" translatable="yes">status</property>
                     <property name="ellipsize">end</property>
                     <property name="single_line_mode">True</property>
+                    <attributes>
+                      <attribute name="style" value="italic"/>
+                    </attributes>
                   </object>
                   <packing>
-                    <property name="expand">False</property>
+                    <property name="expand">True</property>
                     <property name="fill">True</property>
                     <property name="position">1</property>
                   </packing>
@@ -82,10 +92,13 @@
             </child>
             <child>
               <object class="GtkImage" id="userstatus">
+                <property name="width_request">16</property>
+                <property name="height_request">16</property>
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
+                <property name="margin_right">3</property>
                 <property name="pixel_size">24</property>
-                <property name="icon_name">user-status-pending</property>
+                <property name="resource">/chat/tox/Ricin/assets/status/offline.png</property>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -97,5 +110,8 @@
         </child>
       </object>
     </child>
+    <style>
+      <class name="friendlist-row"/>
+    </style>
   </template>
 </interface>

@@ -10,158 +10,182 @@
       <object class="GtkBox" id="box3">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="margin_left">5</property>
-        <property name="margin_right">5</property>
-        <property name="margin_top">5</property>
-        <property name="margin_bottom">5</property>
-        <child>
-          <object class="GtkImage" id="user_avatar">
-            <property name="width_request">46</property>
-            <property name="height_request">46</property>
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="margin_left">5</property>
-            <property name="margin_right">5</property>
-            <property name="margin_top">5</property>
-            <property name="margin_bottom">5</property>
-            <property name="pixel_size">46</property>
-            <property name="icon_name">avatar-default</property>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">0</property>
-          </packing>
-        </child>
         <child>
           <object class="GtkBox" id="box4">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="valign">center</property>
-            <property name="margin_left">5</property>
-            <property name="margin_right">5</property>
-            <property name="orientation">vertical</property>
             <child>
-              <object class="GtkLabel" id="username">
+              <object class="GtkImage" id="user_avatar">
+                <property name="width_request">46</property>
+                <property name="height_request">46</property>
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="label" translatable="yes">Username</property>
-                <property name="ellipsize">end</property>
-                <attributes>
-                  <attribute name="weight" value="bold"/>
-                  <attribute name="scale" value="1"/>
-                  <attribute name="absolute-size" value="16000"/>
-                </attributes>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">0</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkLabel" id="status_message">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="label" translatable="yes">Status message...</property>
-                <property name="use_markup">True</property>
-                <property name="justify">center</property>
-                <property name="wrap">True</property>
-                <property name="selectable">True</property>
-                <property name="ellipsize">end</property>
-                <property name="max_width_chars">256</property>
-                <property name="lines">2</property>
+                <property name="margin_left">7</property>
+                <property name="margin_right">7</property>
+                <property name="margin_top">7</property>
+                <property name="margin_bottom">7</property>
+                <property name="pixel_size">46</property>
+                <property name="icon_name">avatar-default</property>
               </object>
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">True</property>
                 <property name="position">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkBox" id="box5">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="valign">center</property>
+                <property name="orientation">vertical</property>
+                <child>
+                  <object class="GtkLabel" id="username">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="label" translatable="yes">Username</property>
+                    <property name="ellipsize">end</property>
+                    <attributes>
+                      <attribute name="weight" value="bold"/>
+                      <attribute name="scale" value="1"/>
+                      <attribute name="absolute-size" value="16000"/>
+                    </attributes>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkLabel" id="status_message">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="label" translatable="yes">Status message...</property>
+                    <property name="use_markup">True</property>
+                    <property name="justify">center</property>
+                    <property name="wrap">True</property>
+                    <property name="selectable">True</property>
+                    <property name="ellipsize">end</property>
+                    <property name="max_width_chars">256</property>
+                    <property name="lines">2</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
+                <property name="position">2</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkBox" id="box6">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="spacing">2</property>
+                <child>
+                  <object class="GtkButton" id="button_audio_call">
+                    <property name="width_request">58</property>
+                    <property name="height_request">58</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="receives_default">True</property>
+                    <property name="relief">none</property>
+                    <property name="always_show_image">True</property>
+                    <child>
+                      <object class="GtkImage" id="image5">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="pixel_size">32</property>
+                        <property name="icon_name">call-start-symbolic</property>
+                      </object>
+                    </child>
+                    <style>
+                      <class name="button-dark"/>
+                    </style>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkButton" id="button_video_call">
+                    <property name="width_request">58</property>
+                    <property name="height_request">58</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="receives_default">True</property>
+                    <property name="relief">none</property>
+                    <property name="always_show_image">True</property>
+                    <child>
+                      <object class="GtkImage" id="image6">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="pixel_size">32</property>
+                        <property name="icon_name">video-x-generic-symbolic</property>
+                      </object>
+                    </child>
+                    <style>
+                      <class name="button-dark"/>
+                    </style>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkButton" id="send_file">
+                    <property name="width_request">58</property>
+                    <property name="height_request">58</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="receives_default">True</property>
+                    <property name="relief">none</property>
+                    <signal name="clicked" handler="choose_file_to_send" swapped="no"/>
+                    <child>
+                      <object class="GtkImage" id="image3">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="pixel_size">32</property>
+                        <property name="icon_name">mail-attachment-symbolic</property>
+                      </object>
+                    </child>
+                    <style>
+                      <class name="button-dark"/>
+                    </style>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">2</property>
+                  </packing>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">3</property>
               </packing>
             </child>
           </object>
           <packing>
             <property name="expand">True</property>
             <property name="fill">True</property>
-            <property name="position">1</property>
+            <property name="position">0</property>
           </packing>
         </child>
-        <child>
-          <object class="GtkBox" id="box5">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <child>
-              <object class="GtkButton" id="button_audio_call">
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="relief">none</property>
-                <property name="always_show_image">True</property>
-                <child>
-                  <object class="GtkImage" id="image5">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="pixel_size">32</property>
-                    <property name="icon_name">call-start-symbolic</property>
-                  </object>
-                </child>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">0</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkButton" id="button_video_call">
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="relief">none</property>
-                <property name="always_show_image">True</property>
-                <child>
-                  <object class="GtkImage" id="image6">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="pixel_size">32</property>
-                    <property name="icon_name">video-x-generic-symbolic</property>
-                  </object>
-                </child>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">1</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkButton" id="send_file">
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="relief">none</property>
-                <signal name="clicked" handler="choose_file_to_send" swapped="no"/>
-                <child>
-                  <object class="GtkImage" id="image3">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="pixel_size">32</property>
-                    <property name="icon_name">mail-attachment-symbolic</property>
-                  </object>
-                </child>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">2</property>
-              </packing>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">2</property>
-          </packing>
-        </child>
+        <style>
+          <class name="user-infos"/>
+        </style>
       </object>
       <packing>
         <property name="expand">False</property>
@@ -186,6 +210,9 @@
                 <property name="can_focus">False</property>
                 <property name="selection_mode">multiple</property>
                 <signal name="size-allocate" handler="scroll_to_bottom" swapped="no"/>
+                <style>
+                  <class name="message-list"/>
+                </style>
               </object>
             </child>
           </object>
@@ -208,6 +235,9 @@
             <property name="can_focus">True</property>
             <property name="max_width_chars">5</property>
             <signal name="activate" handler="send_message" swapped="no"/>
+            <style>
+              <class name="entry-chat"/>
+            </style>
           </object>
           <packing>
             <property name="expand">True</property>
@@ -222,6 +252,7 @@
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
             <property name="resize_mode">queue</property>
+            <property name="relief">none</property>
             <property name="image_position">right</property>
             <property name="always_show_image">True</property>
             <signal name="clicked" handler="send_message" swapped="no"/>
@@ -232,6 +263,9 @@
                 <property name="icon_name">mail-replied-symbolic</property>
               </object>
             </child>
+            <style>
+              <class name="button-dark"/>
+            </style>
           </object>
           <packing>
             <property name="expand">False</property>
@@ -239,6 +273,9 @@
             <property name="position">1</property>
           </packing>
         </child>
+        <style>
+          <class name="user-infos"/>
+        </style>
       </object>
       <packing>
         <property name="expand">False</property>
@@ -283,6 +320,9 @@
                 <property name="position">1</property>
               </packing>
             </child>
+            <style>
+              <class name="user-infos"/>
+            </style>
           </object>
         </child>
       </object>

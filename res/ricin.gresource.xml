@@ -21,5 +21,15 @@
         <file>images/icons/Ricin-256x256.png</file>
         <file>images/icons/Ricin-512x512.png</file>
         <file>images/icons/Ricin-600x600.png</file>
+
+        <file>images/status/busy.png</file>
+        <file>images/status/busy_notification.png</file>
+        <file>images/status/idle.png</file>
+        <file>images/status/idle_notification.png</file>
+        <file>images/status/online.png</file>
+        <file>images/status/online_notification.png</file>
+        <file>images/status/offline.png</file>
+        <file>images/status/offline_notification.png</file>
+        <file>images/status/invisible.png</file>
     </gresource>
 </gresources>

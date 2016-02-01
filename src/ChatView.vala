@@ -43,7 +43,10 @@ class Ricin.ChatView : Gtk.Box {
       this.username.set_text (fr.pubkey);
     }
 
-    this.status_message.set_markup (Util.add_markup (fr.status_message));
+    debug (@"Status message for $(fr.name): $(fr.status_message)");
+    this.status_message.set_markup (fr.status_message);
+    fr.bind_property ("status-message", status_message, "label", BindingFlags.DEFAULT);
+    //this.status_message.set_markup (Util.add_markup (fr.status_message));
 
     var _avatar_path = Tox.profile_dir () + "avatars/" + this.fr.pubkey + ".png";
     if (FileUtils.test (_avatar_path, FileTest.EXISTS)) {
