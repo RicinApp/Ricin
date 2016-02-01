@@ -114,6 +114,14 @@ namespace Tox {
       }
     }
 
+    public uint32[] self_get_friend_list () {
+      size_t size = this.handle.self_get_friend_list_size ();
+      uint32[] list = new uint32[size];
+      this.handle.self_get_friend_list (list);
+
+      return list;
+    }
+
     public bool connected { get; set; default = false; }
 
     public string id {
