@@ -76,12 +76,9 @@ GtkScrolledWindow {
   background-color: #171717;
 }
 
-.secondary-background .notebook {
-  background-color: #171717;
-}
-
 .secondary-background .notebook GtkBox,
 .secondary-background .notebook GtkGrid {
+    background-color: @gtk_box;
     padding: 0 50px;
 }
 
