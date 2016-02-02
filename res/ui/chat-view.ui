@@ -417,6 +417,8 @@
                             <property name="height_request">75</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
+                            <property name="margin_left">5</property>
+                            <property name="margin_right">5</property>
                             <property name="wrap_mode">word</property>
                             <property name="buffer">textbuffer1</property>
                             <style>
