@@ -115,9 +115,33 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
     this.entry_status.bind_property ("text", tox, "status_message", BindingFlags.BIDIRECTIONAL | BindingFlags.SYNC_CREATE);
 
     tox.notify["connected"].connect ((src, prop) => {
-      string icon = this.tox.connected ? "online" : "offline";
+      string icon = "";
+
+      // Sync the status with the one stored on the .tox file.
+      switch (this.tox.status) {
+        case Tox.UserStatus.ONLINE:
+          // Set status to away.
+          this.tox.status = Tox.UserStatus.AWAY;
+          icon = "idle";
+          break;
+        case Tox.UserStatus.AWAY:
+          // Set status to busy.
+          this.tox.status = Tox.UserStatus.BUSY;
+          icon = "busy";
+          break;
+        case Tox.UserStatus.BUSY:
+          // Set status to online.
+          this.tox.status = Tox.UserStatus.ONLINE;
+          icon = "online";
+          break;
+        default:
+          // Set status to offline.
+          icon = "offline";
+          break;
+      }
+
+      icon = this.tox.connected ? icon : "offline";
       this.image_user_status.set_from_resource (@"/chat/tox/ricin/images/status/$icon.png");
-      //this.image_user_status.icon_name = this.tox.connected ? "user-available" : "user-offline";
       this.button_user_status.sensitive = this.tox.connected;
     });
 
