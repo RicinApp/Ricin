@@ -6,6 +6,130 @@ GtkLabel.info-message {
   background-color: #222222;
 }
 
+RicinSettingsView {
+  background-image: none;
+  border-image-width: 0 0 0 0;
+  border-image: none;
+  border: none;
+}
+
+.secondary-background {
+  background-color: #333333;
+}
+
+.secondary-background GtkEntry,
+.secondary-background GtkButton {
+  border-image: none;
+  background-image: none;
+  background-color: #222222;
+}
+
+.secondary-background GtkEntry:hover,
+.secondary-background GtkEntry:active,
+.secondary-background GtkButton:hover {
+  border-image: none;
+  border-radius: 0;
+  background-image: none;
+  background-color: #171717;
+}
+
+.secondary-background .notebook GtkBox,
+.secondary-background .notebook GtkGrid {
+    background-color: @gtk_box;
+    padding: 0 50px;
+}
+
+.secondary-background .notebook GtkButton {
+    background-color: #222;
+    background-image: none;
+    border: none;
+    border-image: none;
+    padding: 20px 0;
+    /*margin: 5px 10px;*/
+}
+
+.secondary-background .notebook .button GtkLabel {
+    background-color: transparent;
+    background: transparent;
+    background-image: none;
+}
+
+.secondary-background .notebook .button {
+    border: none;
+    border-width: 0;
+    border-image: none;
+}
+
+.secondary-background .notebook .button:hover,
+.secondary-background .notebook .button:prelight {
+    transition: 150ms ease-in-out;
+    background-image: none;
+    background: @main_ddark_hover;
+    background-color: @main_ddark_hover;
+}
+
+.secondary-background .notebook .entry {
+    background: @main_dark;
+    color: @main_blue;
+}
+
+.secondary-background .notebook GtkLabel {
+    color: @text_color;
+    background-color: @gtk_box;
+}
+
+.secondary-background .notebook {
+    padding: 1px;
+
+    border-color: @main_ddark;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 0;
+
+    background-color: @main_ddark;
+
+    -GtkNotebook-tab-overlap: 3;
+    -GtkNotebook-tab-curvature: 2;
+}
+
+.secondary-background .notebook tab:nth-child(first) {
+    margin-top: 3px;
+}
+
+.secondary-background .notebook tab {
+    padding: 10px 50px;
+    background-image: none;
+    -adwaita-focus-border-radius: 4;
+    color: @text_color;
+    background-color: @main_ddark;
+    border-color: @main_ddark;
+}
+
+.secondary-background .notebook tab:hover,
+.secondary-background .notebook tab:prelight {
+    transition: 5000ms ease-in-out;
+    background-image: none;
+    background: @main_ddark_hover;
+    background-color: @main_ddark_hover;
+    border-color: @main_ddark_hover;
+    /*border-left: 2px solid @main_blue;*/
+}
+
+.secondary-background .notebook tab:active {
+    background-color: @main_ddark_hover;
+    border-color: @main_ddark_hover;
+    border-left: 2px solid @main_blue;
+}
+
+.secondary-background .notebook tab GtkLabel {
+    background-color: transparent;
+    background: transparent;
+    background-image: none;
+}
+
+.friend-infos {
+  background-color: #222222;
+}
 .user-infos {
   background-color: #171717;
 }

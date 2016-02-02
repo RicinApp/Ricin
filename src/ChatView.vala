@@ -12,6 +12,10 @@ class Ricin.ChatView : Gtk.Box {
   [GtkChild] Gtk.Button button_video_call;
   [GtkChild] Gtk.Revealer friend_typing;
 
+  /* Friend menu toggle */
+  [GtkChild] Gtk.Button button_toggle_friend_menu;
+  [GtkChild] Gtk.Revealer revealer_friend_menu;
+
   public Tox.Friend fr;
   private weak Tox.Tox handle;
   private weak Gtk.Stack stack;
@@ -155,6 +159,11 @@ class Ricin.ChatView : Gtk.Box {
       target.set_string ("<span size=\"10\">" + Util.add_markup (status_message) + "</span>");
       return true;
     });
+  }
+
+  [GtkCallback]
+  private void toggle_friend_menu () {
+    this.revealer_friend_menu.set_reveal_child (!this.revealer_friend_menu.child_revealed);
   }
 
   [GtkCallback]

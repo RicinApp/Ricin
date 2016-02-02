@@ -1624,5 +1624,8 @@ Public License instead of this License.  But first, please read
         <property name="tab_fill">False</property>
       </packing>
     </child>
+    <style>
+      <class name="secondary-background"/>
+    </style>
   </template>
 </interface>
