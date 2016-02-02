@@ -2,143 +2,29 @@ GtkLabel.info-message {
     color: @theme_selected_bg_color;
 }
 
-.ricin-navigation {
-  background-color: #222222;
-}
-
-.user-infos {
-  background-color: #171717;
-}
-
-.ricin-navigation .user-infos GtkEntry {
-  background-color: #171717;
-}
-.ricin-navigation .user-infos GtkEntry:hover,
-.ricin-navigation .user-infos GtkEntry:active {
-  background-color: #333333;
-}
-
-.button-dark {
-  border-image: none;
-  border-radius: 0;
-  background-image: none;
-  background-color: #171717;
-}
-.button-dark:hover {
-  border-image: none;
-  border-radius: 0;
-  background-image: none;
-  background-color: #222222;
-}
-
-.friendlist {
-  background-color: #222222;
-  border-image: none;
-  border: none;
-}
-
-.entry-principal {
-	background-image: none;
-	border-image: none;
-
-	background-color: #222222;
-	border: none;
-	border-radius: 0;
-}
-
-.entry-chat {
-  background-image: none;
-	border-image: none;
-
-	background-color: #171717;
-	border: none;
-	border-radius: 0;
-}
-
-.friendlist-row {
-  background-color: #222222;
-}
-
-.friendlist-row:active,
-.friendlist-row:selected {
-  background-color: #333333;
-}
-
-.ricin-content {
-  background-color: #333333;
-}
-
-.ricin-content .message-list {
-  background-color: #333333;
-}
-
-.ricin-content .message-list .message {
-  background-color: #333333;
-}
-
-.image-desc {
-  background-color: #21252B;
-  padding: 5px 5px 5px 5px;
-}
-
-.btn-save-image {
-  background-image: none;
-  background-color: #21252B;
-  border: none;
-  border-radius: 0;
-  color: white;
-}
-
-.btn-save-image:hover, .btn-save-image:insensitive {
-  background-image: none;
-  background-color: #292D35;
-  border: none;
-  border-radius: 0;
-  color: white;
-}
-
-.progress-bg {
-  background-color: #2ecc71;
-}
-.progress-bg GtkLabel {
-  color: black;
-}
-.progress-fg {
-  background-color: #27ae60;
-}
-
 /**
 * CANCELED FILE
 **/
 
 .canceled-file {
-  background-color: #c0392b;
-  color: white;
+    background-color: #c0392b;
+    color: white;
 }
 
 .canceled-file .label_file_name {
-  color: white;
+    color: white;
 }
 
-.canceled-file .btn-save-image,
-.canceled-file .btn-save-image :insensitive {
-  background-color: #e74c3c;
-}
 
 /**
 * SAVED FILE
 **/
 
 .saved-file {
-  background-color: #27ae60;
-  color: white;
+    background-color: #27ae60;
+    color: white;
 }
 
 .saved-file .label_file_name {
-  color: white;
-}
-
-.saved-file .btn-save-image,
-.saved-file .btn-save-image:insensitive {
-  background-color: #2ecc71;
+    color: white;
 }
