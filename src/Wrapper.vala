@@ -468,12 +468,17 @@ namespace Tox {
       ERR_FRIEND_ADD err;
       uint32 num = this.handle.friend_add_norequest (Util.hex2bin(id), out err);
       if (num != uint32.MAX && err == ERR_FRIEND_ADD.OK) {
-        var friend = new Friend (this, num);
-        this.friends[num] = friend;
-        return friend;
+        return this.add_friend_by_num (num);
       } else {
         error ("friend_add_norequest: %d", err);
       }
+    }
+
+    public Friend? add_friend_by_num (uint32 num) {
+      debug (@"Adding friend: num → $num");
+      var friend = new Friend (this, num);
+      this.friends[num] = friend;
+      return friend;
     }
 
     public void save_data () {
@@ -554,6 +559,14 @@ namespace Tox {
 
       this.notify["connected"].connect ((o, p) => update_user_status ());
       this.notify["blocked"].connect ((o, p) => update_user_status ());
+    }
+
+    public string last_online (string? format) {
+      uint64 last = this.tox.handle.friend_get_last_online (this.num, null);
+      debug (@"Last online for $num: $last");
+
+      DateTime time = new DateTime.from_unix_local ((int64)last);
+      return time.format((format != null) ? format : "<b>Last online:</b> %H:%M %d/%m/%Y");
     }
 
     public void set_user_status (ToxCore.UserStatus status) {

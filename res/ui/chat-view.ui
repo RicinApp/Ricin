@@ -20,9 +20,6 @@
     <property name="xpad">5</property>
     <property name="icon_name">contact-new-symbolic</property>
   </object>
-  <object class="GtkTextBuffer" id="textbuffer1">
-    <property name="text" translatable="yes">SkyzohKey is a crazy guy that love to code !</property>
-  </object>
   <template class="RicinChatView" parent="GtkBox">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
@@ -48,6 +45,7 @@
                     <property name="height_request">46</property>
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
+                    <property name="margin_left">5</property>
                     <property name="margin_right">5</property>
                     <property name="pixel_size">46</property>
                     <property name="icon_name">avatar-default</property>
@@ -101,8 +99,13 @@
                   <object class="GtkLabel" id="username">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
+                    <property name="margin_left">5</property>
+                    <property name="margin_right">5</property>
                     <property name="label" translatable="yes">Username</property>
+                    <property name="justify">center</property>
                     <property name="ellipsize">end</property>
+                    <property name="single_line_mode">True</property>
+                    <property name="max_width_chars">200</property>
                     <attributes>
                       <attribute name="weight" value="bold"/>
                       <attribute name="scale" value="1"/>
@@ -119,6 +122,8 @@
                   <object class="GtkLabel" id="status_message">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
+                    <property name="margin_left">5</property>
+                    <property name="margin_right">5</property>
                     <property name="label" translatable="yes">Status message...</property>
                     <property name="use_markup">True</property>
                     <property name="justify">center</property>
@@ -300,17 +305,20 @@
                 <property name="spacing">5</property>
                 <child>
                   <object class="GtkBox" id="box_friend_profil_infos">
+                    <property name="width_request">200</property>
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="orientation">vertical</property>
                     <property name="spacing">5</property>
                     <child>
                       <object class="GtkImage" id="friend_profil_avatar">
+                        <property name="width_request">200</property>
+                        <property name="height_request">48</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="margin_left">5</property>
                         <property name="margin_right">5</property>
-                        <property name="margin_top">5</property>
+                        <property name="margin_top">10</property>
                         <property name="margin_bottom">5</property>
                         <property name="pixel_size">48</property>
                         <property name="icon_name">avatar-default</property>
@@ -323,30 +331,36 @@
                     </child>
                     <child>
                       <object class="GtkLabel" id="label_friend_profil_name">
+                        <property name="width_request">190</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
+                        <property name="valign">start</property>
                         <property name="margin_left">5</property>
                         <property name="margin_right">5</property>
                         <property name="label" translatable="yes">SkyzohKey</property>
+                        <property name="ellipsize">end</property>
+                        <property name="single_line_mode">True</property>
+                        <property name="max_width_chars">10</property>
                         <attributes>
                           <attribute name="weight" value="bold"/>
                         </attributes>
                       </object>
                       <packing>
-                        <property name="expand">True</property>
-                        <property name="fill">True</property>
+                        <property name="expand">False</property>
+                        <property name="fill">False</property>
                         <property name="position">1</property>
                       </packing>
                     </child>
                   </object>
                   <packing>
                     <property name="expand">False</property>
-                    <property name="fill">True</property>
+                    <property name="fill">False</property>
                     <property name="position">0</property>
                   </packing>
                 </child>
                 <child>
                   <object class="GtkBox" id="box8">
+                    <property name="width_request">190</property>
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="margin_left">5</property>
@@ -365,6 +379,7 @@
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="label" translatable="yes">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a diam lectus. Sed sit amet ipsum mauris.</property>
+                            <property name="use_markup">True</property>
                             <property name="justify">center</property>
                             <property name="wrap">True</property>
                             <property name="selectable">True</property>
@@ -372,10 +387,6 @@
                             <property name="width_chars">0</property>
                             <property name="max_width_chars">10</property>
                             <property name="lines">5</property>
-                            <attributes>
-                              <attribute name="style" value="normal"/>
-                              <attribute name="size" value="9000"/>
-                            </attributes>
                           </object>
                           <packing>
                             <property name="expand">False</property>
@@ -384,11 +395,35 @@
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkLabel" id="label_friend_last_seen">
+                          <object class="GtkBox" id="box11">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="label" translatable="yes">&lt;b&gt;Last seen:&lt;/b&gt; 14:30</property>
-                            <property name="use_markup">True</property>
+                            <property name="orientation">vertical</property>
+                            <child>
+                              <object class="GtkLabel" id="label2">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="label" translatable="yes">&lt;b&gt;Last seen:&lt;/b&gt;</property>
+                                <property name="use_markup">True</property>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="fill">True</property>
+                                <property name="position">0</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkLabel" id="label_friend_last_seen">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="label" translatable="yes">14:30</property>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="fill">True</property>
+                                <property name="position">1</property>
+                              </packing>
+                            </child>
                           </object>
                           <packing>
                             <property name="expand">False</property>
@@ -397,38 +432,49 @@
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkLabel" id="label_friend_notes">
+                          <object class="GtkBox" id="box12">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="label" translatable="yes">Notes about the user:</property>
-                            <attributes>
-                              <attribute name="weight" value="bold"/>
-                            </attributes>
+                            <property name="orientation">vertical</property>
+                            <child>
+                              <object class="GtkLabel" id="label_friend_notes">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="label" translatable="yes">Notes about the user:</property>
+                                <attributes>
+                                  <attribute name="weight" value="bold"/>
+                                </attributes>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="fill">True</property>
+                                <property name="position">0</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkTextView" id="textview1">
+                                <property name="width_request">100</property>
+                                <property name="height_request">60</property>
+                                <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                                <property name="wrap_mode">word</property>
+                                <property name="justification">center</property>
+                                <property name="buffer">textbuffer1</property>
+                                <style>
+                                  <class name="entry-principal"/>
+                                </style>
+                              </object>
+                              <packing>
+                                <property name="expand">True</property>
+                                <property name="fill">True</property>
+                                <property name="position">1</property>
+                              </packing>
+                            </child>
                           </object>
                           <packing>
                             <property name="expand">False</property>
                             <property name="fill">True</property>
                             <property name="position">2</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkTextView" id="textview1">
-                            <property name="width_request">100</property>
-                            <property name="height_request">75</property>
-                            <property name="visible">True</property>
-                            <property name="can_focus">True</property>
-                            <property name="margin_left">5</property>
-                            <property name="margin_right">5</property>
-                            <property name="wrap_mode">word</property>
-                            <property name="buffer">textbuffer1</property>
-                            <style>
-                              <class name="entry-principal"/>
-                            </style>
-                          </object>
-                          <packing>
-                            <property name="expand">True</property>
-                            <property name="fill">True</property>
-                            <property name="position">3</property>
                           </packing>
                         </child>
                       </object>
@@ -647,4 +693,7 @@
       </packing>
     </child>
   </template>
+  <object class="GtkTextBuffer" id="textbuffer1">
+    <property name="text" translatable="yes">SkyzohKey is a crazy guy that love to code !</property>
+  </object>
 </interface>

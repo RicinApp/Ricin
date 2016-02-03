@@ -32,13 +32,14 @@ namespace Util {
   }
 
   public static string render_litemd (string text) {
-    var bold = /\B\*\*([^\*\*]*)\*\*\B/.replace (text, -1, 0, "<b>\\1</b>");
-    var italic = /\b_([^_]*)_\b/.replace(bold, -1, 0, "<i>\\1</i>");
-    var underline = /\B-([^-]*)-\B/.replace(italic, -1, 0, "<u>\\1</u>");
-    var striked = /\B~([^~]*)~\B/.replace(underline, -1, 0, "<s>\\1</s>");
+    var md = text;
 
-    var final_text = striked;
-    return final_text;
+    md = /\B\*\*([^\*\*]*)\*\*\B/.replace (md, -1, 0, "<b>\\1</b>");
+    md = /\b_([^_]*)_\b/.replace(text, -1, 0, "<i>\\1</i>");
+    md = /\B-([^-]*)-\B/.replace(md, -1, 0, "<u>\\1</u>");
+    md = /\B~([^~]*)~\B/.replace(md, -1, 0, "<s>\\1</s>");
+
+    return text;
   }
 
   public static string add_markup (string text) {

@@ -112,6 +112,22 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
     this.friendlist.set_sort_func (sort_friendlist_online);
     this.friendlist.bind_model (this.friends, fr => new FriendListRow (fr as Tox.Friend));
 
+    // Add friends from the .tox file.
+    uint32[] contacts = this.tox.self_get_friend_list ();
+    for (int i = 0; i < contacts.length; i++) {
+      uint32 friend_num = contacts[i];
+      debug (@"Friend from .tox: num → $friend_num");
+
+      var friend = this.tox.add_friend_by_num (friend_num);
+      friend.connected = false;
+      friend.position = friends.get_n_items ();
+      debug ("Friend position: %u", friend.position);
+      this.friends.append (friend);
+
+      var view_name = "chat-%s".printf (friend.pubkey);
+      this.chat_stack.add_named (new ChatView (this.tox, friend, this.chat_stack, view_name), view_name);
+    }
+
     this.entry_status.bind_property ("text", tox, "status_message", BindingFlags.BIDIRECTIONAL | BindingFlags.SYNC_CREATE);
 
     tox.notify["connected"].connect ((src, prop) => {
