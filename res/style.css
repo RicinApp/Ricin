@@ -1,0 +1,30 @@
+GtkLabel.info-message {
+    color: @theme_selected_bg_color;
+}
+
+/**
+* CANCELED FILE
+**/
+
+.canceled-file {
+  background-color: #c0392b;
+  color: white;
+}
+
+.canceled-file .label_file_name {
+  color: white;
+}
+
+/**
+* SAVED FILE
+**/
+
+.saved-file {
+  background-color: #27ae60;
+  color: white;
+}
+
+.saved-file .label_file_name {
+  color: white;
+}
+
