@@ -2,27 +2,71 @@ GtkLabel.info-message {
     color: @theme_selected_bg_color;
 }
 
+.image-desc {
+  background-color: #21252B;
+  padding: 5px 5px 5px 5px;
+}
+
+.btn-save-image {
+  background-image: none;
+  background-color: #21252B;
+  border: none;
+  border-radius: 0;
+  color: white;
+}
+
+.btn-save-image:hover, .btn-save-image:insensitive {
+  background-image: none;
+  background-color: #292D35;
+  border: none;
+  border-radius: 0;
+  color: white;
+}
+
+.progress-bg {
+  background-color: #2ecc71;
+}
+.progress-bg GtkLabel {
+  color: black;
+}
+.progress-fg {
+  background-color: #27ae60;
+}
+
 /**
 * CANCELED FILE
 **/
 
 .canceled-file {
-    background-color: #c0392b;
-    color: white;
+  background-color: #c0392b;
+  color: white;
 }
 
 .canceled-file .label_file_name {
-    color: white;
+  color: white;
 }
 
+.canceled-file .btn-save-image,
+.canceled-file .btn-save-image :insensitive {
+  background-color: #e74c3c;
+}
 
 /**
 * SAVED FILE
 **/
 
 .saved-file {
-    background-color: #27ae60;
-    color: white;
+  background-color: #27ae60;
+  color: white;
+}
+
+.saved-file .label_file_name {
+  color: white;
+}
+
+.saved-file .btn-save-image,
+.saved-file .btn-save-image:insensitive {
+  background-color: #2ecc71;
 }
 
 .saved-file .label_file_name {
