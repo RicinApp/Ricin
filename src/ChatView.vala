@@ -16,6 +16,14 @@ class Ricin.ChatView : Gtk.Box {
   [GtkChild] Gtk.Button button_toggle_friend_menu;
   [GtkChild] Gtk.Revealer revealer_friend_menu;
 
+  [GtkChild] Gtk.Image friend_profil_avatar;
+  [GtkChild] Gtk.Label label_friend_profil_name;
+  [GtkChild] Gtk.Label label_friend_profile_status_message;
+  [GtkChild] Gtk.Label label_friend_last_seen;
+  [GtkChild] Gtk.Button button_friend_copy_toxid;
+  [GtkChild] Gtk.Button button_friend_block;
+  [GtkChild] Gtk.Button button_friend_delete;
+
   public Tox.Friend fr;
   private weak Tox.Tox handle;
   private weak Gtk.Stack stack;
@@ -43,19 +51,34 @@ class Ricin.ChatView : Gtk.Box {
     this.stack = stack;
     this.view_name = view_name;
 
-    if (fr.name == null) {
-      this.username.set_text (fr.pubkey);
+    if (this.fr.name == null) {
+      this.label_friend_profil_name.set_text (this.fr.pubkey);
+      this.label_friend_profile_status_message.set_text ("");
+
+      this.username.set_text (this.fr.pubkey);
+      this.status_message.set_markup (this.fr.last_online ("<b>Last online:</b> %H:%M %d/%m/%Y"));
+    } else {
+      this.label_friend_profil_name.set_text (this.fr.name);
+      this.label_friend_profile_status_message.set_markup (Util.render_litemd(this.fr.status_message));
+
+      this.username.set_text (this.fr.name);
+      this.status_message.set_markup (Util.render_litemd(this.fr.status_message));
     }
 
+    this.label_friend_last_seen.set_markup (this.fr.last_online ("%H:%M %d/%m/%Y"));
+
     debug (@"Status message for $(fr.name): $(fr.status_message)");
-    this.status_message.set_markup (fr.status_message);
+    this.status_message.set_text (fr.status_message);
     fr.bind_property ("status-message", status_message, "label", BindingFlags.DEFAULT);
+    fr.bind_property ("name", this.label_friend_profil_name, "label", BindingFlags.DEFAULT);
+    fr.bind_property ("status-message", this.label_friend_profile_status_message, "label", BindingFlags.DEFAULT);
     //this.status_message.set_markup (Util.add_markup (fr.status_message));
 
     var _avatar_path = Tox.profile_dir () + "avatars/" + this.fr.pubkey + ".png";
     if (FileUtils.test (_avatar_path, FileTest.EXISTS)) {
       var pixbuf = new Gdk.Pixbuf.from_file_at_scale (_avatar_path, 48, 48, false);
       this.user_avatar.pixbuf = pixbuf;
+      this.friend_profil_avatar.pixbuf = pixbuf;
     }
 
     fr.friend_info.connect ((message) => {
@@ -70,6 +93,7 @@ class Ricin.ChatView : Gtk.Box {
 
     fr.avatar.connect (p => {
       this.user_avatar.pixbuf = p;
+      this.friend_profil_avatar.pixbuf = p;
     });
 
     fr.message.connect (message => {
@@ -154,10 +178,12 @@ class Ricin.ChatView : Gtk.Box {
     fr.bind_property ("connected", send_file, "sensitive", BindingFlags.DEFAULT);
     fr.bind_property ("typing", friend_typing, "reveal_child", BindingFlags.DEFAULT);
     fr.bind_property ("name", username, "label", BindingFlags.DEFAULT);
-    fr.bind_property ("status-message", status_message, "label", BindingFlags.DEFAULT, (binding, val, ref target) => {
-      string status_message = (string) val;
-      target.set_string ("<span size=\"10\">" + Util.add_markup (status_message) + "</span>");
-      return true;
+
+    this.fr.notify["status-message"].connect ((obj, prop) => {
+      string markup = Util.add_markup (this.fr.status_message);
+      debug (@"Markup for md: $markup");
+      this.status_message.set_markup (markup);
+      this.label_friend_profile_status_message.set_markup (markup);
     });
   }
 

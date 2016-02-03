@@ -14,9 +14,15 @@ class Ricin.FriendListRow : Gtk.ListBoxRow {
 
   public FriendListRow (Tox.Friend fr) {
     this.fr = fr;
-    if (fr.name == null) {
+
+    debug (@"Friend name: $(this.fr.name)");
+    if (this.fr.name == null) {
       this.username.set_text (this.fr.pubkey);
-      this.status.set_text ("");
+      string date = this.fr.last_online ("<b>Last online:</b> %H:%M");
+      this.status.set_markup (date);
+    } else {
+      this.username.set_text (this.fr.name);
+      this.status.set_text (this.fr.status_message);
     }
 
     this.init_context_menu ();

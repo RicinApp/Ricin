@@ -161,6 +161,23 @@ RicinSettingsView {
   border: none;
 }
 
+.friendlist-notify {
+  background-color: #1565c4;
+}
+
+.friendlist-notify GtkButton,
+.friendlist-notify .close-button {
+  border-radius: 360;
+  background-color: white;
+  color: #1565c4;
+}
+.friendlist-notify GtkButton,
+.friendlist-notify .close-button:hover {
+  border-radius: 360;
+  background-color: rgb(205, 209, 204);
+  color: rgb(135, 135, 135);
+}
+
 .entry-principal {
 	background-image: none;
 	border-image: none;
