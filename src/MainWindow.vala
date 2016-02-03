@@ -107,7 +107,6 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
     // TODO
     this.entry_name.set_text (tox.username);
     this.entry_status.set_text (tox.status_message);
-    this.image_user_status.set_from_resource ("/chat/tox/ricin/images/status/offline.png");
 
     this.friendlist.set_sort_func (sort_friendlist_online);
     this.friendlist.bind_model (this.friends, fr => new FriendListRow (fr as Tox.Friend));
@@ -122,42 +121,39 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
       friend.connected = false;
       friend.position = friends.get_n_items ();
       debug ("Friend position: %u", friend.position);
-      this.friends.append (friend);
+      friends.append (friend);
 
       var view_name = "chat-%s".printf (friend.pubkey);
-      this.chat_stack.add_named (new ChatView (this.tox, friend, this.chat_stack, view_name), view_name);
+      chat_stack.add_named (new ChatView (this.tox, friend, this.chat_stack, view_name), view_name);
     }
 
     this.entry_status.bind_property ("text", tox, "status_message", BindingFlags.BIDIRECTIONAL | BindingFlags.SYNC_CREATE);
 
     tox.notify["connected"].connect ((src, prop) => {
-      string icon = "";
 
       // Sync the status with the one stored on the .tox file.
       switch (this.tox.status) {
         case Tox.UserStatus.ONLINE:
           // Set status to away.
           this.tox.status = Tox.UserStatus.AWAY;
-          icon = "idle";
+          this.image_user_status.icon_name = "user-available";
           break;
         case Tox.UserStatus.AWAY:
           // Set status to busy.
           this.tox.status = Tox.UserStatus.BUSY;
-          icon = "busy";
+          this.image_user_status.icon_name = "user-away";
           break;
         case Tox.UserStatus.BUSY:
           // Set status to online.
           this.tox.status = Tox.UserStatus.ONLINE;
-          icon = "online";
+          this.image_user_status.icon_name = "user-busy";
           break;
         default:
           // Set status to offline.
-          icon = "offline";
+          this.image_user_status.icon_name = "user-offline";
           break;
       }
 
-      icon = this.tox.connected ? icon : "offline";
-      this.image_user_status.set_from_resource (@"/chat/tox/ricin/images/status/$icon.png");
       this.button_user_status.sensitive = this.tox.connected;
     });
 
@@ -382,34 +378,32 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
   [GtkCallback]
   private void cycle_user_status () {
     var status = this.tox.status;
-    var icon = "";
+    //var icon = "";
 
     switch (status) {
       case Tox.UserStatus.ONLINE:
         // Set status to away.
         this.tox.status = Tox.UserStatus.AWAY;
-        icon = "idle";
-        //this.image_user_status.icon_name = "user-away";
+        //icon = "idle";
+        this.image_user_status.icon_name = "user-away";
         break;
       case Tox.UserStatus.AWAY:
         // Set status to busy.
         this.tox.status = Tox.UserStatus.BUSY;
-        icon = "busy";
-        //this.image_user_status.icon_name = "user-busy";
+        //icon = "busy";
+        this.image_user_status.icon_name = "user-busy";
         break;
       case Tox.UserStatus.BUSY:
         // Set status to online.
         this.tox.status = Tox.UserStatus.ONLINE;
-        icon = "online";
-        //this.image_user_status.icon_name = "user-available";
+        //icon = "online";
+        this.image_user_status.icon_name = "user-available";
         break;
       default:
-        icon = "offline";
-        //this.image_user_status.icon_name = "user-offline";
+        //icon = "offline";
+        this.image_user_status.icon_name = "user-offline";
         break;
     }
-
-    this.image_user_status.set_from_resource (@"/chat/tox/ricin/images/status/$icon.png");
   }
 
   [GtkCallback]

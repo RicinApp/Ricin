@@ -46,30 +46,30 @@ class Ricin.FriendListRow : Gtk.ListBoxRow {
 
       switch (fr.status) {
         case UserStatus.BLOCKED:
-          icon = "invisible";
-          //icon = "action-unavailable-symbolic";
+          //icon = "invisible";
+          icon = "action-unavailable-symbolic";
           break;
         case UserStatus.ONLINE:
-          icon = "online";
-          //icon = "user-available";
+          //icon = "online";
+          icon = "user-available";
           break;
         case UserStatus.AWAY:
-          icon = "idle";
-          //icon = "user-away";
+          //icon = "idle";
+          icon = "user-away";
           break;
         case UserStatus.BUSY:
-          icon = "busy";
-          //icon = "user-busy";
+          //icon = "busy";
+          icon = "user-busy";
           break;
         case UserStatus.OFFLINE:
         default:
-          icon = "offline";
-          //icon = "user-offline";
+          //icon = "offline";
+          icon = "user-offline";
           break;
       }
 
-      this.userstatus.set_from_resource (@"/chat/tox/ricin/images/status/$icon.png");
-      //this.userstatus.set_from_icon_name (icon, Gtk.IconSize.BUTTON);
+      //this.userstatus.set_from_resource (@"/chat/tox/ricin/images/status/$icon.png");
+      this.userstatus.set_from_icon_name (icon, Gtk.IconSize.BUTTON);
 
       this.changed (); // we sort by user status
     });
