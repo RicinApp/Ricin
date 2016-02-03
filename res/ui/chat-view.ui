@@ -694,6 +694,6 @@
     </child>
   </template>
   <object class="GtkTextBuffer" id="textbuffer1">
-    <property name="text" translatable="yes">SkyzohKey is a crazy guy that love to code !</property>
+    <property name="text" translatable="yes"> </property>
   </object>
 </interface>
