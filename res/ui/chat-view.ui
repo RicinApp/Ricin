@@ -20,7 +20,6 @@
     <property name="xpad">5</property>
     <property name="icon_name">contact-new-symbolic</property>
   </object>
-  <object class="GtkTextBuffer" id="textbuffer_friend_notes"/>
   <template class="RicinChatView" parent="GtkBox">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
@@ -55,6 +54,32 @@
                     <property name="expand">False</property>
                     <property name="fill">True</property>
                     <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkButton" id="button_toggle_friend_menu">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="receives_default">True</property>
+                    <property name="margin_top">1</property>
+                    <property name="margin_bottom">1</property>
+                    <property name="relief">none</property>
+                    <signal name="clicked" handler="toggle_friend_menu" swapped="no"/>
+                    <child>
+                      <object class="GtkImage" id="image7">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="icon_name">mail-mark-important-symbolic</property>
+                      </object>
+                    </child>
+                    <style>
+                      <class name="button-dark"/>
+                    </style>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">1</property>
                   </packing>
                 </child>
               </object>
@@ -117,33 +142,6 @@
               </object>
               <packing>
                 <property name="expand">True</property>
-                <property name="fill">True</property>
-                <property name="position">1</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkButton" id="button_toggle_friend_menu">
-                <property name="height_request">58</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="margin_top">1</property>
-                <property name="margin_bottom">1</property>
-                <property name="relief">none</property>
-                <signal name="clicked" handler="toggle_friend_menu" swapped="no"/>
-                <child>
-                  <object class="GtkImage" id="image7">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="icon_name">mail-mark-important-symbolic</property>
-                  </object>
-                </child>
-                <style>
-                  <class name="button-dark"/>
-                </style>
-              </object>
-              <packing>
-                <property name="expand">False</property>
                 <property name="fill">True</property>
                 <property name="position">2</property>
               </packing>
@@ -300,7 +298,7 @@
             <property name="transition_type">slide-left</property>
             <child>
               <object class="GtkBox" id="box_friend_profil">
-                <property name="width_request">210</property>
+                <property name="width_request">200</property>
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="orientation">vertical</property>
@@ -332,50 +330,24 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkBox" id="box13">
+                      <object class="GtkLabel" id="label_friend_profil_name">
+                        <property name="width_request">190</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <child>
-                          <object class="GtkImage" id="image_friend_status">
-                            <property name="width_request">20</property>
-                            <property name="height_request">20</property>
-                            <property name="visible">True</property>
-                            <property name="can_focus">False</property>
-                            <property name="margin_left">10</property>
-                            <property name="margin_right">5</property>
-                            <property name="resource">/chat/tox/ricin/images/status/offline.png</property>
-                          </object>
-                          <packing>
-                            <property name="expand">False</property>
-                            <property name="fill">True</property>
-                            <property name="position">0</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkLabel" id="label_friend_profil_name">
-                            <property name="width_request">160</property>
-                            <property name="visible">True</property>
-                            <property name="can_focus">False</property>
-                            <property name="valign">start</property>
-                            <property name="label" translatable="yes">SkyzohKey</property>
-                            <property name="justify">center</property>
-                            <property name="ellipsize">end</property>
-                            <property name="single_line_mode">True</property>
-                            <property name="max_width_chars">10</property>
-                            <attributes>
-                              <attribute name="weight" value="bold"/>
-                            </attributes>
-                          </object>
-                          <packing>
-                            <property name="expand">False</property>
-                            <property name="fill">False</property>
-                            <property name="position">1</property>
-                          </packing>
-                        </child>
+                        <property name="valign">start</property>
+                        <property name="margin_left">5</property>
+                        <property name="margin_right">5</property>
+                        <property name="label" translatable="yes">SkyzohKey</property>
+                        <property name="ellipsize">end</property>
+                        <property name="single_line_mode">True</property>
+                        <property name="max_width_chars">10</property>
+                        <attributes>
+                          <attribute name="weight" value="bold"/>
+                        </attributes>
                       </object>
                       <packing>
                         <property name="expand">False</property>
-                        <property name="fill">True</property>
+                        <property name="fill">False</property>
                         <property name="position">1</property>
                       </packing>
                     </child>
@@ -487,7 +459,7 @@
                                 <property name="can_focus">True</property>
                                 <property name="wrap_mode">word</property>
                                 <property name="justification">center</property>
-                                <property name="buffer">textbuffer_friend_notes</property>
+                                <property name="buffer">textbuffer1</property>
                                 <style>
                                   <class name="entry-principal"/>
                                 </style>
@@ -540,10 +512,8 @@
                         <property name="image">image_block_user</property>
                         <property name="xalign">0.34999999403953552</property>
                         <property name="always_show_image">True</property>
-                        <signal name="clicked" handler="block_friend" swapped="no"/>
                         <style>
                           <class name="button-dark"/>
-                          <class name="button-inverted"/>
                         </style>
                       </object>
                       <packing>
@@ -560,10 +530,8 @@
                         <property name="image">image4</property>
                         <property name="xalign">0</property>
                         <property name="always_show_image">True</property>
-                        <signal name="clicked" handler="delete_friend" swapped="no"/>
                         <style>
                           <class name="button-dark"/>
-                          <class name="button-inverted"/>
                         </style>
                       </object>
                       <packing>
@@ -580,10 +548,8 @@
                         <property name="image">image8</property>
                         <property name="xalign">0.44999998807907104</property>
                         <property name="always_show_image">True</property>
-                        <signal name="clicked" handler="copy_friend_toxid" swapped="no"/>
                         <style>
                           <class name="button-dark"/>
-                          <class name="button-inverted"/>
                         </style>
                       </object>
                       <packing>
@@ -728,9 +694,15 @@
     </child>
   </template>
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
   <object class="GtkTextBuffer" id="textbuffer1">
     <property name="text" translatable="yes"> </property>
   </object>
 >>>>>>> 82617f22dd5c98ac48dab05202cc023e69ac7242
+=======
+  <object class="GtkTextBuffer" id="textbuffer1">
+    <property name="text" translatable="yes">SkyzohKey is a crazy guy that love to code !</property>
+  </object>
+>>>>>>> parent of 6cf941e... Big changes (bugfix + sidepane + UI)
 </interface>

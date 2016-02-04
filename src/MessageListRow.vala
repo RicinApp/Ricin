@@ -19,7 +19,37 @@ class Ricin.MessageListRow : Gtk.ListBoxRow {
     * TEMP DEV ZONE:
     * EMOJI SUPPORT.
     **/
-    var msg = message;
+    var msg = message
+      .replace (":)", "😄")
+      .replace ("+1", "👍")
+      .replace ("-1", "👎")
+      .replace (":@", "😠")
+      .replace (">:(", "😠")
+      .replace (":$", "😊")
+      .replace ("<3", "💙")
+      .replace (":3", "🐱")
+      .replace (":/", "😕")
+      .replace (":'(", "😢")
+      .replace (":-'(", "😢")
+      .replace (":o", "😵")
+      .replace (":O", "😵")
+      .replace (":(", "😦")
+      .replace (":-(", "😦")
+      .replace (":-[", "😦")
+      .replace (":[", "😦")
+      .replace ("xD", "😁")
+      .replace ("XD", "😁")
+      .replace ("0:)", "😇")
+      .replace (":D", "😆")
+      .replace (":-D", "😆")
+      .replace (":|", "😐")
+      .replace (":-|", "😐")
+      .replace (":p", "😛")
+      .replace (":-p", "😛")
+      .replace (":P", "😛")
+      .replace (":-P", "😛")
+      .replace ("8)", "😎")
+      .replace ("8-)", "😎");
     /**
     * TEMP DEV ZONE:
     * EMOJI SUPPORT.

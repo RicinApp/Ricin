@@ -34,50 +34,12 @@ namespace Util {
   public static string render_litemd (string text) {
     var md = text;
 
-    // Emojis.
+    md = /\B\*\*([^\*\*]*)\*\*\B/.replace (md, -1, 0, "<b>\\1</b>");
+    md = /\b_([^_]*)_\b/.replace(text, -1, 0, "<i>\\1</i>");
+    md = /\B-([^-]*)-\B/.replace(md, -1, 0, "<u>\\1</u>");
+    md = /\B~([^~]*)~\B/.replace(md, -1, 0, "<s>\\1</s>");
 
-    // Markdown.
-    var bold = /\B\*\*([^\*\*]*)\*\*\B/.replace (md, -1, 0, "<b>\\1</b>");
-    var italic = /\b_([^_]*)_\b/.replace(bold, -1, 0, "<i>\\1</i>");
-    var underlined = /\B-([^-]*)-\B/.replace(italic, -1, 0, "<u>\\1</u>");
-    var striked = /\B~([^~]*)~\B/.replace(underlined, -1, 0, "<s>\\1</s>");
-    var uri = /((([A-Za-z]{3,9}:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+|(?:www.|[-;:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&;%@.\w_]*)#?(?:[\w]*))?)/.replace (striked, -1, 0, "<span color=\"#2a92c6\"><a href=\"\\1\">\\1</a></span>");
-
-    var emojis = uri.replace (":)", "😄")
-    .replace ("+1", "👍")
-    .replace ("-1", "👎")
-    .replace (":@", "😠")
-    .replace (">:(", "😠")
-    .replace (":$", "😊")
-    .replace ("<3", "💙")
-    .replace (":3", "🐱")
-    .replace (":\\", "😕")
-    .replace (":'(", "😢")
-    .replace (":-'(", "😢")
-    .replace (":o", "😵")
-    .replace (":O", "😵")
-    .replace (":(", "😦")
-    .replace (":-(", "😦")
-    .replace (":-[", "😦")
-    .replace (":[", "😦")
-    .replace ("xD", "😁")
-    .replace ("XD", "😁")
-    .replace ("0:)", "😇")
-    .replace (":D", "😆")
-    .replace (":-D", "😆")
-    .replace (":|", "😐")
-    .replace (":-|", "😐")
-    .replace (":p", "😛")
-    .replace (":-p", "😛")
-    .replace (":P", "😛")
-    .replace (":-P", "😛")
-    .replace ("8)", "😎")
-    .replace ("8-)", "😎");
-
-    var message = emojis;
-    debug (@"Message: $message");
-
-    return message;
+    return text;
   }
 
   public static string add_markup (string text) {
@@ -93,7 +55,7 @@ namespace Util {
     sb.truncate (sb.len-1);
 
     var md = Util.render_litemd (sb.str);
-    return md;
+    return /(\w+:\S+)/.replace (md, -1, 0, "<a href=\"\\1\">\\1</a>");
   }
 
   public static string size_to_string (uint64 size) {
@@ -115,30 +77,5 @@ namespace Util {
     debug(@"Converted size: %s", sizeString);
 
     return sizeString;
-  }
-
-  public static string status_to_icon (Tox.UserStatus status, int messagesCount = 0) {
-    string icon = "";
-
-    switch (status) {
-      case Tox.UserStatus.BLOCKED:
-        icon = (messagesCount > 0) ? "invisible" : "invisible";
-        break;
-      case Tox.UserStatus.ONLINE:
-        icon = (messagesCount > 0) ? "online_notification" : "online";
-        break;
-      case Tox.UserStatus.AWAY:
-        icon = (messagesCount > 0) ? "idle_notification" : "idle";
-        break;
-      case Tox.UserStatus.BUSY:
-        icon = (messagesCount > 0) ? "busy_notification" : "busy";
-        break;
-      case Tox.UserStatus.OFFLINE:
-      default:
-        icon = (messagesCount > 0) ? "offline_notification" : "offline";
-        break;
-    }
-
-    return icon;
   }
 }

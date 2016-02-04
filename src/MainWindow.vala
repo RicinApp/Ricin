@@ -36,24 +36,12 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
   /**
   * This is the sort method used for sorting contacts based on:
   * Contact is online (top) → Contact is offline (end)
-  * Contact status: Online → Away → Busy → Blocked → Offlines with name → Offlines without name.
+  * Contact status: Online → Away → Busy → Offline.
   */
   public static int sort_friendlist_online (Gtk.Widget row1, Gtk.Widget row2) {
     var friend1 = (row1 as FriendListRow);
     var friend2 = (row2 as FriendListRow);
 
-
-    if (friend1.fr.status != Tox.UserStatus.OFFLINE && friend2.fr.status == Tox.UserStatus.OFFLINE) {
-      return -1;
-    } else if (friend1.fr.status == Tox.UserStatus.OFFLINE && friend2.fr.status != Tox.UserStatus.OFFLINE) {
-      return 1;
-    } else if (friend1.fr.status != Tox.UserStatus.OFFLINE && friend2.fr.status != Tox.UserStatus.OFFLINE) {
-      if (friend1.fr.blocked && !friend2.fr.blocked) {
-        return 1;
-      }
-      return friend1.fr.status - friend2.fr.status;
-      //return friend1.fr.name  friend2.fr.name;
-    }
     return friend1.fr.status - friend2.fr.status;
   }
 
@@ -371,10 +359,6 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
 
   [GtkCallback]
   private void show_friend_chatview (Gtk.ListBoxRow row) {
-    var item = (row as FriendListRow);
-    item.unreadCount = 0;
-    item.update_icon ();
-
     var friend = (row as FriendListRow).fr;
     var view_name = "chat-%s".printf (friend.pubkey);
     var chat_view = this.chat_stack.get_child_by_name (view_name);
@@ -383,7 +367,6 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
     if (chat_view != null) {
       (chat_view as ChatView).entry.grab_focus ();
       this.chat_stack.set_visible_child (chat_view);
-      this.focused_view = view_name;
     }
   }
 

@@ -28,7 +28,7 @@ class Ricin.SettingsView : Gtk.Notebook {
     this.combobox_toxme_servers.append ("ricin.im", "Ricin.im (stable)");
     this.combobox_toxme_servers.append ("toxme.io", "ToxMe.io (stable)");
     this.combobox_toxme_servers.append ("utox.org", "uTox.org (stable)");
-    //this.combobox_toxme_servers.append ("toxing.me", "Toxing.me (unstable)");
+    this.combobox_toxme_servers.append ("toxing.me", "Toxing.me (unstable)");
     this.combobox_toxme_servers.set_active_id ("ricin.im");
 
     /* TODO
