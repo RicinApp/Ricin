@@ -701,10 +701,6 @@ Public License instead of this License.  But first, please read
       <object class="GtkScrolledWindow" id="tab_general">
         <property name="visible">True</property>
         <property name="can_focus">True</property>
-        <property name="margin_left">10</property>
-        <property name="margin_right">10</property>
-        <property name="margin_top">10</property>
-        <property name="margin_bottom">10</property>
         <child>
           <object class="GtkViewport" id="viewport1">
             <property name="visible">True</property>
@@ -713,6 +709,10 @@ Public License instead of this License.  But first, please read
               <object class="GtkBox" id="box_general_settings">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
+                <property name="margin_left">10</property>
+                <property name="margin_right">10</property>
+                <property name="margin_top">10</property>
+                <property name="margin_bottom">10</property>
                 <property name="orientation">vertical</property>
                 <property name="spacing">10</property>
                 <child>
@@ -749,6 +749,10 @@ Public License instead of this License.  But first, please read
                             <property name="receives_default">True</property>
                             <property name="relief">half</property>
                             <signal name="clicked" handler="copy_toxid" swapped="no"/>
+                            <style>
+                              <class name="button-dark"/>
+                              <class name="button-inverted"/>
+                            </style>
                           </object>
                           <packing>
                             <property name="expand">False</property>
@@ -763,6 +767,10 @@ Public License instead of this License.  But first, please read
                             <property name="can_focus">True</property>
                             <property name="receives_default">True</property>
                             <signal name="clicked" handler="change_nospam" swapped="no"/>
+                            <style>
+                              <class name="button-dark"/>
+                              <class name="button-inverted"/>
+                            </style>
                           </object>
                           <packing>
                             <property name="expand">False</property>
@@ -858,7 +866,6 @@ Public License instead of this License.  But first, please read
                           <object class="GtkLabel" id="label_toxme_alias">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="label" translatable="yes">skyzohkey@ricin.io</property>
                           </object>
                           <packing>
                             <property name="expand">False</property>
@@ -873,6 +880,9 @@ Public License instead of this License.  But first, please read
                             <property name="can_focus">True</property>
                             <property name="receives_default">True</property>
                             <signal name="clicked" handler="copy_toxme_alias" swapped="no"/>
+                            <style>
+                              <class name="button-dark"/>
+                            </style>
                           </object>
                           <packing>
                             <property name="expand">False</property>
@@ -931,6 +941,9 @@ Public License instead of this License.  But first, please read
                           <object class="GtkEntry" id="entry1">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
+                            <style>
+                              <class name="entry-inverted"/>
+                            </style>
                           </object>
                           <packing>
                             <property name="left_attach">1</property>
@@ -941,6 +954,9 @@ Public License instead of this License.  But first, please read
                           <object class="GtkEntry" id="entry2">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
+                            <style>
+                              <class name="entry-inverted"/>
+                            </style>
                           </object>
                           <packing>
                             <property name="left_attach">1</property>
@@ -955,6 +971,11 @@ Public License instead of this License.  But first, please read
                             <property name="opacity">0.9882352941176471</property>
                             <property name="active">0</property>
                             <property name="button_sensitivity">on</property>
+                            <style>
+                              <class name="button-dark"/>
+                              <class name="button-inverted"/>
+                              <class name="entry-inverted"/>
+                            </style>
                           </object>
                           <packing>
                             <property name="left_attach">1</property>
@@ -980,6 +1001,9 @@ Public License instead of this License.  But first, please read
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">True</property>
+                            <style>
+                              <class name="button-dark"/>
+                            </style>
                           </object>
                           <packing>
                             <property name="expand">False</property>
@@ -994,6 +1018,9 @@ Public License instead of this License.  But first, please read
                             <property name="can_focus">True</property>
                             <property name="receives_default">True</property>
                             <property name="image_position">top</property>
+                            <style>
+                              <class name="button-dark"/>
+                            </style>
                           </object>
                           <packing>
                             <property name="expand">False</property>
@@ -1007,6 +1034,9 @@ Public License instead of this License.  But first, please read
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">True</property>
+                            <style>
+                              <class name="button-dark"/>
+                            </style>
                           </object>
                           <packing>
                             <property name="expand">False</property>
@@ -1066,6 +1096,11 @@ Public License instead of this License.  But first, please read
                         <property name="opacity">0.98999999999999999</property>
                         <property name="active">0</property>
                         <property name="button_sensitivity">on</property>
+                        <style>
+                          <class name="button-dark"/>
+                          <class name="button-inverted"/>
+                          <class name="entry-inverted"/>
+                        </style>
                       </object>
                       <packing>
                         <property name="expand">False</property>
@@ -1084,10 +1119,14 @@ Public License instead of this License.  But first, please read
             </child>
           </object>
         </child>
+        <style>
+          <class name="secondary-background"/>
+        </style>
       </object>
     </child>
     <child type="tab">
       <object class="GtkLabel" id="label_tab_general">
+        <property name="height_request">42</property>
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <property name="label" translatable="yes">General</property>
@@ -1334,6 +1373,9 @@ Public License instead of this License.  But first, please read
             </child>
           </object>
         </child>
+        <style>
+          <class name="secondary-background"/>
+        </style>
       </object>
       <packing>
         <property name="position">1</property>
@@ -1373,6 +1415,9 @@ Public License instead of this License.  But first, please read
             </child>
           </object>
         </child>
+        <style>
+          <class name="secondary-background"/>
+        </style>
       </object>
       <packing>
         <property name="position">2</property>
@@ -1474,6 +1519,7 @@ Public License instead of this License.  But first, please read
                       <object class="GtkBox" id="box2">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
+                        <property name="spacing">10</property>
                         <property name="homogeneous">True</property>
                         <child>
                           <object class="GtkLinkButton" id="linkbutton_github">
@@ -1483,6 +1529,10 @@ Public License instead of this License.  But first, please read
                             <property name="receives_default">True</property>
                             <property name="relief">none</property>
                             <property name="uri">https://github.com/RicinApp/Ricin</property>
+                            <style>
+                              <class name="button-dark"/>
+                              <class name="button-inverted"/>
+                            </style>
                           </object>
                           <packing>
                             <property name="expand">False</property>
@@ -1498,6 +1548,10 @@ Public License instead of this License.  But first, please read
                             <property name="receives_default">True</property>
                             <property name="relief">none</property>
                             <property name="uri">https://github.com/RicinApp/Ricin/issues</property>
+                            <style>
+                              <class name="button-dark"/>
+                              <class name="button-inverted"/>
+                            </style>
                           </object>
                           <packing>
                             <property name="expand">False</property>
@@ -1513,6 +1567,10 @@ Public License instead of this License.  But first, please read
                             <property name="receives_default">True</property>
                             <property name="relief">none</property>
                             <property name="uri">https://github.com/RicinApp/Ricin/graphs/contributors</property>
+                            <style>
+                              <class name="button-dark"/>
+                              <class name="button-inverted"/>
+                            </style>
                           </object>
                           <packing>
                             <property name="expand">False</property>
@@ -1608,6 +1666,9 @@ Public License instead of this License.  But first, please read
             </child>
           </object>
         </child>
+        <style>
+          <class name="secondary-background"/>
+        </style>
       </object>
       <packing>
         <property name="position">3</property>
@@ -1626,6 +1687,7 @@ Public License instead of this License.  But first, please read
     </child>
     <style>
       <class name="secondary-background"/>
+      <class name="settings"/>
     </style>
   </template>
 </interface>

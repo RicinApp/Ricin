@@ -7,8 +7,8 @@ namespace Tox {
     ONLINE,
     AWAY,
     BUSY,
-    OFFLINE,
-    BLOCKED
+    BLOCKED,
+    OFFLINE
   }
 
   public string profile_dir () {
