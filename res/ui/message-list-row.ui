@@ -51,6 +51,7 @@
                 <property name="valign">start</property>
                 <property name="label" translatable="yes">label</property>
                 <property name="wrap">True</property>
+                <property name="wrap_mode">word-char</property>
                 <property name="selectable">True</property>
               </object>
               <packing>

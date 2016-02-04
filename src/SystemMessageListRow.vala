@@ -4,6 +4,6 @@ class Ricin.SystemMessageListRow : Gtk.ListBoxRow {
   private uint position;
 
   public SystemMessageListRow (string message) {
-    this.label_message.set_text (message);
+    this.label_message.set_markup ("<span color=\"#2a92c6\">" + message + "</span>");
   }
 }

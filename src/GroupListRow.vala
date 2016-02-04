@@ -1,19 +1,16 @@
 using Tox;
 
-[GtkTemplate (ui="/chat/tox/ricin/ui/friend-list-row.ui")]
-class Ricin.FriendListRow : Gtk.ListBoxRow {
-  [GtkChild] public Gtk.Image avatar;
-  [GtkChild] public Gtk.Label username;
-  [GtkChild] Gtk.Label status;
-  [GtkChild] Gtk.Image userstatus;
+[GtkTemplate (ui="/chat/tox/ricin/ui/group-list-row.ui")]
+class Ricin.GroupListRow : Gtk.ListBoxRow {
+  [GtkChild] public Gtk.Image image_avatar;
+  [GtkChild] public Gtk.Label label_topic;
+  [GtkChild] Gtk.Label label_peers_number;
+  [GtkChild] Gtk.Image image_notify;
 
   public Tox.Friend fr;
   private string current_status_icon = "";
   private Gtk.Menu menu_friend;
   private Gtk.ImageMenuItem block_friend;
-
-  public int unreadCount = 0;
-  private string iconName = "offline";
 
   public FriendListRow (Tox.Friend fr) {
     this.fr = fr;
@@ -45,41 +42,47 @@ class Ricin.FriendListRow : Gtk.ListBoxRow {
     fr.avatar.connect (p => avatar.pixbuf = p);
 
     fr.notify["status"].connect ((obj, prop) => {
-      string icon = Util.status_to_icon (this.fr.status, this.unreadCount);
+      string icon = "";
+
+      switch (fr.status) {
+        case UserStatus.BLOCKED:
+          icon = "invisible";
+          //icon = "action-unavailable-symbolic";
+          break;
+        case UserStatus.ONLINE:
+          icon = "online";
+          //icon = "user-available";
+          break;
+        case UserStatus.AWAY:
+          icon = "idle";
+          //icon = "user-away";
+          break;
+        case UserStatus.BUSY:
+          icon = "busy";
+          //icon = "user-busy";
+          break;
+        case UserStatus.OFFLINE:
+        default:
+          icon = "offline";
+          //icon = "user-offline";
+          break;
+      }
+
       this.userstatus.set_from_resource (@"/chat/tox/ricin/images/status/$icon.png");
+      //this.userstatus.set_from_icon_name (icon, Gtk.IconSize.BUTTON);
+
       this.changed (); // we sort by user status
     });
 
     fr.notify["blocked"].connect ((obj, prop) => {
       this.block_friend.set_label ((this.fr.blocked) ? "Unblock friend" : "Block friend");
     });
-
-    fr.message.connect (this.notify_new_messages);
-    fr.action.connect (this.notify_new_messages);
-    this.activate.connect (() => {
-      this.unreadCount = 0;
-    });
-  }
-
-  public void update_icon () {
-    string icon = Util.status_to_icon (this.fr.status, this.unreadCount);
-    this.userstatus.set_from_resource (@"/chat/tox/ricin/images/status/$icon.png");
-  }
-
-  private void notify_new_messages (string message) {
-    var main_window = this.get_toplevel () as MainWindow;
-    if (main_window.focused_view == "chat-" + this.fr.pubkey) {
-      return;
-    }
-
-    this.unreadCount++;
-    this.update_icon ();
   }
 
   private void init_context_menu () {
     debug ("Initializing context menu for friend.");
 
-    /*this.button_press_event.connect (event => {
+    this.button_press_event.connect (event => {
       if (event.button == Gdk.BUTTON_SECONDARY) {
         this.menu_friend.popup (null, null, null, event.button, event.time);
         return Gdk.EVENT_STOP;
@@ -111,7 +114,7 @@ class Ricin.FriendListRow : Gtk.ListBoxRow {
     this.menu_friend.attach_to_widget (this, null);
     this.menu_friend.show_all ();
 
-    this.popup_menu.connect ((widget, event) => {
+    /*this.popup_menu.connect ((widget, event) => {
       debug ("Displaying context menu...");
       this.menu_friend.popup (null, null, null, event.button, event.time);
       return true;

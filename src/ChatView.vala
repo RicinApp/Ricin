@@ -17,6 +17,7 @@ class Ricin.ChatView : Gtk.Box {
   [GtkChild] Gtk.Revealer revealer_friend_menu;
 
   [GtkChild] Gtk.Image friend_profil_avatar;
+  [GtkChild] Gtk.Image image_friend_status;
   [GtkChild] Gtk.Label label_friend_profil_name;
   [GtkChild] Gtk.Label label_friend_profile_status_message;
   [GtkChild] Gtk.Label label_friend_last_seen;
@@ -83,6 +84,8 @@ class Ricin.ChatView : Gtk.Box {
 
     fr.friend_info.connect ((message) => {
       messages_list.add (new SystemMessageListRow (message));
+
+      this.label_friend_last_seen.set_markup (this.fr.last_online ("%H:%M %d/%m/%Y"));
       //this.add_row (MessageRowType.System, new SystemMessageListRow (message));
     });
 
@@ -94,11 +97,17 @@ class Ricin.ChatView : Gtk.Box {
     fr.avatar.connect (p => {
       this.user_avatar.pixbuf = p;
       this.friend_profil_avatar.pixbuf = p;
+
+      this.label_friend_last_seen.set_markup (this.fr.last_online ("%H:%M %d/%m/%Y"));
     });
 
     fr.message.connect (message => {
+      this.label_friend_last_seen.set_markup (this.fr.last_online ("%H:%M %d/%m/%Y"));
+
       var visible_child = this.stack.get_visible_child_name ();
-      if (visible_child != this.view_name) {
+      var main_window = this.get_toplevel () as MainWindow;
+
+      if (!main_window.is_active) {
         var avatar_path = Tox.profile_dir () + "avatars/" + this.fr.pubkey + ".png";
         if (FileUtils.test (avatar_path, FileTest.EXISTS)) {
           var pixbuf = new Gdk.Pixbuf.from_file_at_scale (avatar_path, 46, 46, true);
@@ -113,6 +122,8 @@ class Ricin.ChatView : Gtk.Box {
     });
 
     fr.action.connect (message => {
+      this.label_friend_last_seen.set_markup (this.fr.last_online ("%H:%M %d/%m/%Y"));
+
       var visible_child = this.stack.get_visible_child_name ();
       if (visible_child != this.view_name) {
 
@@ -126,7 +137,7 @@ class Ricin.ChatView : Gtk.Box {
 
       }
 
-      string message_escaped = Util.escape_html (@"$(fr.name) $message");
+      string message_escaped = @"<b>$(Util.escape_html(fr.name))</b> $(Util.escape_html(message))";
       messages_list.add (new SystemMessageListRow (message_escaped));
       //this.add_row (MessageRowType.Action, new SystemMessageListRow (message_escaped));
     });
@@ -184,12 +195,61 @@ class Ricin.ChatView : Gtk.Box {
       debug (@"Markup for md: $markup");
       this.status_message.set_markup (markup);
       this.label_friend_profile_status_message.set_markup (markup);
+
+      this.label_friend_last_seen.set_markup (this.fr.last_online ("%H:%M %d/%m/%Y"));
+    });
+
+    this.fr.notify["status"].connect ((obj, prop) => {
+      var status = this.fr.status;
+      var icon = "";
+
+      switch (status) {
+        case Tox.UserStatus.ONLINE:
+          icon = "online";
+          break;
+        case Tox.UserStatus.AWAY:
+          icon = "idle";
+          break;
+        case Tox.UserStatus.BUSY:
+          icon = "busy";
+          break;
+        default:
+          icon = "offline";
+          break;
+      }
+
+      this.image_friend_status.set_from_resource (@"/chat/tox/ricin/images/status/$icon.png");
+      this.label_friend_last_seen.set_markup (this.fr.last_online ("%H:%M %d/%m/%Y"));
     });
   }
 
   [GtkCallback]
   private void toggle_friend_menu () {
     this.revealer_friend_menu.set_reveal_child (!this.revealer_friend_menu.child_revealed);
+    this.entry.grab_focus_without_selecting ();
+  }
+
+  [GtkCallback]
+  private void delete_friend () {
+    var main_window = this.get_toplevel () as MainWindow;
+    main_window.remove_friend (this.fr);
+  }
+
+  [GtkCallback]
+  private void block_friend () {
+    this.fr.blocked = !this.fr.blocked;
+    if (this.fr.blocked) {
+      this.button_friend_block.label = "Unblock";
+    } else {
+      this.button_friend_block.label = "Block";
+    }
+  }
+
+  [GtkCallback]
+  private void copy_friend_toxid () {
+    Gtk.Clipboard
+      .get (Gdk.SELECTION_CLIPBOARD)
+      .set_text (this.fr.pubkey, -1);
   }
 
   [GtkCallback]
@@ -204,9 +264,11 @@ class Ricin.ChatView : Gtk.Box {
 
     if (message.has_prefix ("/me ")) {
       var action = message.substring (4);
+      debug (@"action=$action");
       var escaped = Util.escape_html (action);
-      markup = @"<span color=\"#3498db\">* <b>$user</b> $escaped</span>";
-      messages_list.add (new SystemMessageListRow (message));
+      debug (@"escaped=$escaped\nuser=$user");
+      markup = @"<b>$user</b> $escaped";
+      messages_list.add (new SystemMessageListRow (markup));
       fr.send_action (action);
     } else {
       markup = Util.add_markup (message);
