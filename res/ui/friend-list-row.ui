@@ -100,7 +100,7 @@
                 <property name="can_focus">False</property>
                 <property name="margin_right">3</property>
                 <property name="pixel_size">24</property>
-                <property name="resource">/chat/tox/ricin/images/status/offline.png</property>
+                <property name="icon_name">user-status-pending</property>
               </object>
               <packing>
                 <property name="expand">False</property>

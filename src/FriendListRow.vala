@@ -45,8 +45,40 @@ class Ricin.FriendListRow : Gtk.ListBoxRow {
     fr.avatar.connect (p => avatar.pixbuf = p);
 
     fr.notify["status"].connect ((obj, prop) => {
+<<<<<<< HEAD
       string icon = Util.status_to_icon (this.fr.status, this.unreadCount);
       this.userstatus.set_from_resource (@"/chat/tox/ricin/images/status/$icon.png");
+=======
+      string icon = "";
+
+      switch (fr.status) {
+        case UserStatus.BLOCKED:
+          //icon = "invisible";
+          icon = "action-unavailable-symbolic";
+          break;
+        case UserStatus.ONLINE:
+          //icon = "online";
+          icon = "user-available";
+          break;
+        case UserStatus.AWAY:
+          //icon = "idle";
+          icon = "user-away";
+          break;
+        case UserStatus.BUSY:
+          //icon = "busy";
+          icon = "user-busy";
+          break;
+        case UserStatus.OFFLINE:
+        default:
+          //icon = "offline";
+          icon = "user-offline";
+          break;
+      }
+
+      //this.userstatus.set_from_resource (@"/chat/tox/ricin/images/status/$icon.png");
+      this.userstatus.set_from_icon_name (icon, Gtk.IconSize.BUTTON);
+
+>>>>>>> 82617f22dd5c98ac48dab05202cc023e69ac7242
       this.changed (); // we sort by user status
     });
 

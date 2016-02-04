@@ -30,7 +30,7 @@
   <object class="GtkImage" id="image_user_status">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
-    <property name="resource">/chat/tox/Ricin/assets/status/offline.png</property>
+    <property name="icon_name">user-offline</property>
   </object>
   <template class="RicinMainWindow" parent="GtkApplicationWindow">
     <property name="width_request">700</property>

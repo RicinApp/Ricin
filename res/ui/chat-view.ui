@@ -727,4 +727,10 @@
       </packing>
     </child>
   </template>
+<<<<<<< HEAD
+=======
+  <object class="GtkTextBuffer" id="textbuffer1">
+    <property name="text" translatable="yes"> </property>
+  </object>
+>>>>>>> 82617f22dd5c98ac48dab05202cc023e69ac7242
 </interface>
