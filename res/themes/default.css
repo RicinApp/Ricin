@@ -1,0 +1,390 @@
+@define-color main_dark #222222;
+
+@define-color main_ddark #292929;
+@define-color main_ddark_hover #343434;
+
+@define-color main_grey #303030;
+@define-color main_blue #2283d7;
+
+@define-color text_color #e2e2e2;
+@define-color text_color_hover #aca8a8;
+@define-color text_copy #7a7a7a;
+
+@define-color gtk_box #343434;
+
+GtkLabel.info-message {
+    color: #2a92c6;
+}
+
+.ricin-navigation {
+  background-color: #222222;
+}
+
+GtkStack,
+GtkNotebook,
+RicinSettingsView {
+  border-image: none;
+  border-radius: 0;
+  border-image-width: 0;
+  border-bottom-width: 0;
+  border-left-width: 0;
+  border-right-width: 0;
+  border-top-width: 0;
+  box-shadow: none;
+  outline-width: 0;
+
+  color: #ffffff;
+}
+
+RicinSettingsView {
+  background-color: #171717;
+}
+
+.settings {
+  background-color: #171717;
+  color: #ffffff;
+}
+
+GtkScrolledWindow {
+  border-image: none;
+  border-image-width: 0;
+  border-bottom-width: 0;
+  border-left-width: 0;
+  border-right-width: 0;
+  border-top-width: 0;
+  box-shadow: none;
+  outline-width: 0;
+}
+
+.secondary-background {
+  background-color: #333333;
+}
+
+.secondary-background GtkEntry,
+.secondary-background GtkButton {
+  border-image: none;
+  background-image: none;
+  background-color: #222222;
+}
+
+.secondary-background GtkEntry:hover,
+.secondary-background GtkEntry:active,
+.secondary-background GtkButton:hover {
+  border-image: none;
+  border-radius: 0;
+  background-image: none;
+  background-color: #171717;
+}
+
+.secondary-background .notebook {
+  background-color: #171717;
+}
+
+.secondary-background .notebook GtkBox,
+.secondary-background .notebook GtkGrid {
+    padding: 0 50px;
+}
+
+.secondary-background .notebook GtkButton {
+    background-color: #171717;
+    background-image: none;
+    border: none;
+    border-image: none;
+    padding: 40px 0;
+    color: #ffffff;
+    /*margin: 5px 10px;*/
+}
+
+.secondary-background .notebook .button GtkLabel {
+    background-color: transparent;
+    background: transparent;
+    background-image: none;
+}
+
+.secondary-background .notebook .button {
+    border: none;
+    border-width: 0;
+    border-image: none;
+}
+
+.secondary-background .notebook .button:hover,
+.secondary-background .notebook .button:prelight {
+    transition: 150ms ease-in-out;
+    background-image: none;
+    background: @main_ddark_hover;
+    background-color: @main_ddark_hover;
+}
+
+.secondary-background .notebook .entry {
+    background: @main_dark;
+    color: @main_blue;
+}
+
+.secondary-background .notebook GtkLabel {
+    color: @text_color;
+    background-color: @gtk_box;
+}
+
+.secondary-background .notebook {
+    border-radius: 0;
+
+    background-color: #333333;
+
+    -GtkNotebook-tab-overlap: 3;
+    -GtkNotebook-tab-curvature: 2;
+}
+
+.secondary-background .notebook tab:nth-child(first) {
+    margin-top: 3px;
+}
+
+.secondary-background .notebook tab {
+    padding: 10px 50px;
+    background-image: none;
+    -adwaita-focus-border-radius: 4;
+    color: #ffffff;
+    background-color: #171717;
+}
+
+.secondary-background .notebook tab:hover,
+.secondary-background .notebook tab:prelight {
+    transition: 5000ms ease-in-out;
+    background-image: none;
+    background: @main_ddark_hover;
+    background-color: @main_ddark_hover;
+    border-color: @main_ddark_hover;
+    /*border-left: 2px solid @main_blue;*/
+}
+
+.secondary-background .notebook tab:active {
+    background-color: #171717;
+    border-color: #358dc6;
+    border-bottom: 2px solid #358dc6;
+    color: white;
+}
+
+.secondary-background .notebook tab GtkLabel {
+    background-color: transparent;
+    background: transparent;
+    background-image: none;
+}
+
+.friend-infos {
+  background-color: #222222;
+  color: #ffffff;
+}
+.user-infos {
+  background-color: #171717;
+  color: #ffffff;
+}
+
+.ricin-navigation .user-infos GtkEntry {
+  background-color: #171717;
+}
+.ricin-navigation .user-infos GtkEntry:hover,
+.ricin-navigation .user-infos GtkEntry:active {
+  background-color: #333333;
+}
+
+.button-dark {
+  border-image: none;
+  border-radius: 0;
+  border-image-width: 0;
+  border-bottom-width: 0;
+  border-left-width: 0;
+  border-right-width: 0;
+  border-top-width: 0;
+  box-shadow: none;
+  outline-width: 0;
+  text-decoration-color: transparent;
+  text-shadow: none;
+
+  background-image: none;
+  background-color: #171717;
+  color: #ffffff;
+}
+.button-dark:hover {
+  border-image: none;
+  border-radius: 0;
+  border-image-width: 0;
+  border-bottom-width: 0;
+  border-left-width: 0;
+  border-right-width: 0;
+  border-top-width: 0;
+  box-shadow: none;
+  outline-width: 0;
+  background-image: none;
+
+  background-color: #222222;
+  color: #ffffff;
+}
+
+.button-inverted:hover {
+  background-color: #333333;
+}
+
+.entry-inverted {
+  border-image: none;
+  border-radius: 0;
+  border-image-width: 0;
+  border-bottom-width: 0;
+  border-left-width: 0;
+  border-right-width: 0;
+  border-top-width: 0;
+  box-shadow: none;
+  outline-width: 0;
+  text-decoration-color: transparent;
+  text-shadow: none;
+
+  background-image: none;
+  background-color: #171717;
+  color: #ffffff;
+}
+.entry-inverted:hover {
+  background-color: #333333;
+}
+
+.friendlist {
+  background-color: #222222;
+  color: #ffffff;
+  border-image: none;
+  border: none;
+}
+
+.friendlist-notify {
+  background-color: #1565c4;
+}
+
+.friendlist-notify GtkButton,
+.friendlist-notify .close-button {
+  border-radius: 360px;
+  background-color: white;
+  color: #1565c4;
+}
+.friendlist-notify GtkButton,
+.friendlist-notify .close-button:hover {
+  border-radius: 360px;
+  background-color: rgb(205, 209, 204);
+  color: rgb(135, 135, 135);
+}
+
+.message-list {
+  outline-width: 0;
+}
+
+.message-list GtkLabel {
+  color: #ffffff;
+}
+
+.entry-principal {
+	background-image: none;
+	border-image: none;
+
+	background-color: #222222;
+	border: none;
+	border-radius: 0;
+
+  color: #ffffff;
+}
+
+.entry-chat {
+	border: none;
+	border-radius: 0;
+  background-image: none;
+	border-image: none;
+  box-shadow: none;
+  outline-width: 0;
+
+	background-color: #171717;
+  color: #ffffff;
+}
+
+.friendlist-row {
+  background-color: #222222;
+  color: #ffffff;
+}
+
+.friendlist-row:active,
+.friendlist-row:selected {
+  background-color: #333333;
+  color: #ffffff;
+}
+
+.ricin-content {
+  background-color: #333333;
+}
+
+.ricin-content .message-list {
+  background-color: #333333;
+}
+
+.ricin-content .message-list .message {
+  background-color: #333333;
+}
+
+.image-desc {
+  background-color: #21252B;
+  padding: 5px 5px 5px 5px;
+}
+
+.btn-save-image {
+  background-image: none;
+  background-color: #21252B;
+  border: none;
+  border-radius: 0;
+  color: white;
+}
+
+.btn-save-image:hover, .btn-save-image:insensitive {
+  background-image: none;
+  background-color: #292D35;
+  border: none;
+  border-radius: 0;
+  color: white;
+}
+
+.progress-bg {
+  background-color: #2ecc71;
+}
+.progress-bg GtkLabel {
+  color: black;
+}
+.progress-fg {
+  background-color: #27ae60;
+}
+
+/**
+* CANCELED FILE
+**/
+
+.canceled-file {
+  background-color: #c0392b;
+  color: white;
+}
+
+.canceled-file .label_file_name {
+  color: white;
+}
+
+.canceled-file .btn-save-image,
+.canceled-file .btn-save-image :insensitive {
+  background-color: #e74c3c;
+}
+
+/**
+* SAVED FILE
+**/
+
+.saved-file {
+  background-color: #27ae60;
+  color: white;
+}
+
+.saved-file .label_file_name {
+  color: white;
+}
+
+.saved-file .btn-save-image,
+.saved-file .btn-save-image:insensitive {
+  background-color: #2ecc71;
+}

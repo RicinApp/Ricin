@@ -53,6 +53,7 @@
                     <property name="single_line_mode">True</property>
                     <attributes>
                       <attribute name="weight" value="bold"/>
+                      <attribute name="size" value="12000"/>
                     </attributes>
                   </object>
                   <packing>
@@ -75,6 +76,7 @@
                     <property name="single_line_mode">True</property>
                     <attributes>
                       <attribute name="style" value="italic"/>
+                      <attribute name="size" value="10000"/>
                     </attributes>
                   </object>
                   <packing>
