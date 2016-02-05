@@ -12,6 +12,75 @@
 
 @define-color gtk_box #343434;
 
+RicinProfileChooser {
+  background-color: #222222;
+  color: #ffffff;
+}
+
+RicinProfileChooser .notebook {
+  background-color: #171717;
+}
+
+RicinProfileChooser .notebook GtkBox.vertical {
+  background-color: #333333;
+}
+
+RicinProfileChooser .notebook .button {
+  border-image: none;
+  border-radius: 0;
+  border-image-width: 0;
+  border-bottom-width: 0;
+  border-left-width: 0;
+  border-right-width: 0;
+  border-top-width: 0;
+  box-shadow: none;
+  outline-width: 0;
+  text-decoration-color: transparent;
+  text-shadow: none;
+
+  background-image: none;
+  background-color: #171717;
+  color: #ffffff;
+}
+
+RicinProfileChooser .notebook .button:hover {
+  border-image: none;
+  border-radius: 0;
+  border-image-width: 0;
+  border-bottom-width: 0;
+  border-left-width: 0;
+  border-right-width: 0;
+  border-top-width: 0;
+  box-shadow: none;
+  outline-width: 0;
+  background-image: none;
+
+  background-color: #222222;
+  color: #ffffff;
+}
+
+RicinProfileChooser .notebook .entry {
+  border-image: none;
+  border-radius: 0;
+  border-image-width: 0;
+  border-bottom-width: 0;
+  border-left-width: 0;
+  border-right-width: 0;
+  border-top-width: 0;
+  box-shadow: none;
+  outline-width: 0;
+  text-decoration-color: transparent;
+  text-shadow: none;
+
+  background-image: none;
+  background-color: #171717;
+  color: #ffffff;
+}
+
+RicinProfileChooser .notebook .entry:hover {
+  background-color: #333333;
+}
+
 GtkLabel.info-message {
     color: #2a92c6;
 }
