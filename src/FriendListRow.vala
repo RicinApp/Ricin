@@ -41,8 +41,12 @@ class Ricin.FriendListRow : Gtk.ListBoxRow {
     }
 
     fr.bind_property ("name", username, "label", BindingFlags.DEFAULT);
-    fr.bind_property ("status-message", status, "label", BindingFlags.DEFAULT);
+    //fr.bind_property ("status-message", status, "label", BindingFlags.DEFAULT);
     fr.avatar.connect (p => avatar.pixbuf = p);
+
+    fr.notify["status-message"].connect ((obj, prop) => {
+      this.status.set_text (this.fr.status_message);
+    });
 
     fr.notify["status"].connect ((obj, prop) => {
       string icon = Util.status_to_icon (this.fr.status, this.unreadCount);
