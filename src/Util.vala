@@ -44,8 +44,8 @@ namespace Util {
     var uri = /((([A-Za-z]{3,9}:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+|(?:www.|[-;:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&;%@.\w_]*)#?(?:[\w]*))?)/.replace (striked, -1, 0, "<span color=\"#2a92c6\"><a href=\"\\1\">\\1</a></span>");
 
     var emojis = uri.replace (":)", "😄")
-    .replace ("+1", "👍")
-    .replace ("-1", "👎")
+    .replace (":+1:", "👍")
+    .replace (":-1:", "👎")
     .replace (":@", "😠")
     .replace (">:(", "😠")
     .replace (":$", "😊")
