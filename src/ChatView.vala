@@ -43,7 +43,7 @@ class Ricin.ChatView : Gtk.Box {
   }
 
   private string time () {
-    return new DateTime.now_local ().format ("%I:%M:%S %p");
+    return new DateTime.now_local ().format ("%H:%M:%S %p");
   }
 
   public ChatView (Tox.Tox handle, Tox.Friend fr, Gtk.Stack stack, string view_name) {
