@@ -45,6 +45,8 @@ RicinSettingsView {
   color: #ffffff;
 }
 
+GtkViewport,
+RicinFriendListRow,
 GtkScrolledWindow {
   border-image: none;
   border-image-width: 0;

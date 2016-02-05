@@ -573,7 +573,7 @@
                     </child>
                     <child>
                       <object class="GtkButton" id="button_friend_copy_toxid">
-                        <property name="label" translatable="yes">Copy friend ToxID</property>
+                        <property name="label" translatable="yes">Copy friend's ToxID</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
