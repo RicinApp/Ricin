@@ -152,9 +152,10 @@ class Ricin.ChatView : Gtk.Box {
 
       //FileUtils.set_data (path, bytes.get_data ());
       var path = @"/tmp/$name";
+      var file_path = File.new_for_path(path);
       var file_content_type = ContentType.guess (path, null, null);
 
-      if (file_content_type.has_prefix ("image/")) {
+      if (file_content_type.has_prefix ("image/") && file_path.query_exists()) {
         var pixbuf = new Gdk.Pixbuf.from_file_at_scale (path, 400, 250, true);
         messages_list.add (new InlineImageMessageListRow (this.handle, fr.name, path, pixbuf, time ()));
         //return;
