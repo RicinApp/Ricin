@@ -803,7 +803,7 @@ Public License instead of this License.  But first, please read
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="halign">center</property>
-                        <property name="label" translatable="yes">DFB4958A86122ACF81BB852DBC767DB8A3A7281A8EDBC83121B30C294E295869121B298FEEA2</property>
+                        <property name="label" translatable="yes"></property>
                         <property name="selectable">True</property>
                         <property name="ellipsize">end</property>
                         <attributes>
