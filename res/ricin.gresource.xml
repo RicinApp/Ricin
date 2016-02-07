@@ -12,6 +12,8 @@
         <file preprocess="xml-stripblanks" compressed="true">ui/settings-view.ui</file>
 
         <file compressed="true">themes/default.css</file>
+        <file compressed="true">themes/white.css</file>
+
         <file compressed="true">nodes.json</file>
 
         <file>images/icons/Ricin-48x48.png</file>
