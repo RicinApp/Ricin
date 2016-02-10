@@ -15,4 +15,5 @@ src = files([
     'SettingsView.vala',
     'Util.vala',
     'Wrapper.vala',
+    'ThemeManager.vala'
 ])
