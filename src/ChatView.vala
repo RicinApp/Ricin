@@ -208,19 +208,19 @@ class Ricin.ChatView : Gtk.Box {
       switch (status) {
         case Tox.UserStatus.ONLINE:
           icon = "online";
-          messages_list.add(new SystemMessageListRow(fr.name + " is now online"));
+          //messages_list.add(new SystemMessageListRow(fr.name + " is now online"));
           break;
         case Tox.UserStatus.AWAY:
           icon = "idle";
-          messages_list.add(new SystemMessageListRow(fr.name + " is now away"));
+          //messages_list.add(new SystemMessageListRow(fr.name + " is now away"));
           break;
         case Tox.UserStatus.BUSY:
           icon = "busy";
-          messages_list.add(new SystemMessageListRow(fr.name + " is now busy"));
+          //messages_list.add(new SystemMessageListRow(fr.name + " is now busy"));
           break;
         default:
           icon = "offline";
-          messages_list.add(new SystemMessageListRow(fr.name + " is now offline"));
+          //messages_list.add(new SystemMessageListRow(fr.name + " is now offline"));
           break;
       }
 
