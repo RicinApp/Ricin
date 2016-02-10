@@ -41,15 +41,32 @@ class Ricin.SettingsView : Gtk.Notebook {
     this.switch_custom_themes.notify["active"].connect (() => {
       if (this.switch_custom_themes.active) {
         this.combobox_selected_theme.sensitive = true;
+
+        int active = this.combobox_selected_theme.active;
+        var resource_base_path = "/chat/tox/ricin";
+        
+        switch (active) {
+          case 0: // White theme.
+            // Load the white css.
+            var provider = new Gtk.CssProvider ();
+            provider.load_from_resource(@"$resource_base_path/themes/white.css");
+            Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (),
+                provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+            break;
+          case 1: // Dark theme.
+            // Load the default css.
+            var provider = new Gtk.CssProvider ();
+            provider.load_from_resource(@"$resource_base_path/themes/default.css");
+            Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (),
+                provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+            break;
+        }
       } else {
         this.combobox_selected_theme.sensitive = false;
-        /**
-        * TODO: Add a method to switch from custom theme to system theme here.
-        **/
 
         debug ("Removing custom css, back to system theme.");
-        var provider = new Gtk.CssProvider ();
-        provider.load_from_data("", 0);
+        Gtk.Settings settings = Gtk.Settings.get_default ();
+        var provider = Gtk.CssProvider.get_named (settings.gtk_theme_name, null);
         Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (),
             provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
       }
