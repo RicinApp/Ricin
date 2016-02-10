@@ -50,8 +50,9 @@ class Ricin.InlineFileMessageListRow : Gtk.ListBoxRow {
     }
 
     this.sender.file_done.connect ((name, bytes, id) => {
-      if (id != this.file_id)
+      if (id != this.file_id) {
         return;
+      }
 
       debug (@"File $(this.file_id) done!");
 
@@ -84,8 +85,9 @@ class Ricin.InlineFileMessageListRow : Gtk.ListBoxRow {
     });
 
     this.sender.file_received.connect (id => {
-      if (id != this.file_id)
+      if (id != this.file_id) {
         return;
+      }
 
       this.downloaded = true;
 
@@ -113,22 +115,25 @@ class Ricin.InlineFileMessageListRow : Gtk.ListBoxRow {
     });*/
 
     this.sender.file_paused.connect (id => {
-      if (id != this.file_id)
+      if (id != this.file_id) {
         return;
+      }
 
       this.image_save_inline.icon_name = "media-playback-start-symbolic";
     });
 
     this.sender.file_resumed.connect (id => {
-      if (id != this.file_id)
+      if (id != this.file_id) {
         return;
+      }
 
       this.image_save_inline.icon_name = "media-playback-pause-symbolic";
     });
 
     this.sender.file_canceled.connect (id => {
-      if (id != this.file_id)
+      if (id != this.file_id) {
         return;
+      }
 
       this.file_id = -1; // File doesn't exists now, avoid issues.
       this.box_widget.get_style_context().add_class ("canceled-file");

@@ -147,8 +147,9 @@ class Ricin.ChatView : Gtk.Box {
       string filename = name;
       int i = 0;
 
-      while (FileUtils.test (downloads + filename, FileTest.EXISTS))
+      while (FileUtils.test (downloads + filename, FileTest.EXISTS)) {
         filename = @"$(++i)-$name";
+      }
 
       //FileUtils.set_data (path, bytes.get_data ());
       var path = @"/tmp/$name";
@@ -249,8 +250,8 @@ class Ricin.ChatView : Gtk.Box {
   [GtkCallback]
   private void copy_friend_toxid () {
     Gtk.Clipboard
-      .get (Gdk.SELECTION_CLIPBOARD)
-      .set_text (this.fr.pubkey, -1);
+    .get (Gdk.SELECTION_CLIPBOARD)
+    .set_text (this.fr.pubkey, -1);
   }
 
   [GtkCallback]
