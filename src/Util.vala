@@ -32,7 +32,7 @@ namespace Util {
   }
 
   public static string render_litemd (string text) {
-    var md = text;
+    var md = escape_html (text);
 
     // Emojis.
 
@@ -81,19 +81,21 @@ namespace Util {
   }
 
   public static string add_markup (string text) {
+    var md = Util.render_litemd (text);
     var sb = new StringBuilder ();
-    foreach (string line in text.split ("\n")) { // multiple lines
-      string xfmd = escape_html (line);
-      if (line[0] == '>') { // greentext
-        xfmd = @"<span color=\"#2ecc71\"><b>$xfmd</b></span>";
+
+    foreach (string line in md.split ("\n")) { // multiple lines
+      string tmp = line;
+
+      if (line.index_of ("&gt;", 0) == 0) { // greentext
+        tmp = @"<span color=\"#2ecc71\"><b>$tmp</b></span>";
       }
-      sb.append (xfmd);
+      sb.append (tmp);
       sb.append_c ('\n');
     }
-    sb.truncate (sb.len-1);
 
-    var md = Util.render_litemd (sb.str);
-    return md;
+    sb.truncate (sb.len-1);
+    return (string) sb.data;
   }
 
   public static string size_to_string (uint64 size) {
