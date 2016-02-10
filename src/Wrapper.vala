@@ -373,7 +373,8 @@ namespace Tox {
       Timeout.add (this.handle.iteration_interval (), () => {
         this.handle.iterate ();
         this.schedule_loop_iteration ();
-        return Source.REMOVE;
+        //return Source.REMOVE;
+        return false;
       });
     }
 
@@ -422,7 +423,8 @@ namespace Tox {
           // wait 5 seconds without blocking main loop
           Timeout.add (5000, () => {
             bootstrap.callback ();
-            return Source.REMOVE;
+            //return Source.REMOVE;
+            return false;
           });
           yield;
         }

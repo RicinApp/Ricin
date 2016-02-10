@@ -5,6 +5,8 @@ class Ricin.SettingsView : Gtk.Notebook {
   [GtkChild] Gtk.Label label_toxme_alias;
   [GtkChild] Gtk.ComboBoxText combobox_toxme_servers;
   [GtkChild] Gtk.ComboBoxText combobox_languages;
+  [GtkChild] Gtk.Switch switch_custom_themes;
+  [GtkChild] Gtk.ComboBoxText combobox_selected_theme;
 
   /* TODO
   // Network settings tab.
@@ -21,20 +23,67 @@ class Ricin.SettingsView : Gtk.Notebook {
     this.handle = handle;
     this.label_tox_id.set_text (handle.id);
 
-    this.combobox_languages.append ("english", "English (default)");
-    this.combobox_languages.append ("french", "Français");
-    this.combobox_languages.set_active_id ("english");
+    this.combobox_languages.append      ("english", "English (default)");
+    this.combobox_languages.append      ("french", "Français");
 
-    this.combobox_toxme_servers.append ("ricin.im", "Ricin.im (stable)");
-    this.combobox_toxme_servers.append ("toxme.io", "ToxMe.io (stable)");
-    this.combobox_toxme_servers.append ("utox.org", "uTox.org (stable)");
-    //this.combobox_toxme_servers.append ("toxing.me", "Toxing.me (unstable)");
-    this.combobox_toxme_servers.set_active_id ("ricin.im");
+    this.combobox_toxme_servers.append  ("ricin.im", "Ricin.im (stable)");
+    this.combobox_toxme_servers.append  ("toxme.io", "ToxMe.io (stable)");
+    this.combobox_toxme_servers.append  ("utox.org", "uTox.org (stable)");
+    // this.combobox_toxme_servers.append ("toxing.me", "Toxing.me (unstable)");
 
-    /* TODO
-    this.switch_udp_enabled.state_set.connect (this.udp_state_changed);
-    this.switch_ipv6_enabled.state_set.connect (this.ipv6_state_changed);
-    this.switch_proxy_enabled.state_set.connect (this.proxy_state_changed);
+    this.combobox_selected_theme.append ("white", "White theme");
+    this.combobox_selected_theme.append ("default", "Dark theme (Default)");
+
+    this.combobox_languages.set_active_id       ("english");
+    this.combobox_toxme_servers.set_active_id   ("ricin.im");
+    this.combobox_selected_theme.set_active_id  ("default");
+
+    this.switch_custom_themes.notify["active"].connect (() => {
+      if (this.switch_custom_themes.active) {
+				this.combobox_selected_theme.sensitive = true;
+			} else {
+				this.combobox_selected_theme.sensitive = false;
+        /**
+        * TODO: Add a method to switch from custom theme to system theme here.
+        **/
+        //var provider = new Gtk.CssProvider ();
+        //provider.load_from_resource(@"$resource_base_path/themes/white.css");
+        Gtk.StyleContext.reset_widgets (Gdk.Screen.get_default ());
+			}
+    });
+
+    this.combobox_selected_theme.changed.connect (() => {
+      var resource_base_path = "/chat/tox/ricin";
+      int active = this.combobox_selected_theme.active;
+      string title = this.combobox_selected_theme.get_active_text ();
+
+			stdout.printf ("%d: %s\n", active, title);
+
+      switch (active) {
+        case 0: // White theme.
+          // Load the white css.
+          var provider = new Gtk.CssProvider ();
+          provider.load_from_resource(@"$resource_base_path/themes/white.css");
+          Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (),
+              provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+          break;
+        case 1: // Dark theme.
+          // Load the default css.
+          var provider = new Gtk.CssProvider ();
+          provider.load_from_resource(@"$resource_base_path/themes/default.css");
+          Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (),
+              provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+          break;
+      }
+    });
+
+    /**
+    * TODO:
+    **/
+    /*
+      this.switch_udp_enabled.state_set.connect (this.udp_state_changed);
+      this.switch_ipv6_enabled.state_set.connect (this.ipv6_state_changed);
+      this.switch_proxy_enabled.state_set.connect (this.proxy_state_changed);
     */
   }
 
