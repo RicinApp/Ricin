@@ -217,7 +217,8 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
       this.revealer_system_notify.reveal_child = true;
       Timeout.add (timeout, () => {
         this.revealer_system_notify.reveal_child = false;
-        return Source.REMOVE;
+        //return Source.REMOVE;
+        return false;
       });
     });
 
