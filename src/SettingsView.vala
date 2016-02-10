@@ -40,16 +40,16 @@ class Ricin.SettingsView : Gtk.Notebook {
 
     this.switch_custom_themes.notify["active"].connect (() => {
       if (this.switch_custom_themes.active) {
-				this.combobox_selected_theme.sensitive = true;
-			} else {
-				this.combobox_selected_theme.sensitive = false;
+        this.combobox_selected_theme.sensitive = true;
+      } else {
+        this.combobox_selected_theme.sensitive = false;
         /**
         * TODO: Add a method to switch from custom theme to system theme here.
         **/
         //var provider = new Gtk.CssProvider ();
         //provider.load_from_resource(@"$resource_base_path/themes/white.css");
         Gtk.StyleContext.reset_widgets (Gdk.Screen.get_default ());
-			}
+      }
     });
 
     this.combobox_selected_theme.changed.connect (() => {
@@ -57,7 +57,7 @@ class Ricin.SettingsView : Gtk.Notebook {
       int active = this.combobox_selected_theme.active;
       string title = this.combobox_selected_theme.get_active_text ();
 
-			stdout.printf ("%d: %s\n", active, title);
+      stdout.printf ("%d: %s\n", active, title);
 
       switch (active) {
         case 0: // White theme.
@@ -93,8 +93,8 @@ class Ricin.SettingsView : Gtk.Notebook {
   [GtkCallback]
   private void copy_toxid () {
     Gtk.Clipboard
-      .get (Gdk.SELECTION_CLIPBOARD)
-      .set_text (this.label_tox_id.label, -1);
+    .get (Gdk.SELECTION_CLIPBOARD)
+    .set_text (this.label_tox_id.label, -1);
   }
 
   [GtkCallback]
@@ -111,8 +111,8 @@ class Ricin.SettingsView : Gtk.Notebook {
     string toxme_alias = this.label_toxme_alias.label;
 
     Gtk.Clipboard
-      .get (Gdk.SELECTION_CLIPBOARD)
-      .set_text (toxme_alias, -1);
+    .get (Gdk.SELECTION_CLIPBOARD)
+    .set_text (toxme_alias, -1);
 
     debug (@"ToxMe alias: $toxme_alias");
   }

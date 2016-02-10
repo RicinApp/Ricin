@@ -41,38 +41,38 @@ namespace Util {
     var italic = /\b_([^_]*)_\b/.replace(bold, -1, 0, "<i>\\1</i>");
     var underlined = /\B-([^-]*)-\B/.replace(italic, -1, 0, "<u>\\1</u>");
     var striked = /\B~([^~]*)~\B/.replace(underlined, -1, 0, "<s>\\1</s>");
-    var uri = /((([A-Za-z]{3,9}:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+|(?:www.|[-;:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&;%@.\w_]*)#?(?:[\w]*))?)/.replace (striked, -1, 0, "<span color=\"#2a92c6\"><a href=\"\\1\">\\1</a></span>");
+    var uri = /((([A-Za-z] {3,9}:(?:\/\/)?)(?:[-; :&=\+\$,\w]+@)?[A-Za-z0-9.-]+|(?:www.|[-; :&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&; %@.\w_]*)#?(?:[\w]*))?)/.replace (striked, -1, 0, "<span color=\"#2a92c6\"><a href=\"\\1\">\\1</a></span>");
 
     var emojis = uri.replace (":)", "😄")
-    .replace (":+1:", "👍")
-    .replace (":-1:", "👎")
-    .replace (":@", "😠")
-    .replace (">:(", "😠")
-    .replace (":$", "😊")
-    .replace ("<3", "💙")
-    .replace (":3", "🐱")
-    .replace (":\\", "😕")
-    .replace (":'(", "😢")
-    .replace (":-'(", "😢")
-    .replace (":o", "😵")
-    .replace (":O", "😵")
-    .replace (":(", "😦")
-    .replace (":-(", "😦")
-    .replace (":-[", "😦")
-    .replace (":[", "😦")
-    .replace ("xD", "😁")
-    .replace ("XD", "😁")
-    .replace ("0:)", "😇")
-    .replace (":D", "😆")
-    .replace (":-D", "😆")
-    .replace (":|", "😐")
-    .replace (":-|", "😐")
-    .replace (":p", "😛")
-    .replace (":-p", "😛")
-    .replace (":P", "😛")
-    .replace (":-P", "😛")
-    .replace ("8)", "😎")
-    .replace ("8-)", "😎");
+                 .replace (":+1:", "👍")
+                 .replace (":-1:", "👎")
+                 .replace (":@", "😠")
+                 .replace (">:(", "😠")
+                 .replace (":$", "😊")
+                 .replace ("<3", "💙")
+                 .replace (":3", "🐱")
+                 .replace (":\\", "😕")
+                 .replace (":'(", "😢")
+                 .replace (":-'(", "😢")
+                 .replace (":o", "😵")
+                 .replace (":O", "😵")
+                 .replace (":(", "😦")
+                 .replace (":-(", "😦")
+                 .replace (":-[", "😦")
+                 .replace (":[", "😦")
+                 .replace ("xD", "😁")
+                 .replace ("XD", "😁")
+                 .replace ("0:)", "😇")
+                 .replace (":D", "😆")
+                 .replace (":-D", "😆")
+                 .replace (":|", "😐")
+                 .replace (":-|", "😐")
+                 .replace (":p", "😛")
+                 .replace (":-p", "😛")
+                 .replace (":P", "😛")
+                 .replace (":-P", "😛")
+                 .replace ("8)", "😎")
+                 .replace ("8-)", "😎");
 
     var message = emojis;
     debug (@"Message: $message");
@@ -99,18 +99,19 @@ namespace Util {
   public static string size_to_string (uint64 size) {
     string sizeString = "";
 
-    if (size >= 1073741824)
+    if (size >= 1073741824) {
       sizeString = "%s Gb".printf ((size / 1073741824).to_string ());
-    else if (size >= 1048576)
+    } else if (size >= 1048576) {
       sizeString = "%s Mb".printf ((size / 1048576).to_string ());
-    else if (size >= 1024)
+    } else if (size >= 1024) {
       sizeString = "%s Kb".printf ((size / 1024).to_string ());
-    else if (size > 1)
+    } else if (size > 1) {
       sizeString = "%s bytes".printf ((size).to_string ());
-    else if (size == 1)
+    } else if (size == 1) {
       sizeString = "%s byte".printf ((size).to_string ());
-    else
+    } else {
       sizeString = "0 bytes";
+    }
 
     debug(@"Converted size: %s", sizeString);
 

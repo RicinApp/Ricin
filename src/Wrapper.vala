@@ -16,18 +16,22 @@ namespace Tox {
   }
 
   public ToxCore.UserStatus wrapper_to_core_status (UserStatus st) {
-    if (st == UserStatus.AWAY)
+    if (st == UserStatus.AWAY) {
       return ToxCore.UserStatus.AWAY;
-    if (st == UserStatus.BUSY)
+    }
+    if (st == UserStatus.BUSY) {
       return ToxCore.UserStatus.BUSY;
+    }
     return ToxCore.UserStatus.NONE;
   }
 
   public UserStatus core_to_wrapper_status (ToxCore.UserStatus st) {
-    if (st == ToxCore.UserStatus.AWAY)
+    if (st == ToxCore.UserStatus.AWAY) {
       return UserStatus.AWAY;
-    if (st == ToxCore.UserStatus.BUSY)
+    }
+    if (st == ToxCore.UserStatus.BUSY) {
       return UserStatus.BUSY;
+    }
     return UserStatus.ONLINE;
   }
 
