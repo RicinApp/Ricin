@@ -5,8 +5,8 @@
     </td>
     <td>
       <img src="https://img.shields.io/badge/version-0.0.2-brightgreen.svg?style=flat">
-      <a href="https://travis-ci.org/RicinApp/Ricin">
-        <img src="https://api.travis-ci.org/RicinApp/Ricin.svg" alt="Travis-CI">
+      <a href="http://build.tox.chat/me/my-views/view/All/job/ricin_build_linux_x86-64_debug/2/">
+        <img src="http://build.tox.chat/buildStatus/icon?job=ricin_build_linux_x86-64_debug&build=2">
       </a>
       <a href="https://www.bountysource.com/teams/RicinApp">
         <img src="https://img.shields.io/bountysource/team/RicinApp/activity.svg?style=flat" alt="Support development">
