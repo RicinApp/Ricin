@@ -41,7 +41,7 @@ namespace Util {
     var italic = /\b_([^_]*)_\b/.replace(bold, -1, 0, "<i>\\1</i>");
     var underlined = /\B-([^-]*)-\B/.replace(italic, -1, 0, "<u>\\1</u>");
     var striked = /\B~([^~]*)~\B/.replace(underlined, -1, 0, "<s>\\1</s>");
-    var uri = /\w+:(\/?\/?)[^\s]+/.replace (striked, -1, 0, "<span color=\"#2a92c6\"><a href=\"\\1\">\\1</a></span>");
+    var uri = /(\w+:\/?\/?[^\s]+)/.replace (striked, -1, 0, "<span color=\"#2a92c6\"><a href=\"\\1\">\\1</a></span>");
 
     var emojis = uri.replace (":)", "😄")
                  .replace (":+1:", "👍")

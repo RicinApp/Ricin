@@ -46,9 +46,12 @@ class Ricin.SettingsView : Gtk.Notebook {
         /**
         * TODO: Add a method to switch from custom theme to system theme here.
         **/
-        //var provider = new Gtk.CssProvider ();
-        //provider.load_from_resource(@"$resource_base_path/themes/white.css");
-        Gtk.StyleContext.reset_widgets (Gdk.Screen.get_default ());
+
+        debug ("Removing custom css, back to system theme.");
+        var provider = new Gtk.CssProvider ();
+        provider.load_from_data("", 0);
+        Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (),
+            provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
       }
     });
 
