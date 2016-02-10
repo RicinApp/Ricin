@@ -10,6 +10,8 @@ class Ricin.SettingsView : Gtk.Notebook {
   [GtkChild] Gtk.ComboBoxText combobox_selected_theme;
   [GtkChild] Gtk.Button button_reload_theme;
 
+  [GtkChild] Gtk.Switch switch_status_changes;
+
   /* TODO
   // Network settings tab.
   [GtkChild] Gtk.Switch switch_udp_enabled;
