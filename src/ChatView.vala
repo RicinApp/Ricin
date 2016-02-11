@@ -29,6 +29,7 @@ class Ricin.ChatView : Gtk.Box {
   private weak Tox.Tox handle;
   private weak Gtk.Stack stack;
   private string view_name;
+  private HistoryManager history;
 
   /**
   * TODO: Use this enum to determine the current message type.
@@ -51,6 +52,7 @@ class Ricin.ChatView : Gtk.Box {
     this.fr = fr;
     this.stack = stack;
     this.view_name = view_name;
+    this.history = new HistoryManager (this.fr.pubkey);
 
     if (this.fr.name == null) {
       this.label_friend_profil_name.set_text (this.fr.pubkey);
@@ -102,6 +104,7 @@ class Ricin.ChatView : Gtk.Box {
     });
 
     fr.message.connect (message => {
+      var current_time = time ();
       this.label_friend_last_seen.set_markup (this.fr.last_online ("%H:%M %d/%m/%Y"));
 
       var visible_child = this.stack.get_visible_child_name ();
@@ -111,17 +114,19 @@ class Ricin.ChatView : Gtk.Box {
         var avatar_path = Tox.profile_dir () + "avatars/" + this.fr.pubkey + ".png";
         if (FileUtils.test (avatar_path, FileTest.EXISTS)) {
           var pixbuf = new Gdk.Pixbuf.from_file_at_scale (avatar_path, 46, 46, true);
-          Notification.notify (fr.name, message, 5000, pixbuf);
+          Notification.notify (this.fr.name, message, 5000, pixbuf);
         } else {
-          Notification.notify (fr.name, message, 5000);
+          Notification.notify (this.fr.name, message, 5000);
         }
       }
 
-      messages_list.add (new MessageListRow (this.handle, fr.name, Util.add_markup (message), time ()));
+      this.history.write (this.fr.pubkey, @"[$current_time] [$(this.fr.name)] $message");
+      messages_list.add (new MessageListRow (this.handle, this.fr.name, Util.add_markup (message), current_time));
       //this.add_row (MessageRowType.Normal, new MessageListRow (fr.name, Util.add_markup (message), time ()));
     });
 
     fr.action.connect (message => {
+      var current_time = time ();
       this.label_friend_last_seen.set_markup (this.fr.last_online ("%H:%M %d/%m/%Y"));
 
       var visible_child = this.stack.get_visible_child_name ();
@@ -137,12 +142,15 @@ class Ricin.ChatView : Gtk.Box {
 
       }
 
+      this.history.write (this.fr.pubkey, @"[$current_time] ** $(this.fr.name) $message");
+
       string message_escaped = @"<b>$(Util.escape_html(fr.name))</b> $(Util.escape_html(message))";
       messages_list.add (new SystemMessageListRow (message_escaped));
       //this.add_row (MessageRowType.Action, new SystemMessageListRow (message_escaped));
     });
 
     fr.file_transfer.connect ((name, size, id) => {
+      var current_time = time ();
       string downloads = Environment.get_user_special_dir (UserDirectory.DOWNLOAD) + "/";
       string filename = name;
       int i = 0;
@@ -151,8 +159,10 @@ class Ricin.ChatView : Gtk.Box {
         filename = @"$(++i)-$name";
       }
 
+      this.history.write (this.fr.pubkey, @"[$current_time] ** $(this.fr.name) sent you a file: $filename");
+
       //FileUtils.set_data (path, bytes.get_data ());
-      var path = @"/tmp/$name";
+      var path = @"/tmp/$filename";
       var file_path = File.new_for_path(path);
       var file_content_type = ContentType.guess (path, null, null);
 
@@ -260,6 +270,7 @@ class Ricin.ChatView : Gtk.Box {
 
   [GtkCallback]
   private void send_message () {
+    var current_time = time ();
     var user = this.handle.username;
     string markup;
 
@@ -274,10 +285,14 @@ class Ricin.ChatView : Gtk.Box {
       var escaped = Util.escape_html (action);
       debug (@"escaped=$escaped\nuser=$user");
       markup = @"<b>$user</b> $escaped";
+
+      this.history.write (this.fr.pubkey, @"[$current_time] ** $(this.handle.username) $action");
       messages_list.add (new SystemMessageListRow (markup));
       fr.send_action (action);
     } else {
       markup = Util.add_markup (message);
+
+      this.history.write (this.fr.pubkey, @"[$current_time] [$(this.handle.username)] $message");
       messages_list.add (new MessageListRow (this.handle, user, markup, time ()));
       fr.send_message (message);
     }
@@ -309,12 +324,17 @@ class Ricin.ChatView : Gtk.Box {
         "_Cancel", Gtk.ResponseType.CANCEL,
         "_Open", Gtk.ResponseType.ACCEPT);
     if (chooser.run () == Gtk.ResponseType.ACCEPT) {
+      var current_time = time ();
       var filename = chooser.get_filename ();
+
       File file = File.new_for_path (filename);
       FileInfo info = file.query_info ("standard::*", 0);
       var file_id = fr.send_file (filename);
       var file_content_type = ContentType.guess (filename, null, null);
       var size = info.get_size ();
+
+      var fname = file.get_basename ();
+      this.history.write (this.fr.pubkey, @"[$current_time] ** You sent a file to $(this.fr.name): $fname");
 
       if (file_content_type.has_prefix ("image/")) {
         var pixbuf = new Gdk.Pixbuf.from_file_at_scale (filename, 400, 250, true);
