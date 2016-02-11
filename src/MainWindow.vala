@@ -149,18 +149,18 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
       switch (this.tox.status) {
         case Tox.UserStatus.ONLINE:
           // Set status to away.
-          this.tox.status = Tox.UserStatus.AWAY;
-          icon = "idle";
+          this.tox.status = Tox.UserStatus.ONLINE;
+          icon = "online";
           break;
         case Tox.UserStatus.AWAY:
           // Set status to busy.
-          this.tox.status = Tox.UserStatus.BUSY;
-          icon = "busy";
+          this.tox.status = Tox.UserStatus.AWAY;
+          icon = "idle";
           break;
         case Tox.UserStatus.BUSY:
           // Set status to online.
-          this.tox.status = Tox.UserStatus.ONLINE;
-          icon = "online";
+          this.tox.status = Tox.UserStatus.BUSY;
+          icon = "busy";
           break;
         default:
           // Set status to offline.
