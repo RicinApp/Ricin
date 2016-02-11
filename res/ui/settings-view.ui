@@ -1809,7 +1809,6 @@ Public License instead of this License.  But first, please read
                                 <property name="editable">False</property>
                                 <property name="wrap_mode">char</property>
                                 <property name="justification">center</property>
-                                <property name="top_margin">10</property>
                                 <property name="buffer">textbuffer1</property>
                                 <property name="accepts_tab">False</property>
                               </object>
