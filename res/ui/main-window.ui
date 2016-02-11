@@ -10,21 +10,25 @@
   <object class="GtkImage" id="image1">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
+    <property name="xpad">5</property>
     <property name="icon_name">window-close-symbolic</property>
   </object>
   <object class="GtkImage" id="image2">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
+    <property name="xpad">5</property>
     <property name="icon_name">object-select-symbolic</property>
   </object>
   <object class="GtkImage" id="image3">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
+    <property name="xpad">5</property>
     <property name="icon_name">contact-new-symbolic</property>
   </object>
   <object class="GtkImage" id="image4">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
+    <property name="xpad">5</property>
     <property name="icon_name">system-run-symbolic</property>
   </object>
   <object class="GtkImage" id="image_user_status">
@@ -186,11 +190,13 @@
                   <object class="GtkScrolledWindow" id="scrolledwindow3">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
-                    <property name="shadow_type">in</property>
+                    <property name="hscrollbar_policy">never</property>
+                    <property name="vscrollbar_policy">always</property>
                     <child>
                       <object class="GtkViewport" id="viewport3">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
+                        <property name="shadow_type">etched-in</property>
                         <child>
                           <object class="GtkListBox" id="friendlist">
                             <property name="visible">True</property>
@@ -386,7 +392,6 @@
                 <property name="homogeneous">True</property>
                 <child>
                   <object class="GtkButton" id="button_add_friend_show">
-                    <property name="label" translatable="yes">Add a friend</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
@@ -406,7 +411,6 @@
                 </child>
                 <child>
                   <object class="GtkButton" id="button_settings">
-                    <property name="label" translatable="yes">Settings</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>

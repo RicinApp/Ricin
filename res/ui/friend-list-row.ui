@@ -75,7 +75,7 @@
                     <property name="ellipsize">end</property>
                     <property name="single_line_mode">True</property>
                     <attributes>
-                      <attribute name="style" value="italic"/>
+                      <attribute name="style" value="normal"/>
                       <attribute name="size" value="10000"/>
                     </attributes>
                   </object>
@@ -98,7 +98,10 @@
                 <property name="height_request">16</property>
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
+                <property name="margin_left">5</property>
                 <property name="margin_right">3</property>
+                <property name="margin_top">5</property>
+                <property name="margin_bottom">5</property>
                 <property name="pixel_size">24</property>
                 <property name="resource">/chat/tox/ricin/images/status/offline.png</property>
               </object>
