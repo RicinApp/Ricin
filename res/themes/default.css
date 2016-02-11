@@ -132,6 +132,26 @@ GtkScrolledWindow {
   outline-width: 0;
 }
 
+.box-search {
+  background-color: @ui_darker;
+}
+.box-search GtkSearchEntry {
+	background-color: transparent;
+	background-image: none;
+	border: none;
+	border-image: none;
+	border-radius: 0;
+	color: @ui_text;
+}
+.box-search GtkToggleButton {
+	background-color: transparent;
+	background-image: none;
+	border: none;
+	border-image: none;
+	border-radius: 0;
+	color: @ui_text;
+}
+
 .secondary-background {
   background-color: @ui_main;
 }

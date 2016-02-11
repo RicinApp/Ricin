@@ -30,15 +30,18 @@ class ThemeManager : GLib.Object {
   }
 
   public void set_theme (string name) {
-    this.current_theme_name = name;
+    this.current_theme_name = "%s".printf (name);
+
+    debug (@"Theme name: $(this.current_theme_name)");
+
     var provider = new Gtk.CssProvider ();
-    provider.load_from_resource(@"$(this.custom_themes_base_path)/themes/$name.css");
+    provider.load_from_resource(@"$(this.custom_themes_base_path)/themes/$(this.current_theme_name).css");
     this.add_provider (provider);
   }
 
   public void set_system_theme () {
     Gtk.Settings settings = Gtk.Settings.get_default ();
-    this.system_theme = settings.gtk_theme_name;
+    this.system_theme = "%s".printf (settings.gtk_theme_name);
     this.current_theme_name = this.system_theme;
     var provider = Gtk.CssProvider.get_named (this.system_theme, null);
     this.add_provider (provider);
@@ -46,8 +49,10 @@ class ThemeManager : GLib.Object {
 
   public void reload_theme () {
     if (this.current_theme_name != this.system_theme) {
+      debug (@"Theme set: $(this.current_theme_name)");
       this.set_theme (this.current_theme_name);
     } else {
+      debug (@"Theme set: system");
       this.set_system_theme ();
     }
   }

@@ -1,16 +1,22 @@
 [GtkTemplate (ui="/chat/tox/ricin/ui/main-window.ui")]
 public class Ricin.MainWindow : Gtk.ApplicationWindow {
+  // User profile.
   [GtkChild] Gtk.Image avatar_image;
   [GtkChild] Gtk.Entry entry_name;
   [GtkChild] Gtk.Entry entry_status;
   [GtkChild] Gtk.Button button_user_status;
   [GtkChild] Gtk.Image image_user_status;
 
+  // Search + filter.
+  [GtkChild] Gtk.SearchEntry searchentry_friend;
+  [GtkChild] Gtk.ComboBoxText combobox_friend_filter;
+
+  // Friendlist + chatview.
   [GtkChild] Gtk.ListBox friendlist;
   [GtkChild] public Gtk.Stack chat_stack;
-  [GtkChild] public Gtk.Button button_add_friend_show;
 
   // Add friend revealer.
+  [GtkChild] public Gtk.Button button_add_friend_show;
   [GtkChild] public Gtk.Revealer add_friend;
   [GtkChild] public Gtk.Entry entry_friend_id;
   [GtkChild] Gtk.TextView entry_friend_message;
@@ -19,6 +25,9 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
   // System notify.
   [GtkChild] public Gtk.Revealer revealer_system_notify;
   [GtkChild] public Gtk.Label label_system_notify;
+
+  // Settings button.
+  [GtkChild] Gtk.Button button_settings;
 
   private ListStore friends = new ListStore (typeof (Tox.Friend));
 
@@ -125,6 +134,44 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
     this.entry_name.set_text (tox.username);
     this.entry_status.set_text (tox.status_message);
     this.image_user_status.set_from_resource ("/chat/tox/ricin/images/status/offline.png");
+
+    // Filter + search.
+    this.combobox_friend_filter.append_text ("Online friends");
+    this.combobox_friend_filter.append_text ("All friends");
+    this.combobox_friend_filter.active = 0;
+
+    /*this.friendlist.set_sort_func ((row1, row2) => {
+      var friend1 = row1 as FriendListRow;
+      var friend2 = row2 as FriendListRow;
+      return friend1.fr.status - friend2.fr.status;
+    });*/
+    this.friendlist.set_filter_func (row => {
+      string? search = this.searchentry_friend.text.down ();
+      var friend = row as FriendListRow;
+      string name = friend.fr.name.down ();
+      Tox.UserStatus status = friend.fr.status;
+      var mode = this.combobox_friend_filter.active;
+
+      if (search == null || search.length == 0) {
+        if (mode == 0 && status == Tox.UserStatus.OFFLINE) {
+          return false;
+        }
+        return true;
+      } else if (mode == 0) {
+        if (status == Tox.UserStatus.OFFLINE) {
+          return false;
+        }
+      }
+
+      if (name.index_of (search) != -1) {
+        return true;
+      }
+      return false;
+    });
+
+    this.combobox_friend_filter.changed.connect (() => {
+      this.friend_list_update_search ();
+    });
 
     this.friendlist.set_sort_func (sort_friendlist_online);
     this.friendlist.bind_model (this.friends, fr => new FriendListRow (fr as Tox.Friend));
@@ -245,6 +292,7 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
     this.entry_friend_id.set_text (toxid);
     this.entry_friend_message.buffer.text = friend_message;
     this.button_add_friend_show.visible = false;
+    this.button_settings.visible = false;
     this.add_friend.reveal_child = true;
   }
 
@@ -334,6 +382,7 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
     this.add_friend.reveal_child = false;
     this.label_add_error.set_text ("Add a friend");
     this.button_add_friend_show.visible = true;
+    this.button_settings.visible = true;
   }
 
   [GtkCallback]
@@ -462,5 +511,10 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
     }
 
     chooser.close ();
+  }
+
+  [GtkCallback]
+  private void friend_list_update_search () {
+    friendlist.invalidate_filter ();
   }
 }
