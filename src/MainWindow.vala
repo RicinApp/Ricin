@@ -103,6 +103,11 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
       return;
     }
 
+    //** TEMP DEV ZONE **//
+    // HistoryManager history = new HistoryManager ();
+    // history.write ("test", "lel");
+    //** TEMP DEV ZONE **//
+
     // Display the settings window while their is no friends online.
     var settings = new SettingsView (this.tox);
     this.chat_stack.add_named (settings, "settings");
