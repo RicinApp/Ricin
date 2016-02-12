@@ -47,7 +47,9 @@
       <object class="GtkPaned" id="paned1">
         <property name="visible">True</property>
         <property name="can_focus">True</property>
-        <property name="position">120</property>
+        <property name="position">265</property>
+        <property name="position_set">True</property>
+        <property name="wide_handle">True</property>
         <child>
           <object class="GtkBox" id="box2">
             <property name="width_request">120</property>

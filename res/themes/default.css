@@ -124,6 +124,7 @@ GtkRevealer
 GtkPaned,
 GtkViewport,
 RicinFriendListRow,
+RicinMainWindow,
 GtkScrolledWindow {
   border-image: none;
   border-image-width: 0;
