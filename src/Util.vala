@@ -82,7 +82,8 @@ namespace Util {
 
   public static string add_markup (string text) {
     var md = Util.render_litemd (text);
-    var sb = new StringBuilder ();
+    return md;
+    /*var sb = new StringBuilder ();
 
     foreach (string line in md.split ("\n")) { // multiple lines
       string tmp = line;
@@ -95,7 +96,7 @@ namespace Util {
     }
 
     sb.truncate (sb.len-1);
-    return (string) sb.data;
+    return (string) sb.data;*/
   }
 
   public static string size_to_string (uint64 size) {

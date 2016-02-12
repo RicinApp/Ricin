@@ -8,6 +8,9 @@
         <file preprocess="xml-stripblanks" compressed="true">ui/inline-image-message-list-row.ui</file>
         <file preprocess="xml-stripblanks" compressed="true">ui/inline-file-message-list-row.ui</file>
         <file preprocess="xml-stripblanks" compressed="true">ui/message-list-row.ui</file>
+        <file preprocess="xml-stripblanks" compressed="true">ui/quote-message-list-row.ui</file>
+        <file preprocess="xml-stripblanks" compressed="true">ui/quote-label.ui</file>
+        <file preprocess="xml-stripblanks" compressed="true">ui/plain-label.ui</file>
         <file preprocess="xml-stripblanks" compressed="true">ui/chat-view.ui</file>
         <file preprocess="xml-stripblanks" compressed="true">ui/settings-view.ui</file>
 
