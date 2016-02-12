@@ -17,6 +17,10 @@
 @define-color ui_main   #333333;
 @define-color ui_text   #FFFFFF;
 
+* {
+  -GtkPaned-handle-size: 0;
+}
+
 RicinProfileChooser {
   background-color: @ui_dark;
   color: @ui_text;
@@ -146,6 +150,9 @@ GtkScrolledWindow {
 	border-image: none;
 	border-radius: 0;
 	color: @ui_text;
+}
+.box-search GtkSearchEntry:selected {
+    background-color: #5688f9;
 }
 .box-search GtkToggleButton {
 	background-color: transparent;
@@ -339,6 +346,9 @@ GtkScrolledWindow {
   background-image: none;
   background-color: @ui_darker;
   color: @ui_text;
+}
+.entry-inverted:selected {
+    background-color: #5688f9;
 }
 .entry-inverted:hover {
   background-color: @ui_main;
