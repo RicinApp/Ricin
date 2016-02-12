@@ -55,11 +55,11 @@ class Ricin.ChatView : Gtk.Box {
     this.history = new HistoryManager (this.fr.pubkey);
 
     if (this.fr.name == null) {
-      this.label_friend_profil_name.set_text (this.fr.pubkey);
-      this.label_friend_profile_status_message.set_text ("");
+      this.label_friend_profil_name.set_text (this.fr.get_uname ());
+      this.label_friend_profile_status_message.set_text (this.fr.get_ustatus_message ());
 
-      this.username.set_text (this.fr.pubkey);
-      this.status_message.set_markup (this.fr.last_online ("<b>Last online:</b> %H:%M %d/%m/%Y"));
+      this.username.set_text (this.fr.get_uname ());
+      this.status_message.set_markup (this.fr.get_ustatus_message ());
     } else {
       this.label_friend_profil_name.set_text (this.fr.name);
       this.label_friend_profile_status_message.set_markup (Util.render_litemd(this.fr.status_message));
