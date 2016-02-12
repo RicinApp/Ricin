@@ -20,9 +20,8 @@ class Ricin.FriendListRow : Gtk.ListBoxRow {
 
     debug (@"Friend name: $(this.fr.name)");
     if (this.fr.name == null) {
-      this.username.set_text (this.fr.pubkey);
-      string date = this.fr.last_online ("<b>Last online:</b> %H:%M");
-      this.status.set_markup (date);
+      this.username.set_text (this.fr.get_uname ());
+      this.status.set_markup (this.fr.get_ustatus_message ());
     } else {
       this.username.set_text (this.fr.name);
       this.status.set_text (this.fr.status_message);

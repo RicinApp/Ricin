@@ -188,6 +188,8 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
       friend.connected = false;
       friend.position = friends.get_n_items ();
       debug ("Friend position: %u", friend.position);
+      debug ("Friend name: %s", friend.get_uname ());
+      debug ("Friend status_message: %s", friend.get_ustatus_message ());
       this.friends.append (friend);
 
       var view_name = "chat-%s".printf (friend.pubkey);

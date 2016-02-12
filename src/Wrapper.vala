@@ -567,6 +567,20 @@ namespace Tox {
       this.notify["blocked"].connect ((o, p) => update_user_status ());
     }
 
+    public string get_uname () {
+      uint8[] text = new uint8[ToxCore.MAX_NAME_LENGTH];
+      this.tox.handle.friend_get_name (this.num, text, null);
+
+      return (string) text;
+    }
+
+    public string get_ustatus_message () {
+      uint8[] text = new uint8[ToxCore.MAX_STATUS_MESSAGE_LENGTH];
+      this.tox.handle.friend_get_status_message (this.num, text, null);
+
+      return (string) text;
+    }
+
     public string last_online (string? format) {
       uint64 last = this.tox.handle.friend_get_last_online (this.num, null);
       debug (@"Last online for $num: $last");
