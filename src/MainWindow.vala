@@ -91,6 +91,8 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
   public MainWindow (Gtk.Application app, string profile) {
     Object (application: app);
 
+    this.set_size_request (920, 500);
+
     var opts = Tox.Options.create ();
     opts.ipv6_enabled = true;
     opts.udp_enabled = true;

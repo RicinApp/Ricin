@@ -119,6 +119,7 @@ RicinSettingsView {
   color: @ui_text;
 }
 
+GtkPaned,
 GtkViewport,
 RicinFriendListRow,
 GtkScrolledWindow {
