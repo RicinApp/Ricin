@@ -21,6 +21,11 @@
   -GtkPaned-handle-size: 0;
 }
 
+.quote-bar {
+  color: #2ECC71;
+  padding: 0 1px;
+}
+
 RicinProfileChooser {
   background-color: @ui_dark;
   color: @ui_text;

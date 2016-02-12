@@ -120,8 +120,14 @@ class Ricin.ChatView : Gtk.Box {
         }
       }
 
-      this.history.write (this.fr.pubkey, @"[$current_time] [$(this.fr.name)] $message");
-      messages_list.add (new MessageListRow (this.handle, this.fr.name, Util.add_markup (message), current_time));
+
+      if (message.index_of (">", 0) == 0) {
+        var markup = Util.add_markup (message);
+        messages_list.add (new QuoteMessageListRow (this.handle, this.fr.name, markup, current_time));
+      } else {
+        this.history.write (this.fr.pubkey, @"[$current_time] [$(this.fr.name)] $message");
+        messages_list.add (new MessageListRow (this.handle, this.fr.name, Util.add_markup (message), current_time));
+      }
       //this.add_row (MessageRowType.Normal, new MessageListRow (fr.name, Util.add_markup (message), time ()));
     });
 
@@ -289,6 +295,10 @@ class Ricin.ChatView : Gtk.Box {
       this.history.write (this.fr.pubkey, @"[$current_time] ** $(this.handle.username) $action");
       messages_list.add (new SystemMessageListRow (markup));
       fr.send_action (action);
+    } else if (message.index_of (">", 0) == 0) {
+      markup = Util.add_markup (message);
+      messages_list.add (new QuoteMessageListRow (this.handle, user, markup, time ()));
+      fr.send_message (message);
     } else {
       markup = Util.add_markup (message);
 
