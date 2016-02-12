@@ -79,7 +79,7 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
       if (response == Gtk.ResponseType.ACCEPT) {
         bool result = friend.delete ();
         if (result) {
-          this.friends.remove (friend.num);
+          this.friends.remove (friend.num); // TODO: Verify this.
           this.tox.save_data ();
         }
       }
