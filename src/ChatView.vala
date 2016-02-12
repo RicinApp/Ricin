@@ -59,19 +59,19 @@ class Ricin.ChatView : Gtk.Box {
       this.label_friend_profile_status_message.set_text (this.fr.get_ustatus_message ());
 
       this.username.set_text (this.fr.get_uname ());
-      this.status_message.set_markup (this.fr.get_ustatus_message ());
+      this.status_message.set_markup (Util.render_litemd (this.fr.get_ustatus_message ()));
     } else {
       this.label_friend_profil_name.set_text (this.fr.name);
-      this.label_friend_profile_status_message.set_markup (Util.render_litemd(this.fr.status_message));
+      this.label_friend_profile_status_message.set_markup (Util.render_litemd (this.fr.status_message));
 
       this.username.set_text (this.fr.name);
-      this.status_message.set_markup (Util.render_litemd(this.fr.status_message));
+      this.status_message.set_markup (Util.render_litemd (this.fr.status_message));
     }
 
     this.label_friend_last_seen.set_markup (this.fr.last_online ("%H:%M %d/%m/%Y"));
 
     debug (@"Status message for $(fr.name): $(fr.status_message)");
-    this.status_message.set_text (fr.status_message);
+    //this.status_message.set_text (fr.status_message);
     fr.bind_property ("status-message", status_message, "label", BindingFlags.DEFAULT);
     fr.bind_property ("name", this.label_friend_profil_name, "label", BindingFlags.DEFAULT);
     fr.bind_property ("status-message", this.label_friend_profile_status_message, "label", BindingFlags.DEFAULT);
