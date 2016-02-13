@@ -30,6 +30,7 @@ class Ricin.ChatView : Gtk.Box {
   private weak Gtk.Stack stack;
   private string view_name;
   private HistoryManager history;
+  private string last_message;
 
   /**
   * TODO: Use this enum to determine the current message type.
@@ -83,6 +84,17 @@ class Ricin.ChatView : Gtk.Box {
       this.user_avatar.pixbuf = pixbuf;
       this.friend_profil_avatar.pixbuf = pixbuf;
     }
+
+    this.entry.key_press_event.connect ((event) => {
+      if (event.keyval == Gdk.Key.Up && this.entry.get_text () == "") {
+        this.entry.set_text (this.last_message);
+        this.entry.set_position (-1);
+        return true;
+      } else if (event.keyval == Gdk.Key.Down && this.entry.get_text () == this.last_message) {
+        this.entry.set_text ("");
+      }
+      return false;
+    });
 
     fr.friend_info.connect ((message) => {
       messages_list.add (new SystemMessageListRow (message));
@@ -281,6 +293,7 @@ class Ricin.ChatView : Gtk.Box {
     string markup;
 
     var message = this.entry.get_text ();
+    this.last_message = message;
     if (message.strip () == "") {
       return;
     }
