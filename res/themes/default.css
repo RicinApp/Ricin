@@ -405,13 +405,16 @@ GtkScrolledWindow {
 .entry-chat {
 	border: none;
 	border-radius: 0;
-  background-image: none;
+ 	background-image: none;
 	border-image: none;
-  box-shadow: none;
-  outline-width: 0;
-
+ 	box-shadow: none;
+ 	outline-width: 0;
 	background-color: @ui_darker;
-  color: @ui_text;
+ 	color: @ui_text;
+}
+
+.entry-chat:selected {
+	background-color: #5688f9;
 }
 
 .friendlist-row {
