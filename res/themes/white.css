@@ -44,7 +44,6 @@ RicinProfileChooser .notebook .button {
   border-top-width: 0;
   box-shadow: none;
   outline-width: 0;
-  text-decoration-color: transparent;
   text-shadow: none;
 
   background-image: none;
@@ -78,7 +77,6 @@ RicinProfileChooser .notebook .entry {
   border-top-width: 0;
   box-shadow: none;
   outline-width: 0;
-  text-decoration-color: transparent;
   text-shadow: none;
 
   background-image: none;
@@ -305,7 +303,6 @@ GtkScrolledWindow {
   border-top-width: 0;
   box-shadow: none;
   outline-width: 0;
-  text-decoration-color: transparent;
   text-shadow: none;
 
   background-image: none;
@@ -342,7 +339,6 @@ GtkScrolledWindow {
   border-top-width: 0;
   box-shadow: none;
   outline-width: 0;
-  text-decoration-color: transparent;
   text-shadow: none;
 
   background-image: none;
