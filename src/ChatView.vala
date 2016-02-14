@@ -16,6 +16,7 @@ class Ricin.ChatView : Gtk.Box {
   [GtkChild] Gtk.Button button_toggle_friend_menu;
   [GtkChild] Gtk.Revealer revealer_friend_menu;
 
+  /* Friend menu sidebar */
   [GtkChild] Gtk.Image friend_profil_avatar;
   [GtkChild] Gtk.Image image_friend_status;
   [GtkChild] Gtk.Label label_friend_profil_name;
@@ -24,6 +25,12 @@ class Ricin.ChatView : Gtk.Box {
   [GtkChild] Gtk.Button button_friend_copy_toxid;
   [GtkChild] Gtk.Button button_friend_block;
   [GtkChild] Gtk.Button button_friend_delete;
+
+  /* ChatView notify system UI */
+  [GtkChild] Gtk.Revealer notify;
+  [GtkChild] Gtk.Image image_notify;
+  [GtkChild] Gtk.Label label_notify_text;
+  [GtkChild] Gtk.Button button_notify_close;
 
   public Tox.Friend fr;
   private weak Tox.Tox handle;
@@ -257,6 +264,16 @@ class Ricin.ChatView : Gtk.Box {
     });
   }
 
+  public void show_notice (string text, string icon_name = "help-info-symbolic") {
+    this.image_notify.icon_name = icon_name;
+    this.label_notify_text.set_text (text);
+    this.button_notify_close.clicked.connect (() => {
+      this.notify.reveal_child = false;
+    });
+
+    this.notify.reveal_child = true;
+  }
+
   [GtkCallback]
   private void toggle_friend_menu () {
     this.revealer_friend_menu.set_reveal_child (!this.revealer_friend_menu.child_revealed);
@@ -295,6 +312,10 @@ class Ricin.ChatView : Gtk.Box {
     var message = this.entry.get_text ();
     this.last_message = message;
     if (message.strip () == "") {
+      return;
+    } else if (message.index_of ("/n", 0) == 0) {
+      var msg = message.replace ("/n ", "");
+      this.show_notice(msg);
       return;
     }
 

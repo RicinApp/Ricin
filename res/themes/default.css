@@ -571,8 +571,8 @@ GtkScrolledWindow {
 
 /** Faux offline message **/
 .chatview-notify-bar {
-  background-color: #2ECC71;
+  background-color: #3498DB;
 }
 .chatview-notify-bar GtkButton:hover {
-  background-color: #27AE60;
+  background-color: #2980B9;
 }
