@@ -1307,7 +1307,9 @@ Public License instead of this License.  But first, please read
                           <object class="GtkLabel" id="label_proxy_enabled">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="label" translatable="yes">Enabled?</property>
+                            <property name="margin_right">20</property>
+                            <property name="label" translatable="yes">&lt;b&gt;Enabled?&lt;/b&gt;</property>
+                            <property name="use_markup">True</property>
                           </object>
                           <packing>
                             <property name="expand">False</property>
@@ -1432,6 +1434,7 @@ Public License instead of this License.  But first, please read
                           <object class="GtkLabel" id="label_custom_themes">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
+                            <property name="margin_right">20</property>
                             <property name="label" translatable="yes">&lt;b&gt;Enable custom themes?&lt;/b&gt;</property>
                             <property name="use_markup">True</property>
                           </object>
@@ -1544,6 +1547,7 @@ Public License instead of this License.  But first, please read
                           <object class="GtkLabel" id="label_custom_themes1">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
+                            <property name="margin_right">20</property>
                             <property name="label" translatable="yes">&lt;b&gt;Display friend's status changes?&lt;/b&gt;</property>
                             <property name="use_markup">True</property>
                           </object>
@@ -1632,6 +1636,10 @@ Public License instead of this License.  But first, please read
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="label" translatable="yes">Ricin</property>
+                        <property name="ellipsize">end</property>
+                        <property name="width_chars">20</property>
+                        <property name="single_line_mode">True</property>
+                        <property name="max_width_chars">20</property>
                         <attributes>
                           <attribute name="size" value="24000"/>
                         </attributes>
@@ -1643,14 +1651,54 @@ Public License instead of this License.  But first, please read
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkLabel" id="label_app_version">
+                      <object class="GtkBox" id="box11">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="label" translatable="yes">&lt;b&gt;Version:&lt;/b&gt; 0.0.9 alpha</property>
-                        <property name="use_markup">True</property>
+                        <child>
+                          <object class="GtkBox" id="box12">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="halign">center</property>
+                            <child>
+                              <object class="GtkLabel" id="label_v">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="margin_left">5</property>
+                                <property name="label" translatable="yes">&lt;b&gt;Version:&lt;/b&gt;</property>
+                                <property name="use_markup">True</property>
+                              </object>
+                              <packing>
+                                <property name="expand">True</property>
+                                <property name="fill">False</property>
+                                <property name="position">0</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkLabel" id="label_app_version">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="margin_left">5</property>
+                                <property name="margin_right">5</property>
+                                <property name="label" translatable="yes">&lt;i&gt;0.0.3-alpha&lt;/i&gt;</property>
+                                <property name="use_markup">True</property>
+                                <property name="selectable">True</property>
+                              </object>
+                              <packing>
+                                <property name="expand">True</property>
+                                <property name="fill">False</property>
+                                <property name="position">1</property>
+                              </packing>
+                            </child>
+                          </object>
+                          <packing>
+                            <property name="expand">True</property>
+                            <property name="fill">True</property>
+                            <property name="position">0</property>
+                          </packing>
+                        </child>
                       </object>
                       <packing>
-                        <property name="expand">True</property>
+                        <property name="expand">False</property>
                         <property name="fill">True</property>
                         <property name="position">1</property>
                       </packing>

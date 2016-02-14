@@ -104,7 +104,6 @@
                             <signal name="activate" handler="set_username_from_entry" swapped="no"/>
                             <style>
                               <class name="entry-principal"/>
-                              <class name="entry-white"/>
                             </style>
                           </object>
                           <packing>
