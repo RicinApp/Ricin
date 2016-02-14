@@ -16,11 +16,74 @@
 @define-color ui_dark   #222222;
 @define-color ui_main   #333333;
 @define-color ui_text   #FFFFFF;
+@define-color selected_text_color #5688F9;
 
+/** GTK reset **/
 * {
   -GtkPaned-handle-size: 0;
 }
 
+GtkEntry,
+GtkEntry:focus,
+GtkComboBox,
+GtkComboBoxText,
+GtkButton,
+GtkToggleButton,
+GtkImage,
+GtkSwitch
+{
+	border: none;
+	border-width: 0;
+	border-image: none;
+	border-style: none;
+	border-radius: 0;
+
+	box-shadow: none;
+	text-shadow: none;
+}
+
+GtkSwitch.trough:active {
+    color:
+}
+
+GtkSwitch.trough:insensitive {
+    background-image: none;
+
+}
+
+GtkSwitch.trough:backdrop {
+
+}
+
+GtkSwitch.trough:active:backdrop {
+
+}
+
+GtkSwitch.trough:insensitive:backdrop {
+
+}
+
+GtkSwitch.slider {
+    background: #222;
+}
+
+.primary-toolbar GtkSwitch.slider {
+}
+
+GtkSwitch.slider:insensitive {
+    background-image: none;
+    box-shadow: none;
+}
+
+GtkSwitch.slider:backdrop {
+    background-image: none;
+    box-shadow: none;
+}
+
+GtkSwitch.slider:insensitive:backdrop {
+}
+
+/** CSS overrides. **/
 .quote-bar {
   color: #2ECC71;
   padding: 0 1px;
@@ -391,11 +454,15 @@ GtkScrolledWindow {
 	background-image: none;
 	border-image: none;
 
-	background-color: @ui_dark;
+	background-color: transparent;
 	border: none;
 	border-radius: 0;
 
   color: @ui_text;
+}
+.entry-principal:selected,
+.entry-principal:selected:backdrop {
+	background-color: @selected_text_color;
 }
 
 .entry-chat {
@@ -408,9 +475,8 @@ GtkScrolledWindow {
 	background-color: @ui_darker;
  	color: @ui_text;
 }
-
 .entry-chat:selected {
-	background-color: #5688f9;
+	background-color: @selected_text_color;
 }
 
 .friendlist-row {
@@ -501,4 +567,12 @@ GtkScrolledWindow {
 .saved-file .btn-save-image,
 .saved-file .btn-save-image:insensitive {
   background-color: #2ecc71;
+}
+
+/** Faux offline message **/
+.chatview-notify-bar {
+  background-color: #2ECC71;
+}
+.chatview-notify-bar GtkButton:hover {
+  background-color: #27AE60;
 }
