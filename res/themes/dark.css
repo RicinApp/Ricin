@@ -12,10 +12,10 @@
 
 @define-color gtk_box #343434;
 
-@define-color ui_darker #E0E0E0;
-@define-color ui_dark   #F0F0F0;
-@define-color ui_main   #FFFFFF;
-@define-color ui_text   #000000;
+@define-color ui_darker #171717;
+@define-color ui_dark   #222222;
+@define-color ui_main   #333333;
+@define-color ui_text   #FFFFFF;
 @define-color selected_text_color #5688F9;
 
 @import url("app.css");
