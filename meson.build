@@ -1,7 +1,7 @@
 # vim: set ft=python
 project('Ricin',
     'vala',
-    'c', # compiling vala requires a C copmiler
+    'c', # compiling vala requires a C compiler
 )
 gnome = import('gnome')
 
