@@ -4,6 +4,7 @@ src = files([
     'ChatView.vala',
     'IMessageListRow.vala',
     'SystemMessageListRow.vala',
+    'StatusMessageListRow.vala',
     'InlineImageMessageListRow.vala',
     'InlineFileMessageListRow.vala',
     'QuoteMessageListRow.vala',

@@ -37,6 +37,7 @@ class Ricin.SettingsView : Gtk.Notebook {
 
     this.combobox_selected_theme.append_text ("Dark theme (Default)");
     this.combobox_selected_theme.append_text ("White theme");
+    this.combobox_selected_theme.append_text ("Clearer theme");
 
     this.combobox_languages.active      = 0;
     this.combobox_toxme_servers.active  = 0;
@@ -53,10 +54,13 @@ class Ricin.SettingsView : Gtk.Notebook {
 
         switch (active) {
           case 0:
-            ThemeManager.instance.set_theme ("default");
+            ThemeManager.instance.set_theme ("dark");
             break;
           case 1:
             ThemeManager.instance.set_theme ("white");
+            break;
+          case 2:
+            ThemeManager.instance.set_theme ("clearer");
             break;
         }
       } else {
@@ -71,10 +75,13 @@ class Ricin.SettingsView : Gtk.Notebook {
 
       switch (active) {
         case 0:
-          ThemeManager.instance.set_theme ("default");
+          ThemeManager.instance.set_theme ("dark");
           break;
         case 1:
           ThemeManager.instance.set_theme ("white");
+          break;
+        case 2:
+          ThemeManager.instance.set_theme ("clearer");
           break;
       }
     });
