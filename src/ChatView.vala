@@ -263,6 +263,7 @@ class Ricin.ChatView : Gtk.Box {
       this.image_friend_status.set_from_resource (@"/chat/tox/ricin/images/status/$icon.png");
       this.label_friend_last_seen.set_markup (this.fr.last_online ("%H:%M %d/%m/%Y"));
 
+
       if (this.last_status != status) {
         messages_list.add(new StatusMessageListRow(fr.name + " is now " + icon, status));
         this.last_status = status;
