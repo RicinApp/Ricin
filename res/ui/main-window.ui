@@ -70,6 +70,7 @@
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
+                        <property name="tooltip_text" translatable="yes">Change your avatar</property>
                         <property name="relief">none</property>
                         <signal name="clicked" handler="choose_avatar" swapped="no"/>
                         <child>
@@ -145,6 +146,7 @@
                         <property name="sensitive">False</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
+                        <property name="tooltip_text" translatable="yes">Change your status</property>
                         <property name="image">image_user_status</property>
                         <property name="relief">none</property>
                         <property name="focus_on_click">False</property>
@@ -290,6 +292,7 @@
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
+                    <property name="tooltip_text" translatable="yes">Add a friend</property>
                     <property name="image">image3</property>
                     <property name="relief">none</property>
                     <property name="always_show_image">True</property>
@@ -309,6 +312,7 @@
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
+                    <property name="tooltip_text" translatable="yes">Settings</property>
                     <property name="image">image4</property>
                     <property name="relief">none</property>
                     <property name="always_show_image">True</property>
