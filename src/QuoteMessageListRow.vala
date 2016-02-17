@@ -13,10 +13,7 @@ class Ricin.QuoteMessageListRow : Gtk.ListBoxRow {
     this.label_name.set_markup (@"<b>$name</b>");
     this.label_timestamp.set_text (timestamp);
 
-    //this.label_quote.activate_link.connect (this.handle_links);
-    //this.label_message.activate_link.connect (this.handle_links);
-
-    // If message is our (ugly&hacky way).
+    // Keep name in sync if message is our (ugly&hacky way).
     if (this.handle.username == name) {
       this.handle.bind_property ("username", label_name, "label", BindingFlags.DEFAULT);
     }
@@ -69,16 +66,6 @@ class Ricin.QuoteMessageListRow : Gtk.ListBoxRow {
       last_line_type = line_type;
       line_count++;
     }
-
-      /*
-      if (line.index_of ("&gt;", 0) == 0 && line != "&gt;") {
-        this.listbox_quotes.add (new QuoteLabel (line.splice (0, 4)));
-        last_line_type = "quote";
-      } else {
-        this.listbox_quotes.add (new PlainLabel (line));
-        last_line_type = "plain";
-      }
-      */
   }
 
   private bool handle_links (string uri) {
