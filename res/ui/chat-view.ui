@@ -132,6 +132,7 @@
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
+                <property name="tooltip_text" translatable="yes">Friend's profile</property>
                 <property name="margin_top">1</property>
                 <property name="margin_bottom">1</property>
                 <property name="relief">none</property>
@@ -165,6 +166,7 @@
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
+                    <property name="tooltip_text" translatable="yes">Call friend</property>
                     <property name="relief">none</property>
                     <property name="always_show_image">True</property>
                     <child>
@@ -192,6 +194,7 @@
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
+                    <property name="tooltip_text" translatable="yes">Video call friend</property>
                     <property name="relief">none</property>
                     <property name="always_show_image">True</property>
                     <child>
@@ -219,6 +222,7 @@
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
+                    <property name="tooltip_text" translatable="yes">Send file</property>
                     <property name="relief">none</property>
                     <signal name="clicked" handler="choose_file_to_send" swapped="no"/>
                     <child>
@@ -374,6 +378,7 @@
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">True</property>
+                            <property name="tooltip_text" translatable="yes">Close the popup</property>
                             <property name="halign">end</property>
                             <property name="image">image10</property>
                             <property name="relief">none</property>
@@ -833,6 +838,7 @@
             <property name="sensitive">False</property>
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
+            <property name="tooltip_text" translatable="yes">Send message</property>
             <property name="resize_mode">queue</property>
             <property name="relief">none</property>
             <property name="image_position">right</property>
