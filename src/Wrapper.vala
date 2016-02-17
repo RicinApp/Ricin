@@ -225,8 +225,10 @@ namespace Tox {
       handle.callback_friend_name ((self, num, name) => {
         var old_name = this.friends[num].name ?? (this.friends[num].pubkey.slice (0, 16) + "...");
         var new_name = Util.arr2str (name);
-        this.friends[num].friend_info (old_name + " is now known as " + new_name);
-        this.friends[num].name = new_name;
+        if (old_name != new_name) {
+          this.friends[num].friend_info (old_name + " is now known as " + new_name);
+          this.friends[num].name = new_name;
+        }
       });
 
       handle.callback_friend_status ((self, num, status) => {
