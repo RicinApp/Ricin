@@ -20,6 +20,17 @@ debug: ./build/
 	type ninja-build 2>/dev/null && ninja-build -C build || ninja -C build
 	G_MESSAGES_DEBUG=all GOBJECT_DEBUG=instance-count gdb -ex run ./build/Ricin
 
+cleanrelease:
+	type ninja-build 2>/dev/null && ninja-build -C build clean || ninja -C build clean
+	type ninja-build 2>/dev/null && ninja-build -C build || ninja -C build
+
+release: ./build/
+	type ninja-build 2>/dev/null && ninja-build -C build || ninja -C build
+	
+install: ./build/
+	type ninja-build 2>/dev/null && ninja-build -C build || ninja -C build
+	mv build/Ricin /usr/bin/Ricin
+
 debugwin:
 	valac \
 		--cc=x86_64-w64-mingw32-gcc \
