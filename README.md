@@ -44,6 +44,11 @@ _Screenshot might be outdated but it should give you a general idea of what is R
 | libsoup             | >=2.4     |
 | libnotify           | >=0.0.0   |
 
+### Archlinux
+```bash
+pacman -S meson ninja vala gtk3 toxcore glib2 json-glib libsoup libnotify
+```
+
 # Compiling
 
 ```bash
