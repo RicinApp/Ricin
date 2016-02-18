@@ -225,8 +225,13 @@ class Ricin.ChatView : Gtk.Box {
     fr.bind_property ("connected", entry, "sensitive", BindingFlags.DEFAULT);
     fr.bind_property ("connected", send, "sensitive", BindingFlags.DEFAULT);
     fr.bind_property ("connected", send_file, "sensitive", BindingFlags.DEFAULT);
-    fr.bind_property ("typing", friend_typing, "reveal_child", BindingFlags.DEFAULT);
+    //fr.bind_property ("typing", friend_typing, "reveal_child", BindingFlags.DEFAULT);
     fr.bind_property ("name", username, "label", BindingFlags.DEFAULT);
+
+    this.fr.notify["typing"].connect ((obj, prop) => {
+      this.friend_typing.reveal_child = this.fr.typing;
+      this.scroll_to_bottom ();
+    });
 
     this.fr.notify["status-message"].connect ((obj, prop) => {
       string markup = Util.add_markup (this.fr.status_message);
@@ -276,9 +281,11 @@ class Ricin.ChatView : Gtk.Box {
     this.label_notify_text.set_text (text);
     this.button_notify_close.clicked.connect (() => {
       this.notify.reveal_child = false;
+      this.scroll_to_bottom ();
     });
 
     this.notify.reveal_child = true;
+    this.scroll_to_bottom ();
   }
 
   [GtkCallback]
