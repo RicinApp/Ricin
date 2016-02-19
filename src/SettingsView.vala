@@ -21,10 +21,22 @@ class Ricin.SettingsView : Gtk.Notebook {
   [GtkChild] Gtk.Entry entry_proxy_port;
   */
 
+  // About tab.
+  [GtkChild] Gtk.Label label_app_name;
+  [GtkChild] Gtk.Label label_app_description;
+  [GtkChild] Gtk.Label label_app_version;
+
   private weak Tox.Tox handle;
 
   public SettingsView (Tox.Tox handle) {
     this.handle = handle;
+
+    // About tab →
+    this.label_app_name.set_text (Ricin.APP_NAME);
+    this.label_app_description.set_markup (Ricin.APP_SUMMARY);
+    this.label_app_version.set_text (Ricin.APP_VERSION);
+
+
     this.label_tox_id.set_text (handle.id);
 
     this.combobox_languages.append_text      ("English (default)");

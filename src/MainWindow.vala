@@ -93,7 +93,14 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
   public MainWindow (Gtk.Application app, string profile) {
     Object (application: app);
 
+    Gdk.Pixbuf app_icon = new Gdk.Pixbuf.from_resource ("/chat/tox/ricin/images/icons/Ricin-48x48.png");
+    string profile_base = File.new_for_path (profile).get_basename ();
+    string profile_name = profile_base.replace (".tox", "");
+    string app_title = "%s (%s) - %s".printf (Ricin.APP_NAME, Ricin.APP_VERSION, profile_name);
+
+    this.set_title (app_title);
     this.set_size_request (920, 500);
+    this.set_icon (app_icon);
 
     var opts = Tox.Options.create ();
     opts.ipv6_enabled = true;

@@ -14,7 +14,10 @@ class Ricin.ProfileChooser : Gtk.ApplicationWindow {
 
   public ProfileChooser (Gtk.Application app) {
     Object (application: app);
-    this.title = "Ricin - Select a profile";
+
+    Gdk.Pixbuf app_icon = new Gdk.Pixbuf.from_resource ("/chat/tox/ricin/images/icons/Ricin-48x48.png");
+    this.set_title ("%s - Select a profile".printf (Ricin.APP_NAME));
+    this.set_icon (app_icon);
 
     var dir = File.new_for_path (Tox.profile_dir ());
     string[] profiles = {};
