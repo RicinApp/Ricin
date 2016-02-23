@@ -1,17 +1,17 @@
-# build dir
+# build directories.
 build/
-win_build/
+build-win32/
 
-# Binary
+# Binary.
 Ricin
 
-# AStyle orig files
+# AStyle orig files.
 *.orig
 
-# gdb log
+# gdb logs.
 .gdb_history
 
-# this is a vala project
+# this is a vala project.
 *.c
 
 # Glade stupid temp files.
