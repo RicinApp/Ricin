@@ -14,7 +14,7 @@ class ThemeManager : GLib.Object {
 
   public string custom_themes_base_path = "/chat/tox/ricin";
   public string system_theme;
-  public string current_theme_name = "default";
+  public string current_theme_name = "dark";
 
   public ThemeManager () {
 
