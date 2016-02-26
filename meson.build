@@ -9,10 +9,10 @@ deps = [
     dependency('glib-2.0', version: '>=2.38'),
     dependency('gio-2.0'),
     dependency('gobject-2.0'),
-    dependency('gtk+-3.0'),
     dependency('gmodule-2.0'),
-    dependency('json-glib-1.0'),
+    dependency('gtk+-3.0'),
     dependency('libsoup-2.4'),
+    dependency('json-glib-1.0'),
     dependency('libtoxcore'),
     dependency('libnotify'),
 ]
