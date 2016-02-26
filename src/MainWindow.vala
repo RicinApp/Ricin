@@ -270,6 +270,7 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
         if (friend != null) {
           this.tox.save_data (); // Needed to avoid breaking profiles if app crash.
 
+          friend.name = id; // To avoid blank items.
           friend.position = friends.get_n_items ();
           debug ("Friend position: %u", friend.position);
           friends.append (friend);
