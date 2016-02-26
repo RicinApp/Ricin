@@ -561,3 +561,14 @@ GtkScrolledWindow {
 .chatview-notify-bar GtkButton:hover {
   background-color: #2980B9;
 }
+
+/** Friend request widget **/
+.friend-request {
+  background-color: #2c9f42;
+  color: @ui_text;
+}
+.friend-request GtkButton { background-color: #2c9f42; }
+.friend-request GtkButton:hover {
+  background-color: #237f35;
+  color: @ui_text;
+}

@@ -11,6 +11,19 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
   [GtkChild] Gtk.SearchEntry searchentry_friend;
   [GtkChild] Gtk.ComboBoxText combobox_friend_filter;
 
+  // Friend requests.
+  [GtkChild] Gtk.Revealer revealer_friend_request;
+  [GtkChild] Gtk.Box box_notify_friend_request;
+  [GtkChild] Gtk.Box box_friend_request_new;
+  [GtkChild] Gtk.Button button_friend_request_expand;
+  [GtkChild] Gtk.Image image_friend_request_expand;
+
+  [GtkChild] Gtk.Revealer revealer_friend_request_details;
+  [GtkChild] Gtk.Label label_friend_request_pubkey;
+  [GtkChild] Gtk.Label label_friend_request_message;
+  [GtkChild] Gtk.Button button_friend_request_accept;
+  [GtkChild] Gtk.Button button_friend_request_cancel;
+
   // Friendlist + chatview.
   [GtkChild] Gtk.ListBox friendlist;
   [GtkChild] public Gtk.Stack chat_stack;
@@ -239,28 +252,47 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
     });
 
     this.tox.friend_request.connect ((id, message) => {
-      var dialog = new Gtk.MessageDialog (this, Gtk.DialogFlags.MODAL, Gtk.MessageType.QUESTION, Gtk.ButtonsType.NONE, "Friend request from:");
-      dialog.secondary_text = @"$id\n\n$message";
-      dialog.add_buttons ("Accept", Gtk.ResponseType.ACCEPT, "Reject", Gtk.ResponseType.REJECT);
-      dialog.response.connect (response => {
-        if (response == Gtk.ResponseType.ACCEPT) {
-          var friend = tox.accept_friend_request (id);
-          if (friend != null) {
-            this.tox.save_data (); // Needed to avoid breaking profiles if app crash.
+      this.revealer_friend_request.reveal_child = true;
+      this.box_notify_friend_request.visible = true;
+      this.box_friend_request_new.visible = true;
+      this.label_friend_request_pubkey.set_text (id);
+      this.label_friend_request_message.set_text (message);
 
-            friend.position = friends.get_n_items ();
-            debug ("Friend position: %u", friend.position);
-            friends.append (friend);
-            var view_name = "chat-%s".printf (friend.pubkey);
-            chat_stack.add_named (new ChatView (this.tox, friend, this.chat_stack, view_name), view_name);
+      this.button_friend_request_expand.clicked.connect (() => {
+        var is_expanded = this.revealer_friend_request_details.reveal_child;
 
-            var info_message = "The friend request has been accepted. Please wait the contact to appears online.";
-            this.notify_message (@"<span color=\"#27ae60\">$info_message</span>", 5000);
-          }
-        }
-        dialog.destroy ();
+        this.image_friend_request_expand.icon_name = (is_expanded) ? "go-down-symbolic" : "go-top-symbolic";
+        this.revealer_friend_request_details.reveal_child = !is_expanded;
       });
-      dialog.show ();
+
+      this.button_friend_request_accept.clicked.connect (() => {
+        var friend = tox.accept_friend_request (id);
+        if (friend != null) {
+          this.tox.save_data (); // Needed to avoid breaking profiles if app crash.
+
+          friend.position = friends.get_n_items ();
+          debug ("Friend position: %u", friend.position);
+          friends.append (friend);
+          var view_name = "chat-%s".printf (friend.pubkey);
+          chat_stack.add_named (new ChatView (this.tox, friend, this.chat_stack, view_name), view_name);
+        }
+
+        this.revealer_friend_request.reveal_child = false;
+        this.box_notify_friend_request.visible = false;
+        this.box_friend_request_new.visible = false;
+        this.revealer_friend_request_details.reveal_child = false;
+        this.label_friend_request_pubkey.set_text ("");
+        this.label_friend_request_message.set_text ("");
+      });
+
+      this.button_friend_request_cancel.clicked.connect (() => {
+        this.revealer_friend_request.reveal_child = false;
+        this.box_notify_friend_request.visible = false;
+        this.box_friend_request_new.visible = false;
+        this.revealer_friend_request_details.reveal_child = false;
+        this.label_friend_request_pubkey.set_text ("");
+        this.label_friend_request_message.set_text ("");
+      });
     });
 
     this.tox.friend_online.connect ((friend) => {
