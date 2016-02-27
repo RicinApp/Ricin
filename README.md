@@ -4,7 +4,7 @@
       <strong><a href="#">Ricin</a></strong>: A Lightweight and Fully-Hackable Tox client powered by Vala & Gtk3!
     </td>
     <td>
-      <img src="https://img.shields.io/badge/version-0.0.2-brightgreen.svg?style=flat">
+      <img src="https://img.shields.io/badge/version-0.0.3%20beta-brightgreen.svg?style=flat">
       <a href="https://build.tox.chat/job/ricin_build_linux_x86-64_debug/lastBuild/">
         <img src="https://build.tox.chat/buildStatus/icon?job=ricin_build_linux_x86-64_debug&">
       </a>
