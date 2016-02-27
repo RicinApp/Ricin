@@ -30,7 +30,9 @@ release: ./build/
 # This need to be rewritted using ninja install to work on all systems.
 install: ./build/
 	type ninja-build 2>/dev/null && ninja-build -C build || ninja -C build
-	mv build/Ricin /usr/bin/Ricin
+	mv "build/Ricin" "/usr/bin/Ricin" # Binary
+	cp "misc/ricin.desktop" "/usr/share/applications/ricin.desktop" # Desktop file
+	cp "res/images/icons/Ricin-128x128.png" "/usr/share/icons/ricin.png" # Icon
 
 debugwin:
 	sudo /usr/bin/meson . build-win32 --cross-file cross_win.txt

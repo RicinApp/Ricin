@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Encoding=UTF-8
+Name=Ricin
+Comment=A dead-simple but powerful Tox client.
+Exec=Ricin
+Icon=/usr/share/icons/ricin.png
+Terminal=false
+Categories=Network
