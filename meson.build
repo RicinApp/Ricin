@@ -31,3 +31,6 @@ executable(
     ],
     install: true
 )
+
+install_data('misc/ricin.desktop', install_dir: '/usr/share/applications/')
+install_data('res/images/icons/Ricin-128x128.png', install_dir: '/usr/share/icons/')
