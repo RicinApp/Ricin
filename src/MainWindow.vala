@@ -39,7 +39,8 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
   [GtkChild] public Gtk.Revealer revealer_system_notify;
   [GtkChild] public Gtk.Label label_system_notify;
 
-  // Settings button.
+  // Bottom buttons.
+  [GtkChild] Gtk.Box box_bottom_buttons;
   [GtkChild] Gtk.Button button_settings;
 
   private ListStore friends = new ListStore (typeof (Tox.Friend));
@@ -339,8 +340,9 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
 
     this.entry_friend_id.set_text (toxid);
     this.entry_friend_message.buffer.text = friend_message;
-    this.button_add_friend_show.visible = false;
-    this.button_settings.visible = false;
+    //this.button_add_friend_show.visible = false;
+    //this.button_settings.visible = false;
+    this.box_bottom_buttons.visible = false;
     this.add_friend.reveal_child = true;
   }
 
@@ -431,8 +433,9 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
   private void hide_add_friend_popover () {
     this.add_friend.reveal_child = false;
     this.label_add_error.set_text ("Add a friend");
-    this.button_add_friend_show.visible = true;
-    this.button_settings.visible = true;
+    //this.button_add_friend_show.visible = true;
+    //this.button_settings.visible = true;
+    this.box_bottom_buttons.visible = true;
   }
 
   [GtkCallback]
@@ -475,7 +478,8 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
     }
 
     this.add_friend.reveal_child = false;
-    this.button_add_friend_show.visible = true;
+    //this.button_add_friend_show.visible = true;
+    this.box_bottom_buttons.visible = true;
   }
 
   [GtkCallback]

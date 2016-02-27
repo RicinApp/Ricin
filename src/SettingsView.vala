@@ -44,32 +44,21 @@ class Ricin.SettingsView : Gtk.Box {
     box.set_homogeneous (true);
 
     var pages_number = this.notebook_settings.get_n_pages ();
-    debug (@"Number of tabs: $pages_number");
     for (var i = 0; i < pages_number; i++) {
       var page_num = i;
       var page = this.notebook_settings.get_nth_page (i);
       var label = this.notebook_settings.get_tab_label_text (page);
 
       var btn = new Gtk.Button.with_mnemonic (label);
-      debug (@"Starting job for $label, loop round: $i");
+      btn.set_relief (Gtk.ReliefStyle.NONE);
       btn.clicked.connect (() => {
         this.notebook_settings.set_current_page (page_num);
-        debug (@"Changing tab to $label - tab_num: $page_num");
       });
 
       box.pack_start (btn, true, true, 0);
     }
 
-		/*box.pack_start (new Gtk.Button.with_mnemonic ("General"), true, true, 0);
-		box.pack_start (new Gtk.Button.with_mnemonic ("Network"), true, true, 0);
-		box.pack_start (new Gtk.Button.with_mnemonic ("Interface"), true, true, 0);
-		box.pack_start (new Gtk.Button.with_mnemonic ("About"), true, true, 0);*/
     this.box_tab_buttons.add (box);
-
-    /*this.box_tab_buttons = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
-    this.box_tab_buttons.set_homogeneous (true);
-    this.box_tab_buttons.pack_start (new Gtk.Button.with_label ("General"));*/
-
 
     // About tab →
     this.label_app_name.set_text (Ricin.APP_NAME);
@@ -81,7 +70,7 @@ class Ricin.SettingsView : Gtk.Box {
     this.combobox_languages.append_text      ("English (default)");
     this.combobox_languages.append_text      ("Français");
 
-    this.combobox_toxme_servers.append_text  ("Ricin.im (defaultquit)");
+    this.combobox_toxme_servers.append_text  ("Ricin.im (default)");
     this.combobox_toxme_servers.append_text  ("ToxMe.io (stable)");
     this.combobox_toxme_servers.append_text  ("uTox.org (stable)");
     // this.combobox_toxme_servers.append ("toxing.me", "Toxing.me (unstable)");
