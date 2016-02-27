@@ -12,6 +12,7 @@ class ThemeManager : GLib.Object {
     }
   }
 
+  private Gtk.CssProvider current_provider;
   public string custom_themes_base_path = "/chat/tox/ricin";
   public string system_theme;
   public string current_theme_name = "dark";
@@ -21,8 +22,15 @@ class ThemeManager : GLib.Object {
   }
 
   private void add_provider (Gtk.CssProvider provider) {
+    this.current_provider = provider;
     Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (),
-        provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+      this.current_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+  }
+
+  private void remove_provider () {
+    Gtk.StyleContext.remove_provider_for_screen (Gdk.Screen.get_default (),
+      this.current_provider);
+    Gtk.StyleContext.reset_widgets (Gdk.Screen.get_default ());
   }
 
   public void get_themes_list () {
@@ -40,6 +48,7 @@ class ThemeManager : GLib.Object {
   }
 
   public void set_system_theme () {
+    this.remove_provider ();
     Gtk.Settings settings = Gtk.Settings.get_default ();
     this.system_theme = "%s".printf (settings.gtk_theme_name);
     this.current_theme_name = this.system_theme;
