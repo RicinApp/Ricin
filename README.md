@@ -1,7 +1,7 @@
 <table align="center" width="100%">
   <tr>
     <td>
-      <strong><a href="#">Ricin</a></strong>: A Lightweight and Fully-Hackable Tox client powered by Vala & Gtk3!
+      <strong><a href="https://ricin.im">Ricin</a></strong>: A Lightweight and Fully-Hackable Tox client powered by Vala & Gtk3!
     </td>
     <td>
       <img src="https://img.shields.io/badge/version-0.0.3%20beta-brightgreen.svg?style=flat">
