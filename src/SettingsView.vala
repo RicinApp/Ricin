@@ -1,11 +1,16 @@
 [GtkTemplate (ui="/chat/tox/ricin/ui/settings-view.ui")]
-class Ricin.SettingsView : Gtk.Notebook {
+class Ricin.SettingsView : Gtk.Box {
+  // Notebook buttons
+  [GtkChild] Gtk.Box box_tab_buttons;
+  [GtkChild] Gtk.Notebook notebook_settings;
+
   // General settings tab.
   [GtkChild] Gtk.Label label_tox_id;
   [GtkChild] Gtk.Label label_toxme_alias;
   [GtkChild] Gtk.ComboBoxText combobox_toxme_servers;
   [GtkChild] Gtk.ComboBoxText combobox_languages;
 
+  // Interface settings tab;
   [GtkChild] Gtk.Switch switch_custom_themes;
   [GtkChild] Gtk.ComboBoxText combobox_selected_theme;
   [GtkChild] Gtk.Button button_reload_theme;
@@ -31,23 +36,57 @@ class Ricin.SettingsView : Gtk.Notebook {
   public SettingsView (Tox.Tox handle) {
     this.handle = handle;
 
+    /**
+    * Pack buttons in the RicinSettingsView box.
+    * This is a quick fix for the issue with tabpages.
+    **/
+    Gtk.Box box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+    box.set_homogeneous (true);
+
+    var pages_number = this.notebook_settings.get_n_pages ();
+    debug (@"Number of tabs: $pages_number");
+    for (var i = 0; i < pages_number; i++) {
+      var page_num = i;
+      var page = this.notebook_settings.get_nth_page (i);
+      var label = this.notebook_settings.get_tab_label_text (page);
+
+      var btn = new Gtk.Button.with_mnemonic (label);
+      debug (@"Starting job for $label, loop round: $i");
+      btn.clicked.connect (() => {
+        this.notebook_settings.set_current_page (page_num);
+        debug (@"Changing tab to $label - tab_num: $page_num");
+      });
+
+      box.pack_start (btn, true, true, 0);
+    }
+
+		/*box.pack_start (new Gtk.Button.with_mnemonic ("General"), true, true, 0);
+		box.pack_start (new Gtk.Button.with_mnemonic ("Network"), true, true, 0);
+		box.pack_start (new Gtk.Button.with_mnemonic ("Interface"), true, true, 0);
+		box.pack_start (new Gtk.Button.with_mnemonic ("About"), true, true, 0);*/
+    this.box_tab_buttons.add (box);
+
+    /*this.box_tab_buttons = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+    this.box_tab_buttons.set_homogeneous (true);
+    this.box_tab_buttons.pack_start (new Gtk.Button.with_label ("General"));*/
+
+
     // About tab →
     this.label_app_name.set_text (Ricin.APP_NAME);
     this.label_app_description.set_markup (Ricin.APP_SUMMARY);
     this.label_app_version.set_text (Ricin.APP_VERSION);
-
 
     this.label_tox_id.set_text (handle.id);
 
     this.combobox_languages.append_text      ("English (default)");
     this.combobox_languages.append_text      ("Français");
 
-    this.combobox_toxme_servers.append_text  ("Ricin.im (stable)");
+    this.combobox_toxme_servers.append_text  ("Ricin.im (defaultquit)");
     this.combobox_toxme_servers.append_text  ("ToxMe.io (stable)");
     this.combobox_toxme_servers.append_text  ("uTox.org (stable)");
     // this.combobox_toxme_servers.append ("toxing.me", "Toxing.me (unstable)");
 
-    this.combobox_selected_theme.append_text ("Dark theme (Default)");
+    this.combobox_selected_theme.append_text ("Dark theme (default)");
     this.combobox_selected_theme.append_text ("White theme");
     this.combobox_selected_theme.append_text ("Clearer theme");
 

@@ -292,39 +292,15 @@ GtkScrolledWindow {
     -GtkNotebook-tab-curvature: 2;
 }
 
-.secondary-background .notebook tab:nth-child(first) {
-    margin-top: 3px;
+.notebook-buttons,
+.notebook-buttons GtkButton {
+  background-color: @ui_darker;
+  color: @ui_text;
 }
 
-.secondary-background .notebook tab {
-    padding: 10px 50px;
-    background-image: none;
-    -adwaita-focus-border-radius: 4;
-    color: @ui_text;
-    background-color: @ui_darker;
-}
-
-.secondary-background .notebook tab:hover,
-.secondary-background .notebook tab:prelight {
-    transition: 5000ms ease-in-out;
-    background-image: none;
-    background: @main_ddark_hover;
-    background-color: @main_ddark_hover;
-    border-color: @main_ddark_hover;
-    /*border-left: 2px solid @main_blue;*/
-}
-
-.secondary-background .notebook tab:active {
-    background-color: @ui_darker;
-    border-color: #358dc6;
-    border-bottom: 2px solid #358dc6;
-    color: white;
-}
-
-.secondary-background .notebook tab GtkLabel {
-    background-color: transparent;
-    background: transparent;
-    background-image: none;
+.notebook-buttons GtkButton:hover {
+  background-color: @ui_dark;
+  color: @ui_text;
 }
 
 .friend-infos {
