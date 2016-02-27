@@ -19,3 +19,9 @@
 @define-color selected_text_color #5688F9;
 
 @import url("app.css");
+
+RicinSettingsView GtkComboBoxText,
+RicinSettingsView GtkEntry,
+RicinSettingsView GtkButton {
+  color: @ui_text;
+}

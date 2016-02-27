@@ -30,7 +30,7 @@ release: ./build/
 # This need to be rewritted using ninja install to work on all systems.
 install: ./build/
 	type ninja-build 2>/dev/null && ninja-build -C build || ninja -C build
-	mv "build/Ricin" "/usr/bin/Ricin" # Binary
+	cp "build/Ricin" "/usr/bin/Ricin" # Binary
 	cp "misc/ricin.desktop" "/usr/share/applications/ricin.desktop" # Desktop file
 	cp "res/images/icons/Ricin-128x128.png" "/usr/share/icons/Ricin-128x128.png" # Icon
 
