@@ -46,6 +46,7 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
 
   public Tox.Tox tox;
   public string focused_view;
+  private Gtk.ListBoxRow selected_row;
   private Gtk.Menu menu_statusicon_main;
   private Gtk.StatusIcon statusicon_main;
 
@@ -145,6 +146,7 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
     var settings = new SettingsView (this.tox);
     this.chat_stack.add_named (settings, "settings");
     this.chat_stack.set_visible_child (settings);
+    this.focused_view = "settings";
 
     var path = avatar_path ();
     if (FileUtils.test (path, FileTest.EXISTS)) {
@@ -406,10 +408,12 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
 
   [GtkCallback]
   private void show_settings () {
+    this.friendlist.unselect_row (this.selected_row);
     var settings_view = this.chat_stack.get_child_by_name ("settings");
 
     if (settings_view != null) {
       this.chat_stack.set_visible_child (settings_view);
+      this.focused_view = "settings";
     } else {
       var view = new SettingsView (tox);
       this.chat_stack.add_named (view, "settings");
@@ -489,6 +493,7 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
       (chat_view as ChatView).entry.grab_focus ();
       this.chat_stack.set_visible_child (chat_view);
       this.focused_view = view_name;
+      this.selected_row = row;
     }
   }
 
