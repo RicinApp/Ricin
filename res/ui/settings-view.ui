@@ -440,7 +440,7 @@
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="orientation">vertical</property>
-                        <property name="spacing">5</property>
+                        <property name="spacing">10</property>
                         <child>
                           <object class="GtkLabel" id="label_network_info">
                             <property name="visible">True</property>
@@ -461,8 +461,6 @@
                           <object class="GtkSeparator" id="separator3">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="margin_top">10</property>
-                            <property name="margin_bottom">10</property>
                           </object>
                           <packing>
                             <property name="expand">False</property>
@@ -475,6 +473,7 @@
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="halign">center</property>
+                            <property name="spacing">5</property>
                             <property name="homogeneous">True</property>
                             <child>
                               <object class="GtkLabel" id="label_udp">
@@ -546,8 +545,6 @@
                       <object class="GtkSeparator" id="separator2">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="margin_top">2</property>
-                        <property name="margin_bottom">2</property>
                       </object>
                       <packing>
                         <property name="expand">False</property>
@@ -560,32 +557,19 @@
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="orientation">vertical</property>
-                        <property name="spacing">5</property>
+                        <property name="spacing">10</property>
                         <child>
-                          <object class="GtkLabel" id="label_proxy">
-                            <property name="visible">True</property>
-                            <property name="can_focus">False</property>
-                            <property name="halign">start</property>
-                            <property name="label" translatable="yes">&lt;b&gt;Proxy (SOCKS 5):&lt;/b&gt;</property>
-                            <property name="use_markup">True</property>
-                          </object>
-                          <packing>
-                            <property name="expand">False</property>
-                            <property name="fill">True</property>
-                            <property name="position">0</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkBox" id="box_proxy_settings">
+                          <object class="GtkBox" id="box14">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="halign">center</property>
-                            <property name="spacing">5</property>
+                            <property name="spacing">10</property>
                             <child>
-                              <object class="GtkLabel" id="label_proxy_enabled">
+                              <object class="GtkLabel" id="label_proxy">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
-                                <property name="label" translatable="yes">&lt;b&gt;Enabled?&lt;/b&gt;</property>
+                                <property name="halign">start</property>
+                                <property name="label" translatable="yes">&lt;b&gt;Proxy (SOCKS 5):&lt;/b&gt;</property>
                                 <property name="use_markup">True</property>
                               </object>
                               <packing>
@@ -606,6 +590,19 @@
                                 <property name="position">1</property>
                               </packing>
                             </child>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">False</property>
+                            <property name="position">0</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkBox" id="box_proxy_settings">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="halign">center</property>
+                            <property name="spacing">5</property>
                             <child>
                               <object class="GtkEntry" id="entry_proxy_ip">
                                 <property name="visible">True</property>
