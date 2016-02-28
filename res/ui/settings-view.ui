@@ -68,7 +68,7 @@
                           <object class="GtkBox" id="header_tox_id">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="spacing">10</property>
+                            <property name="spacing">5</property>
                             <property name="homogeneous">True</property>
                             <child>
                               <object class="GtkLabel" id="label_header_tox_id">
@@ -242,8 +242,8 @@
                           <object class="GtkGrid" id="grid1">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="row_spacing">2</property>
-                            <property name="column_spacing">5</property>
+                            <property name="row_spacing">5</property>
+                            <property name="column_spacing">10</property>
                             <property name="column_homogeneous">True</property>
                             <child>
                               <object class="GtkLabel" id="label1">
