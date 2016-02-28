@@ -94,10 +94,10 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
       if (response == Gtk.ResponseType.ACCEPT) {
         bool result = friend.delete ();
         if (result) {
-          if (friend.num == 0) {
+          if (friend.position == 0) {
             this.friends.remove (0); // TODO: Verify this.
           } else {
-            this.friends.remove (friend.num - 1);
+            this.friends.remove (friend.position);
           }
           this.friendlist.invalidate_filter (); // Update the friendlist.
           this.friendlist.invalidate_sort (); // Update the friendlist.

@@ -2,6 +2,7 @@
 <!-- Generated with glade 3.19.0 -->
 <interface>
   <requires lib="gtk+" version="3.16"/>
+  <!-- interface-local-resource-path ../images/icons -->
   <object class="GtkImage" id="image1">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
@@ -952,21 +953,44 @@
                         <property name="orientation">vertical</property>
                         <property name="spacing">5</property>
                         <child>
-                          <object class="GtkLabel" id="label_app_name">
+                          <object class="GtkBox" id="box13">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="label" translatable="yes">Ricin</property>
-                            <property name="ellipsize">end</property>
-                            <property name="width_chars">20</property>
-                            <property name="single_line_mode">True</property>
-                            <property name="max_width_chars">20</property>
-                            <attributes>
-                              <attribute name="size" value="24000"/>
-                            </attributes>
+                            <property name="halign">center</property>
+                            <property name="spacing">10</property>
+                            <child>
+                              <object class="GtkImage" id="image2">
+                                <property name="width_request">48</property>
+                                <property name="height_request">48</property>
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="resource">/chat/tox/ricin/images/icons/Ricin-48x48.png</property>
+                              </object>
+                              <packing>
+                                <property name="expand">True</property>
+                                <property name="fill">False</property>
+                                <property name="position">0</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkLabel" id="label_app_name">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="label" translatable="yes">Ricin</property>
+                                <attributes>
+                                  <attribute name="size" value="24000"/>
+                                </attributes>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="fill">True</property>
+                                <property name="position">1</property>
+                              </packing>
+                            </child>
                           </object>
                           <packing>
                             <property name="expand">False</property>
-                            <property name="fill">True</property>
+                            <property name="fill">False</property>
                             <property name="position">0</property>
                           </packing>
                         </child>
@@ -1033,7 +1057,7 @@
                           <packing>
                             <property name="expand">False</property>
                             <property name="fill">True</property>
-                            <property name="position">3</property>
+                            <property name="position">2</property>
                           </packing>
                         </child>
                         <child>
@@ -1171,6 +1195,10 @@
                             <property name="receives_default">True</property>
                             <property name="relief">none</property>
                             <property name="uri">https://ricin.im</property>
+                            <style>
+                              <class name="button-dark"/>
+                              <class name="button-inverted"/>
+                            </style>
                           </object>
                           <packing>
                             <property name="expand">False</property>
