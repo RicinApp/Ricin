@@ -29,51 +29,79 @@ GtkSwitch
 }
 
 GtkSwitch {
-    border-radius: 2px;
+  border-radius: 2px;
 }
 
 GtkSwitch.trough {
-   background: #E74C3C;
+  background: #E74C3C;
 }
 
 GtkSwitch.trough:active {
-    background: #27AE60;
+  background: #27AE60;
 }
 
 GtkSwitch.trough:insensitive {
-    background-image: none;
+  background-image: none;
 }
 
 GtkSwitch.trough:backdrop {
-    background: #E74C3C;
+  background: #E74C3C;
 }
 
 GtkSwitch.trough:active:backdrop {
-    background: #27AE60;
+  background: #27AE60;
 }
 
 GtkSwitch.trough:insensitive:backdrop {
-    background: @ui_darker;
+  background: @ui_darker;
 }
 
 GtkSwitch.slider {
-    background: @ui_darker;
-    border-top-left-radius: 2px;
-    border-top-right-radius: 0px;
-    border-bottom-left-radius: 2px;
-    border-bottom-right-radius: 0px;
+  background: @ui_darker;
+  border-top-left-radius: 2px;
+  border-top-right-radius: 0px;
+  border-bottom-left-radius: 2px;
+  border-bottom-right-radius: 0px;
 }
 
 GtkSwitch.slider:insensitive {
-    background-image: none;
-    box-shadow: none;
+  background-image: none;
+  box-shadow: none;
 }
 
 GtkSwitch.slider:active {
-    border-top-left-radius: 0px;
-    border-top-right-radius: 2px;
-    border-bottom-left-radius: 0px;
-    border-bottom-right-radius: 2px;
+  border-top-left-radius: 0px;
+  border-top-right-radius: 2px;
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 2px;
+}
+
+GtkScrollbar {
+  background: transparent;
+  border: none;
+}
+
+GtkScrollbar.slider {
+  background: @ui_darker;
+}
+
+GtkMenu {
+background: @ui_darker;
+border: none;
+border-width: 0;
+border-image: none;
+border-style: none;
+border-radius: 0;
+
+box-shadow: none;
+text-shadow: none;
+}
+
+
+GtkMenu GtkMenuItem:hover {
+background: @ui_main;
+border: none;
+border-image: none;
 }
 
 /** CSS overrides. **/
