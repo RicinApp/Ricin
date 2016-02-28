@@ -10,6 +10,7 @@ src = files([
     'QuoteMessageListRow.vala',
     'QuoteLabel.vala',
     'PlainLabel.vala',
+    'EditableLabel.vala',
     'MessageListRow.vala',
     'FriendListRow.vala',
     'MainWindow.vala',

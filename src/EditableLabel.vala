@@ -9,44 +9,57 @@ public class Ricin.EditableLabel : Gtk.EventBox {
   public string text { get; set; }
 
   public signal void label_changed(string label_text);
-  public signal void show_entry();
-  public signal void show_label();
+  public signal void show_entry ();
+  public signal void show_label ();
 
   public EditableLabel(string label = "") {
     this.label = new Gtk.Label(label);
+    this.text = label;
+
     init_widgets();
     init_signals();
   }
 
   public EditableLabel.with_label(Gtk.Label label) {
     this.label = label;
+
     init_widgets();
     init_signals();
   }
 
   private void on_show_label() {
     box_label.visible = true;
+    this.label.set_text (this.text);
     box_entry.visible = false;
   }
 
   private void on_show_entry() {
     box_label.visible = false;
     box_entry.no_show_all = false;
+    this.entry.set_text (this.text);
     box_entry.show_all();
     box_entry.visible = true;
     box_entry.no_show_all = true;
   }
 
   private void init_widgets() {
-    entry = new Gtk.Entry();
-    button_ok = new Gtk.Button();
-    button_cancel = new Gtk.Button();
+    this.entry = new Gtk.Entry();
+    this.button_ok = new Gtk.Button();
+    this.button_cancel = new Gtk.Button();
 
-    entry.has_frame = false;
-    entry.width_chars = 10;
+    this.label.justify = Gtk.Justification.LEFT;
+    this.label.height_request = 30;
+    this.entry.get_style_context().add_class ("entry-principal");
+    this.button_ok.get_style_context().add_class ("button-dark");
+    this.button_ok.relief = Gtk.ReliefStyle.NONE;
+    this.button_cancel.get_style_context().add_class ("button-dark");
+    this.button_cancel.relief = Gtk.ReliefStyle.NONE;
 
-    button_ok.add(new Gtk.Image.from_icon_name ("object-select", Gtk.IconSize.BUTTON));
-    button_cancel.add(new Gtk.Image.from_icon_name ("window-close", Gtk.IconSize.BUTTON));
+    this.entry.has_frame = false;
+    this.entry.width_chars = 10;
+
+    this.button_ok.add(new Gtk.Image.from_icon_name ("object-select-symbolic", Gtk.IconSize.BUTTON));
+    this.button_cancel.add(new Gtk.Image.from_icon_name ("window-close-symbolic", Gtk.IconSize.BUTTON));
 
     Gtk.Box box = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
     box_label = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0);
@@ -65,13 +78,14 @@ public class Ricin.EditableLabel : Gtk.EventBox {
     this.add(box);
   }
 
-  private void on_cancel() {
-    show_label();
+  private void on_cancel () {
+    show_label ();
   }
 
-  private void on_ok() {
-    show_label();
-    label_changed(entry.text);
+  private void on_ok () {
+    show_label ();
+    this.text = entry.text;
+    label_changed (entry.text);
   }
 
   private bool check_focus() {

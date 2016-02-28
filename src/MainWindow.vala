@@ -1,9 +1,12 @@
 [GtkTemplate (ui="/chat/tox/ricin/ui/main-window.ui")]
 public class Ricin.MainWindow : Gtk.ApplicationWindow {
   // User profile.
+  [GtkChild] Gtk.Box box_profile;
   [GtkChild] Gtk.Image avatar_image;
-  [GtkChild] Gtk.Entry entry_name;
-  [GtkChild] Gtk.Entry entry_status;
+  //[GtkChild] Gtk.Entry entry_name;
+  //[GtkChild] Gtk.Entry entry_status;
+  private EditableLabel entry_name;
+  private EditableLabel entry_status;
   [GtkChild] Gtk.Button button_user_status;
   [GtkChild] Gtk.Image image_user_status;
 
@@ -163,8 +166,25 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
 
     this.init_tray_icon ();
     // TODO
-    this.entry_name.set_text (tox.username);
-    this.entry_status.set_text (tox.status_message);
+    this.entry_name = new EditableLabel (tox.username);
+    this.entry_status = new EditableLabel (tox.status_message);
+
+    //this.box_profile = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+    this.box_profile.pack_start (this.entry_name, true, true, 0);
+    this.box_profile.pack_start (this.entry_status, true, true, 0);
+
+    this.entry_status.label.bind_property ("label", tox, "status_message", BindingFlags.BIDIRECTIONAL | BindingFlags.SYNC_CREATE);
+    this.entry_name.label_changed.connect ((text) => {
+      debug (@"New username: $text");
+      this.tox.username = Util.escape_html (text);
+    });
+    this.entry_status.label_changed.connect ((text) => {
+      debug (@"New status message: $text");
+      this.tox.status_message = Util.escape_html (text);
+    });
+
+    /*this.entry_name.set_text (tox.username);
+    this.entry_status.set_text (tox.status_message);*/
     this.image_user_status.set_from_resource ("/chat/tox/ricin/images/status/offline.png");
 
     // Filter + search.
@@ -225,8 +245,6 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
       var view_name = "chat-%s".printf (friend.pubkey);
       this.chat_stack.add_named (new ChatView (this.tox, friend, this.chat_stack, view_name), view_name);
     }
-
-    this.entry_status.bind_property ("text", tox, "status_message", BindingFlags.BIDIRECTIONAL | BindingFlags.SYNC_CREATE);
 
     tox.notify["connected"].connect ((src, prop) => {
       string icon = "";
@@ -517,10 +535,10 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
     }
   }
 
-  [GtkCallback]
-  private void set_username_from_entry () {
-    this.tox.username = Util.escape_html (this.entry_name.text);
-  }
+  //[GtkCallback]
+  /*private void set_username_from_entry () {
+    this.tox.username = Util.escape_html (this.entry_name.label.text);
+  }*/
 
   [GtkCallback]
   private void cycle_user_status () {

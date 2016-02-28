@@ -352,6 +352,9 @@ GtkScrolledWindow {
   color: @ui_text;
 }
 
+.button-text-fix {
+  color: @ui_text;
+}
 .button-inverted:hover {
   background-color: @ui_main;
 }
@@ -373,7 +376,7 @@ GtkScrolledWindow {
   color: @ui_text;
 }
 .entry-inverted:selected {
-    background-color: #5688f9;
+    background-color: @selected_text_color;
 }
 .entry-inverted:hover {
   background-color: @ui_main;
@@ -415,7 +418,7 @@ GtkScrolledWindow {
 	background-image: none;
 	border-image: none;
 
-	background-color: transparent;
+	background-color: @ui_darker;
 	border: none;
 	border-radius: 0;
 
