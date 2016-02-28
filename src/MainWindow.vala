@@ -94,7 +94,13 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
       if (response == Gtk.ResponseType.ACCEPT) {
         bool result = friend.delete ();
         if (result) {
-          this.friends.remove (friend.num); // TODO: Verify this.
+          if (friend.num == 0) {
+            this.friends.remove (0); // TODO: Verify this.
+          } else {
+            this.friends.remove (friend.num - 1);
+          }
+          this.friendlist.invalidate_filter (); // Update the friendlist.
+          this.friendlist.invalidate_sort (); // Update the friendlist.
           this.tox.save_data ();
         }
       }
@@ -255,25 +261,28 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
     });
 
     this.tox.friend_request.connect ((id, message) => {
+      debug (@"Received friend request from $id: $message");
+
       this.revealer_friend_request.reveal_child = true;
-      this.box_notify_friend_request.visible = true;
-      this.box_friend_request_new.visible = true;
+      this.revealer_friend_request_details.reveal_child = false;
+
       this.label_friend_request_pubkey.set_text (id);
       this.label_friend_request_message.set_text (message);
+      this.image_friend_request_expand.icon_name = "go-down-symbolic";
 
       this.button_friend_request_expand.clicked.connect (() => {
-        var is_expanded = this.revealer_friend_request_details.reveal_child;
-
-        this.image_friend_request_expand.icon_name = (is_expanded) ? "go-down-symbolic" : "go-top-symbolic";
+        bool is_expanded = this.revealer_friend_request_details.child_revealed;
         this.revealer_friend_request_details.reveal_child = !is_expanded;
+        this.image_friend_request_expand.icon_name = (is_expanded) ? "go-top-symbolic" : "go-down-symbolic";
       });
 
       this.button_friend_request_accept.clicked.connect (() => {
+        debug (@"Accepted friend request from $id");
         var friend = tox.accept_friend_request (id);
         if (friend != null) {
+          friend.name = id; // To avoid blank items.
           this.tox.save_data (); // Needed to avoid breaking profiles if app crash.
 
-          friend.name = id; // To avoid blank items.
           friend.position = friends.get_n_items ();
           debug ("Friend position: %u", friend.position);
           friends.append (friend);
@@ -282,20 +291,23 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
         }
 
         this.revealer_friend_request.reveal_child = false;
-        this.box_notify_friend_request.visible = false;
-        this.box_friend_request_new.visible = false;
         this.revealer_friend_request_details.reveal_child = false;
         this.label_friend_request_pubkey.set_text ("");
         this.label_friend_request_message.set_text ("");
+        /*this.box_notify_friend_request.visible = false;
+        this.box_friend_request_new.visible = false;
+        this.image_friend_request_expand.icon_name = "go-down-symbolic";*/
       });
 
       this.button_friend_request_cancel.clicked.connect (() => {
+        debug (@"Rejected friend request from $id");
         this.revealer_friend_request.reveal_child = false;
-        this.box_notify_friend_request.visible = false;
-        this.box_friend_request_new.visible = false;
         this.revealer_friend_request_details.reveal_child = false;
         this.label_friend_request_pubkey.set_text ("");
         this.label_friend_request_message.set_text ("");
+        /*this.box_notify_friend_request.visible = false;
+        this.box_friend_request_new.visible = false;
+        this.image_friend_request_expand.icon_name = "go-down-symbolic";*/
       });
     });
 
@@ -451,14 +463,15 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
     this.label_add_error.selectable = true;
     this.label_add_error.set_line_wrap (true);
 
-    if (tox_id.length == ToxCore.ADDRESS_SIZE*2) { // bytes -> chars
+    if (tox_id.length == ToxCore.ADDRESS_SIZE * 2) { // bytes -> chars
       try {
         var friend = tox.add_friend (tox_id, message);
         this.tox.save_data (); // Needed to avoid breaking profiles if app crash.
         this.entry_friend_id.set_text (""); // Clear the entry after adding a friend.
         this.add_friend.reveal_child = false;
         this.label_add_error.set_text ("Add a friend");
-        this.button_add_friend_show.visible = true;
+        //this.button_add_friend_show.visible = true;
+        this.box_bottom_buttons.visible = true;
         return;
       } catch (Tox.ErrFriendAdd error) {
         debug ("Adding friend failed: %s", error.message);

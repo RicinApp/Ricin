@@ -20,7 +20,11 @@ class Ricin.FriendListRow : Gtk.ListBoxRow {
 
     debug (@"Friend name: $(this.fr.name)");
     if (this.fr.name == null) {
-      this.username.set_text (this.fr.get_uname ());
+      if (this.fr.get_uname () == null) {
+        this.username.set_text (this.fr.pubkey);
+      } else {
+        this.username.set_text (this.fr.get_uname ());
+      }
       this.status.set_markup (this.fr.get_ustatus_message ());
     } else {
       this.username.set_text (this.fr.name);
