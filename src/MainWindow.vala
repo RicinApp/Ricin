@@ -166,6 +166,13 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
 
     this.init_tray_icon ();
     // TODO
+    if (tox.username == "") {
+      tox.username = "Ricin user";
+    }
+    if (tox.status_message == "") {
+      tox.status_message = "Ricin rocks! https://ricin.im";
+    }
+
     this.entry_name = new EditableLabel (tox.username);
     this.entry_status = new EditableLabel (tox.status_message);
 
