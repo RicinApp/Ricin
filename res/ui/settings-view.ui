@@ -500,6 +500,18 @@
                               </packing>
                             </child>
                             <child>
+                              <object class="GtkSeparator" id="separator9">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="orientation">vertical</property>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="fill">True</property>
+                                <property name="position">2</property>
+                              </packing>
+                            </child>
+                            <child>
                               <object class="GtkLabel" id="label_ipv6">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
@@ -509,7 +521,7 @@
                               <packing>
                                 <property name="expand">False</property>
                                 <property name="fill">False</property>
-                                <property name="position">2</property>
+                                <property name="position">3</property>
                               </packing>
                             </child>
                             <child>
@@ -522,7 +534,7 @@
                               <packing>
                                 <property name="expand">False</property>
                                 <property name="fill">False</property>
-                                <property name="position">3</property>
+                                <property name="position">4</property>
                               </packing>
                             </child>
                           </object>
@@ -935,7 +947,7 @@
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="orientation">vertical</property>
-                    <property name="spacing">10</property>
+                    <property name="spacing">5</property>
                     <child>
                       <object class="GtkBox" id="box_about_page">
                         <property name="visible">True</property>
@@ -1055,8 +1067,6 @@
                           <object class="GtkSeparator" id="separator6">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="margin_top">5</property>
-                            <property name="margin_bottom">5</property>
                           </object>
                           <packing>
                             <property name="expand">False</property>
@@ -1068,7 +1078,7 @@
                           <object class="GtkBox" id="box3">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="spacing">10</property>
+                            <property name="spacing">5</property>
                             <property name="homogeneous">True</property>
                             <child>
                               <object class="GtkLinkButton" id="linkbutton_github">
