@@ -86,22 +86,26 @@ GtkScrollbar.slider {
 }
 
 GtkMenu {
-background: @ui_darker;
-border: none;
-border-width: 0;
-border-image: none;
-border-style: none;
-border-radius: 0;
+  background: @ui_darker;
+  border: none;
+  border-width: 0;
+  border-image: none;
+  border-style: none;
+  border-radius: 0;
 
-box-shadow: none;
-text-shadow: none;
+  box-shadow: none;
+  text-shadow: none;
 }
 
+GtkMenu GtkMenuItem {
+  color: @ui_text;
+}
 
 GtkMenu GtkMenuItem:hover {
-background: @ui_main;
-border: none;
-border-image: none;
+  background: @ui_main;
+  color: @ui_text;
+  border: none;
+  border-image: none;
 }
 
 /** CSS overrides. **/
