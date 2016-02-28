@@ -14,6 +14,7 @@
         <file preprocess="xml-stripblanks" compressed="true">ui/plain-label.ui</file>
         <file preprocess="xml-stripblanks" compressed="true">ui/chat-view.ui</file>
         <file preprocess="xml-stripblanks" compressed="true">ui/settings-view.ui</file>
+        <file preprocess="xml-stripblanks" compressed="true">ui/welcome-view.ui</file>
 
         <file compressed="true">themes/dark.css</file>
         <file compressed="true">themes/white.css</file>

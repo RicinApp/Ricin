@@ -16,6 +16,7 @@ src = files([
     'Notification.vala',
     'ProfileChooser.vala',
     'Ricin.vala',
+    'WelcomeView.vala',
     'SettingsView.vala',
     'Util.vala',
     'Wrapper.vala',

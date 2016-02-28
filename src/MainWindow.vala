@@ -144,16 +144,15 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
       return;
     }
 
-    //** TEMP DEV ZONE **//
-    // HistoryManager history = new HistoryManager ();
-    // history.write ("test", "lel");
-    //** TEMP DEV ZONE **//
-
-    // Display the settings window while their is no friends online.
     var settings = new SettingsView (this.tox);
     this.chat_stack.add_named (settings, "settings");
     this.chat_stack.set_visible_child (settings);
     this.focused_view = "settings";
+    // Display the welcome screen while their is no friends online.
+    /*var welcome = new WelcomeView (this.tox);
+    this.chat_stack.add_named (welcome, "welcome");
+    this.chat_stack.set_visible_child (welcome);
+    this.focused_view = "welcome";*/
 
     var path = avatar_path ();
     if (FileUtils.test (path, FileTest.EXISTS)) {
@@ -420,8 +419,7 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
     this.menu_statusicon_main.show_all ();
   }
 
-  [GtkCallback]
-  private void show_settings () {
+  public void display_settings () {
     this.friendlist.unselect_row (this.selected_row);
     var settings_view = this.chat_stack.get_child_by_name ("settings");
 
@@ -434,6 +432,11 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
       this.chat_stack.set_visible_child (view);
       this.focused_view = "settings";
     }
+  }
+
+  [GtkCallback]
+  private void show_settings () {
+    this.display_settings ();
   }
 
   [GtkCallback]
