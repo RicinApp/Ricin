@@ -28,8 +28,16 @@ GtkSwitch
 	text-shadow: none;
 }
 
-GtkSwitch.trough:active {
+GtkSwitch {
+    border-radius: 2px;
+}
 
+GtkSwitch.trough {
+   background: #E74C3C;
+}
+
+GtkSwitch.trough:active {
+    background: #27AE60;
 }
 
 GtkSwitch.trough:insensitive {
@@ -37,22 +45,23 @@ GtkSwitch.trough:insensitive {
 }
 
 GtkSwitch.trough:backdrop {
-
+    background: #E74C3C;
 }
 
 GtkSwitch.trough:active:backdrop {
-
+    background: #27AE60;
 }
 
 GtkSwitch.trough:insensitive:backdrop {
-
+    background: @ui_darker;
 }
 
 GtkSwitch.slider {
-    background: #222;
-}
-
-.primary-toolbar GtkSwitch.slider {
+    background: @ui_darker;
+    border-top-left-radius: 2px;
+    border-top-right-radius: 0px;
+    border-bottom-left-radius: 2px;
+    border-bottom-right-radius: 0px;
 }
 
 GtkSwitch.slider:insensitive {
@@ -60,12 +69,11 @@ GtkSwitch.slider:insensitive {
     box-shadow: none;
 }
 
-GtkSwitch.slider:backdrop {
-    background-image: none;
-    box-shadow: none;
-}
-
-GtkSwitch.slider:insensitive:backdrop {
+GtkSwitch.slider:active {
+    border-top-left-radius: 0px;
+    border-top-right-radius: 2px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 2px;
 }
 
 /** CSS overrides. **/
