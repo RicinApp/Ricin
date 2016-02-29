@@ -582,8 +582,8 @@ GtkScrolledWindow {
 }
 
 /** ENTRIES SELECTION COLOR **/
-GtkSearchEntry :selected,
+GtkSearchEntry:selected,
 GtkEntry:selected {
   background-color: @selected_text_color;
-  color: @selected_text_color;
+  color: @ui_text;
 }
