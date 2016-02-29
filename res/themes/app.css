@@ -37,7 +37,7 @@ GtkSwitch.trough {
 }
 
 GtkSwitch.trough:active {
-  background: #27AE60;
+  background: #2ECC71;
 }
 
 GtkSwitch.trough:insensitive {
@@ -49,7 +49,7 @@ GtkSwitch.trough:backdrop {
 }
 
 GtkSwitch.trough:active:backdrop {
-  background: #27AE60;
+  background: #2ECC71;
 }
 
 GtkSwitch.trough:insensitive:backdrop {
@@ -57,7 +57,7 @@ GtkSwitch.trough:insensitive:backdrop {
 }
 
 GtkSwitch.slider {
-  background: @ui_darker;
+  background: #C0392B;
   border-top-left-radius: 2px;
   border-top-right-radius: 0px;
   border-bottom-left-radius: 2px;
@@ -70,6 +70,7 @@ GtkSwitch.slider:insensitive {
 }
 
 GtkSwitch.slider:active {
+  background-color: #27AE60;
   border-top-left-radius: 0px;
   border-top-right-radius: 2px;
   border-bottom-left-radius: 0px;
@@ -242,9 +243,7 @@ GtkScrolledWindow {
 	border-radius: 0;
 	color: @ui_text;
 }
-.box-search GtkSearchEntry:selected {
-    background-color: #5688f9;
-}
+
 .box-search GtkToggleButton {
 	background-color: transparent;
 	background-image: none;
@@ -415,9 +414,6 @@ GtkScrolledWindow {
   background-color: @ui_darker;
   color: @ui_text;
 }
-.entry-inverted:selected {
-    background-color: @selected_text_color;
-}
 .entry-inverted:hover {
   background-color: @ui_main;
 }
@@ -464,10 +460,6 @@ GtkScrolledWindow {
 
   color: @ui_text;
 }
-.entry-principal:selected,
-.entry-principal:selected:backdrop {
-	background-color: @selected_text_color;
-}
 
 .entry-chat {
 	border: none;
@@ -478,9 +470,6 @@ GtkScrolledWindow {
  	outline-width: 0;
 	background-color: @ui_darker;
  	color: @ui_text;
-}
-.entry-chat:selected {
-	background-color: @selected_text_color;
 }
 
 .friendlist-row {
@@ -590,4 +579,11 @@ GtkScrolledWindow {
 .friend-request GtkButton:hover {
   background-color: #237f35;
   color: @ui_text;
+}
+
+/** ENTRIES SELECTION COLOR **/
+GtkSearchEntry :selected,
+GtkEntry:selected {
+  background-color: @selected_text_color;
+  color: @selected_text_color;
 }
