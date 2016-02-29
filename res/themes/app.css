@@ -86,16 +86,19 @@ GtkScrollbar.slider {
   background: @ui_darker;
 }
 
+GtkTreeMenu,
 GtkMenu {
   background: @ui_darker;
   border: none;
   border-width: 0;
   border-image: none;
+  border-image-width: 0;
   border-style: none;
   border-radius: 0;
 
   box-shadow: none;
   text-shadow: none;
+  padding: 0;
 }
 
 GtkMenu GtkMenuItem {
