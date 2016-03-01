@@ -3,10 +3,8 @@ public class Ricin.Ricin : Gtk.Application {
   public static const string APP_SUMMARY = "<b>Ricin</b> aims to be a <i>secure, lightweight, hackable and fully-customizable</i> chat client using the awesome and open-source <b>ToxCore</b> library.";
   public static const string APP_VERSION = "0.0.3-beta";
   public static const string RES_BASE_PATH = "/chat/tox/ricin/";
-  //public static const string PROFILE_DIR = Tox.profile_dir ();
-  //public static const string LOGS_DIR = "%s/logs".printf (Tox.profile_dir ());
 
-  private string default_theme = "dark"; // Hardcoded until we have proper settings.
+  private string default_theme = "dark"; // Will be overrided by settings.
 
   public Ricin () {
     Object (application_id: "chat.tox.ricin",
@@ -14,11 +12,18 @@ public class Ricin.Ricin : Gtk.Application {
   }
 
   public override void activate () {
-    // Load the default css.
-    var provider = new Gtk.CssProvider ();
-    provider.load_from_resource(@"$resource_base_path/themes/$(this.default_theme).css");
-    Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (),
-        provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+    SettingsManager settings = SettingsManager.instance;
+
+    if (settings.get_bool ("ricin.interface.enable_custom_themes") == true) {
+      this.default_theme = settings.get_string ("ricin.interface.selected_theme");
+      debug (@"Selected theme: $(this.default_theme)");
+
+      // Load the default css.
+      var provider = new Gtk.CssProvider ();
+      provider.load_from_resource(@"$resource_base_path/themes/$(this.default_theme).css");
+      Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (),
+          provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+    }
 
     // Launch the notification system.
     Notify.init ("Ricin");

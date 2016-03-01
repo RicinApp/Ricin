@@ -32,9 +32,11 @@ class Ricin.SettingsView : Gtk.Box {
   [GtkChild] Gtk.Label label_app_version;
 
   private weak Tox.Tox handle;
+  private SettingsManager settings;
 
   public SettingsView (Tox.Tox handle) {
     this.handle = handle;
+    this.settings = SettingsManager.instance;
 
     /**
     * Pack buttons in the RicinSettingsView box.
@@ -81,31 +83,51 @@ class Ricin.SettingsView : Gtk.Box {
 
     this.combobox_languages.active      = 0;
     this.combobox_toxme_servers.active  = 0;
-    this.combobox_selected_theme.active = 0;
 
-    /*this.combobox_languages.set_active_id       ("english");
-    this.combobox_toxme_servers.set_active_id   ("ricin.im");
-    this.combobox_selected_theme.set_active_id  ("default");*/
+    string selected_theme = this.settings.get_string ("ricin.interface.selected_theme");
+    if (selected_theme == "dark") {
+      this.combobox_selected_theme.active = 0;
+    } else if (selected_theme == "white") {
+      this.combobox_selected_theme.active = 1;
+    } else {
+      this.combobox_selected_theme.active = 2;
+    }
+
+    bool enable_custom_themes = this.settings.get_bool ("ricin.interface.enable_custom_themes");
+    this.switch_custom_themes.active = enable_custom_themes;
+    this.combobox_selected_theme.sensitive = enable_custom_themes;
+    this.button_reload_theme.sensitive = enable_custom_themes;
+
+    bool display_friends_status_changes = this.settings.get_bool ("ricin.interface.display_friends_status_changes");
+    this.switch_status_changes.active = display_friends_status_changes;
 
     this.switch_custom_themes.notify["active"].connect (() => {
       if (this.switch_custom_themes.active) {
         this.combobox_selected_theme.sensitive = true;
+        this.button_reload_theme.sensitive = true;
         int active = this.combobox_selected_theme.active;
 
         switch (active) {
           case 0:
             ThemeManager.instance.set_theme ("dark");
+            this.settings.write_string ("ricin.interface.selected_theme", "dark");
             break;
           case 1:
             ThemeManager.instance.set_theme ("white");
+            this.settings.write_string ("ricin.interface.selected_theme", "white");
             break;
           case 2:
             ThemeManager.instance.set_theme ("clearer");
+            this.settings.write_string ("ricin.interface.selected_theme", "clearer");
             break;
         }
+
+        this.settings.write_bool ("ricin.interface.enable_custom_themes", true);
       } else {
         this.combobox_selected_theme.sensitive = false;
+        this.button_reload_theme.sensitive = false;
         ThemeManager.instance.set_system_theme ();
+        this.settings.write_bool ("ricin.interface.enable_custom_themes", false);
       }
     });
 
@@ -116,18 +138,28 @@ class Ricin.SettingsView : Gtk.Box {
       switch (active) {
         case 0:
           ThemeManager.instance.set_theme ("dark");
+          this.settings.write_string ("ricin.interface.selected_theme", "dark");
           break;
         case 1:
           ThemeManager.instance.set_theme ("white");
+          this.settings.write_string ("ricin.interface.selected_theme", "white");
           break;
         case 2:
           ThemeManager.instance.set_theme ("clearer");
+          this.settings.write_string ("ricin.interface.selected_theme", "clearer");
           break;
       }
     });
 
     this.button_reload_theme.clicked.connect (() => {
       ThemeManager.instance.reload_theme ();
+    });
+
+    this.switch_status_changes.notify["active"].connect (() => {
+      this.settings.write_bool (
+        "ricin.interface.display_friends_status_changes",
+        this.switch_status_changes.active
+      );
     });
 
     /**

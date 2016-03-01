@@ -22,5 +22,6 @@ src = files([
     'Util.vala',
     'Wrapper.vala',
     'ThemeManager.vala',
-    'HistoryManager.vala'
+    'HistoryManager.vala',
+    'SettingsManager.vala'
 ])

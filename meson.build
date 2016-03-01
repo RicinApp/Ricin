@@ -15,6 +15,7 @@ deps = [
     dependency('json-glib-1.0'),
     dependency('libnotify'),
     dependency('libtoxcore'),
+    dependency('libconfig'),
 ]
 
 subdir('src')

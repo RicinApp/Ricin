@@ -22,6 +22,7 @@
         <file compressed="true">themes/app.css</file>
 
         <file compressed="true">nodes.json</file>
+        <file compressed="true">ricin.sample.cfg</file>
 
         <file>images/icons/Ricin-48x48.png</file>
         <file>images/icons/Ricin-96x96.png</file>

@@ -39,6 +39,7 @@ class Ricin.ChatView : Gtk.Box {
   private HistoryManager history;
   private string last_message;
   private Tox.UserStatus last_status;
+  private SettingsManager settings;
 
   /**
   * TODO: Use this enum to determine the current message type.
@@ -62,6 +63,7 @@ class Ricin.ChatView : Gtk.Box {
     this.stack = stack;
     this.view_name = view_name;
     this.history = new HistoryManager (this.fr.pubkey);
+    this.settings = SettingsManager.instance;
 
     if (this.fr.name == null) {
       this.label_friend_profil_name.set_text (this.fr.get_uname ());
@@ -268,8 +270,8 @@ class Ricin.ChatView : Gtk.Box {
       this.image_friend_status.set_from_resource (@"/chat/tox/ricin/images/status/$icon.png");
       this.label_friend_last_seen.set_markup (this.fr.last_online ("%H:%M %d/%m/%Y"));
 
-
-      if (this.last_status != status) {
+      bool display_friends_status_changes = this.settings.get_bool ("ricin.interface.display_friends_status_changes");
+      if (this.last_status != status && display_friends_status_changes) {
         messages_list.add(new StatusMessageListRow(fr.name + " is now " + icon, status));
         this.last_status = status;
       }
