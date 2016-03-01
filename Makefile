@@ -34,5 +34,9 @@ install: ./build/
 	cp "misc/ricin.desktop" "/usr/share/applications/ricin.desktop" # Desktop file
 	cp "res/images/icons/Ricin-128x128.png" "/usr/share/icons/Ricin-128x128.png" # Icon
 
-debugwin:
+autogenwin:
 	sudo /usr/bin/meson . build-win32 --cross-file cross_win.txt
+
+debugwin:
+	ninja-build -C build-win32 clean
+	ninja-build -C build-win32
