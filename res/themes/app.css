@@ -112,6 +112,10 @@ GtkMenu GtkMenuItem:hover {
   border-image: none;
 }
 
+GtkNotebook .tab GtkLabel {
+  color: @ui_text;
+}
+
 /** CSS overrides. **/
 .quote-bar {
   color: #2ECC71;
@@ -499,24 +503,26 @@ GtkScrolledWindow {
 }
 
 .image-desc {
-  background-color: #21252B;
+  background-color: @ui_darker;
   padding: 5px 5px 5px 5px;
 }
 
 .btn-save-image {
   background-image: none;
-  background-color: #21252B;
   border: none;
   border-radius: 0;
-  color: white;
+
+  background-color: @ui_darker;
+  color: @ui_text;
 }
 
 .btn-save-image:hover, .btn-save-image:insensitive {
   background-image: none;
-  background-color: #292D35;
   border: none;
   border-radius: 0;
-  color: white;
+
+  background-color: @ui_dark;
+  color: @ui_text;
 }
 
 .progress-bg {
