@@ -45,6 +45,9 @@ _Screenshot might be outdated but it should give you a general idea of what is R
 | libnotify           | >=0.0.0   |
 | libconfig           | >=0.0.0   |
 
+# Installing
+We currently have an ArchLinux package made by @LastAvenger available at the following url: [ricin-git](https://aur.archlinux.org/packages/ricin-git/)
+
 # Compiling
 Please refer to the [Install.md](INSTALL.md) to install the dependencies on your Linux distribution.
 
