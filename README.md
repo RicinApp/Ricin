@@ -43,6 +43,7 @@ _Screenshot might be outdated but it should give you a general idea of what is R
 | json-glib           | >=1.0     |
 | libsoup             | >=2.4     |
 | libnotify           | >=0.0.0   |
+| libconfig           | >=0.0.0   |
 
 # Compiling
 Please refer to the [Install.md](INSTALL.md) to install the dependencies on your Linux distribution.
