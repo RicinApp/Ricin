@@ -53,6 +53,7 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
   private Gtk.ListBoxRow selected_row;
   private Gtk.Menu menu_statusicon_main;
   private Gtk.StatusIcon statusicon_main;
+  private SettingsManager settings;
 
   public signal void notify_message (string message, int timeout = 5000);
 
@@ -116,6 +117,7 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
 
   public MainWindow (Gtk.Application app, string profile) {
     Object (application: app);
+    this.settings = SettingsManager.instance;
 
     Gdk.Pixbuf app_icon = new Gdk.Pixbuf.from_resource ("/chat/tox/ricin/images/icons/Ricin-128x128.png");
     string profile_base = File.new_for_path (profile).get_basename ();
@@ -235,8 +237,6 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
     this.friendlist.set_sort_func (sort_friendlist_online);
     this.friendlist.bind_model (this.friends, fr => new FriendListRow (fr as Tox.Friend));
 
-    this.append_friends.begin ();
-
     tox.notify["connected"].connect ((src, prop) => {
       string icon = "";
 
@@ -345,6 +345,7 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
 
     this.tox.run_loop ();
     this.show_all ();
+    this.append_friends.begin ();
   }
 
   private async void append_friends () {
