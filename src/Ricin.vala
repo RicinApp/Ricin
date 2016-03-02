@@ -12,7 +12,12 @@ public class Ricin.Ricin : Gtk.Application {
   }
 
   public override void activate () {
-    string settings_file = "%s/ricin.cfg".printf (Tox.profile_dir ());
+    string profile_dir = Tox.profile_dir ();
+    string settings_file = "%s/ricin.cfg".printf (profile_dir);
+    if (FileUtils.test (profile_dir, FileTest.EXISTS) == false) {
+      DirUtils.create (profile_dir, 0755);
+    }
+
     if (FileUtils.test (settings_file, FileTest.EXISTS) == false) {
       File config_file = File.new_for_path (settings_file);
       File config_sample = File.new_for_uri ("resource:///chat/tox/ricin/ricin.sample.cfg");
