@@ -41,7 +41,7 @@ class SettingsManager : GLib.Object {
 
   public bool get_bool (string path) {
     var setting_obj = this.config.lookup (path);
-    return setting_obj.get_bool ();
+    return (setting_obj != null) ? setting_obj.get_bool () : false;
   }
 
   public bool write_string (string path, string val) {

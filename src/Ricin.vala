@@ -12,7 +12,7 @@ public class Ricin.Ricin : Gtk.Application {
   }
 
   public override void activate () {
-    SettingsManager settings = SettingsManager.instance;
+    SettingsManager settings = new SettingsManager ();
 
     if (settings.get_bool ("ricin.interface.enable_custom_themes") == true) {
       this.default_theme = settings.get_string ("ricin.interface.selected_theme");

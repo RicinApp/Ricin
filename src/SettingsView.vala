@@ -16,6 +16,7 @@ class Ricin.SettingsView : Gtk.Box {
   [GtkChild] Gtk.Button button_reload_theme;
 
   [GtkChild] Gtk.Switch switch_status_changes;
+  [GtkChild] Gtk.Switch switch_typing_notifications;
 
   /* TODO
   // Network settings tab.
@@ -159,6 +160,14 @@ class Ricin.SettingsView : Gtk.Box {
       this.settings.write_bool (
         "ricin.interface.display_friends_status_changes",
         this.switch_status_changes.active
+      );
+    });
+
+    // Send typing notifications.
+    this.switch_typing_notifications.notify["active"].connect (() => {
+      this.settings.write_bool (
+        "ricin.interface.send_typing_notification",
+        this.switch_typing_notifications.active
       );
     });
 

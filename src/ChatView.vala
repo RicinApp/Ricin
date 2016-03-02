@@ -231,11 +231,18 @@ class Ricin.ChatView : Gtk.Box {
     fr.bind_property ("name", username, "label", BindingFlags.DEFAULT);
 
     this.entry.changed.connect (() => {
+      bool send_typing_notification = this.settings.get_bool ("ricin.interface.send_typing_notification");
+      if (!send_typing_notification) {
+        return;
+      }
       var is_typing = (this.entry.text.strip () != "");
       this.fr.send_typing (is_typing);
-      //return false;
     });
     this.entry.backspace.connect (() => {
+      bool send_typing_notification = this.settings.get_bool ("ricin.interface.send_typing_notification");
+      if (!send_typing_notification) {
+        return;
+      }
       var is_typing = (this.entry.text.strip () != "");
       this.fr.send_typing (is_typing);
     });
