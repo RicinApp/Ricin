@@ -230,9 +230,21 @@ class Ricin.ChatView : Gtk.Box {
     //fr.bind_property ("typing", friend_typing, "reveal_child", BindingFlags.DEFAULT);
     fr.bind_property ("name", username, "label", BindingFlags.DEFAULT);
 
+    this.entry.changed.connect (() => {
+      var is_typing = (this.entry.text.strip () != "");
+      this.fr.send_typing (is_typing);
+      //return false;
+    });
+    this.entry.backspace.connect (() => {
+      var is_typing = (this.entry.text.strip () != "");
+      this.fr.send_typing (is_typing);
+    });
+
     this.fr.notify["typing"].connect ((obj, prop) => {
       this.friend_typing.reveal_child = this.fr.typing;
-      this.scroll_to_bottom ();
+      if (this.fr.typing == false) {
+        this.scroll_to_bottom ();
+      }
     });
 
     this.fr.notify["status-message"].connect ((obj, prop) => {
@@ -329,10 +341,7 @@ class Ricin.ChatView : Gtk.Box {
     this.last_message = message;
     if (message.strip () == "") {
       return;
-    }/* else if (message.strip () == "/clear") {
-      this.messages_list.remove_all ();
-      return;
-    }*/
+    }
 
 
     // Notice example:
@@ -422,39 +431,4 @@ class Ricin.ChatView : Gtk.Box {
     var adjustment = this.scroll_messages.get_vadjustment ();
     adjustment.set_value (adjustment.get_upper () - adjustment.get_page_size ());
   }
-
-  /*private void add_row (MessageRowType type, IMessageListRow row) {
-    switch (type) {
-      case MessageRowType.Normal:
-        debug ("Appending a Normal MessageRow");
-        this.messages_list.add (row);
-        row.position = this.messages_list.get_n_items ();
-        break;
-      case MessageRowType.Action:
-        debug ("Appending an Action MessageRow");
-        this.messages_list.add (row);
-        row.position = this.messages_list.get_n_items ();
-        break;
-      case MessageRowType.System:
-        debug ("Appending a System MessageRow");
-        this.messages_list.add (row);
-        row.position = this.messages_list.get_n_items ();
-        break;
-      case MessageRowType.InlineImage:
-        debug ("Appending an InlineImage MessageRow");
-        this.messages_list.add (row);
-        row.position = this.messages_list.get_n_items ();
-        break;
-      case MessageRowType.InlineFile:
-        debug ("Appending an InlineFile MessageRow");
-        this.messages_list.add (row);
-        row.position = this.messages_list.get_n_items ();
-        break;
-      case MessageRowType.GtkListBoxRow:
-        debug ("Appending a Gtk.ListBoxRow");
-        this.messages_list.add (row);
-        //row.position = this.messages_list.get_n_items ();
-        break;
-    }
-  }*/
 }

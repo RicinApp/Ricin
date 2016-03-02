@@ -187,17 +187,6 @@ namespace Tox {
           throw new ErrNew.LoadFailed ("The data format was invalid. This can happen when loading data that was saved by an older version of Tox, or when the data has been corrupted. When loading from badly formatted data, some data may have been loaded, and the rest is discarded. Passing an invalid length parameter also causes this error.");
       }
 
-      /** TEMP DEV ZONE //
-      uint32[] contacts = this.self_get_friend_list ();
-
-      foreach (uint32 fnum in contacts) {
-        debug (@"Contact from .tox: %d", fnum);
-        this.friends[fnum] = new Friend (this, fnum);
-        debug (@"Friend from .tox: %s", this.friends[fnum].name);
-        this.friend_online (this.friends[fnum]);
-      }
-      // TEMP DEV ZONE **/
-
       handle.callback_self_connection_status ((self, status) => {
         switch (status) {
           case ConnectionStatus.NONE:
@@ -650,6 +639,10 @@ namespace Tox {
       this.files_send[id] = new Bytes.take (data);
 
       return id;
+    }
+
+    public void send_typing (bool is_typing) {
+      this.tox.handle.self_set_typing (this.num, is_typing, null);
     }
 
     public bool delete () throws ErrFriendDelete {
