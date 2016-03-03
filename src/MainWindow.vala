@@ -54,6 +54,7 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
   private Gtk.Menu menu_statusicon_main;
   private Gtk.StatusIcon statusicon_main;
   private SettingsManager settings;
+  private string window_title;
 
   public signal void notify_message (string message, int timeout = 5000);
 
@@ -122,9 +123,9 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
     Gdk.Pixbuf app_icon = new Gdk.Pixbuf.from_resource ("/chat/tox/ricin/images/icons/Ricin-128x128.png");
     string profile_base = File.new_for_path (profile).get_basename ();
     string profile_name = profile_base.replace (".tox", "");
-    string app_title = "%s (%s) - %s".printf (Ricin.APP_NAME, Ricin.APP_VERSION, profile_name);
+    this.window_title = "%s (%s) - %s".printf (Ricin.APP_NAME, Ricin.APP_VERSION, profile_name);
 
-    this.set_title (app_title);
+    this.set_title (window_title);
     this.set_size_request (920, 500);
     this.set_icon (app_icon);
 
@@ -467,6 +468,7 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
   [GtkCallback]
   private void show_settings () {
     this.display_settings ();
+    this.set_title ("%s - Settings".printf (this.window_title));
   }
 
   [GtkCallback]
@@ -544,6 +546,7 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
       this.chat_stack.set_visible_child (chat_view);
       this.focused_view = view_name;
       this.selected_row = row;
+      this.set_title ("%s - %s".printf (this.window_title, friend.name));
     }
   }
 
