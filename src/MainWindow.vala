@@ -123,7 +123,7 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
     Gdk.Pixbuf app_icon = new Gdk.Pixbuf.from_resource ("/chat/tox/ricin/images/icons/Ricin-128x128.png");
     string profile_base = File.new_for_path (profile).get_basename ();
     string profile_name = profile_base.replace (".tox", "");
-    this.window_title = "%s (%s) - %s".printf (Ricin.APP_NAME, Ricin.APP_VERSION, profile_name);
+    this.window_title = "%s - %s".printf (Ricin.APP_NAME, profile_name);
 
     this.set_title (window_title);
     this.set_size_request (920, 500);
