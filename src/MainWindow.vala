@@ -403,32 +403,32 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
 
     // ONLINE
     var menuOnline = new Gtk.ImageMenuItem.with_label("Online");
-    var menuOnlineImage = new Gtk.Image.from_icon_name("user-available", Gtk.IconSize.MENU);
+    var menuOnlineImage = new Gtk.Image.from_resource("/chat/tox/ricin/images/status/online.png");
     menuOnline.always_show_image = true;
     menuOnline.set_image(menuOnlineImage);
     menuOnline.activate.connect (() => {
       this.tox.status = Tox.UserStatus.ONLINE;
-      this.image_user_status.icon_name = "user-available";
+      this.image_user_status.set_from_resource("/chat/tox/ricin/images/status/online.png");
     });
 
     // BUSY
     var menuBusy = new Gtk.ImageMenuItem.with_label("Busy");
-    var menuBusyImage = new Gtk.Image.from_icon_name("user-busy", Gtk.IconSize.MENU);
+    var menuBusyImage = new Gtk.Image.from_resource("/chat/tox/ricin/images/status/busy.png");
     menuBusy.always_show_image = true;
     menuBusy.set_image(menuBusyImage);
     menuBusy.activate.connect (() => {
       this.tox.status = Tox.UserStatus.BUSY;
-      this.image_user_status.icon_name = "user-busy";
+      this.image_user_status.set_from_resource("/chat/tox/ricin/images/status/busy.png");
     });
 
     // AWAY
     var menuAway = new Gtk.ImageMenuItem.with_label("Away");
-    var menuAwayImage = new Gtk.Image.from_icon_name("user-away", Gtk.IconSize.MENU);
+    var menuAwayImage = new Gtk.Image.from_resource("/chat/tox/ricin/images/status/idle.png");
     menuAway.always_show_image = true;
     menuAway.set_image(menuAwayImage);
     menuAway.activate.connect (() => {
       this.tox.status = Tox.UserStatus.AWAY;
-      this.image_user_status.icon_name = "user-away";
+      this.image_user_status.set_from_resource("/chat/tox/ricin/images/status/idle.png");
     });
 
     // QUIT
@@ -446,6 +446,11 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
     this.statusicon_main.popup_menu.connect ((button, time) => {
       this.menu_statusicon_main.popup (null, null, null, button, time);
     });
+
+    /*this.statusicon_main.activate.connect(() => {
+      var mainw = this.get_toplevel () as MainWindow;
+      mainw.show ();
+    });*/
 
     this.menu_statusicon_main.show_all ();
   }
