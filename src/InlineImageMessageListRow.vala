@@ -25,7 +25,7 @@ class Ricin.InlineImageMessageListRow : Gtk.ListBoxRow {
     this.image_name = info.get_display_name ();
     var image_size = info.get_size () / 1000;
     this.label_image_name.set_text (@"$image_name");
-    this.label_image_size.set_text (@"($image_size kb)");
+    this.label_image_size.set_text (Util.size_to_string (image_size));
 
     // If message is our (ugly&hacky way).
     if (this.handle.username == name) {

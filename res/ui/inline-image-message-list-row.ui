@@ -2,13 +2,6 @@
 <!-- Generated with glade 3.19.0 -->
 <interface>
   <requires lib="gtk+" version="3.16"/>
-  <object class="GtkImage" id="image_save_inline">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="margin_right">5</property>
-    <property name="pixel_size">16</property>
-    <property name="icon_name">document-save-symbolic</property>
-  </object>
   <template class="RicinInlineImageMessageListRow" parent="GtkListBoxRow">
     <property name="width_request">250</property>
     <property name="height_request">20</property>
@@ -54,8 +47,6 @@
               <object class="GtkBox" id="box2">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="margin_left">5</property>
-                <property name="margin_right">5</property>
                 <property name="orientation">vertical</property>
                 <child>
                   <object class="GtkEventBox" id="eventbox2">
@@ -69,7 +60,6 @@
                         <property name="height_request">50</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="halign">start</property>
                         <property name="valign">start</property>
                         <property name="margin_top">5</property>
                         <property name="stock">gtk-missing-image</property>
@@ -84,23 +74,18 @@
                 </child>
                 <child>
                   <object class="GtkBox" id="box3">
-                    <property name="width_request">400</property>
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="halign">start</property>
-                    <property name="spacing">10</property>
+                    <property name="valign">start</property>
+                    <property name="spacing">5</property>
                     <child>
-                      <object class="GtkLabel" id="label_image_name">
+                      <object class="GtkImage" id="image_file_type">
+                        <property name="name">50</property>
+                        <property name="width_request">30</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="halign">start</property>
-                        <property name="margin_left">10</property>
-                        <property name="margin_right">5</property>
-                        <property name="margin_top">2</property>
-                        <property name="margin_bottom">2</property>
-                        <property name="label" translatable="yes">file_name.ext</property>
-                        <property name="ellipsize">end</property>
-                        <property name="max_width_chars">30</property>
+                        <property name="icon_name">image-x-generic-symbolic</property>
                       </object>
                       <packing>
                         <property name="expand">False</property>
@@ -109,42 +94,56 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkLabel" id="label_image_size">
+                      <object class="GtkLabel" id="label_image_name">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="halign">start</property>
-                        <property name="label" translatable="yes">(0 Kb)</property>
+                        <property name="margin_top">2</property>
+                        <property name="margin_bottom">2</property>
+                        <property name="label" translatable="yes">file_name.ext</property>
+                        <property name="ellipsize">end</property>
+                        <property name="single_line_mode">True</property>
+                        <property name="max_width_chars">30</property>
                       </object>
                       <packing>
-                        <property name="expand">False</property>
+                        <property name="expand">True</property>
                         <property name="fill">True</property>
                         <property name="position">1</property>
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkLabel" id="label1">
+                      <object class="GtkLabel" id="label_image_size">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
+                        <property name="margin_left">5</property>
+                        <property name="margin_right">5</property>
+                        <property name="margin_top">2</property>
+                        <property name="margin_bottom">2</property>
+                        <property name="label" translatable="yes">(0 Kb)</property>
                       </object>
                       <packing>
-                        <property name="expand">True</property>
+                        <property name="expand">False</property>
                         <property name="fill">True</property>
-                        <property name="position">2</property>
+                        <property name="position">3</property>
                       </packing>
                     </child>
                     <child>
                       <object class="GtkButton" id="button_save_inline">
-                        <property name="label" translatable="yes">Save image</property>
-                        <property name="width_request">50</property>
                         <property name="height_request">20</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
                         <property name="halign">center</property>
                         <property name="valign">center</property>
-                        <property name="image">image_save_inline</property>
                         <property name="always_show_image">True</property>
                         <signal name="clicked" handler="save_image" swapped="no"/>
+                        <child>
+                          <object class="GtkImage" id="image1">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="icon_name">object-select-symbolic</property>
+                          </object>
+                        </child>
                         <style>
                           <class name="btn-save-image"/>
                         </style>
@@ -152,7 +151,7 @@
                       <packing>
                         <property name="expand">False</property>
                         <property name="fill">True</property>
-                        <property name="position">3</property>
+                        <property name="position">4</property>
                       </packing>
                     </child>
                     <style>
@@ -203,4 +202,11 @@
       <class name="message"/>
     </style>
   </template>
+  <object class="GtkImage" id="image_save_inline">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="margin_right">5</property>
+    <property name="pixel_size">16</property>
+    <property name="icon_name">document-save-symbolic</property>
+  </object>
 </interface>
