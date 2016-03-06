@@ -504,6 +504,7 @@ GtkScrolledWindow {
 
 .image-desc {
   background-color: @ui_darker;
+  color: white;
   padding: 5px 5px 5px 5px;
 }
 
@@ -569,6 +570,7 @@ GtkScrolledWindow {
 .saved-file .btn-save-image,
 .saved-file .btn-save-image:insensitive {
   background-color: #2ecc71;
+  color: white;
 }
 
 /** Faux offline message **/

@@ -191,38 +191,26 @@ class Ricin.ChatView : Gtk.Box {
 
       //FileUtils.set_data (path, bytes.get_data ());
       var path = @"/tmp/$filename";
-      var file_path = File.new_for_path(path);
+      var file_path = File.new_for_path (path);
       var file_content_type = ContentType.guess (path, null, null);
 
-      if (file_content_type.has_prefix ("image/") && file_path.query_exists()) {
-        var pixbuf = new Gdk.Pixbuf.from_file_at_scale (path, 400, 250, true);
-        messages_list.add (new InlineImageMessageListRow (this.handle, fr.name, path, pixbuf, time ()));
-        //return;
-      } else {
+      /**
+      * TODO: debug this.
+      **/
+      /*if (file_content_type.has_prefix ("image/")) {
+        var image_row = new InlineImageMessageListRow (this.handle, fr, id, fr.name, path, time (), false);
+        image_row.accept_image.connect ((response, file_id) => {
+          fr.reply_file_transfer (response, file_id);
+        });
+        messages_list.add (image_row);
+      } else {*/
         var file_row = new InlineFileMessageListRow (this.handle, fr, id, fr.name, path, size, time ());
         file_row.accept_file.connect ((response, file_id) => {
           fr.reply_file_transfer (response, file_id);
         });
         messages_list.add (file_row);
-      }
+      //}
     });
-
-    /*fr.file_done.connect ((name, bytes) => {
-      string downloads = Environment.get_user_special_dir (UserDirectory.DOWNLOAD) + "/";
-      string filename = name;
-      int i = 0;
-      while (FileUtils.test (downloads + filename, FileTest.EXISTS)) {
-        filename = @"$(++i)-$name";
-      }
-
-      var path = @"/tmp/$filename";
-      FileUtils.set_data (path, bytes.get_data ());
-      var file_content_type = ContentType.guess (path, null, null);
-      if (file_content_type.has_prefix ("image/")) {
-        var pixbuf = new Gdk.Pixbuf.from_file_at_scale (path, 400, 250, true);
-        messages_list.add (new InlineImageMessageListRow (fr.name, path, pixbuf, time ()));
-      }
-    });*/
 
     fr.bind_property ("connected", entry, "sensitive", BindingFlags.DEFAULT);
     fr.bind_property ("connected", send, "sensitive", BindingFlags.DEFAULT);
@@ -420,8 +408,8 @@ class Ricin.ChatView : Gtk.Box {
       this.history.write (this.fr.pubkey, @"[$current_time] ** You sent a file to $(this.fr.name): $fname");
 
       if (file_content_type.has_prefix ("image/")) {
-        var pixbuf = new Gdk.Pixbuf.from_file_at_scale (filename, 400, 250, true);
-        var image_widget = new InlineImageMessageListRow (this.handle, this.handle.username, filename, pixbuf, time ());
+        /*var pixbuf = new Gdk.Pixbuf.from_file_at_scale (filename, 400, 250, true);*/
+        var image_widget = new InlineImageMessageListRow (this.handle, fr, file_id, this.handle.username, file.get_path (), time (), true);
         image_widget.button_save_inline.visible = false;
         messages_list.add (image_widget);
       } else {
