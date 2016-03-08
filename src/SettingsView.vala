@@ -87,12 +87,19 @@ class Ricin.SettingsView : Gtk.Box {
     this.combobox_languages.active      = 0;
     this.combobox_toxme_servers.active  = 0;
 
+    string selected_language = this.settings.get_string ("ricin.interface.selected_language");
+    if (selected_language == "en_US") {
+      this.combobox_languages.active = 0;
+    } else if (selected_language == "fr_FR") {
+      this.combobox_languages.active = 1;
+    }
+
     this.combobox_languages.changed.connect (() => {
       var slang = this.combobox_languages.active;
       if (slang == 0) { // English.
         info ("Changed locale to English.");
-        Intl.setlocale(LocaleCategory.MESSAGES, "C");
-        this.settings.write_string ("ricin.interface.selected_language", "C");
+        Intl.setlocale(LocaleCategory.MESSAGES, "en_US");
+        this.settings.write_string ("ricin.interface.selected_language", "en_US");
       } else if (slang == 1) { // French
         info ("Changed locale to French.");
         Intl.setlocale(LocaleCategory.MESSAGES, "fr_FR");

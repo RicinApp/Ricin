@@ -1,11 +1,11 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2016-03-08 07:49+0100\n"
-"PO-Revision-Date: 2016-03-08 08:09+0100\n"
+"POT-Creation-Date: 2016-03-08 07:39+0100\n"
+"PO-Revision-Date: 2016-03-08 08:33+0100\n"
 "Last-Translator: SkyzohKey <skyzohkey@tuta.io>\n"
 "Language-Team: \n"
-"Language: fr_FR\n"
+"Language: en_US\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -17,27 +17,27 @@ msgstr ""
 
 #: res/ui/chat-view.ui:95
 msgid "Friend's profile"
-msgstr "Profil du contact"
+msgstr "Friend's profile"
 
 #: res/ui/chat-view.ui:129 res/ui/settings-view.ui:251
 msgid "Username"
-msgstr "Pseudo"
+msgstr "Username"
 
 #: res/ui/chat-view.ui:152
 msgid "Status message..."
-msgstr "Message d'humeur"
+msgstr "Status message..."
 
 #: res/ui/chat-view.ui:186
 msgid "Call friend"
-msgstr "Appel audio"
+msgstr "Call friend"
 
 #: res/ui/chat-view.ui:214
 msgid "Video call friend"
-msgstr "Appel vidéo"
+msgstr "Video call friend"
 
 #: res/ui/chat-view.ui:382
 msgid "SkyzohKey"
-msgstr ""
+msgstr "SkyzohKey"
 
 #: res/ui/chat-view.ui:431
 msgid ""
@@ -47,39 +47,39 @@ msgstr ""
 
 #: res/ui/chat-view.ui:456
 msgid "<b>Last seen:</b>"
-msgstr "<b>Dernière action:</b>"
+msgstr "<b>Last seen:</b>"
 
 #: res/ui/chat-view.ui:469
 msgid "14:30"
-msgstr ""
+msgstr "14:30"
 
 #: res/ui/chat-view.ui:493
 msgid "Notes about the user:"
-msgstr "Notes:"
+msgstr "Notes about the user:"
 
 #: res/ui/chat-view.ui:558 src/ChatView.vala:324
 msgid "Block"
-msgstr "Bloquer"
+msgstr "Block"
 
 #: res/ui/chat-view.ui:578
 msgid "Delete"
-msgstr "Supprimer"
+msgstr "Delete"
 
 #: res/ui/chat-view.ui:598
 msgid "Copy friend's ToxID"
-msgstr "Copier le ToxID"
+msgstr "Copy friend's ToxID"
 
 #: res/ui/chat-view.ui:700
 msgid "Choose smileys"
-msgstr "Choisir des smileys"
+msgstr "Choose smileys"
 
 #: res/ui/chat-view.ui:727
 msgid "Send file"
-msgstr "Envoyer un fichier"
+msgstr "Send file"
 
 #: res/ui/chat-view.ui:753
 msgid "Send message"
-msgstr "Envoyer un message"
+msgstr "Send message"
 
 #: res/ui/chat-view.ui:824
 msgid ""
@@ -91,11 +91,11 @@ msgstr ""
 
 #: res/ui/chat-view.ui:843
 msgid "Close the popup"
-msgstr "Fermer la fenêtre"
+msgstr "Close the popup"
 
 #: res/ui/chat-view.ui:911
 msgid "<i>Friend is typing</i>"
-msgstr "<i>contact est entrain d'écrire</i>"
+msgstr "<i>Friend is typing</i>"
 
 #: res/ui/friend-list-notification_unusable.ui:42
 msgid ""
@@ -107,39 +107,39 @@ msgstr ""
 
 #: res/ui/friend-list-notification_unusable.ui:59
 msgid "Delete friends (3)"
-msgstr "Supprimer les contacts (3)"
+msgstr "Delete friends (3)"
 
 #: res/ui/friend-list-row.ui:51 res/ui/group-list-row.ui:51
 msgid "name"
-msgstr "pseudo"
+msgstr "name"
 
 #: res/ui/friend-list-row.ui:74 res/ui/group-list-row.ui:74
 msgid "status"
-msgstr "statut"
+msgstr "status"
 
 #: res/ui/group-chat-view.ui:60
 msgid "Groupchat name"
-msgstr "Nom du groupe"
+msgstr "Groupchat name"
 
 #: res/ui/group-chat-view.ui:83
 msgid "Topic text ipsum dolores sit amet"
-msgstr ""
+msgstr "Topic text ipsum dolores sit amet"
 
 #: res/ui/group-chat-view.ui:219
 msgid "<b>Friends</b>"
-msgstr "<b>Contacts</b>"
+msgstr "<b>Friends</b>"
 
 #: res/ui/group-chat-view.ui:247
 msgid "<b>Unknown peers</b>"
-msgstr "<b>Pairs inconnus</b>"
+msgstr "<b>Unknown peers</b>"
 
 #: res/ui/group-chat-view.ui:289
 msgid "Leave"
-msgstr "Quitter"
+msgstr "Leave"
 
 #: res/ui/group-chat-view.ui:310
 msgid "Mute"
-msgstr "Silence"
+msgstr "Mute"
 
 #: res/ui/inline-file-message-list-row.ui:28
 #: res/ui/inline-image-message-list-row.ui:29 res/ui/main-window.ui:312
@@ -148,25 +148,25 @@ msgstr "Silence"
 #: res/ui/status-message-list-row.ui:29 res/ui/status-message-list-row.ui:65
 #: res/ui/system-message-list-row.ui:41
 msgid "label"
-msgstr "texte"
+msgstr "label"
 
 #: res/ui/inline-file-message-list-row.ui:121
 #: res/ui/inline-image-message-list-row.ui:103
 msgid "file_name.ext"
-msgstr ""
+msgstr "file_name.ext"
 
 #: res/ui/inline-file-message-list-row.ui:147
 #: res/ui/inline-image-message-list-row.ui:122
 msgid "(0 Kb)"
-msgstr ""
+msgstr "(0 Kb)"
 
 #: res/ui/inline-file-message-list-row.ui:175
 msgid "Cancel/pause file"
-msgstr "Annuler/Pause"
+msgstr "Cancel/pause file"
 
 #: res/ui/inline-file-message-list-row.ui:205
 msgid "Accept/Resume file"
-msgstr "Accepter/Reprendre"
+msgstr "Accept/Resume file"
 
 #: res/ui/inline-file-message-list-row.ui:281
 #: res/ui/inline-image-message-list-row.ui:182 res/ui/message-list-row.ui:72
@@ -176,124 +176,124 @@ msgstr "00:00.00"
 
 #: res/ui/main-window.ui:86
 msgid "Change your avatar"
-msgstr "Changer votre avatar"
+msgstr "Change your avatar"
 
 #: res/ui/main-window.ui:133
 msgid "Change your status"
-msgstr "Changer votre statut"
+msgstr "Change your status"
 
 #: res/ui/main-window.ui:188
 msgid "Type to search..."
-msgstr "Rechercher..."
+msgstr "Type to search..."
 
 #: res/ui/main-window.ui:256
 msgid "You got a new friend request"
-msgstr "Vous avez une demande d'ami"
+msgstr "You got a new friend request"
 
 #: res/ui/main-window.ui:352
 msgid "Decline"
-msgstr "Rejeter"
+msgstr "Decline"
 
 #: res/ui/main-window.ui:372
 msgid "Accept"
-msgstr "Accepter"
+msgstr "Accept"
 
 #: res/ui/main-window.ui:470 res/ui/main-window.ui:537 src/MainWindow.vala:490
 #: src/MainWindow.vala:515
 msgid "Add a friend"
-msgstr "Ajouter un contact"
+msgstr "Add a friend"
 
-#: res/ui/main-window.ui:490 src/MainWindow.vala:479
+#: res/ui/main-window.ui:490
 msgid "Settings"
-msgstr "Paramètres"
+msgstr "Settings"
 
 #: res/ui/main-window.ui:558
 msgid "ToxID to add..."
-msgstr "Contact à ajouter"
+msgstr "ToxID to add..."
 
 #: res/ui/main-window.ui:612
 msgid "Add friend"
-msgstr "Ajouter le contact"
+msgstr "Add friend"
 
 #: res/ui/main-window.ui:633
 msgid "Cancel"
-msgstr "Annuler"
+msgstr "Cancel"
 
 #: res/ui/main-window.ui:703
 msgid "notify"
-msgstr "notifier"
+msgstr "notify"
 
 #: res/ui/plain-label.ui:29
 msgid "text"
-msgstr "texte"
+msgstr "text"
 
 #: res/ui/profile-chooser-window.ui:23 src/ProfileChooser.vala:20
 msgid "Select a profile"
-msgstr "Selectionner un profil"
+msgstr "Select a profile"
 
 #: res/ui/profile-chooser-window.ui:50
 msgid "Login"
-msgstr "Connexion"
+msgstr "Login"
 
 #: res/ui/profile-chooser-window.ui:72
 msgid "Load a profile"
-msgstr "Charger un profil"
+msgstr "Load a profile"
 
 #: res/ui/profile-chooser-window.ui:88
 msgid "Enter a name for the profile"
-msgstr "Entrez un nom pour le profil"
+msgstr "Enter a name for the profile"
 
 #: res/ui/profile-chooser-window.ui:116
 msgid "Create this profile"
-msgstr "Créer ce profil"
+msgstr "Create this profile"
 
 #: res/ui/profile-chooser-window.ui:141
 msgid "Create a profile"
-msgstr "Créer un profil"
+msgstr "Create a profile"
 
 #: res/ui/quote-label.ui:91
 msgid "quote"
-msgstr "citation"
+msgstr "quote"
 
 #: res/ui/settings-view.ui:77
 msgid "<b>Your ToxID:</b>"
-msgstr "<b>Votre ToxID:</b>"
+msgstr "<b>Your ToxID:</b>"
 
 #: res/ui/settings-view.ui:88 res/ui/settings-view.ui:218
 msgid "Copy"
-msgstr "Copier"
+msgstr "Copy"
 
 #: res/ui/settings-view.ui:106
 msgid "Change Nospam"
-msgstr "Changer le NoSpam"
+msgstr "Change Nospam"
 
 #: res/ui/settings-view.ui:196
 msgid "<b>Your Tox alias:</b>"
-msgstr "<b>Votre alias Tox:</b>"
+msgstr "<b>Your Tox alias:</b>"
 
 #: res/ui/settings-view.ui:262
 msgid "Biography"
-msgstr "Biographie"
+msgstr "Biography"
 
 #: res/ui/settings-view.ui:273
 msgid "ToxMe server"
-msgstr "Serveur ToxMe"
+msgstr "ToxMe server"
 
 #: res/ui/settings-view.ui:340
 msgid "New Tox alias"
-msgstr "Nouvel alias Tox"
+msgstr "New Tox alias"
 
 #: res/ui/settings-view.ui:356
 msgid "Update record"
-msgstr "Modifier l'alias"
+msgstr "Update record"
 
 #: res/ui/settings-view.ui:373
 msgid "Request deletion"
-msgstr "Supprimer l'alias"
+msgstr "Request deletion"
 
 #: res/ui/settings-view.ui:415
 msgid "General"
-msgstr "Général"
+msgstr "General"
 
 #: res/ui/settings-view.ui:447
 msgid ""
@@ -317,35 +317,35 @@ msgstr "<b>Proxy (SOCKS 5)</b>"
 
 #: res/ui/settings-view.ui:622
 msgid "127.0.0.1"
-msgstr ""
+msgstr "127.0.0.1"
 
 #: res/ui/settings-view.ui:634
 msgid ":"
-msgstr ""
+msgstr ":"
 
 #: res/ui/settings-view.ui:648
 msgid "9050"
-msgstr ""
+msgstr "9050"
 
 #: res/ui/settings-view.ui:687
 msgid "Network"
-msgstr "Réseau"
+msgstr "Network"
 
 #: res/ui/settings-view.ui:726
 msgid "<b>Enable custom themes?</b>"
-msgstr "<b>Activer les thèmes personnalisés ?</b>"
+msgstr "<b>Enable custom themes?</b>"
 
 #: res/ui/settings-view.ui:833
 msgid "<b>Display friend's status changes?</b>"
-msgstr "<b>Afficher les changements de statut ?</b>"
+msgstr "<b>Display friend's status changes?</b>"
 
 #: res/ui/settings-view.ui:887
 msgid "<b>Send typing notifications?</b>"
-msgstr "<b>Envoyer des notifications d'écriture ?</b>"
+msgstr "<b>Send typing notifications?</b>"
 
 #: res/ui/settings-view.ui:950
 msgid "<b>Language:</b>"
-msgstr "<b>Langue:</b>"
+msgstr "<b>Language:</b>"
 
 #: res/ui/settings-view.ui:1002
 msgid "Interface"
@@ -361,7 +361,7 @@ msgstr "<b>Version:</b>"
 
 #: res/ui/settings-view.ui:1101
 msgid "<i>0.0.3-alpha</i>"
-msgstr ""
+msgstr "<i>0.0.3-alpha</i>"
 
 #: res/ui/settings-view.ui:1129
 msgid ""
@@ -379,27 +379,27 @@ msgstr "GitHub"
 
 #: res/ui/settings-view.ui:1178
 msgid "Report an issue"
-msgstr "Signaler un bug"
+msgstr "Report an issue"
 
 #: res/ui/settings-view.ui:1197
 msgid "Contributors"
-msgstr "Contributeurs"
+msgstr "Contributors"
 
 #: res/ui/settings-view.ui:1247
 msgid "License (GNU General Public License 3)"
-msgstr "License (GNU License Publique Générale 3)"
+msgstr "License (GNU General Public License 3)"
 
 #: res/ui/settings-view.ui:1267
 msgid "Ricin official website"
-msgstr "Site officiel de Ricin"
+msgstr "Ricin official website"
 
 #: res/ui/settings-view.ui:1307
 msgid "About"
-msgstr "À propos"
+msgstr "About"
 
 #: res/ui/settings-view.ui:1335
 msgid "ricin.io (stable)"
-msgstr "ricin.im (stable)"
+msgstr "ricin.io (stable)"
 
 #: res/ui/settings-view.ui:1338
 msgid "toxme.io"
@@ -1087,115 +1087,115 @@ msgstr ""
 
 #: res/ui/welcome-view.ui:87
 msgid "Select a chat to start messaging."
-msgstr "Selectionnez un contact pour commencer à discuter"
+msgstr "Select a chat to start messaging."
 
 #: src/ChatView.vala:288
 msgid " is now "
-msgstr " est maintenant "
+msgstr " is now "
 
 #: src/ChatView.vala:322
 msgid "Unblock"
-msgstr "Débloquer"
+msgstr "Unblock"
 
 #: src/ChatView.vala:400
 msgid "Choose a file"
-msgstr "Choisissez un fichier"
+msgstr "Choose a file"
 
 #: src/ChatView.vala:401 src/MainWindow.vala:604
 msgid "_Cancel"
-msgstr "_Annuler"
+msgstr "_Cancel"
 
 #: src/ChatView.vala:402 src/MainWindow.vala:605
 msgid "_Open"
-msgstr "_Ouvrir"
+msgstr "_Open"
 
 #: src/FriendListRow.vala:61
 msgid "Unblock friend"
-msgstr "Débloquer le contact"
+msgstr "Unblock friend"
 
 #: src/FriendListRow.vala:61
 msgid "Block friend"
-msgstr "Bloquer le contact"
+msgstr "Block friend"
 
 #: src/InlineImageMessageListRow.vala:97
 msgid "Image saved!"
-msgstr "Image enregistrée !"
+msgstr "Image saved!"
 
 #: src/MainWindow.vala:97
 msgid "Yes"
-msgstr "Oui"
+msgstr "Yes"
 
 #: src/MainWindow.vala:97
 msgid "No"
-msgstr "Non"
+msgstr "No"
 
 #: src/MainWindow.vala:147
 msgid "Can't load the profile"
-msgstr "Impossible de charger le proil"
+msgstr "Can't load the profile"
 
 #: src/MainWindow.vala:204
 msgid "Online friends"
-msgstr "Contacts en ligne"
+msgstr "Online friends"
 
 #: src/MainWindow.vala:205
 msgid "All friends"
-msgstr "Tout les contacts"
+msgstr "All friends"
 
 #: src/MainWindow.vala:408
 msgid "Online"
-msgstr "En ligne"
+msgstr "Online"
 
 #: src/MainWindow.vala:418
 msgid "Busy"
-msgstr "Occupé"
+msgstr "Busy"
 
 #: src/MainWindow.vala:428
 msgid "Away"
-msgstr "Absent"
+msgstr "Away"
 
 #: src/MainWindow.vala:438
 msgid "Quit"
-msgstr "Quitter"
+msgstr "Quit"
 
 #: src/MainWindow.vala:524
 msgid "Ricin doesn't supports ToxDNS yet."
-msgstr "Ricin ne supporte pas encore ToxMe."
+msgstr "Ricin doesn't supports ToxDNS yet."
 
 #: src/MainWindow.vala:526
 msgid "ToxID can't be empty."
-msgstr "Le ToxID ne peut pas être vide."
+msgstr "ToxID can't be empty."
 
 #: src/MainWindow.vala:528
 msgid "ToxID is invalid."
-msgstr "Le ToxID est invalide."
+msgstr "ToxID is invalid."
 
 #: src/MainWindow.vala:601
 msgid "Select your avatar"
-msgstr "Choisissez un avatar"
+msgstr "Select your avatar"
 
 #: src/MessageListRow.vala:54 src/PlainLabel.vala:20 src/QuoteLabel.vala:20
 msgid "ToxDNS is not supported yet."
-msgstr "ToxMe n'est pas encore supporté."
+msgstr "ToxDNS is not supported yet."
 
 #: src/ProfileChooser.vala:61
 msgid "The selected profile doesn't exists."
-msgstr "Le profil selectionné n'existe pas."
+msgstr "The selected profile doesn't exists."
 
 #: src/ProfileChooser.vala:70
 msgid "Please enter a profile name."
-msgstr "Merci de choisir un nom pour le profil."
+msgstr "Please enter a profile name."
 
 #: src/ProfileChooser.vala:77
 msgid "Profile name already taken."
-msgstr "Un profil avec ce nom existe déjà."
+msgstr "Profile name already taken."
 
 #: src/ProfileChooser.vala:89
 msgid "Choose a name for the profile"
-msgstr "Choissisez un nom pour le profil"
+msgstr "Choose a name for the profile"
 
 #: src/SettingsView.vala:73
 msgid "default"
-msgstr "défaut"
+msgstr "default"
 
 #: src/SettingsView.vala:74
 msgid "stable"
@@ -1203,19 +1203,19 @@ msgstr "stable"
 
 #: src/SettingsView.vala:84
 msgid "White theme"
-msgstr "Thème blanc"
+msgstr "White theme"
 
 #: src/SettingsView.vala:85
 msgid "Clearer theme"
-msgstr "Thème clair"
+msgstr "Clearer theme"
 
 #: src/Wrapper.vala:218
 msgid " is now known as "
-msgstr " s'appel désormais "
+msgstr " is now known as "
 
 #: src/Wrapper.vala:580
 msgid "<b>Last online:</b>"
-msgstr "<b>Dernière connexion:</b>"
+msgstr "<b>Last online:</b>"
 
 #~ msgid "$(Ricin.APP_NAME) - Select a profile"
 #~ msgstr "$(Ricin.APP_NAME) - Choisissez un profil"

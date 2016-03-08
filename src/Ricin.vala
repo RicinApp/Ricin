@@ -6,6 +6,7 @@ public class Ricin.Ricin : Gtk.Application {
   public static const string RES_BASE_PATH = "/chat/tox/ricin/";
 
   private string default_theme = "dark"; // Will be overrided by settings.
+  private string current_theme;
   private SettingsManager settings;
 
   public Ricin () {
@@ -36,12 +37,21 @@ public class Ricin.Ricin : Gtk.Application {
     }
 
     if (this.settings.get_bool ("ricin.interface.enable_custom_themes") == true) {
-      this.default_theme = this.settings.get_string ("ricin.interface.selected_theme");
+      string selected_theme = this.settings.get_string ("ricin.interface.selected_theme");
+      string theme_path = @"$resource_base_path/themes/";
+      string theme_file = theme_path + selected_theme + ".css";
+
+      // If theme doesn't exists apply the default one.
+      if (FileUtils.test (theme_file, FileTest.EXISTS) == false) {
+        this.current_theme = theme_file;
+      } else {
+        this.current_theme = theme_path + this.default_theme + ".css";
+      }
       debug (@"Selected theme: $(this.default_theme)");
 
       // Load the default css.
       var provider = new Gtk.CssProvider ();
-      provider.load_from_resource(@"$resource_base_path/themes/$(this.default_theme).css");
+      provider.load_from_resource(this.current_theme);
       Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (),
           provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
     }
