@@ -215,7 +215,7 @@ namespace Tox {
         var old_name = this.friends[num].name ?? (this.friends[num].pubkey.slice (0, 16) + "...");
         var new_name = Util.arr2str (name);
         if (old_name != new_name) {
-          this.friends[num].friend_info (old_name + " is now known as " + new_name);
+          this.friends[num].friend_info (old_name + _(" is now known as ") + new_name);
           this.friends[num].name = new_name;
         }
       });
@@ -577,7 +577,7 @@ namespace Tox {
       debug (@"Last online for $num: $last");
 
       DateTime time = new DateTime.from_unix_local ((int64)last);
-      return time.format((format != null) ? format : "<b>Last online:</b> %H:%M %d/%m/%Y");
+      return time.format((format != null) ? format : _("<b>Last online:</b>") + " %H:%M %d/%m/%Y");
     }
 
     public void set_user_status (ToxCore.UserStatus status) {

@@ -14,18 +14,18 @@ class SettingsManager : GLib.Object {
     }
   }
 
-  private Config config;
+  private LibConfig.Config config;
   private string settings_file;
 
   public SettingsManager () {
     this.settings_file = "%s/ricin.cfg".printf (Tox.profile_dir ());
 
-    this.config = new Config ();
+    this.config = new LibConfig.Config ();
     if (!this.config.read_file (this.settings_file)) {
       File config_file = File.new_for_path (this.settings_file);
       File config_sample = File.new_for_uri ("resource:///chat/tox/ricin/ricin.sample.cfg");
-
       config_sample.copy (config_file, FileCopyFlags.NONE);
+
       this.config.read_file (this.settings_file);
     }
   }

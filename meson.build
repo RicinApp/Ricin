@@ -18,8 +18,13 @@ deps = [
     dependency('libconfig'),
 ]
 
+
 subdir('src')
 subdir('res')
+
+# GetText stuff.
+add_global_arguments('-DGETTEXT_PACKAGE="ricin"', language : 'c')
+subdir('po')
 
 executable(
     'Ricin',

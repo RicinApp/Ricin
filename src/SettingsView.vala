@@ -70,20 +70,33 @@ class Ricin.SettingsView : Gtk.Box {
 
     this.label_tox_id.set_text (handle.id);
 
-    this.combobox_languages.append_text      ("English (default)");
+    var default_str = _("default");
+    var stable_str = _("stable");
+    this.combobox_languages.append_text      (@"English ($default_str)");
     this.combobox_languages.append_text      ("Français");
 
-    this.combobox_toxme_servers.append_text  ("Ricin.im (default)");
-    this.combobox_toxme_servers.append_text  ("ToxMe.io (stable)");
-    this.combobox_toxme_servers.append_text  ("uTox.org (stable)");
+    this.combobox_toxme_servers.append_text  (@"Ricin.im ($default_str)");
+    this.combobox_toxme_servers.append_text  (@"ToxMe.io ($stable_str)");
+    this.combobox_toxme_servers.append_text  (@"uTox.org ($stable_str)");
     // this.combobox_toxme_servers.append ("toxing.me", "Toxing.me (unstable)");
 
-    this.combobox_selected_theme.append_text ("Dark theme (default)");
-    this.combobox_selected_theme.append_text ("White theme");
-    this.combobox_selected_theme.append_text ("Clearer theme");
+    this.combobox_selected_theme.append_text (_(@"Dark theme ($default_str)"));
+    this.combobox_selected_theme.append_text (_("White theme"));
+    this.combobox_selected_theme.append_text (_("Clearer theme"));
 
     this.combobox_languages.active      = 0;
     this.combobox_toxme_servers.active  = 0;
+
+    this.combobox_languages.changed.connect (() => {
+      var slang = this.combobox_languages.active;
+      if (slang == 0) { // English.
+        info ("Changed locale to English.");
+        Intl.setlocale(LocaleCategory.MESSAGES, "C");
+      } else if (slang == 1) { // French
+        info ("Changed locale to French.");
+        Intl.setlocale(LocaleCategory.MESSAGES, "fr_FR");
+      }
+    });
 
     string selected_theme = this.settings.get_string ("ricin.interface.selected_theme");
     if (selected_theme == "dark") {

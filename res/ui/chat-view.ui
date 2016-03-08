@@ -25,6 +25,10 @@
     <property name="xpad">5</property>
     <property name="icon_name">contact-new-symbolic</property>
   </object>
+  <object class="GtkMenu" id="menu1">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+  </object>
   <object class="GtkTextBuffer" id="textbuffer_friend_notes"/>
   <template class="RicinChatView" parent="GtkBox">
     <property name="visible">True</property>
@@ -266,7 +270,6 @@
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="hscrollbar_policy">never</property>
-                <property name="shadow_type">in</property>
                 <child>
                   <object class="GtkViewport" id="viewport2">
                     <property name="visible">True</property>
@@ -690,22 +693,20 @@
               </packing>
             </child>
             <child>
-              <object class="GtkButton" id="send">
+              <object class="GtkButton" id="button_show_smileys">
                 <property name="visible">True</property>
-                <property name="sensitive">False</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
-                <property name="tooltip_text" translatable="yes">Send message</property>
-                <property name="resize_mode">queue</property>
+                <property name="tooltip_text" translatable="yes">Choose smileys</property>
                 <property name="relief">none</property>
-                <property name="image_position">right</property>
-                <property name="always_show_image">True</property>
-                <signal name="clicked" handler="send_message" swapped="no"/>
                 <child>
-                  <object class="GtkImage" id="image2">
+                  <object class="GtkImage" id="image9">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="icon_name">mail-replied-symbolic</property>
+                    <property name="valign">baseline</property>
+                    <property name="pixel_size">16</property>
+                    <property name="icon_name">face-smile-symbolic</property>
+                    <property name="icon_size">5</property>
                   </object>
                 </child>
                 <style>
@@ -741,6 +742,35 @@
                 <property name="expand">False</property>
                 <property name="fill">True</property>
                 <property name="position">3</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="send">
+                <property name="visible">True</property>
+                <property name="sensitive">False</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="tooltip_text" translatable="yes">Send message</property>
+                <property name="resize_mode">queue</property>
+                <property name="relief">none</property>
+                <property name="image_position">right</property>
+                <property name="always_show_image">True</property>
+                <signal name="clicked" handler="send_message" swapped="no"/>
+                <child>
+                  <object class="GtkImage" id="image2">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="icon_name">mail-replied-symbolic</property>
+                  </object>
+                </child>
+                <style>
+                  <class name="button-dark"/>
+                </style>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">4</property>
               </packing>
             </child>
             <style>
@@ -875,7 +905,7 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkLabel" id="label1">
+                  <object class="GtkLabel" id="label_friend_is_typing">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="label" translatable="yes">&lt;i&gt;Friend is typing&lt;/i&gt;</property>

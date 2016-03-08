@@ -1,4 +1,5 @@
 public class Ricin.Ricin : Gtk.Application {
+  const string GETTEXT_PACKAGE = "ricin";
   public static const string APP_NAME = "Ricin";
   public static const string APP_SUMMARY = "<b>Ricin</b> aims to be a <i>secure, lightweight, hackable and fully-customizable</i> chat client using the awesome and open-source <b>ToxCore</b> library.";
   public static const string APP_VERSION = "0.0.3-beta";
@@ -9,6 +10,12 @@ public class Ricin.Ricin : Gtk.Application {
   public Ricin () {
     Object (application_id: "chat.tox.ricin",
             flags: ApplicationFlags.FLAGS_NONE); // TODO: handle open
+
+    // Stuff for localization.
+    Intl.setlocale(LocaleCategory.MESSAGES, "fr_FR");
+    Intl.textdomain(GETTEXT_PACKAGE);
+    Intl.bind_textdomain_codeset(GETTEXT_PACKAGE, "utf-8");
+    Intl.bindtextdomain(GETTEXT_PACKAGE, "/usr/share/locale");
   }
 
   public override void activate () {

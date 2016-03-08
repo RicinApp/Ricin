@@ -17,7 +17,7 @@ class Ricin.ProfileChooser : Gtk.ApplicationWindow {
 
     Gdk.Pixbuf app_icon = new Gdk.Pixbuf.from_resource ("/chat/tox/ricin/images/icons/Ricin-128x128.png");
     this.window_position = Gtk.WindowPosition.CENTER;
-    this.set_title ("%s - Select a profile".printf (Ricin.APP_NAME));
+    this.set_title (Ricin.APP_NAME + " - " + _("Select a profile"));
     this.set_icon (app_icon);
     this.set_default_size (261, 150);
     this.set_resizable (false);
@@ -58,7 +58,7 @@ class Ricin.ProfileChooser : Gtk.ApplicationWindow {
     } else {
       // file deleted?
       this.button_login.sensitive = true;
-      this.label_select_profile.set_markup ("<span color=\"#e74c3c\">The selected profile doesn't exists.</span>");
+      this.label_select_profile.set_markup ("<span color=\"#e74c3c\">" + _("The selected profile doesn't exists.") + "</span>");
     }
   }
 
@@ -67,14 +67,14 @@ class Ricin.ProfileChooser : Gtk.ApplicationWindow {
     var entry = this.entry_register_name.get_text ();
 
     if (entry.strip () == "") {
-      this.label_create_profile.set_markup ("<span color=\"#e74c3c\">Please enter a profile name.</span>");
+      this.label_create_profile.set_markup ("<span color=\"#e74c3c\">" + _("Please enter a profile name.") + "</span>");
       return;
     }
 
     var profile = Tox.profile_dir () + entry.replace (" ", "-") + ".tox";
 
     if (FileUtils.test (profile, FileTest.EXISTS)) {
-      this.label_create_profile.set_markup ("<span color=\"#e74c3c\">Profile name already taken.</span>");
+      this.label_create_profile.set_markup ("<span color=\"#e74c3c\">" + _("Profile name already taken.") + "</span>");
     } else {
       this.entry_register_name.sensitive = false; // To prevent issue.
       this.button_register.sensitive = false; // To prevent issue.
@@ -86,7 +86,7 @@ class Ricin.ProfileChooser : Gtk.ApplicationWindow {
   [GtkCallback]
   private void reset_warning_label () {
     var label = this.label_create_profile.get_text ();
-    var label_default = "Enter a name for the profile";
+    var label_default = _("Choose a name for the profile");
     if (label != label_default) {
       this.label_create_profile.set_text (label_default);
     }

@@ -5,9 +5,7 @@
 **/
 
 /** GTK reset **/
-* {
-  -GtkPaned-handle-size: 0;
-}
+@import url("reset.css");
 
 GtkEntry,
 GtkEntry:focus,

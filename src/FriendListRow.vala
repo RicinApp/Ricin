@@ -58,7 +58,7 @@ class Ricin.FriendListRow : Gtk.ListBoxRow {
     });
 
     fr.notify["blocked"].connect ((obj, prop) => {
-      this.block_friend.set_label ((this.fr.blocked) ? "Unblock friend" : "Block friend");
+      this.block_friend.set_label ((this.fr.blocked) ? _("Unblock friend") : _("Block friend"));
     });
 
     fr.message.connect (this.notify_new_messages);
@@ -84,9 +84,9 @@ class Ricin.FriendListRow : Gtk.ListBoxRow {
   }
 
   private void init_context_menu () {
-    debug ("Initializing context menu for friend.");
+    /*debug ("Initializing context menu for friend.");
 
-    /*this.button_press_event.connect (event => {
+    this.button_press_event.connect (event => {
       if (event.button == Gdk.BUTTON_SECONDARY) {
         this.menu_friend.popup (null, null, null, event.button, event.time);
         return Gdk.EVENT_STOP;

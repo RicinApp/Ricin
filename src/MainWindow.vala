@@ -94,7 +94,7 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
                                         Gtk.DialogFlags.MODAL, Gtk.MessageType.QUESTION, Gtk.ButtonsType.NONE,
                                         @"Are you sure you want to delete \"$name\"?");
     dialog.secondary_text = @"This will remove \"$name\" and the chat history with it forever.";
-    dialog.add_buttons ("Yes", Gtk.ResponseType.ACCEPT, "No", Gtk.ResponseType.REJECT);
+    dialog.add_buttons (_("Yes"), Gtk.ResponseType.ACCEPT, _("No"), Gtk.ResponseType.REJECT);
     dialog.response.connect (response => {
       if (response == Gtk.ResponseType.ACCEPT) {
         bool result = friend.delete ();
@@ -123,7 +123,9 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
     Gdk.Pixbuf app_icon = new Gdk.Pixbuf.from_resource ("/chat/tox/ricin/images/icons/Ricin-128x128.png");
     string profile_base = File.new_for_path (profile).get_basename ();
     string profile_name = profile_base.replace (".tox", "");
-    this.window_title = "%s - %s".printf (Ricin.APP_NAME, profile_name);
+
+    var app_name = Ricin.APP_NAME;
+    this.window_title = @"$app_name - $profile_name";
 
     this.set_title (window_title);
     this.set_size_request (920, 500);
@@ -142,7 +144,7 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
           Gtk.DialogFlags.MODAL,
           Gtk.MessageType.WARNING,
           Gtk.ButtonsType.OK,
-          "Can't load the profile");
+          _("Can't load the profile"));
       error_dialog.secondary_use_markup = true;
       error_dialog.format_secondary_markup (@"<span color=\"#e74c3c\">$(error.message)</span>");
       error_dialog.response.connect (resp => error_dialog.destroy ()); // if we don't use a signal the profile chooser closes
@@ -154,6 +156,7 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
     this.chat_stack.add_named (settings, "settings");
     this.chat_stack.set_visible_child (settings);
     this.focused_view = "settings";
+    this.set_title (this.window_title + " - " + _(@"Settings"));
     // Display the welcome screen while their is no friends online.
     /*var welcome = new WelcomeView (this.tox);
     this.chat_stack.add_named (welcome, "welcome");
@@ -198,8 +201,8 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
     this.image_user_status.set_from_resource ("/chat/tox/ricin/images/status/offline.png");
 
     // Filter + search.
-    this.combobox_friend_filter.append_text ("Online friends");
-    this.combobox_friend_filter.append_text ("All friends");
+    this.combobox_friend_filter.append_text (_("Online friends"));
+    this.combobox_friend_filter.append_text (_("All friends"));
     this.combobox_friend_filter.active = 0;
 
     /*this.friendlist.set_sort_func ((row1, row2) => {
@@ -402,7 +405,7 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
     this.menu_statusicon_main = new Gtk.Menu ();
 
     // ONLINE
-    var menuOnline = new Gtk.ImageMenuItem.with_label("Online");
+    var menuOnline = new Gtk.ImageMenuItem.with_label(_("Online"));
     var menuOnlineImage = new Gtk.Image.from_resource("/chat/tox/ricin/images/status/online.png");
     menuOnline.always_show_image = true;
     menuOnline.set_image(menuOnlineImage);
@@ -412,7 +415,7 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
     });
 
     // BUSY
-    var menuBusy = new Gtk.ImageMenuItem.with_label("Busy");
+    var menuBusy = new Gtk.ImageMenuItem.with_label(_("Busy"));
     var menuBusyImage = new Gtk.Image.from_resource("/chat/tox/ricin/images/status/busy.png");
     menuBusy.always_show_image = true;
     menuBusy.set_image(menuBusyImage);
@@ -422,7 +425,7 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
     });
 
     // AWAY
-    var menuAway = new Gtk.ImageMenuItem.with_label("Away");
+    var menuAway = new Gtk.ImageMenuItem.with_label(_("Away"));
     var menuAwayImage = new Gtk.Image.from_resource("/chat/tox/ricin/images/status/idle.png");
     menuAway.always_show_image = true;
     menuAway.set_image(menuAwayImage);
@@ -432,7 +435,7 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
     });
 
     // QUIT
-    var menuQuit = new Gtk.ImageMenuItem.with_label("Quit");
+    var menuQuit = new Gtk.ImageMenuItem.with_label(_("Quit"));
     var menuQuitImage = new Gtk.Image.from_icon_name("window-close", Gtk.IconSize.MENU);
     menuQuit.always_show_image = true;
     menuQuit.set_image(menuQuitImage);
@@ -473,7 +476,7 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
   [GtkCallback]
   private void show_settings () {
     this.display_settings ();
-    this.set_title ("%s - Settings".printf (this.window_title));
+    this.set_title (this.window_title + " - " + _("Settings"));
   }
 
   [GtkCallback]
@@ -484,7 +487,7 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
   [GtkCallback]
   private void hide_add_friend_popover () {
     this.add_friend.reveal_child = false;
-    this.label_add_error.set_text ("Add a friend");
+    this.label_add_error.set_text (_("Add a friend"));
     //this.button_add_friend_show.visible = true;
     //this.button_settings.visible = true;
     this.box_bottom_buttons.visible = true;
@@ -509,7 +512,7 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
         this.tox.save_data (); // Needed to avoid breaking profiles if app crash.
         this.entry_friend_id.set_text (""); // Clear the entry after adding a friend.
         this.add_friend.reveal_child = false;
-        this.label_add_error.set_text ("Add a friend");
+        this.label_add_error.set_text (_("Add a friend"));
         //this.button_add_friend_show.visible = true;
         this.box_bottom_buttons.visible = true;
         return;
@@ -518,11 +521,11 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
         error_message = error.message;
       }
     } else if (tox_id.index_of ("@") != -1) {
-      error_message = "Ricin doesn't supports ToxDNS yet.";
+      error_message = _("Ricin doesn't supports ToxDNS yet.");
     } else if (tox_id.strip () == "") {
-      error_message = "ToxID can't be empty.";
+      error_message = _("ToxID can't be empty.");
     } else {
-      error_message = "ToxID is invalid.";
+      error_message = _("ToxID is invalid.");
     }
 
     if (error_message.strip () != "") {
@@ -551,7 +554,7 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
       this.chat_stack.set_visible_child (chat_view);
       this.focused_view = view_name;
       this.selected_row = row;
-      this.set_title ("%s - %s".printf (this.window_title, friend.name));
+      this.set_title (@"$(this.window_title) - $(friend.name)");
     }
   }
 
@@ -595,11 +598,11 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
 
   [GtkCallback]
   private void choose_avatar () {
-    var chooser = new Gtk.FileChooserDialog ("Select your avatar",
+    var chooser = new Gtk.FileChooserDialog (_("Select your avatar"),
         this,
         Gtk.FileChooserAction.OPEN,
-        "_Cancel", Gtk.ResponseType.CANCEL,
-        "_Open", Gtk.ResponseType.ACCEPT);
+        _("_Cancel"), Gtk.ResponseType.CANCEL,
+        _("_Open"), Gtk.ResponseType.ACCEPT);
     var filter = new Gtk.FileFilter ();
     filter.add_custom (Gtk.FileFilterFlags.MIME_TYPE, info => {
       var mime = info.mime_type;

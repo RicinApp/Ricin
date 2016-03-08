@@ -94,7 +94,7 @@ class Ricin.InlineImageMessageListRow : Gtk.ListBoxRow {
     if (FileUtils.test (image_destination.get_path (), FileTest.EXISTS)) {
       this.image.delete ();
 
-      this.button_save_inline.label = "Image saved!";
+      this.button_save_inline.label = _("Image saved!");
       this.image_save_inline.icon_name = "object-select-symbolic";
       this.button_save_inline.sensitive = false;
     }

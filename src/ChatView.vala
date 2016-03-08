@@ -10,7 +10,10 @@ class Ricin.ChatView : Gtk.Box {
   [GtkChild] Gtk.Button send_file;
   [GtkChild] Gtk.Button button_audio_call;
   [GtkChild] Gtk.Button button_video_call;
+
+  /* Friend's typing */
   [GtkChild] Gtk.Revealer friend_typing;
+  [GtkChild] Gtk.Label label_friend_is_typing;
 
   /* Friend menu toggle */
   [GtkChild] Gtk.Button button_toggle_friend_menu;
@@ -236,7 +239,10 @@ class Ricin.ChatView : Gtk.Box {
     });
 
     this.fr.notify["typing"].connect ((obj, prop) => {
+      string friend_name = Util.escape_html (this.fr.name);
+      this.label_friend_is_typing.set_text (_(@"$friend_name is typing"));
       this.friend_typing.reveal_child = this.fr.typing;
+
       if (this.fr.typing == false) {
         this.scroll_to_bottom ();
       }
@@ -279,7 +285,7 @@ class Ricin.ChatView : Gtk.Box {
 
       bool display_friends_status_changes = this.settings.get_bool ("ricin.interface.display_friends_status_changes");
       if (this.last_status != status && display_friends_status_changes) {
-        messages_list.add(new StatusMessageListRow(fr.name + " is now " + icon, status));
+        messages_list.add(new StatusMessageListRow(fr.name + _(" is now ") + icon, status));
         this.last_status = status;
       }
     });
@@ -313,9 +319,9 @@ class Ricin.ChatView : Gtk.Box {
   private void block_friend () {
     this.fr.blocked = !this.fr.blocked;
     if (this.fr.blocked) {
-      this.button_friend_block.label = "Unblock";
+      this.button_friend_block.label = _("Unblock");
     } else {
-      this.button_friend_block.label = "Block";
+      this.button_friend_block.label = _("Block");
     }
   }
 
@@ -391,9 +397,9 @@ class Ricin.ChatView : Gtk.Box {
 
   [GtkCallback]
   private void choose_file_to_send () {
-    var chooser = new Gtk.FileChooserDialog ("Choose a File", null, Gtk.FileChooserAction.OPEN,
-        "_Cancel", Gtk.ResponseType.CANCEL,
-        "_Open", Gtk.ResponseType.ACCEPT);
+    var chooser = new Gtk.FileChooserDialog (_("Choose a file"), null, Gtk.FileChooserAction.OPEN,
+        _("_Cancel"), Gtk.ResponseType.CANCEL,
+        _("_Open"), Gtk.ResponseType.ACCEPT);
     if (chooser.run () == Gtk.ResponseType.ACCEPT) {
       var current_time = time ();
       var filename = chooser.get_filename ();

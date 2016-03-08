@@ -819,6 +819,7 @@
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="halign">center</property>
+                        <property name="orientation">vertical</property>
                         <property name="spacing">10</property>
                         <child>
                           <object class="GtkBox" id="box10">
@@ -861,7 +862,6 @@
                           <object class="GtkSeparator" id="separator10">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="orientation">vertical</property>
                           </object>
                           <packing>
                             <property name="expand">False</property>

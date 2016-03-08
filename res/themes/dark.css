@@ -19,3 +19,7 @@
 @define-color selected_text_color #5688F9;
 
 @import url("app.css");
+
+span {
+  background-image: url("../images/status/online.png");
+}
