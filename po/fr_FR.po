@@ -1,0 +1,402 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-03-08 06:11+0100\n"
+"PO-Revision-Date: 2016-03-08 06:10+0100\n"
+"Last-Translator: SkyzohKey <skyzohkey@tuta.io>\n"
+"Language-Team: \n"
+"Language: fr_FR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.6\n"
+"X-Poedit-Basepath: ..\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Poedit-SearchPath-0: src\n"
+"X-Poedit-SearchPath-1: res/ui\n"
+
+#: ../src/ChatView.vala:282
+msgid " is now "
+msgstr " est maintenant "
+
+#: ../src/ChatView.vala:316
+msgid "Unblock"
+msgstr "Débloquer"
+
+#: ../src/ChatView.vala:318
+msgid "Block"
+msgstr "Bloquer"
+
+#: ../src/ChatView.vala:394
+msgid "Choose a file"
+msgstr "Choisissez un fichier"
+
+#: ../src/ChatView.vala:395 ../src/MainWindow.vala:601
+msgid "_Cancel"
+msgstr "_Annuler"
+
+#: ../src/ChatView.vala:396 ../src/MainWindow.vala:602
+msgid "_Open"
+msgstr "_Ouvrir"
+
+#: ../src/FriendListRow.vala:61
+msgid "Unblock friend"
+msgstr "Débloquer le contact"
+
+#: ../src/FriendListRow.vala:61
+msgid "Block friend"
+msgstr "Bloquer le contact"
+
+#: ../src/InlineImageMessageListRow.vala:97
+msgid "Image saved!"
+msgstr "Image enregistrée !"
+
+#: ../src/MainWindow.vala:97
+msgid "Yes"
+msgstr "Oui"
+
+#: ../src/MainWindow.vala:97
+msgid "No"
+msgstr "Non"
+
+#: ../src/MainWindow.vala:145
+msgid "Can't load the profile"
+msgstr "Impossible de charger le proil"
+
+#. Filter + search.
+#: ../src/MainWindow.vala:201
+msgid "Online friends"
+msgstr "Contacts en ligne"
+
+#: ../src/MainWindow.vala:202
+msgid "All friends"
+msgstr "Tout les contacts"
+
+#. ONLINE
+#: ../src/MainWindow.vala:405
+msgid "Online"
+msgstr "En ligne"
+
+#. BUSY
+#: ../src/MainWindow.vala:415
+msgid "Busy"
+msgstr "Occupé"
+
+#. AWAY
+#: ../src/MainWindow.vala:425
+msgid "Away"
+msgstr "Absent"
+
+#. QUIT
+#: ../src/MainWindow.vala:435
+msgid "Quit"
+msgstr "Quitter"
+
+#: ../src/MainWindow.vala:476
+msgid "Settings"
+msgstr "Paramètres"
+
+#. Needed to avoid breaking profiles if app crash.
+#. Clear the entry after adding a friend.
+#: ../src/MainWindow.vala:487 ../src/MainWindow.vala:512
+msgid "Add a friend"
+msgstr "Ajouter un contact"
+
+#: ../src/MainWindow.vala:521
+msgid "Ricin doesn't supports ToxDNS yet."
+msgstr "Ricin ne supporte pas encore ToxMe."
+
+#: ../src/MainWindow.vala:523
+msgid "ToxID can't be empty."
+msgstr "Le ToxID ne peut pas être vide."
+
+#: ../src/MainWindow.vala:525
+msgid "ToxID is invalid."
+msgstr "Le ToxID est invalide."
+
+#: ../src/MainWindow.vala:598
+msgid "Select your avatar"
+msgstr "Choisissez un avatar"
+
+#: ../src/MessageListRow.vala:54 ../src/PlainLabel.vala:20
+#: ../src/QuoteLabel.vala:20
+msgid "ToxDNS is not supported yet."
+msgstr "ToxMe n'est pas encore supporté."
+
+#: ../src/ProfileChooser.vala:20
+msgid "Select a profile"
+msgstr "Selectionner un profil"
+
+#. if a dialog is open, the window will not be closed
+#. file deleted?
+#: ../src/ProfileChooser.vala:61
+msgid "The selected profile doesn't exists."
+msgstr "Le profil selectionné n'existe pas."
+
+#: ../src/ProfileChooser.vala:70
+msgid "Please enter a profile name."
+msgstr "Merci de choisir un nom pour le profil."
+
+#: ../src/ProfileChooser.vala:77
+msgid "Profile name already taken."
+msgstr "Un profil avec ce nom existe déjà."
+
+#: ../src/ProfileChooser.vala:89
+msgid "Choose a name for the profile"
+msgstr "Choissisez un nom pour le profil"
+
+#: ../src/SettingsView.vala:73
+msgid "default"
+msgstr "défaut"
+
+#: ../src/SettingsView.vala:74
+msgid "stable"
+msgstr "stable"
+
+#: ../src/SettingsView.vala:84
+msgid "White theme"
+msgstr "Thème blanc"
+
+#: ../src/SettingsView.vala:85
+msgid "Clearer theme"
+msgstr "Thème clair"
+
+#~ msgid "Friend's profile"
+#~ msgstr "Profil du contact"
+
+#~ msgid "Username"
+#~ msgstr "Pseudo"
+
+#~ msgid "Status message..."
+#~ msgstr "Message d'humeur"
+
+#~ msgid "Call friend"
+#~ msgstr "Appel audio"
+
+#~ msgid "Video call friend"
+#~ msgstr "Appel vidéo"
+
+#~ msgid "<b>Last seen:</b>"
+#~ msgstr "<b>Dernière action:</b>"
+
+#~ msgid "Notes about the user:"
+#~ msgstr "Notes:"
+
+#~ msgid "Delete"
+#~ msgstr "Supprimer"
+
+#~ msgid "Copy friend's ToxID"
+#~ msgstr "Copier le ToxID"
+
+#~ msgid "Send file"
+#~ msgstr "Envoyer un fichier"
+
+#~ msgid "Send message"
+#~ msgstr "Envoyer un message"
+
+#~ msgid "Close the popup"
+#~ msgstr "Fermer la fenêtre"
+
+#~ msgid "<i>Friend is typing</i>"
+#~ msgstr "<i>Le contact est entrain d'écrire</i>"
+
+#~ msgid ""
+#~ "3 unused profiles found:\n"
+#~ "<b>Snow, Guy, Aztek</b>"
+#~ msgstr ""
+#~ "3 contacts inutiles trouvés:\n"
+#~ "<b>Snow, Guy, Aztek</b>"
+
+#~ msgid "Delete friends (3)"
+#~ msgstr "Supprimer les contacts (3)"
+
+#~ msgid "name"
+#~ msgstr "pseudo"
+
+#~ msgid "status"
+#~ msgstr "statut"
+
+#~ msgid "Groupchat name"
+#~ msgstr "Nom du groupe"
+
+#~ msgid "<b>Friends</b>"
+#~ msgstr "<b>Contacts</b>"
+
+#~ msgid "<b>Unknown peers</b>"
+#~ msgstr "<b>Pairs inconnus</b>"
+
+#~ msgid "Leave"
+#~ msgstr "Quitter"
+
+#~ msgid "Mute"
+#~ msgstr "Silence"
+
+#~ msgid "label"
+#~ msgstr "texte"
+
+#~ msgid "Cancel/pause file"
+#~ msgstr "Annuler/Pause"
+
+#~ msgid "Accept/Resume file"
+#~ msgstr "Accepter/Reprendre"
+
+#~ msgid "00:00.00"
+#~ msgstr "00:00.00"
+
+#~ msgid "Change your avatar"
+#~ msgstr "Changer votre avatar"
+
+#~ msgid "Change your status"
+#~ msgstr "Changer votre statut"
+
+#~ msgid "Type to search..."
+#~ msgstr "Rechercher..."
+
+#~ msgid "You got a new friend request"
+#~ msgstr "Vous avez une demande d'ami"
+
+#~ msgid "Decline"
+#~ msgstr "Rejeter"
+
+#~ msgid "Accept"
+#~ msgstr "Accepter"
+
+#~ msgid "ToxID to add..."
+#~ msgstr "Contact à ajouter"
+
+#~ msgid "Add friend"
+#~ msgstr "Ajouter le contact"
+
+#~ msgid "Cancel"
+#~ msgstr "Annuler"
+
+#~ msgid "notify"
+#~ msgstr "notifier"
+
+#~ msgid "text"
+#~ msgstr "texte"
+
+#~ msgid "Login"
+#~ msgstr "Connexion"
+
+#~ msgid "Load a profile"
+#~ msgstr "Charger un profil"
+
+#~ msgid "Enter a name for the profile"
+#~ msgstr "Entrez un nom pour le profil"
+
+#~ msgid "Create this profile"
+#~ msgstr "Créer ce profil"
+
+#~ msgid "Create a profile"
+#~ msgstr "Créer un profil"
+
+#~ msgid "quote"
+#~ msgstr "citation"
+
+#~ msgid "<b>Your ToxID:</b>"
+#~ msgstr "<b>Votre ToxID:</b>"
+
+#~ msgid "Copy"
+#~ msgstr "Copier"
+
+#~ msgid "Change Nospam"
+#~ msgstr "Changer le NoSpam"
+
+#~ msgid "<b>Your Tox alias:</b>"
+#~ msgstr "<b>Votre alias Tox:</b>"
+
+#~ msgid "Biography"
+#~ msgstr "Biographie"
+
+#~ msgid "ToxMe server"
+#~ msgstr "Serveur ToxMe"
+
+#~ msgid "New Tox alias"
+#~ msgstr "Nouvel alias Tox"
+
+#~ msgid "Update record"
+#~ msgstr "Modifier l'alias"
+
+#~ msgid "Request deletion"
+#~ msgstr "Supprimer l'alias"
+
+#~ msgid "General"
+#~ msgstr "Général"
+
+#~ msgid ""
+#~ "Changing Network settings will temporarily disconnect you from the Tox "
+#~ "network"
+#~ msgstr ""
+#~ "En modifiant les paramètres Réseau vous allez temporairement être "
+#~ "deconnecté du réseau Tox"
+
+#~ msgid "<b>UDP</b>"
+#~ msgstr "<b>UDP</b>"
+
+#~ msgid "<b>IPv6</b>"
+#~ msgstr "<b>IPv6</b>"
+
+#~ msgid "<b>Proxy (SOCKS 5)</b>"
+#~ msgstr "<b>Proxy (SOCKS 5)</b>"
+
+#~ msgid "Network"
+#~ msgstr "Réseau"
+
+#~ msgid "<b>Enable custom themes?</b>"
+#~ msgstr "<b>Activer les thèmes personnalisés ?</b>"
+
+#~ msgid "<b>Display friend's status changes?</b>"
+#~ msgstr "<b>Afficher les changements de statut ?</b>"
+
+#~ msgid "<b>Send typing notifications?</b>"
+#~ msgstr "<b>Envoyer des notifications d'écriture ?</b>"
+
+#~ msgid "<b>Language:</b>"
+#~ msgstr "<b>Langue:</b>"
+
+#~ msgid "Interface"
+#~ msgstr "Interface"
+
+#~ msgid "Ricin"
+#~ msgstr "Ricin"
+
+#~ msgid "<b>Version:</b>"
+#~ msgstr "<b>Version:</b>"
+
+#~ msgid ""
+#~ "<b>Ricin</b> aims to be a <i>secure, lightweight, hackable and fully-"
+#~ "customizable</i> chat client using the awesome and open-source "
+#~ "<b>ToxCore</b> library."
+#~ msgstr ""
+#~ "<b>Ricin</b> se veut être un logiciel de discussions instantanées "
+#~ "<i>sécurisé, léger et customisable à souhait</i> en utilisant la super "
+#~ "bibliothèque open-source <b>ToxCore</b>"
+
+#~ msgid "GitHub"
+#~ msgstr "GitHub"
+
+#~ msgid "Report an issue"
+#~ msgstr "Signaler un bug"
+
+#~ msgid "Contributors"
+#~ msgstr "Contributeurs"
+
+#~ msgid "License (GNU General Public License 3)"
+#~ msgstr "License (GNU License Publique Générale 3)"
+
+#~ msgid "Ricin official website"
+#~ msgstr "Site officiel de Ricin"
+
+#~ msgid "About"
+#~ msgstr "À propos"
+
+#~ msgid "ricin.io (stable)"
+#~ msgstr "ricin.im (stable)"
+
+#~ msgid "toxme.io"
+#~ msgstr "toxme.io"
+
+#~ msgid "Select a chat to start messaging."
+#~ msgstr "Selectionnez un contact pour commencer à discuter"

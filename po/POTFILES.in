@@ -1,0 +1,9 @@
+src/ChatView.vala
+src/FriendListRow.vala
+src/InlineImageMessageListRow.vala
+src/MainWindow.vala
+src/MessageListRow.vala
+src/PlainLabel.vala
+src/QuoteLabel.vala
+src/ProfileChooser.vala
+src/SettingsView.vala
