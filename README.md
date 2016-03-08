@@ -16,6 +16,7 @@
   <tr>
     <td align="center" width="100%" colspan="2">
       <big><b>Wants to be involved? Their is several way to help us! ^-^</b></big><br>
+      <a href="#translating">Translating</a> -
       <a href="#dependencies">Dependencies</a> -
       <a href="#compiling">Compiling</a> -
       <a href="#contribute">Contribute</a> -
@@ -64,7 +65,7 @@ make debug
 ```
 
 # Contribute
-You can contribute to improving Ricin by [proposing Pull-requests](https://github.com/RicinApp/Ricin/pulls), reporting bugs or suggestions using the GitHub [issues tracker](https://github.com/RicinApp/Ricin/issues), [submiting a Bounty](https://www.bountysource.com/teams/RicinApp).
+You can contribute to improving Ricin by [proposing Pull-requests](https://github.com/RicinApp/Ricin/pulls), reporting bugs or suggestions using the GitHub [issues tracker](https://github.com/RicinApp/Ricin/issues), [submiting a Bounty](https://www.bountysource.com/teams/RicinApp) or even [Translating Ricin in your native language](#translating)
 
 > _Section to complete..._
 
@@ -73,6 +74,20 @@ You can support the Ricin client developement by
 - [Paying us a Bounty](https://www.bountysource.com/teams/RicinApp)
 - Submiting donations via Bitcoin: [3L7B6XAQM27uxfRK8wUQ4fsfja832EKweM](https://blockchain.info/address/3L7B6XAQM27uxfRK8wUQ4fsfja832EKweM)
 - Backing an issue via Bountsource to make people able to work on it full-time! :)
+
+# Translating
+Ricin uses Transifex in order to maintain Localization and enable users to help us translating it in their native language. Here's a graphic about the translations state:
+
+![Translations state for Ricin](https://www.transifex.com/projects/p/ricin/resource/ricinpot/chart/image_png)
+
+## How to translate
+In order to make a translation, please create an account on Transifex, then [go to this page](https://www.transifex.com/ricinapp/ricin/ricinpot/) and select the language you want to translate it. Transifex will redirect you to a page where you'll have to translate Ricin's strings.
+
+**Please respect the following rules while translating:**
+- Always use the same markup as the original string.
+- Doesn't remove trailing spaces, they are needed for Ricin to display text correctly.
+- Please try to translate using similar words, doesn't uses funny words.
+- Write the sentences in a imperative way.
 
 # Vala resources to get started
 Before clicking on any link beside, you must know what is Vala and why it is so powerful and easy to use: [What is Vala?](https://wiki.gnome.org/Projects/Vala/About)
