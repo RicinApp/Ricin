@@ -26,7 +26,7 @@
                 <property name="can_focus">False</property>
                 <property name="halign">start</property>
                 <property name="valign">baseline</property>
-                <property name="label" translatable="yes">text</property>
+                <property name="label" translatable="no">text</property>
                 <property name="wrap">True</property>
                 <property name="wrap_mode">char</property>
                 <property name="selectable">True</property>

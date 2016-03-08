@@ -80,7 +80,7 @@
                     <property name="can_focus">False</property>
                     <property name="margin_left">5</property>
                     <property name="margin_right">5</property>
-                    <property name="label" translatable="yes">Topic text ipsum dolores sit amet</property>
+                    <property name="label" translatable="no">Topic text ipsum dolores sit amet</property>
                     <property name="use_markup">True</property>
                     <property name="justify">center</property>
                     <property name="wrap">True</property>

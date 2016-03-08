@@ -26,7 +26,7 @@
                 <property name="can_focus">False</property>
                 <property name="halign">start</property>
                 <property name="valign">start</property>
-                <property name="label" translatable="yes">label</property>
+                <property name="label" translatable="no">label</property>
                 <property name="selectable">True</property>
                 <property name="ellipsize">end</property>
                 <property name="width_chars">12</property>
@@ -100,7 +100,7 @@
                         <property name="halign">start</property>
                         <property name="margin_top">2</property>
                         <property name="margin_bottom">2</property>
-                        <property name="label" translatable="yes">file_name.ext</property>
+                        <property name="label" translatable="no">file_name.ext</property>
                         <property name="ellipsize">end</property>
                         <property name="single_line_mode">True</property>
                         <property name="max_width_chars">30</property>
@@ -119,7 +119,7 @@
                         <property name="margin_right">5</property>
                         <property name="margin_top">2</property>
                         <property name="margin_bottom">2</property>
-                        <property name="label" translatable="yes">(0 Kb)</property>
+                        <property name="label" translatable="no">(0 Kb)</property>
                       </object>
                       <packing>
                         <property name="expand">False</property>
@@ -179,7 +179,7 @@
                 <property name="can_focus">False</property>
                 <property name="halign">end</property>
                 <property name="valign">start</property>
-                <property name="label" translatable="yes">00:00.00</property>
+                <property name="label" translatable="no">00:00.00</property>
                 <property name="justify">right</property>
                 <property name="selectable">True</property>
                 <property name="ellipsize">end</property>

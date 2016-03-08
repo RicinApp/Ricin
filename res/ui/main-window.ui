@@ -309,7 +309,7 @@
                                   <object class="GtkLabel" id="label_friend_request_pubkey">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
-                                    <property name="label" translatable="yes">label</property>
+                                    <property name="label" translatable="no">label</property>
                                     <property name="selectable">True</property>
                                     <property name="ellipsize">end</property>
                                     <property name="single_line_mode">True</property>
@@ -325,7 +325,7 @@
                                   <object class="GtkLabel" id="label_friend_request_message">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
-                                    <property name="label" translatable="yes">label</property>
+                                    <property name="label" translatable="no">label</property>
                                     <property name="justify">center</property>
                                     <property name="wrap">True</property>
                                   </object>
@@ -700,7 +700,7 @@
                     <property name="can_focus">False</property>
                     <property name="margin_top">5</property>
                     <property name="margin_bottom">5</property>
-                    <property name="label" translatable="yes">notify</property>
+                    <property name="label" translatable="no">notify</property>
                     <property name="ellipsize">start</property>
                     <attributes>
                       <attribute name="weight" value="normal"/>
