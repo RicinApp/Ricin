@@ -34,9 +34,9 @@ _Screenshot might be outdated but it should give you a general idea of what is R
 # Dependencies
 | Package name        | Version   |
 |---------------------|-----------|
-| [meson] \(building) |           |
+| [meson] \(building) | >=0.28.0  |
 | [ninja] \(building) | >=1.5.1   |
-| valac               | >=0.28.1  |
+| valac \(building)   | >=0.28.1  |
 | gtk+3               | >=3.16    |
 | [libtoxcore]        | >=0.0.0   |
 | glib2               | >=2.38    |
