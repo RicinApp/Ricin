@@ -92,9 +92,11 @@ class Ricin.SettingsView : Gtk.Box {
       if (slang == 0) { // English.
         info ("Changed locale to English.");
         Intl.setlocale(LocaleCategory.MESSAGES, "C");
+        this.settings.write_string ("ricin.interface.selected_language", "C");
       } else if (slang == 1) { // French
         info ("Changed locale to French.");
         Intl.setlocale(LocaleCategory.MESSAGES, "fr_FR");
+        this.settings.write_string ("ricin.interface.selected_language", "fr_FR");
       }
     });
 

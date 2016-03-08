@@ -6,13 +6,17 @@ public class Ricin.Ricin : Gtk.Application {
   public static const string RES_BASE_PATH = "/chat/tox/ricin/";
 
   private string default_theme = "dark"; // Will be overrided by settings.
+  private SettingsManager settings;
 
   public Ricin () {
     Object (application_id: "chat.tox.ricin",
             flags: ApplicationFlags.FLAGS_NONE); // TODO: handle open
 
+    this.settings = new SettingsManager ();
+
     // Stuff for localization.
-    Intl.setlocale(LocaleCategory.MESSAGES, "fr_FR");
+    string selected_language = settings.get_string ("ricin.interface.selected_language");
+    Intl.setlocale(LocaleCategory.MESSAGES, selected_language);
     Intl.textdomain(GETTEXT_PACKAGE);
     Intl.bind_textdomain_codeset(GETTEXT_PACKAGE, "utf-8");
     Intl.bindtextdomain(GETTEXT_PACKAGE, "/usr/share/locale");
@@ -31,10 +35,8 @@ public class Ricin.Ricin : Gtk.Application {
       config_sample.copy (config_file, FileCopyFlags.NONE);
     }
 
-    SettingsManager settings = new SettingsManager ();
-
-    if (settings.get_bool ("ricin.interface.enable_custom_themes") == true) {
-      this.default_theme = settings.get_string ("ricin.interface.selected_theme");
+    if (this.settings.get_bool ("ricin.interface.enable_custom_themes") == true) {
+      this.default_theme = this.settings.get_string ("ricin.interface.selected_theme");
       debug (@"Selected theme: $(this.default_theme)");
 
       // Load the default css.
