@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2016-03-08 10:58+0100\n"
-"PO-Revision-Date: 2016-03-08 10:58+0100\n"
+"POT-Creation-Date: 2016-03-08 11:04+0100\n"
+"PO-Revision-Date: 2016-03-08 11:04+0100\n"
 "Last-Translator: SkyzohKey <skyzohkey@tuta.io>\n"
 "Language-Team: \n"
 "Language: fr_FR\n"
@@ -139,12 +139,12 @@ msgstr "Rejeter"
 msgid "Accept"
 msgstr "Accepter"
 
-#: res/ui/main-window.ui:470 res/ui/main-window.ui:537 src/MainWindow.vala:490
-#: src/MainWindow.vala:515
+#: res/ui/main-window.ui:470 res/ui/main-window.ui:537 src/MainWindow.vala:491
+#: src/MainWindow.vala:516
 msgid "Add a friend"
 msgstr "Ajouter un contact"
 
-#: res/ui/main-window.ui:490 src/MainWindow.vala:479
+#: res/ui/main-window.ui:490 src/MainWindow.vala:480
 msgid "Settings"
 msgstr "Paramètres"
 
@@ -342,11 +342,11 @@ msgstr "Débloquer"
 msgid "Choose a file"
 msgstr "Choisissez un fichier"
 
-#: src/ChatView.vala:402 src/MainWindow.vala:604
+#: src/ChatView.vala:402 src/MainWindow.vala:605
 msgid "_Cancel"
 msgstr "_Annuler"
 
-#: src/ChatView.vala:403 src/MainWindow.vala:605
+#: src/ChatView.vala:403 src/MainWindow.vala:606
 msgid "_Open"
 msgstr "_Ouvrir"
 
@@ -382,35 +382,40 @@ msgstr "Contacts en ligne"
 msgid "All friends"
 msgstr "Tout les contacts"
 
-#: src/MainWindow.vala:408 src/Util.vala:157
+#: src/MainWindow.vala:384
+#, c-format
+msgid "Hello! It's %s, let's be friends."
+msgstr "Bonjour! C'est %s, soyons amis."
+
+#: src/MainWindow.vala:409 src/Util.vala:157
 msgid "Online"
 msgstr "En ligne"
 
-#: src/MainWindow.vala:418 src/Util.vala:163
+#: src/MainWindow.vala:419 src/Util.vala:163
 msgid "Busy"
 msgstr "Occupé"
 
-#: src/MainWindow.vala:428 src/Util.vala:160
+#: src/MainWindow.vala:429 src/Util.vala:160
 msgid "Away"
 msgstr "Absent"
 
-#: src/MainWindow.vala:438
+#: src/MainWindow.vala:439
 msgid "Quit"
 msgstr "Quitter"
 
-#: src/MainWindow.vala:524
+#: src/MainWindow.vala:525
 msgid "Ricin doesn't supports ToxDNS yet."
 msgstr "Ricin ne supporte pas encore ToxMe."
 
-#: src/MainWindow.vala:526
+#: src/MainWindow.vala:527
 msgid "ToxID can't be empty."
 msgstr "Le ToxID ne peut pas être vide."
 
-#: src/MainWindow.vala:528
+#: src/MainWindow.vala:529
 msgid "ToxID is invalid."
 msgstr "Le ToxID est invalide."
 
-#: src/MainWindow.vala:601
+#: src/MainWindow.vala:602
 msgid "Select your avatar"
 msgstr "Choisissez un avatar"
 
