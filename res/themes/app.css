@@ -227,6 +227,7 @@ GtkViewport,
 RicinFriendListRow,
 RicinMainWindow,
 GtkScrolledWindow {
+  background-image: initial;
   border-image: none;
   border-image-width: 0;
   border-bottom-width: 0;
