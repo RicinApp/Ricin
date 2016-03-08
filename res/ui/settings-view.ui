@@ -780,6 +780,7 @@
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">True</property>
+                                <property name="tooltip_text" translatable="yes">Reload custom theme</property>
                                 <property name="image">image1</property>
                                 <property name="always_show_image">True</property>
                               </object>

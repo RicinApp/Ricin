@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2016-03-08 10:32+0100\n"
-"PO-Revision-Date: 2016-03-08 10:32+0100\n"
+"POT-Creation-Date: 2016-03-08 10:53+0100\n"
+"PO-Revision-Date: 2016-03-08 10:53+0100\n"
 "Last-Translator: SkyzohKey <skyzohkey@tuta.io>\n"
 "Language-Team: \n"
 "Language: en_US\n"
@@ -252,31 +252,35 @@ msgstr "Network"
 msgid "<b>Enable custom themes?</b>"
 msgstr "<b>Enable custom themes?</b>"
 
-#: res/ui/settings-view.ui:834
+#: res/ui/settings-view.ui:783
+msgid "Reload custom theme"
+msgstr "Reload custom theme"
+
+#: res/ui/settings-view.ui:835
 msgid "<b>Display friend's status changes?</b>"
 msgstr "<b>Display friend's status changes?</b>"
 
-#: res/ui/settings-view.ui:890
+#: res/ui/settings-view.ui:891
 msgid "<b>Send typing notifications?</b>"
 msgstr "<b>Send typing notifications?</b>"
 
-#: res/ui/settings-view.ui:954
+#: res/ui/settings-view.ui:955
 msgid "<b>Language:</b>"
 msgstr "<b>Language:</b>"
 
-#: res/ui/settings-view.ui:1006
+#: res/ui/settings-view.ui:1007
 msgid "Interface"
 msgstr "Interface"
 
-#: res/ui/settings-view.ui:1060
+#: res/ui/settings-view.ui:1061
 msgid "Ricin"
 msgstr "Ricin"
 
-#: res/ui/settings-view.ui:1092
+#: res/ui/settings-view.ui:1093
 msgid "<b>Version:</b>"
 msgstr "<b>Version:</b>"
 
-#: res/ui/settings-view.ui:1133
+#: res/ui/settings-view.ui:1134
 msgid ""
 "<b>Ricin</b> aims to be a <i>secure, lightweight, hackable and fully-"
 "customizable</i> chat client using the awesome and open-source <b>ToxCore</"
@@ -286,41 +290,45 @@ msgstr ""
 "<i>sécurisé, léger et customisable à souhait</i> en utilisant la super "
 "bibliothèque open-source <b>ToxCore</b>"
 
-#: res/ui/settings-view.ui:1163
+#: res/ui/settings-view.ui:1164
 msgid "GitHub"
 msgstr "GitHub"
 
-#: res/ui/settings-view.ui:1182
+#: res/ui/settings-view.ui:1183
 msgid "Report an issue"
 msgstr "Report an issue"
 
-#: res/ui/settings-view.ui:1201
+#: res/ui/settings-view.ui:1202
 msgid "Contributors"
 msgstr "Contributors"
 
-#: res/ui/settings-view.ui:1251
+#: res/ui/settings-view.ui:1252
 msgid "License (GNU General Public License 3)"
 msgstr "License (GNU General Public License 3)"
 
-#: res/ui/settings-view.ui:1271
+#: res/ui/settings-view.ui:1272
 msgid "Ricin official website"
 msgstr "Ricin official website"
 
-#: res/ui/settings-view.ui:1311
+#: res/ui/settings-view.ui:1312
 msgid "About"
 msgstr "About"
 
-#: res/ui/settings-view.ui:1339
+#: res/ui/settings-view.ui:1340
 msgid "ricin.io (stable)"
 msgstr "ricin.io (stable)"
 
-#: res/ui/settings-view.ui:1342
+#: res/ui/settings-view.ui:1343
 msgid "toxme.io"
 msgstr "toxme.io"
 
 #: res/ui/welcome-view.ui:87
 msgid "Select a chat to start messaging."
 msgstr "Select a chat to start messaging."
+
+#: src/ChatView.vala:243
+msgid "is typing"
+msgstr "is typing"
 
 #: src/ChatView.vala:288
 msgid " is now "
@@ -433,6 +441,10 @@ msgstr "default"
 #: src/SettingsView.vala:74
 msgid "stable"
 msgstr "stable"
+
+#: src/SettingsView.vala:83
+msgid "Dark theme"
+msgstr "Dark theme"
 
 #: src/SettingsView.vala:84
 msgid "White theme"

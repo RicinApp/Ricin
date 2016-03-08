@@ -80,7 +80,7 @@ class Ricin.SettingsView : Gtk.Box {
     this.combobox_toxme_servers.append_text  (@"uTox.org ($stable_str)");
     // this.combobox_toxme_servers.append ("toxing.me", "Toxing.me (unstable)");
 
-    this.combobox_selected_theme.append_text (_(@"Dark theme ($default_str)"));
+    this.combobox_selected_theme.append_text (_("Dark theme") + @" ($default_str)");
     this.combobox_selected_theme.append_text (_("White theme"));
     this.combobox_selected_theme.append_text (_("Clearer theme"));
 

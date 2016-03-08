@@ -240,7 +240,7 @@ class Ricin.ChatView : Gtk.Box {
 
     this.fr.notify["typing"].connect ((obj, prop) => {
       string friend_name = Util.escape_html (this.fr.name);
-      this.label_friend_is_typing.set_markup (_(@"<i>$friend_name is typing</i>"));
+      this.label_friend_is_typing.set_markup (@"<i>$friend_name " + _("is typing") + "</i>");
       this.friend_typing.reveal_child = this.fr.typing;
 
       if (this.fr.typing == false) {
