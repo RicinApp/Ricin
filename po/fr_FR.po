@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2016-03-08 10:53+0100\n"
-"PO-Revision-Date: 2016-03-08 10:53+0100\n"
+"POT-Creation-Date: 2016-03-08 10:58+0100\n"
+"PO-Revision-Date: 2016-03-08 10:58+0100\n"
 "Last-Translator: SkyzohKey <skyzohkey@tuta.io>\n"
 "Language-Team: \n"
 "Language: fr_FR\n"
@@ -43,7 +43,7 @@ msgstr "<b>Dernière action:</b>"
 msgid "Notes about the user:"
 msgstr "Notes:"
 
-#: res/ui/chat-view.ui:558 src/ChatView.vala:324
+#: res/ui/chat-view.ui:558 src/ChatView.vala:325
 msgid "Block"
 msgstr "Bloquer"
 
@@ -330,23 +330,23 @@ msgstr "Selectionnez un contact pour commencer à discuter"
 msgid "is typing"
 msgstr "est entrain d'écrire"
 
-#: src/ChatView.vala:288
+#: src/ChatView.vala:289
 msgid " is now "
 msgstr " est maintenant "
 
-#: src/ChatView.vala:322
+#: src/ChatView.vala:323
 msgid "Unblock"
 msgstr "Débloquer"
 
-#: src/ChatView.vala:400
+#: src/ChatView.vala:401
 msgid "Choose a file"
 msgstr "Choisissez un fichier"
 
-#: src/ChatView.vala:401 src/MainWindow.vala:604
+#: src/ChatView.vala:402 src/MainWindow.vala:604
 msgid "_Cancel"
 msgstr "_Annuler"
 
-#: src/ChatView.vala:402 src/MainWindow.vala:605
+#: src/ChatView.vala:403 src/MainWindow.vala:605
 msgid "_Open"
 msgstr "_Ouvrir"
 
@@ -382,15 +382,15 @@ msgstr "Contacts en ligne"
 msgid "All friends"
 msgstr "Tout les contacts"
 
-#: src/MainWindow.vala:408
+#: src/MainWindow.vala:408 src/Util.vala:157
 msgid "Online"
 msgstr "En ligne"
 
-#: src/MainWindow.vala:418
+#: src/MainWindow.vala:418 src/Util.vala:163
 msgid "Busy"
 msgstr "Occupé"
 
-#: src/MainWindow.vala:428
+#: src/MainWindow.vala:428 src/Util.vala:160
 msgid "Away"
 msgstr "Absent"
 
@@ -453,6 +453,14 @@ msgstr "Thème blanc"
 #: src/SettingsView.vala:85
 msgid "Clearer theme"
 msgstr "Thème clair"
+
+#: src/Util.vala:154
+msgid "Blocked"
+msgstr "Bloqué"
+
+#: src/Util.vala:167
+msgid "Offline"
+msgstr "Hors ligne"
 
 #: src/Wrapper.vala:218
 msgid " is now known as "

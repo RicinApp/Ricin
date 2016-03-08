@@ -285,7 +285,8 @@ class Ricin.ChatView : Gtk.Box {
 
       bool display_friends_status_changes = this.settings.get_bool ("ricin.interface.display_friends_status_changes");
       if (this.last_status != status && display_friends_status_changes) {
-        messages_list.add(new StatusMessageListRow(fr.name + _(" is now ") + icon, status));
+        var status_str = Util.status_to_string (this.fr.status);
+        messages_list.add (new StatusMessageListRow (fr.name + _(" is now ") + status_str, status));
         this.last_status = status;
       }
     });

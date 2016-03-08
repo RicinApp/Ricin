@@ -145,4 +145,29 @@ namespace Util {
 
     return icon;
   }
+
+  public static string status_to_string (Tox.UserStatus status) {
+    string str = "";
+
+    switch (status) {
+      case Tox.UserStatus.BLOCKED:
+        str = _("Blocked");
+        break;
+      case Tox.UserStatus.ONLINE:
+        str = _("Online");
+        break;
+      case Tox.UserStatus.AWAY:
+        str = _("Away");
+        break;
+      case Tox.UserStatus.BUSY:
+        str = _("Busy");
+        break;
+      case Tox.UserStatus.OFFLINE:
+      default:
+        str = _("Offline");
+        break;
+    }
+
+    return str;
+  }
 }
