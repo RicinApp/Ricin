@@ -1,0 +1,470 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# gmscs <gserpa@openmailbox.org>, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: Ricin\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-03-08 18:19+0100\n"
+"PO-Revision-Date: 2016-03-09 18:06+0100\n"
+"Last-Translator: SkyzohKey <skyzohkey@tuta.io>\n"
+"Language-Team: Portuguese (http://www.transifex.com/ricinapp/ricin/language/pt/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: pt_PT\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 1.8.6\n"
+
+#: src/ChatView.vala:289
+msgid " is now "
+msgstr "está agora"
+
+#: src/Wrapper.vala:218
+msgid " is now known as "
+msgstr "agora é conhecido como"
+
+#: res/ui/friend-list-notification_unusable.ui:42
+msgid ""
+"3 unused profiles found:\n"
+"<b>Snow, Guy, Aztek</b>"
+msgstr ""
+"3 perfis inutilizados encontrados:\n"
+"<b>Snow, Guy, Aztek</b>"
+
+#: res/ui/settings-view.ui:835
+msgid "<b>Display friend's status changes?</b>"
+msgstr "<b>Mostrar alterações do estado do amigo?</b>"
+
+#: res/ui/settings-view.ui:726
+msgid "<b>Enable custom themes?</b>"
+msgstr "<b>Ativar temas personalizados</b>"
+
+#: res/ui/group-chat-view.ui:219
+msgid "<b>Friends</b>"
+msgstr "<b>Amigos</b>"
+
+#: res/ui/settings-view.ui:518
+msgid "<b>IPv6</b>"
+msgstr "<b>IPv6</b>"
+
+#: res/ui/settings-view.ui:955
+msgid "<b>Language:</b>"
+msgstr "<b>Idioma:</b>"
+
+#: src/Wrapper.vala:580
+msgid "<b>Last online:</b>"
+msgstr "<b>Última vez online:</b>"
+
+#: res/ui/chat-view.ui:456
+msgid "<b>Last seen:</b>"
+msgstr "<b>Última vez visto:</b>"
+
+#: res/ui/settings-view.ui:582
+msgid "<b>Proxy (SOCKS 5)</b>"
+msgstr "<b>Proxy (SOCKS 5)</b>"
+
+#: res/ui/settings-view.ui:1134
+msgid "<b>Ricin</b> aims to be a <i>secure, lightweight, hackable and fully-customizable</i> chat client using the awesome and open-source <b>ToxCore</b> library."
+msgstr "<b>Ricin</b> tem como objetivo ser um cliente de chat<i> seguro, leve, 'hackable' e totalmente personalizável </i> usando a incrível, open-source bibliotéca <b>ToxCore</b>."
+
+#: res/ui/settings-view.ui:891
+msgid "<b>Send typing notifications?</b>"
+msgstr "<b>Enviar notificações de escrita?</b>"
+
+#: res/ui/settings-view.ui:480
+msgid "<b>UDP</b>"
+msgstr "<b>UDP</b>"
+
+#: res/ui/group-chat-view.ui:247
+msgid "<b>Unknown peers</b>"
+msgstr "<b>Pares desconhecidos</b>"
+
+#: res/ui/settings-view.ui:1093
+msgid "<b>Version:</b>"
+msgstr "<b>Versão:</b>"
+
+#: res/ui/settings-view.ui:196
+msgid "<b>Your Tox alias:</b>"
+msgstr "<b>O seu pseudónimo de Tox:</b>"
+
+#: res/ui/settings-view.ui:77
+msgid "<b>Your ToxID:</b>"
+msgstr "<b>O seu ToxID:</b>"
+
+#: res/ui/chat-view.ui:911
+msgid "<i>Friend is typing</i>"
+msgstr "<i>Amigo a escrever</i>"
+
+#: res/ui/settings-view.ui:1312
+msgid "About"
+msgstr "Sobre"
+
+#: res/ui/main-window.ui:372
+msgid "Accept"
+msgstr "Aceitar"
+
+#: res/ui/inline-file-message-list-row.ui:205
+msgid "Accept/Resume file"
+msgstr "Aceitar/Resumir ficheiro"
+
+#: src/MainWindow.vala:491 src/MainWindow.vala:516 res/ui/main-window.ui:470
+#: res/ui/main-window.ui:537
+msgid "Add a friend"
+msgstr "Adicionar um amigo"
+
+#: res/ui/main-window.ui:612
+msgid "Add friend"
+msgstr "Adicionar amigo"
+
+#: src/MainWindow.vala:205
+msgid "All friends"
+msgstr "Todos os amigos"
+
+#: src/MainWindow.vala:429 src/Util.vala:160
+msgid "Away"
+msgstr "Ausente"
+
+#: res/ui/settings-view.ui:262
+msgid "Biography"
+msgstr "Biografia"
+
+#: src/ChatView.vala:325 res/ui/chat-view.ui:558
+msgid "Block"
+msgstr "Bloquear"
+
+#: src/FriendListRow.vala:61
+msgid "Block friend"
+msgstr "Bloquear amigo"
+
+#: src/Util.vala:154
+msgid "Blocked"
+msgstr "Bloqueado"
+
+#: src/MainWindow.vala:419 src/Util.vala:163
+msgid "Busy"
+msgstr "Ocupado"
+
+#: res/ui/chat-view.ui:186
+msgid "Call friend"
+msgstr "Fazer chamada com amigo"
+
+#: src/MainWindow.vala:147
+msgid "Can't load the profile"
+msgstr "Não foi possível carregar o perfil"
+
+#: res/ui/main-window.ui:633
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: res/ui/inline-file-message-list-row.ui:175
+msgid "Cancel/pause file"
+msgstr "Cancelar/pausar ficheiro"
+
+#: res/ui/settings-view.ui:106
+msgid "Change Nospam"
+msgstr "Alterar Nospam"
+
+#: res/ui/main-window.ui:86
+msgid "Change your avatar"
+msgstr "Alterar o seu avatar"
+
+#: res/ui/main-window.ui:133
+msgid "Change your status"
+msgstr "Alterar o seu estado"
+
+#: res/ui/settings-view.ui:447
+msgid "Changing Network settings will temporarily disconnect you from the Tox network"
+msgstr "Alterar as configurações de rede irá desligá-lo temporáriamente da rede Tox"
+
+#: src/ChatView.vala:401
+msgid "Choose a file"
+msgstr "Escolha um ficheiro"
+
+#: src/ProfileChooser.vala:89
+msgid "Choose a name for the profile"
+msgstr "Escolha um nome para o perfil"
+
+#: res/ui/chat-view.ui:700
+msgid "Choose smileys"
+msgstr "Mudar smileys"
+
+#: src/SettingsView.vala:85
+msgid "Clearer theme"
+msgstr "Tema claro"
+
+#: res/ui/chat-view.ui:843
+msgid "Close the popup"
+msgstr "Fechar o popup"
+
+#: res/ui/settings-view.ui:1202
+msgid "Contributors"
+msgstr "Colaboradores"
+
+#: res/ui/settings-view.ui:88 res/ui/settings-view.ui:218
+msgid "Copy"
+msgstr "Copiar"
+
+#: res/ui/chat-view.ui:598
+msgid "Copy friend's ToxID"
+msgstr "Copiar ToxID do amigo"
+
+#: res/ui/profile-chooser-window.ui:141
+msgid "Create a profile"
+msgstr "Criar um perfil"
+
+#: res/ui/profile-chooser-window.ui:116
+msgid "Create this profile"
+msgstr "Criar este perfil"
+
+#: src/SettingsView.vala:83
+msgid "Dark theme"
+msgstr "Tema escuro"
+
+#: res/ui/main-window.ui:352
+msgid "Decline"
+msgstr "Rejeitar"
+
+#: res/ui/chat-view.ui:578
+msgid "Delete"
+msgstr "Apagar"
+
+#: res/ui/friend-list-notification_unusable.ui:59
+msgid "Delete friends (3)"
+msgstr "Apagar amigos (3)"
+
+#: res/ui/profile-chooser-window.ui:88
+msgid "Enter a name for the profile"
+msgstr "Insira um nome para o perfil"
+
+#: res/ui/chat-view.ui:95
+msgid "Friend's profile"
+msgstr "Perfil do amigo"
+
+#: res/ui/settings-view.ui:415
+msgid "General"
+msgstr "Geral"
+
+#: res/ui/settings-view.ui:1164
+msgid "GitHub"
+msgstr "GitHub"
+
+#: res/ui/group-chat-view.ui:60
+msgid "Groupchat name"
+msgstr "Nome do groupchat"
+
+#: src/MainWindow.vala:384
+#, c-format
+msgid "Hello! It's %s, let's be friends."
+msgstr "Olá! Sou o/a %s, vamos ser amigos."
+
+#: src/InlineImageMessageListRow.vala:97
+msgid "Image saved!"
+msgstr "Imagem gravada!"
+
+#: res/ui/settings-view.ui:1007
+msgid "Interface"
+msgstr "Interface"
+
+#: res/ui/group-chat-view.ui:289
+msgid "Leave"
+msgstr "Sair"
+
+#: res/ui/settings-view.ui:1252
+msgid "License (GNU General Public License 3)"
+msgstr "Licença (GNU General Public License 3)"
+
+#: res/ui/profile-chooser-window.ui:72
+msgid "Load a profile"
+msgstr "Carregar um perfil"
+
+#: res/ui/profile-chooser-window.ui:50
+msgid "Login"
+msgstr "Login"
+
+#: res/ui/group-chat-view.ui:310
+msgid "Mute"
+msgstr "Silenciar"
+
+#: res/ui/settings-view.ui:687
+msgid "Network"
+msgstr "Rede"
+
+#: res/ui/settings-view.ui:340
+msgid "New Tox alias"
+msgstr "Novo pseudónimo de Tox"
+
+#: src/MainWindow.vala:97
+msgid "No"
+msgstr "Não"
+
+#: res/ui/chat-view.ui:493
+msgid "Notes about the user:"
+msgstr "Apontamentos sobre o utilizador:"
+
+#: src/Util.vala:167
+msgid "Offline"
+msgstr "Offline"
+
+#: src/MainWindow.vala:409 src/Util.vala:157
+msgid "Online"
+msgstr "Online"
+
+#: src/MainWindow.vala:204
+msgid "Online friends"
+msgstr "Amigos online"
+
+#: src/ProfileChooser.vala:70
+msgid "Please enter a profile name."
+msgstr "Por favor insira um nome de perfil."
+
+#: src/ProfileChooser.vala:77
+msgid "Profile name already taken."
+msgstr "Nome de perfil já está a ser usado."
+
+#: src/MainWindow.vala:439
+msgid "Quit"
+msgstr "Sair"
+
+#: res/ui/settings-view.ui:783
+msgid "Reload custom theme"
+msgstr "Recarregar tema personalizado"
+
+#: res/ui/settings-view.ui:1183
+msgid "Report an issue"
+msgstr "Reportar um problema"
+
+#: res/ui/settings-view.ui:373
+msgid "Request deletion"
+msgstr "Pedir apagamento"
+
+#: res/ui/settings-view.ui:1061
+msgid "Ricin"
+msgstr "Ricin"
+
+#: src/MainWindow.vala:525
+msgid "Ricin doesn't supports ToxDNS yet."
+msgstr "Ricin não tem suporte de ToxDNS ainda."
+
+#: res/ui/settings-view.ui:1272
+msgid "Ricin official website"
+msgstr "Website oficial do Ricin"
+
+#: res/ui/welcome-view.ui:87
+msgid "Select a chat to start messaging."
+msgstr "Selecione um chat para começar a enviar mensagens."
+
+#: src/ProfileChooser.vala:20 res/ui/profile-chooser-window.ui:23
+msgid "Select a profile"
+msgstr "Escolha um perfil"
+
+#: src/MainWindow.vala:602
+msgid "Select your avatar"
+msgstr "Escolha o seu avatar"
+
+#: res/ui/chat-view.ui:727
+msgid "Send file"
+msgstr "Enviar ficheiro"
+
+#: res/ui/chat-view.ui:753
+msgid "Send message"
+msgstr "Enviar mensagem"
+
+#: src/MainWindow.vala:159 src/MainWindow.vala:480 res/ui/main-window.ui:490
+msgid "Settings"
+msgstr "Configurações"
+
+#: res/ui/chat-view.ui:152
+msgid "Status message..."
+msgstr "Mensagem de estado..."
+
+#: src/ProfileChooser.vala:61
+msgid "The selected profile doesn't exists."
+msgstr "O perfil selecionado não existe."
+
+#: src/MessageListRow.vala:54 src/PlainLabel.vala:20 src/QuoteLabel.vala:20
+msgid "ToxDNS is not supported yet."
+msgstr "ToxDNS ainda não é suportado."
+
+#: src/MainWindow.vala:527
+msgid "ToxID can't be empty."
+msgstr "ToxID não pode estar vazio."
+
+#: src/MainWindow.vala:529
+msgid "ToxID is invalid."
+msgstr "ToxID inválido."
+
+#: res/ui/main-window.ui:558
+msgid "ToxID to add..."
+msgstr "ToxID para adicionar..."
+
+#: res/ui/settings-view.ui:273
+msgid "ToxMe server"
+msgstr "Servidor ToxMe"
+
+#: res/ui/main-window.ui:188
+msgid "Type to search..."
+msgstr "Escreva para pesquisar..."
+
+#: src/ChatView.vala:323
+msgid "Unblock"
+msgstr "Desbloquear"
+
+#: src/FriendListRow.vala:61
+msgid "Unblock friend"
+msgstr "Desbloquear amigo"
+
+#: res/ui/settings-view.ui:356
+msgid "Update record"
+msgstr "Actualizar registro"
+
+#: res/ui/chat-view.ui:129 res/ui/settings-view.ui:251
+msgid "Username"
+msgstr "Nome de utilizador"
+
+#: res/ui/chat-view.ui:214
+msgid "Video call friend"
+msgstr "Fazer chamada de video com amigo"
+
+#: src/SettingsView.vala:84
+msgid "White theme"
+msgstr "Tema branco"
+
+#: src/MainWindow.vala:97
+msgid "Yes"
+msgstr "Sim"
+
+#: res/ui/main-window.ui:256
+msgid "You got a new friend request"
+msgstr "Tem um novo pedido de amizade"
+
+#: src/ChatView.vala:402 src/MainWindow.vala:605
+msgid "_Cancel"
+msgstr "_Cancelar"
+
+#: src/ChatView.vala:403 src/MainWindow.vala:606
+msgid "_Open"
+msgstr "_Abrir"
+
+#: src/SettingsView.vala:73
+msgid "default"
+msgstr "padrão"
+
+#: src/ChatView.vala:243
+msgid "is typing"
+msgstr "está a escrever"
+
+#: res/ui/settings-view.ui:1340
+msgid "ricin.io (stable)"
+msgstr "ricin.io (estável)"
+
+#: src/SettingsView.vala:74
+msgid "stable"
+msgstr "estável"
+
+#: res/ui/settings-view.ui:1343
+msgid "toxme.io"
+msgstr "toxme.io"

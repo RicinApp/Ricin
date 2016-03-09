@@ -1,0 +1,470 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Will Tange <bh34rt@gmail.com>, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: Ricin\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-03-08 18:19+0100\n"
+"PO-Revision-Date: 2016-03-09 18:06+0100\n"
+"Last-Translator: SkyzohKey <skyzohkey@tuta.io>\n"
+"Language-Team: Danish (http://www.transifex.com/ricinapp/ricin/language/da/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: da_DK\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 1.8.6\n"
+
+#: src/ChatView.vala:289
+msgid " is now "
+msgstr "er nu"
+
+#: src/Wrapper.vala:218
+msgid " is now known as "
+msgstr "er nu kendt som"
+
+#: res/ui/friend-list-notification_unusable.ui:42
+msgid ""
+"3 unused profiles found:\n"
+"<b>Snow, Guy, Aztek</b>"
+msgstr ""
+"3 ubrugte profiler fundet:\n"
+"<b>Snow, Guy, Aztek</b>"
+
+#: res/ui/settings-view.ui:835
+msgid "<b>Display friend's status changes?</b>"
+msgstr "<b>Vis venners status opdateringer?</b>"
+
+#: res/ui/settings-view.ui:726
+msgid "<b>Enable custom themes?</b>"
+msgstr "<b>Brugerdefinerede temaer?</b>"
+
+#: res/ui/group-chat-view.ui:219
+msgid "<b>Friends</b>"
+msgstr "<b>Venner</b>"
+
+#: res/ui/settings-view.ui:518
+msgid "<b>IPv6</b>"
+msgstr "<b>IPv6</b>"
+
+#: res/ui/settings-view.ui:955
+msgid "<b>Language:</b>"
+msgstr "<b>Sprog:</b>"
+
+#: src/Wrapper.vala:580
+msgid "<b>Last online:</b>"
+msgstr "<b>Sidst online:</b>"
+
+#: res/ui/chat-view.ui:456
+msgid "<b>Last seen:</b>"
+msgstr "<b>Sidst set:</b>"
+
+#: res/ui/settings-view.ui:582
+msgid "<b>Proxy (SOCKS 5)</b>"
+msgstr "<b>Proxy (SOCKS 5)</b>"
+
+#: res/ui/settings-view.ui:1134
+msgid "<b>Ricin</b> aims to be a <i>secure, lightweight, hackable and fully-customizable</i> chat client using the awesome and open-source <b>ToxCore</b> library."
+msgstr "<b>Ricin</b> sætter sig for at være en <i>sikker, let, hackervenlig samt tilpasselig</i> chatklient, der benytter sig af det open-source <b>ToxCore</b> bibliotek."
+
+#: res/ui/settings-view.ui:891
+msgid "<b>Send typing notifications?</b>"
+msgstr "<b>Send notifikationer når jeg skriver?</b>"
+
+#: res/ui/settings-view.ui:480
+msgid "<b>UDP</b>"
+msgstr "<b>UDP</b>"
+
+#: res/ui/group-chat-view.ui:247
+msgid "<b>Unknown peers</b>"
+msgstr "<b>Ukendte peers</b>"
+
+#: res/ui/settings-view.ui:1093
+msgid "<b>Version:</b>"
+msgstr "<b>Version:</b>"
+
+#: res/ui/settings-view.ui:196
+msgid "<b>Your Tox alias:</b>"
+msgstr "<b>Dit Tox alias:</b>"
+
+#: res/ui/settings-view.ui:77
+msgid "<b>Your ToxID:</b>"
+msgstr "<b>Dit ToxID:</b>"
+
+#: res/ui/chat-view.ui:911
+msgid "<i>Friend is typing</i>"
+msgstr "<i>Ven skriver</i>"
+
+#: res/ui/settings-view.ui:1312
+msgid "About"
+msgstr "Om"
+
+#: res/ui/main-window.ui:372
+msgid "Accept"
+msgstr "Accepter"
+
+#: res/ui/inline-file-message-list-row.ui:205
+msgid "Accept/Resume file"
+msgstr "Accepter/Forsæt filoverførsel"
+
+#: src/MainWindow.vala:491 src/MainWindow.vala:516 res/ui/main-window.ui:470
+#: res/ui/main-window.ui:537
+msgid "Add a friend"
+msgstr "Tilføj en ven"
+
+#: res/ui/main-window.ui:612
+msgid "Add friend"
+msgstr "Tilføj ven"
+
+#: src/MainWindow.vala:205
+msgid "All friends"
+msgstr "Alle venner"
+
+#: src/MainWindow.vala:429 src/Util.vala:160
+msgid "Away"
+msgstr "Væk"
+
+#: res/ui/settings-view.ui:262
+msgid "Biography"
+msgstr "Biografi"
+
+#: src/ChatView.vala:325 res/ui/chat-view.ui:558
+msgid "Block"
+msgstr "Bloker"
+
+#: src/FriendListRow.vala:61
+msgid "Block friend"
+msgstr "Bloker ven"
+
+#: src/Util.vala:154
+msgid "Blocked"
+msgstr "Blokeret"
+
+#: src/MainWindow.vala:419 src/Util.vala:163
+msgid "Busy"
+msgstr "Optaget"
+
+#: res/ui/chat-view.ui:186
+msgid "Call friend"
+msgstr "Ring til ven"
+
+#: src/MainWindow.vala:147
+msgid "Can't load the profile"
+msgstr "Kan ikke hente profil"
+
+#: res/ui/main-window.ui:633
+msgid "Cancel"
+msgstr "Annuller"
+
+#: res/ui/inline-file-message-list-row.ui:175
+msgid "Cancel/pause file"
+msgstr "Annuller/sæt filoverførsel på pause"
+
+#: res/ui/settings-view.ui:106
+msgid "Change Nospam"
+msgstr "Skift Nospam"
+
+#: res/ui/main-window.ui:86
+msgid "Change your avatar"
+msgstr "Skift profilbillede"
+
+#: res/ui/main-window.ui:133
+msgid "Change your status"
+msgstr "Skift statusmeddelelse"
+
+#: res/ui/settings-view.ui:447
+msgid "Changing Network settings will temporarily disconnect you from the Tox network"
+msgstr "Ændring af Netværksindstillingerne vil midlertidigt afbryde din forbindelse til Tox netværket"
+
+#: src/ChatView.vala:401
+msgid "Choose a file"
+msgstr "Vælg en fil"
+
+#: src/ProfileChooser.vala:89
+msgid "Choose a name for the profile"
+msgstr "Vælg et navn til profilen"
+
+#: res/ui/chat-view.ui:700
+msgid "Choose smileys"
+msgstr "Vælg smileys"
+
+#: src/SettingsView.vala:85
+msgid "Clearer theme"
+msgstr "Klart tema"
+
+#: res/ui/chat-view.ui:843
+msgid "Close the popup"
+msgstr "Luk pop op-vinduet"
+
+#: res/ui/settings-view.ui:1202
+msgid "Contributors"
+msgstr "Bidragsydere"
+
+#: res/ui/settings-view.ui:88 res/ui/settings-view.ui:218
+msgid "Copy"
+msgstr "Kopier"
+
+#: res/ui/chat-view.ui:598
+msgid "Copy friend's ToxID"
+msgstr "Kopier vens ToxID"
+
+#: res/ui/profile-chooser-window.ui:141
+msgid "Create a profile"
+msgstr "Opret profil"
+
+#: res/ui/profile-chooser-window.ui:116
+msgid "Create this profile"
+msgstr "Opret profil"
+
+#: src/SettingsView.vala:83
+msgid "Dark theme"
+msgstr "Mørkt tema"
+
+#: res/ui/main-window.ui:352
+msgid "Decline"
+msgstr "Afvis"
+
+#: res/ui/chat-view.ui:578
+msgid "Delete"
+msgstr "Slet"
+
+#: res/ui/friend-list-notification_unusable.ui:59
+msgid "Delete friends (3)"
+msgstr "Slet venner (3)"
+
+#: res/ui/profile-chooser-window.ui:88
+msgid "Enter a name for the profile"
+msgstr "Angiv et navn til profilen"
+
+#: res/ui/chat-view.ui:95
+msgid "Friend's profile"
+msgstr "Vens profil"
+
+#: res/ui/settings-view.ui:415
+msgid "General"
+msgstr "Generelt"
+
+#: res/ui/settings-view.ui:1164
+msgid "GitHub"
+msgstr "GitHub"
+
+#: res/ui/group-chat-view.ui:60
+msgid "Groupchat name"
+msgstr "Gruppechat navn"
+
+#: src/MainWindow.vala:384
+#, c-format
+msgid "Hello! It's %s, let's be friends."
+msgstr "Hej! %s her, lad os være venner."
+
+#: src/InlineImageMessageListRow.vala:97
+msgid "Image saved!"
+msgstr "Billede gemt!"
+
+#: res/ui/settings-view.ui:1007
+msgid "Interface"
+msgstr "Grænseflade"
+
+#: res/ui/group-chat-view.ui:289
+msgid "Leave"
+msgstr "Forlad"
+
+#: res/ui/settings-view.ui:1252
+msgid "License (GNU General Public License 3)"
+msgstr "Licens (GNU General Public License 3)"
+
+#: res/ui/profile-chooser-window.ui:72
+msgid "Load a profile"
+msgstr "Indlæs profil"
+
+#: res/ui/profile-chooser-window.ui:50
+msgid "Login"
+msgstr "Log på"
+
+#: res/ui/group-chat-view.ui:310
+msgid "Mute"
+msgstr "Deaktiver mikrofon"
+
+#: res/ui/settings-view.ui:687
+msgid "Network"
+msgstr "Netværk"
+
+#: res/ui/settings-view.ui:340
+msgid "New Tox alias"
+msgstr "Nyt Tox alias"
+
+#: src/MainWindow.vala:97
+msgid "No"
+msgstr "Nej"
+
+#: res/ui/chat-view.ui:493
+msgid "Notes about the user:"
+msgstr "Noter om brugeren:"
+
+#: src/Util.vala:167
+msgid "Offline"
+msgstr "Offline"
+
+#: src/MainWindow.vala:409 src/Util.vala:157
+msgid "Online"
+msgstr "Online"
+
+#: src/MainWindow.vala:204
+msgid "Online friends"
+msgstr "Online venner"
+
+#: src/ProfileChooser.vala:70
+msgid "Please enter a profile name."
+msgstr "Angiv et profilnavn."
+
+#: src/ProfileChooser.vala:77
+msgid "Profile name already taken."
+msgstr "Profilnavn allerede taget."
+
+#: src/MainWindow.vala:439
+msgid "Quit"
+msgstr "Luk"
+
+#: res/ui/settings-view.ui:783
+msgid "Reload custom theme"
+msgstr "Genindlæs brugertema"
+
+#: res/ui/settings-view.ui:1183
+msgid "Report an issue"
+msgstr "Anmeld et problem"
+
+#: res/ui/settings-view.ui:373
+msgid "Request deletion"
+msgstr "Anmod om sletning"
+
+#: res/ui/settings-view.ui:1061
+msgid "Ricin"
+msgstr "Ricin"
+
+#: src/MainWindow.vala:525
+msgid "Ricin doesn't supports ToxDNS yet."
+msgstr "Ricin understøtter ikke ToxDNS endnu."
+
+#: res/ui/settings-view.ui:1272
+msgid "Ricin official website"
+msgstr "Ricin's officielle webside"
+
+#: res/ui/welcome-view.ui:87
+msgid "Select a chat to start messaging."
+msgstr "Vælg et vindue for at chatte"
+
+#: src/ProfileChooser.vala:20 res/ui/profile-chooser-window.ui:23
+msgid "Select a profile"
+msgstr "Vælg en profil"
+
+#: src/MainWindow.vala:602
+msgid "Select your avatar"
+msgstr "Vælg dit profilbillede"
+
+#: res/ui/chat-view.ui:727
+msgid "Send file"
+msgstr "Send fil"
+
+#: res/ui/chat-view.ui:753
+msgid "Send message"
+msgstr "Send besked"
+
+#: src/MainWindow.vala:159 src/MainWindow.vala:480 res/ui/main-window.ui:490
+msgid "Settings"
+msgstr "Indstillinger"
+
+#: res/ui/chat-view.ui:152
+msgid "Status message..."
+msgstr "Statusmeddelelse..."
+
+#: src/ProfileChooser.vala:61
+msgid "The selected profile doesn't exists."
+msgstr "Den valgte profil eksisterer ikke."
+
+#: src/MessageListRow.vala:54 src/PlainLabel.vala:20 src/QuoteLabel.vala:20
+msgid "ToxDNS is not supported yet."
+msgstr "ToxDNS er ikke understøttet endnu."
+
+#: src/MainWindow.vala:527
+msgid "ToxID can't be empty."
+msgstr "ToxID må ikke være tomt."
+
+#: src/MainWindow.vala:529
+msgid "ToxID is invalid."
+msgstr "ToxID er ugyldigt."
+
+#: res/ui/main-window.ui:558
+msgid "ToxID to add..."
+msgstr "ToxID at tilføje..."
+
+#: res/ui/settings-view.ui:273
+msgid "ToxMe server"
+msgstr "ToxMe server"
+
+#: res/ui/main-window.ui:188
+msgid "Type to search..."
+msgstr "Skriv for at søge..."
+
+#: src/ChatView.vala:323
+msgid "Unblock"
+msgstr "Fjern blokering"
+
+#: src/FriendListRow.vala:61
+msgid "Unblock friend"
+msgstr "Fjern blokering af ven"
+
+#: res/ui/settings-view.ui:356
+msgid "Update record"
+msgstr "Opdater optegnelse"
+
+#: res/ui/chat-view.ui:129 res/ui/settings-view.ui:251
+msgid "Username"
+msgstr "Brugernavn"
+
+#: res/ui/chat-view.ui:214
+msgid "Video call friend"
+msgstr "Start videoopkald med ven"
+
+#: src/SettingsView.vala:84
+msgid "White theme"
+msgstr "Hvidt tema"
+
+#: src/MainWindow.vala:97
+msgid "Yes"
+msgstr "Ja"
+
+#: res/ui/main-window.ui:256
+msgid "You got a new friend request"
+msgstr "Du har modtaget en venneanmodning"
+
+#: src/ChatView.vala:402 src/MainWindow.vala:605
+msgid "_Cancel"
+msgstr "_Annuller"
+
+#: src/ChatView.vala:403 src/MainWindow.vala:606
+msgid "_Open"
+msgstr "_Åben"
+
+#: src/SettingsView.vala:73
+msgid "default"
+msgstr "standard"
+
+#: src/ChatView.vala:243
+msgid "is typing"
+msgstr "skriver"
+
+#: res/ui/settings-view.ui:1340
+msgid "ricin.io (stable)"
+msgstr "ricin.io (stabil)"
+
+#: src/SettingsView.vala:74
+msgid "stable"
+msgstr "stabil"
+
+#: res/ui/settings-view.ui:1343
+msgid "toxme.io"
+msgstr "toxme.io"

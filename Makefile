@@ -34,8 +34,10 @@ install: ./build/
 	sudo cp "build/Ricin" "/usr/bin/Ricin" # Binary
 	sudo cp "misc/ricin.desktop" "/usr/share/applications/ricin.desktop" # Desktop file
 	sudo cp "res/images/icons/Ricin-128x128.png" "/usr/share/icons/Ricin-128x128.png" # Icon
-	sudo cp "po/en_US.mo" "/usr/share/locale/en_US/LC_MESSAGES/ricin.mo" # French.mo
-	sudo cp "po/fr_FR.mo" "/usr/share/locale/fr_FR/LC_MESSAGES/ricin.mo" # French.mo
+	sudo cp "po/en_US.mo" "/usr/share/locale/en_US/LC_MESSAGES/ricin.mo" # English
+	sudo cp "po/fr_FR.mo" "/usr/share/locale/fr_FR/LC_MESSAGES/ricin.mo" # French
+	sudo cp "po/pt_PT.mo" "/usr/share/locale/pt_PT/LC_MESSAGES/ricin.mo" # Portuguese
+	sudo cp "po/da_DK.mo" "/usr/share/locale/fr_FR/LC_MESSAGES/ricin.mo" # Danish
 
 autogenwin:
 	sudo /usr/bin/meson . build-win32 --cross-file cross_win.txt

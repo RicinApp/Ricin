@@ -74,6 +74,8 @@ class Ricin.SettingsView : Gtk.Box {
     var stable_str = _("stable");
     this.combobox_languages.append_text      (@"English ($default_str)");
     this.combobox_languages.append_text      ("Français");
+    this.combobox_languages.append_text      ("Portuguese");
+    this.combobox_languages.append_text      ("Danish");
 
     this.combobox_toxme_servers.append_text  (@"Ricin.im ($default_str)");
     this.combobox_toxme_servers.append_text  (@"ToxMe.io ($stable_str)");
@@ -92,6 +94,10 @@ class Ricin.SettingsView : Gtk.Box {
       this.combobox_languages.active = 0;
     } else if (selected_language == "fr_FR") {
       this.combobox_languages.active = 1;
+    } else if (selected_language == "pt_PT") {
+      this.combobox_languages.active = 2;
+    } else if (selected_language == "da_DK") {
+      this.combobox_languages.active = 3;
     }
 
     this.combobox_languages.changed.connect (() => {
@@ -104,7 +110,15 @@ class Ricin.SettingsView : Gtk.Box {
         info ("Changed locale to French.");
         Intl.setlocale(LocaleCategory.MESSAGES, "fr_FR");
         this.settings.write_string ("ricin.interface.selected_language", "fr_FR");
-      }
+      } else if (slang == 1) { // Portuguese
+       info ("Changed locale to Portuguese.");
+       Intl.setlocale(LocaleCategory.MESSAGES, "pt_PT");
+       this.settings.write_string ("ricin.interface.selected_language", "pt_PT");
+     } else if (slang == 1) { // Danish
+      info ("Changed locale to Danish.");
+      Intl.setlocale(LocaleCategory.MESSAGES, "da_DK");
+      this.settings.write_string ("ricin.interface.selected_language", "da_DK");
+    }
     });
 
     string selected_theme = this.settings.get_string ("ricin.interface.selected_theme");
