@@ -98,27 +98,33 @@ class Ricin.SettingsView : Gtk.Box {
       this.combobox_languages.active = 2;
     } else if (selected_language == "da_DK") {
       this.combobox_languages.active = 3;
+    } else if (selected_language == "eo") {
+      this.combobox_languages.active = 4;
     }
 
     this.combobox_languages.changed.connect (() => {
       var slang = this.combobox_languages.active;
       if (slang == 0) { // English.
         info ("Changed locale to English.");
-        Intl.setlocale(LocaleCategory.MESSAGES, "en_US");
+        Environment.set_variable ("LANG", "en", true);
         this.settings.write_string ("ricin.interface.selected_language", "en_US");
       } else if (slang == 1) { // French
         info ("Changed locale to French.");
-        Intl.setlocale(LocaleCategory.MESSAGES, "fr_FR");
+        Environment.set_variable ("LANG", "fr", true);
         this.settings.write_string ("ricin.interface.selected_language", "fr_FR");
       } else if (slang == 1) { // Portuguese
-       info ("Changed locale to Portuguese.");
-       Intl.setlocale(LocaleCategory.MESSAGES, "pt_PT");
-       this.settings.write_string ("ricin.interface.selected_language", "pt_PT");
-     } else if (slang == 1) { // Danish
-      info ("Changed locale to Danish.");
-      Intl.setlocale(LocaleCategory.MESSAGES, "da_DK");
-      this.settings.write_string ("ricin.interface.selected_language", "da_DK");
-    }
+        info ("Changed locale to Portuguese.");
+        Environment.set_variable ("LANG", "pt", true);
+        this.settings.write_string ("ricin.interface.selected_language", "pt_PT");
+      } else if (slang == 1) { // Danish
+        info ("Changed locale to Danish.");
+        Environment.set_variable ("LANG", "da", true);
+        this.settings.write_string ("ricin.interface.selected_language", "da_DK");
+      } else if (slang == 1) { // Esperanto
+        info ("Changed locale to Esperanto.");
+        Environment.set_variable ("LANG", "eo", true);
+        this.settings.write_string ("ricin.interface.selected_language", "eo");
+      }
     });
 
     string selected_theme = this.settings.get_string ("ricin.interface.selected_theme");

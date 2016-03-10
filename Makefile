@@ -38,6 +38,7 @@ install: ./build/
 	sudo cp "po/fr_FR.mo" "/usr/share/locale/fr_FR/LC_MESSAGES/ricin.mo" # French
 	sudo cp "po/pt_PT.mo" "/usr/share/locale/pt_PT/LC_MESSAGES/ricin.mo" # Portuguese
 	sudo cp "po/da_DK.mo" "/usr/share/locale/da_DK/LC_MESSAGES/ricin.mo" # Danish
+	sudo cp "po/eo.mo" "/usr/share/locale/eo/LC_MESSAGES/ricin.mo" # Esperanto
 
 autogenwin:
 	sudo /usr/bin/meson . build-win32 --cross-file cross_win.txt
