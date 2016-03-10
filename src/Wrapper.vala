@@ -150,6 +150,10 @@ namespace Tox {
     public signal void global_info (string message);
     public signal void message_read (uint32 friend_number, uint32 message_id);
 
+    /*~Tox () {
+      this.handle = null;
+    }*/
+
     public Tox (ToxCore.Options? opts = null, string? profile = null) throws ErrNew {
       debug ("ToxCore Version %u.%u.%u", ToxCore.Version.MAJOR, ToxCore.Version.MINOR, ToxCore.Version.PATCH);
 

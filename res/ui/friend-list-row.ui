@@ -26,7 +26,7 @@
                 <property name="margin_top">5</property>
                 <property name="margin_bottom">5</property>
                 <property name="pixel_size">48</property>
-                <property name="icon_name">avatar-default</property>
+                <property name="resource">/chat/tox/ricin/images/noavatar.gif</property>
                 <property name="icon_size">6</property>
               </object>
               <packing>
@@ -48,7 +48,7 @@
                     <property name="margin_left">5</property>
                     <property name="margin_right">5</property>
                     <property name="margin_top">7</property>
-                    <property name="label" translatable="no">name</property>
+                    <property name="label">name</property>
                     <property name="ellipsize">end</property>
                     <property name="single_line_mode">True</property>
                     <attributes>
@@ -71,7 +71,7 @@
                     <property name="margin_left">5</property>
                     <property name="margin_right">5</property>
                     <property name="margin_bottom">7</property>
-                    <property name="label" translatable="no">status</property>
+                    <property name="label">status</property>
                     <property name="ellipsize">end</property>
                     <property name="single_line_mode">True</property>
                     <attributes>

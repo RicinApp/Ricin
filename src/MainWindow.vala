@@ -632,5 +632,7 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
 
   ~MainWindow () {
     this.tox.save_data ();
+    this.tox.handle = null;
+    this.tox = null;
   }
 }
