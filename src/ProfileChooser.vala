@@ -53,7 +53,7 @@ class Ricin.ProfileChooser : Gtk.ApplicationWindow {
 
     if (FileUtils.test (profile, FileTest.EXISTS)) {
       this.button_login.sensitive = false;
-      new MainWindow (this.application, profile);
+      new MainWindow (this.application, profile, false);
       this.close (); // if a dialog is open, the window will not be closed
     } else {
       // file deleted?
@@ -78,7 +78,7 @@ class Ricin.ProfileChooser : Gtk.ApplicationWindow {
     } else {
       this.entry_register_name.sensitive = false; // To prevent issue.
       this.button_register.sensitive = false; // To prevent issue.
-      new MainWindow (this.application, profile);
+      new MainWindow (this.application, profile, true);
       this.close ();
     }
   }

@@ -58,65 +58,7 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
 
   public signal void notify_message (string message, int timeout = 5000);
 
-  private string avatar_path () {
-    return Tox.profile_dir () + "avatars/" + this.tox.pubkey + ".png";
-  }
-
-  /**
-  * This is the sort method used for sorting contacts based on:
-  * Contact is online (top) → Contact is offline (end)
-  * Contact status: Online → Away → Busy → Blocked → Offlines with name → Offlines without name.
-  */
-  public static int sort_friendlist_online (Gtk.Widget row1, Gtk.Widget row2) {
-    var friend1 = (row1 as FriendListRow);
-    var friend2 = (row2 as FriendListRow);
-
-
-    if (friend1.fr.status != Tox.UserStatus.OFFLINE && friend2.fr.status == Tox.UserStatus.OFFLINE) {
-      return -1;
-    } else if (friend1.fr.status == Tox.UserStatus.OFFLINE && friend2.fr.status != Tox.UserStatus.OFFLINE) {
-      return 1;
-    } else if (friend1.fr.status != Tox.UserStatus.OFFLINE && friend2.fr.status != Tox.UserStatus.OFFLINE) {
-      if (friend1.fr.blocked && !friend2.fr.blocked) {
-        return 1;
-      }
-      return friend1.fr.status - friend2.fr.status;
-      //return friend1.fr.name  friend2.fr.name;
-    }
-    return friend1.fr.status - friend2.fr.status;
-  }
-
-  public void remove_friend (Tox.Friend fr) {
-    //var friend = (this.friends.get_object (fr.num) as Tox.Friend);
-    var friend = fr;
-    var name = friend.get_uname ();
-    var dialog = new Gtk.MessageDialog (this,
-                                        Gtk.DialogFlags.MODAL, Gtk.MessageType.QUESTION, Gtk.ButtonsType.NONE,
-                                        @"Are you sure you want to delete \"$name\"?");
-    dialog.secondary_text = @"This will remove \"$name\" and the chat history with it forever.";
-    dialog.add_buttons (_("Yes"), Gtk.ResponseType.ACCEPT, _("No"), Gtk.ResponseType.REJECT);
-    dialog.response.connect (response => {
-      if (response == Gtk.ResponseType.ACCEPT) {
-        bool result = friend.delete ();
-        if (result) {
-          if (friend.position == 0) {
-            this.friends.remove (0); // TODO: Verify this.
-          } else {
-            this.friends.remove (friend.position);
-          }
-          this.friendlist.invalidate_filter (); // Update the friendlist.
-          this.friendlist.invalidate_sort (); // Update the friendlist.
-          this.tox.save_data ();
-        }
-      }
-
-      dialog.destroy ();
-    });
-
-    dialog.show ();
-  }
-
-  public MainWindow (Gtk.Application app, string profile) {
+  public MainWindow (Gtk.Application app, string profile, bool is_new) {
     Object (application: app);
     this.settings = SettingsManager.instance;
 
@@ -172,9 +114,12 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
 
     this.init_tray_icon ();
     // TODO
-    if (tox.username == "") {
+    if (is_new) {
+      tox.username = profile_name;
+    } else if (tox.username == "") {
       tox.username = "Ricin user";
     }
+
     if (tox.status_message == "") {
       tox.status_message = "Ricin rocks! https://ricin.im";
     }
@@ -372,8 +317,62 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
     }
   }
 
-  ~MainWindow () {
-    this.tox.save_data ();
+  private string avatar_path () {
+    return Tox.profile_dir () + "avatars/" + this.tox.pubkey + ".png";
+  }
+
+  /**
+  * This is the sort method used for sorting contacts based on:
+  * Contact is online (top) → Contact is offline (end)
+  * Contact status: Online → Away → Busy → Blocked → Offlines with name → Offlines without name.
+  */
+  public static int sort_friendlist_online (Gtk.Widget row1, Gtk.Widget row2) {
+    var friend1 = (row1 as FriendListRow);
+    var friend2 = (row2 as FriendListRow);
+
+
+    if (friend1.fr.status != Tox.UserStatus.OFFLINE && friend2.fr.status == Tox.UserStatus.OFFLINE) {
+      return -1;
+    } else if (friend1.fr.status == Tox.UserStatus.OFFLINE && friend2.fr.status != Tox.UserStatus.OFFLINE) {
+      return 1;
+    } else if (friend1.fr.status != Tox.UserStatus.OFFLINE && friend2.fr.status != Tox.UserStatus.OFFLINE) {
+      if (friend1.fr.blocked && !friend2.fr.blocked) {
+        return 1;
+      }
+      return friend1.fr.status - friend2.fr.status;
+      //return friend1.fr.name  friend2.fr.name;
+    }
+    return friend1.fr.status - friend2.fr.status;
+  }
+
+  public void remove_friend (Tox.Friend fr) {
+    //var friend = (this.friends.get_object (fr.num) as Tox.Friend);
+    var friend = fr;
+    var name = friend.get_uname ();
+    var dialog = new Gtk.MessageDialog (this,
+                                        Gtk.DialogFlags.MODAL, Gtk.MessageType.QUESTION, Gtk.ButtonsType.NONE,
+                                        @"Are you sure you want to delete \"$name\"?");
+    dialog.secondary_text = @"This will remove \"$name\" and the chat history with it forever.";
+    dialog.add_buttons (_("Yes"), Gtk.ResponseType.ACCEPT, _("No"), Gtk.ResponseType.REJECT);
+    dialog.response.connect (response => {
+      if (response == Gtk.ResponseType.ACCEPT) {
+        bool result = friend.delete ();
+        if (result) {
+          if (friend.position == 0) {
+            this.friends.remove (0); // TODO: Verify this.
+          } else {
+            this.friends.remove (friend.position);
+          }
+          this.friendlist.invalidate_filter (); // Update the friendlist.
+          this.friendlist.invalidate_sort (); // Update the friendlist.
+          this.tox.save_data ();
+        }
+      }
+
+      dialog.destroy ();
+    });
+
+    dialog.show ();
   }
 
   public void show_add_friend_popover_with_text (string toxid = "", string message = "") {
@@ -629,5 +628,9 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
   [GtkCallback]
   private void friend_list_update_search () {
     friendlist.invalidate_filter ();
+  }
+
+  ~MainWindow () {
+    this.tox.save_data ();
   }
 }
