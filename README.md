@@ -72,7 +72,8 @@ You can contribute to improving Ricin by [proposing Pull-requests](https://githu
 # Support Ricin developement
 You can support the Ricin client developement by
 - [Paying us a Bounty](https://www.bountysource.com/teams/RicinApp)
-- Submiting donations via Bitcoin: [3L7B6XAQM27uxfRK8wUQ4fsfja832EKweM](https://blockchain.info/address/3L7B6XAQM27uxfRK8wUQ4fsfja832EKweM)
+- **Bitcoin:** btc.ricin.im (OpenAlias) or [3L7B6XAQM27uxfRK8wUQ4fsfja832EKweM](https://blockchain.info/address/3L7B6XAQM27uxfRK8wUQ4fsfja832EKweM)
+- **Litecoin:** ltc.ricin.im (OpenAlias) or [LUDFUqvZkjXCvaroNiap5vXHzMGeTB8F8x](http://explorer.litecoin.net/address/LUDFUqvZkjXCvaroNiap5vXHzMGeTB8F8x)
 - Backing an issue via Bountsource to make people able to work on it full-time! :)
 
 # Translating
