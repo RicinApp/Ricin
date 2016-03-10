@@ -450,10 +450,13 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
       this.menu_statusicon_main.popup (null, null, null, button, time);
     });
 
-    /*this.statusicon_main.activate.connect(() => {
-      var mainw = this.get_toplevel () as MainWindow;
-      mainw.show ();
-    });*/
+    this.statusicon_main.activate.connect(() => {
+      if (this.visible) {
+        this.hide ();
+      } else {
+        this.show ();
+      }
+    });
 
     this.menu_statusicon_main.show_all ();
   }
