@@ -71,7 +71,7 @@
                     <property name="margin_left">5</property>
                     <property name="margin_right">5</property>
                     <property name="pixel_size">46</property>
-                    <property name="icon_name">avatar-default</property>
+                    <property name="resource">/chat/tox/ricin/images/noavatar.gif</property>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -345,7 +345,7 @@
                         <property name="margin_top">10</property>
                         <property name="margin_bottom">5</property>
                         <property name="pixel_size">48</property>
-                        <property name="icon_name">avatar-default</property>
+                        <property name="resource">/chat/tox/ricin/images/noavatar.gif</property>
                       </object>
                       <packing>
                         <property name="expand">False</property>
@@ -428,7 +428,7 @@
                             <property name="name">10</property>
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="label" translatable="no">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a diam lectus. Sed sit amet ipsum mauris.</property>
+                            <property name="label" translatable="no">label</property>
                             <property name="use_markup">True</property>
                             <property name="justify">center</property>
                             <property name="wrap">True</property>
@@ -821,7 +821,7 @@
                       <object class="GtkLabel" id="label_notify_text">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="label" translatable="no">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</property>
+                        <property name="label" translatable="no">label</property>
                         <property name="ellipsize">end</property>
                         <property name="lines">3</property>
                         <attributes>
