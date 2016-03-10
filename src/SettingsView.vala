@@ -112,15 +112,15 @@ class Ricin.SettingsView : Gtk.Box {
         info ("Changed locale to French.");
         Environment.set_variable ("LANG", "fr", true);
         this.settings.write_string ("ricin.interface.selected_language", "fr_FR");
-      } else if (slang == 1) { // Portuguese
+      } else if (slang == 2) { // Portuguese
         info ("Changed locale to Portuguese.");
         Environment.set_variable ("LANG", "pt", true);
         this.settings.write_string ("ricin.interface.selected_language", "pt_PT");
-      } else if (slang == 1) { // Danish
+      } else if (slang == 3) { // Danish
         info ("Changed locale to Danish.");
         Environment.set_variable ("LANG", "da", true);
         this.settings.write_string ("ricin.interface.selected_language", "da_DK");
-      } else if (slang == 1) { // Esperanto
+      } else if (slang == 4) { // Esperanto
         info ("Changed locale to Esperanto.");
         Environment.set_variable ("LANG", "eo", true);
         this.settings.write_string ("ricin.interface.selected_language", "eo");
