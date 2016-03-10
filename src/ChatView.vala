@@ -207,11 +207,11 @@ class Ricin.ChatView : Gtk.Box {
         });
         messages_list.add (image_row);
       } else {*/
-        var file_row = new InlineFileMessageListRow (this.handle, fr, id, fr.name, path, size, time ());
-        file_row.accept_file.connect ((response, file_id) => {
-          fr.reply_file_transfer (response, file_id);
-        });
-        messages_list.add (file_row);
+      var file_row = new InlineFileMessageListRow (this.handle, fr, id, fr.name, path, size, time ());
+      file_row.accept_file.connect ((response, file_id) => {
+        fr.reply_file_transfer (response, file_id);
+      });
+      messages_list.add (file_row);
       //}
     });
 

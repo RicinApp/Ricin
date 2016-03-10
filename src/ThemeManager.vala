@@ -24,12 +24,12 @@ class ThemeManager : GLib.Object {
   private void add_provider (Gtk.CssProvider provider) {
     this.current_provider = provider;
     Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (),
-      this.current_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+        this.current_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
   }
 
   private void remove_provider () {
     Gtk.StyleContext.remove_provider_for_screen (Gdk.Screen.get_default (),
-      this.current_provider);
+        this.current_provider);
     Gtk.StyleContext.reset_widgets (Gdk.Screen.get_default ());
   }
 
