@@ -2,18 +2,17 @@
 class Ricin.MessageListRow : Gtk.ListBoxRow {
   [GtkChild] Gtk.Label label_name;
   [GtkChild] Gtk.Label label_message;
+  [GtkChild] Gtk.Image image_readed;
   [GtkChild] Gtk.Label label_timestamp;
 
   private uint position;
+  private uint32 message_id;
+
   private weak Tox.Tox handle;
 
-  public MessageListRow (Tox.Tox handle, string name, string message, string timestamp) {
+  public MessageListRow (Tox.Tox handle, string name, string message, string timestamp, uint32 message_id) {
     this.handle = handle;
-    /*this.label_name.set_text ("SkyzohKey");
-    this.label_message.set_text ("Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
-    this.label_timestamp.set_text ("03:38:10");*/
-
-    //if (name.strip () != "" && message.strip () != "" && timestamp != "") {}
+    this.message_id = message_id;
 
     /**
     * TEMP DEV ZONE:
@@ -39,6 +38,14 @@ class Ricin.MessageListRow : Gtk.ListBoxRow {
     if (this.handle.username == name) {
       this.handle.bind_property ("username", label_name, "label", BindingFlags.DEFAULT);
     }
+
+    this.handle.message_read.connect ((friend_num, message_id) => {
+      if (message_id != this.message_id) {
+        return;
+      }
+
+      this.image_readed.visible = true;
+    });
   }
 
   private bool handle_links (string uri) {

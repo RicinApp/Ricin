@@ -2,13 +2,18 @@
 class Ricin.QuoteMessageListRow : Gtk.ListBoxRow {
   [GtkChild] Gtk.Label label_name;
   [GtkChild] Gtk.ListBox listbox_quotes;
+  [GtkChild] Gtk.Image image_readed;
   [GtkChild] Gtk.Label label_timestamp;
 
   private uint position;
+  private uint32 message_id;
+
   private weak Tox.Tox handle;
 
-  public QuoteMessageListRow (Tox.Tox handle, string name, string message, string timestamp) {
+  public QuoteMessageListRow (Tox.Tox handle, string name, string message, string timestamp, uint32 message_id) {
     this.handle = handle;
+    this.message_id = message_id;
+
     string[] lines = message.split ("\n");
     this.label_name.set_markup (@"<b>$name</b>");
     this.label_timestamp.set_text (timestamp);
@@ -66,6 +71,14 @@ class Ricin.QuoteMessageListRow : Gtk.ListBoxRow {
       last_line_type = line_type;
       line_count++;
     }
+
+    this.handle.message_read.connect ((friend_num, message_id) => {
+      if (message_id != this.message_id) {
+        return;
+      }
+
+      this.image_readed.visible = true;
+    });
   }
 
   private bool handle_links (string uri) {

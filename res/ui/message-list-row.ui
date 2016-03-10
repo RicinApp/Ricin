@@ -26,7 +26,7 @@
                 <property name="can_focus">False</property>
                 <property name="halign">start</property>
                 <property name="valign">start</property>
-                <property name="label" translatable="no">label</property>
+                <property name="label">label</property>
                 <property name="selectable">True</property>
                 <property name="ellipsize">end</property>
                 <property name="width_chars">12</property>
@@ -49,7 +49,7 @@
                 <property name="can_focus">False</property>
                 <property name="halign">start</property>
                 <property name="valign">start</property>
-                <property name="label" translatable="no">label</property>
+                <property name="label">label</property>
                 <property name="justify">fill</property>
                 <property name="wrap">True</property>
                 <property name="wrap_mode">char</property>
@@ -62,6 +62,21 @@
               </packing>
             </child>
             <child>
+              <object class="GtkImage" id="image_readed">
+                <property name="can_focus">False</property>
+                <property name="halign">end</property>
+                <property name="valign">start</property>
+                <property name="margin_top">2</property>
+                <property name="pixel_size">14</property>
+                <property name="icon_name">emblem-ok-symbolic</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">False</property>
+                <property name="position">2</property>
+              </packing>
+            </child>
+            <child>
               <object class="GtkLabel" id="label_timestamp">
                 <property name="width_request">70</property>
                 <property name="height_request">20</property>
@@ -69,7 +84,7 @@
                 <property name="can_focus">False</property>
                 <property name="halign">end</property>
                 <property name="valign">start</property>
-                <property name="label" translatable="no">00:00.00</property>
+                <property name="label">00:00.00</property>
                 <property name="justify">right</property>
                 <property name="selectable">True</property>
                 <property name="ellipsize">end</property>
@@ -81,7 +96,7 @@
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">True</property>
-                <property name="position">2</property>
+                <property name="position">3</property>
               </packing>
             </child>
           </object>

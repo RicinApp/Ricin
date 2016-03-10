@@ -148,10 +148,10 @@ class Ricin.ChatView : Gtk.Box {
 
       if (message.index_of (">", 0) == 0) {
         var markup = Util.add_markup (message);
-        messages_list.add (new QuoteMessageListRow (this.handle, this.fr.name, markup, current_time));
+        messages_list.add (new QuoteMessageListRow (this.handle, this.fr.name, markup, current_time, -1));
       } else {
         this.history.write (this.fr.pubkey, @"[$current_time] [$(this.fr.name)] $message");
-        messages_list.add (new MessageListRow (this.handle, this.fr.name, Util.add_markup (message), current_time));
+        messages_list.add (new MessageListRow (this.handle, this.fr.name, Util.add_markup (message), current_time, -1));
       }
       //this.add_row (MessageRowType.Normal, new MessageListRow (fr.name, Util.add_markup (message), time ()));
     });
@@ -345,7 +345,6 @@ class Ricin.ChatView : Gtk.Box {
       return;
     }
 
-
     // Notice example:
     /*else if (message.index_of ("/n", 0) == 0) {
       var msg = message.replace ("/n ", "");
@@ -365,14 +364,14 @@ class Ricin.ChatView : Gtk.Box {
       fr.send_action (action);
     } else if (message.index_of (">", 0) == 0) {
       markup = Util.add_markup (message);
-      messages_list.add (new QuoteMessageListRow (this.handle, user, markup, time ()));
-      fr.send_message (message);
+      uint32 message_id = fr.send_message (message);
+      messages_list.add (new QuoteMessageListRow (this.handle, user, markup, time (), message_id));
     } else {
       markup = Util.add_markup (message);
 
       this.history.write (this.fr.pubkey, @"[$current_time] [$(this.handle.username)] $message");
-      messages_list.add (new MessageListRow (this.handle, user, markup, time ()));
-      fr.send_message (message);
+      uint32 message_id = fr.send_message (message);
+      messages_list.add (new MessageListRow (this.handle, user, markup, time (), message_id));
     }
 
     // clear the entry

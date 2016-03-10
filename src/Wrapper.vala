@@ -148,6 +148,7 @@ namespace Tox {
     public signal void friend_request (string id, string message);
     public signal void friend_online (Friend friend);
     public signal void global_info (string message);
+    public signal void message_read (uint32 friend_number, uint32 message_id);
 
     public Tox (ToxCore.Options? opts = null, string? profile = null) throws ErrNew {
       debug ("ToxCore Version %u.%u.%u", ToxCore.Version.MAJOR, ToxCore.Version.MINOR, ToxCore.Version.PATCH);
@@ -244,6 +245,10 @@ namespace Tox {
         } else {
           this.friends[num].action (Util.arr2str (message));
         }
+      });
+
+      this.handle.callback_friend_read_receipt ((self, friend_num, message_id) => {
+        this.message_read (friend_num, message_id);
       });
 
       this.handle.callback_friend_typing ((self, num, is_typing) => {
@@ -598,10 +603,10 @@ namespace Tox {
       tox.handle.file_control (this.num, id, accept ? FileControl.RESUME : FileControl.CANCEL, null);
     }
 
-    public void send_message (string message) {
+    public uint32 send_message (string message) {
       debug (@"sending \"$message\" to friend $num");
       ERR_FRIEND_SEND_MESSAGE err;
-      tox.handle.friend_send_message (this.num, MessageType.NORMAL, message.data, out err);
+      return tox.handle.friend_send_message (this.num, MessageType.NORMAL, message.data, out err);
     }
 
     public void send_action (string action_message) {
