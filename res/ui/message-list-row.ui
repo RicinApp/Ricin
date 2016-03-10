@@ -26,7 +26,7 @@
                 <property name="can_focus">False</property>
                 <property name="halign">start</property>
                 <property name="valign">start</property>
-                <property name="label">label</property>
+                <property name="label" translatable="no">label</property>
                 <property name="selectable">True</property>
                 <property name="ellipsize">end</property>
                 <property name="width_chars">12</property>
@@ -51,7 +51,7 @@
                 <property name="valign">start</property>
                 <property name="margin_left">5</property>
                 <property name="margin_right">5</property>
-                <property name="label">label</property>
+                <property name="label" translatable="no">label</property>
                 <property name="justify">fill</property>
                 <property name="wrap">True</property>
                 <property name="wrap_mode">char</property>
@@ -86,7 +86,7 @@
                 <property name="can_focus">False</property>
                 <property name="halign">end</property>
                 <property name="valign">start</property>
-                <property name="label">00:00.00</property>
+                <property name="label" translatable="no">00:00.00</property>
                 <property name="justify">right</property>
                 <property name="selectable">True</property>
                 <property name="ellipsize">end</property>
