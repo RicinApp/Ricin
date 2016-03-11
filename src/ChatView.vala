@@ -11,6 +11,11 @@ class Ricin.ChatView : Gtk.Box {
   [GtkChild] Gtk.Button button_audio_call;
   [GtkChild] Gtk.Button button_video_call;
 
+  /* Emoticons popover */
+  [GtkChild] Gtk.Box box_popover_emoticons;
+  [GtkChild] Gtk.Button button_show_emoticons;
+  Gtk.Popover popover_emoticons;
+
   /* Friend's typing */
   [GtkChild] Gtk.Revealer friend_typing;
   [GtkChild] Gtk.Label label_friend_is_typing;
@@ -108,6 +113,24 @@ class Ricin.ChatView : Gtk.Box {
       }
       return false;
     });
+
+
+    this.popover_emoticons = new Gtk.Popover (this.button_show_emoticons);
+    //set popover content
+    this.popover_emoticons.set_size_request (250, 150);
+    this.popover_emoticons.set_position (Gtk.PositionType.TOP | Gtk.PositionType.LEFT);
+    this.popover_emoticons.set_modal (true);
+    this.popover_emoticons.set_transitions_enabled (true);
+    this.popover_emoticons.add (this.box_popover_emoticons);
+
+    this.popover_emoticons.closed.connect (() => {
+      this.entry.grab_focus_without_selecting ();
+    });
+
+    this.button_show_emoticons.clicked.connect (() => {
+      this.popover_emoticons.show_all ();
+    });
+
 
     fr.friend_info.connect ((message) => {
       messages_list.add (new SystemMessageListRow (message));
@@ -218,6 +241,7 @@ class Ricin.ChatView : Gtk.Box {
     fr.bind_property ("connected", entry, "sensitive", BindingFlags.DEFAULT);
     fr.bind_property ("connected", send, "sensitive", BindingFlags.DEFAULT);
     fr.bind_property ("connected", send_file, "sensitive", BindingFlags.DEFAULT);
+    fr.bind_property ("connected", button_show_emoticons, "sensitive", BindingFlags.DEFAULT);
     //fr.bind_property ("typing", friend_typing, "reveal_child", BindingFlags.DEFAULT);
     fr.bind_property ("name", username, "label", BindingFlags.DEFAULT);
 
@@ -260,6 +284,7 @@ class Ricin.ChatView : Gtk.Box {
     this.fr.notify["status"].connect ((obj, prop) => {
       var status = this.fr.status;
       var icon = "";
+      this.entry.grab_focus_without_selecting ();
 
       switch (status) {
         case Tox.UserStatus.ONLINE:

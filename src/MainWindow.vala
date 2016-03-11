@@ -557,7 +557,7 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
       this.chat_stack.set_visible_child (chat_view);
       this.focused_view = view_name;
       this.selected_row = row;
-      this.set_title (@"$(this.window_title) - $(friend.name)");
+      this.set_title (@"$(this.window_title) - $(friend.get_uname ())");
     }
   }
 
@@ -635,7 +635,7 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
 
   ~MainWindow () {
     this.tox.save_data ();
-    this.tox.handle = null;
-    this.tox = null;
+    //this.tox.handle = null;
+    //this.tox = null;
   }
 }

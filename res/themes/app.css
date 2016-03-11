@@ -114,6 +114,15 @@ GtkNotebook .tab GtkLabel {
   color: @ui_text;
 }
 
+GtkPopover {
+	background: @ui_darker;
+	border-radius: 0;
+	border: none;
+}
+GtkPopover GtkImage:hover {
+	background: @ui_main;
+}
+
 /** CSS overrides. **/
 .quote-bar {
   color: #2ECC71;
