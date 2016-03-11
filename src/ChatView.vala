@@ -284,7 +284,6 @@ class Ricin.ChatView : Gtk.Box {
     this.fr.notify["status"].connect ((obj, prop) => {
       var status = this.fr.status;
       var icon = "";
-      this.entry.grab_focus_without_selecting ();
 
       switch (status) {
         case Tox.UserStatus.ONLINE:
