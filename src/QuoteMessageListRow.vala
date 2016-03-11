@@ -2,7 +2,7 @@
 class Ricin.QuoteMessageListRow : Gtk.ListBoxRow {
   [GtkChild] Gtk.Label label_name;
   [GtkChild] Gtk.ListBox listbox_quotes;
-  [GtkChild] Gtk.Image image_readed;
+  [GtkChild] Gtk.Spinner spinner_read;
   [GtkChild] Gtk.Label label_timestamp;
 
   private uint position;
@@ -75,9 +75,11 @@ class Ricin.QuoteMessageListRow : Gtk.ListBoxRow {
     this.handle.message_read.connect ((friend_num, message_id) => {
       if (message_id != this.message_id) {
         return;
+      } else {
+        this.spinner_read.active = false;
       }
 
-      this.image_readed.visible = true;
+      this.spinner_read.active = false;
     });
   }
 

@@ -2,7 +2,7 @@
 class Ricin.MessageListRow : Gtk.ListBoxRow {
   [GtkChild] Gtk.Label label_name;
   [GtkChild] Gtk.Label label_message;
-  [GtkChild] Gtk.Image image_readed;
+  [GtkChild] Gtk.Spinner spinner_read;
   [GtkChild] Gtk.Label label_timestamp;
 
   private uint position;
@@ -37,6 +37,8 @@ class Ricin.MessageListRow : Gtk.ListBoxRow {
     // If message is our (ugly&hacky way).
     if (this.handle.username == name) {
       this.handle.bind_property ("username", label_name, "label", BindingFlags.DEFAULT);
+    } else {
+      this.spinner_read.active = false;
     }
 
     this.handle.message_read.connect ((friend_num, message_id) => {
@@ -44,7 +46,7 @@ class Ricin.MessageListRow : Gtk.ListBoxRow {
         return;
       }
 
-      this.image_readed.visible = true;
+      this.spinner_read.active = false;
     });
   }
 

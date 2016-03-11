@@ -64,17 +64,18 @@
               </packing>
             </child>
             <child>
-              <object class="GtkImage" id="image_readed">
+              <object class="GtkSpinner" id="spinner_read">
+                <property name="width_request">16</property>
+                <property name="height_request">16</property>
+                <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="halign">end</property>
+                <property name="halign">start</property>
                 <property name="valign">start</property>
-                <property name="margin_top">2</property>
-                <property name="pixel_size">14</property>
-                <property name="icon_name">emblem-ok-symbolic</property>
+                <property name="active">True</property>
               </object>
               <packing>
                 <property name="expand">False</property>
-                <property name="fill">False</property>
+                <property name="fill">True</property>
                 <property name="position">2</property>
               </packing>
             </child>
