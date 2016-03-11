@@ -76,6 +76,7 @@ class Ricin.SettingsView : Gtk.Box {
     this.combobox_languages.append_text      ("Français");
     this.combobox_languages.append_text      ("Portuguese");
     this.combobox_languages.append_text      ("Danish");
+    this.combobox_languages.append_text      ("Esperanto");
 
     this.combobox_toxme_servers.append_text  (@"Ricin.im ($default_str)");
     this.combobox_toxme_servers.append_text  (@"ToxMe.io ($stable_str)");
