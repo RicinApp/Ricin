@@ -233,10 +233,13 @@ GtkBox,
 GtkRevealer
 GtkPaned,
 GtkViewport,
+GtkListBox,
 RicinFriendListRow,
 RicinMainWindow,
 GtkScrolledWindow {
   background-image: initial;
+	background-color: transparent;
+	background: none;
   border-image: none;
   border-image-width: 0;
   border-bottom-width: 0;
@@ -503,11 +506,11 @@ GtkScrolledWindow {
 }
 
 .ricin-content .message-list {
-  background-color: @ui_main;
+  background-color: transparent;
 }
 
 .ricin-content .message-list .message {
-  background-color: @ui_main;
+  background-color: transparent;
 }
 
 .image-desc {

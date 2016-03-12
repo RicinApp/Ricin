@@ -37,17 +37,16 @@ class Ricin.MessageListRow : Gtk.ListBoxRow {
     // If message is our (ugly&hacky way).
     if (this.handle.username == name) {
       this.handle.bind_property ("username", label_name, "label", BindingFlags.DEFAULT);
+      this.handle.message_read.connect ((friend_num, message_id) => {
+        if (message_id != this.message_id) {
+          return;
+        }
+
+        this.spinner_read.visible = false;
+      });
     } else {
-      this.spinner_read.active = false;
+      this.spinner_read.visible = false;
     }
-
-    this.handle.message_read.connect ((friend_num, message_id) => {
-      if (message_id != this.message_id) {
-        return;
-      }
-
-      this.spinner_read.active = false;
-    });
   }
 
   private bool handle_links (string uri) {

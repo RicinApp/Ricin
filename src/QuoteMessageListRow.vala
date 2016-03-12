@@ -14,22 +14,37 @@ class Ricin.QuoteMessageListRow : Gtk.ListBoxRow {
     this.handle = handle;
     this.message_id = message_id;
 
-    string[] lines = message.split ("\n");
     this.label_name.set_markup (@"<b>$name</b>");
     this.label_timestamp.set_text (timestamp);
 
     // Keep name in sync if message is our (ugly&hacky way).
     if (this.handle.username == name) {
       this.handle.bind_property ("username", label_name, "label", BindingFlags.DEFAULT);
+      this.handle.message_read.connect ((friend_num, message_id) => {
+        if (message_id != this.message_id) {
+          return;
+        }
+
+        this.spinner_read.visible = false;
+      });
+    } else {
+      this.spinner_read.visible = false;
     }
 
-    if (lines.length == 1) {
-      var line_text = lines[0];
-      this.listbox_quotes.add (new QuoteLabel (((string) line_text.data).splice (0, 4)));
-
-      return;
+    string[] lines = message.split ("\n");
+    foreach (string line in lines) {
+      if (line.index_of ("&gt;", 0) == 0) {
+        this.listbox_quotes.add (new QuoteLabel (line.splice (0, 4)));
+      } else {
+        this.listbox_quotes.add (new PlainLabel (line));
+      }
     }
 
+    //string[] quotes = lines.index_of ("&gt;", 0);
+    //var line_text = line.splice (0, 4);
+    //this.listbox_quotes.add (new QuoteLabel (message));
+
+    /**
     var last_line_type = "plain";
     var line_count = 0;
     StringBuilder tmp_quote = new StringBuilder ();
@@ -71,16 +86,7 @@ class Ricin.QuoteMessageListRow : Gtk.ListBoxRow {
       last_line_type = line_type;
       line_count++;
     }
-
-    this.handle.message_read.connect ((friend_num, message_id) => {
-      if (message_id != this.message_id) {
-        return;
-      } else {
-        this.spinner_read.active = false;
-      }
-
-      this.spinner_read.active = false;
-    });
+    */
   }
 
   private bool handle_links (string uri) {
