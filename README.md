@@ -5,7 +5,9 @@
     </td>
     <td align="center">
       <img src="https://img.shields.io/badge/version-0.0.3%20beta-brightgreen.svg?style=flat">
-      [![Codetree](https://codetree.com/images/managed-with-codetree.svg)](https://codetree.com/projects/18p9)
+      <a href="https://codetree.com/projects/18p9/issues">
+        <img src="https://codetree.com/images/managed-with-codetree.svg">
+      </a>
       <a href="https://www.bountysource.com/teams/RicinApp">
         <img src="https://img.shields.io/bountysource/team/RicinApp/activity.svg?style=flat" alt="Support development">
       </a>
