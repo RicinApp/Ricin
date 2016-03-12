@@ -1,8 +1,11 @@
 langs = [
-  'en', # By SkyzohKey
-  'fr', # By SkyzohKey
-  'da', # By bheart (Will Tange)
-  'pt', # By gmscs
-  'eo'  # By Kamparano
+  'en_US', # By SkyzohKey
+  'fr_FR', # By SkyzohKey
+  'da_DK', # By bheart (Will Tange)
+  'pt_PT', # By gmscs
+  'eo',    # By Kamparano
+  'zn_CH', # By lineteen (Easy Tang)
+  'de'     # By AncientWeapon (Sarah Kraßnigg)
+
 ]
 gettext('ricin', languages : langs)

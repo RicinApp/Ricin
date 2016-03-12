@@ -1,0 +1,476 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Easy Tang <lineteen@msn.com>, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: Ricin\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-03-08 18:19+0100\n"
+"PO-Revision-Date: 2016-03-12 23:40+0100\n"
+"Last-Translator: SkyzohKey <skyzohkey@tuta.io>\n"
+"Language-Team: Chinese (China) (http://www.transifex.com/ricinapp/ricin/language/"
+"zh_CN/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: zh_CN\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 1.8.6\n"
+
+#: src/ChatView.vala:289
+msgid " is now "
+msgstr "现在"
+
+#: src/Wrapper.vala:218
+msgid " is now known as "
+msgstr "现在被称为"
+
+#: res/ui/friend-list-notification_unusable.ui:42
+msgid ""
+"3 unused profiles found:\n"
+"<b>Snow, Guy, Aztek</b>"
+msgstr ""
+"发现3个未使用的本机账户：\n"
+"<b>Snow, Guy, Aztek</b>"
+
+#: res/ui/settings-view.ui:835
+msgid "<b>Display friend's status changes?</b>"
+msgstr "<b>显示好友的状态变更？</b>"
+
+#: res/ui/settings-view.ui:726
+msgid "<b>Enable custom themes?</b>"
+msgstr "<b>启用自定义主题？</b>"
+
+#: res/ui/group-chat-view.ui:219
+msgid "<b>Friends</b>"
+msgstr "<b>好友</b>"
+
+#: res/ui/settings-view.ui:518
+msgid "<b>IPv6</b>"
+msgstr "<b>IPv6</b>"
+
+#: res/ui/settings-view.ui:955
+msgid "<b>Language:</b>"
+msgstr "<b>语言：</b>"
+
+#: src/Wrapper.vala:580
+msgid "<b>Last online:</b>"
+msgstr "<b>最近在线：</b>"
+
+#: res/ui/chat-view.ui:456
+msgid "<b>Last seen:</b>"
+msgstr "<b>最近出现：</b>"
+
+#: res/ui/settings-view.ui:582
+msgid "<b>Proxy (SOCKS 5)</b>"
+msgstr "<b>Proxy (SOCKS 5)</b>"
+
+#: res/ui/settings-view.ui:1134
+msgid ""
+"<b>Ricin</b> aims to be a <i>secure, lightweight, hackable and fully-customizable</"
+"i> chat client using the awesome and open-source <b>ToxCore</b> library."
+msgstr ""
+"<b>Ricin </b>根植于优秀的开源通讯协议<b>ToxCore</b> ，致力于打造一个<i>安全、轻便、"
+"透明且可自由定制的</i>聊天客户端。"
+
+#: res/ui/settings-view.ui:891
+msgid "<b>Send typing notifications?</b>"
+msgstr "<b>发送打字通知？</b>"
+
+#: res/ui/settings-view.ui:480
+msgid "<b>UDP</b>"
+msgstr "<b>UDP</b>"
+
+#: res/ui/group-chat-view.ui:247
+msgid "<b>Unknown peers</b>"
+msgstr "<b>未知客户端</b>"
+
+#: res/ui/settings-view.ui:1093
+msgid "<b>Version:</b>"
+msgstr "<b>版本：</b>"
+
+#: res/ui/settings-view.ui:196
+msgid "<b>Your Tox alias:</b>"
+msgstr "<b>你的Tox昵称：</b>"
+
+#: res/ui/settings-view.ui:77
+msgid "<b>Your ToxID:</b>"
+msgstr "<b>你的Tox账号：</b>"
+
+#: res/ui/chat-view.ui:911
+msgid "<i>Friend is typing</i>"
+msgstr "<i>对方正在打字</i>"
+
+#: res/ui/settings-view.ui:1312
+msgid "About"
+msgstr "关于"
+
+#: res/ui/main-window.ui:372
+msgid "Accept"
+msgstr "接收"
+
+#: res/ui/inline-file-message-list-row.ui:205
+msgid "Accept/Resume file"
+msgstr "接收/继续 文件"
+
+#: src/MainWindow.vala:491 src/MainWindow.vala:516 res/ui/main-window.ui:470
+#: res/ui/main-window.ui:537
+msgid "Add a friend"
+msgstr "添加好友"
+
+#: res/ui/main-window.ui:612
+msgid "Add friend"
+msgstr "添加"
+
+#: src/MainWindow.vala:205
+msgid "All friends"
+msgstr "全部好友"
+
+#: src/MainWindow.vala:429 src/Util.vala:160
+msgid "Away"
+msgstr "离开"
+
+#: res/ui/settings-view.ui:262
+msgid "Biography"
+msgstr "签名"
+
+#: src/ChatView.vala:325 res/ui/chat-view.ui:558
+msgid "Block"
+msgstr "屏蔽"
+
+#: src/FriendListRow.vala:61
+msgid "Block friend"
+msgstr "屏蔽好友"
+
+#: src/Util.vala:154
+msgid "Blocked"
+msgstr "黑名单"
+
+#: src/MainWindow.vala:419 src/Util.vala:163
+msgid "Busy"
+msgstr "忙碌"
+
+#: res/ui/chat-view.ui:186
+msgid "Call friend"
+msgstr "呼叫好友"
+
+#: src/MainWindow.vala:147
+msgid "Can't load the profile"
+msgstr "无法加载该账户配置文件"
+
+#: res/ui/main-window.ui:633
+msgid "Cancel"
+msgstr "取消"
+
+#: res/ui/inline-file-message-list-row.ui:175
+msgid "Cancel/pause file"
+msgstr "取消/暂停 文件"
+
+#: res/ui/settings-view.ui:106
+msgid "Change Nospam"
+msgstr "更新防骚扰码"
+
+#: res/ui/main-window.ui:86
+msgid "Change your avatar"
+msgstr "更换头像"
+
+#: res/ui/main-window.ui:133
+msgid "Change your status"
+msgstr "更改状态"
+
+#: res/ui/settings-view.ui:447
+msgid ""
+"Changing Network settings will temporarily disconnect you from the Tox network"
+msgstr "更改网络设置将会暂时断开你的Tox连线"
+
+#: src/ChatView.vala:401
+msgid "Choose a file"
+msgstr "选择一个文件"
+
+#: src/ProfileChooser.vala:89
+msgid "Choose a name for the profile"
+msgstr "命名该账户"
+
+#: res/ui/chat-view.ui:700
+msgid "Choose smileys"
+msgstr "选择表情"
+
+#: src/SettingsView.vala:85
+msgid "Clearer theme"
+msgstr "清新风格"
+
+#: res/ui/chat-view.ui:843
+msgid "Close the popup"
+msgstr "关闭弹窗"
+
+#: res/ui/settings-view.ui:1202
+msgid "Contributors"
+msgstr "贡献者"
+
+#: res/ui/settings-view.ui:88 res/ui/settings-view.ui:218
+msgid "Copy"
+msgstr "复制"
+
+#: res/ui/chat-view.ui:598
+msgid "Copy friend's ToxID"
+msgstr "复制好友的Tox账号"
+
+#: res/ui/profile-chooser-window.ui:141
+msgid "Create a profile"
+msgstr "新建账户"
+
+#: res/ui/profile-chooser-window.ui:116
+msgid "Create this profile"
+msgstr "创建该账户"
+
+#: src/SettingsView.vala:83
+msgid "Dark theme"
+msgstr "黑色风格"
+
+#: res/ui/main-window.ui:352
+msgid "Decline"
+msgstr "拒绝"
+
+#: res/ui/chat-view.ui:578
+msgid "Delete"
+msgstr "删除"
+
+#: res/ui/friend-list-notification_unusable.ui:59
+msgid "Delete friends (3)"
+msgstr "删除好友 (3)"
+
+#: res/ui/profile-chooser-window.ui:88
+msgid "Enter a name for the profile"
+msgstr "填写一个账户名"
+
+#: res/ui/chat-view.ui:95
+msgid "Friend's profile"
+msgstr "好友详细资料"
+
+#: res/ui/settings-view.ui:415
+msgid "General"
+msgstr "常规"
+
+#: res/ui/settings-view.ui:1164
+msgid "GitHub"
+msgstr "GitHub"
+
+#: res/ui/group-chat-view.ui:60
+msgid "Groupchat name"
+msgstr "群组名称"
+
+#: src/MainWindow.vala:384
+#, c-format
+msgid "Hello! It's %s, let's be friends."
+msgstr "你好！我是 %s，请加我为好友。"
+
+#: src/InlineImageMessageListRow.vala:97
+msgid "Image saved!"
+msgstr "图片已保存！"
+
+#: res/ui/settings-view.ui:1007
+msgid "Interface"
+msgstr "界面"
+
+#: res/ui/group-chat-view.ui:289
+msgid "Leave"
+msgstr "离开"
+
+#: res/ui/settings-view.ui:1252
+msgid "License (GNU General Public License 3)"
+msgstr "许可协议 (GNU General Public License 3)"
+
+#: res/ui/profile-chooser-window.ui:72
+msgid "Load a profile"
+msgstr "加载一个账户"
+
+#: res/ui/profile-chooser-window.ui:50
+msgid "Login"
+msgstr "登录"
+
+#: res/ui/group-chat-view.ui:310
+msgid "Mute"
+msgstr "静音"
+
+#: res/ui/settings-view.ui:687
+msgid "Network"
+msgstr "网络"
+
+#: res/ui/settings-view.ui:340
+msgid "New Tox alias"
+msgstr "新的Tox昵称"
+
+#: src/MainWindow.vala:97
+msgid "No"
+msgstr "否"
+
+#: res/ui/chat-view.ui:493
+msgid "Notes about the user:"
+msgstr "好友备注："
+
+#: src/Util.vala:167
+msgid "Offline"
+msgstr "离线"
+
+#: src/MainWindow.vala:409 src/Util.vala:157
+msgid "Online"
+msgstr "在线"
+
+#: src/MainWindow.vala:204
+msgid "Online friends"
+msgstr "在线好友"
+
+#: src/ProfileChooser.vala:70
+msgid "Please enter a profile name."
+msgstr "新建账户名称。"
+
+#: src/ProfileChooser.vala:77
+msgid "Profile name already taken."
+msgstr "账户名已被占用。"
+
+#: src/MainWindow.vala:439
+msgid "Quit"
+msgstr "退出"
+
+#: res/ui/settings-view.ui:783
+msgid "Reload custom theme"
+msgstr "刷新自定义主题"
+
+#: res/ui/settings-view.ui:1183
+msgid "Report an issue"
+msgstr "报告使用问题"
+
+#: res/ui/settings-view.ui:373
+msgid "Request deletion"
+msgstr "申请删除"
+
+#: res/ui/settings-view.ui:1061
+msgid "Ricin"
+msgstr "Ricin"
+
+#: src/MainWindow.vala:525
+msgid "Ricin doesn't supports ToxDNS yet."
+msgstr "Ricin 尚不支持 ToxDNS。"
+
+#: res/ui/settings-view.ui:1272
+msgid "Ricin official website"
+msgstr "Ricin 官方网站"
+
+#: res/ui/welcome-view.ui:87
+msgid "Select a chat to start messaging."
+msgstr "选择一个会话开始交谈。"
+
+#: src/ProfileChooser.vala:20 res/ui/profile-chooser-window.ui:23
+msgid "Select a profile"
+msgstr "选择一个账户"
+
+#: src/MainWindow.vala:602
+msgid "Select your avatar"
+msgstr "选择头像"
+
+#: res/ui/chat-view.ui:727
+msgid "Send file"
+msgstr "发送文件"
+
+#: res/ui/chat-view.ui:753
+msgid "Send message"
+msgstr "发送消息"
+
+#: src/MainWindow.vala:159 src/MainWindow.vala:480 res/ui/main-window.ui:490
+msgid "Settings"
+msgstr "设置"
+
+#: res/ui/chat-view.ui:152
+msgid "Status message..."
+msgstr "状态信息…"
+
+#: src/ProfileChooser.vala:61
+msgid "The selected profile doesn't exists."
+msgstr "所选账户不存在。"
+
+#: src/MessageListRow.vala:54 src/PlainLabel.vala:20 src/QuoteLabel.vala:20
+msgid "ToxDNS is not supported yet."
+msgstr "尚不支持ToxDNS。"
+
+#: src/MainWindow.vala:527
+msgid "ToxID can't be empty."
+msgstr "Tox账号必须填写。"
+
+#: src/MainWindow.vala:529
+msgid "ToxID is invalid."
+msgstr "无效的Tox账号。"
+
+#: res/ui/main-window.ui:558
+msgid "ToxID to add..."
+msgstr "添加Tox账号…"
+
+#: res/ui/settings-view.ui:273
+msgid "ToxMe server"
+msgstr "ToxMe 服务器"
+
+#: res/ui/main-window.ui:188
+msgid "Type to search..."
+msgstr "键入搜索…"
+
+#: src/ChatView.vala:323
+msgid "Unblock"
+msgstr "解除屏蔽"
+
+#: src/FriendListRow.vala:61
+msgid "Unblock friend"
+msgstr "解除屏蔽"
+
+#: res/ui/settings-view.ui:356
+msgid "Update record"
+msgstr "更新记录"
+
+#: res/ui/chat-view.ui:129 res/ui/settings-view.ui:251
+msgid "Username"
+msgstr "用户名"
+
+#: res/ui/chat-view.ui:214
+msgid "Video call friend"
+msgstr "与好友视频通话"
+
+#: src/SettingsView.vala:84
+msgid "White theme"
+msgstr "白色风格"
+
+#: src/MainWindow.vala:97
+msgid "Yes"
+msgstr "是"
+
+#: res/ui/main-window.ui:256
+msgid "You got a new friend request"
+msgstr "你有一个新的好友请求"
+
+#: src/ChatView.vala:402 src/MainWindow.vala:605
+msgid "_Cancel"
+msgstr "_取消"
+
+#: src/ChatView.vala:403 src/MainWindow.vala:606
+msgid "_Open"
+msgstr "_打开"
+
+#: src/SettingsView.vala:73
+msgid "default"
+msgstr "默认"
+
+#: src/ChatView.vala:243
+msgid "is typing"
+msgstr "正在打字"
+
+#: res/ui/settings-view.ui:1340
+msgid "ricin.io (stable)"
+msgstr "ricin.io (稳定版)"
+
+#: src/SettingsView.vala:74
+msgid "stable"
+msgstr "稳定版"
+
+#: res/ui/settings-view.ui:1343
+msgid "toxme.io"
+msgstr "toxme.io"

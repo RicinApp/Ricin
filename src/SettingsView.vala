@@ -77,6 +77,8 @@ class Ricin.SettingsView : Gtk.Box {
     this.combobox_languages.append_text      ("Portuguese");
     this.combobox_languages.append_text      ("Danish");
     this.combobox_languages.append_text      ("Esperanto");
+    this.combobox_languages.append_text      ("Chinese");
+    this.combobox_languages.append_text      ("German");
 
     this.combobox_toxme_servers.append_text  (@"Ricin.im ($default_str)");
     this.combobox_toxme_servers.append_text  (@"ToxMe.io ($stable_str)");
@@ -101,30 +103,42 @@ class Ricin.SettingsView : Gtk.Box {
       this.combobox_languages.active = 3;
     } else if (selected_language == "eo") {
       this.combobox_languages.active = 4;
+    }  else if (selected_language == "zh_CN") {
+      this.combobox_languages.active = 5;
+    }  else if (selected_language == "de") {
+      this.combobox_languages.active = 6;
     }
 
     this.combobox_languages.changed.connect (() => {
       var slang = this.combobox_languages.active;
       if (slang == 0) { // English.
         info ("Changed locale to English.");
-        Environment.set_variable ("LANG", "en", true);
+        Environment.set_variable ("LANG", "en_US", true);
         this.settings.write_string ("ricin.interface.selected_language", "en_US");
       } else if (slang == 1) { // French
         info ("Changed locale to French.");
-        Environment.set_variable ("LANG", "fr", true);
+        Environment.set_variable ("LANG", "fr_FR", true);
         this.settings.write_string ("ricin.interface.selected_language", "fr_FR");
       } else if (slang == 2) { // Portuguese
         info ("Changed locale to Portuguese.");
-        Environment.set_variable ("LANG", "pt", true);
+        Environment.set_variable ("LANG", "pt_PT", true);
         this.settings.write_string ("ricin.interface.selected_language", "pt_PT");
       } else if (slang == 3) { // Danish
         info ("Changed locale to Danish.");
-        Environment.set_variable ("LANG", "da", true);
+        Environment.set_variable ("LANG", "da_DK", true);
         this.settings.write_string ("ricin.interface.selected_language", "da_DK");
       } else if (slang == 4) { // Esperanto
         info ("Changed locale to Esperanto.");
         Environment.set_variable ("LANG", "eo", true);
         this.settings.write_string ("ricin.interface.selected_language", "eo");
+      } else if (slang == 5) { // Chinese
+        info ("Changed locale to Chinese.");
+        Environment.set_variable ("LANG", "zh_CN", true);
+        this.settings.write_string ("ricin.interface.selected_language", "zh_CN");
+      } else if (slang == 6) { // German
+        info ("Changed locale to German.");
+        Environment.set_variable ("LANG", "de", true);
+        this.settings.write_string ("ricin.interface.selected_language", "de");
       }
     });
 
