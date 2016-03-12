@@ -1,30 +1,32 @@
-<table align="center" width="100%" style="margin: 0 auto;">
-  <tr>
-    <td align="center">
-      <strong><a href="https://ricin.im">Ricin</a></strong>
-    </td>
-    <td align="center">
-      <img src="https://img.shields.io/badge/version-0.0.3%20beta-brightgreen.svg?style=flat">
-      <a href="https://codetree.com/projects/18p9/issues">
-        <img src="https://codetree.com/images/managed-with-codetree.svg">
-      </a>
-      <a href="https://www.bountysource.com/teams/RicinApp">
-        <img src="https://img.shields.io/bountysource/team/RicinApp/activity.svg?style=flat" alt="Support development">
-      </a>
-    </td>
-  </tr>
-  <tr>
-    <td align="center" width="100%" colspan="2">
-      <big><b>Wants to be involved? Their is several way to help us! ^-^</b></big><br>
-      <a href="#translating">Translating</a> -
-      <a href="#dependencies">Dependencies</a> -
-      <a href="#compiling">Compiling</a> -
-      <a href="#contribute">Contribute</a> -
-      <a href="#support-ricin-developement">Support us</a> -
-      <a href="#vala-resources-to-get-started">Get started with Vala</a>
-    </td>
-  </tr>
-</table>
+<center>
+  <table align="center" width="100%" style="margin: 0 auto;">
+    <tr>
+      <td align="center">
+        <strong><a href="https://ricin.im">Ricin</a></strong>
+      </td>
+      <td align="center">
+        <img src="https://img.shields.io/badge/version-0.0.3%20beta-brightgreen.svg?style=flat">
+        <a href="https://codetree.com/projects/18p9/issues">
+          <img src="https://codetree.com/images/managed-with-codetree.svg">
+        </a>
+        <a href="https://www.bountysource.com/teams/RicinApp">
+          <img src="https://img.shields.io/bountysource/team/RicinApp/activity.svg?style=flat" alt="Support development">
+        </a>
+      </td>
+    </tr>
+    <tr>
+      <td align="center" width="100%" colspan="2">
+        <big><b>Wants to be involved? Their is several way to help us! ^-^</b></big><br>
+        <a href="#translating">Translating</a> -
+        <a href="#dependencies">Dependencies</a> -
+        <a href="#compiling">Compiling</a> -
+        <a href="#contribute">Contribute</a> -
+        <a href="#support-ricin-developement">Support us</a> -
+        <a href="#vala-resources-to-get-started">Get started with Vala</a>
+      </td>
+    </tr>
+  </table>
+</center>
 
 # Introduction
 **Ricin** aims to be a _secure_, _lightweight_, _hackable_ and _fully-customizable_ chat client using the awesome and open-source **ToxCore** library. We know that there are several Tox clients but this project was initially made because the other clients are still missing many features that users have been waiting for over many months. Ricin is a simple but powerful cross-platform client written in Vala and using Gtk+ 3.0.
