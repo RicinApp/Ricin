@@ -1,13 +1,11 @@
 <table align="center" width="100%">
   <tr>
-    <td>
-      <strong><a href="https://ricin.im">Ricin</a></strong>: A Lightweight and Fully-Hackable Tox client powered by Vala & Gtk3!
+    <td align="center">
+      <strong><a href="https://ricin.im">Ricin</a></strong>
     </td>
-    <td>
+    <td align="center">
       <img src="https://img.shields.io/badge/version-0.0.3%20beta-brightgreen.svg?style=flat">
-      <a href="https://build.tox.chat/job/ricin_build_linux_x86-64_debug/lastBuild/">
-        <img src="https://build.tox.chat/buildStatus/icon?job=ricin_build_linux_x86-64_debug&">
-      </a>
+      [![Codetree](https://codetree.com/images/managed-with-codetree.svg)](https://codetree.com/projects/18p9)
       <a href="https://www.bountysource.com/teams/RicinApp">
         <img src="https://img.shields.io/bountysource/team/RicinApp/activity.svg?style=flat" alt="Support development">
       </a>
