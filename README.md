@@ -1,4 +1,4 @@
-<table align="center" width="100%">
+<table align="center" width="100%" style="margin: 0 auto;">
   <tr>
     <td align="center">
       <strong><a href="https://ricin.im">Ricin</a></strong>
