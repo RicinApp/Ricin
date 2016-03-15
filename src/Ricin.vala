@@ -10,17 +10,19 @@ public class Ricin.Ricin : Gtk.Application {
   private SettingsManager settings;
 
   public Ricin () {
-    Object (application_id: "chat.tox.ricin",
-            flags: ApplicationFlags.FLAGS_NONE); // TODO: handle open
+    Object (
+      application_id: "chat.tox.ricin",
+      flags: ApplicationFlags.FLAGS_NONE
+    ); // TODO: handle open
 
     this.settings = new SettingsManager ();
 
     // Stuff for localization.
     string selected_language = settings.get_string ("ricin.interface.selected_language");
-    Intl.setlocale(LocaleCategory.MESSAGES, selected_language);
-    Intl.textdomain(GETTEXT_PACKAGE);
-    Intl.bind_textdomain_codeset(GETTEXT_PACKAGE, "utf-8");
-    Intl.bindtextdomain(GETTEXT_PACKAGE, "/usr/share/locale");
+    Intl.setlocale (LocaleCategory.MESSAGES, selected_language);
+    Intl.textdomain (GETTEXT_PACKAGE);
+    Intl.bind_textdomain_codeset (GETTEXT_PACKAGE, "utf-8");
+    Intl.bindtextdomain (GETTEXT_PACKAGE, "/usr/share/locale");
   }
 
   public override void activate () {

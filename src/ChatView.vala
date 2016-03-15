@@ -45,9 +45,11 @@ class Ricin.ChatView : Gtk.Box {
   private weak Gtk.Stack stack;
   private string view_name;
   private HistoryManager history;
-  private string last_message;
-  private Tox.UserStatus last_status;
   private SettingsManager settings;
+
+  private Tox.UserStatus last_status;
+  private string last_message_sender;
+  private string last_message;
 
   /**
   * TODO: Use this enum to determine the current message type.
@@ -133,6 +135,7 @@ class Ricin.ChatView : Gtk.Box {
 
 
     fr.friend_info.connect ((message) => {
+      this.last_message_sender = "friend";
       messages_list.add (new SystemMessageListRow (message));
 
       this.label_friend_last_seen.set_markup (this.fr.last_online ("%H:%M %d/%m/%Y"));
@@ -140,6 +143,7 @@ class Ricin.ChatView : Gtk.Box {
     });
 
     handle.global_info.connect ((message) => {
+      this.last_message_sender = "friend";
       messages_list.add (new SystemMessageListRow (message));
       //this.add_row (MessageRowType.System, new SystemMessageListRow (message));
     });
@@ -168,13 +172,15 @@ class Ricin.ChatView : Gtk.Box {
         }
       }
 
-
+      var is_child = (this.last_message_sender == "friend");
       if (message.index_of (">", 0) == 0) {
         var markup = Util.add_markup (message);
-        messages_list.add (new QuoteMessageListRow (this.handle, this.fr.name, markup, current_time, -1));
+        this.last_message_sender = "friend";
+        messages_list.add (new QuoteMessageListRow (this.handle, this.fr, markup, current_time, -1, is_child));
       } else {
         this.history.write (this.fr.pubkey, @"[$current_time] [$(this.fr.name)] $message");
-        messages_list.add (new MessageListRow (this.handle, this.fr.name, Util.add_markup (message), current_time, -1));
+        this.last_message_sender = "friend";
+        messages_list.add (new MessageListRow (this.handle, this.fr, Util.add_markup (message), current_time, -1, is_child));
       }
       //this.add_row (MessageRowType.Normal, new MessageListRow (fr.name, Util.add_markup (message), time ()));
     });
@@ -199,6 +205,7 @@ class Ricin.ChatView : Gtk.Box {
       this.history.write (this.fr.pubkey, @"[$current_time] ** $(this.fr.name) $message");
 
       string message_escaped = @"<b>$(Util.escape_html(fr.name))</b> $(Util.escape_html(message))";
+      this.last_message_sender = "friend";
       messages_list.add (new SystemMessageListRow (message_escaped));
       //this.add_row (MessageRowType.Action, new SystemMessageListRow (message_escaped));
     });
@@ -230,6 +237,7 @@ class Ricin.ChatView : Gtk.Box {
         });
         messages_list.add (image_row);
       } else {*/
+      this.last_message_sender = "friend";
       var file_row = new InlineFileMessageListRow (this.handle, fr, id, fr.name, path, size, time ());
       file_row.accept_file.connect ((response, file_id) => {
         fr.reply_file_transfer (response, file_id);
@@ -266,10 +274,6 @@ class Ricin.ChatView : Gtk.Box {
       string friend_name = Util.escape_html (this.fr.name);
       this.label_friend_is_typing.set_markup (@"<i>$friend_name " + _("is typing") + "</i>");
       this.friend_typing.reveal_child = this.fr.typing;
-
-      if (this.fr.typing == false) {
-        this.scroll_to_bottom ();
-      }
     });
 
     this.fr.notify["status-message"].connect ((obj, prop) => {
@@ -310,6 +314,7 @@ class Ricin.ChatView : Gtk.Box {
       bool display_friends_status_changes = this.settings.get_bool ("ricin.interface.display_friends_status_changes");
       if (this.last_status != status && display_friends_status_changes) {
         var status_str = Util.status_to_string (this.fr.status);
+        this.last_message_sender = "friend";
         messages_list.add (new StatusMessageListRow (fr.name + _(" is now ") + status_str, status));
         this.last_status = status;
       }
@@ -321,7 +326,6 @@ class Ricin.ChatView : Gtk.Box {
     this.label_notify_text.set_text (text);
     this.button_notify_close.clicked.connect (() => {
       this.notify.reveal_child = false;
-      this.scroll_to_bottom ();
     });
 
     this.notify.reveal_child = true;
@@ -368,15 +372,16 @@ class Ricin.ChatView : Gtk.Box {
     if (message.strip () == "") {
       return;
     }
-
     // Notice example:
     /*else if (message.index_of ("/n", 0) == 0) {
       var msg = message.replace ("/n ", "");
-      this.show_notice(msg);
       return;
+      this.show_notice(msg);
     }*/
 
+    var is_child = (this.last_message_sender == "ricin");
     if (message.has_prefix ("/me ")) {
+
       var action = message.substring (4);
       debug (@"action=$action");
       var escaped = Util.escape_html (action);
@@ -389,17 +394,18 @@ class Ricin.ChatView : Gtk.Box {
     } else if (message.index_of (">", 0) == 0) {
       markup = Util.add_markup (message);
       uint32 message_id = fr.send_message (message);
-      messages_list.add (new QuoteMessageListRow (this.handle, user, markup, time (), message_id));
+      messages_list.add (new QuoteMessageListRow (this.handle, null, markup, time (), message_id, is_child));
     } else {
       markup = Util.add_markup (message);
 
       this.history.write (this.fr.pubkey, @"[$current_time] [$(this.handle.username)] $message");
       uint32 message_id = fr.send_message (message);
-      messages_list.add (new MessageListRow (this.handle, user, markup, time (), message_id));
+      messages_list.add (new MessageListRow (this.handle, null, markup, time (), message_id, is_child));
     }
 
     // clear the entry
     this.entry.text = "";
+    this.last_message_sender = "ricin";
   }
 
   /*private bool handle_links (string uri) {
@@ -451,9 +457,18 @@ class Ricin.ChatView : Gtk.Box {
     chooser.close ();
   }
 
+  private double last_scroll_pos = 0.0;
   [GtkCallback]
   private void scroll_to_bottom () {
-    var adjustment = this.scroll_messages.get_vadjustment ();
-    adjustment.set_value (adjustment.get_upper () - adjustment.get_page_size ());
+    Gtk.Adjustment adjustment = this.scroll_messages.get_vadjustment ();
+    double adjustment_bottom = adjustment.get_upper () - adjustment.get_page_size ();
+
+    debug (@"Last scroll adjustment: $(this.last_scroll_pos)");
+    debug (@"Scroll adjustment: $adjustment_bottom");
+
+    if (last_scroll_pos < adjustment_bottom) {
+      adjustment.set_value (adjustment_bottom);
+      this.last_scroll_pos = adjustment_bottom;
+    }
   }
 }

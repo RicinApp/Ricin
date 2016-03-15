@@ -7,12 +7,40 @@ class Ricin.MessageListRow : Gtk.ListBoxRow {
 
   private uint position;
   private uint32 message_id;
+  public bool is_child = false;
 
   private weak Tox.Tox handle;
+  private weak Tox.Friend sender;
 
-  public MessageListRow (Tox.Tox handle, string name, string message, string timestamp, uint32 message_id) {
+  public MessageListRow (Tox.Tox handle, Tox.Friend? sender, string message, string timestamp, uint32 message_id, bool is_child) {
     this.handle = handle;
     this.message_id = message_id;
+    this.sender = sender;
+    this.is_child = is_child;
+    string name = "";
+
+    if (this.sender == null) {
+      name = Util.escape_html (this.handle.username);
+      this.label_name.set_markup ("<b>" + name + "</b>");
+
+      this.handle.bind_property ("username", label_name, "label", BindingFlags.DEFAULT);
+      this.handle.message_read.connect ((friend_num, message_id) => {
+        if (message_id != this.message_id) {
+          return;
+        }
+
+        this.spinner_read.visible = false;
+      });
+    } else {
+      name = Util.escape_html (this.sender.name);
+      this.label_name.set_text (name);
+      this.spinner_read.visible = false;
+    }
+
+    if (this.is_child) {
+      // Don't display name for childs.
+      this.label_name.set_text (" ");
+    }
 
     /**
     * TEMP DEV ZONE:
