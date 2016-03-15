@@ -2,7 +2,7 @@
   <table align="center" width="100%" style="margin: 0 auto;">
     <tr>
       <td align="center">
-        <strong><a href="https://ricin.im">Ricin</a></strong>
+        <strong><a href="https://ricin.im">Ricin</a>: A dead-simple but powerful Tox client.</strong>
       </td>
       <td align="center">
         <img src="https://img.shields.io/badge/version-0.0.3%20beta-brightgreen.svg?style=flat">
