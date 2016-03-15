@@ -35,18 +35,19 @@ _Screenshot might be outdated but it should give you a general idea of what is R
 ![Early version](https://ricin.im/static/images/ricin_01.png)
 
 # Dependencies
-| Package name        | Version   |
-|---------------------|-----------|
-| [meson] \(building) | >=0.28.0  |
-| [ninja] \(building) | >=1.5.1   |
-| valac \(building)   | >=0.28.1  |
-| gtk+3               | >=3.16    |
-| [libtoxcore]        | >=0.0.0   |
-| glib2               | >=2.38    |
-| json-glib           | >=1.0     |
-| libsoup             | >=2.4     |
-| libnotify           | >=0.0.0   |
-| libconfig           | >=0.0.0   |
+| Package name                | Version   |
+|-----------------------------|-----------|
+| [meson] \(building)         | >=0.28.0  |
+| [ninja] \(building)         | >=1.5.1   |
+| valac \(building)           | >=0.28.1  |
+| gtk+3                       | >=3.16    |
+| [libsodium] \(tox building) | >=0.0.0   |
+| [libtoxcore]                | >=0.0.0   |
+| glib2                       | >=2.38    |
+| json-glib                   | >=1.0     |
+| libsoup                     | >=2.4     |
+| libnotify                   | >=0.0.0   |
+| libconfig                   | >=0.0.0   |
 
 # Installing
 We currently have an ArchLinux package made by @LastAvenger available at the following url: [ricin-git](https://aur.archlinux.org/packages/ricin-git/)
