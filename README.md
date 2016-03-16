@@ -91,7 +91,7 @@ In order to make a translation, please create an account on Transifex, then [go 
 - Always use the same markup as the original string.
 - Don't remove trailing spaces, they are needed for Ricin to display text correctly.
 - Please try to translate using similar words, don't use funny words.
-- Write the sentences in am imperative way.
+- Write the sentences in an imperative way.
 
 # Vala resources to get started
 Before clicking on any link below, you must know what Vala is and why it is so powerful and easy to use: [What is Vala?](https://wiki.gnome.org/Projects/Vala/About)
