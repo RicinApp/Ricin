@@ -16,7 +16,7 @@
     </tr>
     <tr>
       <td align="center" width="100%" colspan="2">
-        <big><b>Wants to be involved? Their is several way to help us! ^-^</b></big><br>
+        <big><b>Want to get involved? There are several ways you can help us! ^-^</b></big><br>
         <a href="#translating">Translating</a> -
         <a href="#dependencies">Dependencies</a> -
         <a href="#compiling">Compiling</a> -
@@ -80,7 +80,7 @@ You can support the Ricin client developement by
 - Backing an issue via Bountsource to make people able to work on it full-time! :)
 
 # Translating
-Ricin uses Transifex in order to maintain Localization and enable users to help us translating it in their native language. Here's a graphic about the translations state:
+Ricin uses Transifex in order to maintain Localization and enable users to help us translating it in their native language. Here's a graphic about the translations' state:
 
 ![Translations state for Ricin](https://www.transifex.com/projects/p/ricin/resource/ricinpot/chart/image_png)
 
@@ -89,12 +89,12 @@ In order to make a translation, please create an account on Transifex, then [go 
 
 **Please respect the following rules while translating:**
 - Always use the same markup as the original string.
-- Doesn't remove trailing spaces, they are needed for Ricin to display text correctly.
-- Please try to translate using similar words, doesn't uses funny words.
-- Write the sentences in a imperative way.
+- Don't remove trailing spaces, they are needed for Ricin to display text correctly.
+- Please try to translate using similar words, don't use funny words.
+- Write the sentences in am imperative way.
 
 # Vala resources to get started
-Before clicking on any link beside, you must know what is Vala and why it is so powerful and easy to use: [What is Vala?](https://wiki.gnome.org/Projects/Vala/About)
+Before clicking on any link below, you must know what Vala is and why it is so powerful and easy to use: [What is Vala?](https://wiki.gnome.org/Projects/Vala/About)
 
 - [Official Vala website](https://live.gnome.org/Vala)
 - [Official Vala documentation](http://www.valadoc.org)
