@@ -31,7 +31,7 @@
 # Introduction
 **Ricin** aims to be a _secure_, _lightweight_, _hackable_ and _fully-customizable_ chat client using the awesome and open-source **ToxCore** library. We know that there are several Tox clients but this project was initially made because the other clients are still missing many features that users have been waiting for over many months. Ricin is a simple but powerful cross-platform client written in Vala and using Gtk+ 3.0.
 
-_Screenshot might be outdated but it should give you a general idea of what is Ricin_
+_Screenshot might be outdated but it should give you a general idea of what Ricin is_
 ![Early version](https://ricin.im/static/images/ricin_01.png)
 
 # Dependencies
