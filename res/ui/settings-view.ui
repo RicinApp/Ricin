@@ -619,7 +619,7 @@
                                 <property name="can_focus">True</property>
                                 <property name="halign">start</property>
                                 <property name="max_length">16</property>
-                                <property name="placeholder_text" translatable="no">127.0.0.1</property>
+                                <property name="placeholder_text">127.0.0.1</property>
                               </object>
                               <packing>
                                 <property name="expand">False</property>
@@ -631,7 +631,7 @@
                               <object class="GtkLabel" id="label4">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
-                                <property name="label" translatable="no">:</property>
+                                <property name="label">:</property>
                               </object>
                               <packing>
                                 <property name="expand">False</property>
@@ -645,7 +645,7 @@
                                 <property name="can_focus">True</property>
                                 <property name="halign">start</property>
                                 <property name="max_length">6</property>
-                                <property name="placeholder_text" translatable="no">9050</property>
+                                <property name="placeholder_text">9050</property>
                                 <property name="input_purpose">digits</property>
                               </object>
                               <packing>
@@ -946,14 +946,15 @@
                       <object class="GtkBox" id="box_language">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
+                        <property name="orientation">vertical</property>
                         <property name="spacing">10</property>
                         <child>
-                          <object class="GtkLabel" id="label_language">
-                            <property name="visible">True</property>
+                          <object class="GtkLabel" id="label_language_restart">
                             <property name="can_focus">False</property>
-                            <property name="halign">start</property>
-                            <property name="label" translatable="yes">&lt;b&gt;Language:&lt;/b&gt;</property>
-                            <property name="use_markup">True</property>
+                            <property name="label" translatable="yes">Ricin needs to restart in order to change the displayed language.</property>
+                            <attributes>
+                              <attribute name="foreground" value="#2e2ecccc7171"/>
+                            </attributes>
                           </object>
                           <packing>
                             <property name="expand">False</property>
@@ -962,21 +963,48 @@
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkComboBoxText" id="combobox_languages">
-                            <property name="width_request">250</property>
+                          <object class="GtkBox" id="box17">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="opacity">0.9882352941176471</property>
-                            <property name="active">0</property>
-                            <property name="button_sensitivity">on</property>
-                            <style>
-                              <class name="button-dark"/>
-                              <class name="button-inverted"/>
-                              <class name="entry-inverted"/>
-                            </style>
+                            <property name="halign">center</property>
+                            <property name="spacing">10</property>
+                            <child>
+                              <object class="GtkLabel" id="label_language">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="halign">start</property>
+                                <property name="label" translatable="yes">&lt;b&gt;Language:&lt;/b&gt;</property>
+                                <property name="use_markup">True</property>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="fill">True</property>
+                                <property name="position">0</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkComboBoxText" id="combobox_languages">
+                                <property name="width_request">250</property>
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="opacity">0.9882352941176471</property>
+                                <property name="active">0</property>
+                                <property name="button_sensitivity">on</property>
+                                <style>
+                                  <class name="button-dark"/>
+                                  <class name="button-inverted"/>
+                                  <class name="entry-inverted"/>
+                                </style>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="fill">True</property>
+                                <property name="position">1</property>
+                              </packing>
+                            </child>
                           </object>
                           <packing>
-                            <property name="expand">False</property>
+                            <property name="expand">True</property>
                             <property name="fill">True</property>
                             <property name="position">1</property>
                           </packing>
@@ -984,7 +1012,7 @@
                       </object>
                       <packing>
                         <property name="expand">False</property>
-                        <property name="fill">True</property>
+                        <property name="fill">False</property>
                         <property name="position">4</property>
                       </packing>
                     </child>
@@ -1103,7 +1131,7 @@
                                   <object class="GtkLabel" id="label_app_version">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
-                                    <property name="label" translatable="no">&lt;i&gt;0.0.3-alpha&lt;/i&gt;</property>
+                                    <property name="label">&lt;i&gt;0.0.3-alpha&lt;/i&gt;</property>
                                     <property name="use_markup">True</property>
                                     <property name="selectable">True</property>
                                   </object>

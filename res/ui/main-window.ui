@@ -178,9 +178,11 @@
                     <property name="can_focus">False</property>
                     <child>
                       <object class="GtkSearchEntry" id="searchentry_friend">
+                        <property name="width_request">165</property>
                         <property name="height_request">31</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
+                        <property name="halign">start</property>
                         <property name="xalign">0.10000000149011612</property>
                         <property name="primary_icon_name">edit-find-symbolic</property>
                         <property name="primary_icon_activatable">False</property>
@@ -196,9 +198,11 @@
                     </child>
                     <child>
                       <object class="GtkComboBoxText" id="combobox_friend_filter">
+                        <property name="width_request">125</property>
                         <property name="height_request">31</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
+                        <property name="halign">end</property>
                       </object>
                       <packing>
                         <property name="expand">True</property>
@@ -309,7 +313,7 @@
                                   <object class="GtkLabel" id="label_friend_request_pubkey">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
-                                    <property name="label" translatable="no">label</property>
+                                    <property name="label">label</property>
                                     <property name="selectable">True</property>
                                     <property name="ellipsize">end</property>
                                     <property name="single_line_mode">True</property>
@@ -325,7 +329,7 @@
                                   <object class="GtkLabel" id="label_friend_request_message">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
-                                    <property name="label" translatable="no">label</property>
+                                    <property name="label">label</property>
                                     <property name="justify">center</property>
                                     <property name="wrap">True</property>
                                   </object>
@@ -700,7 +704,7 @@
                     <property name="can_focus">False</property>
                     <property name="margin_top">5</property>
                     <property name="margin_bottom">5</property>
-                    <property name="label" translatable="no">notify</property>
+                    <property name="label">notify</property>
                     <property name="ellipsize">start</property>
                     <attributes>
                       <attribute name="weight" value="normal"/>

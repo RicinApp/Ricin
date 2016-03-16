@@ -9,6 +9,7 @@ class Ricin.SettingsView : Gtk.Box {
   [GtkChild] Gtk.Label label_toxme_alias;
   [GtkChild] Gtk.ComboBoxText combobox_toxme_servers;
   [GtkChild] Gtk.ComboBoxText combobox_languages;
+  [GtkChild] Gtk.Label label_language_restart;
 
   // Interface settings tab;
   [GtkChild] Gtk.Switch switch_custom_themes;
@@ -111,6 +112,10 @@ class Ricin.SettingsView : Gtk.Box {
 
     this.combobox_languages.changed.connect (() => {
       var slang = this.combobox_languages.active;
+
+      // Tell the user that the language will be changed at the next restart.
+      this.label_language_restart.visible = true;
+
       if (slang == 0) { // English.
         info ("Changed locale to English.");
         Environment.set_variable ("LANG", "en_US", true);

@@ -16,7 +16,7 @@ deps = [
     dependency('libnotify'),
     dependency('libtoxcore'),
     dependency('libconfig'),
-    dependency('libsodium')
+    #dependency('libsodium')
 ]
 
 

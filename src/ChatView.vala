@@ -121,7 +121,7 @@ class Ricin.ChatView : Gtk.Box {
     //set popover content
     this.popover_emoticons.set_size_request (250, 150);
     this.popover_emoticons.set_position (Gtk.PositionType.TOP | Gtk.PositionType.LEFT);
-    this.popover_emoticons.set_modal (true);
+    this.popover_emoticons.set_modal (false);
     this.popover_emoticons.set_transitions_enabled (true);
     this.popover_emoticons.add (this.box_popover_emoticons);
 
@@ -130,7 +130,11 @@ class Ricin.ChatView : Gtk.Box {
     });
 
     this.button_show_emoticons.clicked.connect (() => {
-      this.popover_emoticons.show_all ();
+      if (this.popover_emoticons.visible == false) {
+        this.popover_emoticons.show_all ();
+      } else {
+        this.popover_emoticons.hide ();
+      }
     });
 
 
@@ -408,23 +412,6 @@ class Ricin.ChatView : Gtk.Box {
     this.last_message_sender = "ricin";
   }
 
-  /*private bool handle_links (string uri) {
-    if (!uri.has_prefix ("tox:")) {
-      return false; // Default behavior.
-    }
-
-    var main_window = this.get_toplevel () as MainWindow;
-    var toxid = uri.split ("tox:")[1];
-    if (toxid.length == ToxCore.ADDRESS_SIZE * 2) {
-      main_window.show_add_friend_popover_with_text (toxid);
-    } else {
-      var info_message = "ToxDNS is not supported yet.";
-      main_window.notify_message (@"<span color=\"#e74c3c\">$info_message</span>");
-    }
-
-    return true;
-  }*/
-
   [GtkCallback]
   private void choose_file_to_send () {
     var chooser = new Gtk.FileChooserDialog (_("Choose a file"), null, Gtk.FileChooserAction.OPEN,
@@ -457,18 +444,15 @@ class Ricin.ChatView : Gtk.Box {
     chooser.close ();
   }
 
-  private double last_scroll_pos = 0.0;
   [GtkCallback]
   private void scroll_to_bottom () {
+    /**
+    * TODO: Check if the scrollbar is at the very max scroll, else don't do autoscroll.
+    *       This would prevent users searching in the history but getting "bored" by the autoscroll.
+    **/
+
     Gtk.Adjustment adjustment = this.scroll_messages.get_vadjustment ();
     double adjustment_bottom = adjustment.get_upper () - adjustment.get_page_size ();
-
-    debug (@"Last scroll adjustment: $(this.last_scroll_pos)");
-    debug (@"Scroll adjustment: $adjustment_bottom");
-
-    if (last_scroll_pos < adjustment_bottom) {
-      adjustment.set_value (adjustment_bottom);
-      this.last_scroll_pos = adjustment_bottom;
-    }
+    adjustment.set_value (adjustment_bottom);
   }
 }

@@ -19,6 +19,7 @@ public class Ricin.Ricin : Gtk.Application {
 
     // Stuff for localization.
     string selected_language = settings.get_string ("ricin.interface.selected_language");
+    Environment.set_variable ("LANG", selected_language, true);
     Intl.setlocale (LocaleCategory.MESSAGES, selected_language);
     Intl.textdomain (GETTEXT_PACKAGE);
     Intl.bind_textdomain_codeset (GETTEXT_PACKAGE, "utf-8");
@@ -48,7 +49,7 @@ public class Ricin.Ricin : Gtk.Application {
       string theme_file = theme_path + selected_theme + ".css";
 
       // If theme doesn't exists apply the default one.
-      if (FileUtils.test (theme_file, FileTest.EXISTS) == false) {
+      if (FileUtils.test (theme_file, FileTest.EXISTS) == true) {
         this.current_theme = theme_file;
       } else {
         this.current_theme = theme_path + this.default_theme + ".css";
