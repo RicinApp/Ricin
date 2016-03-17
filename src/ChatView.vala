@@ -135,6 +135,9 @@ class Ricin.ChatView : Gtk.Box {
       } else {
         this.popover_emoticons.hide ();
       }
+
+      // Avoid the user to loose focus with chat entry.
+      this.entry.grab_focus_without_selecting ();
     });
 
 
