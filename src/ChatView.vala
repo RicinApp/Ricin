@@ -447,15 +447,20 @@ class Ricin.ChatView : Gtk.Box {
     chooser.close ();
   }
 
+  // Last scroll pos.
+  private double _bottom_scroll = 0.0;
+
   [GtkCallback]
   private void scroll_to_bottom () {
     /**
-    * TODO: Check if the scrollbar is at the very max scroll, else don't do autoscroll.
-    *       This would prevent users searching in the history but getting "bored" by the autoscroll.
+    * Check if the scrollbar is at the very max scroll, else don't do autoscroll.
+    * This prevent users searching in the history but getting bottom'd by the autoscroll.
     **/
-
-    Gtk.Adjustment adjustment = this.scroll_messages.get_vadjustment ();
-    double adjustment_bottom = adjustment.get_upper () - adjustment.get_page_size ();
-    adjustment.set_value (adjustment_bottom);
+    Gtk.Adjustment adj = this.scroll_messages.get_vadjustment ();
+    
+    if (adj.value == this._bottom_scroll) {
+      adj.set_value (adj.get_upper () - adj.get_page_size ());
+    }
+    this._bottom_scroll = adj.get_upper () - adj.get_page_size ();
   }
 }
