@@ -1,6 +1,3 @@
-release: ./build/
-	type ninja-build 2>/dev/null && ninja-build -C build || ninja -C build
-
 style:
 	astyle \
 		--style=attach \
@@ -12,6 +9,11 @@ style:
 
 nodesfile:
 	wget -O res/nodes.json https://build.tox.chat/job/nodefile_build_linux_x86_64_release/lastSuccessfulBuild/artifact/Nodefile.json
+
+autogen:
+	rm -rf ./build
+	mkdir -p ./build
+	meson . ./build
 
 # not needed when we get meson 0.27.0
 cleandebug:
@@ -27,9 +29,13 @@ cleanrelease:
 	type ninja-build 2>/dev/null && ninja-build -C build clean || ninja -C build clean
 	type ninja-build 2>/dev/null && ninja-build -C build || ninja -C build
 
+release: ./build/
+	type ninja-build 2>/dev/null && ninja-build -C build || ninja -C build
+
 install:
 	cd build/ && type ninja-build 2>/dev/null && ninja-build install || ninja install
 
+# Winshit stuff.
 autogenwin:
 	sudo /usr/bin/meson . build-win32 --cross-file cross_win.txt
 
