@@ -125,7 +125,7 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
       tox.status_message = "Ricin rocks! https://ricin.im";
     }
 
-    this.entry_name = new EditableLabel (tox.username);
+    this.entry_name = new EditableLabel.with_bold (tox.username);
     this.entry_status = new EditableLabel (tox.status_message);
 
     //this.box_profile = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);

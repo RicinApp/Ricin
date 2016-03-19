@@ -7,6 +7,7 @@ public class Ricin.EditableLabel : Gtk.EventBox {
   public Gtk.Entry entry { get; set; }
   public Gtk.Label label { get; set; }
   public string text { get; set; }
+  public bool is_bold { get; set; default = false; }
 
   public signal void label_changed(string label_text);
   public signal void show_entry ();
@@ -27,9 +28,24 @@ public class Ricin.EditableLabel : Gtk.EventBox {
     init_signals();
   }
 
+  public EditableLabel.with_bold(string label = "") {
+    this.label = new Gtk.Label(label);
+    this.text = Util.escape_html (label);
+    this.is_bold = true;
+    this.label.set_markup ("<b>" + this.text + "</b>");
+
+    init_widgets();
+    init_signals();
+  }
+
   private void on_show_label() {
     box_label.visible = true;
-    this.label.set_text (this.text);
+    if (this.is_bold) {
+      this.label.set_markup ("<b>" + this.text + "</b>");
+    } else {
+      this.label.set_text (this.text);
+    }
+
     box_entry.visible = false;
   }
 
