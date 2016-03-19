@@ -117,10 +117,18 @@ GtkNotebook .tab GtkLabel {
 GtkPopover {
 	background: @ui_darker;
 	border-radius: 0;
+	box-shadow: none;
 	border: none;
 }
-GtkPopover GtkImage:hover {
+GtkPopover GtkButton {
+	color: @ui_text;
+}
+GtkPopover GtkButton:hover {
 	background: @ui_main;
+	color: @ui_text;
+}
+GtkPopover GtkSeparator.user-infos {
+	color: @ui_darker;
 }
 
 /** CSS overrides. **/

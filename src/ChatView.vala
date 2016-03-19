@@ -11,6 +11,11 @@ class Ricin.ChatView : Gtk.Box {
   [GtkChild] Gtk.Button button_audio_call;
   [GtkChild] Gtk.Button button_video_call;
 
+  /* Markdown help popover */
+  [GtkChild] Gtk.Box box_popover_markdown_help;
+  [GtkChild] Gtk.Button button_show_markdown_help;
+  Gtk.Popover popover_markdown_help;
+
   /* Emoticons popover */
   [GtkChild] Gtk.Box box_popover_emoticons;
   [GtkChild] Gtk.Button button_show_emoticons;
@@ -120,6 +125,29 @@ class Ricin.ChatView : Gtk.Box {
       return false;
     });
 
+
+    this.popover_markdown_help = new Gtk.Popover (this.button_show_markdown_help);
+    //set popover content
+    this.popover_markdown_help.set_size_request (250, 150);
+    this.popover_markdown_help.set_position (Gtk.PositionType.BOTTOM | Gtk.PositionType.RIGHT);
+    this.popover_markdown_help.set_modal (false);
+    this.popover_markdown_help.set_transitions_enabled (true);
+    this.popover_markdown_help.add (this.box_popover_markdown_help);
+
+    this.popover_markdown_help.closed.connect (() => {
+      this.entry.grab_focus_without_selecting ();
+    });
+
+    this.button_show_markdown_help.clicked.connect (() => {
+      if (this.popover_markdown_help.visible == false) {
+        this.popover_markdown_help.show_all ();
+      } else {
+        this.popover_markdown_help.hide ();
+      }
+
+      // Avoid the user to loose focus with chat entry.
+      this.entry.grab_focus_without_selecting ();
+    });
 
     this.popover_emoticons = new Gtk.Popover (this.button_show_emoticons);
     //set popover content
@@ -378,10 +406,10 @@ class Ricin.ChatView : Gtk.Box {
     string markup;
 
     var message = this.entry.get_text ();
-    this.last_message = message;
     if (message.strip () == "") {
       return;
     }
+    this.last_message = message;
     // Notice example:
     /*else if (message.index_of ("/n", 0) == 0) {
       var msg = message.replace ("/n ", "");

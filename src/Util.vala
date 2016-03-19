@@ -68,9 +68,13 @@ namespace Util {
 
     // Markdown.
     var bold = /\B\*\*([^\*\*]*)\*\*\B/.replace (emojis, -1, 0, "<b>\\1</b>");
-    var italic = /\b_([^_]*)_\b/.replace(bold, -1, 0, "<i>\\1</i>");
-    var underlined = /\B-([^-]*)-\B/.replace(italic, -1, 0, "<u>\\1</u>");
-    var striked = /\B~([^~]*)~\B/.replace(underlined, -1, 0, "<s>\\1</s>");
+    bold = /\B\*([^\*]*)\*\B/.replace (bold, -1, 0, "<b>\\1</b>");
+    var italic = /\B\/\/([^\/\/]*)\/\/\B/.replace(bold, -1, 0, "<i>\\1</i>");
+    italic = /\B\/([^\/]*)\/\B/.replace(italic, -1, 0, "<i>\\1</i>");
+    var underlined = /\b__([^__]*)__\b/.replace(italic, -1, 0, "<u>\\1</u>");
+    underlined = /\b_([^_]*)_\b/.replace(underlined, -1, 0, "<u>\\1</u>");
+    var striked = /\B~~([^~~]*)~~\B/.replace(underlined, -1, 0, "<s>\\1</s>");
+    striked = /\B~([^~]*)~\B/.replace(striked, -1, 0, "<s>\\1</s>");
     var inline_code = /\B`([^`]*)`\B/.replace(striked, -1, 0, "<span face=\"monospace\" size=\"smaller\">\\1</span>");
     var uri = /(\w+:\/?\/?[^\s]+)/.replace (inline_code, -1, 0, "<span color=\"#2a92c6\"><a href=\"\\1\">\\1</a></span>");
 
