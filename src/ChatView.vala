@@ -20,6 +20,9 @@ class Ricin.ChatView : Gtk.Box {
   [GtkChild] Gtk.Revealer friend_typing;
   [GtkChild] Gtk.Label label_friend_is_typing;
 
+  /* Unread messages (scroll to bottom) */
+  [GtkChild] Gtk.Revealer revealer_unread_messages;
+
   /* Friend menu toggle */
   [GtkChild] Gtk.Button button_toggle_friend_menu;
   [GtkChild] Gtk.Revealer revealer_friend_menu;
@@ -50,6 +53,7 @@ class Ricin.ChatView : Gtk.Box {
   private Tox.UserStatus last_status;
   private string last_message_sender;
   private string last_message;
+  private bool is_bottom = true;
 
   /**
   * TODO: Use this enum to determine the current message type.
@@ -139,7 +143,6 @@ class Ricin.ChatView : Gtk.Box {
       // Avoid the user to loose focus with chat entry.
       this.entry.grab_focus_without_selecting ();
     });
-
 
     fr.friend_info.connect ((message) => {
       this.last_message_sender = "friend";
@@ -449,6 +452,7 @@ class Ricin.ChatView : Gtk.Box {
 
   // Last scroll pos.
   private double _bottom_scroll = 0.0;
+  private bool force_scroll = false;
 
   [GtkCallback]
   private void scroll_to_bottom () {
@@ -457,10 +461,36 @@ class Ricin.ChatView : Gtk.Box {
     * This prevent users searching in the history but getting bottom'd by the autoscroll.
     **/
     Gtk.Adjustment adj = this.scroll_messages.get_vadjustment ();
-    
     if (adj.value == this._bottom_scroll) {
       adj.set_value (adj.get_upper () - adj.get_page_size ());
+      this.is_bottom = true;
+      this.revealer_unread_messages.reveal_child = false;
+    } else {
+      this.is_bottom = false;
+      this.revealer_unread_messages.reveal_child = true;
     }
+
     this._bottom_scroll = adj.get_upper () - adj.get_page_size ();
+  }
+
+  [GtkCallback]
+  private void unread_messages_scroll () {
+    this.revealer_unread_messages.notify["child-revealed"].connect (() => {
+      if (this.revealer_unread_messages.reveal_child == false) {
+        this.scroll_bottom ();
+        this.entry.grab_focus_without_selecting ();
+      }
+    });
+    this.revealer_unread_messages.reveal_child = false;
+  }
+
+  private void scroll_bottom () {
+    Gtk.Adjustment adj = this.scroll_messages.get_vadjustment ();
+    adj.set_value (adj.get_upper () - adj.get_page_size ());
+    this._bottom_scroll = adj.get_upper () - adj.get_page_size ();
+    this.is_bottom = true;
+  }
+  private void toggle_unread_notice () {
+    this.revealer_unread_messages.reveal_child = !!this.is_bottom;
   }
 }

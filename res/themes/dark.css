@@ -1,8 +1,6 @@
 @define-color main_dark @ui_dark;
-
 @define-color main_ddark #292929;
 @define-color main_ddark_hover #343434;
-
 @define-color main_grey #303030;
 @define-color main_blue #2283d7;
 
@@ -12,6 +10,9 @@
 
 @define-color gtk_box #343434;
 
+@define-color ui_green   #2ecc71;
+@define-color ui_greener #27ae60;
+
 @define-color ui_darker #171717;
 @define-color ui_dark   #222222;
 @define-color ui_main   #333333;
@@ -19,7 +20,3 @@
 @define-color selected_text_color #5688F9;
 
 @import url("app.css");
-
-span {
-  background-image: url("../images/status/online.png");
-}

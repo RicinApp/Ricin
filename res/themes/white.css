@@ -1,8 +1,6 @@
 @define-color main_dark @ui_dark;
-
 @define-color main_ddark #292929;
 @define-color main_ddark_hover #343434;
-
 @define-color main_grey #303030;
 @define-color main_blue #2283d7;
 
@@ -11,6 +9,9 @@
 @define-color text_copy #7a7a7a;
 
 @define-color gtk_box #343434;
+
+@define-color ui_green   #2ecc71;
+@define-color ui_greener #27ae60;
 
 @define-color ui_darker #E0E0E0;
 @define-color ui_dark   #F0F0F0;
