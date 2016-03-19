@@ -1,3 +1,6 @@
+release: ./build/
+	type ninja-build 2>/dev/null && ninja-build -C build || ninja -C build
+
 style:
 	astyle \
 		--style=attach \
@@ -24,11 +27,8 @@ cleanrelease:
 	type ninja-build 2>/dev/null && ninja-build -C build clean || ninja -C build clean
 	type ninja-build 2>/dev/null && ninja-build -C build || ninja -C build
 
-release: ./build/
-	type ninja-build 2>/dev/null && ninja-build -C build || ninja -C build
-
-install: ./build/
-	type ninja-build 2>/dev/null && ninja-build -C install || ninja -C install
+install:
+	cd build/ && type ninja-build 2>/dev/null && ninja-build install || ninja install
 
 autogenwin:
 	sudo /usr/bin/meson . build-win32 --cross-file cross_win.txt
