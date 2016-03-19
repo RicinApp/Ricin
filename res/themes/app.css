@@ -117,10 +117,18 @@ GtkNotebook .tab GtkLabel {
 GtkPopover {
 	background: @ui_darker;
 	border-radius: 0;
+	box-shadow: none;
 	border: none;
 }
-GtkPopover GtkImage:hover {
+GtkPopover GtkButton {
+	color: @ui_text;
+}
+GtkPopover GtkButton:hover {
 	background: @ui_main;
+	color: @ui_text;
+}
+GtkPopover GtkSeparator.user-infos {
+	color: @ui_darker;
 }
 
 /** CSS overrides. **/
@@ -600,6 +608,16 @@ GtkScrolledWindow {
 .friend-request GtkButton { background-color: #2c9f42; }
 .friend-request GtkButton:hover {
   background-color: #237f35;
+  color: @ui_text;
+}
+
+/** Unread messages widget. **/
+.unread-messages GtkBox {
+  background-color: @ui_greener;
+  color: @ui_text;
+}
+.unread-messages GtkButton {
+  background-color: @ui_green;
   color: @ui_text;
 }
 

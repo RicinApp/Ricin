@@ -70,7 +70,8 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
     this.window_title = @"$app_name - $profile_name";
 
     this.set_title (window_title);
-    this.set_size_request (920, 500);
+    // This should fix the #59 issue
+    this.set_size_request (960, 500);
     this.set_icon (app_icon);
 
     var opts = Tox.Options.create ();
@@ -124,7 +125,7 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
       tox.status_message = "Ricin rocks! https://ricin.im";
     }
 
-    this.entry_name = new EditableLabel (tox.username);
+    this.entry_name = new EditableLabel.with_bold (tox.username);
     this.entry_status = new EditableLabel (tox.status_message);
 
     //this.box_profile = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);

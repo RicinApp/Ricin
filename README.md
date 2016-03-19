@@ -50,9 +50,9 @@ _Screenshot might be outdated but it should give you a general idea of what Rici
 | libconfig                   | >=0.0.0   |
 
 # Installing
-We currently have an ArchLinux package made by @LastAvenger available at the following url: [ricin-git](https://aur.archlinux.org/packages/ricin-git/)
+We currently have an ArchLinux package made by @LastAvenger available at the following url: [ricin-git](https://aur.archlinux.org/packages/ricin-git/)  
 You can also use the following command:
-```
+```bash
 yaourt -S ricin-git
 ```
 
@@ -60,11 +60,17 @@ yaourt -S ricin-git
 Please refer to the [Install.md](INSTALL.md) to install the dependencies on your Linux distribution.
 
 ```bash
-git clone --recursive https://github.com/RicinApp/Ricin.git
-cd Ricin
-mkdir build
-meson . build
+git clone --recursive https://github.com/RicinApp/Ricin.git && cd Ricin
+make autogen
 make debug
+```
+
+## Installing
+If you prefer to install Ricin on your system instead of running it from the ./build dir you can do the following:
+```bash
+git clone --recursive https://github.com/RicinApp/Ricin.git && cd Ricin
+make autogen
+sudo make install
 ```
 
 # Contribute

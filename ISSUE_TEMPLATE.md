@@ -1,7 +1,7 @@
 ## Summary
 * **Operating System:** _Windows / OS X / Linux (include version and/or distro)_
 * **Ricin's version:** _(shown on `About` page in settings)_
-* **Hardware:** …
+* **Hardware:** _…_
 * **Reproducible:** _Always / Almost Always / Sometimes / Rarely / Couldn't Reproduce_
 
 ## Steps to reproduce:
