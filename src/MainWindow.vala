@@ -70,8 +70,7 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
     this.window_title = @"$app_name - $profile_name";
 
     this.set_title (window_title);
-    // This should fix the #59 issue
-    this.set_size_request (960, 500);
+    this.set_size_request (920, 500);
     this.set_icon (app_icon);
 
     var opts = Tox.Options.create ();

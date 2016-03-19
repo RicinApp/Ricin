@@ -3,20 +3,13 @@
 @define-color main_ddark_hover #343434;
 @define-color main_grey #303030;
 @define-color main_blue #2283d7;
-
 @define-color text_color #e2e2e2;
 @define-color text_color_hover #aca8a8;
 @define-color text_copy #7a7a7a;
-
 @define-color gtk_box #343434;
-
-@define-color ui_green   #2ecc71;
-@define-color ui_greener #27ae60;
-
 @define-color ui_darker #171717;
 @define-color ui_dark #F0F0F0;
 @define-color ui_main #FFFFFF;
 @define-color ui_text #000000;
 @define-color selected_text_color #5688F9;
-
 @import url("app.css");

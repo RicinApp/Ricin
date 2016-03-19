@@ -572,6 +572,9 @@
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="hscrollbar_policy">never</property>
+                <signal name="edge-overshot" handler="scroll_to_bottom" swapped="no"/>
+                <signal name="edge-reached" handler="scroll_to_bottom" swapped="no"/>
+                <signal name="scroll-child" handler="scroll_to_bottom" swapped="no"/>
                 <child>
                   <object class="GtkViewport" id="viewport2">
                     <property name="visible">True</property>
@@ -587,6 +590,7 @@
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="selection_mode">multiple</property>
+                            <signal name="scroll-event" handler="scroll_to_bottom" swapped="no"/>
                             <signal name="size-allocate" handler="scroll_to_bottom" swapped="no"/>
                             <style>
                               <class name="message-list"/>
@@ -947,100 +951,6 @@
         <property name="can_focus">False</property>
         <property name="orientation">vertical</property>
         <child>
-          <object class="GtkRevealer" id="notify">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="transition_type">slide-up</property>
-            <child>
-              <object class="GtkBox" id="box17">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="orientation">vertical</property>
-                <child>
-                  <object class="GtkBox" id="box18">
-                    <property name="height_request">50</property>
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="margin_top">5</property>
-                    <property name="margin_bottom">5</property>
-                    <property name="spacing">5</property>
-                    <child>
-                      <object class="GtkImage" id="image_notify">
-                        <property name="width_request">50</property>
-                        <property name="height_request">50</property>
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="pixel_size">16</property>
-                        <property name="icon_name">help-info-symbolic</property>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">True</property>
-                        <property name="position">0</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkLabel" id="label_notify_text">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="label">label</property>
-                        <property name="ellipsize">end</property>
-                        <property name="lines">3</property>
-                        <attributes>
-                          <attribute name="size" value="10000"/>
-                        </attributes>
-                      </object>
-                      <packing>
-                        <property name="expand">True</property>
-                        <property name="fill">True</property>
-                        <property name="position">1</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkButton" id="button_notify_close">
-                        <property name="width_request">20</property>
-                        <property name="visible">True</property>
-                        <property name="can_focus">True</property>
-                        <property name="receives_default">True</property>
-                        <property name="tooltip_text" translatable="yes">Close the popup</property>
-                        <property name="halign">end</property>
-                        <property name="image">image10</property>
-                        <property name="relief">none</property>
-                        <property name="xalign">0</property>
-                        <property name="always_show_image">True</property>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">True</property>
-                        <property name="position">2</property>
-                      </packing>
-                    </child>
-                    <style>
-                      <class name="chatview-notify-bar"/>
-                    </style>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="position">0</property>
-                  </packing>
-                </child>
-                <style>
-                  <class name="chatview-notify-bar"/>
-                </style>
-              </object>
-            </child>
-            <style>
-              <class name="chatview-notify-bar"/>
-            </style>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">0</property>
-          </packing>
-        </child>
-        <child>
           <object class="GtkBox" id="box15">
             <property name="height_request">32</property>
             <property name="visible">True</property>
@@ -1182,29 +1092,31 @@
           </packing>
         </child>
         <child>
-          <object class="GtkRevealer" id="revealer_unread_messages">
+          <object class="GtkRevealer" id="notify">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="transition_type">slide-up</property>
             <child>
-              <object class="GtkBox" id="box22">
+              <object class="GtkBox" id="box17">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="spacing">10</property>
+                <property name="orientation">vertical</property>
                 <child>
-                  <object class="GtkBox" id="box23">
+                  <object class="GtkBox" id="box18">
+                    <property name="height_request">50</property>
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="halign">center</property>
-                    <property name="spacing">10</property>
+                    <property name="margin_top">5</property>
+                    <property name="margin_bottom">5</property>
+                    <property name="spacing">5</property>
                     <child>
-                      <object class="GtkImage" id="image23">
+                      <object class="GtkImage" id="image_notify">
+                        <property name="width_request">50</property>
+                        <property name="height_request">50</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="valign">baseline</property>
                         <property name="pixel_size">16</property>
-                        <property name="icon_name">mail-unread-symbolic</property>
-                        <property name="icon_size">5</property>
+                        <property name="icon_name">help-info-symbolic</property>
                       </object>
                       <packing>
                         <property name="expand">False</property>
@@ -1213,53 +1125,64 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkLabel" id="label_friend_is_typing1">
+                      <object class="GtkLabel" id="label_notify_text">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="label" translatable="yes">Their is unread messages in this chat</property>
-                        <property name="use_markup">True</property>
+                        <property name="label">label</property>
+                        <property name="ellipsize">end</property>
+                        <property name="lines">3</property>
+                        <attributes>
+                          <attribute name="size" value="10000"/>
+                        </attributes>
                       </object>
                       <packing>
-                        <property name="expand">False</property>
+                        <property name="expand">True</property>
                         <property name="fill">True</property>
                         <property name="position">1</property>
                       </packing>
                     </child>
-                  </object>
-                  <packing>
-                    <property name="expand">True</property>
-                    <property name="fill">True</property>
-                    <property name="position">0</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkButton" id="button10">
-                    <property name="label" translatable="yes">Scroll to bottom</property>
-                    <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="receives_default">True</property>
-                    <property name="relief">none</property>
-                    <signal name="clicked" handler="unread_messages_scroll" swapped="no"/>
+                    <child>
+                      <object class="GtkButton" id="button_notify_close">
+                        <property name="width_request">20</property>
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="receives_default">True</property>
+                        <property name="tooltip_text" translatable="yes">Close the popup</property>
+                        <property name="halign">end</property>
+                        <property name="image">image10</property>
+                        <property name="relief">none</property>
+                        <property name="xalign">0</property>
+                        <property name="always_show_image">True</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">2</property>
+                      </packing>
+                    </child>
+                    <style>
+                      <class name="chatview-notify-bar"/>
+                    </style>
                   </object>
                   <packing>
                     <property name="expand">False</property>
                     <property name="fill">True</property>
-                    <property name="position">1</property>
+                    <property name="position">0</property>
                   </packing>
                 </child>
                 <style>
-                  <class name="user-infos"/>
+                  <class name="chatview-notify-bar"/>
                 </style>
               </object>
             </child>
             <style>
-              <class name="unread-messages"/>
+              <class name="chatview-notify-bar"/>
             </style>
           </object>
           <packing>
-            <property name="expand">True</property>
+            <property name="expand">False</property>
             <property name="fill">True</property>
-            <property name="position">2</property>
+            <property name="position">1</property>
           </packing>
         </child>
         <child>
@@ -1310,14 +1233,13 @@
           <packing>
             <property name="expand">False</property>
             <property name="fill">True</property>
-            <property name="position">3</property>
+            <property name="position">2</property>
           </packing>
         </child>
       </object>
       <packing>
         <property name="expand">False</property>
         <property name="fill">True</property>
-        <property name="pack_type">end</property>
         <property name="position">2</property>
       </packing>
     </child>
