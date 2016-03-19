@@ -603,6 +603,16 @@ GtkScrolledWindow {
   color: @ui_text;
 }
 
+/** Unread messages widget. **/
+.unread-messages GtkBox {
+  background-color: @ui_greener;
+  color: @ui_text;
+}
+.unread-messages GtkButton {
+  background-color: @ui_green;
+  color: @ui_text;
+}
+
 /** ENTRIES SELECTION COLOR **/
 GtkSearchEntry:selected,
 GtkEntry:selected {
