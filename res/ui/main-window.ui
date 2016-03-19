@@ -91,7 +91,7 @@
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="pixel_size">46</property>
-                            <property name="resource">/chat/tox/ricin/images/noavatar.gif</property>
+                            <property name="icon_name">avatar-default</property>
                           </object>
                         </child>
                         <style>
