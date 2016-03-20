@@ -42,6 +42,7 @@ RicinMessageListRow GtkLabel:nth-child(2) {
   border-radius: 5px;
 }
 
+
 RicinQuoteMessageListRow GtkLabel {
   padding: 0 5px;
 }
