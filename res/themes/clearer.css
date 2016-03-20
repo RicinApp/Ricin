@@ -41,8 +41,6 @@ RicinMessageListRow GtkLabel:nth-child(2) {
   color: @ui_text;
   border-radius: 5px;
 }
-<<<<<<< Updated upstream
-=======
 
 RicinQuoteMessageListRow GtkLabel {
   padding: 0 5px;
@@ -80,7 +78,6 @@ RicinQuoteMessageListRow GtkListBox RicinPlainLabel {
   padding: 5px;
 }
 
->>>>>>> Stashed changes
 RicinSystemMessageListRow GtkLabel {
   border-radius: 50px;
 }
