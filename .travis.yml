@@ -57,6 +57,8 @@ before_script:
 # Libconfig
  - git clone https://github.com/hyperrealm/libconfig
  - cd libconfig
+ - rm ./lib/scanner.c
+ - rm ./lib/scanner.h
  - ./configure
  - make
  - sudo make install
