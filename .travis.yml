@@ -56,9 +56,8 @@ before_script:
  - cd ..
 
 script:
- - mkdir build
- - meson . build
- - make debug
+ - make autogen
+ - make install
 
 notifications:
   email: false
