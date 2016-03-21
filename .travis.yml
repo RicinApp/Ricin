@@ -64,6 +64,7 @@ before_script:
  - sudo make install
 
 script:
+ - cd /home/travis/build/RicinApp/Ricin
  - make autogen
  - make install
 
