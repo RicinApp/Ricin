@@ -9,8 +9,8 @@ install:
  - sudo apt-add-repository ppa:vala-team/ppa -y
  - sudo apt-add-repository ppa:mc3man/trusty-media -y
 
-# Travis requires gtk+ 3.16 to compile.
- - sudo apt-add-repository ppa:ubuntu-desktop/ppa -y
+# Travis requires gtk+ 3.18 to compile.
+ - sudo apt-add-repository ppa:ubuntu/ppa -y
 
  - sudo apt-get update -q
  - sudo apt-get install -y checkinstall build-essential texinfo libglib2.0-dev libgdk-pixbuf2.0-dev libsoup2.4-dev libjson-glib-dev libnotify-bin python3 valac-0.30 libnotify-dev libopus-dev ffmpeg
