@@ -62,6 +62,10 @@ before_script:
  - ./configure
  - make
  - sudo make install
+ - cd ..
+# Gtk+3.18
+ - wget https://launchpad.net/ubuntu/+archive/primary/+files/libgtk-3-0_3.18.9-1ubuntu2_amd64.deb
+ - sudo dpkg -i libgtk-*.deb
 
 script:
  - cd /home/travis/build/RicinApp/Ricin
