@@ -14,11 +14,13 @@ deps = [
     dependency('libsoup-2.4'),
     dependency('json-glib-1.0'),
     dependency('libnotify'),
-    dependency('libtoxcore'),
-    dependency('libconfig'),
-    #dependency('libsodium')
+    dependency('libtoxcore')
 ]
 
+libconfig = dependency('libconfig', required : false)
+if libconfig.found()
+    deps += libconfig # Needed cuz Windows won't use libconfig.
+endif
 
 subdir('src')
 subdir('res')
