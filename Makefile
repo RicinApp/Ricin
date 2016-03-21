@@ -37,7 +37,9 @@ install:
 
 # Winshit stuff.
 autogenwin:
-	sudo /usr/bin/meson . build-win32 --cross-file cross_win.txt
+	sudo rm -rf ./build-win32
+	mkdir -p ./build-win32
+	sudo /usr/bin/meson . ./build-win32 --cross-file cross_win.txt
 
 debugwin:
 	ninja-build -C build-win32 clean
