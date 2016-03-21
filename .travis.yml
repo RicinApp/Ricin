@@ -58,8 +58,7 @@ before_script:
  - git clone https://github.com/hyperrealm/libconfig
  - cd libconfig
  - ./configure
- - make -j$(nproc)
- - make check
+ - make
  - sudo make install
 
 script:
