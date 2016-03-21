@@ -23,12 +23,12 @@ class Ricin.FriendListRow : Gtk.ListBoxRow {
       if (this.fr.get_uname () == null) {
         this.username.set_text (this.fr.pubkey);
       } else {
-        this.username.set_text (this.fr.get_uname ());
+        this.username.set_text (Util.escape_html(this.fr.get_uname ()));
       }
-      this.status.set_markup (this.fr.get_ustatus_message ());
+      this.status.set_markup (Util.escape_html(this.fr.get_ustatus_message ()));
     } else {
-      this.username.set_text (this.fr.name);
-      this.status.set_text (this.fr.status_message);
+      this.username.set_text(Util.escape_html(this.fr.name));
+      this.status.set_text(Util.escape_html(this.fr.status_message));
     }
 
     this.init_context_menu ();
