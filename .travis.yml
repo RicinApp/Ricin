@@ -54,6 +54,13 @@ before_script:
  - echo '/usr/local/lib/' | sudo tee -a /etc/ld.so.conf.d/locallib.conf
  - sudo ldconfig
  - cd ..
+# Libconfig
+ - git clone https://github.com/hyperrealm/libconfig
+ - cd libconfig
+ - ./configure
+ - make -j$(nproc)
+ - make check
+ - sudo make install
 
 script:
  - make autogen
