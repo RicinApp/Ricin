@@ -1337,7 +1337,7 @@
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="pixel_size">16</property>
-                        <property name="icon_name">help-info-symbolic</property>
+                        <property name="icon_name">dialog-information-symbolic</property>
                       </object>
                       <packing>
                         <property name="expand">False</property>
@@ -1421,7 +1421,7 @@
                   <object class="GtkImage" id="image24">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="icon_name">help-info-symbolic</property>
+                    <property name="icon_name">dialog-information-symbolic</property>
                   </object>
                 </child>
                 <style>
