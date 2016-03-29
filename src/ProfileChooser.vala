@@ -12,8 +12,12 @@ class Ricin.ProfileChooser : Gtk.ApplicationWindow {
   [GtkChild] Gtk.Entry entry_register_name;
   [GtkChild] Gtk.Button button_register;
 
+  private SettingsManager settings;
+
   public ProfileChooser (Gtk.Application app) {
     Object (application: app);
+
+    this.settings = SettingsManager.instance;
 
     Gdk.Pixbuf app_icon = new Gdk.Pixbuf.from_resource ("/chat/tox/ricin/images/icons/Ricin-128x128.png");
     this.window_position = Gtk.WindowPosition.CENTER;
@@ -22,6 +26,9 @@ class Ricin.ProfileChooser : Gtk.ApplicationWindow {
     this.set_default_size (261, 150);
     this.set_resizable (false);
 
+    int latest_index = 0;
+    string last_profile_used = this.settings.get_string ("ricin.general.last_profile_used");
+
     var dir = File.new_for_path (Tox.profile_dir ());
     string[] profiles = {};
     if (!dir.query_exists ()) {
@@ -29,9 +36,15 @@ class Ricin.ProfileChooser : Gtk.ApplicationWindow {
     } else {
       var enumerator = dir.enumerate_children (FileAttribute.STANDARD_NAME, 0);
       FileInfo info;
+      int i = 0;
       while ((info = enumerator.next_file ()) != null) {
-        if (info.get_name ().has_suffix (".tox")) {
-          profiles += info.get_name ();
+        var pname = info.get_name ();
+        if (pname.has_suffix (".tox")) {
+          profiles += pname;
+          if (pname.replace (".tox", "") == last_profile_used) {
+            latest_index = i;
+          }
+          i++;
         }
       }
     }
@@ -39,6 +52,8 @@ class Ricin.ProfileChooser : Gtk.ApplicationWindow {
     foreach (string profile in profiles) {
       this.combobox_profiles.append_text (profile);
     }
+    this.combobox_profiles.active = latest_index;
+
     if (profiles.length == 0) {
       // Set the tabpage as create page.
       this.notebook_switcher.page = 1;
@@ -49,10 +64,13 @@ class Ricin.ProfileChooser : Gtk.ApplicationWindow {
 
   [GtkCallback]
   private void login () {
-    var profile = Tox.profile_dir () + this.combobox_profiles.get_active_text ();
+    this.button_login.sensitive = false;
+    var pname = this.combobox_profiles.get_active_text ();
+    var profile = Tox.profile_dir () + pname;
+    // last_profile_used
 
     if (FileUtils.test (profile, FileTest.EXISTS)) {
-      this.button_login.sensitive = false;
+      this.settings.write_string ("ricin.general.last_profile_used", pname.replace (".tox", ""));
       new MainWindow (this.application, profile, false);
       this.close (); // if a dialog is open, the window will not be closed
     } else {
