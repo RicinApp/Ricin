@@ -19,7 +19,7 @@
 @define-color ui_text   #FFFFFF;
 @define-color selected_text_color #5688F9;
 
-/** Non standard Ricin color name, only used for this theme. */
+/** Non standard Ricin colors names, only used for this theme. */
 @define-color quote_background #444444;
 @define-color quote_text @ui_text;
 @define-color quote_plain_color @main_grey;
