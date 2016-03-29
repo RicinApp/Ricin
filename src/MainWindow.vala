@@ -164,6 +164,10 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
       var mode = this.combobox_friend_filter.active;
 
       if (search == null || search.length == 0) {
+        if (friend.unreadCount > 0) {
+          return true;
+        }
+
         if (mode == 0 && status == Tox.UserStatus.OFFLINE) {
           return false;
         }
@@ -324,6 +328,7 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
 
   /**
   * This is the sort method used for sorting contacts based on:
+  * Contact have unreadCount > 0: top.
   * Contact is online (top) → Contact is offline (end)
   * Contact status: Online → Away → Busy → Blocked → Offlines with name → Offlines without name.
   */
@@ -331,6 +336,9 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
     var friend1 = (row1 as FriendListRow);
     var friend2 = (row2 as FriendListRow);
 
+    if (friend1.unreadCount > friend2.unreadCount) {
+      return -1;
+    }
 
     if (friend1.fr.status != Tox.UserStatus.OFFLINE && friend2.fr.status == Tox.UserStatus.OFFLINE) {
       return -1;
