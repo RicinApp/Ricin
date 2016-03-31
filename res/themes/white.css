@@ -19,10 +19,22 @@
 @define-color ui_text   #000000;
 @define-color selected_text_color #5688F9;
 
+@define-color plain_color @ui_text;
+@define-color quote_color @ui_green;
+
 @import url("app.css");
 
 RicinSettingsView GtkComboBoxText,
 RicinSettingsView GtkEntry,
 RicinSettingsView GtkButton {
   color: @ui_text;
+}
+
+RicinQuoteMessageListRow GtkListBox RicinPlainLabel {
+  border-left: 5px solid @plain_color;
+  padding: 0 10px 0 5px;
+}
+RicinQuoteMessageListRow GtkListBox RicinQuoteLabel {
+  border-left: 5px solid @quote_color;
+  padding: 0 7px 0 5px;
 }
