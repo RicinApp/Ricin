@@ -4,6 +4,8 @@ class Ricin.QuoteLabel : Gtk.ListBoxRow {
 
   public QuoteLabel (string label) {
     this.label_quote.set_markup (label);
+    this.label_quote.set_line_wrap_mode (Pango.WrapMode.WORD_CHAR);
+    this.label_quote.set_justify (Gtk.Justification.FILL);
     this.label_quote.activate_link.connect (this.handle_links);
   }
 

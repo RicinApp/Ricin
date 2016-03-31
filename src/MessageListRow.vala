@@ -54,6 +54,7 @@ class Ricin.MessageListRow : Gtk.ListBoxRow {
 
     this.label_name.set_markup (@"<b>$name</b>");
     this.label_message.set_markup (msg);
+    this.label_message.set_line_wrap_mode (Pango.WrapMode.WORD_CHAR);
     this.label_timestamp.set_text (timestamp);
 
     this.label_message.activate_link.connect (this.handle_links);

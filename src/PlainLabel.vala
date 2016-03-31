@@ -4,6 +4,8 @@ class Ricin.PlainLabel : Gtk.ListBoxRow {
 
   public PlainLabel (string label) {
     this.label_text.set_markup (label);
+    this.label_text.set_line_wrap_mode (Pango.WrapMode.WORD_CHAR);
+    this.label_text.set_justify (Gtk.Justification.FILL);
     this.label_text.activate_link.connect (this.handle_links);
   }
 
