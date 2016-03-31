@@ -319,7 +319,7 @@ class Ricin.ChatView : Gtk.Box {
       if (adj.value == this._bottom_scroll) {
         this.scroll_bottom ();
       }
-      
+
       this.entry.grab_focus_without_selecting ();
     });
 
@@ -501,10 +501,15 @@ class Ricin.ChatView : Gtk.Box {
     if (adj.value == this._bottom_scroll) {
       adj.set_value (adj.get_upper () - adj.get_page_size ());
       this.is_bottom = true;
-      this.revealer_unread_messages.reveal_child = false;
+
+      if (this.revealer_unread_messages.reveal_child == true) {
+        this.revealer_unread_messages.reveal_child = false;
+      }
     } else {
       this.is_bottom = false;
-      this.revealer_unread_messages.reveal_child = true;
+      if (this.revealer_unread_messages.reveal_child == false) {
+        this.revealer_unread_messages.reveal_child = true;
+      }
     }
 
     this._bottom_scroll = adj.get_upper () - adj.get_page_size ();
@@ -518,7 +523,9 @@ class Ricin.ChatView : Gtk.Box {
         this.entry.grab_focus_without_selecting ();
       }
     });
-    this.revealer_unread_messages.reveal_child = false;
+    if (this.revealer_unread_messages.reveal_child == true) {
+      this.revealer_unread_messages.reveal_child = false;
+    }
   }
 
   private void scroll_bottom () {

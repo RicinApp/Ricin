@@ -63,8 +63,13 @@ class Ricin.FriendListRow : Gtk.ListBoxRow {
 
     fr.message.connect (this.notify_new_messages);
     fr.action.connect (this.notify_new_messages);
+    
     this.activate.connect (() => {
       this.unreadCount = 0;
+      this.changed ();
+
+      var main_window = this.get_toplevel () as MainWindow;
+      main_window.friendlist.invalidate_filter ();
     });
   }
 

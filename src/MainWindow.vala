@@ -28,7 +28,7 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
   [GtkChild] Gtk.Button button_friend_request_cancel;
 
   // Friendlist + chatview.
-  [GtkChild] Gtk.ListBox friendlist;
+  [GtkChild] public Gtk.ListBox friendlist;
   [GtkChild] public Gtk.Stack chat_stack;
 
   // Add friend revealer.
@@ -184,9 +184,7 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
       return false;
     });
 
-    this.combobox_friend_filter.changed.connect (() => {
-      this.friend_list_update_search ();
-    });
+    this.combobox_friend_filter.changed.connect (this.friend_list_update_search);
 
     this.friendlist.set_sort_func (sort_friendlist_online);
     this.friendlist.bind_model (this.friends, fr => new FriendListRow (fr as Tox.Friend));
