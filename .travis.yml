@@ -26,9 +26,9 @@ before_script:
  - sudo cp ./ninja /usr/bin/ninja
  - cd ..
 # meson
- - wget https://github.com/mesonbuild/meson/releases/download/0.26.0/meson_0.26.0.tar.gz
- - tar -xvf meson_0.26.0.tar.gz
- - cd meson-0.26.0
+ - wget https://github.com/mesonbuild/meson/releases/download/0.30.0/meson_0.30.0.tar.gz
+ - tar -xvf meson_0.30.0.tar.gz
+ - cd meson-0.30.0
  - sudo python3 install_meson.py --prefix=/usr
  - cd ..
 # filter_audio
