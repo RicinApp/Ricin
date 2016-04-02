@@ -67,9 +67,7 @@ before_script:
  - cd ..
 
 script:
- - rm -rf ./build
- - mkdir -p ./build
- - meson . ./build -Db_coverage=true --enable-gcov
+ - make autogen
  - sudo make install
 
 notifications:
