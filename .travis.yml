@@ -17,9 +17,6 @@ install:
  - sudo apt-get install -y gtk+3.0
 
 before_script:
-# codecov
- - sudo pip install codecov
-
 # ninja
  - git clone git://github.com/martine/ninja.git
  - cd ninja
@@ -73,9 +70,7 @@ script:
  - sudo make install
 
 notifications:
-  email: false
+ email: false
 
 after_success:
-    - coveralls --repo-token $COVERALLS_TOKEN --build-root build
-                --exclude res/ --exclude po/ --exclude icons/ --exclude tools/ 
-    - bash <(curl -s https://codecov.io/bash) --token=$COVERALLS_TOKEN
+ - bash <(curl -s https://codecov.io/bash)
