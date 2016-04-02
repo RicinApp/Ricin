@@ -12,6 +12,9 @@
         <a href="https://www.bountysource.com/teams/RicinApp">
           <img src="https://img.shields.io/bountysource/team/RicinApp/activity.svg?style=flat" alt="Support development">
         </a>
+        <a href="https://travis-ci.org/RicinApp/Ricin">
+          <img src="https://api.travis-ci.org/RicinApp/Ricin.svg" alt="TravisCI build status">
+        </a>
       </td>
     </tr>
     <tr>
