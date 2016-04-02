@@ -17,6 +17,9 @@ install:
  - sudo apt-get install -y gtk+3.0
 
 before_script:
+# codecov
+ - pip install codecov
+
 # ninja
  - git clone git://github.com/martine/ninja.git
  - cd ninja
