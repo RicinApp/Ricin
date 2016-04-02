@@ -17,11 +17,10 @@
     <tr>
       <td align="center" width="100%" colspan="2">
         <big><b>Want to get involved? There are several ways you can help us! ^-^</b></big><br>
-        <a href="#translating">Translating</a> -
-        <a href="#dependencies">Dependencies</a> -
-        <a href="#compile">Compile</a> -
         <a href="#install">Install</a> -
-        <a href="#contribute">Contribute</a> -
+        <a href="#compile">Compile</a> -
+        <a href="CONTRIBUTING.md">Contribute</a> -
+        <a href="#translate">Translate</a> -
         <a href="#support-ricin-developement">Support us</a> -
         <a href="#vala-resources-to-get-started">Get started with Vala</a>
       </td>
@@ -50,18 +49,28 @@ _Screenshot might be outdated but it should give you a general idea of what Rici
 | libconfig                   | >=1.5.0   |
 
 # Install
-We currently have an ArchLinux package made by @LastAvenger available at the following url: [ricin-git](https://aur.archlinux.org/packages/ricin-git/)  
-You can also use the following command:
+## Linux
+### ArchLinux
+Thanks to [LastAvenger](https://github.com/LastAvenger) Arch users can enjoy a package located here: [ricin-git](https://aur.archlinux.org/packages/ricin-git)  
+Installing the package from a shell is simple as doing this:
 ```bash
 yaourt -S ricin-git
 ```
 
-If you prefer to install Ricin on your system instead of running it from the ./build dir you can do the following:
+### Other Linux distributions
+For other systems that doesn't yet have a package you'll have a to compile & install Ricin from sources.  
+First, install Ricin's <a href="#dependencies">dependencies</a> then run the following commands in a shell:
 ```bash
 git clone --recursive https://github.com/RicinApp/Ricin.git && cd Ricin
 make autogen
 sudo make install
 ```
+
+## Windows
+Ricin isn't yet available on Windows, anyway this is planed.
+
+## OSX
+Ricin isn't yet available on OSX, anyway this is also planed!
 
 # Compile
 Please refer to the [Install.md](INSTALL.md) to install the dependencies on your Linux distribution.
@@ -72,11 +81,6 @@ make autogen
 make debug
 ```
 
-# Contribute
-You can contribute to improving Ricin by [proposing Pull-requests](https://github.com/RicinApp/Ricin/pulls), reporting bugs or suggestions using the GitHub [issues tracker](https://github.com/RicinApp/Ricin/issues), [submiting a Bounty](https://www.bountysource.com/teams/RicinApp) or even [Translating Ricin in your native language](#translating)
-
-Please also read our [contributing guide](CONTRIBUTING.md).
-
 # Support Ricin developement
 You can support the Ricin client developement by
 - [Paying us a Bounty](https://www.bountysource.com/teams/RicinApp)
@@ -84,7 +88,7 @@ You can support the Ricin client developement by
 - **Litecoin:** ltc.ricin.im (OpenAlias) or [LUDFUqvZkjXCvaroNiap5vXHzMGeTB8F8x](https://bchain.info/LTC/addr/LUDFUqvZkjXCvaroNiap5vXHzMGeTB8F8x)
 - Backing an issue via Bountsource to make people able to work on it full-time! :)
 
-# Translating
+# Translate
 Ricin uses Transifex in order to maintain Localization and enable users to help us translating it in their native language. Here's a graphic about the translations' state:
 
 ![Translations state for Ricin](https://www.transifex.com/projects/p/ricin/resource/ricinpot/chart/image_png)
