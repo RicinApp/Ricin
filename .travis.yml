@@ -67,7 +67,7 @@ before_script:
 
 script:
  - make autogen
- - make install
+ - sudo make install
 
 notifications:
   email: false
