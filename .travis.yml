@@ -71,12 +71,11 @@ script:
 
 notifications:
  email: false
- notifications:
-  irc:
-   channels:
-    - "chat.freenode.net#ricin-dev"
-   on_success: change
-   on_failure: always
+ irc:
+  channels:
+   - "chat.freenode.net#ricin-dev"
+  on_success: change
+  on_failure: always
 
 after_success:
  - bash <(curl -s https://codecov.io/bash)
