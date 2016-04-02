@@ -18,7 +18,7 @@ install:
 
 before_script:
 # codecov
- - pip install codecov
+ - sudo pip install codecov
 
 # ninja
  - git clone git://github.com/martine/ninja.git
