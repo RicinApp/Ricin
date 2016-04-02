@@ -8,4 +8,4 @@ langs = [
   'de'     # By AncientWeapon (Sarah Kraßnigg)
 
 ]
-gettext('ricin', languages : langs)
+i18n.gettext('ricin', languages : langs)
