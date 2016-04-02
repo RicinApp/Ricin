@@ -67,7 +67,11 @@ before_script:
  - cd ..
 
 script:
- - make autogen
+ #- make autogen
+ - rm -rf ./build
+ - mkdir -p ./build && cd ./build
+ - meson --enable-gcov ..
+ - ninja coverage-html
  - sudo make install
 
 notifications:
