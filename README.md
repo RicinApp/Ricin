@@ -19,7 +19,8 @@
         <big><b>Want to get involved? There are several ways you can help us! ^-^</b></big><br>
         <a href="#translating">Translating</a> -
         <a href="#dependencies">Dependencies</a> -
-        <a href="#compiling">Compiling</a> -
+        <a href="#compile">Compile</a> -
+        <a href="#install">Install</a> -
         <a href="#contribute">Contribute</a> -
         <a href="#support-ricin-developement">Support us</a> -
         <a href="#vala-resources-to-get-started">Get started with Vala</a>
@@ -48,14 +49,21 @@ _Screenshot might be outdated but it should give you a general idea of what Rici
 | libnotify                   | >=0.7.6   |
 | libconfig                   | >=1.5.0   |
 
-# Installing
+# Install
 We currently have an ArchLinux package made by @LastAvenger available at the following url: [ricin-git](https://aur.archlinux.org/packages/ricin-git/)  
 You can also use the following command:
 ```bash
 yaourt -S ricin-git
 ```
 
-# Compiling
+If you prefer to install Ricin on your system instead of running it from the ./build dir you can do the following:
+```bash
+git clone --recursive https://github.com/RicinApp/Ricin.git && cd Ricin
+make autogen
+sudo make install
+```
+
+# Compile
 Please refer to the [Install.md](INSTALL.md) to install the dependencies on your Linux distribution.
 
 ```bash
@@ -64,18 +72,10 @@ make autogen
 make debug
 ```
 
-## Installing
-If you prefer to install Ricin on your system instead of running it from the ./build dir you can do the following:
-```bash
-git clone --recursive https://github.com/RicinApp/Ricin.git && cd Ricin
-make autogen
-sudo make install
-```
-
 # Contribute
 You can contribute to improving Ricin by [proposing Pull-requests](https://github.com/RicinApp/Ricin/pulls), reporting bugs or suggestions using the GitHub [issues tracker](https://github.com/RicinApp/Ricin/issues), [submiting a Bounty](https://www.bountysource.com/teams/RicinApp) or even [Translating Ricin in your native language](#translating)
 
-> _Section to complete..._
+Please also read our [contributing guide](CONTRIBUTING.md).
 
 # Support Ricin developement
 You can support the Ricin client developement by
