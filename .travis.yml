@@ -70,7 +70,7 @@ script:
  #- make autogen
  - rm -rf ./build
  - mkdir -p ./build && cd ./build
- - meson --enable-gcov ..
+ - /usr/bin/local/meson --enable-gcov ..
  - ninja coverage-html
  - sudo make install
 
