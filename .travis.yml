@@ -69,8 +69,8 @@ before_script:
 script:
  #- make autogen
  - rm -rf ./build
- - mkdir -p ./build &&
- - /usr/bin/local/meson -Db_coverage=true . build
+ - mkdir -p ./build
+ - /usr/local/bin/meson -Db_coverage=true . build
  - ninja -C build
  - ninja -C build test
  - ninja -C build coverage-html
