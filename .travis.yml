@@ -75,4 +75,4 @@ notifications:
 after_success:
     - coveralls --repo-token $COVERALLS_TOKEN --build-root build
                 --exclude res/ --exclude po/ --exclude icons/ --exclude tools/ 
-    - bash <(curl -s https://codecov.io/bash) -t $COVERALLS_TOKEN
+    - bash <(curl -s https://codecov.io/bash) --token=$COVERALLS_TOKEN
