@@ -29,7 +29,7 @@ before_script:
  - wget https://github.com/mesonbuild/meson/releases/download/0.30.0/meson_0.30.0.tar.gz
  - tar -xvf meson_0.30.0.tar.gz
  - cd meson-0.30.0
- - sudo python3 install_meson.py --prefix=/usr
+ - sudo python3 setup.py install
  - cd ..
 # filter_audio
  - git clone https://github.com/irungentoo/filter_audio
