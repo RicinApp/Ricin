@@ -6,11 +6,13 @@
 * Write in **English**!
 * Provide **version** information: (You can find version numbers in menu `Settings → About`)
 
-- Ricin version
-- Commit hash
-- Toxcore version
-- GTK+3 version
-- Operating System + version
+```
+Ricin version:
+Commit hash:
+Toxcore version:
+GTK+3 version:
+Operating System + version:
+```
 
 * Provide **steps** to reproduce the problem, it will be easier to pinpoint the fault.
 * **Screenshots**! A screenshot is worth a thousand words. Just upload it. [(How?)](https://help.github.com/articles/file-attachments-on-issues-and-pull-requests)
