@@ -69,9 +69,11 @@ before_script:
 script:
  #- make autogen
  - rm -rf ./build
- - mkdir -p ./build && cd ./build
- - /usr/bin/local/meson -Db_coverage=true --enable-gcov ..
- - ninja coverage-html
+ - mkdir -p ./build &&
+ - /usr/bin/local/meson -Db_coverage=true . build
+ - ninja -C build
+ - ninja -C build test
+ - ninja -C build coverage-html
  - sudo make install
 
 notifications:
