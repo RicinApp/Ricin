@@ -1,7 +1,7 @@
 # Filing an issue
 
 ### Must read
-* If you aren't sure, you can ask on the [**IRC channel**](https://webchat.freenode.net/?channels=ricin) first.
+* If you aren't sure, you can ask on the [**IRC channel**](https://webchat.freenode.net/?channels=ricin-dev) first.
 * Do a quick **search**. Others might have already reported the issue.
 * Write in **English**!
 * Provide **version** information: (You can find version numbers in menu `Settings → About`)

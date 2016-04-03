@@ -35,8 +35,13 @@ class SettingsManager : GLib.Object {
   }
 
   public string get_string (string path) {
-    var setting_obj = this.config.lookup (path);
-    return setting_obj.get_string ();
+    try {
+      var setting_obj = this.config.lookup (path);
+      return setting_obj.get_string ();
+    } catch (Error e) {
+      error (@"Error reading string from .cfg: $(e.message)");
+      return "";
+    }
   }
 
   public bool get_bool (string path) {
