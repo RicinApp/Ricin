@@ -25,6 +25,12 @@ before_script:
  - ./configure.py --bootstrap
  - sudo cp ./ninja /usr/bin/ninja
  - cd ..
+# Gcovr
+ - wget https://github.com/eraserix/gcovr/archive/3.1.tar.gz
+ - tar -xvf 3.1.tar.gz
+ - cd 3.1
+ - sudo python3 setup.py install
+ - cd ..
 # meson
  - wget https://github.com/mesonbuild/meson/releases/download/0.30.0/meson_0.30.0.tar.gz
  - tar -xvf meson_0.30.0.tar.gz
