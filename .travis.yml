@@ -73,7 +73,7 @@ before_script:
 
 script:
  - rm -rf build
- - mkdir -p
+ - mkdir -p build
  - /usr/local/bin/meson.py . build -Db_coverage=true
  - sudo make install
  
