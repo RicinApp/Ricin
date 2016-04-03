@@ -32,9 +32,8 @@ before_script:
  - sudo python setup.py install
  - cd ..
 # meson
- - wget https://github.com/mesonbuild/meson/releases/download/0.30.0/meson_0.30.0.tar.gz
- - tar -xvf meson_0.30.0.tar.gz
- - cd meson-0.30.0
+ - git clone https://github.com/mesonbuild/meson.git
+ - cd meson
  - sudo python3 setup.py install
  - cd ..
 # filter_audio
