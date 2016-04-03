@@ -69,6 +69,7 @@ before_script:
  - ./configure
  - make
  - sudo make install
+ - sudo ldconfig
  - cd ..
 
 script:
@@ -89,5 +90,5 @@ after_success:
  - ninja -C build
  - ninja -C build test
  - ./build/Ricin & sleep 5s; kill %1
- - ninja -C build coverage-html
+ - sudo ninja -C build coverage-html
  - bash <(curl -s https://codecov.io/bash)
