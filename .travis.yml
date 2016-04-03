@@ -72,14 +72,9 @@ before_script:
  - cd ..
 
 script:
- #- make autogen
- - rm -rf ./build
- - mkdir -p ./build
- - /usr/local/bin/meson.py -Db_coverage=true . build
- - ninja -C build
- - ninja -C build coverage-xml
+ - make autogen
  - sudo make install
-
+ 
 notifications:
  email: false
  irc:
@@ -89,4 +84,9 @@ notifications:
   on_failure: always
 
 after_success:
+ - /usr/local/bin/meson.py . ./build -Db_coverage=true
+ - ninja -C build
+ - ninja -C build test
+ - ./build/Ricin & sleep 5s; kill %1
+ - ninja -C build coverage-html
  - bash <(curl -s https://codecov.io/bash)
