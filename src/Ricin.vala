@@ -15,8 +15,6 @@ public class Ricin.Ricin : Gtk.Application {
       flags: ApplicationFlags.FLAGS_NONE
     ); // TODO: handle open
 
-    this.settings = new SettingsManager ();
-
     // Stuff for localization.
     string selected_language = settings.get_string ("ricin.interface.selected_language");
     Environment.set_variable ("LANG", selected_language, true);
@@ -43,6 +41,7 @@ public class Ricin.Ricin : Gtk.Application {
       config_sample.copy (config_file, FileCopyFlags.NONE);
     }
 
+    this.settings = new SettingsManager ();
     if (this.settings.get_bool ("ricin.interface.enable_custom_themes") == true) {
       string selected_theme = this.settings.get_string ("ricin.interface.selected_theme");
       string theme_path = @"$resource_base_path/themes/";
