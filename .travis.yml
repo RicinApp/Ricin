@@ -72,8 +72,7 @@ script:
  - mkdir -p ./build
  - /usr/local/bin/meson.py -Db_coverage=true . build
  - ninja -C build
- - cd build/
- - ninja cov
+ - ninja -C build cov
  - sudo make install
 
 notifications:
