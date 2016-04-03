@@ -8,7 +8,7 @@ $ apt-get install libglib2.0-0 libglib2.0-dev libjson-glib-1.0-0 libjson-glib-de
 ```
 You'll also need libconfig that is available here: https://launchpad.net/ubuntu/wily/+package/libconfig-dev
 
-_Note that Ubuntu may prompt u for running this command in root. Just add `sudo` before the command and run it._
+_Note that Ubuntu may prompt you for running this command in root. Just add `sudo` before the command and run it._
 
 ### Arch (and similar distro)
 ```bash
