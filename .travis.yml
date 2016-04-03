@@ -72,7 +72,9 @@ before_script:
  - cd ..
 
 script:
- - make autogen
+ - rm -rf build
+ - mkdir -p
+ - /usr/local/bin/meson.py . build -Db_coverage=true
  - sudo make install
  
 notifications:
@@ -84,7 +86,6 @@ notifications:
   on_failure: always
 
 after_success:
- - /usr/local/bin/meson.py . ./build -Db_coverage=true
  - ninja -C build
  - ninja -C build test
  - ./build/Ricin & sleep 5s; kill %1
