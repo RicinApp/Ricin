@@ -28,7 +28,7 @@ before_script:
 # Gcovr
  - wget https://github.com/eraserix/gcovr/archive/3.1.tar.gz
  - tar -xvf 3.1.tar.gz
- - cd 3.1
+ - cd gcovr-3.1
  - sudo python3 setup.py install
  - cd ..
 # meson
