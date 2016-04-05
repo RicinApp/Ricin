@@ -3,6 +3,7 @@ sudo: required
 dist: trusty
 compiler:
  - gcc
+ - clang
 cache: ccache
 
 install:
