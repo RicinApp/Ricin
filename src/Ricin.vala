@@ -19,11 +19,15 @@ public class Ricin.Ricin : Gtk.Application {
 
     // Stuff for localization.
     string selected_language = settings.get_string ("ricin.interface.selected_language");
-    Environment.set_variable ("LANG", selected_language, true);
-    Intl.setlocale (LocaleCategory.MESSAGES, selected_language);
-    Intl.textdomain (GETTEXT_PACKAGE);
-    Intl.bind_textdomain_codeset (GETTEXT_PACKAGE, "utf-8");
-    Intl.bindtextdomain (GETTEXT_PACKAGE, "/usr/share/locale");
+    try {
+      Environment.set_variable ("LANG", selected_language, true);
+      Intl.setlocale (LocaleCategory.MESSAGES, selected_language);
+      Intl.textdomain (GETTEXT_PACKAGE);
+      Intl.bind_textdomain_codeset (GETTEXT_PACKAGE, "utf-8");
+      Intl.bindtextdomain (GETTEXT_PACKAGE, "/usr/share/locale");
+    } catch (Error e) {
+      error (@"Error initializing gettext: $(e.message)");
+    }
   }
 
   public override void activate () {
