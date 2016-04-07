@@ -3,6 +3,8 @@ sudo: required
 dist: trusty
 compiler:
  - gcc
+ - clang
+cache: ccache
 
 install:
 # Utils
@@ -29,12 +31,11 @@ before_script:
  - wget https://github.com/eraserix/gcovr/archive/3.1.tar.gz
  - tar -xvf 3.1.tar.gz
  - cd gcovr-3.1
- - sudo python3 setup.py install
+ - sudo python setup.py install
  - cd ..
 # meson
- - wget https://github.com/mesonbuild/meson/releases/download/0.30.0/meson_0.30.0.tar.gz
- - tar -xvf meson_0.30.0.tar.gz
- - cd meson-0.30.0
+ - git clone https://github.com/mesonbuild/meson.git
+ - cd meson
  - sudo python3 setup.py install
  - cd ..
 # filter_audio
@@ -70,17 +71,15 @@ before_script:
  - ./configure
  - make
  - sudo make install
+ - sudo ldconfig
  - cd ..
 
 script:
- #- make autogen
- - rm -rf ./build
- - mkdir -p ./build
- - /usr/local/bin/meson.py -Db_coverage=true . build
- - ninja -C build
- - ninja -C build coverage-xml
+ - rm -rf build
+ - mkdir -p build
+ - /usr/local/bin/meson.py . build -Db_coverage=true
  - sudo make install
-
+ 
 notifications:
  email: false
  irc:
@@ -90,4 +89,8 @@ notifications:
   on_failure: always
 
 after_success:
+ - sudo ninja -C build
+ - sudo ninja -C build test
+ - ./build/Ricin & sleep 5s; kill %1
+ - sudo ninja -C build coverage-html
  - bash <(curl -s https://codecov.io/bash)
