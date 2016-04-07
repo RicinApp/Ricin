@@ -35,6 +35,11 @@ release: ./build/
 install:
 	cd build/ && type ninja-build 2>/dev/null && ninja-build install || ninja install
 
+reset-settings:
+	echo "Reset settings to default"
+	rm ~/.config/tox/ricin.cfg
+	cp ./res/ricin.sample.cfg ~/.config/tox/ricin.cfg
+
 # Winshit stuff.
 autogenwin:
 	sudo rm -rf ./build-win32
