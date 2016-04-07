@@ -83,11 +83,12 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
     } catch (Tox.ErrNew error) {
       warning ("Tox init failed: %s", error.message);
       this.destroy ();
-      var error_dialog = new Gtk.MessageDialog (null,
-          Gtk.DialogFlags.MODAL,
-          Gtk.MessageType.WARNING,
-          Gtk.ButtonsType.OK,
-          _("Can't load the profile"));
+      var error_dialog = new Gtk.MessageDialog (this,
+        Gtk.DialogFlags.MODAL,
+        Gtk.MessageType.WARNING,
+        Gtk.ButtonsType.OK,
+        "%s", _("Can't load the profile")
+      );
       error_dialog.secondary_use_markup = true;
       error_dialog.format_secondary_markup (@"<span color=\"#e74c3c\">$(error.message)</span>");
       error_dialog.response.connect (resp => error_dialog.destroy ()); // if we don't use a signal the profile chooser closes
@@ -356,9 +357,11 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
     //var friend = (this.friends.get_object (fr.num) as Tox.Friend);
     var friend = fr;
     var name = friend.get_uname ();
-    var dialog = new Gtk.MessageDialog (this,
-                                        Gtk.DialogFlags.MODAL, Gtk.MessageType.QUESTION, Gtk.ButtonsType.NONE,
-                                        @"Are you sure you want to delete \"$name\"?");
+    var dialog = new Gtk.MessageDialog (
+      this,
+      Gtk.DialogFlags.MODAL, Gtk.MessageType.QUESTION, Gtk.ButtonsType.NONE,
+      "Are you sure you want to delete \"%s\"?", name
+    );
     dialog.secondary_text = @"This will remove \"$name\" and the chat history with it forever.";
     dialog.add_buttons (_("Yes"), Gtk.ResponseType.ACCEPT, _("No"), Gtk.ResponseType.REJECT);
     dialog.response.connect (response => {

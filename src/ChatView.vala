@@ -319,8 +319,6 @@ class Ricin.ChatView : Gtk.Box {
       if (adj.value == this._bottom_scroll) {
         this.scroll_bottom ();
       }
-
-      this.entry.grab_focus_without_selecting ();
     });
 
     this.fr.notify["status-message"].connect ((obj, prop) => {
