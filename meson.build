@@ -4,7 +4,6 @@ project('Ricin',
     'c', # compiling vala requires a C compiler
 )
 gnome = import('gnome')
-# rpm   = import('rpm')
 
 deps = [
     dependency('glib-2.0', version: '>=2.38'),
@@ -44,5 +43,3 @@ executable(
 
 install_data('ricin.desktop', install_dir: 'share/applications/')
 install_data('icons/Ricin-128x128.png', install_dir: 'share/')
-
-# rpm.generate_spec_template()

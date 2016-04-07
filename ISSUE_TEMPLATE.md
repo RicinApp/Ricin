@@ -8,6 +8,7 @@
 * **Reproducible:** _(Always / Almost Always / Sometimes / Rarely / Couldn't Reproduce)_
 
 ## Steps to reproduce:
+_Please provide detailed steps in order for us to reproduce the issue_
 1.  
 2.  
 3.  
