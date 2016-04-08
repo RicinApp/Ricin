@@ -67,18 +67,25 @@ namespace Util {
                  .replace ("8-)", "😎");
 
     // Markdown.
-    var bold = /\B\*\*([^\*\*]*)\*\*\B/.replace (emojis, -1, 0, "<b>\\1</b>");
-    bold = /\B\*([^\*]*)\*\B/.replace (bold, -1, 0, "<b>\\1</b>");
-    var italic = /\B\/\/([^\/\/]*)\/\/\B/.replace(bold, -1, 0, "<i>\\1</i>");
-    italic = /\B\/([^\/]*)\/\B/.replace(italic, -1, 0, "<i>\\1</i>");
-    var underlined = /\b__([^__]*)__\b/.replace(italic, -1, 0, "<u>\\1</u>");
-    underlined = /\b_([^_]*)_\b/.replace(underlined, -1, 0, "<u>\\1</u>");
-    var striked = /\B~~([^~~]*)~~\B/.replace(underlined, -1, 0, "<s>\\1</s>");
-    striked = /\B~([^~]*)~\B/.replace(striked, -1, 0, "<s>\\1</s>");
-    var inline_code = /\B`([^`]*)`\B/.replace(striked, -1, 0, "<span face=\"monospace\" size=\"smaller\">\\1</span>");
-    var uri = /(\w+:\/?\/?[^\s]+)/.replace (inline_code, -1, 0, "<span color=\"#2a92c6\"><a href=\"\\1\">\\1</a></span>");
+    // Returns plaintext as fallback in case of parsing error.
+    try {
+      var bold = /\B\*\*([^\*\*]*)\*\*\B/.replace (emojis, -1, 0, "<b>\\1</b>");
+      bold = /\B\*([^\*]*)\*\B/.replace (bold, -1, 0, "<b>\\1</b>");
+      var italic = /\B\/\/([^\/\/]*)\/\/\B/.replace(bold, -1, 0, "<i>\\1</i>");
+      italic = /\B\/([^\/]*)\/\B/.replace(italic, -1, 0, "<i>\\1</i>");
+      var underlined = /\b__([^__]*)__\b/.replace(italic, -1, 0, "<u>\\1</u>");
+      underlined = /\b_([^_]*)_\b/.replace(underlined, -1, 0, "<u>\\1</u>");
+      var striked = /\B~~([^~~]*)~~\B/.replace(underlined, -1, 0, "<s>\\1</s>");
+      striked = /\B~([^~]*)~\B/.replace(striked, -1, 0, "<s>\\1</s>");
+      var inline_code = /\B`([^`]*)`\B/.replace(striked, -1, 0, "<span face=\"monospace\" size=\"smaller\">\\1</span>");
+      var uri = /(\w+:\/?\/?[^\s]+)/.replace (inline_code, -1, 0, "<span color=\"#2a92c6\"><a href=\"\\1\">\\1</a></span>");
 
-    var message = uri;
+      message = uri;
+    } catch (Error e) {
+      debug (@"Cannot parse message, fallback to plain message.\nError: $(e.message)");
+      message = emojis;
+    }
+
     debug (@"Message: $message");
 
     return message;
@@ -87,20 +94,6 @@ namespace Util {
   public static string add_markup (string text) {
     var md = Util.render_litemd (text);
     return md;
-    /*var sb = new StringBuilder ();
-
-    foreach (string line in md.split ("\n")) { // multiple lines
-      string tmp = line;
-
-      if (line.index_of ("&gt;", 0) == 0) { // greentext
-        tmp = @"<span color=\"#2ecc71\"><b>$tmp</b></span>";
-      }
-      sb.append (tmp);
-      sb.append_c ('\n');
-    }
-
-    sb.truncate (sb.len-1);
-    return (string) sb.data;*/
   }
 
   public static string size_to_string (uint64 size) {
