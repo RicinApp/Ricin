@@ -77,10 +77,10 @@ namespace Util {
       bold = /\B\*([^\*]{2,}?)\*\B/.replace (bold, -1, 0, "<b>\\1</b>");
       var italic = /\B\/\/([^\/\/]{2,}?)\/\/\B/.replace(bold, -1, 0, "<i>\\1</i>");
       italic = /\B\/([^\/]{2,}?)\/\B/.replace(italic, -1, 0, "<i>\\1</i>");
-      var underlined = /\b__([^__]*)__\b/.replace(italic, -1, 0, "<u>\\1</u>");
-      underlined = /\b_([^_]*)_\b/.replace(underlined, -1, 0, "<u>\\1</u>");
-      var striked = /\B~~([^~~]*)~~\B/.replace(underlined, -1, 0, "<s>\\1</s>");
-      striked = /\B~([^~]*)~\B/.replace(striked, -1, 0, "<s>\\1</s>");
+      var underlined = /\b__([^__]{2,}?)__\b/.replace(italic, -1, 0, "<u>\\1</u>");
+      underlined = /\b_([^_]{2,}?)_\b/.replace(underlined, -1, 0, "<u>\\1</u>");
+      var striked = /\B~~([^~~]{2,}?)~~\B/.replace(underlined, -1, 0, "<s>\\1</s>");
+      striked = /\B~([^~]{2,}?)~\B/.replace(striked, -1, 0, "<s>\\1</s>");
       var inline_code = /\B`([^`]*)`\B/.replace(striked, -1, 0, "<span face=\"monospace\" size=\"smaller\">\\1</span>");
 
       message = inline_code;
