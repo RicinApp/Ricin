@@ -1,32 +1,12 @@
-<center>
-  <table align="center" width="100%" style="margin: 0 auto;">
-    <tr>
-      <td align="center">
-        <strong><a href="https://ricin.im">Ricin</a>: A dead-simple but powerful Tox client.</strong>
-      </td>
-      <td align="center">
-        <img src="https://img.shields.io/badge/version-0.0.3%20beta-brightgreen.svg?style=flat">
-        <a href="https://www.bountysource.com/teams/RicinApp">
-          <img src="https://img.shields.io/bountysource/team/RicinApp/activity.svg?style=flat" alt="Support development">
-        </a>
-        <a href="https://travis-ci.org/RicinApp/Ricin">
-          <img src="https://api.travis-ci.org/RicinApp/Ricin.svg" alt="TravisCI build status">
-        </a>
-      </td>
-    </tr>
-    <tr>
-      <td align="center" width="100%" colspan="2">
-        <big><b>Want to get involved? There are several ways you can help us! ^-^</b></big><br>
-        <a href="#install">Install</a> -
-        <a href="#compile">Compile</a> -
-        <a href="docs/CONTRIBUTING.md">Contribute</a> -
-        <a href="#translate">Translate</a> -
-        <a href="#support-ricin-developement">Support us</a> -
-        <a href="#discover-vala">Discover Vala</a>
-      </td>
-    </tr>
-  </table>
-</center>
+**Ricin** - A dead-simple but powerful Tox client
+=================================================
+
+[![Ricin releases branch](https://img.shields.io/github/release/RicinApp/Ricin.svg?style=flat)](https://codecov.io/github/RicinApp/Ricin)
+[![Ricin license](https://img.shields.io/badge/license-GPLv3-blue.svg?style=flat)](https://raw.githubusercontent.com/RicinApp/Ricin/master/LICENSE)
+[![Ricin open issues](https://img.shields.io/github/issues/RicinApp/Ricin.svg?style=flat)](https://github.com/RicinApp/Ricin/issues)
+[![Codecov master](https://img.shields.io/codecov/c/github/codecov/RicinApp/Ricin.svg?style=flat)](https://codecov.io/github/RicinApp/Ricin)
+[![TravisCI](https://api.travis-ci.org/RicinApp/Ricin.svg)](https://travis-ci.org/RicinApp/Ricin)
+#### [Install] - [Compile] - [Contribute] - [Translate] - [Donate] - [Discover Vala]
 
 # Introduction
 **Ricin** aims to be a _secure_, _lightweight_, _hackable_ and _fully-customizable_ chat client using the awesome and open-source **ToxCore** library. We know that there are several Tox clients but this project was initially made because the other clients are still missing many features that users have been waiting for over many months. Ricin is a simple but powerful cross-platform client written in Vala and using Gtk+ 3.0.
@@ -81,12 +61,12 @@ make autogen
 make debug
 ```
 
-# Support Ricin developement
-You can support the Ricin client developement by
+# Donate
+There are plenty of way you can donate to Ricin. All the money received will be used to work at full-time on Ricin. You can even tell us what you want to be worked on by backing an issue!
 - [Paying us a Bounty]
 - **Bitcoin:** btc.ricin.im (OpenAlias) or [3L7B6XAQM27uxfRK8wUQ4fsfja832EKweM](https://blockchain.info/address/3L7B6XAQM27uxfRK8wUQ4fsfja832EKweM)
 - **Litecoin:** ltc.ricin.im (OpenAlias) or [LUDFUqvZkjXCvaroNiap5vXHzMGeTB8F8x](https://bchain.info/LTC/addr/LUDFUqvZkjXCvaroNiap5vXHzMGeTB8F8x)
-- Backing an issue via Bountysource to make people able to work on it full-time! :)
+- **Other ways:** Ways that are not secure (paypal, etc) are not allowed, sorry. :/
 
 # Translate
 Ricin uses Transifex in order to maintain Localization and enable users to help us translating it in their native language.  
@@ -115,6 +95,14 @@ Before clicking on any link below, you must know what Vala is and why it is so p
 - [Vala for Java Programmers](https://wiki.gnome.org/Projects/Vala/ValaForJavaProgrammers): (English) (Russian)
 - [Vala memory management explained](https://wiki.gnome.org/Projects/Vala/ReferenceHandling)
 - [Writing VAPI files](https://wiki.gnome.org/Projects/Vala/LegacyBindings): A document that explains how to write VAPI binding files for a C library.
+
+[Ricin]: https://ricin.im
+[Install]: #install
+[Compile]: #compile
+[Contribute]: docs/CONTRIBUTING.md
+[Translate]: #translate
+[Donate]: #donate
+[Discover Vala]: #discover-vala
 
 [libtoxcore]: https://github.com/irungentoo/toxcore/blob/master/INSTALL.md
 [meson]: http://mesonbuild.com/
