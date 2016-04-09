@@ -8,6 +8,9 @@
         <a href="https://github.com/RicinApp/Ricin/releases">
           <img src="https://img.shields.io/github/release/RicinApp/Ricin.svg?style=flat">
         </a>
+        <a href="https://raw.githubusercontent.com/RicinApp/Ricin/master/LICENSE">
+          <img src="https://img.shields.io/badge/license-GPLv3-blue.svg?style=flat">
+        </a>
         <a href="https://www.bountysource.com/teams/RicinApp">
           <img src="https://img.shields.io/bountysource/team/RicinApp/activity.svg?style=flat" alt="Support development">
         </a>
