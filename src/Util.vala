@@ -1,5 +1,3 @@
-using Markdown;
-
 namespace Util {
   public static uint8[] hex2bin (string s) {
     uint8[] buf = new uint8[s.length / 2];
