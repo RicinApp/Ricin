@@ -14,8 +14,8 @@
         <a href="https://github.com/RicinApp/Ricin/issues">
           <img src="https://img.shields.io/github/issues/RicinApp/Ricin.svg?style=flat">
         </a>
-        <a href="https://www.bountysource.com/teams/RicinApp">
-          <img src="https://img.shields.io/bountysource/team/RicinApp/activity.svg?style=flat" alt="Support development">
+        <a href="https://codecov.io/github/RicinApp/Ricin">
+          <img src="https://img.shields.io/codecov/c/github/codecov/RicinApp/Ricin.svg?style=flat" alt="Support development">
         </a>
         <a href="https://travis-ci.org/RicinApp/Ricin">
           <img src="https://api.travis-ci.org/RicinApp/Ricin.svg" alt="TravisCI build status">
