@@ -1,3 +1,4 @@
+<<<<<<< 876ca0424348b58a74f2a08b4a0b880c2e40d35e
 **Ricin** - A dead-simple but powerful Tox client
 =================================================
 
@@ -7,6 +8,17 @@
 [![Codecov master](https://img.shields.io/codecov/c/github/codecov/RicinApp/Ricin.svg?style=flat)](https://codecov.io/github/RicinApp/Ricin)
 [![TravisCI](https://api.travis-ci.org/RicinApp/Ricin.svg)](https://travis-ci.org/RicinApp/Ricin)
 #### [Install] - [Compile] - [Contribute] - [Translate] - [Donate] - [Discover Vala]
+=======
+# **Ricin** - A dead-simple but powerful Tox client
+[![Ricin license](https://img.shields.io/badge/license-GPLv3-blue.svg?style=flat)](https://raw.githubusercontent.com/RicinApp/Ricin/master/LICENSE)
+[![Ricin release](https://img.shields.io/github/release/RicinApp/Ricin.svg?style=flat)](https://github.com/RicinApp/Ricin/releases/latest)
+[![Ricin open issues](https://img.shields.io/github/issues/RicinApp/Ricin.svg?style=flat)](https://github.com/RicinApp/Ricin/issues)
+[![Codecov master](https://img.shields.io/codecov/c/github/codecov/RicinApp/Ricin.svg?style=flat)](https://codecov.io/github/RicinApp/Ricin)
+[![TravisCI](https://api.travis-ci.org/RicinApp/Ricin.svg)](https://travis-ci.org/RicinApp/Ricin)
+
+## Wants to get involved? There are several ways you can help us! ^-^
+[Install] - [Compile] - [Contribute] - [Translate] - [Donate] - [Discover Vala]
+>>>>>>> docs(README.md): fix releases badge link
 
 # Introduction
 **Ricin** aims to be a _secure_, _lightweight_, _hackable_ and _fully-customizable_ chat client using the awesome and open-source **ToxCore** library. We know that there are several Tox clients but this project was initially made because the other clients are still missing many features that users have been waiting for over many months. Ricin is a simple but powerful cross-platform client written in Vala and using Gtk+ 3.0.
@@ -99,7 +111,11 @@ Before clicking on any link below, you must know what Vala is and why it is so p
 [Ricin]: https://ricin.im
 [Install]: #install
 [Compile]: #compile
+<<<<<<< 876ca0424348b58a74f2a08b4a0b880c2e40d35e
 [Contribute]: docs/CONTRIBUTING.md
+=======
+[Contribute]: #contribute
+>>>>>>> docs(README.md): fix releases badge link
 [Translate]: #translate
 [Donate]: #donate
 [Discover Vala]: #discover-vala
