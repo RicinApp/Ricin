@@ -45,7 +45,7 @@ reset-settings:
 autogenwin:
 	sudo rm -rf ./build-win32
 	mkdir -p ./build-win32
-	sudo meson.py . ./build-win32 --cross-file cross_win.txt
+	sudo meson.py . ./build-win32 --cross-file ./tools/cross_win.txt
 
 debugwin:
 	ninja-build -C build-win32 clean
