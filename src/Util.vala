@@ -1,3 +1,5 @@
+using Markdown;
+
 namespace Util {
   public static uint8[] hex2bin (string s) {
     uint8[] buf = new uint8[s.length / 2];
@@ -32,39 +34,37 @@ namespace Util {
   }
 
   public static string render_litemd (string text) {
-    var md = escape_html (text);
-
-    // Emojis.
-    var emojis = md.replace (":+1:", "👍")
-                 .replace (":-1:", "👎")
-                 .replace (":@", "😠")
-                 .replace (">:(", "😠")
-                 .replace (":$", "😊")
-                 .replace ("<3", "💙")
-                 .replace (":3", "🐱")
-                 .replace (":\\", "😕")
-                 .replace (":'(", "😢")
-                 .replace (":-'(", "😢")
-                 .replace (":o", "😵")
-                 .replace (":O", "😵")
-                 .replace (":(", "😦")
-                 .replace (":-(", "😦")
-                 .replace (":-[", "😦")
-                 .replace (":[", "😦")
-                 .replace ("xD", "😁")
-                 .replace ("XD", "😁")
-                 .replace ("0:)", "😇")
-                 .replace (":)", "😄")
-                 .replace (":D", "😆")
-                 .replace (":-D", "😆")
-                 .replace (":|", "😐")
-                 .replace (":-|", "😐")
-                 .replace (":p", "😛")
-                 .replace (":-p", "😛")
-                 .replace (":P", "😛")
-                 .replace (":-P", "😛")
-                 .replace ("8)", "😎")
-                 .replace ("8-)", "😎");
+    string escaped_text = escape_html (text);
+    escaped_text = escaped_text.replace (":+1:", "👍")
+      .replace (":-1:", "👎")
+      .replace (":@", "😠")
+      .replace (">:(", "😠")
+      .replace (":$", "😊")
+      .replace ("<3", "💙")
+      .replace (":3", "🐱")
+      .replace (":\\", "😕")
+      .replace (":'(", "😢")
+      .replace (":-'(", "😢")
+      .replace (":o", "😵")
+      .replace (":O", "😵")
+      .replace (":(", "😦")
+      .replace (":-(", "😦")
+      .replace (":-[", "😦")
+      .replace (":[", "😦")
+      .replace ("xD", "😁")
+      .replace ("XD", "😁")
+      .replace ("0:)", "😇")
+      .replace (":)", "😄")
+      .replace (":D", "😆")
+      .replace (":-D", "😆")
+      .replace (":|", "😐")
+      .replace (":-|", "😐")
+      .replace (":p", "😛")
+      .replace (":-p", "😛")
+      .replace (":P", "😛")
+      .replace (":-P", "😛")
+      .replace ("8)", "😎")
+      .replace ("8-)", "😎");
 
     // Markdown.
     // Returns plaintext as fallback in case of parsing error.
@@ -88,8 +88,6 @@ namespace Util {
       debug (@"Cannot parse message, fallback to plain message.\nError: $(e.message)");
       message = emojis;
     }
-
-    debug (@"Message: $message");
 
     return message;
   }

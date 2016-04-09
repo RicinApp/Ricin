@@ -13,7 +13,7 @@ nodesfile:
 autogen:
 	rm -rf ./build
 	mkdir -p ./build
-	meson . ./build
+	meson.py . ./build
 
 # not needed when we get meson 0.27.0
 cleandebug:
@@ -45,7 +45,7 @@ reset-settings:
 autogenwin:
 	sudo rm -rf ./build-win32
 	mkdir -p ./build-win32
-	sudo /usr/bin/meson . ./build-win32 --cross-file cross_win.txt
+	sudo meson.py . ./build-win32 --cross-file cross_win.txt
 
 debugwin:
 	ninja-build -C build-win32 clean

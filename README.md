@@ -6,9 +6,6 @@
       </td>
       <td align="center">
         <img src="https://img.shields.io/badge/version-0.0.3%20beta-brightgreen.svg?style=flat">
-        <a href="https://codetree.com/projects/18p9/issues">
-          <img src="https://codetree.com/images/managed-with-codetree.svg">
-        </a>
         <a href="https://www.bountysource.com/teams/RicinApp">
           <img src="https://img.shields.io/bountysource/team/RicinApp/activity.svg?style=flat" alt="Support development">
         </a>
@@ -25,7 +22,7 @@
         <a href="CONTRIBUTING.md">Contribute</a> -
         <a href="#translate">Translate</a> -
         <a href="#support-ricin-developement">Support us</a> -
-        <a href="#vala-resources-to-get-started">Get started with Vala</a>
+        <a href="#discover-vala">Discover Vala</a>
       </td>
     </tr>
   </table>
@@ -40,7 +37,7 @@ _Screenshot might be outdated but it should give you a general idea of what Rici
 # Dependencies
 | Package name   | Notes      | Version   |
 |:---------------|:----------:|----------:|
-| [meson]        |  building  | >=0.28.0  |
+| [meson]        |  building  | >=0.30.0  |
 | [ninja]        |  building  | >=1.5.1   |
 | valac          |  building  | >=0.28.1  |
 | gtk+3          |            | >=3.16    |
@@ -89,23 +86,25 @@ You can support the Ricin client developement by
 - [Paying us a Bounty](https://www.bountysource.com/teams/RicinApp)
 - **Bitcoin:** btc.ricin.im (OpenAlias) or [3L7B6XAQM27uxfRK8wUQ4fsfja832EKweM](https://blockchain.info/address/3L7B6XAQM27uxfRK8wUQ4fsfja832EKweM)
 - **Litecoin:** ltc.ricin.im (OpenAlias) or [LUDFUqvZkjXCvaroNiap5vXHzMGeTB8F8x](https://bchain.info/LTC/addr/LUDFUqvZkjXCvaroNiap5vXHzMGeTB8F8x)
-- Backing an issue via Bountsource to make people able to work on it full-time! :)
+- Backing an issue via Bountysource to make people able to work on it full-time! :)
 
 # Translate
-Ricin uses Transifex in order to maintain Localization and enable users to help us translating it in their native language. Here's a graphic about the translations' state:
+Ricin uses Transifex in order to maintain Localization and enable users to help us translating it in their native language.  
+Here's a graphic about the translations' state:
 
 ![Translations state for Ricin](https://www.transifex.com/projects/p/ricin/resource/ricinpot/chart/image_png)
 
 ## How to translate
-In order to make a translation, please create an account on Transifex, then [go to this page](https://www.transifex.com/ricinapp/ricin/ricinpot/) and select the language you want to translate it. Transifex will redirect you to a page where you'll have to translate Ricin's strings.
+In order to make a translation, please create an account on Transifex, then [go to this page](https://www.transifex.com/ricinapp/ricin/ricinpot/) and select the language you want to translate it. Transifex will redirect you to a page where you'll be able to translate Ricin's strings.
 
 **Please respect the following rules while translating:**
 - Always use the same markup as the original string.
-- Don't remove trailing spaces, they are needed for Ricin to display text correctly.
+- Don't remove trailing spaces if any, they are needed for Ricin to display text correctly.
 - Please try to translate using similar words, don't use funny words.
 - Write the sentences in an imperative way.
+- Translations will be reviewed string by string and parts of it could be rejected it the above rules are not respected.
 
-# Vala resources to get started
+# Discover Vala
 Before clicking on any link below, you must know what Vala is and why it is so powerful and easy to use: [What is Vala?](https://wiki.gnome.org/Projects/Vala/About)
 
 - [Official Vala website](https://live.gnome.org/Vala)
@@ -116,13 +115,6 @@ Before clicking on any link below, you must know what Vala is and why it is so p
 - [Vala for Java Programmers](https://wiki.gnome.org/Projects/Vala/ValaForJavaProgrammers): (English) (Russian)
 - [Vala memory management explained](https://wiki.gnome.org/Projects/Vala/ReferenceHandling)
 - [Writing VAPI files](https://wiki.gnome.org/Projects/Vala/LegacyBindings): A document that explains how to write VAPI binding files for a C library.
-
-# Mockups
-
-See
-- https://github.com/gnome-design-team/gnome-mockups/tree/master/chat
-- https://wiki.gnome.org/Design/Apps/Chat
-- [misc/mockup2.png](misc/mockup2.png)
 
 [libtoxcore]: https://github.com/irungentoo/toxcore/blob/master/INSTALL.md
 [meson]: http://mesonbuild.com/

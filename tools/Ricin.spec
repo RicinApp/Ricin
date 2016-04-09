@@ -12,14 +12,17 @@ BuildRequires:  vala
 BuildRequires:  gcc
 BuildRequires:  gettext
 BuildRequires:  desktop-file-utils
-BuildRequires:  libconfig
 BuildRequires:  glib2
-BuildRequires:  tox-libtoxcore
-BuildRequires:  libnotify
-BuildRequires:  gtk3
-BuildRequires:  json-glib
-BuildRequires:  libsoup
 BuildRequires:  meson
+BuildRequires:  Libmarkdown-devel
+
+Requires:  libconfig
+Requires:  tox-libtoxcore
+Requires:  gtk3
+Requires:  json-glib
+Requires:  libsoup
+Requires:  libnotify
+Requires:  libmarkdown
 
 %description
 
