@@ -69,7 +69,7 @@ namespace Util {
     string message = "";
 
     try {
-      var uri = /(\w+:\/?\/?[^\s]+)/.replace (emojis, -1, 0, "<span color=\"#2a92c6\"><a href=\"\\1\">\\1</a></span>");
+      var uri = /(\w+:\/?\/?[^\s]+)/.replace (escaped_text, -1, 0, "<span color=\"#2a92c6\"><a href=\"\\1\">\\1</a></span>");
 
       var bold = /\B\*\*([^\*\*]{2,}?)\*\*\B/.replace (uri, -1, 0, "<b>\\1</b>");
       bold = /\B\*([^\*]{2,}?)\*\B/.replace (bold, -1, 0, "<b>\\1</b>");
@@ -84,7 +84,7 @@ namespace Util {
       message = inline_code;
     } catch (Error e) {
       debug (@"Cannot parse message, fallback to plain message.\nError: $(e.message)");
-      message = emojis;
+      message = escaped_text;
     }
 
     return message;
