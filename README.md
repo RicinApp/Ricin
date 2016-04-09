@@ -5,7 +5,9 @@
         <strong><a href="https://ricin.im">Ricin</a>: A dead-simple but powerful Tox client.</strong>
       </td>
       <td align="center">
-        <img src="https://img.shields.io/badge/version-0.0.3%20beta-brightgreen.svg?style=flat">
+        <a href="https://github.com/RicinApp/Ricin/releases">
+          <img src="https://img.shields.io/github/release/RicinApp/Ricin.svg?style=flat">
+        </a>
         <a href="https://www.bountysource.com/teams/RicinApp">
           <img src="https://img.shields.io/bountysource/team/RicinApp/activity.svg?style=flat" alt="Support development">
         </a>
