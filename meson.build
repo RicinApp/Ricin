@@ -36,7 +36,7 @@ executable(
     vala_args: [
         '-g',
         '--gresources', resxml,
-        '--vapidir', '@0@/@1@'.format(meson.current_source_dir(), 'tox-vapi/vapi/'),
+        '--vapidir', '@0@/@1@'.format(meson.current_source_dir(), 'vapis/')
     ],
     install: true
 )
