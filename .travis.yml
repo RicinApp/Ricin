@@ -96,6 +96,6 @@ after_success:
 # Coverage
  - sudo ninja -C build
  - sudo ninja -C build test
- - cd build && ./Ricin & sleep 5s; kill %1; cd ..
+ - cd build && ./Ricin & sleep 30s; kill %1; cd ..
  - sudo ninja -C build coverage-html
  - bash <(curl -s https://codecov.io/bash)
