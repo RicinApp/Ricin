@@ -34,11 +34,15 @@ public class Ricin.Ricin : Gtk.Application {
     string settings_file = "%s/ricin.cfg".printf (profile_dir);
 
     try {
-      File profile = File.new_for_path (profile_dir);
-      profile.make_directory_with_parents ();
+      // If `$HOME/.config/tox` doesn't exists, lets create it.
+      if (FileUtils.test (profile_dir, FileTest.EXISTS) == false) {
+        DirUtils.create_with_parents (profile_dir, 0755);
+      }
 
-      File avatars = File.new_for_path (avatars_dir);
-      avatars.make_directory_with_parents ();
+      // If `$HOME/.config/tox/avatars` doesn't exists, lets create it.
+      if (FileUtils.test (avatars_dir, FileTest.EXISTS) == false) {
+        DirUtils.create_with_parents (avatars_dir, 0755);
+      }
     } catch (Error e) {
       error (@"Error: $(e.message)");
     }
