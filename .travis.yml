@@ -5,6 +5,8 @@ compiler:
  - gcc
  - clang
 cache: ccache
+env:
+  - DISPLAY=:99.0
 
 install:
 # Utils
@@ -89,6 +91,9 @@ notifications:
   on_failure: always
 
 after_success:
+# X Virtual Framebuffer
+ - sh -e /etc/init.d/xvfb start; sleep 3
+# Coverage
  - sudo ninja -C build
  - sudo ninja -C build test
  - cd build && ./Ricin & sleep 5s; kill %1; cd ..
