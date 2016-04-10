@@ -42,7 +42,7 @@ public class Ricin.Ricin : Gtk.Application {
     if (FileUtils.test (settings_file, FileTest.EXISTS) == false) {
       File config_file = File.new_for_path (settings_file);
       File config_sample = File.new_for_uri ("resource:///chat/tox/ricin/ricin.sample.cfg");
-      config_sample.copy (config_file, FileCopyFlags.NONE);
+      config_sample.copy (config_file, FileCopyFlags.OVERWRITE);
     }
 
     this.settings = new SettingsManager ();
