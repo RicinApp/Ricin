@@ -65,6 +65,8 @@ public class Ricin.EditableLabel : Gtk.EventBox {
 
     this.label.justify = Gtk.Justification.LEFT;
     this.label.height_request = 30;
+    this.label.ellipsize = Pango.EllipsizeMode.END;
+
     this.entry.get_style_context().add_class ("entry-principal");
     this.button_ok.get_style_context().add_class ("button-dark");
     this.button_ok.relief = Gtk.ReliefStyle.NONE;
