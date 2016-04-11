@@ -19,14 +19,12 @@ class Ricin.SettingsView : Gtk.Box {
   [GtkChild] Gtk.Switch switch_status_changes;
   [GtkChild] Gtk.Switch switch_typing_notifications;
 
-  /* TODO
   // Network settings tab.
   [GtkChild] Gtk.Switch switch_udp_enabled;
   [GtkChild] Gtk.Switch switch_ipv6_enabled;
   [GtkChild] Gtk.Switch switch_proxy_enabled;
   [GtkChild] Gtk.Entry entry_proxy_ip;
-  [GtkChild] Gtk.Entry entry_proxy_port;
-  */
+  [GtkChild] Gtk.SpinButton spinbutton_proxy_port;
 
   // About tab.
   [GtkChild] Gtk.Label label_app_name;
@@ -35,6 +33,8 @@ class Ricin.SettingsView : Gtk.Box {
 
   private weak Tox.Tox handle;
   private SettingsManager settings;
+
+  public signal void reload_options ();
 
   public SettingsView (Tox.Tox handle) {
     this.handle = handle;
@@ -233,14 +233,50 @@ class Ricin.SettingsView : Gtk.Box {
       );
     });
 
-    /**
-    * TODO:
-    **/
-    /*
-      this.switch_udp_enabled.state_set.connect (this.udp_state_changed);
-      this.switch_ipv6_enabled.state_set.connect (this.ipv6_state_changed);
-      this.switch_proxy_enabled.state_set.connect (this.proxy_state_changed);
-    */
+    var udp = this.settings.get_bool ("ricin.network.udp");
+    var ipv6 = this.settings.get_bool ("ricin.network.ipv6");
+    var proxy = this.settings.get_bool ("ricin.network.proxy.enabled");
+    var proxy_host = this.settings.get_string ("ricin.network.proxy.ip_address");
+    var proxy_port = (double) this.settings.get_int ("ricin.network.proxy.port");
+    this.switch_udp_enabled.set_active (udp);
+    this.switch_ipv6_enabled.set_active (ipv6);
+    this.switch_proxy_enabled.set_active (proxy);
+    this.entry_proxy_ip.set_text (proxy_host);
+    this.spinbutton_proxy_port.set_range (0, 65535); // Min, max values.
+    this.spinbutton_proxy_port.value = proxy_port;
+
+    this.switch_udp_enabled.notify["active"].connect (this.udp_state_changed);
+    this.switch_ipv6_enabled.notify["active"].connect (this.ipv6_state_changed);
+    this.switch_proxy_enabled.notify["active"].connect (this.proxy_state_changed);
+  }
+
+  private void udp_state_changed () {
+    this.settings.write_bool (
+      "ricin.network.udp",
+      this.switch_udp_enabled.active
+    );
+
+    this.reload_options ();
+  }
+
+  private void ipv6_state_changed () {
+    this.settings.write_bool (
+      "ricin.network.ipv6",
+      this.switch_ipv6_enabled.active
+    );
+
+    this.reload_options ();
+  }
+
+  private void proxy_state_changed () {
+    bool proxy_enabled = this.switch_proxy_enabled.active;
+    string ip = this.entry_proxy_ip.get_text ();
+    int port  = (int) this.spinbutton_proxy_port.value;
+
+    this.settings.write_bool ("ricin.network.proxy.enabled", proxy_enabled);
+    this.settings.write_string ("ricin.network.proxy.ip_address", ip);
+    this.settings.write_int ("ricin.network.proxy.port", port);
+    this.reload_options ();
   }
 
   /**
