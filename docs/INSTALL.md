@@ -1,6 +1,5 @@
-# Installing Ricin
+# Ricin installation guide
 ## Needed dependencies
-# Dependencies
 | Package name   | Notes      | Version   |
 |:---------------|:----------:|----------:|
 | [meson]        |  building  | >=0.30.0  |
@@ -15,48 +14,70 @@
 | libconfig      |            | >=1.5.0   |
 
 ## Fetching the dependencies
-### Ubuntu (debian based)
-On ubuntu you'll need to compile ToxCore, Libsodium, and filter_audio by hand, since someone already wrote how to achieve this, please follow this guide before doing the commands beside → https://github.com/irungentoo/toxcore/blob/master/INSTALL.md#build-manually
+### Ubuntu & debian based
+On Ubuntu you need to compile ToxCore, Libsodium, and filter_audio by hand. Someone already wrote on how to achieve this, simply follow the guide to [Install ToxCore].
+
+After ToxCore is installed, run the following line to fetch & install the dependencies needed by Ricin to compile/run.
 
 ```bash
-$ apt-get install libglib2.0-0 libglib2.0-dev libjson-glib-1.0-0 libjson-glib-dev libsoup-gnome2.4-dev libnotify-dev
-```
-You'll also need libconfig that is available here: https://launchpad.net/ubuntu/wily/+package/libconfig-dev
+# Required to build Ricin:
+$ apt-get install ninja meson valac
 
-_Note that Ubuntu may prompt you for running this command in root. Just add `sudo` before the command and run it._
+# Required by Ricin at runtime:
+$ apt-get install gtk+3 libglib2.0-0 libglib2.0-dev \
+  libjson-glib-1.0-0 libjson-glib-dev libconfig9 \
+  libsoup-gnome2.4-dev libnotify-dev
+```
+
+>**Note**: You may have to `sudo` both lines in order to have
+them running properly.
 
 ### Arch (and similar distro)
+To install all the Ricin's dependencies, simply write the
+following in a shell.
+
 ```bash
-$ pacman -S meson ninja vala gtk3 toxcore glib2 json-glib libsoup libnotify libconfig
+$ pacman -S meson ninja vala gtk3 toxcore \
+  glib2 json-glib libsoup libnotify libconfig
 ```
 
 ### Fedora
-On Fedora you'll need to compile ToxCore, Libsodium, and filter_audio by hand, since someone already wrote how to achieve this, please follow this guide before doing the commands beside → https://github.com/irungentoo/toxcore/blob/master/INSTALL.md#build-manually
-```bash
-$ dnf install valac glib2 gtk3 gtk3-devel json-glib libsoup libnotify libconfig libconfig-dev
-```
-## Install Ricin
-### Linux
-Please reffer to the [INSTALL.md] to install the dependencies on your Linux distribution.
+On Fedora you need to compile ToxCore, Libsodium, and filter_audio by hand. Someone already wrote on how to achieve this, simply follow the guide to [Install ToxCore].
 
-#### ArchLinux
-Thanks to [LastAvenger] Arch users can enjoy a package located here: [ricin-git]  
-Installing the package from a shell is simple as doing this:
 ```bash
-yaourt -S ricin-git
+$ dnf install valac glib2 gtk3 gtk3-devel \
+  json-glib libsoup libnotify libconfig libconfig-dev
+```
+
+## Installing Ricin
+### Linux
+#### ArchLinux
+Thanks to [LastAvenger], ArchLinux users can install Ricin with a package that can be found here: [ricin-git]. You simply have to write the following line in a shell:
+
+```bash
+$ yaourt -S ricin-git
 ```
 
 #### Other Linux distributions
-For other systems that doesn't yet have a package you'll have a to compile & install Ricin from sources.  
-First, install Ricin's <a href="#dependencies">dependencies</a> then run the following commands in a shell:
+For other systems that doesn't yet have a package you have a to compile and install Ricin from sources. Compiling Ricin is super simple as we use **The Meson Build System** that runs pretty much everywhere.  
+
+Run the following commands in a shell:
 ```bash
-git clone --recursive https://github.com/RicinApp/Ricin.git && cd Ricin
+git clone --recursive https://github.com/RicinApp/Ricin.git
+cd Ricin
 make autogen
 sudo make install
 ```
 
 ### Windows
-Ricin isn't yet available on Windows, anyway this is planed.
+Ricin isn't available yet on Windows, anyway this is planed.
 
 ### OSX
-Ricin isn't yet available on OSX, anyway this is also planed!
+Ricin isn't available yet on OSX, anyway this is also planed!
+
+[libtoxcore]: https://github.com/irungentoo/toxcore/blob/master/INSTALL.md
+[meson]: http://mesonbuild.com/
+[ninja]: http://martine.github.io/ninja/
+[LastAvenger]: https://github.com/LastAvenger
+[ricin-git]: https://aur.archlinux.org/packages/ricin-git
+[Install ToxCore]: https://github.com/irungentoo/toxcore/blob/master/INSTALL.md#build-manually

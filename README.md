@@ -68,11 +68,6 @@ Before clicking on any link below, you must know what Vala is and why it is so p
 [Donate]: #donate
 [Discover Vala]: #discover-vala
 
-[libtoxcore]: https://github.com/irungentoo/toxcore/blob/master/INSTALL.md
-[meson]: http://mesonbuild.com/
-[ninja]: http://martine.github.io/ninja/
-[LastAvenger]: https://github.com/LastAvenger
-[ricin-git]: https://aur.archlinux.org/packages/ricin-git
 [INSTALL.md]: docs/INSTALL.md
 [Paying us a Bounty]: https://www.bountysource.com/teams/RicinApp
 [go to this page]: https://www.transifex.com/ricinapp/ricin/ricinpot/
