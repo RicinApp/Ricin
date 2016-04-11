@@ -14,33 +14,10 @@ _Screenshot might be outdated but it should give you a general idea of what Rici
 ![Early version](https://ricin.im/static/images/ricin_01.png)
 
 # Install
-## Linux
-Please refer to the [INSTALL.md] to install the dependencies on your Linux distribution.
-
-### ArchLinux
-Thanks to [LastAvenger] Arch users can enjoy a package located here: [ricin-git]  
-Installing the package from a shell is simple as doing this:
-```bash
-yaourt -S ricin-git
-```
-
-### Other Linux distributions
-For other systems that doesn't yet have a package you'll have a to compile & install Ricin from sources.  
-First, install Ricin's <a href="#dependencies">dependencies</a> then run the following commands in a shell:
-```bash
-git clone --recursive https://github.com/RicinApp/Ricin.git && cd Ricin
-make autogen
-sudo make install
-```
-
-## Windows
-Ricin isn't yet available on Windows, anyway this is planed.
-
-## OSX
-Ricin isn't yet available on OSX, anyway this is also planed!
+Installation instructions are available inside our [INSTALL.md] file. :)
 
 # Compile
-Please refer to the [INSTALL.md] to install the dependencies on your Linux distribution.
+Please reffer to the [INSTALL.md] to install the dependencies on your Linux distribution.
 
 ```bash
 git clone --recursive https://github.com/RicinApp/Ricin.git && cd Ricin
