@@ -49,9 +49,20 @@ class SettingsManager : GLib.Object {
     return (setting_obj != null) ? setting_obj.get_bool () : false;
   }
 
+  public int get_int (string path) {
+    try {
+      var setting_obj = this.config.lookup (path);
+      return setting_obj.get_int ();
+    } catch (Error e) {
+      error (@"Error reading int from .cfg: $(e.message)");
+      return 0;
+    }
+  }
+
   public bool write_string (string path, string val) {
     var setting_obj = this.config.lookup (path);
     var ret_val = setting_obj.set_string (val);
+    
     this.save_settings ();
     return ret_val;
   }
@@ -59,6 +70,15 @@ class SettingsManager : GLib.Object {
   public bool write_bool (string path, bool val) {
     var setting_obj = this.config.lookup (path);
     var ret_val = setting_obj.set_bool (val);
+    
+    this.save_settings ();
+    return ret_val;
+  }
+
+  public bool write_int (string path, int val) {
+    var setting_obj = this.config.lookup (path);
+    var ret_val = setting_obj.set_int (val);
+    
     this.save_settings ();
     return ret_val;
   }
