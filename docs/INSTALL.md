@@ -11,7 +11,6 @@
 | json-glib      |            | >=1.0     |
 | libsoup        |            | >=2.4     |
 | libnotify      |            | >=0.7.6   |
-| libconfig      |            | >=1.5.0   |
 
 ## Fetching the dependencies
 ### Ubuntu & debian based
@@ -25,8 +24,8 @@ $ apt-get install ninja meson valac
 
 # Required by Ricin at runtime:
 $ apt-get install gtk+3 libglib2.0-0 libglib2.0-dev \
-  libjson-glib-1.0-0 libjson-glib-dev libconfig9 \
-  libsoup-gnome2.4-dev libnotify-dev
+  libjson-glib-1.0-0 libjson-glib-dev libnotify-dev \
+  libsoup-gnome2.4-dev
 ```
 
 >**Note**: You may have to `sudo` both lines in order to have
@@ -38,7 +37,7 @@ following in a shell.
 
 ```bash
 $ pacman -S meson ninja vala gtk3 toxcore \
-  glib2 json-glib libsoup libnotify libconfig
+  glib2 json-glib libsoup libnotify
 ```
 
 ### Fedora
@@ -46,8 +45,7 @@ On Fedora you need to compile ToxCore, Libsodium, and filter_audio by hand. Some
 
 ```bash
 $ dnf install valac glib2 gtk3 gtk3-devel \
-  json-glib libsoup libnotify libconfig \
-  libconfig-devel
+  json-glib libsoup libnotify
 ```
 
 ## Installing Ricin

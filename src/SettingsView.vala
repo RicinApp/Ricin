@@ -32,13 +32,14 @@ class Ricin.SettingsView : Gtk.Box {
   [GtkChild] Gtk.Label label_app_version;
 
   private weak Tox.Tox handle;
-  private SettingsManager settings;
+  private Settings settings;
 
   public signal void reload_options ();
 
   public SettingsView (Tox.Tox handle) {
     this.handle = handle;
-    this.settings = SettingsManager.instance;
+
+    this.settings = Settings.instance;
 
     /**
     * Pack buttons in the RicinSettingsView box.
@@ -93,7 +94,7 @@ class Ricin.SettingsView : Gtk.Box {
     this.combobox_languages.active      = 0;
     this.combobox_toxme_servers.active  = 0;
 
-    string selected_language = this.settings.get_string ("ricin.interface.selected_language");
+    string selected_language = this.settings.selected_language;
     if (selected_language == "en_US") {
       this.combobox_languages.active = 0;
     } else if (selected_language == "fr_FR") {
@@ -119,35 +120,35 @@ class Ricin.SettingsView : Gtk.Box {
       if (slang == 0) { // English.
         info ("Changed locale to English.");
         Environment.set_variable ("LANG", "en_US", true);
-        this.settings.write_string ("ricin.interface.selected_language", "en_US");
+        this.settings.selected_language = "en_US";
       } else if (slang == 1) { // French
         info ("Changed locale to French.");
         Environment.set_variable ("LANG", "fr_FR", true);
-        this.settings.write_string ("ricin.interface.selected_language", "fr_FR");
+        this.settings.selected_language = "fr_FR";
       } else if (slang == 2) { // Portuguese
         info ("Changed locale to Portuguese.");
         Environment.set_variable ("LANG", "pt_PT", true);
-        this.settings.write_string ("ricin.interface.selected_language", "pt_PT");
+        this.settings.selected_language = "pt_PT";
       } else if (slang == 3) { // Danish
         info ("Changed locale to Danish.");
         Environment.set_variable ("LANG", "da_DK", true);
-        this.settings.write_string ("ricin.interface.selected_language", "da_DK");
+        this.settings.selected_language = "da_DK";
       } else if (slang == 4) { // Esperanto
         info ("Changed locale to Esperanto.");
         Environment.set_variable ("LANG", "eo", true);
-        this.settings.write_string ("ricin.interface.selected_language", "eo");
+        this.settings.selected_language = "eo";
       } else if (slang == 5) { // Chinese
         info ("Changed locale to Chinese.");
         Environment.set_variable ("LANG", "zh_CN", true);
-        this.settings.write_string ("ricin.interface.selected_language", "zh_CN");
+        this.settings.selected_language = "zh_CN";
       } else if (slang == 6) { // German
         info ("Changed locale to German.");
         Environment.set_variable ("LANG", "de", true);
-        this.settings.write_string ("ricin.interface.selected_language", "de");
+        this.settings.selected_language = "de";
       }
     });
 
-    string selected_theme = this.settings.get_string ("ricin.interface.selected_theme");
+    string selected_theme = this.settings.selected_theme;
     if (selected_theme == "dark") {
       this.combobox_selected_theme.active = 0;
     } else if (selected_theme == "white") {
@@ -156,13 +157,11 @@ class Ricin.SettingsView : Gtk.Box {
       this.combobox_selected_theme.active = 2;
     }
 
-    bool enable_custom_themes = this.settings.get_bool ("ricin.interface.enable_custom_themes");
+    bool enable_custom_themes = this.settings.enable_custom_themes;
     this.switch_custom_themes.active = enable_custom_themes;
     this.combobox_selected_theme.sensitive = enable_custom_themes;
     this.button_reload_theme.sensitive = enable_custom_themes;
-
-    bool display_friends_status_changes = this.settings.get_bool ("ricin.interface.display_friends_status_changes");
-    this.switch_status_changes.active = display_friends_status_changes;
+    this.switch_status_changes.active = this.settings.show_status_changes;
 
     this.switch_custom_themes.notify["active"].connect (() => {
       if (this.switch_custom_themes.active) {
@@ -173,24 +172,24 @@ class Ricin.SettingsView : Gtk.Box {
         switch (active) {
           case 0:
             ThemeManager.instance.set_theme ("dark");
-            this.settings.write_string ("ricin.interface.selected_theme", "dark");
+            this.settings.selected_theme = "dark";
             break;
           case 1:
             ThemeManager.instance.set_theme ("white");
-            this.settings.write_string ("ricin.interface.selected_theme", "white");
+            this.settings.selected_theme = "white";
             break;
           case 2:
             ThemeManager.instance.set_theme ("clearer");
-            this.settings.write_string ("ricin.interface.selected_theme", "clearer");
+            this.settings.selected_theme = "clearer";
             break;
         }
 
-        this.settings.write_bool ("ricin.interface.enable_custom_themes", true);
+        this.settings.enable_custom_themes = true;
       } else {
         this.combobox_selected_theme.sensitive = false;
         this.button_reload_theme.sensitive = false;
         ThemeManager.instance.set_system_theme ();
-        this.settings.write_bool ("ricin.interface.enable_custom_themes", false);
+        this.settings.enable_custom_themes = false;
       }
     });
 
@@ -201,15 +200,15 @@ class Ricin.SettingsView : Gtk.Box {
       switch (active) {
         case 0:
           ThemeManager.instance.set_theme ("dark");
-          this.settings.write_string ("ricin.interface.selected_theme", "dark");
+          this.settings.selected_theme = "dark";
           break;
         case 1:
           ThemeManager.instance.set_theme ("white");
-          this.settings.write_string ("ricin.interface.selected_theme", "white");
+          this.settings.selected_theme = "white";
           break;
         case 2:
           ThemeManager.instance.set_theme ("clearer");
-          this.settings.write_string ("ricin.interface.selected_theme", "clearer");
+          this.settings.selected_theme = "clearer";
           break;
       }
     });
@@ -219,25 +218,20 @@ class Ricin.SettingsView : Gtk.Box {
     });
 
     this.switch_status_changes.notify["active"].connect (() => {
-      this.settings.write_bool (
-        "ricin.interface.display_friends_status_changes",
-        this.switch_status_changes.active
-      );
+      this.settings.show_status_changes = this.switch_status_changes.active;
     });
 
     // Send typing notifications.
+    this.switch_typing_notifications.active = this.settings.send_typing_status;
     this.switch_typing_notifications.notify["active"].connect (() => {
-      this.settings.write_bool (
-        "ricin.interface.send_typing_notification",
-        this.switch_typing_notifications.active
-      );
+      this.settings.send_typing_status = this.switch_typing_notifications.active;
     });
 
-    var udp = this.settings.get_bool ("ricin.network.udp");
-    var ipv6 = this.settings.get_bool ("ricin.network.ipv6");
-    var proxy = this.settings.get_bool ("ricin.network.proxy.enabled");
-    var proxy_host = this.settings.get_string ("ricin.network.proxy.ip_address");
-    var proxy_port = (double) this.settings.get_int ("ricin.network.proxy.port");
+    var udp = this.settings.network_udp;
+    var ipv6 = this.settings.network_ipv6;
+    var proxy = this.settings.enable_proxy;
+    var proxy_host = this.settings.proxy_host;
+    var proxy_port = (double) this.settings.proxy_port;
     this.switch_udp_enabled.set_active (udp);
     this.switch_ipv6_enabled.set_active (ipv6);
     this.switch_proxy_enabled.set_active (proxy);
@@ -251,20 +245,12 @@ class Ricin.SettingsView : Gtk.Box {
   }
 
   private void udp_state_changed () {
-    this.settings.write_bool (
-      "ricin.network.udp",
-      this.switch_udp_enabled.active
-    );
-
+    this.settings.network_udp = this.switch_udp_enabled.active;
     this.reload_options ();
   }
 
   private void ipv6_state_changed () {
-    this.settings.write_bool (
-      "ricin.network.ipv6",
-      this.switch_ipv6_enabled.active
-    );
-
+    this.settings.network_ipv6 = this.switch_ipv6_enabled.active;
     this.reload_options ();
   }
 
@@ -273,9 +259,9 @@ class Ricin.SettingsView : Gtk.Box {
     string ip = this.entry_proxy_ip.get_text ();
     int port  = (int) this.spinbutton_proxy_port.value;
 
-    this.settings.write_bool ("ricin.network.proxy.enabled", proxy_enabled);
-    this.settings.write_string ("ricin.network.proxy.ip_address", ip);
-    this.settings.write_int ("ricin.network.proxy.port", port);
+    this.settings.enable_proxy = proxy_enabled;
+    this.settings.proxy_host = ip;
+    this.settings.proxy_port = port;
     this.reload_options ();
   }
 
