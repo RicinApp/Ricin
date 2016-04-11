@@ -13,22 +13,10 @@
 _Screenshot might be outdated but it should give you a general idea of what Ricin is_
 ![Early version](https://ricin.im/static/images/ricin_01.png)
 
-# Dependencies
-| Package name   | Notes      | Version   |
-|:---------------|:----------:|----------:|
-| [meson]        |  building  | >=0.30.0  |
-| [ninja]        |  building  | >=1.5.1   |
-| valac          |  building  | >=0.28.1  |
-| gtk+3          |            | >=3.16    |
-| [libtoxcore]   |            | >=0.0.0   |
-| glib2          |            | >=2.38    |
-| json-glib      |            | >=1.0     |
-| libsoup        |            | >=2.4     |
-| libnotify      |            | >=0.7.6   |
-| libconfig      |            | >=1.5.0   |
-
 # Install
 ## Linux
+Please refer to the [INSTALL.md] to install the dependencies on your Linux distribution.
+
 ### ArchLinux
 Thanks to [LastAvenger] Arch users can enjoy a package located here: [ricin-git]  
 Installing the package from a shell is simple as doing this:

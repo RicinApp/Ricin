@@ -1,4 +1,19 @@
 # Installing Ricin
+## Needed dependencies
+# Dependencies
+| Package name   | Notes      | Version   |
+|:---------------|:----------:|----------:|
+| [meson]        |  building  | >=0.30.0  |
+| [ninja]        |  building  | >=1.5.1   |
+| valac          |  building  | >=0.28.1  |
+| gtk+3          |            | >=3.16    |
+| [libtoxcore]   |            | >=0.0.0   |
+| glib2          |            | >=2.38    |
+| json-glib      |            | >=1.0     |
+| libsoup        |            | >=2.4     |
+| libnotify      |            | >=0.7.6   |
+| libconfig      |            | >=1.5.0   |
+
 ## Fetching the dependencies
 ### Ubuntu (debian based)
 On ubuntu you'll need to compile ToxCore, Libsodium, and filter_audio by hand, since someone already wrote how to achieve this, please follow this guide before doing the commands beside → https://github.com/irungentoo/toxcore/blob/master/INSTALL.md#build-manually
