@@ -46,7 +46,8 @@ On Fedora you need to compile ToxCore, Libsodium, and filter_audio by hand. Some
 
 ```bash
 $ dnf install valac glib2 gtk3 gtk3-devel \
-  json-glib libsoup libnotify libconfig libconfig-dev
+  json-glib libsoup libnotify libconfig \
+  libconfig-devel
 ```
 
 ## Installing Ricin
