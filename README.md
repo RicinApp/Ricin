@@ -2,10 +2,10 @@
 ### [Install] - [Compile] - [Contribute] - [Translate] - [Donate] - [Discover Vala]
 
 [![Ricin license](https://img.shields.io/badge/license-GPLv3-blue.svg?style=flat)](https://raw.githubusercontent.com/RicinApp/Ricin/master/LICENSE)
-[![Ricin release](https://img.shields.io/github/release/RicinApp/Ricin.svg?style=flat&maxAge=2592000)](https://github.com/RicinApp/Ricin/releases/latest)
-[![Ricin open issues](https://img.shields.io/github/issues/RicinApp/Ricin.svg?style=flat&maxAge=2592000)](https://github.com/RicinApp/Ricin/issues)
-[![Codecov master](https://img.shields.io/codecov/c/github/RicinApp/Ricin/master.svg?style=flat&maxAge=2592000)](https://codecov.io/github/RicinApp/Ricin)
-[![TravisCI](https://img.shields.io/travis/RicinApp/Ricin/master.svg?style=flat&maxAge=2592000)](https://travis-ci.org/RicinApp/Ricin)
+[![Ricin release](https://img.shields.io/github/release/RicinApp/Ricin.svg?style=flat)](https://github.com/RicinApp/Ricin/releases/latest)
+[![Ricin open issues](https://img.shields.io/github/issues/RicinApp/Ricin.svg?style=flat)](https://github.com/RicinApp/Ricin/issues)
+[![Codecov master](https://img.shields.io/codecov/c/github/RicinApp/Ricin/master.svg?style=flat)](https://codecov.io/github/RicinApp/Ricin)
+[![TravisCI](https://img.shields.io/travis/RicinApp/Ricin/master.svg?style=flat)](https://travis-ci.org/RicinApp/Ricin)
 
 # Introduction
 **Ricin** aims to be a _secure_, _lightweight_, _hackable_ and _fully-customizable_ chat client using the awesome and open-source **ToxCore** library. We know that there are several Tox clients but this project was initially made because the other clients are still missing many features that users have been waiting for over many months. Ricin is a simple but powerful cross-platform client written in Vala and using Gtk+ 3.0.
