@@ -54,7 +54,7 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
   private Gtk.ListBoxRow selected_row;
   private Gtk.Menu menu_statusicon_main;
   private Gtk.StatusIcon statusicon_main;
-  private SettingsManager settings;
+  private Settings settings;
   private string window_title;
   private string profile;
 
@@ -62,7 +62,7 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
 
   public MainWindow (Gtk.Application app, string profile, bool is_new) {
     Object (application: app);
-    this.settings = SettingsManager.instance;
+    this.settings = Settings.instance;
     this.profile = profile;
 
     Gdk.Pixbuf app_icon = new Gdk.Pixbuf.from_resource ("/chat/tox/ricin/images/icons/Ricin-128x128.png");
@@ -78,14 +78,14 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
     this.set_icon (app_icon);
 
     var opts = Tox.Options.create ();
-    opts.ipv6_enabled = this.settings.get_bool ("ricin.network.ipv6");
-    opts.udp_enabled = this.settings.get_bool ("ricin.network.udp");
+    opts.ipv6_enabled = this.settings.network_ipv6;
+    opts.udp_enabled = this.settings.network_udp;
 
-    if (this.settings.get_bool ("ricin.network.proxy.enabled")) {
+    if (this.settings.enable_proxy) {
       debug ("Ricin is being proxied.");
       opts.proxy_type = ToxCore.ProxyType.SOCKS5;
-      opts.proxy_host = this.settings.get_string ("ricin.network.proxy.ip_address");
-      opts.proxy_port = (uint16) this.settings.get_int ("ricin.network.proxy.port");
+      opts.proxy_host = this.settings.proxy_host;
+      opts.proxy_port = (uint16) this.settings.proxy_port;
       debug ("Proxy type: SOCKS5");
       debug (@"Proxy host: $(opts.proxy_host)");
       debug (@"Proxy port: $(opts.proxy_port)");
@@ -706,6 +706,7 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
 
   ~MainWindow () {
     this.tox.save_data ();
+    this.settings.save_settings ();
     //this.tox.handle = null;
     //this.tox = null;
   }

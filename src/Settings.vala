@@ -56,11 +56,28 @@ class Settings : Object {
   public bool enable_notify        { get; set; default = true; }
   public bool enable_notify_sounds { get; set; default = true; }
 
+  private static Settings? _instance;
+  public static Settings instance {
+    get {
+      if (_instance == null) {
+        string settings_file = "%s/ricin.json".printf (Tox.profile_dir ());
+        _instance = new Settings(settings_file);
+      }
+      return _instance;
+    }
+    private set {
+      _instance = value;
+    }
+  }
+
   public Settings (string profile) {
     debug (@"Started SettingsManager...");
     this.profile = profile;
 
     this.load_settings ();
+    this.notify.connect ((opt, props) => {
+      this.save_settings ();
+    });
   }
 
   public void load_settings () {
@@ -71,11 +88,7 @@ class Settings : Object {
       node = parser.get_root ();
 
       Settings? settings = Json.gobject_deserialize (typeof (Settings), node) as Settings;
-      if (settings == null) {
-        /**
-        * TODO
-        **/
-      } else {
+      if (settings != null) {
         this.has_toxme            = settings.has_toxme;
         this.toxme_id             = settings.toxme_id;
         this.toxme_server         = settings.toxme_server;
@@ -119,7 +132,7 @@ class Settings : Object {
       ));
       generator.to_stream (dos);
 
-      debug ("Settings saved.");
+      //debug (@"Saving settings to $(this.profile)");
       return true;
     } catch (Error e) {
       debug (@"Error saving settings: $(e.message)");

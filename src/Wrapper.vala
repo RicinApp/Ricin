@@ -579,7 +579,7 @@ namespace Tox {
 
     public string last_online (string? format) {
       uint64 last = this.tox.handle.friend_get_last_online (this.num, null);
-      debug (@"Last online for $num: $last");
+      //debug (@" for $num: $last");
 
       DateTime time = new DateTime.from_unix_local ((int64)last);
       return time.format((format != null) ? format : _("<b>Last online:</b>") + " %H:%M %d/%m/%Y");
