@@ -26,9 +26,11 @@ class Ricin.FriendListRow : Gtk.ListBoxRow {
         this.username.set_text (Util.escape_html(this.fr.get_uname ()));
       }
       this.status.set_markup (Util.escape_html(this.fr.get_ustatus_message ()));
+      this.status.set_tooltip_text (Util.escape_html(this.fr.get_ustatus_message ()));
     } else {
       this.username.set_text(Util.escape_html(this.fr.name));
       this.status.set_text(Util.escape_html(this.fr.status_message));
+      this.status.set_tooltip_text (Util.escape_html(this.fr.status_message));
     }
 
     this.init_context_menu ();
@@ -63,7 +65,7 @@ class Ricin.FriendListRow : Gtk.ListBoxRow {
 
     fr.message.connect (this.notify_new_messages);
     fr.action.connect (this.notify_new_messages);
-    
+
     this.activate.connect (() => {
       this.unreadCount = 0;
       this.changed ();
