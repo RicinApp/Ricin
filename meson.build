@@ -10,17 +10,12 @@ deps = [
     dependency('gio-2.0'),
     dependency('gobject-2.0'),
     dependency('gmodule-2.0'),
-    dependency('gtk+-3.0'),
+    dependency('gtk+-3.0', version: '>=3.18'),
     dependency('libsoup-2.4'),
     dependency('json-glib-1.0'),
     dependency('libnotify'),
     dependency('libtoxcore')
 ]
-
-libconfig = dependency('libconfig', required : false)
-if libconfig.found()
-    deps += libconfig # Needed cuz Windows won't use libconfig.
-endif
 
 subdir('src')
 subdir('res')
@@ -38,6 +33,7 @@ executable(
         '--gresources', resxml,
         '--vapidir', '@0@/@1@'.format(meson.current_source_dir(), 'vapis/')
     ],
+    #link_args : '-static',
     install: true
 )
 
