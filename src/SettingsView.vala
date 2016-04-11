@@ -24,7 +24,7 @@ class Ricin.SettingsView : Gtk.Box {
   [GtkChild] Gtk.Switch switch_ipv6_enabled;
   [GtkChild] Gtk.Switch switch_proxy_enabled;
   [GtkChild] Gtk.Entry entry_proxy_ip;
-  [GtkChild] Gtk.Entry entry_proxy_port;
+  [GtkChild] Gtk.SpinButton spinbutton_proxy_port;
 
   // About tab.
   [GtkChild] Gtk.Label label_app_name;
@@ -237,12 +237,13 @@ class Ricin.SettingsView : Gtk.Box {
     var ipv6 = this.settings.get_bool ("ricin.network.ipv6");
     var proxy = this.settings.get_bool ("ricin.network.proxy.enabled");
     var proxy_host = this.settings.get_string ("ricin.network.proxy.ip_address");
-    var proxy_port = this.settings.get_int ("ricin.network.proxy.ip_address");
+    var proxy_port = (double) this.settings.get_int ("ricin.network.proxy.port");
     this.switch_udp_enabled.set_active (udp);
     this.switch_ipv6_enabled.set_active (ipv6);
     this.switch_proxy_enabled.set_active (proxy);
     this.entry_proxy_ip.set_text (proxy_host);
-    this.entry_proxy_port.set_text ((string) proxy_port);
+    this.spinbutton_proxy_port.set_range (0, 65535); // Min, max values.
+    this.spinbutton_proxy_port.value = proxy_port;
 
     this.switch_udp_enabled.notify["active"].connect (this.udp_state_changed);
     this.switch_ipv6_enabled.notify["active"].connect (this.ipv6_state_changed);
@@ -268,19 +269,13 @@ class Ricin.SettingsView : Gtk.Box {
   }
 
   private void proxy_state_changed () {
-    this.settings.write_bool (
-      "ricin.network.proxy.enabled",
-      this.switch_proxy_enabled.active
-    );
-    this.settings.write_string (
-      "ricin.network.proxy.ip_address",
-      this.entry_proxy_ip.get_text ()
-    );
-    this.settings.write_string (
-      "ricin.network.proxy.port",
-      this.entry_proxy_ip.get_text ()
-    );
+    bool proxy_enabled = this.switch_proxy_enabled.active;
+    string ip = this.entry_proxy_ip.get_text ();
+    int port  = (int) this.spinbutton_proxy_port.value;
 
+    this.settings.write_bool ("ricin.network.proxy.enabled", proxy_enabled);
+    this.settings.write_string ("ricin.network.proxy.ip_address", ip);
+    this.settings.write_int ("ricin.network.proxy.port", port);
     this.reload_options ();
   }
 

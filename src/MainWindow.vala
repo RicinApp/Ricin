@@ -82,9 +82,13 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
     opts.udp_enabled = this.settings.get_bool ("ricin.network.udp");
 
     if (this.settings.get_bool ("ricin.network.proxy.enabled")) {
+      debug ("Ricin is being proxied.");
       opts.proxy_type = ToxCore.ProxyType.SOCKS5;
       opts.proxy_host = this.settings.get_string ("ricin.network.proxy.ip_address");
       opts.proxy_port = (uint16) this.settings.get_int ("ricin.network.proxy.port");
+      debug ("Proxy type: SOCKS5");
+      debug (@"Proxy host: $(opts.proxy_host)");
+      debug (@"Proxy port: $(opts.proxy_port)");
     }
 
     try {
