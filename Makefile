@@ -10,6 +10,9 @@ style:
 nodesfile:
 	wget -O res/nodes.json https://build.tox.chat/job/nodefile_build_linux_x86_64_release/lastSuccessfulBuild/artifact/Nodefile.json
 
+changelog:
+	clog -T markdown -F -r https://github.com/RicinApp/Ricin -o docs/CHANGELOG.md
+
 autogen:
 	rm -rf ./build
 	mkdir -p ./build
