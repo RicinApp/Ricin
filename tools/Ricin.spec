@@ -16,15 +16,6 @@ BuildRequires:  glib2
 BuildRequires:  meson
 BuildRequires:  Libmarkdown-devel
 
-Requires:  libconfig
-Requires:  tox-libtoxcore
-Requires:  gtk3
-Requires:  json-glib
-Requires:  libsoup
-Requires:  libnotify
-Requires:  libmarkdown
-
-Requires:  libconfig
 Requires:  tox-libtoxcore
 Requires:  gtk3
 Requires:  json-glib

@@ -65,16 +65,6 @@ before_script:
  - echo '/usr/local/lib/' | sudo tee -a /etc/ld.so.conf.d/locallib.conf
  - sudo ldconfig
  - cd ..
-# Libconfig
- - git clone https://github.com/hyperrealm/libconfig
- - cd libconfig
- - rm ./lib/scanner.c
- - rm ./lib/scanner.h
- - ./configure
- - make
- - sudo make install
- - sudo ldconfig
- - cd ..
 
 script:
  - rm -rf build
