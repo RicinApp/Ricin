@@ -309,6 +309,10 @@ class Ricin.ChatView : Gtk.Box {
     });
 
     this.fr.notify["typing"].connect ((obj, prop) => {
+      if (!this.settings.show_typing_status) {
+        return;
+      }
+
       string friend_name = Util.escape_html (this.fr.name);
       this.label_friend_is_typing.set_markup (@"<i>$friend_name " + _("is typing") + "</i>");
       this.friend_typing.reveal_child = this.fr.typing;
@@ -496,7 +500,7 @@ class Ricin.ChatView : Gtk.Box {
     * This prevent users searching in the history but getting bottom'd by the autoscroll.
     **/
     Gtk.Adjustment adj = this.scroll_messages.get_vadjustment ();
-    if (adj.value == this._bottom_scroll) {
+    if (this._bottom_scroll == adj.value || this._bottom_scroll == 0.0) {
       adj.set_value (adj.get_upper () - adj.get_page_size ());
       this.is_bottom = true;
 
@@ -510,7 +514,7 @@ class Ricin.ChatView : Gtk.Box {
       }
     }
 
-    this._bottom_scroll = adj.get_upper () - adj.get_page_size ();
+    this._bottom_scroll = adj.value;
   }
 
   [GtkCallback]
