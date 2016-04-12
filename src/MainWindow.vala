@@ -707,6 +707,7 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
   ~MainWindow () {
     this.tox.save_data ();
     this.settings.save_settings ();
+    this.tox.disconnect ();
     //this.tox.handle = null;
     //this.tox = null;
   }
