@@ -75,17 +75,19 @@ class Ricin.SettingsView : Gtk.Box {
 
     var default_str = _("default");
     var stable_str = _("stable");
-    this.combobox_languages.append_text      (@"English ($default_str)");
-    this.combobox_languages.append_text      ("Français");
-    this.combobox_languages.append_text      ("Portuguese");
-    this.combobox_languages.append_text      ("Danish");
-    this.combobox_languages.append_text      ("Esperanto");
-    this.combobox_languages.append_text      ("Chinese");
-    this.combobox_languages.append_text      ("German");
+    this.combobox_languages.append_text (@"English ($default_str)");
+    this.combobox_languages.append_text ("Français");
+    this.combobox_languages.append_text ("Portuguese");
+    this.combobox_languages.append_text ("Danish");
+    this.combobox_languages.append_text ("Esperanto");
+    this.combobox_languages.append_text ("Chinese");
+    this.combobox_languages.append_text ("German");
+    this.combobox_languages.append_text ("Ukrainian");
+    this.combobox_languages.append_text ("Russian");
 
-    this.combobox_toxme_servers.append_text  (@"Ricin.im ($default_str)");
-    this.combobox_toxme_servers.append_text  (@"ToxMe.io ($stable_str)");
-    this.combobox_toxme_servers.append_text  (@"uTox.org ($stable_str)");
+    this.combobox_toxme_servers.append_text (@"Ricin.im ($default_str)");
+    this.combobox_toxme_servers.append_text (@"ToxMe.io ($stable_str)");
+    this.combobox_toxme_servers.append_text (@"uTox.org ($stable_str)");
     // this.combobox_toxme_servers.append ("toxing.me", "Toxing.me (unstable)");
 
     this.combobox_selected_theme.append_text (_("Dark theme") + @" ($default_str)");
@@ -106,10 +108,14 @@ class Ricin.SettingsView : Gtk.Box {
       this.combobox_languages.active = 3;
     } else if (selected_language == "eo") {
       this.combobox_languages.active = 4;
-    }  else if (selected_language == "zh_CN") {
+    } else if (selected_language == "zh_CN") {
       this.combobox_languages.active = 5;
-    }  else if (selected_language == "de") {
+    } else if (selected_language == "de") {
       this.combobox_languages.active = 6;
+    } else if (selected_language == "uk") {
+      this.combobox_languages.active = 7;
+    } else if (selected_language == "ru_RU") {
+      this.combobox_languages.active = 8;
     }
 
     this.combobox_languages.changed.connect (() => {
@@ -143,6 +149,14 @@ class Ricin.SettingsView : Gtk.Box {
         info ("Changed locale to German.");
         Environment.set_variable ("LANG", "de", true);
         this.settings.selected_language = "de";
+      } else if (slang == 7) { // Ukrainian
+        info ("Changed locale to Ukrainian.");
+        Environment.set_variable ("LANG", "uk", true);
+        this.settings.selected_language = "uk";
+      } else if (slang == 8) { // Russian
+        info ("Changed locale to Russian.");
+        Environment.set_variable ("LANG", "ru_RU", true);
+        this.settings.selected_language = "ru_RU";
       }
 
       this.reload_options ();

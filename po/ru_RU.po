@@ -1,0 +1,594 @@
+# Ricin.
+# Copyright (C) 2016 SkyzohKey and contributors
+# This file is distributed under the same license as the Ricin package.
+# 
+# Translators:
+# rigidecho, 2016
+# Roman Boldyrev <talipomin@protonmail.com>, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: Ricin\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-04-12 21:11+0200\n"
+"PO-Revision-Date: 2016-04-12 19:18+0000\n"
+"Last-Translator: SkyzohKey <SkyzohKey@users.noreply.github.com>\n"
+"Language-Team: Russian (Russia) (http://www.transifex.com/ricinapp/ricin/language/ru_RU/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ru_RU\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
+
+#: src/ChatView.vala:367
+msgid " is now "
+msgstr "сейчас"
+
+#: src/Wrapper.vala:219
+msgid " is now known as "
+msgstr "также известен как"
+
+#: res/ui/chat-view.ui:517
+msgid "**bold**"
+msgstr ""
+
+#: res/ui/chat-view.ui:506
+msgid "*bold*"
+msgstr ""
+
+#: res/ui/chat-view.ui:553
+msgid "//italic//"
+msgstr ""
+
+#: res/ui/chat-view.ui:542
+msgid "/italic/"
+msgstr ""
+
+#: res/ui/friend-list-notification_unusable.ui:42
+msgid ""
+"3 unused profiles found:\n"
+"<b>Snow, Guy, Aztek</b>"
+msgstr "Найдено 3 неиспользуемых профиля(-ей):\n<b>Snow, Guy, Aztek</b>"
+
+#: res/ui/settings-view.ui:642
+msgid "9050"
+msgstr ""
+
+#: res/ui/chat-view.ui:293
+msgid "<b>Available Markdown tags</b>"
+msgstr ""
+
+#: res/ui/settings-view.ui:906
+msgid "<b>Display friend's status changes?</b>"
+msgstr "<b>Отобразить изменения в статусе друзей?</b>"
+
+#: res/ui/settings-view.ui:728
+msgid "<b>Enable custom themes?</b>"
+msgstr "<b>Включить пользовательские темы?</b>"
+
+#: res/ui/group-chat-view.ui:219
+msgid "<b>Friends</b>"
+msgstr "<b>Друзья</b>"
+
+#: res/ui/settings-view.ui:513
+msgid "<b>IPv6</b>"
+msgstr "<b>IPv6</b>"
+
+#: res/ui/settings-view.ui:849
+msgid "<b>Language:</b>"
+msgstr "<b>Язык:</b>"
+
+#: src/Wrapper.vala:585
+msgid "<b>Last online:</b>"
+msgstr "<b>Был онлайн:</b>"
+
+#: res/ui/chat-view.ui:1123
+msgid "<b>Last seen:</b>"
+msgstr ""
+
+#: res/ui/settings-view.ui:577
+msgid "<b>Proxy (SOCKS 5)</b>"
+msgstr "<b>Прокси (SOCKS 5)</b>"
+
+#: res/ui/settings-view.ui:1277
+msgid ""
+"<b>Ricin</b> aims to be a <i>secure, lightweight, hackable and fully-"
+"customizable</i> chat client using the awesome and open-source "
+"<b>ToxCore</b> library."
+msgstr ""
+
+#: res/ui/settings-view.ui:1091
+msgid "<b>Send typing notifications?</b>"
+msgstr "<b>Отправлять уведомления о наборе?</b>"
+
+#: res/ui/settings-view.ui:475
+msgid "<b>UDP</b>"
+msgstr "<b>UDP</b>"
+
+#: res/ui/group-chat-view.ui:247
+msgid "<b>Unknown peers</b>"
+msgstr "<b>Неизвестные пиры</b>"
+
+#: res/ui/settings-view.ui:1236
+msgid "<b>Version:</b>"
+msgstr "<b>Версия:</b>"
+
+#: res/ui/settings-view.ui:191
+msgid "<b>Your Tox alias:</b>"
+msgstr "<b>Ваш псевдоним Tox:</b>"
+
+#: res/ui/settings-view.ui:72
+msgid "<b>Your ToxID:</b>"
+msgstr "<b>Ваш ToxID:</b>"
+
+#: res/ui/chat-view.ui:1671
+msgid "<i>Friend is typing</i>"
+msgstr "<b>Друг печатает</b>"
+
+#: res/ui/chat-view.ui:455
+msgid ">quote"
+msgstr ""
+
+#: res/ui/settings-view.ui:1455
+msgid "About"
+msgstr "О программе"
+
+#: res/ui/main-window.ui:376
+msgid "Accept"
+msgstr "Принять"
+
+#: res/ui/inline-file-message-list-row.ui:205
+msgid "Accept/Resume file"
+msgstr "Принять файл"
+
+#: src/MainWindow.vala:564 src/MainWindow.vala:589 res/ui/main-window.ui:474
+#: res/ui/main-window.ui:541
+msgid "Add a friend"
+msgstr "Добавить друга"
+
+#: res/ui/main-window.ui:616
+msgid "Add friend"
+msgstr "Добавить в друзья"
+
+#: src/MainWindow.vala:169
+msgid "All friends"
+msgstr "Все друзья"
+
+#: res/ui/chat-view.ui:352
+msgid "Alt syntax"
+msgstr ""
+
+#: src/MainWindow.vala:455 src/Util.vala:156
+msgid "Away"
+msgstr ""
+
+#: res/ui/settings-view.ui:257
+msgid "Biography"
+msgstr "Биография"
+
+#: src/ChatView.vala:402 res/ui/chat-view.ui:1225
+msgid "Block"
+msgstr "Заблокировать"
+
+#: src/FriendListRow.vala:63
+msgid "Block friend"
+msgstr "Заблокировать друга"
+
+#: src/Util.vala:150
+msgid "Blocked"
+msgstr "Заблокированные"
+
+#: res/ui/chat-view.ui:492
+msgid "Bold"
+msgstr ""
+
+#: src/MainWindow.vala:445 src/Util.vala:159
+msgid "Busy"
+msgstr "Занят"
+
+#: res/ui/chat-view.ui:854
+msgid "Call friend"
+msgstr "Звонок другу"
+
+#: src/MainWindow.vala:103
+msgid "Can't load the profile"
+msgstr "Невозможно загрузить профиль"
+
+#: res/ui/main-window.ui:637
+msgid "Cancel"
+msgstr "Отмена"
+
+#: res/ui/inline-file-message-list-row.ui:175
+msgid "Cancel/pause file"
+msgstr "Отменить/приостановить файл"
+
+#: res/ui/settings-view.ui:101
+msgid "Change Nospam"
+msgstr "Сменить nospam"
+
+#: res/ui/main-window.ui:86
+msgid "Change your avatar"
+msgstr "Изменить аватар"
+
+#: res/ui/main-window.ui:133
+msgid "Change your status"
+msgstr "Изменить статус"
+
+#: res/ui/settings-view.ui:442
+msgid ""
+"Changing Network settings will temporarily disconnect you from the Tox "
+"network"
+msgstr "Изменение настроек сети временно отключит вас"
+
+#: src/ChatView.vala:462
+msgid "Choose a file"
+msgstr "Выберите файл"
+
+#: src/ProfileChooser.vala:106
+msgid "Choose a name for the profile"
+msgstr "Выберите имя профиля"
+
+#: res/ui/chat-view.ui:1472
+msgid "Choose smileys"
+msgstr "Выбрать смайлы"
+
+#: src/SettingsView.vala:93
+msgid "Clearer theme"
+msgstr "Чистая тема"
+
+#: res/ui/chat-view.ui:1371
+msgid "Close the popup"
+msgstr ""
+
+#: res/ui/settings-view.ui:1345
+msgid "Contributors"
+msgstr "Участники"
+
+#: res/ui/settings-view.ui:83 res/ui/settings-view.ui:213
+msgid "Copy"
+msgstr "Копировать"
+
+#: res/ui/chat-view.ui:1265
+msgid "Copy friend's ToxID"
+msgstr "Копировать ToxID друга"
+
+#: res/ui/profile-chooser-window.ui:141
+msgid "Create a profile"
+msgstr "Создать профиль"
+
+#: res/ui/profile-chooser-window.ui:116
+msgid "Create this profile"
+msgstr "Создать этот профиль"
+
+#: src/SettingsView.vala:91
+msgid "Dark theme"
+msgstr "Тёмная тема"
+
+#: res/ui/main-window.ui:356
+msgid "Decline"
+msgstr "Отказаться"
+
+#: res/ui/chat-view.ui:1245
+msgid "Delete"
+msgstr "Удалить"
+
+#: res/ui/friend-list-notification_unusable.ui:59
+msgid "Delete friends (3)"
+msgstr "Удалить из друзей (3)"
+
+#: res/ui/settings-view.ui:1026
+msgid "Display typing notifications?"
+msgstr ""
+
+#: res/ui/settings-view.ui:962
+msgid "Display unread messages notice?"
+msgstr ""
+
+#: res/ui/profile-chooser-window.ui:88
+msgid "Enter a name for the profile"
+msgstr "Введите имя профиля"
+
+#: res/ui/chat-view.ui:763
+msgid "Friend's profile"
+msgstr "Профиль друга"
+
+#: res/ui/settings-view.ui:410
+msgid "General"
+msgstr "Основные"
+
+#: res/ui/settings-view.ui:1307
+msgid "GitHub"
+msgstr "GitHub"
+
+#: res/ui/group-chat-view.ui:60
+msgid "Groupchat name"
+msgstr "Название группового чата"
+
+#: src/MainWindow.vala:410
+#, c-format
+msgid "Hello! It's %s, let's be friends."
+msgstr "Привет! Это %s, давай будем друзьями?"
+
+#: src/InlineImageMessageListRow.vala:97
+msgid "Image saved!"
+msgstr "Изображения сохранено!"
+
+#: res/ui/chat-view.ui:600
+msgid "Inline code"
+msgstr ""
+
+#: res/ui/settings-view.ui:1150
+msgid "Interface"
+msgstr "Интерфейс"
+
+#: res/ui/chat-view.ui:528
+msgid "Italic"
+msgstr ""
+
+#: res/ui/group-chat-view.ui:289
+msgid "Leave"
+msgstr "Покинуть"
+
+#: res/ui/settings-view.ui:1395
+msgid "License (GNU General Public License 3)"
+msgstr "Лицензия (GNU General Public License 3)"
+
+#: res/ui/profile-chooser-window.ui:72
+msgid "Load a profile"
+msgstr "Загрузить профиль"
+
+#: res/ui/profile-chooser-window.ui:50
+msgid "Login"
+msgstr "Логин"
+
+#: res/ui/group-chat-view.ui:310
+msgid "Mute"
+msgstr "Заглушить"
+
+#: res/ui/settings-view.ui:684
+msgid "Network"
+msgstr "Сеть"
+
+#: res/ui/settings-view.ui:335
+msgid "New Tox alias"
+msgstr "Новый псевдоним Tox"
+
+#: src/MainWindow.vala:383
+msgid "No"
+msgstr "Нет"
+
+#: res/ui/chat-view.ui:1160
+msgid "Notes about the user:"
+msgstr "Заметки о пользователе:"
+
+#: src/Util.vala:163
+msgid "Offline"
+msgstr "Оффлайн"
+
+#: src/MainWindow.vala:435 src/Util.vala:153
+msgid "Online"
+msgstr "Онлайн"
+
+#: src/MainWindow.vala:168
+msgid "Online friends"
+msgstr "Друзья онлайн"
+
+#: src/ProfileChooser.vala:87
+msgid "Please enter a profile name."
+msgstr "Пожалуйста, введите имя профиля."
+
+#: src/ProfileChooser.vala:94
+msgid "Profile name already taken."
+msgstr "Имя профиля уже занято."
+
+#: src/MainWindow.vala:465
+msgid "Quit"
+msgstr "Выход"
+
+#: res/ui/chat-view.ui:433
+msgid "Quote"
+msgstr ""
+
+#: res/ui/settings-view.ui:803
+msgid "Reload custom theme"
+msgstr "Перезагрузить пользовательскую тему"
+
+#: res/ui/settings-view.ui:1326
+msgid "Report an issue"
+msgstr "Сообщить о проблеме"
+
+#: res/ui/settings-view.ui:368
+msgid "Request deletion"
+msgstr "Запросить удаление"
+
+#: src/MainWindow.vala:538
+msgid "Restart later"
+msgstr ""
+
+#: src/MainWindow.vala:538
+msgid "Restart now"
+msgstr ""
+
+#: src/MainWindow.vala:535
+msgid "Restart required"
+msgstr ""
+
+#: res/ui/settings-view.ui:1204
+msgid "Ricin"
+msgstr "Ricin"
+
+#: src/MainWindow.vala:598
+msgid "Ricin doesn't supports ToxDNS yet."
+msgstr "Ricin ещё не поддерживает ToxDNS."
+
+#: src/MainWindow.vala:537
+msgid ""
+"Ricin needs to restart in order to apply settings. Do you want to restart?"
+msgstr ""
+
+#: res/ui/settings-view.ui:1415
+msgid "Ricin official website"
+msgstr "Официальный сайт Ricin"
+
+#: res/ui/chat-view.ui:1613
+msgid "Scroll to bottom"
+msgstr ""
+
+#: res/ui/welcome-view.ui:87
+msgid "Select a chat to start messaging."
+msgstr "Выберите чат для начала общения."
+
+#: src/ProfileChooser.vala:23 res/ui/profile-chooser-window.ui:23
+msgid "Select a profile"
+msgstr "Выберите профиль"
+
+#: src/MainWindow.vala:675
+msgid "Select your avatar"
+msgstr "Выберите аватар"
+
+#: res/ui/chat-view.ui:1500
+msgid "Send file"
+msgstr "Отправить файл"
+
+#: res/ui/chat-view.ui:1526
+msgid "Send message"
+msgstr "Отправить сообщение"
+
+#: src/MainWindow.vala:117 src/MainWindow.vala:553 res/ui/main-window.ui:494
+msgid "Settings"
+msgstr "Настройки"
+
+#: res/ui/chat-view.ui:820
+msgid "Status message..."
+msgstr "Статус..."
+
+#: res/ui/chat-view.ui:636
+msgid "Striked"
+msgstr ""
+
+#: res/ui/chat-view.ui:338
+msgid "Syntax"
+msgstr ""
+
+#: res/ui/chat-view.ui:324
+msgid "Tag Name"
+msgstr ""
+
+#: src/ProfileChooser.vala:78
+msgid "The selected profile doesn't exists."
+msgstr "Выбранный профиль не существует."
+
+#: res/ui/settings-view.ui:767
+msgid "Theme:"
+msgstr ""
+
+#: res/ui/chat-view.ui:1595
+msgid "There are unread messages in this chat"
+msgstr ""
+
+#: src/MessageListRow.vala:91 src/PlainLabel.vala:22 src/QuoteLabel.vala:22
+msgid "ToxDNS is not supported yet."
+msgstr "ToxDNS ещё не поддерживается."
+
+#: src/MainWindow.vala:600
+msgid "ToxID can't be empty."
+msgstr "ToxID не может быть пустым."
+
+#: src/MainWindow.vala:602
+msgid "ToxID is invalid."
+msgstr "Неверный ToxID"
+
+#: res/ui/main-window.ui:562
+msgid "ToxID to add..."
+msgstr ""
+
+#: res/ui/settings-view.ui:268
+msgid "ToxMe server"
+msgstr "Сервер ToxMe"
+
+#: res/ui/main-window.ui:190
+msgid "Type to search..."
+msgstr "Введите для поиска..."
+
+#: src/ChatView.vala:400
+msgid "Unblock"
+msgstr "Разблокировать"
+
+#: src/FriendListRow.vala:63
+msgid "Unblock friend"
+msgstr "Разблокировать друга"
+
+#: res/ui/chat-view.ui:564
+msgid "Underline"
+msgstr ""
+
+#: res/ui/settings-view.ui:351
+msgid "Update record"
+msgstr "Обновить запись"
+
+#: res/ui/chat-view.ui:797 res/ui/settings-view.ui:246
+msgid "Username"
+msgstr "Имя пользователя"
+
+#: res/ui/chat-view.ui:882
+msgid "Video call friend"
+msgstr "Видеозвонок другу"
+
+#: src/SettingsView.vala:92
+msgid "White theme"
+msgstr "Светлая тема"
+
+#: src/MainWindow.vala:383
+msgid "Yes"
+msgstr "Да"
+
+#: res/ui/main-window.ui:260
+msgid "You got a new friend request"
+msgstr "У Вас новый запрос в друзья"
+
+#: src/ChatView.vala:463 src/MainWindow.vala:678
+msgid "_Cancel"
+msgstr ""
+
+#: src/ChatView.vala:464 src/MainWindow.vala:679
+msgid "_Open"
+msgstr ""
+
+#: res/ui/chat-view.ui:589
+msgid "__underline__"
+msgstr ""
+
+#: res/ui/chat-view.ui:578
+msgid "_underline_"
+msgstr ""
+
+#: res/ui/chat-view.ui:615
+msgid "`inline code`"
+msgstr ""
+
+#: src/SettingsView.vala:76
+msgid "default"
+msgstr ""
+
+#: src/ChatView.vala:317
+msgid "is typing"
+msgstr "печатает"
+
+#: res/ui/settings-view.ui:1488
+msgid "ricin.io (stable)"
+msgstr ""
+
+#: src/SettingsView.vala:77
+msgid "stable"
+msgstr ""
+
+#: res/ui/settings-view.ui:1491
+msgid "toxme.io"
+msgstr "toxme.io"
+
+#: res/ui/chat-view.ui:650
+msgid "~striked~"
+msgstr ""
+
+#: res/ui/chat-view.ui:661
+msgid "~~striked~~"
+msgstr ""
