@@ -27,7 +27,11 @@ GtkSwitch
 }
 
 GtkSwitch {
-  border-radius: 2px;
+  font-weight: bolder;
+  font-size: small;
+  color: #fff;
+  text-shadow: 0 1px rgba(0, 0, 0, 0.5);
+	border-radius: 2px;
 }
 
 GtkSwitch.trough {
