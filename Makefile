@@ -36,9 +36,10 @@ install:
 	cd build/ && type ninja-build 2>/dev/null && ninja-build install || ninja install
 
 reset-settings:
-	@echo -e "\e[93m\e[1mλ Deleting settings from ~/.config/tox/ricin.cfg\e[21m\e[39m"
-	rm -f ~/.config/tox/ricin.cfg
-	cp -f ./res/ricin.sample.cfg ~/.config/tox/ricin.cfg
+	@echo -e "\e[93m\e[1mλ Deleting settings from ~/.config/tox/ricin.json\e[21m\e[39m"
+	@rm -f ~/.config/tox/ricin.json
+	@echo -e "\e[93m\e[1mλ Copying settings from ./res/ricin.sample.json to ~/.config/tox/ricin.json\e[21m\e[39m"
+	@cp -f ./res/ricin.sample.json ~/.config/tox/ricin.json
 	@echo -e "\e[93m\e[1mλ Succesfuly reset'd settings!\e[21m\e[39m"
 
 # Winshit stuff.
