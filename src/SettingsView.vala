@@ -18,6 +18,7 @@ class Ricin.SettingsView : Gtk.Box {
 
   [GtkChild] Gtk.Switch switch_status_changes;
   [GtkChild] Gtk.Switch switch_typing_notifications;
+  [GtkChild] Gtk.Switch switch_unread_messages;
 
   // Network settings tab.
   [GtkChild] Gtk.Switch switch_udp_enabled;
@@ -225,6 +226,11 @@ class Ricin.SettingsView : Gtk.Box {
     this.switch_typing_notifications.active = this.settings.send_typing_status;
     this.switch_typing_notifications.notify["active"].connect (() => {
       this.settings.send_typing_status = this.switch_typing_notifications.active;
+    });
+
+    this.switch_unread_messages.active = this.settings.show_unread_messages;
+    this.switch_unread_messages.notify["active"].connect (() => {
+      this.settings.show_unread_messages = this.switch_unread_messages.active;
     });
 
     var udp = this.settings.network_udp;

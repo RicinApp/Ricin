@@ -23,6 +23,7 @@ class Settings : Object {
   public const string SELECTED_LANGUAGE_KEY    = "selected-language";
   public const string SHOW_STATUS_CHANGES_KEY  = "show-status-changes";
   public const string SHOW_ALL_FRIENDS_KEY     = "show-all-friends";
+  public const string SHOW_UNREAD_MESSAGES_KEY = "show-unread-messages-notice";
   public const string SHOW_TYPING_STATUS_KEY   = "show-typing-status";
   public const string SEND_TYPING_STATUS_KEY   = "send-typing-status";
   public const string CONTACTLIST_WIDTH_KEY    = "contactlist-width";
@@ -49,6 +50,7 @@ class Settings : Object {
   public string selected_language  { get; set; default = "en_US"; }
   public bool show_status_changes  { get; set; default = true; }
   public bool show_all_friends     { get; set; default = false; }
+  public bool show_unread_messages { get; set; default = false; }
   public bool show_typing_status   { get; set; default = true; }
   public bool send_typing_status   { get; set; default = true; }
   public int contactlist_width     { get; set; default = 265; }
@@ -105,6 +107,7 @@ class Settings : Object {
         this.selected_language    = settings.selected_language;
         this.show_status_changes  = settings.show_status_changes;
         this.show_all_friends     = settings.show_all_friends;
+        this.show_unread_messages = settings.show_unread_messages;
         this.show_typing_status   = settings.show_typing_status;
         this.send_typing_status   = settings.send_typing_status;
         this.contactlist_width    = settings.contactlist_width;

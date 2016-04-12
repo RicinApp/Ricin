@@ -500,12 +500,12 @@ class Ricin.ChatView : Gtk.Box {
       adj.set_value (adj.get_upper () - adj.get_page_size ());
       this.is_bottom = true;
 
-      if (this.revealer_unread_messages.reveal_child == true) {
+      if (this.settings.show_unread_messages) {
         this.revealer_unread_messages.reveal_child = false;
       }
     } else {
       this.is_bottom = false;
-      if (this.revealer_unread_messages.reveal_child == false) {
+      if (this.settings.show_unread_messages) {
         this.revealer_unread_messages.reveal_child = true;
       }
     }

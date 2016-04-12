@@ -15,6 +15,7 @@
   "selected-language": "en_US",
   "show-status-changes": true,
   "show-all-friends": false,
+  "show-unread-messages-notice": false,
   "show-typing-status": true,
   "send-typing-status": true,
   "contactlist-width": 265,
