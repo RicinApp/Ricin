@@ -157,5 +157,8 @@ public class Ricin.EditableLabel : Gtk.EventBox {
     button_cancel.focus_out_event.connect(on_focus_out);
 
     this.bind_property ("text", label, "label", BindingFlags.DEFAULT);
+    this.notify["text"].connect (() => {
+      this.label.set_tooltip_markup (this.text);
+    });
   }
 }

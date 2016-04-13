@@ -51,6 +51,7 @@ class Ricin.FriendListRow : Gtk.ListBoxRow {
 
     fr.notify["status-message"].connect ((obj, prop) => {
       this.status.set_text (this.fr.status_message);
+      this.status.set_tooltip_markup (this.fr.status_message);
     });
 
     fr.notify["status"].connect ((obj, prop) => {
