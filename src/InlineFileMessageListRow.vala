@@ -26,12 +26,15 @@ class Ricin.InlineFileMessageListRow : Gtk.ListBoxRow {
 
   private weak Tox.Tox handle;
   private weak Tox.Friend sender;
+  private Settings settings;
 
   public signal void accept_file (bool response, uint32 file_id);
 
   public InlineFileMessageListRow (Tox.Tox handle, Tox.Friend sender, uint32 file_id, string username, string file_path, uint64 file_size, string timestamp) {
     this.handle = handle;
     this.sender = sender;
+    this.settings = Settings.instance;
+
     this.file = File.new_for_path (file_path);
     this.file_id = file_id;
     this.file_name = this.file.get_basename ();
@@ -60,8 +63,8 @@ class Ricin.InlineFileMessageListRow : Gtk.ListBoxRow {
       this.progress_file_percent.set_fraction (1.0);
       this.progress_file_percent.visible = false;
 
-      string downloads = Environment.get_user_special_dir (UserDirectory.DOWNLOAD) + "/";
-      File file_destination = File.new_for_path (downloads + this.file_name);
+      string downloads = this.settings.default_save_path;
+      File file_destination = File.new_for_path (@"$downloads/$(this.file_name)");
 
       int i = 0;
       string filename = this.file_name;
@@ -69,8 +72,9 @@ class Ricin.InlineFileMessageListRow : Gtk.ListBoxRow {
         filename = @"$(++i)-$(this.file_name)";
       }
 
-      file_destination = File.new_for_path (downloads + filename);
+      file_destination = File.new_for_path (@"$downloads/$file_name");
       FileUtils.set_data (file_destination.get_path (), bytes.get_data ());
+      this.file = file_destination;
       //this.file.copy (file_destination, FileCopyFlags.NONE);
 
       /*if (FileUtils.test (file_destination.get_path (), FileTest.EXISTS)) {
@@ -82,6 +86,7 @@ class Ricin.InlineFileMessageListRow : Gtk.ListBoxRow {
       this.button_save.set_size_request (65, 20);
       this.button_reject.visible = false;
       this.image_save_inline.icon_name = "folder-open-symbolic";
+      this.button_save.sensitive = true;
     });
 
     this.sender.file_received.connect (id => {
@@ -94,9 +99,10 @@ class Ricin.InlineFileMessageListRow : Gtk.ListBoxRow {
       this.box_widget.get_style_context().add_class ("saved-file");
       this.button_save.set_size_request (65, 20);
       this.button_reject.visible = false;
-      this.button_save.sensitive = false;
+      this.button_save.sensitive = true;
       //this.label_foreground.width_request = -1;
       this.image_save_inline.icon_name = "object-select-symbolic";
+      this.button_save.set_tooltip_text ("File saved. Click to open");
     });
 
     /*this.sender.file_progress.connect ((id, position) => {
@@ -142,6 +148,7 @@ class Ricin.InlineFileMessageListRow : Gtk.ListBoxRow {
       //this.label_foreground.width_request = -1;
       this.button_save.visible = false;
       this.progress_file_percent.visible = false;
+      this.button_reject.set_tooltip_text ("Canceled");
     });
 
     /*this.sender.file_progress.connect ((id, position) => {
@@ -167,7 +174,11 @@ class Ricin.InlineFileMessageListRow : Gtk.ListBoxRow {
       /**
       * TODO: Open the file in folder.
       **/
-
+      try {
+        AppInfo.launch_default_for_uri (this.file.get_uri (), null);
+      } catch (Error e) {
+        debug (@"Cannot open $(this.file_name): $(e.message)");
+      }
       return;
     }
 

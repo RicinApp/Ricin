@@ -75,6 +75,11 @@ public class Ricin.Ricin : Gtk.Application {
           provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
     }
 
+    if (this.settings.default_save_path == "") {
+      string path = Environment.get_user_special_dir (UserDirectory.DOWNLOAD) + "/";
+      this.settings.default_save_path = path;
+    }
+
     // Launch the notification system.
     Notify.init ("Ricin");
 

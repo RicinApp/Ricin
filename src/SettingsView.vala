@@ -9,6 +9,9 @@ class Ricin.SettingsView : Gtk.Box {
   [GtkChild] Gtk.Label label_toxme_alias;
   [GtkChild] Gtk.ComboBoxText combobox_toxme_servers;
   [GtkChild] Gtk.ComboBoxText combobox_languages;
+  [GtkChild] Gtk.Label label_default_save_path;
+  [GtkChild] Gtk.Entry entry_default_save_path;
+  [GtkChild] Gtk.Button button_set_default_save_path;
 
   // Interface settings tab;
   [GtkChild] Gtk.Switch switch_custom_themes;
@@ -39,7 +42,6 @@ class Ricin.SettingsView : Gtk.Box {
 
   public SettingsView (Tox.Tox handle) {
     this.handle = handle;
-
     this.settings = Settings.instance;
 
     /**
@@ -231,6 +233,8 @@ class Ricin.SettingsView : Gtk.Box {
       ThemeManager.instance.reload_theme ();
     });
 
+    this.entry_default_save_path.set_text (this.settings.default_save_path);
+
     this.switch_status_changes.notify["active"].connect (() => {
       this.settings.show_status_changes = this.switch_status_changes.active;
     });
@@ -319,5 +323,30 @@ class Ricin.SettingsView : Gtk.Box {
     .set_text (toxme_alias, -1);
 
     debug (@"ToxMe alias: $toxme_alias");
+  }
+
+  /**
+  * Select default save path section.
+  **/
+  [GtkCallback]
+  private void  select_save_path () {
+    var main_window = this.get_toplevel () as MainWindow;
+
+    var chooser = new Gtk.FileChooserDialog (
+      _("Choose a folder where to save files"),
+      main_window,
+      Gtk.FileChooserAction.SELECT_FOLDER,
+      _("_Cancel"), Gtk.ResponseType.CANCEL,
+      _("_Open"), Gtk.ResponseType.ACCEPT
+    );
+    chooser.set_current_folder (this.settings.default_save_path);
+
+    if (chooser.run () == Gtk.ResponseType.ACCEPT) {
+      var path = chooser.get_current_folder ();
+      this.settings.default_save_path = path;
+      this.entry_default_save_path.set_text (path);
+      debug (@"Default save path set to $path");
+    }
+    chooser.close ();
   }
 }

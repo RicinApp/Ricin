@@ -3,6 +3,11 @@
 <interface>
   <requires lib="gtk+" version="3.16"/>
   <!-- interface-local-resource-path ../images/icons -->
+  <object class="GtkImage" id="image1">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="icon_name">view-refresh-symbolic</property>
+  </object>
   <template class="RicinSettingsView" parent="GtkBox">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
@@ -48,8 +53,6 @@
                   <object class="GtkBox" id="box_general_settings">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="margin_top">10</property>
-                    <property name="margin_bottom">10</property>
                     <property name="orientation">vertical</property>
                     <property name="spacing">10</property>
                     <child>
@@ -393,6 +396,76 @@
                         <property name="position">2</property>
                       </packing>
                     </child>
+                    <child>
+                      <object class="GtkSeparator" id="separator13">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">3</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkBox" id="box22">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="spacing">5</property>
+                        <child>
+                          <object class="GtkLabel" id="label_default_save_path">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="label" translatable="yes">Default save path:</property>
+                            <attributes>
+                              <attribute name="weight" value="bold"/>
+                            </attributes>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">True</property>
+                            <property name="position">0</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkEntry" id="entry_default_save_path">
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="editable">False</property>
+                            <style>
+                              <class name="entry-inverted"/>
+                            </style>
+                          </object>
+                          <packing>
+                            <property name="expand">True</property>
+                            <property name="fill">True</property>
+                            <property name="position">1</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkButton" id="button_set_default_save_path">
+                            <property name="label" translatable="yes">Choose directory</property>
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="receives_default">True</property>
+                            <signal name="clicked" handler="select_save_path" swapped="no"/>
+                            <style>
+                              <class name="button-dark"/>
+                            </style>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">True</property>
+                            <property name="position">2</property>
+                          </packing>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">4</property>
+                      </packing>
+                    </child>
                   </object>
                 </child>
               </object>
@@ -417,8 +490,6 @@
           <object class="GtkScrolledWindow" id="tab_network">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
-            <property name="margin_top">10</property>
-            <property name="margin_bottom">10</property>
             <child>
               <object class="GtkViewport" id="viewport2">
                 <property name="visible">True</property>
@@ -1158,8 +1229,6 @@
           <object class="GtkScrolledWindow" id="tab_about">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
-            <property name="margin_top">10</property>
-            <property name="margin_bottom">10</property>
             <child>
               <object class="GtkViewport" id="viewport4">
                 <property name="visible">True</property>
@@ -1473,11 +1542,6 @@
       <class name="secondary-background"/>
     </style>
   </template>
-  <object class="GtkImage" id="image1">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="icon_name">view-refresh-symbolic</property>
-  </object>
   <object class="GtkListStore" id="liststore1">
     <columns>
       <!-- column-name server -->

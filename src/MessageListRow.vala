@@ -18,8 +18,10 @@ class Ricin.MessageListRow : Gtk.ListBoxRow {
     this.sender = sender;
     this.is_child = is_child;
 
+    string name;
+
     if (this.sender == null) {
-      string name = Util.escape_html (this.handle.username);
+      name = Util.escape_html (this.handle.username);
       this.label_name.set_markup ("<b>" + name + "</b>");
 
       this.handle.bind_property ("username", label_name, "label", BindingFlags.DEFAULT);
@@ -31,7 +33,7 @@ class Ricin.MessageListRow : Gtk.ListBoxRow {
         this.spinner_read.visible = false;
       });
     } else {
-      string name = Util.escape_html (this.sender.get_uname ());
+      name = Util.escape_html (this.sender.get_uname ());
       this.label_name.set_text (name);
       this.spinner_read.visible = false;
     }

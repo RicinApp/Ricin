@@ -15,11 +15,14 @@ class Ricin.InlineImageMessageListRow : Gtk.ListBoxRow {
   private uint position;
   private weak Tox.Tox handle;
   private weak Tox.Friend sender;
+  private Settings settings;
 
   public signal void accept_image (bool response, uint32 file_id);
 
   public InlineImageMessageListRow (Tox.Tox handle, Tox.Friend sender, uint32 file_id, string name, string image_path, string timestamp, bool? is_local) {
     this.handle = handle;
+    this.settings = Settings.instance;
+
     this.image = File.new_for_path (image_path);
     this.image_id = file_id;
 
@@ -79,8 +82,8 @@ class Ricin.InlineImageMessageListRow : Gtk.ListBoxRow {
 
   [GtkCallback]
   private void save_image () {
-    string downloads = Environment.get_user_special_dir (UserDirectory.DOWNLOAD) + "/";
-    File image_destination = File.new_for_path (downloads + this.image_name);
+    string downloads = this.settings.default_save_path;
+    File image_destination = File.new_for_path (@"$downloads/$(this.image_name)");
 
     int i = 0;
     string filename = this.image_name;
@@ -88,7 +91,7 @@ class Ricin.InlineImageMessageListRow : Gtk.ListBoxRow {
       filename = @"$(++i)-$(this.image_name)";
     }
 
-    image_destination = File.new_for_path (downloads + this.image_name);
+    image_destination = File.new_for_path (@"$downloads/$filename");
     this.image.copy (image_destination, FileCopyFlags.NONE);
 
     if (FileUtils.test (image_destination.get_path (), FileTest.EXISTS)) {
