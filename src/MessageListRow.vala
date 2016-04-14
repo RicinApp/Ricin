@@ -17,10 +17,9 @@ class Ricin.MessageListRow : Gtk.ListBoxRow {
     this.message_id = message_id;
     this.sender = sender;
     this.is_child = is_child;
-    string name = "";
 
     if (this.sender == null) {
-      name = Util.escape_html (this.handle.username);
+      string name = Util.escape_html (this.handle.username);
       this.label_name.set_markup ("<b>" + name + "</b>");
 
       this.handle.bind_property ("username", label_name, "label", BindingFlags.DEFAULT);
@@ -32,11 +31,12 @@ class Ricin.MessageListRow : Gtk.ListBoxRow {
         this.spinner_read.visible = false;
       });
     } else {
-      name = Util.escape_html (this.sender.name);
+      string name = Util.escape_html (this.sender.get_uname ());
       this.label_name.set_text (name);
       this.spinner_read.visible = false;
     }
 
+    debug (@"Message sent by $name");
     if (this.is_child) {
       // Don't display name for childs.
       this.label_name.set_text (" ");
@@ -52,7 +52,7 @@ class Ricin.MessageListRow : Gtk.ListBoxRow {
     * EMOJI SUPPORT.
     **/
 
-    this.label_name.set_markup (@"<b>$name</b>");
+    //this.label_name.set_markup (@"<b>$name</b>");
     this.label_message.set_markup (msg);
     this.label_message.set_line_wrap_mode (Pango.WrapMode.WORD_CHAR);
     this.label_timestamp.set_text (timestamp);
