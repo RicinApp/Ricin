@@ -1,7 +1,7 @@
 #!/bin/sh
 
 echo "Installing Ricin's dependencies from Homebrew"
-brew install vala ninja gtk+3 glib json-glib libsoup libnotify libconfig brew-pip
+brew install vala ninja gtk+3 glib json-glib libsoup libnotify brew-pip
 
 echo "Installing The Meson Build System from brew-pip"
 brew pip meson

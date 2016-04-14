@@ -999,6 +999,15 @@ namespace ToxCore {
         public Tox (Options? options = null, out ERR_NEW? error = null);
 
         /**
+         * Releases all resources associated with the Tox instance and disconnects from
+         * the network.
+         *
+         * After calling this function, the Tox pointer becomes invalid. No other
+         * functions can be called, and the pointer value can no longer be read.
+         */
+        public void kill ();
+
+        /**
          * @param friend_number The friend number of the friend whose name changed.
          * @param name A byte array containing the same data as
          *   tox_friend_get_name would write to its `name` parameter.

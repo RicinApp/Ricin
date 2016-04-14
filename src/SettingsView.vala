@@ -9,7 +9,6 @@ class Ricin.SettingsView : Gtk.Box {
   [GtkChild] Gtk.Label label_toxme_alias;
   [GtkChild] Gtk.ComboBoxText combobox_toxme_servers;
   [GtkChild] Gtk.ComboBoxText combobox_languages;
-  [GtkChild] Gtk.Label label_language_restart;
 
   // Interface settings tab;
   [GtkChild] Gtk.Switch switch_custom_themes;
@@ -17,16 +16,16 @@ class Ricin.SettingsView : Gtk.Box {
   [GtkChild] Gtk.Button button_reload_theme;
 
   [GtkChild] Gtk.Switch switch_status_changes;
+  [GtkChild] Gtk.Switch switch_unread_messages;
+  [GtkChild] Gtk.Switch switch_display_typing_notifications;
   [GtkChild] Gtk.Switch switch_typing_notifications;
 
-  /* TODO
   // Network settings tab.
   [GtkChild] Gtk.Switch switch_udp_enabled;
   [GtkChild] Gtk.Switch switch_ipv6_enabled;
   [GtkChild] Gtk.Switch switch_proxy_enabled;
   [GtkChild] Gtk.Entry entry_proxy_ip;
-  [GtkChild] Gtk.Entry entry_proxy_port;
-  */
+  [GtkChild] Gtk.SpinButton spinbutton_proxy_port;
 
   // About tab.
   [GtkChild] Gtk.Label label_app_name;
@@ -34,11 +33,14 @@ class Ricin.SettingsView : Gtk.Box {
   [GtkChild] Gtk.Label label_app_version;
 
   private weak Tox.Tox handle;
-  private SettingsManager settings;
+  private Settings settings;
+
+  public signal void reload_options ();
 
   public SettingsView (Tox.Tox handle) {
     this.handle = handle;
-    this.settings = SettingsManager.instance;
+
+    this.settings = Settings.instance;
 
     /**
     * Pack buttons in the RicinSettingsView box.
@@ -73,17 +75,19 @@ class Ricin.SettingsView : Gtk.Box {
 
     var default_str = _("default");
     var stable_str = _("stable");
-    this.combobox_languages.append_text      (@"English ($default_str)");
-    this.combobox_languages.append_text      ("Français");
-    this.combobox_languages.append_text      ("Portuguese");
-    this.combobox_languages.append_text      ("Danish");
-    this.combobox_languages.append_text      ("Esperanto");
-    this.combobox_languages.append_text      ("Chinese");
-    this.combobox_languages.append_text      ("German");
+    this.combobox_languages.append_text (@"English ($default_str)");
+    this.combobox_languages.append_text ("Français");
+    this.combobox_languages.append_text ("Portuguese");
+    this.combobox_languages.append_text ("Danish");
+    this.combobox_languages.append_text ("Esperanto");
+    this.combobox_languages.append_text ("Chinese");
+    this.combobox_languages.append_text ("German");
+    this.combobox_languages.append_text ("Ukrainian");
+    this.combobox_languages.append_text ("Russian");
 
-    this.combobox_toxme_servers.append_text  (@"Ricin.im ($default_str)");
-    this.combobox_toxme_servers.append_text  (@"ToxMe.io ($stable_str)");
-    this.combobox_toxme_servers.append_text  (@"uTox.org ($stable_str)");
+    this.combobox_toxme_servers.append_text (@"Ricin.im ($default_str)");
+    this.combobox_toxme_servers.append_text (@"ToxMe.io ($stable_str)");
+    this.combobox_toxme_servers.append_text (@"uTox.org ($stable_str)");
     // this.combobox_toxme_servers.append ("toxing.me", "Toxing.me (unstable)");
 
     this.combobox_selected_theme.append_text (_("Dark theme") + @" ($default_str)");
@@ -93,7 +97,7 @@ class Ricin.SettingsView : Gtk.Box {
     this.combobox_languages.active      = 0;
     this.combobox_toxme_servers.active  = 0;
 
-    string selected_language = this.settings.get_string ("ricin.interface.selected_language");
+    string selected_language = this.settings.selected_language;
     if (selected_language == "en_US") {
       this.combobox_languages.active = 0;
     } else if (selected_language == "fr_FR") {
@@ -104,50 +108,61 @@ class Ricin.SettingsView : Gtk.Box {
       this.combobox_languages.active = 3;
     } else if (selected_language == "eo") {
       this.combobox_languages.active = 4;
-    }  else if (selected_language == "zh_CN") {
+    } else if (selected_language == "zh_CN") {
       this.combobox_languages.active = 5;
-    }  else if (selected_language == "de") {
+    } else if (selected_language == "de") {
       this.combobox_languages.active = 6;
+    } else if (selected_language == "uk") {
+      this.combobox_languages.active = 7;
+    } else if (selected_language == "ru_RU") {
+      this.combobox_languages.active = 8;
     }
 
     this.combobox_languages.changed.connect (() => {
       var slang = this.combobox_languages.active;
 
-      // Tell the user that the language will be changed at the next restart.
-      this.label_language_restart.visible = true;
-
       if (slang == 0) { // English.
         info ("Changed locale to English.");
         Environment.set_variable ("LANG", "en_US", true);
-        this.settings.write_string ("ricin.interface.selected_language", "en_US");
+        this.settings.selected_language = "en_US";
       } else if (slang == 1) { // French
         info ("Changed locale to French.");
         Environment.set_variable ("LANG", "fr_FR", true);
-        this.settings.write_string ("ricin.interface.selected_language", "fr_FR");
+        this.settings.selected_language = "fr_FR";
       } else if (slang == 2) { // Portuguese
         info ("Changed locale to Portuguese.");
         Environment.set_variable ("LANG", "pt_PT", true);
-        this.settings.write_string ("ricin.interface.selected_language", "pt_PT");
+        this.settings.selected_language = "pt_PT";
       } else if (slang == 3) { // Danish
         info ("Changed locale to Danish.");
         Environment.set_variable ("LANG", "da_DK", true);
-        this.settings.write_string ("ricin.interface.selected_language", "da_DK");
+        this.settings.selected_language = "da_DK";
       } else if (slang == 4) { // Esperanto
         info ("Changed locale to Esperanto.");
         Environment.set_variable ("LANG", "eo", true);
-        this.settings.write_string ("ricin.interface.selected_language", "eo");
+        this.settings.selected_language = "eo";
       } else if (slang == 5) { // Chinese
         info ("Changed locale to Chinese.");
         Environment.set_variable ("LANG", "zh_CN", true);
-        this.settings.write_string ("ricin.interface.selected_language", "zh_CN");
+        this.settings.selected_language = "zh_CN";
       } else if (slang == 6) { // German
         info ("Changed locale to German.");
         Environment.set_variable ("LANG", "de", true);
-        this.settings.write_string ("ricin.interface.selected_language", "de");
+        this.settings.selected_language = "de";
+      } else if (slang == 7) { // Ukrainian
+        info ("Changed locale to Ukrainian.");
+        Environment.set_variable ("LANG", "uk", true);
+        this.settings.selected_language = "uk";
+      } else if (slang == 8) { // Russian
+        info ("Changed locale to Russian.");
+        Environment.set_variable ("LANG", "ru_RU", true);
+        this.settings.selected_language = "ru_RU";
       }
+
+      this.reload_options ();
     });
 
-    string selected_theme = this.settings.get_string ("ricin.interface.selected_theme");
+    string selected_theme = this.settings.selected_theme;
     if (selected_theme == "dark") {
       this.combobox_selected_theme.active = 0;
     } else if (selected_theme == "white") {
@@ -156,13 +171,11 @@ class Ricin.SettingsView : Gtk.Box {
       this.combobox_selected_theme.active = 2;
     }
 
-    bool enable_custom_themes = this.settings.get_bool ("ricin.interface.enable_custom_themes");
+    bool enable_custom_themes = this.settings.enable_custom_themes;
     this.switch_custom_themes.active = enable_custom_themes;
     this.combobox_selected_theme.sensitive = enable_custom_themes;
     this.button_reload_theme.sensitive = enable_custom_themes;
-
-    bool display_friends_status_changes = this.settings.get_bool ("ricin.interface.display_friends_status_changes");
-    this.switch_status_changes.active = display_friends_status_changes;
+    this.switch_status_changes.active = this.settings.show_status_changes;
 
     this.switch_custom_themes.notify["active"].connect (() => {
       if (this.switch_custom_themes.active) {
@@ -173,24 +186,24 @@ class Ricin.SettingsView : Gtk.Box {
         switch (active) {
           case 0:
             ThemeManager.instance.set_theme ("dark");
-            this.settings.write_string ("ricin.interface.selected_theme", "dark");
+            this.settings.selected_theme = "dark";
             break;
           case 1:
             ThemeManager.instance.set_theme ("white");
-            this.settings.write_string ("ricin.interface.selected_theme", "white");
+            this.settings.selected_theme = "white";
             break;
           case 2:
             ThemeManager.instance.set_theme ("clearer");
-            this.settings.write_string ("ricin.interface.selected_theme", "clearer");
+            this.settings.selected_theme = "clearer";
             break;
         }
 
-        this.settings.write_bool ("ricin.interface.enable_custom_themes", true);
+        this.settings.enable_custom_themes = true;
       } else {
         this.combobox_selected_theme.sensitive = false;
         this.button_reload_theme.sensitive = false;
         ThemeManager.instance.set_system_theme ();
-        this.settings.write_bool ("ricin.interface.enable_custom_themes", false);
+        this.settings.enable_custom_themes = false;
       }
     });
 
@@ -201,15 +214,15 @@ class Ricin.SettingsView : Gtk.Box {
       switch (active) {
         case 0:
           ThemeManager.instance.set_theme ("dark");
-          this.settings.write_string ("ricin.interface.selected_theme", "dark");
+          this.settings.selected_theme = "dark";
           break;
         case 1:
           ThemeManager.instance.set_theme ("white");
-          this.settings.write_string ("ricin.interface.selected_theme", "white");
+          this.settings.selected_theme = "white";
           break;
         case 2:
           ThemeManager.instance.set_theme ("clearer");
-          this.settings.write_string ("ricin.interface.selected_theme", "clearer");
+          this.settings.selected_theme = "clearer";
           break;
       }
     });
@@ -219,28 +232,63 @@ class Ricin.SettingsView : Gtk.Box {
     });
 
     this.switch_status_changes.notify["active"].connect (() => {
-      this.settings.write_bool (
-        "ricin.interface.display_friends_status_changes",
-        this.switch_status_changes.active
-      );
+      this.settings.show_status_changes = this.switch_status_changes.active;
+    });
+
+    // Show typing notifications.
+    this.switch_display_typing_notifications.active = this.settings.show_typing_status;
+    this.switch_display_typing_notifications.notify["active"].connect (() => {
+      this.settings.show_typing_status = this.switch_display_typing_notifications.active;
     });
 
     // Send typing notifications.
+    this.switch_typing_notifications.active = this.settings.send_typing_status;
     this.switch_typing_notifications.notify["active"].connect (() => {
-      this.settings.write_bool (
-        "ricin.interface.send_typing_notification",
-        this.switch_typing_notifications.active
-      );
+      this.settings.send_typing_status = this.switch_typing_notifications.active;
     });
 
-    /**
-    * TODO:
-    **/
-    /*
-      this.switch_udp_enabled.state_set.connect (this.udp_state_changed);
-      this.switch_ipv6_enabled.state_set.connect (this.ipv6_state_changed);
-      this.switch_proxy_enabled.state_set.connect (this.proxy_state_changed);
-    */
+    // Show unread messages notice.
+    this.switch_unread_messages.active = this.settings.show_unread_messages;
+    this.switch_unread_messages.notify["active"].connect (() => {
+      this.settings.show_unread_messages = this.switch_unread_messages.active;
+    });
+
+    var udp = this.settings.network_udp;
+    var ipv6 = this.settings.network_ipv6;
+    var proxy = this.settings.enable_proxy;
+    var proxy_host = this.settings.proxy_host;
+    var proxy_port = (double) this.settings.proxy_port;
+    this.switch_udp_enabled.set_active (udp);
+    this.switch_ipv6_enabled.set_active (ipv6);
+    this.switch_proxy_enabled.set_active (proxy);
+    this.entry_proxy_ip.set_text (proxy_host);
+    this.spinbutton_proxy_port.set_range (0, 65535); // Min, max values.
+    this.spinbutton_proxy_port.value = proxy_port;
+
+    this.switch_udp_enabled.notify["active"].connect (this.udp_state_changed);
+    this.switch_ipv6_enabled.notify["active"].connect (this.ipv6_state_changed);
+    this.switch_proxy_enabled.notify["active"].connect (this.proxy_state_changed);
+  }
+
+  private void udp_state_changed () {
+    this.settings.network_udp = this.switch_udp_enabled.active;
+    this.reload_options ();
+  }
+
+  private void ipv6_state_changed () {
+    this.settings.network_ipv6 = this.switch_ipv6_enabled.active;
+    this.reload_options ();
+  }
+
+  private void proxy_state_changed () {
+    bool proxy_enabled = this.switch_proxy_enabled.active;
+    string ip = this.entry_proxy_ip.get_text ();
+    int port  = (int) this.spinbutton_proxy_port.value;
+
+    this.settings.enable_proxy = proxy_enabled;
+    this.settings.proxy_host = ip;
+    this.settings.proxy_port = port;
+    this.reload_options ();
   }
 
   /**

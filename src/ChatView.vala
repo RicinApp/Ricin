@@ -53,7 +53,7 @@ class Ricin.ChatView : Gtk.Box {
   private weak Gtk.Stack stack;
   private string view_name;
   private HistoryManager history;
-  private SettingsManager settings;
+  private Settings settings;
 
   private Tox.UserStatus last_status;
   private string last_message_sender;
@@ -82,7 +82,7 @@ class Ricin.ChatView : Gtk.Box {
     this.stack = stack;
     this.view_name = view_name;
     this.history = new HistoryManager (this.fr.pubkey);
-    this.settings = SettingsManager.instance;
+    this.settings = Settings.instance;
 
     if (this.fr.name == null) {
       this.label_friend_profil_name.set_text (this.fr.get_uname ());
@@ -292,7 +292,7 @@ class Ricin.ChatView : Gtk.Box {
     fr.bind_property ("name", username, "label", BindingFlags.DEFAULT);
 
     this.entry.changed.connect (() => {
-      bool send_typing_notification = this.settings.get_bool ("ricin.interface.send_typing_notification");
+      bool send_typing_notification = this.settings.send_typing_status;
       if (!send_typing_notification) {
         return;
       }
@@ -300,7 +300,7 @@ class Ricin.ChatView : Gtk.Box {
       this.fr.send_typing (is_typing);
     });
     this.entry.backspace.connect (() => {
-      bool send_typing_notification = this.settings.get_bool ("ricin.interface.send_typing_notification");
+      bool send_typing_notification = this.settings.send_typing_status;
       if (!send_typing_notification) {
         return;
       }
@@ -309,6 +309,10 @@ class Ricin.ChatView : Gtk.Box {
     });
 
     this.fr.notify["typing"].connect ((obj, prop) => {
+      if (!this.settings.show_typing_status) {
+        return;
+      }
+
       string friend_name = Util.escape_html (this.fr.name);
       this.label_friend_is_typing.set_markup (@"<i>$friend_name " + _("is typing") + "</i>");
       this.friend_typing.reveal_child = this.fr.typing;
@@ -356,7 +360,7 @@ class Ricin.ChatView : Gtk.Box {
       this.image_friend_status.set_from_resource (@"/chat/tox/ricin/images/status/$icon.png");
       this.label_friend_last_seen.set_markup (this.fr.last_online ("%H:%M %d/%m/%Y"));
 
-      bool display_friends_status_changes = this.settings.get_bool ("ricin.interface.display_friends_status_changes");
+      bool display_friends_status_changes = this.settings.show_status_changes;
       if (this.last_status != status && display_friends_status_changes) {
         var status_str = Util.status_to_string (this.fr.status);
         this.last_message_sender = "friend";
@@ -496,21 +500,21 @@ class Ricin.ChatView : Gtk.Box {
     * This prevent users searching in the history but getting bottom'd by the autoscroll.
     **/
     Gtk.Adjustment adj = this.scroll_messages.get_vadjustment ();
-    if (adj.value == this._bottom_scroll) {
+    if (this._bottom_scroll == adj.value || this._bottom_scroll == 0.0) {
       adj.set_value (adj.get_upper () - adj.get_page_size ());
       this.is_bottom = true;
 
-      if (this.revealer_unread_messages.reveal_child == true) {
+      if (this.settings.show_unread_messages) {
         this.revealer_unread_messages.reveal_child = false;
       }
     } else {
       this.is_bottom = false;
-      if (this.revealer_unread_messages.reveal_child == false) {
+      if (this.settings.show_unread_messages) {
         this.revealer_unread_messages.reveal_child = true;
       }
     }
 
-    this._bottom_scroll = adj.get_upper () - adj.get_page_size ();
+    this._bottom_scroll = adj.value;
   }
 
   [GtkCallback]

@@ -2,57 +2,22 @@
 ### [Install] - [Compile] - [Contribute] - [Translate] - [Donate] - [Discover Vala]
 
 [![Ricin license](https://img.shields.io/badge/license-GPLv3-blue.svg?style=flat)](https://raw.githubusercontent.com/RicinApp/Ricin/master/LICENSE)
-[![Ricin release](https://img.shields.io/github/release/RicinApp/Ricin.svg?style=flat&maxAge=2592000)](https://github.com/RicinApp/Ricin/releases/latest)
-[![Ricin open issues](https://img.shields.io/github/issues/RicinApp/Ricin.svg?style=flat&maxAge=2592000)](https://github.com/RicinApp/Ricin/issues)
-[![Codecov master](https://img.shields.io/codecov/c/github/RicinApp/Ricin/master.svg?style=flat&maxAge=2592000)](https://codecov.io/github/RicinApp/Ricin)
-[![TravisCI](https://img.shields.io/travis/RicinApp/Ricin/master.svg?style=flat&maxAge=2592000)](https://travis-ci.org/RicinApp/Ricin)
+[![Ricin release](https://img.shields.io/github/release/RicinApp/Ricin.svg?style=flat)](https://github.com/RicinApp/Ricin/releases/latest)
+[![Ricin open issues](https://img.shields.io/github/issues/RicinApp/Ricin.svg?style=flat)](https://github.com/RicinApp/Ricin/issues)
+[![Codecov master](https://img.shields.io/codecov/c/github/RicinApp/Ricin/master.svg?style=flat)](https://codecov.io/github/RicinApp/Ricin)
+[![TravisCI](https://img.shields.io/travis/RicinApp/Ricin/master.svg?style=flat)](https://travis-ci.org/RicinApp/Ricin)
 
 # Introduction
 **Ricin** aims to be a _secure_, _lightweight_, _hackable_ and _fully-customizable_ chat client using the awesome and open-source **ToxCore** library. We know that there are several Tox clients but this project was initially made because the other clients are still missing many features that users have been waiting for over many months. Ricin is a simple but powerful cross-platform client written in Vala and using Gtk+ 3.0.
 
 _Screenshot might be outdated but it should give you a general idea of what Ricin is_
-![Early version](https://ricin.im/static/images/ricin_01.png)
-
-# Dependencies
-| Package name   | Notes      | Version   |
-|:---------------|:----------:|----------:|
-| [meson]        |  building  | >=0.30.0  |
-| [ninja]        |  building  | >=1.5.1   |
-| valac          |  building  | >=0.28.1  |
-| gtk+3          |            | >=3.16    |
-| [libtoxcore]   |            | >=0.0.0   |
-| glib2          |            | >=2.38    |
-| json-glib      |            | >=1.0     |
-| libsoup        |            | >=2.4     |
-| libnotify      |            | >=0.7.6   |
-| libconfig      |            | >=1.5.0   |
+![Early version](http://i.imgur.com/f7np85T.png)
 
 # Install
-## Linux
-### ArchLinux
-Thanks to [LastAvenger] Arch users can enjoy a package located here: [ricin-git]  
-Installing the package from a shell is simple as doing this:
-```bash
-yaourt -S ricin-git
-```
-
-### Other Linux distributions
-For other systems that doesn't yet have a package you'll have a to compile & install Ricin from sources.  
-First, install Ricin's <a href="#dependencies">dependencies</a> then run the following commands in a shell:
-```bash
-git clone --recursive https://github.com/RicinApp/Ricin.git && cd Ricin
-make autogen
-sudo make install
-```
-
-## Windows
-Ricin isn't yet available on Windows, anyway this is planed.
-
-## OSX
-Ricin isn't yet available on OSX, anyway this is also planed!
+Installation instructions are available inside our [INSTALL.md] file. :)
 
 # Compile
-Please refer to the [INSTALL.md] to install the dependencies on your Linux distribution.
+Please reffer to the [INSTALL.md] to install the dependencies on your Linux distribution.
 
 ```bash
 git clone --recursive https://github.com/RicinApp/Ricin.git && cd Ricin
@@ -103,11 +68,6 @@ Before clicking on any link below, you must know what Vala is and why it is so p
 [Donate]: #donate
 [Discover Vala]: #discover-vala
 
-[libtoxcore]: https://github.com/irungentoo/toxcore/blob/master/INSTALL.md
-[meson]: http://mesonbuild.com/
-[ninja]: http://martine.github.io/ninja/
-[LastAvenger]: https://github.com/LastAvenger
-[ricin-git]: https://aur.archlinux.org/packages/ricin-git
 [INSTALL.md]: docs/INSTALL.md
 [Paying us a Bounty]: https://www.bountysource.com/teams/RicinApp
 [go to this page]: https://www.transifex.com/ricinapp/ricin/ricinpot/

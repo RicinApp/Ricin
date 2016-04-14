@@ -46,6 +46,7 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
   [GtkChild] Gtk.Box box_bottom_buttons;
   [GtkChild] Gtk.Button button_settings;
 
+  private SettingsView settings_view;
   private ListStore friends = new ListStore (typeof (Tox.Friend));
 
   public Tox.Tox tox;
@@ -53,14 +54,16 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
   private Gtk.ListBoxRow selected_row;
   private Gtk.Menu menu_statusicon_main;
   private Gtk.StatusIcon statusicon_main;
-  private SettingsManager settings;
+  private Settings settings;
   private string window_title;
+  private string profile;
 
   public signal void notify_message (string message, int timeout = 5000);
 
   public MainWindow (Gtk.Application app, string profile, bool is_new) {
     Object (application: app);
-    this.settings = SettingsManager.instance;
+    this.settings = Settings.instance;
+    this.profile = profile;
 
     Gdk.Pixbuf app_icon = new Gdk.Pixbuf.from_resource ("/chat/tox/ricin/images/icons/Ricin-128x128.png");
     string profile_base = File.new_for_path (profile).get_basename ();
@@ -75,8 +78,18 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
     this.set_icon (app_icon);
 
     var opts = Tox.Options.create ();
-    opts.ipv6_enabled = true;
-    opts.udp_enabled = true;
+    opts.ipv6_enabled = this.settings.network_ipv6;
+    opts.udp_enabled = this.settings.network_udp;
+
+    if (this.settings.enable_proxy) {
+      debug ("Ricin is being proxied.");
+      opts.proxy_type = ToxCore.ProxyType.SOCKS5;
+      opts.proxy_host = this.settings.proxy_host;
+      opts.proxy_port = (uint16) this.settings.proxy_port;
+      debug ("Proxy type: SOCKS5");
+      debug (@"Proxy host: $(opts.proxy_host)");
+      debug (@"Proxy port: $(opts.proxy_port)");
+    }
 
     try {
       this.tox = new Tox.Tox (opts, profile);
@@ -96,11 +109,15 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
       return;
     }
 
-    var settings = new SettingsView (this.tox);
-    this.chat_stack.add_named (settings, "settings");
-    this.chat_stack.set_visible_child (settings);
+    // Display the settings view.
+    this.settings_view = new SettingsView (this.tox);
+    this.chat_stack.add_named (this.settings_view, "settings");
+    this.chat_stack.set_visible_child (this.settings_view);
     this.focused_view = "settings";
     this.set_title (this.window_title + " - " + _(@"Settings"));
+
+    this.settings_view.reload_options.connect (this.reload_tox);
+
     // Display the welcome screen while their is no friends online.
     /*var welcome = new WelcomeView (this.tox);
     this.chat_stack.add_named (welcome, "welcome");
@@ -486,6 +503,50 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
     }
   }
 
+  private void reload_tox () {
+    /**
+    * TODO + FIXME
+    **/
+    /**
+    var opts = Tox.Options.create ();
+    opts.ipv6_enabled = this.settings.get_bool ("ricin.network.ipv6");
+    opts.udp_enabled = this.settings.get_bool ("ricin.network.udp");
+
+    if (this.settings.get_bool ("ricin.network.proxy.enabled")) {
+      opts.proxy_type = ToxCore.ProxyType.SOCKS5;
+      opts.proxy_host = this.settings.get_string ("ricin.network.proxy.ip_address");
+      opts.proxy_port = (uint16) this.settings.get_int ("ricin.network.proxy.port");
+    }
+
+    try {
+      this.tox = new Tox.Tox (opts, this.profile);
+    } catch (Error e) {
+      error (@"Cannot reload profile.");
+    }
+    **/
+
+    /**
+    * Until I find a fix for the code above, lets just warn the user that
+    * a restart is needed to have new network settings working.
+    **/
+    var dialog = new Gtk.MessageDialog (
+      this,
+      Gtk.DialogFlags.MODAL, Gtk.MessageType.QUESTION, Gtk.ButtonsType.NONE,
+      "%s", _("Restart required")
+    );
+    dialog.secondary_text = _("Ricin needs to restart in order to apply settings. Do you want to restart?");
+    dialog.add_buttons (_("Restart now"), Gtk.ResponseType.ACCEPT, _("Restart later"), Gtk.ResponseType.REJECT);
+    dialog.response.connect (response => {
+      if (response == Gtk.ResponseType.ACCEPT) {
+        this.close ();
+        //Gtk.main_quit ();
+      }
+      dialog.destroy ();
+    });
+
+    dialog.show ();
+  }
+
   [GtkCallback]
   private void show_settings () {
     this.display_settings ();
@@ -645,6 +706,8 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
 
   ~MainWindow () {
     this.tox.save_data ();
+    this.settings.save_settings ();
+    this.tox.disconnect ();
     //this.tox.handle = null;
     //this.tox = null;
   }

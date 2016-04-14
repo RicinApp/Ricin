@@ -12,12 +12,11 @@ class Ricin.ProfileChooser : Gtk.ApplicationWindow {
   [GtkChild] Gtk.Entry entry_register_name;
   [GtkChild] Gtk.Button button_register;
 
-  private SettingsManager settings;
+  private Settings settings;
 
   public ProfileChooser (Gtk.Application app) {
     Object (application: app);
-
-    this.settings = SettingsManager.instance;
+    this.settings = Settings.instance;
 
     Gdk.Pixbuf app_icon = new Gdk.Pixbuf.from_resource ("/chat/tox/ricin/images/icons/Ricin-128x128.png");
     this.window_position = Gtk.WindowPosition.CENTER;
@@ -27,7 +26,7 @@ class Ricin.ProfileChooser : Gtk.ApplicationWindow {
     this.set_resizable (false);
 
     int latest_index = 0;
-    string last_profile_used = this.settings.get_string ("ricin.general.last_profile_used");
+    string last_profile_used = this.settings.last_profile;
 
     var dir = File.new_for_path (Tox.profile_dir ());
     string[] profiles = {};
@@ -70,7 +69,7 @@ class Ricin.ProfileChooser : Gtk.ApplicationWindow {
     // last_profile_used
 
     if (FileUtils.test (profile, FileTest.EXISTS)) {
-      this.settings.write_string ("ricin.general.last_profile_used", pname.replace (".tox", ""));
+      this.settings.last_profile = pname.replace (".tox", "");
       new MainWindow (this.application, profile, false);
       this.close (); // if a dialog is open, the window will not be closed
     } else {

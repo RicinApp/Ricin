@@ -17,11 +17,6 @@ deps = [
     dependency('libtoxcore')
 ]
 
-libconfig = dependency('libconfig', required : false)
-if libconfig.found()
-    deps += libconfig # Needed cuz Windows won't use libconfig.
-endif
-
 subdir('src')
 subdir('res')
 
@@ -38,6 +33,7 @@ executable(
         '--gresources', resxml,
         '--vapidir', '@0@/@1@'.format(meson.current_source_dir(), 'vapis/')
     ],
+    #link_args : '-static',
     install: true
 )
 

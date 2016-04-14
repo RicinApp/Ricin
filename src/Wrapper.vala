@@ -65,6 +65,9 @@ namespace Tox {
     private string? profile = null;
     internal Gdk.Pixbuf? avatar = null;
 
+    // Used to kill tox.
+    private bool must_stop = false;
+
     public string username {
       owned get {
         uint8[] chars = new uint8[this.handle.self_get_name_size ()];
@@ -365,12 +368,21 @@ namespace Tox {
       this.bootstrap.begin ();
     }
 
+    public void disconnect () {
+      this.must_stop = true;
+      this.handle.kill ();
+    }
+
     public void run_loop () {
       this.schedule_loop_iteration ();
     }
 
     private void schedule_loop_iteration () {
       Timeout.add (this.handle.iteration_interval (), () => {
+        if (this.must_stop) {
+          return true;
+        }
+
         this.handle.iterate ();
         this.schedule_loop_iteration ();
         //return Source.REMOVE;
@@ -579,7 +591,7 @@ namespace Tox {
 
     public string last_online (string? format) {
       uint64 last = this.tox.handle.friend_get_last_online (this.num, null);
-      debug (@"Last online for $num: $last");
+      //debug (@" for $num: $last");
 
       DateTime time = new DateTime.from_unix_local ((int64)last);
       return time.format((format != null) ? format : _("<b>Last online:</b>") + " %H:%M %d/%m/%Y");

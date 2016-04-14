@@ -5,7 +5,8 @@ langs = [
   'pt_PT', # By gmscs
   'eo',    # By Kamparano
   'zh_CN', # By lineteen (Easy Tang)
-  'de'     # By AncientWeapon (Sarah Kraßnigg)
-
+  'de',    # By AncientWeapon (Sarah Kraßnigg)
+  'uk',    # By barwinko (Roman Stobenski)
+  'ru_RU', # By talipomin (Roman Boldyrev), rigidecho
 ]
 i18n.gettext('ricin', languages : langs)
