@@ -22,6 +22,9 @@ install:
  - sudo apt-get install -y lcov
 
 before_script:
+# Test if commit message is valid, else fail.
+- if [[ "$TRAVIS_PULL_REQUEST" != "false" ]]; then bash ./tools/verify_commit_messages.sh "$TRAVIS_COMMIT_RANGE"
+
 # ninja
  - git clone git://github.com/martine/ninja.git
  - cd ninja
