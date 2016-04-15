@@ -86,7 +86,7 @@ namespace ToxEncrypt {
 
   public static bool pass_encrypt ([CCode (array_length_type="size_t")] uint8[] data, [CCode (array_length_type="size_t")] uint8[] passphrase, [CCode (array_length=false)] uint8[] @out, out ERR_ENCRYPTION error);
 
-  public static bool padd_decrypt ([CCode (array_length_type="size_t")] uint8[] data, [CCode (array_length_type="size_t")] uint8[] passphrase, [CCode (array_length=false)] uint8[] @out, out ERR_DECRYPTION error);
+  public static bool pass_decrypt ([CCode (array_length_type="size_t")] uint8[] data, [CCode (array_length_type="size_t")] uint8[] passphrase, [CCode (array_length=false)] uint8[] @out, out ERR_DECRYPTION error);
 
   public static bool derive_key_from_pass ([CCode (array_length_type="size_t")] uint8[] passphrase, out PassKey out_key, out ERR_KEY_DERIVATION error);
 
