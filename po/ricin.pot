@@ -1,14 +1,14 @@
-# Ricin.
-# Copyright (C) 2016 SkyzohKey and contributors
-# This file is distributed under the same license as the Ricin package.
-# SkyzohKey <skyzohkey@protonmail.com>, 2016.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Ricin 0.0.6\n"
+"Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-12 21:11+0200\n"
+"POT-Creation-Date: 2016-04-14 17:44+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,7 +21,7 @@ msgstr ""
 msgid " is now "
 msgstr ""
 
-#: src/Wrapper.vala:219
+#: src/Wrapper.vala:222
 msgid " is now known as "
 msgstr ""
 
@@ -75,7 +75,7 @@ msgstr ""
 msgid "<b>Language:</b>"
 msgstr ""
 
-#: src/Wrapper.vala:585
+#: src/Wrapper.vala:597
 msgid "<b>Last online:</b>"
 msgstr ""
 
@@ -87,7 +87,7 @@ msgstr ""
 msgid "<b>Proxy (SOCKS 5)</b>"
 msgstr ""
 
-#: res/ui/settings-view.ui:1277
+#: src/Ricin.vala:4 res/ui/settings-view.ui:1277
 msgid ""
 "<b>Ricin</b> aims to be a <i>secure, lightweight, hackable and fully-"
 "customizable</i> chat client using the awesome and open-source <b>ToxCore</"
@@ -167,7 +167,7 @@ msgstr ""
 msgid "Block"
 msgstr ""
 
-#: src/FriendListRow.vala:63
+#: src/FriendListRow.vala:64
 msgid "Block friend"
 msgstr ""
 
@@ -229,7 +229,7 @@ msgstr ""
 msgid "Choose smileys"
 msgstr ""
 
-#: src/SettingsView.vala:93
+#: src/SettingsView.vala:95
 msgid "Clearer theme"
 msgstr ""
 
@@ -257,7 +257,7 @@ msgstr ""
 msgid "Create this profile"
 msgstr ""
 
-#: src/SettingsView.vala:91
+#: src/SettingsView.vala:93
 msgid "Dark theme"
 msgstr ""
 
@@ -511,7 +511,7 @@ msgstr ""
 msgid "Unblock"
 msgstr ""
 
-#: src/FriendListRow.vala:63
+#: src/FriendListRow.vala:64
 msgid "Unblock friend"
 msgstr ""
 
@@ -531,7 +531,7 @@ msgstr ""
 msgid "Video call friend"
 msgstr ""
 
-#: src/SettingsView.vala:92
+#: src/SettingsView.vala:94
 msgid "White theme"
 msgstr ""
 

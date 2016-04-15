@@ -30,6 +30,7 @@ class Settings : Object {
   public const string ENABLE_TRAY_KEY          = "enable-tray";
   public const string ENABLE_NOTIFY_KEY        = "enable-notify";
   public const string ENABLE_NOTIFY_SOUNDS_KEY = "enable-notify-sounds";
+  public const string DEFAULT_SAVE_PATH_KEY    = "default-save-path";
 
   /**
   * Public members, can be get/set.
@@ -57,6 +58,7 @@ class Settings : Object {
   public bool enable_tray          { get; set; default = true; }
   public bool enable_notify        { get; set; default = true; }
   public bool enable_notify_sounds { get; set; default = true; }
+  public string default_save_path  { get; set; default = ""; }
 
   private static Settings? _instance;
   public static Settings instance {
@@ -114,6 +116,7 @@ class Settings : Object {
         this.enable_tray          = settings.enable_tray;
         this.enable_notify        = settings.enable_notify;
         this.enable_notify_sounds = settings.enable_notify_sounds;
+        this.default_save_path    = settings.default_save_path;
       }
     } catch (Error e) {
       debug (@"Error loading settings: $(e.message)");
