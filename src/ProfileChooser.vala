@@ -63,15 +63,15 @@ class Ricin.ProfileChooser : Gtk.ApplicationWindow {
 
   [GtkCallback]
   private void login () {
-    this.button_login.sensitive = false;
     var pname = this.combobox_profiles.get_active_text ();
     var profile = Tox.profile_dir () + pname;
-    // last_profile_used
 
     if (FileUtils.test (profile, FileTest.EXISTS)) {
+      this.button_login.sensitive = false;
       this.settings.last_profile = pname.replace (".tox", "");
       new MainWindow (this.application, profile, false);
       this.close (); // if a dialog is open, the window will not be closed
+      this.button_login.sensitive = true;
     } else {
       // file deleted?
       this.button_login.sensitive = true;
