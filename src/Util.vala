@@ -33,7 +33,7 @@ namespace Util {
 
   public static string render_litemd (string text) {
     string escaped_text = escape_html (text);
-    escaped_text = escaped_text.replace (":+1:", "👍")
+    string emoji = escaped_text.replace (":+1:", "👍")
       .replace (":-1:", "👎")
       .replace (":@", "😠")
       .replace (">:(", "😠")
@@ -66,28 +66,40 @@ namespace Util {
 
     // Markdown.
     // Returns plaintext as fallback in case of parsing error.
-    string message = "";
+    string message = escaped_text;
 
     try {
-      var uri = /(\w+:\/?\/?[^\s]+)/.replace (escaped_text, -1, 0, "<span color=\"#2a92c6\"><a href=\"\\1\">\\1</a></span>");
+      Regex code_block = new Regex("^`((?s).*)`$", RegexCompileFlags.MULTILINE);
+      MatchInfo match_info;
 
-      var bold = /\B\*\*([^\*\*]{2,}?)\*\*\B/.replace (uri, -1, 0, "<b>\\1</b>");
-      bold = /\B\*([^\*]{2,}?)\*\B/.replace (bold, -1, 0, "<b>\\1</b>");
-      var italic = /\B\/\/([^\/\/]{2,}?)\/\/\B/.replace(bold, -1, 0, "<i>\\1</i>");
-      italic = /\B\/([^\/]{2,}?)\/\B/.replace(italic, -1, 0, "<i>\\1</i>");
-      var underlined = /\b__([^__]{2,}?)__\b/.replace(italic, -1, 0, "<u>\\1</u>");
-      underlined = /\b_([^_]{2,}?)_\b/.replace(underlined, -1, 0, "<u>\\1</u>");
-      var striked = /\B~~([^~~]{2,}?)~~\B/.replace(underlined, -1, 0, "<s>\\1</s>");
-      striked = /\B~([^~]{2,}?)~\B/.replace(striked, -1, 0, "<s>\\1</s>");
-      var inline_code = /\B`([^`]*)`\B/.replace(striked, -1, 0, "<span face=\"monospace\" size=\"smaller\">\\1</span>");
+      if (code_block.match (escaped_text, 0, out match_info)) {
+        // If message is a code block, doesn't render markdown.
+        /*var code = /^`([^`]{2,}?)`$/.replace (escaped_text, -1, 0, "<span face=\"monospace\" size=\"smaller\">\\1</span>");
+        message = code;*/
+        debug ("Code block regex compiled, returning monospaced text.");
 
-      message = inline_code;
+        // 0 is the full text of the match, 1 is the first paren set.
+        string matched_text = match_info.fetch (1);
+        return @"<span face=\"monospace\" size=\"smaller\">$matched_text</span>";
+      } else {
+        var uri = /(\w+:\/?\/?[^\s]+)/.replace (emoji, -1, 0, "<span color=\"#2a92c6\"><a href=\"\\1\">\\1</a></span>");
+
+        var bold = /\B\*\*([^\*\*]{2,}?)\*\*\B/.replace (uri, -1, 0, "<b>\\1</b>");
+        bold = /\B\*([^\*]{2,}?)\*\B/.replace (bold, -1, 0, "<b>\\1</b>");
+        var italic = /\B\/\/([^\/\/]{2,}?)\/\/\B/.replace(bold, -1, 0, "<i>\\1</i>");
+        italic = /\B\/([^\/]{2,}?)\/\B/.replace(italic, -1, 0, "<i>\\1</i>");
+        var underlined = /\b__([^__]{2,}?)__\b/.replace(italic, -1, 0, "<u>\\1</u>");
+        underlined = /\b_([^_]{2,}?)_\b/.replace(underlined, -1, 0, "<u>\\1</u>");
+        var striked = /\B~~([^~~]{2,}?)~~\B/.replace(underlined, -1, 0, "<s>\\1</s>");
+        striked = /\B~([^~]{2,}?)~\B/.replace(striked, -1, 0, "<s>\\1</s>");
+        var inline_code = /\B`([^`]*)`\B/.replace(striked, -1, 0, "<span face=\"monospace\" size=\"smaller\">\\1</span>");
+
+        return inline_code;
+      }
     } catch (Error e) {
       debug (@"Cannot parse message, fallback to plain message.\nError: $(e.message)");
-      message = escaped_text;
+      return escaped_text;
     }
-
-    return message;
   }
 
   public static string add_markup (string text) {
