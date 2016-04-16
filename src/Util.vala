@@ -82,12 +82,12 @@ namespace Util {
         string matched_text = match_info.fetch (1);
         return @"<span face=\"monospace\" size=\"smaller\">$matched_text</span>";
       } else {
-        var uri = /(\w+:\/?\/?[^\s]+)/.replace (emoji, -1, 0, "<span color=\"#2a92c6\"><a href=\"\\1\">\\1</a></span>");
+        var uri = /(\w+:\S+)/.replace (emoji, -1, 0, "<span color=\"#2a92c6\"><a href=\"\\1\">\\1</a></span>");
 
         var bold = /\B\*\*([^\*\*]{2,}?)\*\*\B/.replace (uri, -1, 0, "<b>\\1</b>");
         bold = /\B\*([^\*]{2,}?)\*\B/.replace (bold, -1, 0, "<b>\\1</b>");
-        var italic = /\B\/\/([^\/\/]{2,}?)\/\/\B/.replace(bold, -1, 0, "<i>\\1</i>");
-        italic = /\B\/([^\/]{2,}?)\/\B/.replace(italic, -1, 0, "<i>\\1</i>");
+        var italic = /^\/\/([^\/\/]{2,}?)\/\/$/.replace(bold, -1, 0, "<i>\\1</i>");
+        italic = /^\/([^\/]{2,}?)\/$/.replace(italic, -1, 0, "<i>\\1</i>");
         var underlined = /\b__([^__]{2,}?)__\b/.replace(italic, -1, 0, "<u>\\1</u>");
         underlined = /\b_([^_]{2,}?)_\b/.replace(underlined, -1, 0, "<u>\\1</u>");
         var striked = /\B~~([^~~]{2,}?)~~\B/.replace(underlined, -1, 0, "<s>\\1</s>");
