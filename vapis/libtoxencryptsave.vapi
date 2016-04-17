@@ -1,4 +1,4 @@
-[CCode (cheader_filename="toxencryptsave/toxencryptsave.h", cprefix="Tox", lower_case_cprefix="tox_")]
+[CCode (cheader_filename="tox/toxencryptsave.h", cprefix="Tox", lower_case_cprefix="tox_")]
 namespace ToxEncrypt {
   public const uint32 PASS_SALT_LENGTH;
   public const uint32 PASS_KEY_LENGTH;
@@ -84,9 +84,9 @@ namespace ToxEncrypt {
   * TODO: Make a proper doc for these functions.
   */
 
-  public static bool pass_encrypt ([CCode (array_length_type="size_t")] uint8[] data, [CCode (array_length_type="size_t")] uint8[] passphrase, [CCode (array_length=false)] uint8[] @out, out ERR_ENCRYPTION error);
+  public static bool pass_encrypt ([CCode (array_length_type="size_t")] uint8[] data, [CCode (array_length_type="size_t")] uint8[] passphrase, [CCode (array_length=false)] out uint8[] @out, out ERR_ENCRYPTION error);
 
-  public static bool pass_decrypt ([CCode (array_length_type="size_t")] uint8[] data, [CCode (array_length_type="size_t")] uint8[] passphrase, [CCode (array_length=false)] uint8[] @out, out ERR_DECRYPTION error);
+  public static bool pass_decrypt ([CCode (array_length_type="size_t")] uint8[] data, [CCode (array_length_type="size_t")] uint8[] passphrase, [CCode (array_length=false)] out uint8[] @out, out ERR_DECRYPTION error);
 
   public static bool derive_key_from_pass ([CCode (array_length_type="size_t")] uint8[] passphrase, out PassKey out_key, out ERR_KEY_DERIVATION error);
 
@@ -98,5 +98,5 @@ namespace ToxEncrypt {
 
   public static bool pass_key_decrypt ([CCode (array_length_type="size_t")] uint8[] data, PassKey key, [CCode (array_length=false)] uint8 @out, out ERR_DECRYPTION error);
 
-  public static bool is_data_encrypted (uint8[] data);
+  public static bool is_data_encrypted ([CCode (array_length=false)] uint8[] data);
 }

@@ -1,5 +1,7 @@
-# Ricin installation guide
-## Needed dependencies
+# Installation guide
+
+## Dependencies
+### &loz; Required
 | Package name   | Notes      | Version   |
 |:---------------|:----------:|----------:|
 | [meson]        |  building  | >=0.30.0  |
@@ -12,8 +14,7 @@
 | libsoup        |            | >=2.4     |
 | libnotify      |            | >=0.7.6   |
 
-## Fetching the dependencies
-### Ubuntu & debian based
+### Debian/Ubuntu
 On Ubuntu you need to compile ToxCore, Libsodium, and filter_audio by hand. Someone already wrote on how to achieve this, simply follow the guide to [Install ToxCore].
 
 After ToxCore is installed, run the following line to fetch & install the dependencies needed by Ricin to compile/run.
@@ -31,7 +32,7 @@ $ apt-get install gtk+3 libglib2.0-0 libglib2.0-dev \
 >**Note**: You may have to `sudo` both lines in order to have
 them running properly.
 
-### Arch (and similar distro)
+### ArchLinux
 To install all the Ricin's dependencies, simply write the
 following in a shell.
 
@@ -51,13 +52,18 @@ $ dnf install valac glib2 gtk3 gtk3-devel \
 ## Installing Ricin
 ### Linux
 #### ArchLinux
-Thanks to [LastAvenger], ArchLinux users can install Ricin with a package that can be found here: [ricin-git]. You simply have to write the following line in a shell:
+Thanks to [LastAvenger], ArchLinux users can install Ricin via AUR: [ricin-git] / [ricin].  
+You simply have to write the following line in a shell:
 
 ```bash
+# Fetch the source from git, build and install.
 $ yaourt -S ricin-git
+
+# Use the latest release (stable), build and install.
+$ yatourt -S ricin
 ```
 
-#### Other Linux distributions
+#### Others Linux
 For other systems that doesn't yet have a package you have a to compile and install Ricin from sources. Compiling Ricin is super simple as we use **The Meson Build System** that runs pretty much everywhere.  
 
 Run the following commands in a shell:
@@ -79,4 +85,5 @@ Ricin isn't available yet on OSX, anyway this is also planed!
 [ninja]: http://martine.github.io/ninja/
 [LastAvenger]: https://github.com/LastAvenger
 [ricin-git]: https://aur.archlinux.org/packages/ricin-git
+[ricin]: https://aur.archlinux.org/packages/ricin
 [Install ToxCore]: https://github.com/irungentoo/toxcore/blob/master/INSTALL.md#build-manually
