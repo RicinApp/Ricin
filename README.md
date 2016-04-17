@@ -17,7 +17,7 @@ _Screenshot might be outdated but it should give you a general idea of what Rici
 Installation instructions are available inside our [INSTALL.md] file. :)
 
 # Compile
-Please reffer to the [INSTALL.md] to install the dependencies on your Linux distribution.
+Please refer to the [INSTALL.md] to install the dependencies on your Linux distribution.
 
 ```bash
 git clone --recursive https://github.com/RicinApp/Ricin.git && cd Ricin
