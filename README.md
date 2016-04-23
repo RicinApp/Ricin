@@ -70,5 +70,5 @@ Before clicking on any link below, you must know what Vala is and why it is so p
 
 [INSTALL.md]: docs/INSTALL.md
 [Paying us a Bounty]: https://www.bountysource.com/teams/RicinApp
-[go to this page]: https://www.transifex.com/ricinapp/ricin/ricinpot/
+[go to this page]: https://www.transifex.com/ricinapp/ricin/
 [What is Vala?]: https://wiki.gnome.org/Projects/Vala/About
