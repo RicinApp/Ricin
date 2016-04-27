@@ -204,9 +204,14 @@ class Ricin.ChatView : Gtk.Box {
         var avatar_path = Tox.profile_dir () + "avatars/" + this.fr.pubkey + ".png";
         if (FileUtils.test (avatar_path, FileTest.EXISTS)) {
           var pixbuf = new Gdk.Pixbuf.from_file_at_scale (avatar_path, 46, 46, true);
-          Notification.notify (this.fr.name, message, 5000, pixbuf);
+
+          if (this.handle.status != Tox.UserStatus.BUSY) {
+            Notification.notify (this.fr.name, message, 5000, pixbuf);
+          }
         } else {
-          Notification.notify (this.fr.name, message, 5000);
+          if (this.handle.status != Tox.UserStatus.BUSY) {
+            Notification.notify (this.fr.name, message, 5000);
+          }
         }
       }
 
@@ -233,9 +238,14 @@ class Ricin.ChatView : Gtk.Box {
         var avatar_path = Tox.profile_dir () + "avatars/" + this.fr.pubkey + ".png";
         if (FileUtils.test (avatar_path, FileTest.EXISTS)) {
           var pixbuf = new Gdk.Pixbuf.from_file_at_scale (avatar_path, 46, 46, true);
-          Notification.notify (fr.name, message, 5000, pixbuf);
+
+          if (this.handle.status != Tox.UserStatus.BUSY) {
+            Notification.notify (fr.name, message, 5000, pixbuf);
+          }
         } else {
-          Notification.notify (fr.name, message, 5000);
+          if (this.handle.status != Tox.UserStatus.BUSY) {
+            Notification.notify (fr.name, message, 5000);
+          }
         }
 
       }
