@@ -1,3 +1,15 @@
+## 0.0.7 (2016-04-28)
+#### Bug Fixes
+* **Markdown:**
+  *  links are now formated correctly ([39c525b1](https://github.com/RicinApp/Ricin/commit/39c525b1391f266b70f0989e4aae0d3b35cdd77f))
+  *  doesn't parse markdown inside code blocks ([d0ada8f7](https://github.com/RicinApp/Ricin/commit/d0ada8f79050674cc2779add3a7e723aefd90f29))
+* **libtoxencryptsave:**  vapi fix ([87b49895](https://github.com/RicinApp/Ricin/commit/87b49895f8e5278df7a35155dcff80c76092c8be))
+* **login:**  button wasn't enabled if issue occured ([391bf245](https://github.com/RicinApp/Ricin/commit/391bf24507e663df0be494e93f6519a473c7c7ec))
+* **notification:**  only show notification if user isn't busy ([4635aba8](https://github.com/RicinApp/Ricin/commit/4635aba844b9773663fe64b6cf6b5791f40d1cc3))
+* **port range:**  allow for bigger port range, hope it fix #68 ([a50798bb](https://github.com/RicinApp/Ricin/commit/a50798bbeaa8443b1b2c98be0645d3d3e904fc59))
+* **tooltip:**  change tooltip when text changes ([b3596e71](https://github.com/RicinApp/Ricin/commit/b3596e7162b2534f1c3904262809d944684a341a))
+* **toxencryptsave:**  typo ([7b6a38fe](https://github.com/RicinApp/Ricin/commit/7b6a38fe5f54e3e4337b2ad8f4f7cdd0ca2f133e))
+
 ## 0.0.4.1 (2016-04-11)
 #### Bug Fixes
 * **Ricin.vala:**
