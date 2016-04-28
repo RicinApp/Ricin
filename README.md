@@ -20,7 +20,7 @@ Installation instructions are available inside our [INSTALL.md] file. :)
 Please refer to the [INSTALL.md] to install the dependencies on your Linux distribution.
 
 ```bash
-git clone --recursive https://github.com/RicinApp/Ricin.git && cd Ricin
+git clone https://github.com/RicinApp/Ricin.git && cd Ricin
 make autogen
 make debug
 ```

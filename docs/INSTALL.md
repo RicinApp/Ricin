@@ -68,7 +68,7 @@ For other systems that doesn't yet have a package you have a to compile and inst
 
 Run the following commands in a shell:
 ```bash
-git clone --recursive https://github.com/RicinApp/Ricin.git
+git clone https://github.com/RicinApp/Ricin.git
 cd Ricin
 make autogen
 sudo make install
