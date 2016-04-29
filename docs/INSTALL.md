@@ -63,6 +63,14 @@ $ yaourt -S ricin-git
 $ yatourt -S ricin
 ```
 
+#### Milis Linux
+Thanks to [milisage], Milis Linux users can install Ricin via MPS.
+You simply have to write the following line in a shell:
+
+```bash
+$ mps -kur ricin
+```
+
 #### Others Linux
 For other systems that doesn't yet have a package you have a to compile and install Ricin from sources. Compiling Ricin is super simple as we use **The Meson Build System** that runs pretty much everywhere.  
 
@@ -86,4 +94,5 @@ Ricin isn't available yet on OSX, anyway this is also planed!
 [LastAvenger]: https://github.com/LastAvenger
 [ricin-git]: https://aur.archlinux.org/packages/ricin-git
 [ricin]: https://aur.archlinux.org/packages/ricin
+[milisage]: https://github.com/milisarge
 [Install ToxCore]: https://github.com/irungentoo/toxcore/blob/master/INSTALL.md#build-manually
