@@ -64,7 +64,7 @@ $ yatourt -S ricin
 ```
 
 #### Milis Linux
-Thanks to [milisarge], [Milis Linux] users can install Ricin via MPS: [ricin](http://milis.gungre.ch/packages/ricin#0.0.7-x86_64.mps.lz).  
+Thanks to [milisarge], [Milis Linux] users can install Ricin via MPS: [ricin](http://milis.gungre.ch/packages/ricin%230.0.7-x86_64.mps.lz).  
 You simply have to write the following line in a shell:
 
 ```bash
