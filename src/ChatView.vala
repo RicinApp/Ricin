@@ -57,7 +57,7 @@ class Ricin.ChatView : Gtk.Box {
 
   private Tox.UserStatus last_status;
   private string last_message_sender;
-  private string last_message;
+  private string last_message = null;
   private bool is_bottom = true;
 
   /**
@@ -120,7 +120,7 @@ class Ricin.ChatView : Gtk.Box {
     }
 
     this.entry.key_press_event.connect ((event) => {
-      if (event.keyval == Gdk.Key.Up && this.entry.get_text () == "") {
+      if (event.keyval == Gdk.Key.Up && this.entry.get_text () == "" && this.last_message != null) {
         this.entry.set_text (this.last_message);
         this.entry.set_position (-1);
         return true;

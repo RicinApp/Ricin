@@ -58,6 +58,12 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
   private string window_title;
   private string profile;
 
+  [Signal (action = true)]
+  private signal void change_chat_up ();
+
+  [Signal (action = true)]
+  private signal void change_chat_down ();
+
   public signal void notify_message (string message, int timeout = 5000);
 
   public MainWindow (Gtk.Application app, string profile, bool is_new) {
@@ -76,6 +82,8 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
     // This should fix the #59 issue
     this.set_size_request (960, 500);
     this.set_icon (app_icon);
+
+    this.init_keyboard_shortcuts ();
 
     var opts = Tox.Options.create ();
     opts.ipv6_enabled = this.settings.network_ipv6;
@@ -321,6 +329,44 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
     this.tox.run_loop ();
     this.show_all ();
     this.append_friends.begin ();
+  }
+
+  private void init_keyboard_shortcuts () {
+    Gtk.AccelGroup accel_group = new Gtk.AccelGroup ();
+    this.add_accel_group (accel_group);
+    /**
+    * Keyboard shortcut for switching to previous/next contact's chatview.
+    * FIXME: Ctrl+Up | Ctrl+Down doesn't call these signals.
+    **/
+    this.change_chat_up.connect (() => {
+      var index = this.selected_row.get_index ();
+      if (index == 0) { return; }
+      var prev_row = this.friendlist.get_row_at_index (index - 1);
+      this.selected_row = prev_row;
+      this.selected_row.activate ();
+      this.friendlist.select_row (prev_row);
+    });
+    this.change_chat_down.connect (() => {
+      var index = this.selected_row.get_index ();
+      var max = this.friendlist.get_children ().length ();
+      if (index == max) { return; }
+      var next_row = this.friendlist.get_row_at_index (index + 1);
+      this.selected_row = next_row;
+      this.selected_row.activate ();
+      this.friendlist.select_row (next_row);
+    });
+
+    /**
+    * Shortcut for Ctrl+Up: Change the chat view to the previous one.
+    **/
+    this.add_accelerator ("change-chat-up", accel_group, Gdk.keyval_from_name("Up"),
+                          Gdk.ModifierType.CONTROL_MASK, Gtk.AccelFlags.VISIBLE);
+
+    /**
+    * Shortcut for Ctrl+Down: Change the chat view to the next one.
+    **/
+    this.add_accelerator ("change-chat-down", accel_group, Gdk.keyval_from_name("Down"),
+                          Gdk.ModifierType.CONTROL_MASK, Gtk.AccelFlags.VISIBLE);
   }
 
   private async void append_friends () {
