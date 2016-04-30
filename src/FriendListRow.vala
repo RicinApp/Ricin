@@ -14,6 +14,7 @@ class Ricin.FriendListRow : Gtk.ListBoxRow {
   private Gtk.ImageMenuItem block_friend;
 
   private Settings settings;
+  private ViewType view_type;
   private string iconName = "offline";
   private Gdk.Pixbuf pixbuf;
   public int unreadCount = 0;
@@ -63,8 +64,10 @@ class Ricin.FriendListRow : Gtk.ListBoxRow {
     this.settings.notify["compact-mode"].connect (() => {
       if (this.settings.compact_mode) {
         this.switch_view_type (ViewType.COMPACT);
+
       } else {
         this.switch_view_type (ViewType.FULL);
+
       }
     });
 
@@ -152,6 +155,8 @@ class Ricin.FriendListRow : Gtk.ListBoxRow {
       this.status.set_margin_bottom (0);
       this.status.set_valign (Gtk.Align.CENTER);
     }
+
+    this.view_type = type;
   }
 
   private void init_context_menu () {
