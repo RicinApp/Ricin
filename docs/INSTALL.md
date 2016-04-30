@@ -63,7 +63,7 @@ $ yaourt -S ricin-git
 $ yatourt -S ricin
 ```
 
-#### Milis Linux
+#### Milis Linux (Milis Isletim Sistemi)
 Thanks to [milisarge], [Milis Linux] users can install Ricin via MPS.  
 You simply have to write the following line in a shell:
 
