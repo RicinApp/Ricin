@@ -22,6 +22,7 @@ class Ricin.SettingsView : Gtk.Box {
   [GtkChild] Gtk.Switch switch_unread_messages;
   [GtkChild] Gtk.Switch switch_display_typing_notifications;
   [GtkChild] Gtk.Switch switch_typing_notifications;
+  [GtkChild] Gtk.Switch switch_compact_friendlist;
 
   // Network settings tab.
   [GtkChild] Gtk.Switch switch_udp_enabled;
@@ -255,6 +256,12 @@ class Ricin.SettingsView : Gtk.Box {
     this.switch_unread_messages.active = this.settings.show_unread_messages;
     this.switch_unread_messages.notify["active"].connect (() => {
       this.settings.show_unread_messages = this.switch_unread_messages.active;
+    });
+
+    // Switch compact mode.
+    this.switch_compact_friendlist.active = this.settings.compact_mode;
+    this.switch_compact_friendlist.notify["active"].connect (() => {
+      this.settings.compact_mode = this.switch_compact_friendlist.active;
     });
 
     var udp = this.settings.network_udp;
