@@ -80,6 +80,8 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
     var opts = Tox.Options.create ();
     opts.ipv6_enabled = this.settings.network_ipv6;
     opts.udp_enabled = this.settings.network_udp;
+    opts.start_port = 33445;
+    opts.end_port = 33745;
 
     if (this.settings.enable_proxy) {
       debug ("Ricin is being proxied.");
@@ -129,6 +131,9 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
       tox.send_avatar (path);
       var pixbuf = new Gdk.Pixbuf.from_file_at_scale (path, 48, 48, false);
       this.avatar_image.pixbuf = pixbuf;
+    } else {
+      Cairo.Surface surface = Util.identicon_for_pubkey (this.tox.pubkey, "%u".printf (this.tox.nospam));
+      this.avatar_image.pixbuf = Gdk.pixbuf_get_from_surface (surface, 0, 0, 48, 48);
     }
 
     this.init_tray_icon ();

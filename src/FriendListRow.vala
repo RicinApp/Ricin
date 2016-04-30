@@ -3,6 +3,7 @@ using Tox;
 [GtkTemplate (ui="/chat/tox/ricin/ui/friend-list-row.ui")]
 class Ricin.FriendListRow : Gtk.ListBoxRow {
   [GtkChild] public Gtk.Image avatar;
+  [GtkChild] public Gtk.Box box_infos;
   [GtkChild] public Gtk.Label username;
   [GtkChild] Gtk.Label status;
   [GtkChild] Gtk.Image userstatus;
@@ -12,11 +13,20 @@ class Ricin.FriendListRow : Gtk.ListBoxRow {
   private Gtk.Menu menu_friend;
   private Gtk.ImageMenuItem block_friend;
 
-  public int unreadCount = 0;
+  private Settings settings;
+  private ViewType view_type;
   private string iconName = "offline";
+  private Gdk.Pixbuf pixbuf;
+  public int unreadCount = 0;
+
+  private enum ViewType {
+    FULL,
+    COMPACT
+  }
 
   public FriendListRow (Tox.Friend fr) {
     this.fr = fr;
+    this.settings = Settings.instance;
 
     debug (@"Friend name: $(this.fr.name)");
     if (this.fr.name == null) {
@@ -43,7 +53,22 @@ class Ricin.FriendListRow : Gtk.ListBoxRow {
     if (FileUtils.test (avatar_path, FileTest.EXISTS)) {
       var pixbuf = new Gdk.Pixbuf.from_file_at_scale (avatar_path, 48, 48, false);
       this.avatar.pixbuf = pixbuf;
+    } else {
+      Cairo.Surface surface = Util.identicon_for_pubkey (fr.pubkey);
+      this.avatar.pixbuf = Gdk.pixbuf_get_from_surface (surface, 0, 0, 48, 48);
     }
+    this.pixbuf = this.avatar.pixbuf;
+
+    if (this.settings.compact_mode) {
+      this.switch_view_type (ViewType.COMPACT);
+    }
+    this.settings.notify["compact-mode"].connect (() => {
+      if (this.settings.compact_mode) {
+        this.switch_view_type (ViewType.COMPACT);
+      } else {
+        this.switch_view_type (ViewType.FULL);
+      }
+    });
 
     fr.bind_property ("name", username, "label", BindingFlags.DEFAULT);
     //fr.bind_property ("status-message", status, "label", BindingFlags.DEFAULT);
@@ -62,6 +87,11 @@ class Ricin.FriendListRow : Gtk.ListBoxRow {
 
     fr.notify["blocked"].connect ((obj, prop) => {
       this.block_friend.set_label ((this.fr.blocked) ? _("Unblock friend") : _("Block friend"));
+    });
+
+    fr.avatar.connect ((pixbuf_avatar) => {
+      this.pixbuf = pixbuf_avatar;
+      this.switch_view_type(this.view_type);
     });
 
     fr.message.connect (this.notify_new_messages);
@@ -89,6 +119,48 @@ class Ricin.FriendListRow : Gtk.ListBoxRow {
 
     this.unreadCount++;
     this.update_icon ();
+  }
+
+  private void switch_view_type (ViewType type) {
+    if (type == ViewType.FULL) {
+      this.set_size_request (100, 60);
+
+      this.avatar.pixbuf = this.pixbuf;
+      this.avatar.set_pixel_size (48);
+      this.avatar.set_size_request (48, 48);
+
+      this.box_infos.set_orientation (Gtk.Orientation.VERTICAL);
+      this.box_infos.set_valign (Gtk.Align.FILL);
+      this.box_infos.set_halign (Gtk.Align.FILL);
+
+      this.username.set_vexpand (true);
+      this.username.set_hexpand (true);
+      this.username.set_margin_top (7);
+      this.username.set_valign (Gtk.Align.FILL);
+
+      this.status.set_margin_bottom (7);
+      this.status.set_valign (Gtk.Align.END);
+    } else if (type == ViewType.COMPACT) {
+      this.set_size_request (100, 30);
+
+      this.avatar.pixbuf = this.avatar.pixbuf.scale_simple (24, 24, Gdk.InterpType.BILINEAR);
+      this.avatar.set_pixel_size (24);
+      this.avatar.set_size_request (24, 24);
+
+      this.box_infos.set_orientation (Gtk.Orientation.HORIZONTAL);
+      this.box_infos.set_valign (Gtk.Align.CENTER);
+      this.box_infos.set_halign (Gtk.Align.START);
+
+      this.username.set_vexpand (false);
+      this.username.set_hexpand (false);
+      this.username.set_margin_top (0);
+      this.username.set_valign (Gtk.Align.CENTER);
+
+      this.status.set_margin_bottom (0);
+      this.status.set_valign (Gtk.Align.CENTER);
+    }
+
+    this.view_type = type;
   }
 
   private void init_context_menu () {

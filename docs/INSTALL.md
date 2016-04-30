@@ -52,7 +52,7 @@ $ dnf install valac glib2 gtk3 gtk3-devel \
 ## Installing Ricin
 ### Linux
 #### ArchLinux
-Thanks to [LastAvenger], ArchLinux users can install Ricin via AUR: [ricin-git] / [ricin].  
+Thanks to [LastAvenger], ArchLinux users can install Ricin via AUR: [ricin-git] / [ricin](https://aur.archlinux.org/packages/ricin).  
 You simply have to write the following line in a shell:
 
 ```bash
@@ -63,12 +63,20 @@ $ yaourt -S ricin-git
 $ yatourt -S ricin
 ```
 
+#### Milis Linux (Milis Isletim Sistemi)
+Thanks to [milisarge], [Milis Linux] users can install Ricin via MPS.  
+You simply have to write the following line in a shell:
+
+```bash
+$ mps -kur ricin
+```
+
 #### Others Linux
 For other systems that doesn't yet have a package you have a to compile and install Ricin from sources. Compiling Ricin is super simple as we use **The Meson Build System** that runs pretty much everywhere.  
 
 Run the following commands in a shell:
 ```bash
-git clone --recursive https://github.com/RicinApp/Ricin.git
+git clone https://github.com/RicinApp/Ricin.git
 cd Ricin
 make autogen
 sudo make install
@@ -85,5 +93,6 @@ Ricin isn't available yet on OSX, anyway this is also planed!
 [ninja]: http://martine.github.io/ninja/
 [LastAvenger]: https://github.com/LastAvenger
 [ricin-git]: https://aur.archlinux.org/packages/ricin-git
-[ricin]: https://aur.archlinux.org/packages/ricin
+[milisarge]: https://github.com/milisarge
+[Milis Linux]: http://milis.gungre.ch
 [Install ToxCore]: https://github.com/irungentoo/toxcore/blob/master/INSTALL.md#build-manually

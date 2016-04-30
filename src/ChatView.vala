@@ -112,6 +112,11 @@ class Ricin.ChatView : Gtk.Box {
       var pixbuf = new Gdk.Pixbuf.from_file_at_scale (_avatar_path, 48, 48, false);
       this.user_avatar.pixbuf = pixbuf;
       this.friend_profil_avatar.pixbuf = pixbuf;
+    } else {
+      Cairo.Surface surface = Util.identicon_for_pubkey (this.fr.pubkey);
+      var pixbuf = Gdk.pixbuf_get_from_surface (surface, 0, 0, 48, 48);
+      this.user_avatar.pixbuf = pixbuf;
+      this.friend_profil_avatar.pixbuf = pixbuf;
     }
 
     this.entry.key_press_event.connect ((event) => {
@@ -204,9 +209,14 @@ class Ricin.ChatView : Gtk.Box {
         var avatar_path = Tox.profile_dir () + "avatars/" + this.fr.pubkey + ".png";
         if (FileUtils.test (avatar_path, FileTest.EXISTS)) {
           var pixbuf = new Gdk.Pixbuf.from_file_at_scale (avatar_path, 46, 46, true);
-          Notification.notify (this.fr.name, message, 5000, pixbuf);
+
+          if (this.handle.status != Tox.UserStatus.BUSY) {
+            Notification.notify (this.fr.name, message, 5000, pixbuf);
+          }
         } else {
-          Notification.notify (this.fr.name, message, 5000);
+          if (this.handle.status != Tox.UserStatus.BUSY) {
+            Notification.notify (this.fr.name, message, 5000);
+          }
         }
       }
 
@@ -233,9 +243,14 @@ class Ricin.ChatView : Gtk.Box {
         var avatar_path = Tox.profile_dir () + "avatars/" + this.fr.pubkey + ".png";
         if (FileUtils.test (avatar_path, FileTest.EXISTS)) {
           var pixbuf = new Gdk.Pixbuf.from_file_at_scale (avatar_path, 46, 46, true);
-          Notification.notify (fr.name, message, 5000, pixbuf);
+
+          if (this.handle.status != Tox.UserStatus.BUSY) {
+            Notification.notify (fr.name, message, 5000, pixbuf);
+          }
         } else {
-          Notification.notify (fr.name, message, 5000);
+          if (this.handle.status != Tox.UserStatus.BUSY) {
+            Notification.notify (fr.name, message, 5000);
+          }
         }
 
       }
