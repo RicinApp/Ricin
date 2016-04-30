@@ -132,7 +132,7 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
       var pixbuf = new Gdk.Pixbuf.from_file_at_scale (path, 48, 48, false);
       this.avatar_image.pixbuf = pixbuf;
     } else {
-      Cairo.Surface surface = Util.identicon_for_pubkey (this.tox.pubkey, "%u".printf (this.tox.nospam));
+      Cairo.Surface surface = Util.identicon_for_pubkey (this.tox.pubkey);
       this.avatar_image.pixbuf = Gdk.pixbuf_get_from_surface (surface, 0, 0, 48, 48);
     }
 
