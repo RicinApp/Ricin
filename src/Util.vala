@@ -178,4 +178,10 @@ namespace Util {
 
     return str;
   }
+
+  public static Cairo.Surface identicon_for_pubkey (string pubkey, string salt = "") {
+    ToxIdenticon.ToxIdenticon identicon = new ToxIdenticon.ToxIdenticon ();
+    identicon.stroke = false;
+    return identicon.generate (48, pubkey, salt);
+  }
 }

@@ -53,10 +53,11 @@ class Ricin.FriendListRow : Gtk.ListBoxRow {
     if (FileUtils.test (avatar_path, FileTest.EXISTS)) {
       var pixbuf = new Gdk.Pixbuf.from_file_at_scale (avatar_path, 48, 48, false);
       this.avatar.pixbuf = pixbuf;
-      this.pixbuf = this.avatar.pixbuf;
     } else {
-      this.pixbuf = this.avatar.pixbuf;
+      Cairo.Surface surface = Util.identicon_for_pubkey (fr.pubkey);
+      this.avatar.pixbuf = Gdk.pixbuf_get_from_surface (surface, 0, 0, 48, 48);
     }
+    this.pixbuf = this.avatar.pixbuf;
 
     if (this.settings.compact_mode) {
       this.switch_view_type (ViewType.COMPACT);
@@ -64,10 +65,8 @@ class Ricin.FriendListRow : Gtk.ListBoxRow {
     this.settings.notify["compact-mode"].connect (() => {
       if (this.settings.compact_mode) {
         this.switch_view_type (ViewType.COMPACT);
-
       } else {
         this.switch_view_type (ViewType.FULL);
-
       }
     });
 

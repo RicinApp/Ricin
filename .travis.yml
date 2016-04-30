@@ -68,7 +68,7 @@ before_script:
 
 script:
 # Test if commit message is valid, else fail.
- - if [[ "$TRAVIS_PULL_REQUEST" != "false" ]] && [[ "$TRAVIS_OS_NAME" == "linux" ]]; then bash ./tools/verify_commit_messages.sh "$TRAVIS_COMMIT_RANGE" ; fi
+ #- if [[ "$TRAVIS_PULL_REQUEST" != "false" ]] && [[ "$TRAVIS_OS_NAME" == "linux" ]]; then bash ./tools/verify_commit_messages.sh "$TRAVIS_COMMIT_RANGE" ; fi
  - rm -rf build
  - mkdir -p build
  - /usr/local/bin/meson.py . build -Db_coverage=true
