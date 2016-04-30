@@ -127,38 +127,47 @@ class Ricin.SettingsView : Gtk.Box {
       if (slang == 0) { // English.
         info ("Changed locale to English.");
         Environment.set_variable ("LANG", "en_US", true);
+        Intl.setlocale (LocaleCategory.MESSAGES, "en_US");
         this.settings.selected_language = "en_US";
       } else if (slang == 1) { // French
         info ("Changed locale to French.");
         Environment.set_variable ("LANG", "fr_FR", true);
+        Intl.setlocale (LocaleCategory.MESSAGES, "fr_FR");
         this.settings.selected_language = "fr_FR";
       } else if (slang == 2) { // Portuguese
         info ("Changed locale to Portuguese.");
         Environment.set_variable ("LANG", "pt_PT", true);
+        Intl.setlocale (LocaleCategory.MESSAGES, "pt_PT");
         this.settings.selected_language = "pt_PT";
       } else if (slang == 3) { // Danish
         info ("Changed locale to Danish.");
         Environment.set_variable ("LANG", "da_DK", true);
+        Intl.setlocale (LocaleCategory.MESSAGES, "da_DK");
         this.settings.selected_language = "da_DK";
       } else if (slang == 4) { // Esperanto
         info ("Changed locale to Esperanto.");
         Environment.set_variable ("LANG", "eo", true);
+        Intl.setlocale (LocaleCategory.MESSAGES, "eo");
         this.settings.selected_language = "eo";
       } else if (slang == 5) { // Chinese
         info ("Changed locale to Chinese.");
         Environment.set_variable ("LANG", "zh_CN", true);
+        Intl.setlocale (LocaleCategory.MESSAGES, "zh_CN");
         this.settings.selected_language = "zh_CN";
       } else if (slang == 6) { // German
         info ("Changed locale to German.");
         Environment.set_variable ("LANG", "de", true);
+        Intl.setlocale (LocaleCategory.MESSAGES, "de");
         this.settings.selected_language = "de";
       } else if (slang == 7) { // Ukrainian
         info ("Changed locale to Ukrainian.");
         Environment.set_variable ("LANG", "uk", true);
+        Intl.setlocale (LocaleCategory.MESSAGES, "uk");
         this.settings.selected_language = "uk";
       } else if (slang == 8) { // Russian
         info ("Changed locale to Russian.");
         Environment.set_variable ("LANG", "ru_RU", true);
+        Intl.setlocale (LocaleCategory.MESSAGES, "ru_RU");
         this.settings.selected_language = "ru_RU";
       }
 

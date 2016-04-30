@@ -555,7 +555,9 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
   [GtkCallback]
   private void show_settings () {
     this.display_settings ();
+
     this.set_title (this.window_title + " - " + _("Settings"));
+    this.label_add_error.set_text (_("Add a friend"));
   }
 
   [GtkCallback]

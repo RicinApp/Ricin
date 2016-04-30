@@ -76,6 +76,7 @@ namespace ToxIdenticon {
     public double margin { get; set; default = 0.08; }
     public int size { get; set; default = 48; }
     public bool stroke { get; set; default = true; }
+    public bool transparent { get; set; default = true; }
 
     public ToxIdenticon () {
       this.surface = new ImageSurface (Format.ARGB32, this.size, this.size);
@@ -100,6 +101,10 @@ namespace ToxIdenticon {
     }
 
     private void draw_rect (double x, double y, double width, double height, RGB color, bool isEven) {
+      if (this.transparent && !isEven) {
+        return;
+      }
+
       this.context.set_source_rgba (color.red, color.green, color.blue, 1);
       this.context.rectangle (x, y, width, height);
       this.context.fill ();
@@ -124,7 +129,10 @@ namespace ToxIdenticon {
         green = 240.0/255,
         blue = 240.0/255
       };
-      this.draw_rect (0, 0, this.size, this.size, background, false);
+
+      if (!this.transparent) {
+        this.draw_rect (0, 0, this.size, this.size, background, false);
+      }
 
       // Foreground color
       var foreground = Utils.hsl2rgb ((double) Utils.parse_base16 (hash.substring (-7)) / 0xfffffff, 0.5, 0.7);
