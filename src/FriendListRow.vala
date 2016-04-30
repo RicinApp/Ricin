@@ -54,9 +54,6 @@ class Ricin.FriendListRow : Gtk.ListBoxRow {
       var pixbuf = new Gdk.Pixbuf.from_file_at_scale (avatar_path, 48, 48, false);
       this.avatar.pixbuf = pixbuf;
     } else {
-      /**
-      * TODO: Implement ToxIdenticons.
-      **/
       Cairo.Surface surface = Util.identicon_for_pubkey (fr.pubkey);
       this.avatar.pixbuf = Gdk.pixbuf_get_from_surface (surface, 0, 0, 48, 48);
     }
