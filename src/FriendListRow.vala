@@ -50,8 +50,9 @@ class Ricin.FriendListRow : Gtk.ListBoxRow {
     */
     var avatar_path = Tox.profile_dir () + "avatars/" + this.fr.pubkey + ".png";
     if (FileUtils.test (avatar_path, FileTest.EXISTS)) {
-      this.pixbuf = new Gdk.Pixbuf.from_file_at_scale (avatar_path, 48, 48, false);
-      this.avatar.pixbuf = this.pixbuf;
+      var pixbuf = new Gdk.Pixbuf.from_file_at_scale (avatar_path, 48, 48, false);
+      this.avatar.pixbuf = pixbuf;
+      this.pixbuf = this.avatar.pixbuf;
     } else {
       this.pixbuf = this.avatar.pixbuf;
     }
