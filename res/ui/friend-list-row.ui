@@ -7,6 +7,7 @@
     <property name="height_request">60</property>
     <property name="visible">True</property>
     <property name="can_focus">True</property>
+    <property name="resize_mode">immediate</property>
     <child>
       <object class="GtkEventBox" id="eventbox1">
         <property name="visible">True</property>
@@ -36,7 +37,7 @@
               </packing>
             </child>
             <child>
-              <object class="GtkBox" id="box2">
+              <object class="GtkBox" id="box_infos">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="orientation">vertical</property>
@@ -48,7 +49,7 @@
                     <property name="margin_left">5</property>
                     <property name="margin_right">5</property>
                     <property name="margin_top">7</property>
-                    <property name="label" translatable="no">name</property>
+                    <property name="label">name</property>
                     <property name="ellipsize">end</property>
                     <property name="single_line_mode">True</property>
                     <attributes>
@@ -71,7 +72,7 @@
                     <property name="margin_left">5</property>
                     <property name="margin_right">5</property>
                     <property name="margin_bottom">7</property>
-                    <property name="label" translatable="no">status</property>
+                    <property name="label">status</property>
                     <property name="ellipsize">end</property>
                     <property name="single_line_mode">True</property>
                     <attributes>

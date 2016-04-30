@@ -1,4 +1,4 @@
-class Settings : Object {
+class Settings : GLib.Object {
   /**
   * Private members, used only by this class.
   **/
@@ -31,34 +31,36 @@ class Settings : Object {
   public const string ENABLE_NOTIFY_KEY        = "enable-notify";
   public const string ENABLE_NOTIFY_SOUNDS_KEY = "enable-notify-sounds";
   public const string DEFAULT_SAVE_PATH_KEY    = "default-save-path";
+  public const string COMPACT_MODE_KEY         = "compact-mode";
 
   /**
   * Public members, can be get/set.
   **/
-  public bool has_toxme            { get; set; default = false; }
-  public string toxme_id           { get; set; default = null; }
-  public string toxme_server       { get; set; default = null; }
-  public string toxme_biography    { get; set; default = null; }
-  public string toxme_password     { get; set; default = null; }
-  public string last_profile       { get; set; default = ""; }
-  public bool network_udp          { get; set; default = true; }
-  public bool network_ipv6         { get; set; default = true; }
-  public bool enable_proxy         { get; set; default = false; }
-  public string proxy_host         { get; set; default = "127.0.0.1"; }
-  public int proxy_port            { get; set; default = 9050; }
-  public bool enable_custom_themes { get; set; default = true; }
-  public string selected_theme     { get; set; default = "dark"; }
-  public string selected_language  { get; set; default = "en_US"; }
-  public bool show_status_changes  { get; set; default = true; }
-  public bool show_all_friends     { get; set; default = false; }
-  public bool show_unread_messages { get; set; default = false; }
-  public bool show_typing_status   { get; set; default = true; }
-  public bool send_typing_status   { get; set; default = true; }
-  public int contactlist_width     { get; set; default = 265; }
-  public bool enable_tray          { get; set; default = true; }
-  public bool enable_notify        { get; set; default = true; }
-  public bool enable_notify_sounds { get; set; default = true; }
-  public string default_save_path  { get; set; default = ""; }
+  public bool has_toxme            { get; set; }
+  public string toxme_id           { get; set; }
+  public string toxme_server       { get; set; }
+  public string toxme_biography    { get; set; }
+  public string toxme_password     { get; set; }
+  public string last_profile       { get; set; }
+  public bool network_udp          { get; set; }
+  public bool network_ipv6         { get; set; }
+  public bool enable_proxy         { get; set; }
+  public string proxy_host         { get; set; }
+  public int proxy_port            { get; set; }
+  public bool enable_custom_themes { get; set; }
+  public string selected_theme     { get; set; }
+  public string selected_language  { get; set; }
+  public bool show_status_changes  { get; set; }
+  public bool show_all_friends     { get; set; }
+  public bool show_unread_messages { get; set; }
+  public bool show_typing_status   { get; set; }
+  public bool send_typing_status   { get; set; }
+  public int contactlist_width     { get; set; }
+  public bool enable_tray          { get; set; }
+  public bool enable_notify        { get; set; }
+  public bool enable_notify_sounds { get; set; }
+  public string default_save_path  { get; set; }
+  public bool compact_mode         { get; set; }
 
   private static Settings? _instance;
   public static Settings instance {
@@ -117,6 +119,7 @@ class Settings : Object {
         this.enable_notify        = settings.enable_notify;
         this.enable_notify_sounds = settings.enable_notify_sounds;
         this.default_save_path    = settings.default_save_path;
+        this.compact_mode         = settings.compact_mode;
       }
     } catch (Error e) {
       debug (@"Error loading settings: $(e.message)");
