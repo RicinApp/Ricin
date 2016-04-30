@@ -90,6 +90,11 @@ class Ricin.FriendListRow : Gtk.ListBoxRow {
       this.block_friend.set_label ((this.fr.blocked) ? _("Unblock friend") : _("Block friend"));
     });
 
+    fr.avatar.connect ((pixbuf_avatar) => {
+      this.pixbuf = pixbuf_avatar;
+      this.switch_view_type(this.view_type);
+    });
+
     fr.message.connect (this.notify_new_messages);
     fr.action.connect (this.notify_new_messages);
 
