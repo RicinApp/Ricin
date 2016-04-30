@@ -1,3 +1,11 @@
+## 0.0.8 (2016-04-30)
+#### Bug Fixes
+* **port range:**  allow for bigger port range, hope it fix #68 ([a50798bb](https://github.com/RicinApp/Ricin/commit/a50798bbeaa8443b1b2c98be0645d3d3e904fc59))
+
+#### Features
+* **ToxIdenticons:**  users without avatars now have identicon (#115) ([617f8987](https://github.com/RicinApp/Ricin/commit/617f898738b9ec4f398311b003e90c96a52b98f1))
+* **compact mode:**  add a way to display more friends in the window (#113) ([85b39bff](https://github.com/RicinApp/Ricin/commit/85b39bfffe6c1476e31396af9befd10747baa9ab))
+
 ## 0.0.7 (2016-04-28)
 #### Bug Fixes
 * **Markdown:**
