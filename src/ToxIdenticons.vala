@@ -22,6 +22,12 @@
 * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 **/
+/**
+* The original algorithm used in this file is from identicon.js by stewartlord.
+* @page https://github.com/stewartlord/identicon.js
+* Copyright (c) 2013, Stewart Lord
+* All rights reserved.
+**/
 
 using Cairo;
 
