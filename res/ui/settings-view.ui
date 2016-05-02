@@ -2,7 +2,7 @@
 <!-- Generated with glade 3.19.0 -->
 <interface>
   <requires lib="gtk+" version="3.16"/>
-  <!-- interface-local-resource-path /home/skyzohkey/Dev/Vala/ValaTox/Ricin-tox/res/images -->
+  <!-- interface-local-resource-path ../images/icons -->
   <object class="GtkImage" id="image1">
     <property name="visible">True</property>
     <property name="can_focus">False</property>

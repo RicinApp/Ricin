@@ -32,7 +32,6 @@ class Ricin.SettingsView : Gtk.Box {
   [GtkChild] Gtk.SpinButton spinbutton_proxy_port;
 
   // About tab.
-  //[GtkChild] Gtk.Label label_app_name;
   [GtkChild] Gtk.Label label_app_description;
   [GtkChild] Gtk.Label label_app_version;
 
@@ -70,7 +69,6 @@ class Ricin.SettingsView : Gtk.Box {
     this.box_tab_buttons.add (box);
 
     // About tab →
-    //this.label_app_name.set_text (Ricin.APP_NAME);
     this.label_app_description.set_markup (Ricin.APP_SUMMARY);
     this.label_app_version.set_text (Ricin.APP_VERSION);
 
@@ -91,7 +89,6 @@ class Ricin.SettingsView : Gtk.Box {
     this.combobox_toxme_servers.append_text (@"Ricin.im ($default_str)");
     this.combobox_toxme_servers.append_text (@"ToxMe.io ($stable_str)");
     this.combobox_toxme_servers.append_text (@"uTox.org ($stable_str)");
-    // this.combobox_toxme_servers.append ("toxing.me", "Toxing.me (unstable)");
 
     this.combobox_selected_theme.append_text (_("Dark theme") + @" ($default_str)");
     this.combobox_selected_theme.append_text (_("White theme"));
