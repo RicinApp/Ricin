@@ -44,5 +44,10 @@
         <file>images/status/offline.png</file>
         <file>images/status/offline_notification.png</file>
         <file>images/status/invisible.png</file>
+
+        <file>images/ricin-128x128.png</file>
+        <file>images/ricin-128x128-invert.png</file>
+        <file>images/ricin-logo.png</file>
+        <file>images/ricin-logo-invert.png</file>
     </gresource>
 </gresources>
