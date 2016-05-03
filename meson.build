@@ -1,7 +1,9 @@
 # vim: set ft=python
-project('Ricin',
+project(
+    'Ricin',
     'vala',
     'c', # compiling vala requires a C compiler
+    meson_version: '>0.31.0'
 )
 gnome = import('gnome')
 
@@ -37,5 +39,5 @@ executable(
     install: true
 )
 
-install_data('ricin.desktop', install_dir: 'share/applications/')
-install_data('icons/Ricin-128x128.png', install_dir: 'share/')
+install_data('res/ricin.desktop', install_dir: 'share/applications/')
+install_data('res/images/icons/ricin.svg', install_dir: 'share/icons/')

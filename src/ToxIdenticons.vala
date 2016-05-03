@@ -58,8 +58,9 @@ namespace ToxIdenticon {
     }
 
     public static int parse_base16 (string? s) {
-      if (s == null)
+      if (s == null) {
         return 0;
+      }
       int res;
       s.scanf ("%x", out res);
       return res;

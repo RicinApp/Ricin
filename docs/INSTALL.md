@@ -4,7 +4,7 @@
 ### &loz; Required
 | Package name   | Notes      | Version   |
 |:---------------|:----------:|----------:|
-| [meson]        |  building  | >=0.30.0  |
+| [meson]        |  building  | >=0.31.0  |
 | [ninja]        |  building  | >=1.5.1   |
 | valac          |  building  | >=0.28.1  |
 | gtk+3          |            | >=3.16    |

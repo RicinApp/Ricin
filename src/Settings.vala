@@ -136,9 +136,9 @@ class Settings : GLib.Object {
 
     try {
       DataOutputStream dos = new DataOutputStream (settings_file.replace (
-        null, false,
-        FileCreateFlags.PRIVATE | FileCreateFlags.REPLACE_DESTINATION
-      ));
+            null, false,
+            FileCreateFlags.PRIVATE | FileCreateFlags.REPLACE_DESTINATION
+          ));
       generator.to_stream (dos);
 
       //debug (@"Saving settings to $(this.profile)");

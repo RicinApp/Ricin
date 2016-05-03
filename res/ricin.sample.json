@@ -22,5 +22,6 @@
   "enable-tray": true,
   "enable-notify": true,
   "enable-notify-sounds": true,
-  "default-save-path": ""
+  "default-save-path": "",
+  "compact-mode": false
 }

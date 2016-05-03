@@ -70,7 +70,7 @@ class Ricin.SettingsView : Gtk.Box {
 
     // About tab →
     this.label_app_description.set_markup (Ricin.APP_SUMMARY);
-    this.label_app_version.set_text (Ricin.APP_VERSION);
+    this.label_app_version.set_text (_(Ricin.APP_VERSION));
 
     this.label_tox_id.set_text (handle.id);
 

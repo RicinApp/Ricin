@@ -71,7 +71,7 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
     this.settings = Settings.instance;
     this.profile = profile;
 
-    Gdk.Pixbuf app_icon = new Gdk.Pixbuf.from_resource ("/chat/tox/ricin/images/icons/Ricin-128x128.png");
+    Gdk.Pixbuf app_icon = new Gdk.Pixbuf.from_resource (Ricin.ICON_PATH);
     string profile_base = File.new_for_path (profile).get_basename ();
     string profile_name = profile_base.replace (".tox", "");
 
@@ -107,11 +107,11 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
       warning ("Tox init failed: %s", error.message);
       this.destroy ();
       var error_dialog = new Gtk.MessageDialog (this,
-        Gtk.DialogFlags.MODAL,
-        Gtk.MessageType.WARNING,
-        Gtk.ButtonsType.OK,
-        "%s", _("Can't load the profile")
-      );
+          Gtk.DialogFlags.MODAL,
+          Gtk.MessageType.WARNING,
+          Gtk.ButtonsType.OK,
+          "%s", _("Can't load the profile")
+                                               );
       error_dialog.secondary_use_markup = true;
       error_dialog.format_secondary_markup (@"<span color=\"#e74c3c\">$(error.message)</span>");
       error_dialog.response.connect (resp => error_dialog.destroy ()); // if we don't use a signal the profile chooser closes
@@ -340,7 +340,9 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
     **/
     this.change_chat_up.connect (() => {
       var index = this.selected_row.get_index ();
-      if (index == 0) { return; }
+      if (index == 0) {
+        return;
+      }
       var prev_row = this.friendlist.get_row_at_index (index - 1);
       this.selected_row = prev_row;
       this.selected_row.activate ();
@@ -349,7 +351,9 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
     this.change_chat_down.connect (() => {
       var index = this.selected_row.get_index ();
       var max = this.friendlist.get_children ().length ();
-      if (index == max) { return; }
+      if (index == max) {
+        return;
+      }
       var next_row = this.friendlist.get_row_at_index (index + 1);
       this.selected_row = next_row;
       this.selected_row.activate ();
@@ -471,7 +475,7 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
 
   private void init_tray_icon () {
     try {
-      Gdk.Pixbuf tray_icon = new Gdk.Pixbuf.from_resource ("/chat/tox/ricin/images/icons/Ricin-48x48.png");
+      Gdk.Pixbuf tray_icon = new Gdk.Pixbuf.from_resource ("/chat/tox/ricin/images/icons/ricin.svg");
       this.statusicon_main = new Gtk.StatusIcon.from_pixbuf (tray_icon);
       this.statusicon_main.set_tooltip_text ("Ricin");
       this.statusicon_main.visible = true;

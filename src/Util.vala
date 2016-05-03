@@ -34,35 +34,35 @@ namespace Util {
   public static string render_litemd (string text) {
     string escaped_text = escape_html (text);
     string emoji = escaped_text.replace (":+1:", "👍")
-      .replace (":-1:", "👎")
-      .replace (":@", "😠")
-      .replace (">:(", "😠")
-      .replace (":$", "😊")
-      .replace ("<3", "💙")
-      .replace (":3", "🐱")
-      .replace (":\\", "😕")
-      .replace (":'(", "😢")
-      .replace (":-'(", "😢")
-      .replace (":o", "😵")
-      .replace (":O", "😵")
-      .replace (":(", "😦")
-      .replace (":-(", "😦")
-      .replace (":-[", "😦")
-      .replace (":[", "😦")
-      .replace ("xD", "😁")
-      .replace ("XD", "😁")
-      .replace ("0:)", "😇")
-      .replace (":)", "😄")
-      .replace (":D", "😆")
-      .replace (":-D", "😆")
-      .replace (":|", "😐")
-      .replace (":-|", "😐")
-      .replace (":p", "😛")
-      .replace (":-p", "😛")
-      .replace (":P", "😛")
-      .replace (":-P", "😛")
-      .replace ("8)", "😎")
-      .replace ("8-)", "😎");
+                   .replace (":-1:", "👎")
+                   .replace (":@", "😠")
+                   .replace (">:(", "😠")
+                   .replace (":$", "😊")
+                   .replace ("<3", "💙")
+                   .replace (":3", "🐱")
+                   .replace (":\\", "😕")
+                   .replace (":'(", "😢")
+                   .replace (":-'(", "😢")
+                   .replace (":o", "😵")
+                   .replace (":O", "😵")
+                   .replace (":(", "😦")
+                   .replace (":-(", "😦")
+                   .replace (":-[", "😦")
+                   .replace (":[", "😦")
+                   .replace ("xD", "😁")
+                   .replace ("XD", "😁")
+                   .replace ("0:)", "😇")
+                   .replace (":)", "😄")
+                   .replace (":D", "😆")
+                   .replace (":-D", "😆")
+                   .replace (":|", "😐")
+                   .replace (":-|", "😐")
+                   .replace (":p", "😛")
+                   .replace (":-p", "😛")
+                   .replace (":P", "😛")
+                   .replace (":-P", "😛")
+                   .replace ("8)", "😎")
+                   .replace ("8-)", "😎");
 
     // Markdown.
     // Returns plaintext as fallback in case of parsing error.
@@ -84,14 +84,14 @@ namespace Util {
       } else {
         var uri = /(\w+:\S+)/.replace (emoji, -1, 0, "<span color=\"#2a92c6\"><a href=\"\\1\">\\1</a></span>");
 
-        var bold = /\B\*\*([^\*\*]{2,}?)\*\*\B/.replace (uri, -1, 0, "<b>\\1</b>");
-        bold = /\B\*([^\*]{2,}?)\*\B/.replace (bold, -1, 0, "<b>\\1</b>");
-        var italic = /^\/\/([^\/\/]{2,}?)\/\/$/.replace(bold, -1, 0, "<i>\\1</i>");
-        italic = /^\/([^\/]{2,}?)\/$/.replace(italic, -1, 0, "<i>\\1</i>");
-        var underlined = /\b__([^__]{2,}?)__\b/.replace(italic, -1, 0, "<u>\\1</u>");
-        underlined = /\b_([^_]{2,}?)_\b/.replace(underlined, -1, 0, "<u>\\1</u>");
-        var striked = /\B~~([^~~]{2,}?)~~\B/.replace(underlined, -1, 0, "<s>\\1</s>");
-        striked = /\B~([^~]{2,}?)~\B/.replace(striked, -1, 0, "<s>\\1</s>");
+        var bold = /\B\*\*([^\*\*] {2,}?)\*\*\B/.replace (uri, -1, 0, "<b>\\1</b>");
+        bold = /\B\*([^\*] {2,}?)\*\B/.replace (bold, -1, 0, "<b>\\1</b>");
+        var italic = /^\/\/([^\/\/] {2,}?)\/\/$/.replace(bold, -1, 0, "<i>\\1</i>");
+        italic = /^\/([^\/] {2,}?)\/$/.replace(italic, -1, 0, "<i>\\1</i>");
+        var underlined = /\b__([^__] {2,}?)__\b/.replace(italic, -1, 0, "<u>\\1</u>");
+        underlined = /\b_([^_] {2,}?)_\b/.replace(underlined, -1, 0, "<u>\\1</u>");
+        var striked = /\B~~([^~~] {2,}?)~~\B/.replace(underlined, -1, 0, "<s>\\1</s>");
+        striked = /\B~([^~] {2,}?)~\B/.replace(striked, -1, 0, "<s>\\1</s>");
         var inline_code = /\B`([^`]*)`\B/.replace(striked, -1, 0, "<span face=\"monospace\" size=\"smaller\">\\1</span>");
 
         return inline_code;

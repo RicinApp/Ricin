@@ -1,9 +1,10 @@
 public class Ricin.Ricin : Gtk.Application {
   const string GETTEXT_PACKAGE = "ricin";
   public static const string APP_NAME = "Ricin";
-  public static const string APP_SUMMARY = _("<b>Ricin</b> aims to be a <i>secure, lightweight, hackable and fully-customizable</i> chat client using the awesome and open-source <b>ToxCore</b> library.");
+  public static const string APP_SUMMARY = "<b>Ricin</b> aims to be a <i>secure, lightweight, hackable and fully-customizable</i> chat client using the awesome and open-source <b>ToxCore</b> library.";
   public static const string APP_VERSION = "0.0.8";
   public static const string RES_BASE_PATH = "/chat/tox/ricin/";
+  public static const string ICON_PATH = RES_BASE_PATH + "images/icons/ricin.svg";
 
   private string default_theme = "dark"; // Will be overrided by settings.
   private string current_theme;
@@ -51,7 +52,7 @@ public class Ricin.Ricin : Gtk.Application {
 
     if (FileUtils.test (settings_file, FileTest.EXISTS) == false) {
       File config_file = File.new_for_path (settings_file);
-      File config_sample = File.new_for_uri ("resource:///chat/tox/ricin/ricin.sample.json");
+      File config_sample = File.new_for_uri (@"$resource_base_path/ricin.sample.json");
       config_sample.copy (config_file, FileCopyFlags.OVERWRITE);
     }
 

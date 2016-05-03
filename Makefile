@@ -32,12 +32,6 @@ autogen:
 	mkdir -p ./build
 	meson.py . ./build
 
-# not needed when we get meson 0.27.0
-cleandebug:
-	type ninja-build 2>/dev/null && ninja-build -C build clean || ninja -C build clean
-	type ninja-build 2>/dev/null && ninja-build -C build || ninja -C build
-	G_MESSAGES_DEBUG=all GOBJECT_DEBUG=instance-count gdb -ex run ./build/Ricin
-
 debug: ./build/
 	type ninja-build 2>/dev/null && ninja-build -C build || ninja -C build
 	G_MESSAGES_DEBUG=all GOBJECT_DEBUG=instance-count gdb -ex run ./build/Ricin

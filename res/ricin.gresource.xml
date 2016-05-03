@@ -27,13 +27,9 @@
 
         <file>images/noavatar.gif</file>
 
-        <file>images/icons/Ricin-48x48.png</file>
-        <file>images/icons/Ricin-96x96.png</file>
-        <file>images/icons/Ricin-128x128.png</file>
-        <file>images/icons/Ricin-150x150.png</file>
-        <file>images/icons/Ricin-256x256.png</file>
-        <file>images/icons/Ricin-512x512.png</file>
-        <file>images/icons/Ricin-600x600.png</file>
+        <file>images/icons/ricin.svg</file>
+        <file>images/icons/ricin-logo.png</file>
+        <file>images/icons/ricin-logo-invert.png</file>
 
         <file>images/status/busy.png</file>
         <file>images/status/busy_notification.png</file>
@@ -44,10 +40,5 @@
         <file>images/status/offline.png</file>
         <file>images/status/offline_notification.png</file>
         <file>images/status/invisible.png</file>
-
-        <file>images/ricin-128x128.png</file>
-        <file>images/ricin-128x128-invert.png</file>
-        <file>images/ricin-logo.png</file>
-        <file>images/ricin-logo-invert.png</file>
     </gresource>
 </gresources>
