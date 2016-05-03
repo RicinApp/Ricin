@@ -440,11 +440,12 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
       if (response == Gtk.ResponseType.ACCEPT) {
         bool result = friend.delete ();
         if (result) {
-          if (friend.position == 0) {
-            this.friends.remove (0); // TODO: Verify this.
-          } else {
-            this.friends.remove (friend.position);
-          }
+          var next_row = this.friendlist.get_row_at_index (this.selected_row.get_index () - 1);
+          this.friendlist.remove (this.selected_row);
+          this.selected_row = next_row;
+          this.selected_row.activate ();
+          this.friendlist.select_row (next_row);
+
           this.friendlist.invalidate_filter (); // Update the friendlist.
           this.friendlist.invalidate_sort (); // Update the friendlist.
           this.tox.save_data ();
