@@ -54,18 +54,21 @@ class Ricin.InlineImageMessageListRow : Gtk.ListBoxRow {
 
       debug (@"Image $(this.image_id) done!");
 
-      //string downloads = Environment.get_user_special_dir (UserDirectory.DOWNLOAD) + "/";
-      File file_destination = File.new_for_path (this.image.get_path ());
-
-      int i = 0;
+      string downloads = this.settings.default_save_path;
       string filename = this.image_name;
-      while (FileUtils.test (file_destination.get_path (), FileTest.EXISTS)) {
-        filename = @"$(++i)-$(this.image_name)";
+      File file_destination = File.new_for_path (this.image.get_path ());
+      if (FileUtils.test (file_destination.get_path (), FileTest.EXISTS)) {
+        Rand rnd = new Rand.with_seed ((uint32)new DateTime.now_local ().hash ());
+        uint32 rnd_id = rnd.next_int ();
+        filename = @"$rnd_id-$(this.image_name)";
+        file_destination = File.new_for_path (downloads.concat ("/", filename));
+        FileUtils.set_data (file_destination.get_path (), bytes.get_data ());
+        this.image = file_destination;
+      } else {
+        file_destination = File.new_for_path (downloads.concat ("/", this.image_name));
+        FileUtils.set_data (file_destination.get_path (), bytes.get_data ());
+        this.image = file_destination;
       }
-
-      file_destination = File.new_for_path (@"/tmp/$filename");
-      FileUtils.set_data (file_destination.get_path (), bytes.get_data ());
-      //this.file.copy (file_destination, FileCopyFlags.NONE);
 
       if (FileUtils.test (file_destination.get_path (), FileTest.EXISTS)) {
         this.image = file_destination;
@@ -74,7 +77,7 @@ class Ricin.InlineImageMessageListRow : Gtk.ListBoxRow {
         FileInfo info = this.image.query_info ("standard::*", 0);
         this.image_name = info.get_display_name ();
         var image_size = info.get_size () / 1000;
-        this.label_image_name.set_text (@"$filename");
+        this.label_image_name.set_text (filename);
         this.label_image_size.set_text (Util.size_to_string (image_size));
       }
     });

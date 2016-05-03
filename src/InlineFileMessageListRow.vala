@@ -65,21 +65,18 @@ class Ricin.InlineFileMessageListRow : Gtk.ListBoxRow {
 
       string downloads = this.settings.default_save_path;
       File file_destination = File.new_for_path (@"$downloads/$(this.file_name)");
-
-      int i = 0;
-      string filename = this.file_name;
-      while (FileUtils.test (file_destination.get_path (), FileTest.EXISTS)) {
-        filename = @"$(++i)-$(this.file_name)";
+      if (FileUtils.test (file_destination.get_path (), FileTest.EXISTS)) {
+        Rand rnd = new Rand.with_seed ((uint32)new DateTime.now_local ().hash ());
+        uint32 rnd_id = rnd.next_int ();
+        string filename = @"$rnd_id-$(this.file_name)";
+        file_destination = File.new_for_path (downloads.concat ("/", filename));
+        FileUtils.set_data (file_destination.get_path (), bytes.get_data ());
+        this.file = file_destination;
+      } else {
+        file_destination = File.new_for_path (downloads.concat ("/", this.file_name));
+        FileUtils.set_data (file_destination.get_path (), bytes.get_data ());
+        this.file = file_destination;
       }
-
-      file_destination = File.new_for_path (@"$downloads/$file_name");
-      FileUtils.set_data (file_destination.get_path (), bytes.get_data ());
-      this.file = file_destination;
-      //this.file.copy (file_destination, FileCopyFlags.NONE);
-
-      /*if (FileUtils.test (file_destination.get_path (), FileTest.EXISTS)) {
-        this.file.delete ();
-      }*/
 
       this.downloaded = true;
       this.box_widget.get_style_context().add_class ("saved-file");
