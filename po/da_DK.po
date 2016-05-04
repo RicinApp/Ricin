@@ -1,45 +1,67 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
-# Will Tange <bh34rt@gmail.com>, 2016
+# Will Tange <will@brt.sexy>, 2016
+# Will Tange <will@brt.sexy>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Ricin\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-08 18:19+0100\n"
-"PO-Revision-Date: 2016-03-09 18:06+0100\n"
-"Last-Translator: SkyzohKey <skyzohkey@tuta.io>\n"
+"POT-Creation-Date: 2016-04-14 17:44+0200\n"
+"PO-Revision-Date: 2016-04-15 07:46+0000\n"
+"Last-Translator: Will Tange <will@brt.sexy>\n"
 "Language-Team: Danish (http://www.transifex.com/ricinapp/ricin/language/da/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: da_DK\n"
+"Language: da\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.8.6\n"
 
-#: src/ChatView.vala:289
+#: src/ChatView.vala:367
 msgid " is now "
-msgstr "er nu"
+msgstr " er nu "
 
-#: src/Wrapper.vala:218
+#: src/Wrapper.vala:222
 msgid " is now known as "
-msgstr "er nu kendt som"
+msgstr " er nu kendt som "
+
+#: res/ui/chat-view.ui:517
+msgid "**bold**"
+msgstr "**fed**"
+
+#: res/ui/chat-view.ui:506
+msgid "*bold*"
+msgstr "*fed*"
+
+#: res/ui/chat-view.ui:553
+msgid "//italic//"
+msgstr "//kursiv//"
+
+#: res/ui/chat-view.ui:542
+msgid "/italic/"
+msgstr "/kursiv/"
 
 #: res/ui/friend-list-notification_unusable.ui:42
 msgid ""
 "3 unused profiles found:\n"
 "<b>Snow, Guy, Aztek</b>"
-msgstr ""
-"3 ubrugte profiler fundet:\n"
-"<b>Snow, Guy, Aztek</b>"
+msgstr "3 ubrugte profiler fundet:\n<b>Snow, Guy, Aztek</b>"
 
-#: res/ui/settings-view.ui:835
+#: res/ui/settings-view.ui:642
+msgid "9050"
+msgstr "9050"
+
+#: res/ui/chat-view.ui:293
+msgid "<b>Available Markdown tags</b>"
+msgstr "<b>Tilgængelige Markdown tag</b>"
+
+#: res/ui/settings-view.ui:906
 msgid "<b>Display friend's status changes?</b>"
 msgstr "<b>Vis venners status opdateringer?</b>"
 
-#: res/ui/settings-view.ui:726
+#: res/ui/settings-view.ui:728
 msgid "<b>Enable custom themes?</b>"
 msgstr "<b>Brugerdefinerede temaer?</b>"
 
@@ -47,35 +69,38 @@ msgstr "<b>Brugerdefinerede temaer?</b>"
 msgid "<b>Friends</b>"
 msgstr "<b>Venner</b>"
 
-#: res/ui/settings-view.ui:518
+#: res/ui/settings-view.ui:513
 msgid "<b>IPv6</b>"
 msgstr "<b>IPv6</b>"
 
-#: res/ui/settings-view.ui:955
+#: res/ui/settings-view.ui:849
 msgid "<b>Language:</b>"
 msgstr "<b>Sprog:</b>"
 
-#: src/Wrapper.vala:580
+#: src/Wrapper.vala:597
 msgid "<b>Last online:</b>"
 msgstr "<b>Sidst online:</b>"
 
-#: res/ui/chat-view.ui:456
+#: res/ui/chat-view.ui:1123
 msgid "<b>Last seen:</b>"
 msgstr "<b>Sidst set:</b>"
 
-#: res/ui/settings-view.ui:582
+#: res/ui/settings-view.ui:577
 msgid "<b>Proxy (SOCKS 5)</b>"
 msgstr "<b>Proxy (SOCKS 5)</b>"
 
-#: res/ui/settings-view.ui:1134
-msgid "<b>Ricin</b> aims to be a <i>secure, lightweight, hackable and fully-customizable</i> chat client using the awesome and open-source <b>ToxCore</b> library."
+#: src/Ricin.vala:4 res/ui/settings-view.ui:1277
+msgid ""
+"<b>Ricin</b> aims to be a <i>secure, lightweight, hackable and fully-"
+"customizable</i> chat client using the awesome and open-source "
+"<b>ToxCore</b> library."
 msgstr "<b>Ricin</b> sætter sig for at være en <i>sikker, let, hackervenlig samt tilpasselig</i> chatklient, der benytter sig af det open-source <b>ToxCore</b> bibliotek."
 
-#: res/ui/settings-view.ui:891
+#: res/ui/settings-view.ui:1091
 msgid "<b>Send typing notifications?</b>"
-msgstr "<b>Send notifikationer når jeg skriver?</b>"
+msgstr "<b>Send taste notifikationer?</b>"
 
-#: res/ui/settings-view.ui:480
+#: res/ui/settings-view.ui:475
 msgid "<b>UDP</b>"
 msgstr "<b>UDP</b>"
 
@@ -83,27 +108,31 @@ msgstr "<b>UDP</b>"
 msgid "<b>Unknown peers</b>"
 msgstr "<b>Ukendte peers</b>"
 
-#: res/ui/settings-view.ui:1093
+#: res/ui/settings-view.ui:1236
 msgid "<b>Version:</b>"
 msgstr "<b>Version:</b>"
 
-#: res/ui/settings-view.ui:196
+#: res/ui/settings-view.ui:191
 msgid "<b>Your Tox alias:</b>"
 msgstr "<b>Dit Tox alias:</b>"
 
-#: res/ui/settings-view.ui:77
+#: res/ui/settings-view.ui:72
 msgid "<b>Your ToxID:</b>"
 msgstr "<b>Dit ToxID:</b>"
 
-#: res/ui/chat-view.ui:911
+#: res/ui/chat-view.ui:1671
 msgid "<i>Friend is typing</i>"
 msgstr "<i>Ven skriver</i>"
 
-#: res/ui/settings-view.ui:1312
+#: res/ui/chat-view.ui:455
+msgid ">quote"
+msgstr ">citat"
+
+#: res/ui/settings-view.ui:1455
 msgid "About"
 msgstr "Om"
 
-#: res/ui/main-window.ui:372
+#: res/ui/main-window.ui:376
 msgid "Accept"
 msgstr "Accepter"
 
@@ -111,52 +140,60 @@ msgstr "Accepter"
 msgid "Accept/Resume file"
 msgstr "Accepter/Forsæt filoverførsel"
 
-#: src/MainWindow.vala:491 src/MainWindow.vala:516 res/ui/main-window.ui:470
-#: res/ui/main-window.ui:537
+#: src/MainWindow.vala:564 src/MainWindow.vala:589 res/ui/main-window.ui:474
+#: res/ui/main-window.ui:541
 msgid "Add a friend"
 msgstr "Tilføj en ven"
 
-#: res/ui/main-window.ui:612
+#: res/ui/main-window.ui:616
 msgid "Add friend"
 msgstr "Tilføj ven"
 
-#: src/MainWindow.vala:205
+#: src/MainWindow.vala:169
 msgid "All friends"
 msgstr "Alle venner"
 
-#: src/MainWindow.vala:429 src/Util.vala:160
+#: res/ui/chat-view.ui:352
+msgid "Alt syntax"
+msgstr "Alt syntaks"
+
+#: src/MainWindow.vala:455 src/Util.vala:156
 msgid "Away"
 msgstr "Væk"
 
-#: res/ui/settings-view.ui:262
+#: res/ui/settings-view.ui:257
 msgid "Biography"
 msgstr "Biografi"
 
-#: src/ChatView.vala:325 res/ui/chat-view.ui:558
+#: src/ChatView.vala:402 res/ui/chat-view.ui:1225
 msgid "Block"
 msgstr "Bloker"
 
-#: src/FriendListRow.vala:61
+#: src/FriendListRow.vala:64
 msgid "Block friend"
 msgstr "Bloker ven"
 
-#: src/Util.vala:154
+#: src/Util.vala:150
 msgid "Blocked"
 msgstr "Blokeret"
 
-#: src/MainWindow.vala:419 src/Util.vala:163
+#: res/ui/chat-view.ui:492
+msgid "Bold"
+msgstr "Fed"
+
+#: src/MainWindow.vala:445 src/Util.vala:159
 msgid "Busy"
 msgstr "Optaget"
 
-#: res/ui/chat-view.ui:186
+#: res/ui/chat-view.ui:854
 msgid "Call friend"
 msgstr "Ring til ven"
 
-#: src/MainWindow.vala:147
+#: src/MainWindow.vala:103
 msgid "Can't load the profile"
 msgstr "Kan ikke hente profil"
 
-#: res/ui/main-window.ui:633
+#: res/ui/main-window.ui:637
 msgid "Cancel"
 msgstr "Annuller"
 
@@ -164,7 +201,7 @@ msgstr "Annuller"
 msgid "Cancel/pause file"
 msgstr "Annuller/sæt filoverførsel på pause"
 
-#: res/ui/settings-view.ui:106
+#: res/ui/settings-view.ui:101
 msgid "Change Nospam"
 msgstr "Skift Nospam"
 
@@ -176,39 +213,41 @@ msgstr "Skift profilbillede"
 msgid "Change your status"
 msgstr "Skift statusmeddelelse"
 
-#: res/ui/settings-view.ui:447
-msgid "Changing Network settings will temporarily disconnect you from the Tox network"
+#: res/ui/settings-view.ui:442
+msgid ""
+"Changing Network settings will temporarily disconnect you from the Tox "
+"network"
 msgstr "Ændring af Netværksindstillingerne vil midlertidigt afbryde din forbindelse til Tox netværket"
 
-#: src/ChatView.vala:401
+#: src/ChatView.vala:462
 msgid "Choose a file"
 msgstr "Vælg en fil"
 
-#: src/ProfileChooser.vala:89
+#: src/ProfileChooser.vala:106
 msgid "Choose a name for the profile"
 msgstr "Vælg et navn til profilen"
 
-#: res/ui/chat-view.ui:700
+#: res/ui/chat-view.ui:1472
 msgid "Choose smileys"
 msgstr "Vælg smileys"
 
-#: src/SettingsView.vala:85
+#: src/SettingsView.vala:95
 msgid "Clearer theme"
 msgstr "Klart tema"
 
-#: res/ui/chat-view.ui:843
+#: res/ui/chat-view.ui:1371
 msgid "Close the popup"
 msgstr "Luk pop op-vinduet"
 
-#: res/ui/settings-view.ui:1202
+#: res/ui/settings-view.ui:1345
 msgid "Contributors"
 msgstr "Bidragsydere"
 
-#: res/ui/settings-view.ui:88 res/ui/settings-view.ui:218
+#: res/ui/settings-view.ui:83 res/ui/settings-view.ui:213
 msgid "Copy"
 msgstr "Kopier"
 
-#: res/ui/chat-view.ui:598
+#: res/ui/chat-view.ui:1265
 msgid "Copy friend's ToxID"
 msgstr "Kopier vens ToxID"
 
@@ -220,15 +259,15 @@ msgstr "Opret profil"
 msgid "Create this profile"
 msgstr "Opret profil"
 
-#: src/SettingsView.vala:83
+#: src/SettingsView.vala:93
 msgid "Dark theme"
 msgstr "Mørkt tema"
 
-#: res/ui/main-window.ui:352
+#: res/ui/main-window.ui:356
 msgid "Decline"
 msgstr "Afvis"
 
-#: res/ui/chat-view.ui:578
+#: res/ui/chat-view.ui:1245
 msgid "Delete"
 msgstr "Slet"
 
@@ -236,19 +275,27 @@ msgstr "Slet"
 msgid "Delete friends (3)"
 msgstr "Slet venner (3)"
 
+#: res/ui/settings-view.ui:1026
+msgid "Display typing notifications?"
+msgstr "Vis taste notifikationer?"
+
+#: res/ui/settings-view.ui:962
+msgid "Display unread messages notice?"
+msgstr "Vis meddelelse om ulæste beskeder?"
+
 #: res/ui/profile-chooser-window.ui:88
 msgid "Enter a name for the profile"
 msgstr "Angiv et navn til profilen"
 
-#: res/ui/chat-view.ui:95
+#: res/ui/chat-view.ui:763
 msgid "Friend's profile"
 msgstr "Vens profil"
 
-#: res/ui/settings-view.ui:415
+#: res/ui/settings-view.ui:410
 msgid "General"
 msgstr "Generelt"
 
-#: res/ui/settings-view.ui:1164
+#: res/ui/settings-view.ui:1307
 msgid "GitHub"
 msgstr "GitHub"
 
@@ -256,7 +303,7 @@ msgstr "GitHub"
 msgid "Groupchat name"
 msgstr "Gruppechat navn"
 
-#: src/MainWindow.vala:384
+#: src/MainWindow.vala:410
 #, c-format
 msgid "Hello! It's %s, let's be friends."
 msgstr "Hej! %s her, lad os være venner."
@@ -265,15 +312,23 @@ msgstr "Hej! %s her, lad os være venner."
 msgid "Image saved!"
 msgstr "Billede gemt!"
 
-#: res/ui/settings-view.ui:1007
+#: res/ui/chat-view.ui:600
+msgid "Inline code"
+msgstr "Indlejret kode"
+
+#: res/ui/settings-view.ui:1150
 msgid "Interface"
 msgstr "Grænseflade"
+
+#: res/ui/chat-view.ui:528
+msgid "Italic"
+msgstr "Kursiv"
 
 #: res/ui/group-chat-view.ui:289
 msgid "Leave"
 msgstr "Forlad"
 
-#: res/ui/settings-view.ui:1252
+#: res/ui/settings-view.ui:1395
 msgid "License (GNU General Public License 3)"
 msgstr "Licens (GNU General Public License 3)"
 
@@ -289,182 +344,251 @@ msgstr "Log på"
 msgid "Mute"
 msgstr "Deaktiver mikrofon"
 
-#: res/ui/settings-view.ui:687
+#: res/ui/settings-view.ui:684
 msgid "Network"
 msgstr "Netværk"
 
-#: res/ui/settings-view.ui:340
+#: res/ui/settings-view.ui:335
 msgid "New Tox alias"
 msgstr "Nyt Tox alias"
 
-#: src/MainWindow.vala:97
+#: src/MainWindow.vala:383
 msgid "No"
 msgstr "Nej"
 
-#: res/ui/chat-view.ui:493
+#: res/ui/chat-view.ui:1160
 msgid "Notes about the user:"
 msgstr "Noter om brugeren:"
 
-#: src/Util.vala:167
+#: src/Util.vala:163
 msgid "Offline"
 msgstr "Offline"
 
-#: src/MainWindow.vala:409 src/Util.vala:157
+#: src/MainWindow.vala:435 src/Util.vala:153
 msgid "Online"
 msgstr "Online"
 
-#: src/MainWindow.vala:204
+#: src/MainWindow.vala:168
 msgid "Online friends"
 msgstr "Online venner"
 
-#: src/ProfileChooser.vala:70
+#: src/ProfileChooser.vala:87
 msgid "Please enter a profile name."
 msgstr "Angiv et profilnavn."
 
-#: src/ProfileChooser.vala:77
+#: src/ProfileChooser.vala:94
 msgid "Profile name already taken."
 msgstr "Profilnavn allerede taget."
 
-#: src/MainWindow.vala:439
+#: src/MainWindow.vala:465
 msgid "Quit"
 msgstr "Luk"
 
-#: res/ui/settings-view.ui:783
+#: res/ui/chat-view.ui:433
+msgid "Quote"
+msgstr "Citat"
+
+#: res/ui/settings-view.ui:803
 msgid "Reload custom theme"
 msgstr "Genindlæs brugertema"
 
-#: res/ui/settings-view.ui:1183
+#: res/ui/settings-view.ui:1326
 msgid "Report an issue"
 msgstr "Anmeld et problem"
 
-#: res/ui/settings-view.ui:373
+#: res/ui/settings-view.ui:368
 msgid "Request deletion"
 msgstr "Anmod om sletning"
 
-#: res/ui/settings-view.ui:1061
+#: src/MainWindow.vala:538
+msgid "Restart later"
+msgstr "Genstart senere"
+
+#: src/MainWindow.vala:538
+msgid "Restart now"
+msgstr "Genstart nu"
+
+#: src/MainWindow.vala:535
+msgid "Restart required"
+msgstr "Genstart påkrævet"
+
+#: res/ui/settings-view.ui:1204
 msgid "Ricin"
 msgstr "Ricin"
 
-#: src/MainWindow.vala:525
+#: src/MainWindow.vala:598
 msgid "Ricin doesn't supports ToxDNS yet."
 msgstr "Ricin understøtter ikke ToxDNS endnu."
 
-#: res/ui/settings-view.ui:1272
+#: src/MainWindow.vala:537
+msgid ""
+"Ricin needs to restart in order to apply settings. Do you want to restart?"
+msgstr "Ricin skal genstarte for at kunne anvende indstillinger. Vil du genstarte nu?"
+
+#: res/ui/settings-view.ui:1415
 msgid "Ricin official website"
 msgstr "Ricin's officielle webside"
+
+#: res/ui/chat-view.ui:1613
+msgid "Scroll to bottom"
+msgstr "Scroll til bunden"
 
 #: res/ui/welcome-view.ui:87
 msgid "Select a chat to start messaging."
 msgstr "Vælg et vindue for at chatte"
 
-#: src/ProfileChooser.vala:20 res/ui/profile-chooser-window.ui:23
+#: src/ProfileChooser.vala:23 res/ui/profile-chooser-window.ui:23
 msgid "Select a profile"
 msgstr "Vælg en profil"
 
-#: src/MainWindow.vala:602
+#: src/MainWindow.vala:675
 msgid "Select your avatar"
 msgstr "Vælg dit profilbillede"
 
-#: res/ui/chat-view.ui:727
+#: res/ui/chat-view.ui:1500
 msgid "Send file"
 msgstr "Send fil"
 
-#: res/ui/chat-view.ui:753
+#: res/ui/chat-view.ui:1526
 msgid "Send message"
 msgstr "Send besked"
 
-#: src/MainWindow.vala:159 src/MainWindow.vala:480 res/ui/main-window.ui:490
+#: src/MainWindow.vala:117 src/MainWindow.vala:553 res/ui/main-window.ui:494
 msgid "Settings"
 msgstr "Indstillinger"
 
-#: res/ui/chat-view.ui:152
+#: res/ui/chat-view.ui:820
 msgid "Status message..."
 msgstr "Statusmeddelelse..."
 
-#: src/ProfileChooser.vala:61
+#: res/ui/chat-view.ui:636
+msgid "Striked"
+msgstr "Overstreget"
+
+#: res/ui/chat-view.ui:338
+msgid "Syntax"
+msgstr "Syntaks"
+
+#: res/ui/chat-view.ui:324
+msgid "Tag Name"
+msgstr "Tag Navn"
+
+#: src/ProfileChooser.vala:78
 msgid "The selected profile doesn't exists."
 msgstr "Den valgte profil eksisterer ikke."
 
-#: src/MessageListRow.vala:54 src/PlainLabel.vala:20 src/QuoteLabel.vala:20
+#: res/ui/settings-view.ui:767
+msgid "Theme:"
+msgstr "Tema:"
+
+#: res/ui/chat-view.ui:1595
+msgid "There are unread messages in this chat"
+msgstr "Der er ulæste beskeder i denne chat"
+
+#: src/MessageListRow.vala:91 src/PlainLabel.vala:22 src/QuoteLabel.vala:22
 msgid "ToxDNS is not supported yet."
 msgstr "ToxDNS er ikke understøttet endnu."
 
-#: src/MainWindow.vala:527
+#: src/MainWindow.vala:600
 msgid "ToxID can't be empty."
 msgstr "ToxID må ikke være tomt."
 
-#: src/MainWindow.vala:529
+#: src/MainWindow.vala:602
 msgid "ToxID is invalid."
 msgstr "ToxID er ugyldigt."
 
-#: res/ui/main-window.ui:558
+#: res/ui/main-window.ui:562
 msgid "ToxID to add..."
 msgstr "ToxID at tilføje..."
 
-#: res/ui/settings-view.ui:273
+#: res/ui/settings-view.ui:268
 msgid "ToxMe server"
 msgstr "ToxMe server"
 
-#: res/ui/main-window.ui:188
+#: res/ui/main-window.ui:190
 msgid "Type to search..."
 msgstr "Skriv for at søge..."
 
-#: src/ChatView.vala:323
+#: src/ChatView.vala:400
 msgid "Unblock"
 msgstr "Fjern blokering"
 
-#: src/FriendListRow.vala:61
+#: src/FriendListRow.vala:64
 msgid "Unblock friend"
 msgstr "Fjern blokering af ven"
 
-#: res/ui/settings-view.ui:356
+#: res/ui/chat-view.ui:564
+msgid "Underline"
+msgstr "Understreg"
+
+#: res/ui/settings-view.ui:351
 msgid "Update record"
 msgstr "Opdater optegnelse"
 
-#: res/ui/chat-view.ui:129 res/ui/settings-view.ui:251
+#: res/ui/chat-view.ui:797 res/ui/settings-view.ui:246
 msgid "Username"
 msgstr "Brugernavn"
 
-#: res/ui/chat-view.ui:214
+#: res/ui/chat-view.ui:882
 msgid "Video call friend"
 msgstr "Start videoopkald med ven"
 
-#: src/SettingsView.vala:84
+#: src/SettingsView.vala:94
 msgid "White theme"
 msgstr "Hvidt tema"
 
-#: src/MainWindow.vala:97
+#: src/MainWindow.vala:383
 msgid "Yes"
 msgstr "Ja"
 
-#: res/ui/main-window.ui:256
+#: res/ui/main-window.ui:260
 msgid "You got a new friend request"
 msgstr "Du har modtaget en venneanmodning"
 
-#: src/ChatView.vala:402 src/MainWindow.vala:605
+#: src/ChatView.vala:463 src/MainWindow.vala:678
 msgid "_Cancel"
 msgstr "_Annuller"
 
-#: src/ChatView.vala:403 src/MainWindow.vala:606
+#: src/ChatView.vala:464 src/MainWindow.vala:679
 msgid "_Open"
 msgstr "_Åben"
 
-#: src/SettingsView.vala:73
+#: res/ui/chat-view.ui:589
+msgid "__underline__"
+msgstr "__understreg__"
+
+#: res/ui/chat-view.ui:578
+msgid "_underline_"
+msgstr "_understreg_"
+
+#: res/ui/chat-view.ui:615
+msgid "`inline code`"
+msgstr "`indlejret kode`"
+
+#: src/SettingsView.vala:76
 msgid "default"
 msgstr "standard"
 
-#: src/ChatView.vala:243
+#: src/ChatView.vala:317
 msgid "is typing"
 msgstr "skriver"
 
-#: res/ui/settings-view.ui:1340
+#: res/ui/settings-view.ui:1488
 msgid "ricin.io (stable)"
-msgstr "ricin.io (stabil)"
+msgstr "ricin.io (stable)"
 
-#: src/SettingsView.vala:74
+#: src/SettingsView.vala:77
 msgid "stable"
 msgstr "stabil"
 
-#: res/ui/settings-view.ui:1343
+#: res/ui/settings-view.ui:1491
 msgid "toxme.io"
 msgstr "toxme.io"
+
+#: res/ui/chat-view.ui:650
+msgid "~striked~"
+msgstr "~overstreget~"
+
+#: res/ui/chat-view.ui:661
+msgid "~~striked~~"
+msgstr "~~overstreget~~"
