@@ -28,8 +28,7 @@
         <file>images/noavatar.gif</file>
 
         <file>images/icons/ricin.svg</file>
-        <file>images/icons/ricin-logo.png</file>
-        <file>images/icons/ricin-logo-invert.png</file>
+        <file>images/icons/ricin_logo.png</file>
 
         <file>images/status/busy.png</file>
         <file>images/status/busy_notification.png</file>
