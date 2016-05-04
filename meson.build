@@ -24,6 +24,7 @@ subdir('res')
 
 # GetText stuff.
 add_global_arguments('-DGETTEXT_PACKAGE="ricin"', language : 'c')
+add_global_arguments('-O3', language : 'c') # Optimise the output
 subdir('po')
 
 executable(
