@@ -8,6 +8,14 @@ cache: ccache
 env:
   - DISPLAY=:99.0
 
+notifications:
+ email: false
+ irc:
+  channels:
+   - "chat.freenode.net#ricin-dev"
+  on_success: change
+  on_failure: always
+
 install:
 # Utils
  - sudo apt-add-repository ppa:vala-team/ppa -y
@@ -74,20 +82,10 @@ script:
  - /usr/local/bin/meson.py . build -Db_coverage=true
  - sudo make install
 
-notifications:
- email: false
- irc:
-  channels:
-   - "chat.freenode.net#ricin-dev"
-  on_success: change
-  on_failure: always
-
 after_success:
 # X Virtual Framebuffer
  - sh -e /etc/init.d/xvfb start; sleep 3
 # Coverage
- - sudo ninja -C build
- - sudo ninja -C build test
  - cd build && ./Ricin & sleep 30s; kill %1; cd ..
  - sudo ninja -C build coverage-html
  - bash <(curl -s https://codecov.io/bash)
