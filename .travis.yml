@@ -86,6 +86,6 @@ after_success:
 # X Virtual Framebuffer
  - sh -e /etc/init.d/xvfb start; sleep 3
 # Coverage
- - cd build && ./Ricin & sleep 30s; kill %1; cd ..
+ - ./build/Ricin & sleep 30s; kill %1;
  - sudo ninja -C build coverage-html
- - bash <(curl -s https://codecov.io/bash)
+ - bash <(curl -s https://codecov.io/bash) -s build/Ricin@exe/
