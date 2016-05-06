@@ -4,8 +4,7 @@
 ### &loz; Required
 | Package name   | Notes      | Version   |
 |:---------------|:----------:|----------:|
-| [meson]        |  building  | >=0.31.0  |
-| [ninja]        |  building  | >=1.5.1   |
+| python3        |  building  | >=0.28.1  |
 | valac          |  building  | >=0.28.1  |
 | gtk+3          |            | >=3.16    |
 | [libtoxcore]   |            | >=0.0.0   |
@@ -21,7 +20,7 @@ After ToxCore is installed, run the following line to fetch & install the depend
 
 ```bash
 # Required to build Ricin:
-$ apt-get install ninja meson valac
+$ apt-get install python3 valac
 
 # Required by Ricin at runtime:
 $ apt-get install gtk+3 libglib2.0-0 libglib2.0-dev \
@@ -37,7 +36,7 @@ To install all the Ricin's dependencies, simply write the
 following in a shell.
 
 ```bash
-$ pacman -S meson ninja vala gtk3 toxcore \
+$ pacman -S python3 vala gtk3 toxcore \
   glib2 json-glib libsoup libnotify
 ```
 
@@ -45,7 +44,7 @@ $ pacman -S meson ninja vala gtk3 toxcore \
 On Fedora you need to compile ToxCore, Libsodium, and filter_audio by hand. Someone already wrote on how to achieve this, simply follow the guide to [Install ToxCore].
 
 ```bash
-$ dnf install valac glib2 gtk3 gtk3-devel \
+$ dnf install python3 valac glib2 gtk3 gtk3-devel \
   json-glib libsoup libnotify
 ```
 

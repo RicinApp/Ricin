@@ -1,9 +1,10 @@
 [Desktop Entry]
-Type=Application
-Encoding=UTF-8
 Name=Ricin
 Comment=A dead-simple but powerful Tox client.
+Categories=Network
+Encoding=UTF-8
 Exec=Ricin
 Icon=ricin.svg
+Type=Application
 Terminal=false
-Categories=Network
+X-UserData=$CONFIG/ricin;
