@@ -25,7 +25,6 @@ public class Ricin.Ricin : Gtk.Application {
       Intl.setlocale (LocaleCategory.MESSAGES, selected_language);
       Intl.textdomain (GETTEXT_PACKAGE);
       Intl.bind_textdomain_codeset (GETTEXT_PACKAGE, "utf-8");
-      Intl.bindtextdomain (GETTEXT_PACKAGE, "/usr/share/locale");
     } catch (Error e) {
       error (@"Error initializing gettext: $(e.message)");
     }
