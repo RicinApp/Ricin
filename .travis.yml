@@ -63,4 +63,5 @@ script:
  - ./waf distclean # Cleanup.
  - ./waf configure # Configure, TODO; Add tests/coverage.
  - ./waf build     # Build.
- - ./waf install   # And finally install.
+ - mkdir dist
+ - sudo ./waf install --prefix=/home/travis/build/RicinApp/Ricin/dist  # And finally install.
