@@ -2,6 +2,10 @@
 build/
 build-win32/
 
+# Waf files/folders
+.waf-*
+.lock-*
+
 # Binary.
 Ricin
 
