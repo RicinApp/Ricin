@@ -78,11 +78,11 @@ def build(bld):
 
 	# Lang files
 	bld(
-        features     = 'intltool_po',
-        appname      = APPNAME,
-        podir        = 'po',
-        install_path = "${LOCALEDIR}"
-    )
+		features     = 'intltool_po',
+		appname      = APPNAME,
+		podir        = 'po',
+		install_path = "${LOCALEDIR}"
+	)
 
 	# Desktop file
 	bld(
@@ -94,18 +94,27 @@ def build(bld):
 		install_path = "${DATADIR}/applications",
 	)
 
+	bld(
+		features = 'c glib2',
+		use      = 'GLIB GIO GOBJECT',
+		source   = 'res/ricin.gresource.xml',
+		target   = 'ricinres'
+    )
+
 	# Ricin
 	bld.program(
 		appname          = APPNAME,
         features         = 'c cprogram glib2',
+		use              = 'ricinres',
         packages         = 'glib-2.0 gio-2.0 gobject-2.0 gmodule-2.0 gtk+-3.0 libsoup-2.4 json-glib-1.0 libnotify libtoxcore',
         uselib           = 'GLIB GIO GOBJECT GMODULE GTK3 SOUP JSONGLIB NOTIFY TOXCORE',
         vala_target_glib = '2.38',
         source           = bld.path.ant_glob('src/*.vala'),
         vapi_dirs        = 'vapis',
         vala_resources   = 'res/ricin.gresource.xml',
+		valaflags        = '--generate-source',
         target           = 'ricin',
         install_binding  = False,
         header_path      = None,
         install_path     = "${BINDIR}"
-    )
+	)

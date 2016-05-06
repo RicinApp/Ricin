@@ -21,8 +21,9 @@ Please refer to the [INSTALL.md] to install the dependencies on your Linux distr
 
 ```bash
 git clone https://github.com/RicinApp/Ricin.git && cd Ricin
-make autogen
-make debug
+alias waf=$PWD/waf
+waf configure
+waf build
 ```
 
 # Donate

@@ -1,3 +1,18 @@
+.PHONY: autogen build debug install style nodesfile pot changelog reset-settings
+
+autogen:
+	./waf distclean
+	./waf configure
+
+build: autogen
+	./waf build
+
+debug: build
+	G_MESSAGES_DEBUG=all GOBJECT_DEBUG=instance-count gdb -ex run ./build/Ricin
+
+install: build
+	sudo ./waf install
+
 style:
 	astyle \
 		--style=attach \
@@ -26,33 +41,3 @@ reset-settings:
 	@echo -e "\e[93m\e[1mλ Copying settings from ./res/ricin.sample.json to ~/.config/tox/ricin.json\e[21m\e[39m"
 	@cp -f ./res/ricin.sample.json ~/.config/tox/ricin.json
 	@echo -e "\e[93m\e[1mλ Succesfuly reset'd settings!\e[21m\e[39m"
-
-autogen:
-	rm -rf ./build
-	mkdir -p ./build
-	meson.py . ./build
-
-debug: ./build/
-	type ninja-build 2>/dev/null && ninja-build -C build || ninja -C build
-	G_MESSAGES_DEBUG=all GOBJECT_DEBUG=instance-count gdb -ex run ./build/Ricin
-
-cleanrelease:
-	type ninja-build 2>/dev/null && ninja-build -C build clean || ninja -C build clean
-	type ninja-build 2>/dev/null && ninja-build -C build || ninja -C build
-
-release: ./build/
-	type ninja-build 2>/dev/null && ninja-build -C build || ninja -C build
-
-install:
-	cd build/ && type ninja-build 2>/dev/null && ninja-build install || ninja install
-
-
-# Winshit stuff.
-autogenwin:
-	sudo rm -rf ./build-win32
-	mkdir -p ./build-win32
-	sudo meson.py . ./build-win32 --cross-file ./tools/cross_win.txt
-
-debugwin:
-	ninja-build -C build-win32 clean
-	ninja-build -C build-win32
