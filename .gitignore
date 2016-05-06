@@ -12,6 +12,9 @@ Ricin
 # AStyle orig files.
 *.orig
 
+# Ghostwriter (Markdown editor) backup files
+*.backup
+
 # gdb logs.
 .gdb_history
 
