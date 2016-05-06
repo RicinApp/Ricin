@@ -3,7 +3,7 @@ project(
     'Ricin',
     'vala',
     'c', # compiling vala requires a C compiler
-    meson_version: '>0.31.0'
+    meson_version: '>=0.31.0'
 )
 gnome = import('gnome')
 
