@@ -434,6 +434,14 @@ class Ricin.ChatView : Gtk.Box {
     var message = this.entry.get_text ();
     if (message.strip () == "") {
       return;
+    } else if (message.strip () == "/clear") {
+      List<weak Gtk.Widget> childs = this.messages_list.get_children ();
+      foreach (Gtk.Widget m in childs) {
+        this.messages_list.remove (m);
+      }
+
+      this.entry.text = "";
+      return;
     }
     this.last_message = message;
     // Notice example:
@@ -445,7 +453,6 @@ class Ricin.ChatView : Gtk.Box {
 
     var is_child = (this.last_message_sender == "ricin");
     if (message.has_prefix ("/me ")) {
-
       var action = message.substring (4);
       debug (@"action=$action");
       var escaped = Util.escape_html (action);
