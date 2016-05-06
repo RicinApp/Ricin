@@ -449,10 +449,10 @@ namespace Tox {
         error ("Invalid Tox ID");
       }
 
-      ERR_FRIEND_ADD error;
-      uint32 friend_num = this.handle.friend_add (Util.hex2bin (id), message.data, out error);
+      ERR_FRIEND_ADD err;
+      uint32 friend_num = this.handle.friend_add (Util.hex2bin (id), message.data, out err);
 
-      switch (error) {
+      switch (err) {
         case ERR_FRIEND_ADD.OK:
           debug (@"Friend request sent to $id: \"$message\"");
           return new Friend (this, friend_num);
@@ -477,14 +477,37 @@ namespace Tox {
       }
     }
 
-    public Friend? accept_friend_request (string id) {
+    public Friend? accept_friend_request (string id) throws ErrFriendAdd {
+      if (id.length != ToxCore.PUBLIC_KEY_SIZE && id.index_of_char ('@') != -1) {
+        error ("Invalid Public Key");
+      }
+
       debug (@"accepting friend request from $id");
       ERR_FRIEND_ADD err;
-      uint32 num = this.handle.friend_add_norequest (Util.hex2bin(id), out err);
-      if (num != uint32.MAX && err == ERR_FRIEND_ADD.OK) {
-        return this.add_friend_by_num (num);
-      } else {
-        error ("friend_add_norequest: %d", err);
+      uint32 friend_num = this.handle.friend_add_norequest (Util.hex2bin(id), out err);
+
+      switch (err) {
+        case ERR_FRIEND_ADD.OK:
+          debug (@"Public key $id added as friend number $friend_num.");
+          return this.add_friend_by_num (friend_num);
+        case ERR_FRIEND_ADD.NULL:
+          throw new ErrFriendAdd.Null ("One of the arguments to the function was NULL when it was not expected.");
+        case ERR_FRIEND_ADD.TOO_LONG:
+          throw new ErrFriendAdd.TooLong ("The friend request message is too long.");
+        case ERR_FRIEND_ADD.NO_MESSAGE:
+          throw new ErrFriendAdd.NoMessage ("The friend request message was empty.");
+        case ERR_FRIEND_ADD.OWN_KEY:
+          throw new ErrFriendAdd.OwnKey ("You cannot add yourself.");
+        case ERR_FRIEND_ADD.ALREADY_SENT:
+          throw new ErrFriendAdd.AlreadySent ("You already added this friend.");
+        case ERR_FRIEND_ADD.BAD_CHECKSUM:
+          throw new ErrFriendAdd.BadChecksum ("ToxID is invalid.");
+        case ERR_FRIEND_ADD.SET_NEW_NOSPAM:
+          throw new ErrFriendAdd.BadNospam ("This ToxID have a new nospam.");
+        case ERR_FRIEND_ADD.MALLOC:
+          throw new ErrFriendAdd.Malloc ("A memory allocation failed when trying to increase the friend list size.");
+        default:
+          return null;
       }
     }
 
