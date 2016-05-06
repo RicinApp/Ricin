@@ -4,7 +4,7 @@
 ### &loz; Required
 | Package name   | Notes      | Version   |
 |:---------------|:----------:|----------:|
-| python3        |  building  | >=0.28.1  |
+| python3        |  building  |           |
 | valac          |  building  | >=0.28.1  |
 | gtk+3          |            | >=3.16    |
 | [libtoxcore]   |            | >=0.0.0   |
