@@ -648,9 +648,23 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
         //this.button_add_friend_show.visible = true;
         this.box_bottom_buttons.visible = true;
         return;
-      } catch (Tox.ErrFriendAdd error) {
-        debug ("Adding friend failed: %s", error.message);
-        error_message = error.message;
+      } catch (Tox.ErrFriendAdd e) {
+        debug (@"Cannot add friend from ToxID: $(e.message)");
+        error_message = e.message;
+      }
+    } else if (tox_id.length == ToxCore.PUBLIC_KEY_SIZE * 2) { // bytes -> chars
+      try {
+        var friend = tox.accept_friend_request (tox_id);
+        this.tox.save_data (); // Needed to avoid breaking profiles if app crash.
+        this.entry_friend_id.set_text (""); // Clear the entry after adding a friend.
+        this.add_friend.reveal_child = false;
+        this.label_add_error.set_text (_("Add a friend"));
+        //this.button_add_friend_show.visible = true;
+        this.box_bottom_buttons.visible = true;
+        return;
+      } catch (Tox.ErrFriendAdd e) {
+        debug (@"Cannot add friend from PublicKey: $(e.message)");
+        error_message = e.message;
       }
     } else if (tox_id.index_of ("@") != -1) {
       error_message = _("Ricin doesn't supports ToxDNS yet.");
