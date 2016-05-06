@@ -30,23 +30,11 @@ install:
  - sudo apt-get install -y lcov
 
 before_script:
-# ninja
- - git clone git://github.com/martine/ninja.git
- - cd ninja
- - git checkout release
- - ./configure.py --bootstrap
- - sudo cp ./ninja /usr/bin/ninja
- - cd ..
 # Gcovr
  - wget https://github.com/eraserix/gcovr/archive/3.1.tar.gz
  - tar -xvf 3.1.tar.gz
  - cd gcovr-3.1
  - sudo python setup.py install
- - cd ..
-# meson
- - git clone https://github.com/mesonbuild/meson.git
- - cd meson
- - sudo python3 setup.py install
  - cd ..
 # filter_audio
  - git clone https://github.com/irungentoo/filter_audio
@@ -75,17 +63,7 @@ before_script:
  - cd ..
 
 script:
-# Test if commit message is valid, else fail.
- #- if [[ "$TRAVIS_PULL_REQUEST" != "false" ]] && [[ "$TRAVIS_OS_NAME" == "linux" ]]; then bash ./tools/verify_commit_messages.sh "$TRAVIS_COMMIT_RANGE" ; fi
- - rm -rf build
- - mkdir -p build
- - /usr/local/bin/meson.py . build -Db_coverage=true
- - sudo make install
-
-after_success:
-# X Virtual Framebuffer
- - sh -e /etc/init.d/xvfb start; sleep 3
-# Coverage
- - ./build/Ricin & sleep 30s; kill %1;
- - sudo ninja -C build coverage-html
- - bash <(curl -s https://codecov.io/bash) -s build/Ricin@exe/
+ - ./waf distclean # Cleanup.
+ - ./waf configure # Configure, TODO; Add tests/coverage.
+ - ./waf build     # Build.
+ - ./waf install   # And finally install.
