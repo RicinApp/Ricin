@@ -124,20 +124,20 @@ The other way to add a friend is by only knowing it's Public Key. The difference
 
 [TABLE OF CONTENTS]: ####
 
-[Introduction]: #Introduction
-[Basic Tox concepts]: #Basic-Tox-concepts
-[Definition table]: #Definition-table
-[Create a profile]: #Create-a-profile
+[Introduction]: #introduction
+[Basic Tox concepts]: #basic-tox-concepts
+[Definition table]: #definition-table
+[Create a profile]: #create-a-profile
 
-[Customize your profile]: #Customize-your-profile
-[Name]: #Name
-[Status message]: #Status-message
-[Avatar]: #Avatar
-[Status]: #Status
+[Customize your profile]: #customize-your-profile
+[Name]: #name
+[Status message]: #status-message
+[Avatar]: #avatar
+[Status]: #status
 
-[Add a friend]: #Add-a-friend
-[using a ToxID]: #Using-a-ToxID
-[using a Public Key]: #Using-a-Public-Key
+[Add a friend]: #add-a-friend
+[using a ToxID]: #using-a-toxid
+[using a Public Key]: #using-a-public-key
 
 [Manage your friend list]
 [Accept/Reject a friend request]
