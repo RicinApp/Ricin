@@ -71,7 +71,7 @@ $ mps -kur ricin
 ```
 
 #### Others Linux
-For other systems that doesn't yet have a package you have a to compile and install Ricin from sources. Compiling Ricin is super simple as we use **The Meson Build System** that runs pretty much everywhere.  
+For other systems that doesn't yet have a package you have a to compile and install Ricin from sources. Compiling Ricin is super simple as we use **The Waf Build System** that runs pretty much everywhere.  
 
 Run the following commands in a shell:
 ```bash
