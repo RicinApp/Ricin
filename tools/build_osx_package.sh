@@ -1,14 +1,22 @@
 #!/bin/sh
+# OSX .dmg build maker
 
-rm -rf ../buildtmp
-mkdir -p ../buildtmp
-meson ../buildtmp --buildtype=release  --prefix=/tmp/ricin.app --bindir=Contents/MacOS
-type ninja-build 2>/dev/null && ninja-build -C ../buildtmp install || ninja -C ../buildtmp install
-rm -rf ../buildtmp
+curdir=`pwd`
+tmpdir="/tmp/ricin.app"
+bindir="Contents/MacOS"
+
+cd "$curdir"
+./waf configure --exec-prefix="$tmpdir" --prefix="$tmpdir" --libdir=lib --bindir="$bindir"
+./waf build --exec-prefix="$tmpdir" --prefix="$tmpdir" --libdir=lib --bindir="$bindir"
+
+mkdir -p "$tmpdir"
+./waf install --exec-prefix="$tmpdir" --prefix="$tmpdir" --libdir=lib --bindir="$bindir"
+
+cd "$tmpdir"
 mkdir -p mnttmp
-rm -f working.dmg
-gunzip < template.dmg.gz > working.dmg
-hdiutil attach working.dmg -noautoopen -quiet -mountpoint mnttmp
+gunzip < "$curdir/tools/template.dmg.gz" > working.dmg
+hdiutil attache working.dmg -noautoopen -quiet -mountpoint mnttmp
+
 # NOTE: output of hdiutil changes every now and then.
 # Verify that this is still working.
 DEV=`hdiutil info|tail -1|awk '{print $1}'`
