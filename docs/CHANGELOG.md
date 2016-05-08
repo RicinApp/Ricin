@@ -1,3 +1,18 @@
+## 0.0.9 (2016-05-08)
+#### Bug Fixes
+* **credits:**  add credits to the original identicon.js author ([296f1c45](https://github.com/RicinApp/Ricin/commit/296f1c45a89f2622b65f4ea28ff5c15703f555f0))
+* **delete friend:**  now remove the friendlistrow + focus -1 ([f39082b4](https://github.com/RicinApp/Ricin/commit/f39082b496466c061c08ff9ebfad1bcb6c81821b))
+* **file transfers:**  file save segfault. Fix #91 * Fixed the issue that was causing Ricin to   segfault when two files with the same name   were saved at the same location. This is simply   done by prepending a random id that's seeded   with the current DateTime. ([cb3f82ff](https://github.com/RicinApp/Ricin/commit/cb3f82ff345af8bf2c088ff31ef5f73234c043b2))
+* **i18n + identicons:**  remove identicons background ([3d0bcd6a](https://github.com/RicinApp/Ricin/commit/3d0bcd6a2f5e3dd59d847035f1e31c372534e1fb))
+* **identicons:**  don't use nospam to render identicon ([90313082](https://github.com/RicinApp/Ricin/commit/903130821af9a0f6d850c7a8d39256b099acf75b))
+* **linux packager:**  add `install.sh` in the final archive ([4d106483](https://github.com/RicinApp/Ricin/commit/4d106483305db05c75ef5a45f14c85716a96b750))
+* **markdown:**  astyle broked regexes ([9c5bac1a](https://github.com/RicinApp/Ricin/commit/9c5bac1a2a2b7c192ced19dd2acebfe12f316ab8))
+
+#### Features
+* **add friend:**  allow user to add a friend via public key (#117) ([786de973](https://github.com/RicinApp/Ricin/commit/786de973cb5c5ac04d5c26809c1cd9700f1e3f2a))
+* **entry command:**  add /clear to empty the ChatView ([c04b7b3c](https://github.com/RicinApp/Ricin/commit/c04b7b3c4d61e4d1e5eff965de2072ae2e001063))
+* **keyboard shortcut:**  ctrl+up and ctrl+down to change contacts quickly ([06deaba3](https://github.com/RicinApp/Ricin/commit/06deaba390a84b0acc88ce2c2026cc942caa0b20))
+
 ## 0.0.8 (2016-04-30)
 #### Bug Fixes
 * **port range:**  allow for bigger port range, hope it fix #68 ([a50798bb](https://github.com/RicinApp/Ricin/commit/a50798bbeaa8443b1b2c98be0645d3d3e904fc59))
