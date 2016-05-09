@@ -25,7 +25,7 @@ def configure(conf):
 	conf.check_cfg(package='gio-2.0', uselib_store='GIO', mandatory=1, args='--cflags --libs')
 	conf.check_cfg(package='gobject-2.0', uselib_store='GOBJECT', mandatory=1, args='--cflags --libs')
 	conf.check_cfg(package='gmodule-2.0', uselib_store='GMODULE', mandatory=1, args='--cflags --libs')
-	conf.check_cfg(package='gtk+-3.0', uselib_store='GTK3', mandatory=1, args='gtk+-3.0 --cflags --libs')
+	conf.check_cfg(package='gtk+-3.0', uselib_store='GTK3', mandatory=1, args='--cflags --libs')
 	conf.check_cfg(package='libsoup-2.4', uselib_store='SOUP', mandatory=1, args='--cflags --libs')
 	conf.check_cfg(package='json-glib-1.0', uselib_store='JSONGLIB', mandatory=1, args='--cflags --libs')
 	conf.check_cfg(package='libnotify', uselib_store='NOTIFY', mandatory=1, args='--cflags --libs')

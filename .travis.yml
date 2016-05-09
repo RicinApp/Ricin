@@ -60,8 +60,8 @@ before_script:
  - cd ..
 
 script:
- - ./waf distclean # Cleanup.
- - ./waf configure # Configure, TODO; Add tests/coverage.
- - ./waf build     # Build.
  - mkdir dist
- - sudo ./waf install --prefix=/home/travis/build/RicinApp/Ricin/dist  # And finally install.
+ - ./waf distclean # Cleanup.
+ - ./waf configure --prefix=/home/travis/build/RicinApp/Ricin/dist # Configure, TODO; Add tests/coverage.
+ - ./waf build # Build.
+ - sudo ./waf install # And finally install.
