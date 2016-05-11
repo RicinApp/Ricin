@@ -106,8 +106,54 @@ public class Ricin.Ricin : Gtk.Application {
 			return 0;
 		}
 
+    /**
+    * Display Ricin + libs versions.
+    **/
     if (version) {
       print (@"$APP_NAME version $APP_VERSION\n");
+
+      string[] libtoxcore = {
+        "%u".printf (ToxCore.Version.MAJOR),
+        "%u".printf (ToxCore.Version.MINOR),
+        "%u".printf (ToxCore.Version.PATCH)
+      };
+      print ("libtoxcore version ".concat (string.joinv (".", libtoxcore), "\n"));
+
+      /**
+      * TODO: uncomment this when libtoxav got used.
+      * string[] libtoxav = {
+      *   "%u".printf (ToxAV.Version.MAJOR),
+      *   "%u".printf (ToxAV.Version.MINOR),
+      *   "%u".printf (ToxAV.Version.PATCH)
+      * };
+      * print ("libtoxav version ".concat (string.joinv (".", toxcore), "\n"));
+      **/
+
+      string[] glib = {
+        "%u".printf (GLib.Version.MAJOR),
+        "%u".printf (GLib.Version.MINOR),
+        "%u".printf (GLib.Version.MICRO)
+      };
+      print ("GLib version ".concat (string.joinv (".", glib), "\n"));
+      string[] gtk = {
+        "%u".printf (Gtk.MAJOR_VERSION),
+        "%u".printf (Gtk.MINOR_VERSION),
+        "%u".printf (Gtk.MICRO_VERSION)
+      };
+      print ("GTK+3 version ".concat (string.joinv (".", gtk), "\n"));
+      string[] libnotify = {
+        "%u".printf (Notify.VERSION_MAJOR),
+        "%u".printf (Notify.VERSION_MINOR),
+        "%u".printf (Notify.VERSION_MICRO)
+      };
+      print ("libnotify version ".concat (string.joinv (".", libnotify), "\n"));
+      string[] jsonglib = {
+        "%u".printf (Json.MAJOR_VERSION),
+        "%u".printf (Json.MINOR_VERSION),
+        "%u".printf (Json.MICRO_VERSION)
+      };
+      print ("json-glib version ".concat (string.joinv (".", jsonglib), "\n"));
+
       return 0;
     }
 
