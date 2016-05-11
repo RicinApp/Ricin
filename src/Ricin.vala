@@ -87,7 +87,30 @@ public class Ricin.Ricin : Gtk.Application {
     new ProfileChooser (this);
   }
 
+  // OptionContext: Permits to handle commands the proper way.
+  private static bool version = false;
+  private const GLib.OptionEntry[] options = {
+		{ "version", 'v', 0, OptionArg.NONE, ref version, "Display the Ricin version", null },
+    { null } // List terminator
+  };
+
   public static int main(string[] args) {
+    try {
+			var opt_context = new OptionContext ("- Ricin instant messaging Tox client");
+			opt_context.set_help_enabled (true);
+			opt_context.add_main_entries (options, null);
+			opt_context.parse (ref args);
+		} catch (OptionError e) {
+			stdout.printf ("error: %s\n", e.message);
+			stdout.printf ("Run '%s --help' to see a full list of available command line options.\n", args[0]);
+			return 0;
+		}
+
+    if (version) {
+      print (@"$APP_NAME version $APP_VERSION\n");
+      return 0;
+    }
+
     return new Ricin ().run (args);
   }
 }
