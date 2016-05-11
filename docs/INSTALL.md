@@ -1,22 +1,24 @@
-# Installation guide
+# Ricin installation guide
 
 ## Dependencies
-### &loz; Required
-| Package name   | Notes      | Version   |
-|:---------------|:----------:|----------:|
-| python3        |  building  |           |
-| valac          |  building  | >=0.28.1  |
-| gtk+3          |            | >=3.16    |
-| [libtoxcore]   |            | >=0.0.0   |
-| glib2          |            | >=2.38    |
-| json-glib      |            | >=1.0     |
-| libsoup        |            | >=2.4     |
-| libnotify      |            | >=0.7.6   |
+| Package name           | Notes      | Version   |
+|:-----------------------|:----------:|----------:|
+| python2 **or** python3 |  building  |           |
+| valac                  |  building  | >=0.28.1  |
+| gtk+3                  |            | >=3.16    |
+| [libtoxcore]           |            | >=0.0.0   |
+| glib2                  |            | >=2.38    |
+| json-glib              |            | >=1.0     |
+| libsoup                |            | >=2.4     |
+| libnotify              |            | >=0.7.6   |
 
 ### Debian/Ubuntu
-On Ubuntu you need to compile ToxCore, Libsodium, and filter_audio by hand. Someone already wrote on how to achieve this, simply follow the guide to [Install ToxCore].
+On Ubuntu you need to compile ToxCore, Libsodium, and filter_audio by hand.
+Someone already wrote on how to achieve this, simply follow the guide
+to [Install ToxCore].
 
-After ToxCore is installed, run the following line to fetch & install the dependencies needed by Ricin to compile/run.
+After ToxCore is installed, run the following line to fetch & install
+the dependencies needed by Ricin to compile/run.
 
 ```bash
 # Required to build Ricin:
@@ -41,7 +43,9 @@ $ pacman -S python3 vala gtk3 toxcore \
 ```
 
 ### Fedora
-On Fedora you need to compile ToxCore, Libsodium, and filter_audio by hand. Someone already wrote on how to achieve this, simply follow the guide to [Install ToxCore].
+On Fedora you need to compile ToxCore, Libsodium, and filter_audio by hand.
+Someone already wrote on how to achieve this, simply follow the guide
+to [Install ToxCore].
 
 ```bash
 $ dnf install python3 valac glib2 gtk3 gtk3-devel \
@@ -71,14 +75,19 @@ $ mps -kur ricin
 ```
 
 #### Others Linux
-For other systems that doesn't yet have a package you have a to compile and install Ricin from sources. Compiling Ricin is super simple as we use **The Waf Build System** that runs pretty much everywhere.  
+For other systems that doesn't yet have a package you have a to compile and
+install Ricin from sources. Compiling Ricin is super simple as we use
+**The Waf Build System** that runs pretty much everywhere.  
+
+**Before** running the following commands, please ensure that you have installed
+all the Ricin's dependencies.
 
 Run the following commands in a shell:
 ```bash
-git clone https://github.com/RicinApp/Ricin.git
-cd Ricin
-make autogen
-sudo make install
+git clone https://github.com/RicinApp/Ricin.git && cd Ricin
+./waf configure --prefix=/usr/local
+./waf build
+sudo ./waf install
 ```
 
 ### Windows
