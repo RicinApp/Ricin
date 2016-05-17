@@ -1,4 +1,5 @@
 using ToxCore; // only in this file
+using ToxEncrypt; // only in this file
 
 // so we don't conflict with libtoxcore
 [CCode (cprefix="ToxWrapper", lower_case_cprefix="tox_wrapper_")]
@@ -43,6 +44,14 @@ namespace Tox {
     LoadFailed
   }
 
+  public errordomain ErrDecrypt {
+    Null,
+    InvalidLength,
+    BadFormat,
+    KeyDerivationFailed,
+    Failed
+  }
+
   public errordomain ErrFriendAdd {
     Null,
     TooLong,
@@ -67,6 +76,8 @@ namespace Tox {
 
     // Used to kill tox.
     private bool must_stop = false;
+
+    private string? password { get; set; default = null; }
 
     public string username {
       owned get {
@@ -153,18 +164,54 @@ namespace Tox {
     public signal void global_info (string message);
     public signal void message_read (uint32 friend_number, uint32 message_id);
 
-    public Tox (ToxCore.Options? opts = null, string? profile = null) throws ErrNew {
+    public Tox (ToxCore.Options? opts = null, string? profile = null, string? password = null, bool is_new = false) throws ErrNew, ErrDecrypt {
       debug ("ToxCore Version %u.%u.%u", ToxCore.Version.MAJOR, ToxCore.Version.MINOR, ToxCore.Version.PATCH);
 
-      if (profile != null) {
+
+      if (profile != null) { // Profile specified.
         this.profile = profile;
-        if (FileUtils.test (profile, FileTest.EXISTS)) { // load file
-          FileUtils.get_data (profile, out opts.savedata_data);
-          opts.savedata_type = ToxCore.SaveDataType.TOX_SAVE;
-        } else { // create new file
+
+        // If profile doesn't exists, let's create it.
+        if (FileUtils.test (profile, FileTest.EXISTS) == false) {
           File.new_for_path (profile).create (FileCreateFlags.NONE, null);
         }
+
+        // Profile is encrypted. Let's decrypt and load it.
+        if (password != null && is_new == false) {
+          debug ("Decrypting profile...");
+          this.password = password;
+
+          uint8[] savedata = null;
+          FileUtils.get_data (profile, out savedata);
+
+          ERR_DECRYPTION err;
+          uint8[] pass = password.data;
+          pass_decrypt (savedata, pass, out opts.savedata_data, out err);
+          opts.savedata_type = ToxCore.SaveDataType.TOX_SAVE;
+
+          if (err != ERR_DECRYPTION.OK) {
+            switch (err) {
+              case ERR_DECRYPTION.NULL:
+                throw new ErrDecrypt.Null ("Some input data, or maybe the output pointer, was null.");
+              case ERR_DECRYPTION.INVALID_LENGTH:
+                throw new ErrDecrypt.InvalidLength ("The input data was shorter than TOX_PASS_ENCRYPTION_EXTRA_LENGTH bytes.");
+              case ERR_DECRYPTION.BAD_FORMAT:
+                throw new ErrDecrypt.BadFormat ("The input data is missing the magic number (i.e. wasn't created by this module, or is corrupted).");
+              case ERR_DECRYPTION.KEY_DERIVATION_FAILED:
+                throw new ErrDecrypt.KeyDerivationFailed ("The crypto lib was unable to derive a key from the given passphrase, which is usually a lack of memory issue. The functions accepting keys do not produce this error.");
+              case ERR_DECRYPTION.FAILED:
+                throw new ErrDecrypt.Failed ("The encrypted byte array could not be decrypted. Either the data was corrupt or the password/key was incorrect.");
+            }
+          }
+        } else if (is_new) {
+          opts.savedata_type = ToxCore.SaveDataType.NONE;
+        } else {
+          uint8[] savedata = null;
+          FileUtils.get_data (profile, out opts.savedata_data);
+          opts.savedata_type = ToxCore.SaveDataType.TOX_SAVE;
+        }
       }
+
       this.ipv6_enabled = opts.ipv6_enabled;
       ERR_NEW error;
       this.handle = new ToxCore.Tox (opts, out error);
@@ -189,6 +236,10 @@ namespace Tox {
           throw new ErrNew.LoadFailed ("The byte array to be loaded contained an encrypted save.");
         case ERR_NEW.LOAD_BAD_FORMAT:
           throw new ErrNew.LoadFailed ("The data format was invalid. This can happen when loading data that was saved by an older version of Tox, or when the data has been corrupted. When loading from badly formatted data, some data may have been loaded, and the rest is discarded. Passing an invalid length parameter also causes this error.");
+      }
+
+      if (is_new) {
+        this.save_data (password);
       }
 
       handle.callback_self_connection_status ((self, status) => {
@@ -518,12 +569,39 @@ namespace Tox {
       return friend;
     }
 
-    public void save_data () {
+    public void save_data (string? pass = null) throws ErrDecrypt {
+      string? pwd = (pass == null) ? this.password : pass;
+
       if (this.profile != null) {
         debug ("Saving data to " + this.profile);
+        print (@"Password: " + pwd + "\n");
+
+        uint8[] savedata = null;
         uint8[] data = new uint8[this.handle.get_savedata_size ()];
         this.handle.get_savedata (data);
-        FileUtils.set_data (this.profile, data);
+
+        if (pwd != null) {
+          ERR_ENCRYPTION err;
+          uint8[] encrypted_data = null;
+          pass_encrypt (data, pwd.data, out encrypted_data, out err);
+
+          if (err != ERR_ENCRYPTION.OK) {
+            switch (err) {
+              case ERR_ENCRYPTION.NULL:
+                throw new ErrDecrypt.Null ("Some input data, or maybe the output pointer, was null.");
+              case ERR_ENCRYPTION.KEY_DERIVATION_FAILED:
+                throw new ErrDecrypt.KeyDerivationFailed ("The crypto lib was unable to derive a key from the given passphrase, which is usually a lack of memory issue. The functions accepting keys do not produce this error.");
+              case ERR_ENCRYPTION.FAILED:
+                throw new ErrDecrypt.Failed ("The encryption itself failed.");
+            }
+          }
+
+          savedata = encrypted_data;
+        } else {
+          savedata = data;
+        }
+
+        FileUtils.set_data (this.profile, savedata);
       }
     }
   }

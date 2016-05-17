@@ -30,6 +30,7 @@ def configure(conf):
 	conf.check_cfg(package='json-glib-1.0', uselib_store='JSONGLIB', mandatory=1, args='--cflags --libs')
 	conf.check_cfg(package='libnotify', uselib_store='NOTIFY', mandatory=1, args='--cflags --libs')
 	conf.check_cfg(package='libtoxcore', uselib_store='TOXCORE', mandatory=1, args='--cflags --libs')
+	conf.check_cfg(package='libtoxencryptsave', uselib_store='TOXES', mandatory=1, args='--cflags --libs')
 
 	# C compiler flags.
 	conf.env.append_unique('CFLAGS', [
@@ -106,8 +107,8 @@ def build(bld):
 		appname          = APPNAME,
         features         = 'c cprogram glib2',
 		use              = 'ricinres',
-        packages         = 'glib-2.0 gio-2.0 gobject-2.0 gmodule-2.0 gtk+-3.0 libsoup-2.4 json-glib-1.0 libnotify libtoxcore',
-        uselib           = 'GLIB GIO GOBJECT GMODULE GTK3 SOUP JSONGLIB NOTIFY TOXCORE',
+        packages         = 'glib-2.0 gio-2.0 gobject-2.0 gmodule-2.0 gtk+-3.0 libsoup-2.4 json-glib-1.0 libnotify libtoxcore libtoxencryptsave',
+        uselib           = 'GLIB GIO GOBJECT GMODULE GTK3 SOUP JSONGLIB NOTIFY TOXCORE TOXES',
         vala_target_glib = '2.38',
         source           = bld.path.ant_glob('src/*.vala'),
         vapi_dirs        = 'vapis',
