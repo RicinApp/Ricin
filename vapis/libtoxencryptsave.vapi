@@ -98,7 +98,7 @@ namespace ToxEncrypt {
   public static bool pass_encrypt (
     [CCode (array_length_type="size_t")] uint8[] data,
     [CCode (array_length_type="size_t")] uint8[] passphrase,
-    [CCode (array_length=false)] out uint8[] @out,
+    [CCode (array_length=false)] uint8[] encrypted_data,
     out ERR_ENCRYPTION error
   );
 
@@ -114,7 +114,7 @@ namespace ToxEncrypt {
   public static bool pass_decrypt (
     [CCode (array_length_type="size_t")] uint8[] data,
     [CCode (array_length_type="size_t")] uint8[] passphrase,
-    [CCode (array_length=false)] out uint8[] @out,
+    [CCode (array_length=false)] uint8[] decrypted_data,
     out ERR_DECRYPTION error
   );
 

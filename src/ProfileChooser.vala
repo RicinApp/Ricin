@@ -58,6 +58,21 @@ class Ricin.ProfileChooser : Gtk.ApplicationWindow {
     foreach (string profile in profiles) {
       this.combobox_profiles.append_text (profile);
     }
+
+    this.combobox_profiles.notify["active"].connect (() => {
+      var pname = this.combobox_profiles.get_active_text ();
+      var profile = Tox.profile_dir () + pname;
+      uint8[]? savedata = null;
+
+      FileUtils.get_data (profile, out savedata);
+      if (ToxEncrypt.is_data_encrypted (savedata) == false) {
+        this.entry_login_password.sensitive = false;
+      } else {
+        this.entry_login_password.sensitive = true;
+        this.entry_login_password.grab_focus_without_selecting ();
+      }
+    });
+
     this.combobox_profiles.active = latest_index;
 
     if (profiles.length == 0) {

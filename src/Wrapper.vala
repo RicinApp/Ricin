@@ -181,28 +181,8 @@ namespace Tox {
           debug ("Decrypting profile...");
           this.password = password;
 
-          uint8[] savedata = null;
-          FileUtils.get_data (profile, out savedata);
-
-          ERR_DECRYPTION err;
-          uint8[] pass = password.data;
-          pass_decrypt (savedata, pass, out opts.savedata_data, out err);
           opts.savedata_type = ToxCore.SaveDataType.TOX_SAVE;
-
-          if (err != ERR_DECRYPTION.OK) {
-            switch (err) {
-              case ERR_DECRYPTION.NULL:
-                throw new ErrDecrypt.Null ("Some input data, or maybe the output pointer, was null.");
-              case ERR_DECRYPTION.INVALID_LENGTH:
-                throw new ErrDecrypt.InvalidLength ("The input data was shorter than TOX_PASS_ENCRYPTION_EXTRA_LENGTH bytes.");
-              case ERR_DECRYPTION.BAD_FORMAT:
-                throw new ErrDecrypt.BadFormat ("The input data is missing the magic number (i.e. wasn't created by this module, or is corrupted).");
-              case ERR_DECRYPTION.KEY_DERIVATION_FAILED:
-                throw new ErrDecrypt.KeyDerivationFailed ("The crypto lib was unable to derive a key from the given passphrase, which is usually a lack of memory issue. The functions accepting keys do not produce this error.");
-              case ERR_DECRYPTION.FAILED:
-                throw new ErrDecrypt.Failed ("The encrypted byte array could not be decrypted. Either the data was corrupt or the password/key was incorrect.");
-            }
-          }
+          opts.savedata_data = this.decrypt_profile (this.password);
         } else if (is_new) {
           opts.savedata_type = ToxCore.SaveDataType.NONE;
         } else {
@@ -574,35 +554,73 @@ namespace Tox {
 
       if (this.profile != null) {
         debug ("Saving data to " + this.profile);
-        print (@"Password: " + pwd + "\n");
 
         uint8[] savedata = null;
         uint8[] data = new uint8[this.handle.get_savedata_size ()];
         this.handle.get_savedata (data);
 
-        if (pwd != null) {
-          ERR_ENCRYPTION err;
-          uint8[] encrypted_data = null;
-          pass_encrypt (data, pwd.data, out encrypted_data, out err);
-
-          if (err != ERR_ENCRYPTION.OK) {
-            switch (err) {
-              case ERR_ENCRYPTION.NULL:
-                throw new ErrDecrypt.Null ("Some input data, or maybe the output pointer, was null.");
-              case ERR_ENCRYPTION.KEY_DERIVATION_FAILED:
-                throw new ErrDecrypt.KeyDerivationFailed ("The crypto lib was unable to derive a key from the given passphrase, which is usually a lack of memory issue. The functions accepting keys do not produce this error.");
-              case ERR_ENCRYPTION.FAILED:
-                throw new ErrDecrypt.Failed ("The encryption itself failed.");
-            }
-          }
-
-          savedata = encrypted_data;
+        if (this.password != null) {
+          savedata = this.encrypt_profile (this.password);
         } else {
           savedata = data;
         }
 
         FileUtils.set_data (this.profile, savedata);
       }
+    }
+
+    public uint8[] encrypt_profile (string password) {
+      ERR_ENCRYPTION err;
+      uint8[] savedata = null;
+      uint8[] data = new uint8[this.handle.get_savedata_size ()];
+      this.handle.get_savedata (data);
+
+      uint32 savesize = this.handle.get_savedata_size () + ToxEncrypt.PASS_ENCRYPTION_EXTRA_LENGTH;
+      uint8[] encrypted_data = new uint8[savesize];
+      pass_encrypt (data, password.data, encrypted_data, out err);
+
+      if (err != ERR_ENCRYPTION.OK) {
+        switch (err) {
+          case ERR_ENCRYPTION.NULL:
+            throw new ErrDecrypt.Null ("Some input data, or maybe the output pointer, was null.");
+          case ERR_ENCRYPTION.KEY_DERIVATION_FAILED:
+            throw new ErrDecrypt.KeyDerivationFailed ("The crypto lib was unable to derive a key from the given passphrase, which is usually a lack of memory issue. The functions accepting keys do not produce this error.");
+          case ERR_ENCRYPTION.FAILED:
+            throw new ErrDecrypt.Failed ("The encryption itself failed.");
+        }
+      }
+
+      return encrypted_data;
+    }
+
+    public uint8[] decrypt_profile (string password) {
+      ERR_DECRYPTION err;
+      uint8[]? savedata = null;
+      uint8[] pass = password.data;
+
+      FileUtils.get_data (this.profile, out savedata);
+
+      int savesize = savedata.length - ToxEncrypt.PASS_ENCRYPTION_EXTRA_LENGTH;
+      uint8[] decrypted_data = new uint8[savesize];
+
+      pass_decrypt (savedata, pass, decrypted_data, out err);
+
+      if (err != ERR_DECRYPTION.OK) {
+        switch (err) {
+          case ERR_DECRYPTION.NULL:
+            throw new ErrDecrypt.Null ("Some input data, or maybe the output pointer, was null.");
+          case ERR_DECRYPTION.INVALID_LENGTH:
+            throw new ErrDecrypt.InvalidLength ("The input data was shorter than TOX_PASS_ENCRYPTION_EXTRA_LENGTH bytes.");
+          case ERR_DECRYPTION.BAD_FORMAT:
+            throw new ErrDecrypt.BadFormat ("The input data is missing the magic number (i.e. wasn't created by this module, or is corrupted).");
+          case ERR_DECRYPTION.KEY_DERIVATION_FAILED:
+            throw new ErrDecrypt.KeyDerivationFailed ("The crypto lib was unable to derive a key from the given passphrase, which is usually a lack of memory issue. The functions accepting keys do not produce this error.");
+          case ERR_DECRYPTION.FAILED:
+            throw new ErrDecrypt.Failed ("The encrypted byte array could not be decrypted. Either the data was corrupt or the password/key was incorrect.");
+        }
+      }
+
+      return decrypted_data;
     }
   }
 
