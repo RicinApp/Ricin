@@ -63,8 +63,8 @@ class Ricin.ProfileChooser : Gtk.ApplicationWindow {
       var pname = this.combobox_profiles.get_active_text ();
       var profile = Tox.profile_dir () + pname;
       uint8[]? savedata = null;
-
       FileUtils.get_data (profile, out savedata);
+
       if (ToxEncrypt.is_data_encrypted (savedata) == false) {
         this.entry_login_password.sensitive = false;
       } else {
@@ -84,13 +84,24 @@ class Ricin.ProfileChooser : Gtk.ApplicationWindow {
   [GtkCallback]
   private void login () {
     var pname = this.combobox_profiles.get_active_text ();
-    var pass = this.entry_login_password.get_text ();
     var profile = Tox.profile_dir () + pname;
+    var pass = this.entry_login_password.get_text ();
+    var password = (pass.strip () != "") ? pass : null;
 
     if (FileUtils.test (profile, FileTest.EXISTS)) {
       this.button_login.sensitive = false;
+
+      uint8[]? savedata = null;
+      FileUtils.get_data (profile, out savedata);
+
+      if (ToxEncrypt.is_data_encrypted (savedata) && pass.strip () == "") {
+        this.label_select_profile.set_markup ("<span color=\"#e74c3c\">" + _("Please enter a password") + "</span>");
+        this.button_login.sensitive = true;
+        return;
+      }
+
       this.settings.last_profile = pname.replace (".tox", "");
-      new MainWindow (this.application, profile, pass);
+      new MainWindow (this.application, profile, password);
       this.close (); // if a dialog is open, the window will not be closed
       this.button_login.sensitive = true;
     } else {
@@ -104,6 +115,7 @@ class Ricin.ProfileChooser : Gtk.ApplicationWindow {
   private void register () {
     var entry = this.entry_register_name.get_text ();
     var pass = this.entry_register_password.get_text ();
+    var password = (pass.strip () != "") ? pass : null;
 
     if (entry.strip () == "") {
       this.label_create_profile.set_markup ("<span color=\"#e74c3c\">" + _("Please enter a profile name.") + "</span>");

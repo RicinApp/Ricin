@@ -70,14 +70,16 @@ namespace Tox {
   public class Tox : Object {
     internal ToxCore.Tox handle;
     private HashTable<uint32, Friend> friends = new HashTable<uint32, Friend> (direct_hash, direct_equal);
-    private bool ipv6_enabled = true;
-    private string? profile = null;
+
+    private bool ipv6_enabled   = true;
+    private string? profile     = null;
+    private string? password    = null;
     internal Gdk.Pixbuf? avatar = null;
 
     // Used to kill tox.
     private bool must_stop = false;
 
-    private string? password { get; set; default = null; }
+    public bool encrypted { get; set; default = false; }
 
     public string username {
       owned get {
@@ -170,6 +172,7 @@ namespace Tox {
 
       if (profile != null) { // Profile specified.
         this.profile = profile;
+        this.password = password;
 
         // If profile doesn't exists, let's create it.
         if (FileUtils.test (profile, FileTest.EXISTS) == false) {
@@ -178,11 +181,9 @@ namespace Tox {
 
         // Profile is encrypted. Let's decrypt and load it.
         if (password != null && is_new == false) {
-          debug ("Decrypting profile...");
-          this.password = password;
-
           opts.savedata_type = ToxCore.SaveDataType.TOX_SAVE;
           opts.savedata_data = this.decrypt_profile (this.password);
+          this.encrypted = true;
         } else if (is_new) {
           opts.savedata_type = ToxCore.SaveDataType.NONE;
         } else {
@@ -196,6 +197,10 @@ namespace Tox {
       ERR_NEW error;
       this.handle = new ToxCore.Tox (opts, out error);
       unowned ToxCore.Tox handle = this.handle;
+
+      if (is_new) {
+        this.add_password (password);
+      }
 
       switch (error) {
         case ERR_NEW.NULL:
@@ -216,10 +221,6 @@ namespace Tox {
           throw new ErrNew.LoadFailed ("The byte array to be loaded contained an encrypted save.");
         case ERR_NEW.LOAD_BAD_FORMAT:
           throw new ErrNew.LoadFailed ("The data format was invalid. This can happen when loading data that was saved by an older version of Tox, or when the data has been corrupted. When loading from badly formatted data, some data may have been loaded, and the rest is discarded. Passing an invalid length parameter also causes this error.");
-      }
-
-      if (is_new) {
-        this.save_data (password);
       }
 
       handle.callback_self_connection_status ((self, status) => {
@@ -550,8 +551,6 @@ namespace Tox {
     }
 
     public void save_data (string? pass = null) throws ErrDecrypt {
-      string? pwd = (pass == null) ? this.password : pass;
-
       if (this.profile != null) {
         debug ("Saving data to " + this.profile);
 
@@ -560,7 +559,7 @@ namespace Tox {
         this.handle.get_savedata (data);
 
         if (this.password != null) {
-          savedata = this.encrypt_profile (this.password);
+          savedata = this.encrypt_profile (this.password, data);
         } else {
           savedata = data;
         }
@@ -569,15 +568,26 @@ namespace Tox {
       }
     }
 
-    public uint8[] encrypt_profile (string password) {
+    public uint8[] encrypt_profile (string password, uint8[]? data = null) throws ErrDecrypt {
       ERR_ENCRYPTION err;
+      uint8[] pass = password.data;
       uint8[] savedata = null;
-      uint8[] data = new uint8[this.handle.get_savedata_size ()];
-      this.handle.get_savedata (data);
 
-      uint32 savesize = this.handle.get_savedata_size () + ToxEncrypt.PASS_ENCRYPTION_EXTRA_LENGTH;
+      if (data == null) {
+        savedata = new uint8[this.handle.get_savedata_size ()];
+        this.handle.get_savedata (savedata);
+      } else {
+        savedata = data;
+      }
+
+      if (is_data_encrypted (savedata)) {
+        throw new ErrDecrypt.Failed ("Profile is already encrypted, cannot encrypt non-decrypted data.");
+      }
+
+      uint32 savesize = savedata.length + ToxEncrypt.PASS_ENCRYPTION_EXTRA_LENGTH;
       uint8[] encrypted_data = new uint8[savesize];
-      pass_encrypt (data, password.data, encrypted_data, out err);
+      pass_encrypt (savedata, pass, encrypted_data, out err);
+      this.password = password;
 
       if (err != ERR_ENCRYPTION.OK) {
         switch (err) {
@@ -593,17 +603,21 @@ namespace Tox {
       return encrypted_data;
     }
 
-    public uint8[] decrypt_profile (string password) {
+    public uint8[] decrypt_profile (string password) throws ErrDecrypt {
       ERR_DECRYPTION err;
       uint8[]? savedata = null;
       uint8[] pass = password.data;
-
       FileUtils.get_data (this.profile, out savedata);
+
+      if (is_data_encrypted (savedata) == false) {
+        throw new ErrDecrypt.Failed ("Profile isn't encrypted, cannot decrypt plain text.");
+      }
 
       int savesize = savedata.length - ToxEncrypt.PASS_ENCRYPTION_EXTRA_LENGTH;
       uint8[] decrypted_data = new uint8[savesize];
 
       pass_decrypt (savedata, pass, decrypted_data, out err);
+      this.password = null;
 
       if (err != ERR_DECRYPTION.OK) {
         switch (err) {
@@ -621,6 +635,43 @@ namespace Tox {
       }
 
       return decrypted_data;
+    }
+
+    public bool add_password (string password) {
+      try {
+        uint8[] data = this.encrypt_profile (password, null);
+        FileUtils.set_data (this.profile, data);
+
+        return data != null;
+      } catch (Error e) {
+        return false;
+      }
+    }
+
+    public bool change_password (string old_password, string new_password) {
+      try {
+        uint8[] data = this.decrypt_profile (old_password);
+        uint8[] data2 = this.encrypt_profile (new_password, data);
+        this.password = new_password;
+        FileUtils.set_data (this.profile, data2);
+
+        return data2 != null;
+      } catch (Error e) {
+        return false;
+      }
+    }
+
+    public bool remove_password (string old_password) {
+      try {
+        uint8[] data = this.decrypt_profile (old_password);
+        this.password = null;
+        this.encrypted = false;
+        FileUtils.set_data (this.profile, data);
+
+        return data != null;
+      } catch (Error e) {
+        return false;
+      }
     }
   }
 

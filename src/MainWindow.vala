@@ -103,7 +103,7 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
 
     try {
       this.tox = new Tox.Tox (opts, profile, password, is_new);
-    } catch (Tox.ErrDecrypt error) {
+    } catch (Error error) {
       warning ("Tox init failed: %s", error.message);
       this.destroy ();
       var error_dialog = new Gtk.MessageDialog (this,

@@ -95,12 +95,20 @@ def build(bld):
 		install_path = "${DATADIR}/applications",
 	)
 
+	# Resources file
 	bld(
 		features = 'c glib2',
 		use      = 'GLIB GIO GOBJECT',
 		source   = 'res/ricin.gresource.xml',
 		target   = 'ricinres'
     )
+
+	# libtoxencryptsave.pc
+	#bld(
+	#	source = 'vapis/libtoxencryptsave.pc',
+	#	target = 'libtoxencryptsave.pc',
+	#	install_path = '${DATADIR}/pkgconfig'
+	#)
 
 	# Ricin
 	bld.program(
