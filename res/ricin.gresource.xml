@@ -17,11 +17,11 @@
         <file preprocess="xml-stripblanks" compressed="true">ui/settings-view.ui</file>
         <file preprocess="xml-stripblanks" compressed="true">ui/welcome-view.ui</file>
 
-        <file compressed="true">themes/reset.css</file>
         <file compressed="true">themes/app.css</file>
-        <file compressed="true">themes/dark.css</file>
-        <file compressed="true">themes/white.css</file>
         <file compressed="true">themes/clearer.css</file>
+        <file compressed="true">themes/dark.css</file>
+        <file compressed="true">themes/reset.css</file>
+        <file compressed="true">themes/white.css</file>
 
         <file compressed="true">nodes.json</file>
         <file compressed="true">ricin.sample.json</file>

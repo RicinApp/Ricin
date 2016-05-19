@@ -78,7 +78,7 @@ def build(bld):
 			pass
 
 	# Lang files
-	bld(
+	langs = bld(
 		features     = 'intltool_po',
 		appname      = APPNAME,
 		podir        = 'po',
@@ -86,7 +86,7 @@ def build(bld):
 	)
 
 	# Desktop file
-	bld(
+	desktop = bld(
 		features     = "intltool_in",
 		podir        = "po",
 		style        = "desktop",
@@ -96,7 +96,7 @@ def build(bld):
 	)
 
 	# Resources file
-	bld(
+	resource = bld(
 		features = 'c glib2',
 		use      = 'GLIB GIO GOBJECT',
 		source   = 'res/ricin.gresource.xml',
@@ -104,26 +104,28 @@ def build(bld):
     )
 
 	# libtoxencryptsave.pc
-	#bld(
-	#	source = 'vapis/libtoxencryptsave.pc',
-	#	target = 'libtoxencryptsave.pc',
-	#	install_path = '${DATADIR}/pkgconfig'
-	#)
+	toxespc = bld(
+		feature      = 'subst',
+		source       = 'vapis/libtoxencryptsave.pc.in',
+		target       = 'libtoxencryptsave.pc',
+		install_path = '${DATADIR}/pkgconfig',
+		PREFIX       = bld.env.PREFIX
+	)
 
 	# Ricin
-	bld.program(
+	ricin = bld.program(
 		appname          = APPNAME,
-        features         = 'c cprogram glib2',
+		features         = 'c cprogram glib2',
 		use              = 'ricinres',
-        packages         = 'glib-2.0 gio-2.0 gobject-2.0 gmodule-2.0 gtk+-3.0 libsoup-2.4 json-glib-1.0 libnotify libtoxcore libtoxencryptsave',
-        uselib           = 'GLIB GIO GOBJECT GMODULE GTK3 SOUP JSONGLIB NOTIFY TOXCORE TOXES',
-        vala_target_glib = '2.38',
-        source           = bld.path.ant_glob('src/*.vala'),
-        vapi_dirs        = 'vapis',
-        vala_resources   = 'res/ricin.gresource.xml',
+		packages         = 'glib-2.0 gio-2.0 gobject-2.0 gmodule-2.0 gtk+-3.0 libsoup-2.4 json-glib-1.0 libnotify libtoxcore libtoxencryptsave',
+		uselib           = 'GLIB GIO GOBJECT GMODULE GTK3 SOUP JSONGLIB NOTIFY TOXCORE TOXES',
+		vala_target_glib = '2.38',
+		source           = bld.path.ant_glob('src/*.vala'),
+		vapi_dirs        = 'vapis',
+		vala_resources   = 'res/ricin.gresource.xml',
 		valaflags        = '--generate-source',
-        target           = 'Ricin',
-        install_binding  = False,
-        header_path      = None,
-        install_path     = "${BINDIR}"
+		target           = 'Ricin',
+		install_binding  = False,
+		header_path      = None,
+		install_path     = "${BINDIR}"
 	)
