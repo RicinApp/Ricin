@@ -21,6 +21,7 @@ def options(opt):
 def configure(conf):
 	conf.load('compiler_c vala gnu_dirs intltool glib2')
 	conf.check_vala(min_version=(0, 28, 0))
+
 	conf.check_cfg(package='glib-2.0', uselib_store='GLIB', mandatory=1, args='--cflags --libs')
 	conf.check_cfg(package='gio-2.0', uselib_store='GIO', mandatory=1, args='--cflags --libs')
 	conf.check_cfg(package='gobject-2.0', uselib_store='GOBJECT', mandatory=1, args='--cflags --libs')
@@ -30,7 +31,7 @@ def configure(conf):
 	conf.check_cfg(package='json-glib-1.0', uselib_store='JSONGLIB', mandatory=1, args='--cflags --libs')
 	conf.check_cfg(package='libnotify', uselib_store='NOTIFY', mandatory=1, args='--cflags --libs')
 	conf.check_cfg(package='libtoxcore', uselib_store='TOXCORE', mandatory=1, args='--cflags --libs')
-	conf.check_cfg(package='libtoxencryptsave', uselib_store='TOXES', mandatory=1, args='--cflags --libs')
+	conf.check(lib='toxencryptsave', uselib_store='TOXES', mandatory=1, args='--cflags --libs')
 
 	# C compiler flags.
 	conf.env.append_unique('CFLAGS', [
@@ -101,15 +102,6 @@ def build(bld):
 		use      = 'GLIB GIO GOBJECT',
 		source   = 'res/ricin.gresource.xml',
 		target   = 'ricinres'
-    )
-
-	# libtoxencryptsave.pc
-	toxespc = bld(
-		feature      = 'subst',
-		source       = 'vapis/libtoxencryptsave.pc.in',
-		target       = 'libtoxencryptsave.pc',
-		install_path = '${DATADIR}/pkgconfig',
-		PREFIX       = bld.env.PREFIX
 	)
 
 	# Ricin
