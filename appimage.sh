@@ -23,8 +23,6 @@ wget -q https://github.com/probonopd/AppImages/raw/master/functions.sh -O ./func
 
 cd Ricin
 
-mv build usr
-
 find .
 
 ########################################################################
