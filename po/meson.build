@@ -9,4 +9,4 @@ langs = [
   'uk',    # By barwinko (Roman Stobenski)
   'ru_RU', # By talipomin (Roman Boldyrev), rigidecho
 ]
-gettext('ricin', languages : langs)
+i18n.gettext('ricin', languages : langs)
