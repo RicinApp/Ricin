@@ -32,8 +32,10 @@ find .
 get_apprun
 
 find . -name *desktop -exec cp {} $LOWERAPP.desktop \;
+sed -i -e 's|Ricin|ricin|g' $LOWERAPP.desktop
+sed -i -e 's|.svg||g' $LOWERAPP.desktop
 
-find . -name $LOWERAPP.png -exec cp {} $LOWERAPP.png \; ### FIXME
+wget https://cdn.ricin.im/images/apple-touch-icon.png -O $LOWERAPP.png \; ### FIXME
 
 ########################################################################
 # Copy in the dependencies that cannot be assumed to be available
@@ -66,6 +68,7 @@ strip usr/bin/* usr/lib/* || true
 # desktopintegration asks the user on first run to install a menu item
 ########################################################################
 
+( cd usr/bin ; mv Ricin ricin )
 get_desktopintegration $LOWERAPP
 
 ########################################################################
