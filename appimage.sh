@@ -35,7 +35,7 @@ find . -name *desktop -exec cp {} $LOWERAPP.desktop \;
 sed -i -e 's|Ricin|ricin|g' $LOWERAPP.desktop
 sed -i -e 's|.svg||g' $LOWERAPP.desktop
 
-wget https://raw.githubusercontent.com/RicinApp/ricin.im/master/static/images/apple-touch-icon.png -O $LOWERAPP.png \; ### FIXME
+wget https://raw.githubusercontent.com/RicinApp/ricin.im/master/static/images/apple-touch-icon.png -O $LOWERAPP.png ### FIXME
 
 ########################################################################
 # Copy in the dependencies that cannot be assumed to be available
