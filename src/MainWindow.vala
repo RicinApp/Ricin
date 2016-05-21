@@ -66,7 +66,7 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
 
   public signal void notify_message (string message, int timeout = 5000);
 
-  public MainWindow (Gtk.Application app, string profile, bool is_new) {
+  public MainWindow (Gtk.Application app, string profile, string? password = null, bool is_new = false) {
     Object (application: app);
     this.settings = Settings.instance;
     this.profile = profile;
@@ -102,8 +102,8 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
     }
 
     try {
-      this.tox = new Tox.Tox (opts, profile);
-    } catch (Tox.ErrNew error) {
+      this.tox = new Tox.Tox (opts, profile, password, is_new);
+    } catch (Error error) {
       warning ("Tox init failed: %s", error.message);
       this.destroy ();
       var error_dialog = new Gtk.MessageDialog (this,

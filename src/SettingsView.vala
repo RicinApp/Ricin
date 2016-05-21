@@ -12,6 +12,9 @@ class Ricin.SettingsView : Gtk.Box {
   [GtkChild] Gtk.Label label_default_save_path;
   [GtkChild] Gtk.Entry entry_default_save_path;
   [GtkChild] Gtk.Button button_set_default_save_path;
+  [GtkChild] Gtk.Button button_password_add;
+  [GtkChild] Gtk.Button button_password_change;
+  [GtkChild] Gtk.Button button_password_remove;
 
   // Interface settings tab;
   [GtkChild] Gtk.Switch switch_custom_themes;
@@ -96,6 +99,9 @@ class Ricin.SettingsView : Gtk.Box {
 
     this.combobox_languages.active      = 0;
     this.combobox_toxme_servers.active  = 0;
+
+    this.handle.notify["encrypted"].connect (this.reset_profile_buttons);
+    this.reset_profile_buttons ();
 
     string selected_language = this.settings.selected_language;
     if (selected_language == "en_US") {
@@ -308,6 +314,45 @@ class Ricin.SettingsView : Gtk.Box {
     this.reload_options ();
   }
 
+  private void reset_profile_buttons () {
+    if (this.handle.encrypted) {
+      this.button_password_add.sensitive    = false;
+      this.button_password_change.sensitive = true;
+      this.button_password_remove.sensitive = true;
+    } else {
+      this.button_password_add.sensitive    = true;
+      this.button_password_change.sensitive = false;
+      this.button_password_remove.sensitive = false;
+    }
+  }
+
+  private bool show_dialog (string title, string message) {
+    var main_window = this.get_toplevel () as MainWindow;
+    var dialog = new Gtk.MessageDialog (
+      main_window,
+      Gtk.DialogFlags.MODAL,
+      Gtk.MessageType.WARNING,
+      Gtk.ButtonsType.NONE,
+      title
+    );
+
+    dialog.secondary_use_markup = true;
+    dialog.format_secondary_markup (message);
+    dialog.add_buttons (
+      _("Yes"), Gtk.ResponseType.ACCEPT,
+      _("No"), Gtk.ResponseType.REJECT
+    );
+
+    uint response_id = dialog.run ();
+    dialog.destroy();
+
+    if (response_id == Gtk.ResponseType.ACCEPT) {
+      return true;
+    }
+
+    return false;
+  }
+
   /**
   * ToxID section.
   **/
@@ -344,7 +389,6 @@ class Ricin.SettingsView : Gtk.Box {
   [GtkCallback]
   private void  select_save_path () {
     var main_window = this.get_toplevel () as MainWindow;
-
     var chooser = new Gtk.FileChooserDialog (
       _("Choose a folder where to save files"),
       main_window,
@@ -361,5 +405,84 @@ class Ricin.SettingsView : Gtk.Box {
       debug (@"Default save path set to $path");
     }
     chooser.close ();
+  }
+
+  /**
+  * Add a password to the currently opened profile.
+  **/
+  [GtkCallback]
+  private void add_password () {
+    debug ("Add Password triggered.");
+    PasswordDialog dialog = new PasswordDialog (
+      this.get_toplevel () as MainWindow,
+      _("Encrypt your profile"),
+      _("In order to encrypt your profile you need to specify a password. This password will be asked each time you login.") + "\n<b>" + _("Do you want to proceed anyway?") + "</b>",
+      PasswordDialogType.ADD_PASSWORD
+    );
+
+    dialog.resp.connect ((response_id, password) => {
+      if (response_id == Gtk.ResponseType.ACCEPT) {
+        if (this.handle.add_password (password)) {
+          Timeout.add (2000, () => { // Time to write to disk.
+            this.reset_profile_buttons ();
+            return Source.REMOVE;
+          });
+        }
+      }
+      dialog.destroy ();
+    });
+
+    dialog.show ();
+  }
+
+  /**
+  * Change the password of the currently opened profile.
+  **/
+  [GtkCallback]
+  private void change_password () {
+    debug ("Change Password triggered.");
+    PasswordDialog dialog = new PasswordDialog (
+      this.get_toplevel () as MainWindow,
+      _("Edit your password"),
+      _("Changing your password will cause Ricin to decrypt your profile then re-encrypt it with the new password.") + "\n<b>" + _("Do you want to proceed anyway?") + "</b>",
+      PasswordDialogType.EDIT_PASSWORD
+    );
+
+    dialog.resp.connect ((response_id, password, old_password) => {
+      if (response_id == Gtk.ResponseType.ACCEPT) {
+        if (this.handle.change_password (password, old_password)) {
+          this.reset_profile_buttons ();
+        }
+      }
+      dialog.destroy ();
+    });
+
+    dialog.show ();
+  }
+
+  /**
+  * Remove the password from the currently opened profile.
+  **/
+  [GtkCallback]
+  private void remove_password () {
+    debug ("Remove Password triggered.");
+    PasswordDialog dialog = new PasswordDialog (
+      this.get_toplevel () as MainWindow,
+      _("Unencrypt your profile"),
+      _("Removing your password will unencrypt your profile, chat logs and settings.") + "\n<b>" + _("Do you want to proceed anyway?") + "</b>",
+      PasswordDialogType.REMOVE_PASSWORD
+    );
+
+    dialog.resp.connect ((response_id, password) => {
+      if (response_id == Gtk.ResponseType.ACCEPT) {
+        print (@"Password: $password.\n");
+        if (this.handle.remove_password (password)) {
+          this.reset_profile_buttons ();
+        }
+      }
+      dialog.destroy ();
+    });
+
+    dialog.show ();
   }
 }

@@ -21,6 +21,7 @@ def options(opt):
 def configure(conf):
 	conf.load('compiler_c vala gnu_dirs intltool glib2')
 	conf.check_vala(min_version=(0, 28, 0))
+
 	conf.check_cfg(package='glib-2.0', uselib_store='GLIB', mandatory=1, args='--cflags --libs')
 	conf.check_cfg(package='gio-2.0', uselib_store='GIO', mandatory=1, args='--cflags --libs')
 	conf.check_cfg(package='gobject-2.0', uselib_store='GOBJECT', mandatory=1, args='--cflags --libs')
@@ -30,6 +31,7 @@ def configure(conf):
 	conf.check_cfg(package='json-glib-1.0', uselib_store='JSONGLIB', mandatory=1, args='--cflags --libs')
 	conf.check_cfg(package='libnotify', uselib_store='NOTIFY', mandatory=1, args='--cflags --libs')
 	conf.check_cfg(package='libtoxcore', uselib_store='TOXCORE', mandatory=1, args='--cflags --libs')
+	conf.check(lib='toxencryptsave', uselib_store='TOXES', mandatory=1, args='--cflags --libs')
 
 	# C compiler flags.
 	conf.env.append_unique('CFLAGS', [
@@ -77,7 +79,7 @@ def build(bld):
 			pass
 
 	# Lang files
-	bld(
+	langs = bld(
 		features     = 'intltool_po',
 		appname      = APPNAME,
 		podir        = 'po',
@@ -85,7 +87,7 @@ def build(bld):
 	)
 
 	# Desktop file
-	bld(
+	desktop = bld(
 		features     = "intltool_in",
 		podir        = "po",
 		style        = "desktop",
@@ -94,27 +96,28 @@ def build(bld):
 		install_path = "${DATADIR}/applications",
 	)
 
-	bld(
+	# Resources file
+	resource = bld(
 		features = 'c glib2',
 		use      = 'GLIB GIO GOBJECT',
 		source   = 'res/ricin.gresource.xml',
 		target   = 'ricinres'
-    )
+	)
 
 	# Ricin
-	bld.program(
+	ricin = bld.program(
 		appname          = APPNAME,
-        features         = 'c cprogram glib2',
+		features         = 'c cprogram glib2',
 		use              = 'ricinres',
-        packages         = 'glib-2.0 gio-2.0 gobject-2.0 gmodule-2.0 gtk+-3.0 libsoup-2.4 json-glib-1.0 libnotify libtoxcore',
-        uselib           = 'GLIB GIO GOBJECT GMODULE GTK3 SOUP JSONGLIB NOTIFY TOXCORE',
-        vala_target_glib = '2.38',
-        source           = bld.path.ant_glob('src/*.vala'),
-        vapi_dirs        = 'vapis',
-        vala_resources   = 'res/ricin.gresource.xml',
+		packages         = 'glib-2.0 gio-2.0 gobject-2.0 gmodule-2.0 gtk+-3.0 libsoup-2.4 json-glib-1.0 libnotify libtoxcore libtoxencryptsave',
+		uselib           = 'GLIB GIO GOBJECT GMODULE GTK3 SOUP JSONGLIB NOTIFY TOXCORE TOXES',
+		vala_target_glib = '2.38',
+		source           = bld.path.ant_glob('src/*.vala'),
+		vapi_dirs        = 'vapis',
+		vala_resources   = 'res/ricin.gresource.xml',
 		valaflags        = '--generate-source',
-        target           = 'Ricin',
-        install_binding  = False,
-        header_path      = None,
-        install_path     = "${BINDIR}"
+		target           = 'Ricin',
+		install_binding  = False,
+		header_path      = None,
+		install_path     = "${BINDIR}"
 	)

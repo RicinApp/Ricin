@@ -46,6 +46,25 @@
               </packing>
             </child>
             <child>
+              <object class="GtkEntry" id="entry_login_password">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="margin_left">10</property>
+                <property name="margin_right">10</property>
+                <property name="margin_top">5</property>
+                <property name="margin_bottom">5</property>
+                <property name="visibility">False</property>
+                <property name="invisible_char">●</property>
+                <property name="placeholder_text" translatable="yes">Enter your password...</property>
+                <property name="input_purpose">password</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">2</property>
+              </packing>
+            </child>
+            <child>
               <object class="GtkButton" id="button_login">
                 <property name="label" translatable="yes">Login</property>
                 <property name="visible">True</property>
@@ -60,7 +79,7 @@
               <packing>
                 <property name="expand">True</property>
                 <property name="fill">True</property>
-                <property name="position">2</property>
+                <property name="position">3</property>
               </packing>
             </child>
           </object>
@@ -112,6 +131,25 @@
               </packing>
             </child>
             <child>
+              <object class="GtkEntry" id="entry_register_password">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="margin_left">10</property>
+                <property name="margin_right">10</property>
+                <property name="margin_top">5</property>
+                <property name="margin_bottom">5</property>
+                <property name="visibility">False</property>
+                <property name="invisible_char">●</property>
+                <property name="placeholder_text" translatable="yes">Enter your password...</property>
+                <property name="input_purpose">password</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">2</property>
+              </packing>
+            </child>
+            <child>
               <object class="GtkButton" id="button_register">
                 <property name="label" translatable="yes">Create this profile</property>
                 <property name="visible">True</property>
@@ -126,7 +164,7 @@
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">True</property>
-                <property name="position">2</property>
+                <property name="position">3</property>
               </packing>
             </child>
           </object>
