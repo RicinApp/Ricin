@@ -1,3 +1,12 @@
+## 0.1.0 (2016-05-21)
+#### Features
+* **encrypted profiles:**  profile encryption, finally! (#121) ([dd2fe3f4](https://github.com/RicinApp/Ricin/commit/dd2fe3f4e9443fabe4fc5b172eee8179dcc14a98))
+* **version:**  make it easier to see version with --version/-v ([677e52b1](https://github.com/RicinApp/Ricin/commit/677e52b1bc9a7e2d40f9bc3977a168603aa083d8))
+
+#### Bug Fixes
+* **--version:**  add libraries version, useful for bug reports ([9c7a7480](https://github.com/RicinApp/Ricin/commit/9c7a7480856782477bb16317c5cbf0409a3088e2))
+* **emoji:**  invert xD and :D ([96cf22c8](https://github.com/RicinApp/Ricin/commit/96cf22c880f7e78b066cfec35b9c81dbefcecb4e))
+
 ## 0.0.9 (2016-05-08)
 #### Bug Fixes
 * **credits:**  add credits to the original identicon.js author ([296f1c45](https://github.com/RicinApp/Ricin/commit/296f1c45a89f2622b65f4ea28ff5c15703f555f0))
