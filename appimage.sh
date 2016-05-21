@@ -14,7 +14,7 @@ LOWERAPP=${APP,,}
 GIT_REV=$(git rev-parse --short HEAD)
 echo $GIT_REV
 
-# /home/travis/build/RicinApp/Ricin/dist
+sudo chown -R $USER /home/travis/build/RicinApp/
 
 cd /home/travis/build/RicinApp/Ricin/
 
