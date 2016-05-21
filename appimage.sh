@@ -14,14 +14,16 @@ LOWERAPP=${APP,,}
 GIT_REV=$(git rev-parse --short HEAD)
 echo $GIT_REV
 
-sudo chown -R $USER /home/travis/build/RicinApp/
+sudo chown -R $USER /home/travis/build/
 
-cd /home/travis/build/RicinApp/Ricin/
+cd /home/travis/build/RicinApp/
 
 wget -q https://github.com/probonopd/AppImages/raw/master/functions.sh -O ./functions.sh
 . ./functions.sh
 
-cd dist
+cd Ricin
+
+mv build usr
 
 find .
 
