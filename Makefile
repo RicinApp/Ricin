@@ -11,7 +11,7 @@ debug: build
 	G_MESSAGES_DEBUG=all GOBJECT_DEBUG=instance-count gdb -ex run ./build/Ricin
 
 install: build
-	sudo ./waf install
+	./waf install
 
 style:
 	astyle \
