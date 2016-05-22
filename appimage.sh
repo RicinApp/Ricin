@@ -16,14 +16,13 @@ echo $GIT_REV
 
 sudo chown -R $USER /home/travis/build/
 
-mv /home/travis/build/RicinApp/ /home/travis/build/$APP.AppDir
-
-cd /home/travis/build/$APP.AppDir
+cd /home/travis/build/RicinApp/
 
 wget -q https://github.com/probonopd/AppImages/raw/master/functions.sh -O ./functions.sh
 . ./functions.sh
 
-cd Ricin
+mv Ricin $APP.AppDir
+cd $APP.AppDir
 mv dist/ usr/
 
 find .
