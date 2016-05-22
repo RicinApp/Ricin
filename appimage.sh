@@ -16,7 +16,9 @@ echo $GIT_REV
 
 sudo chown -R $USER /home/travis/build/
 
-cd /home/travis/build/RicinApp/
+mv /home/travis/build/RicinApp/ /home/travis/build/$APP.AppDir
+
+cd /home/travis/build/$APP.AppDir
 
 wget -q https://github.com/probonopd/AppImages/raw/master/functions.sh -O ./functions.sh
 . ./functions.sh
