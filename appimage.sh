@@ -44,7 +44,18 @@ wget https://raw.githubusercontent.com/RicinApp/ricin.im/master/static/images/ap
 # on all target systems
 ########################################################################
 
-export LD_LIBRARY_PATH=/home/travis/build/RicinApp/Ricin/dist/lib/:LD_LIBRARY_PATH
+# Workaround for:
+# undefined symbol: g_type_check_instance_is_fundamentally_a
+# Function g_type_check_instance_is_fundamentally_a was introduced in glib2-2.41.1
+# Bundle libglib-2.0.so.0 - TODO: find a better solution, e.g., downgrade libglib-2.0 at compile time
+cp $(ldconfig -p | grep libglib-2.0.so.0 | cut -d ">" -f 2 | xargs) ./usr/lib/
+# The following come with glib2 and probably need to be treated together:
+cp $(ldconfig -p | grep libgio-2.0.so.0 | cut -d ">" -f 2 | xargs) ./usr/lib/
+cp $(ldconfig -p | grep libgmodule-2.0.so.0 | cut -d ">" -f 2 | xargs) ./usr/lib/
+cp $(ldconfig -p | grep libgobject-2.0.so.0 | cut -d ">" -f 2 | xargs) ./usr/lib/
+cp $(ldconfig -p | grep libgthread-2.0.so.0 | cut -d ">" -f 2 | xargs) ./usr/lib/
+
+export LD_LIBRARY_PATH=/home/travis/build/RicinApp/Ricin.AppImage/usr/lib/:LD_LIBRARY_PATH
 copy_deps
 
 # Move the libraries to usr/bin
