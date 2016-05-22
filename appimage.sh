@@ -22,6 +22,7 @@ wget -q https://github.com/probonopd/AppImages/raw/master/functions.sh -O ./func
 . ./functions.sh
 
 cd Ricin
+mv dist/ usr/
 
 find .
 
