@@ -49,11 +49,11 @@ public class Ricin.Ricin : Gtk.Application {
       error (@"Error: $(e.message)");
     }
 
-    if (FileUtils.test (settings_file, FileTest.EXISTS) == false) {
+    /*if (FileUtils.test (settings_file, FileTest.EXISTS) == false) {
       File config_file = File.new_for_path (settings_file);
       File config_sample = File.new_for_uri (@"$resource_base_path/ricin.sample.json");
       config_sample.copy (config_file, FileCopyFlags.OVERWRITE);
-    }
+    }*/
 
     if (this.settings.enable_custom_themes) {
       string selected_theme = this.settings.selected_theme;

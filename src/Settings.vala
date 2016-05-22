@@ -80,6 +80,16 @@ class Settings : GLib.Object {
     debug (@"Started SettingsManager...");
     this.profile = profile;
 
+    // Check if the config file exists, else create it.
+    if (FileUtils.test (this.profile, FileTest.EXISTS) == false) {
+      File config_file = File.new_for_path (this.profile);
+      File config_sample = File.new_for_uri (@"resource:///chat/tox/ricin/ricin.sample.json");
+
+      // Create the file and make it readable only for the current user.
+      config_file.create (FileCreateFlags.PRIVATE);
+      config_sample.copy (config_file, FileCopyFlags.OVERWRITE);
+    }
+
     this.load_settings ();
     this.notify.connect ((opt, props) => {
       this.save_settings ();
