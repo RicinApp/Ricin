@@ -179,17 +179,22 @@ namespace Tox {
           File.new_for_path (profile).create (FileCreateFlags.NONE, null);
         }
 
+        uint8[] tmp_save = null;
+        FileUtils.get_data (this.profile, out tmp_save);
+
         // Profile is encrypted. Let's decrypt and load it.
-        if (password != null && is_new == false) {
+        if (is_data_encrypted (tmp_save) && is_new == false) {
           opts.savedata_type = ToxCore.SaveDataType.TOX_SAVE;
           opts.savedata_data = this.decrypt_profile (this.password);
           this.encrypted = true;
         } else if (is_new) {
           opts.savedata_type = ToxCore.SaveDataType.NONE;
+          this.encrypted = false;
         } else {
           uint8[] savedata = null;
           FileUtils.get_data (profile, out opts.savedata_data);
           opts.savedata_type = ToxCore.SaveDataType.TOX_SAVE;
+          this.encrypted = false;
         }
       }
 
@@ -198,7 +203,7 @@ namespace Tox {
       this.handle = new ToxCore.Tox (opts, out error);
       unowned ToxCore.Tox handle = this.handle;
 
-      if (is_new) {
+      if (is_new && this.password != null) {
         this.add_password (password);
       }
 
@@ -600,6 +605,7 @@ namespace Tox {
         }
       }
 
+      //this.encrypted = true;
       return encrypted_data;
     }
 
@@ -617,7 +623,7 @@ namespace Tox {
       uint8[] decrypted_data = new uint8[savesize];
 
       pass_decrypt (savedata, pass, decrypted_data, out err);
-      this.password = null;
+      //this.password = null;
 
       if (err != ERR_DECRYPTION.OK) {
         switch (err) {
@@ -634,6 +640,7 @@ namespace Tox {
         }
       }
 
+      //this.encrypted = false;
       return decrypted_data;
     }
 
@@ -641,6 +648,7 @@ namespace Tox {
       try {
         uint8[] data = this.encrypt_profile (password, null);
         FileUtils.set_data (this.profile, data);
+        this.encrypted = true;
 
         return data != null;
       } catch (Error e) {
