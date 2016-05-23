@@ -72,6 +72,8 @@ rm -rf usr/lib/pkgconfig || true
 find . -name '*.la' | xargs -i rm {}
 strip usr/bin/* usr/lib/* || true
 
+rm -rf build docs filter_audio gcovr-* libsodium po res src tools toxcore vapis *.tar.gz codecov.yml ISSUE_TEMPLATE.md Makefile waf wscript 
+
 ########################################################################
 # desktopintegration asks the user on first run to install a menu item
 ########################################################################
@@ -90,7 +92,7 @@ VERSION=git$GIT_REV-glibc$GLIBC_NEEDED
 # Patch away absolute paths; it would be nice if they were relative
 ########################################################################
 
-# TODO
+patch_usr
 
 ########################################################################
 # AppDir complete
