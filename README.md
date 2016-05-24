@@ -1,5 +1,5 @@
 # **Ricin** - A dead-simple but powerful Tox client
-### [Install] - [Compile] - [Contribute] - [Translate] - [Donate] - [Discover Vala]
+### [Download] - [Install] - [Compile] - [Contribute] - [Translate] - [Donate] - [Discover Vala]
 
 [![Ricin license](https://img.shields.io/badge/license-GPLv3-blue.svg?style=flat)](https://raw.githubusercontent.com/RicinApp/Ricin/master/LICENSE)
 [![Ricin release](https://img.shields.io/github/release/RicinApp/Ricin.svg?style=flat)](https://github.com/RicinApp/Ricin/releases/latest)
@@ -12,6 +12,18 @@
 
 _Screenshot might be outdated but it should give you a general idea of what Ricin is_
 ![Early version](http://i.imgur.com/f7np85T.png)
+
+# Download
+You can download Ricin as an AppImage. An AppImage is a single file that contains Ricin + the required libraries.  
+The main goal of this is having Ricin working on every Linux distribution without the hassle of installing any dependency.  
+
+Downloading and running Ricin is simple as doing the following:
+```shell
+# Assuming that the current version is 0.1.1
+wget https://cdn.ricin.im/ricin-0.1.1.app
+chmod a+x ricin-0.1.1.app
+./ricin-0.1.1.app
+```
 
 # Install
 Installation instructions are available inside our [INSTALL.md] file. :)
@@ -62,6 +74,7 @@ Before clicking on any link below, you must know what Vala is and why it is so p
 - [Writing VAPI files](https://wiki.gnome.org/Projects/Vala/LegacyBindings): A document that explains how to write VAPI binding files for a C library.
 
 [Ricin]: https://ricin.im
+[Download]: #download
 [Install]: #install
 [Compile]: #compile
 [Contribute]: docs/CONTRIBUTING.md
