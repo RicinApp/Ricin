@@ -250,6 +250,7 @@ namespace Tox {
         }
 
         this.friends[num].connected = (status != ConnectionStatus.NONE);
+        this.friends[num].send_avatar (); // Send our avatar, in case friend doesn't have it.
       });
 
       handle.callback_friend_name ((self, num, name) => {
@@ -751,6 +752,17 @@ namespace Tox {
 
       this.notify["connected"].connect ((o, p) => update_user_status ());
       this.notify["blocked"].connect ((o, p) => update_user_status ());
+
+      this.avatar.connect ((pixbuf) => {
+        string profile_dir = string.join ("/", Environment.get_user_config_dir (), "tox");
+        string avatars_dir = string.join ("/", profile_dir, "avatars");
+        File file_avatar = File.new_for_path (string.join ("/", avatars_dir, this.pubkey + ".png"));
+
+        uint8[] pixels;
+        pixbuf.save_to_buffer (out pixels, "png");
+
+        FileUtils.set_data (file_avatar.get_path (), pixels);
+      });
     }
 
     public string get_uname () {
