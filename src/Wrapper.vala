@@ -754,9 +754,9 @@ namespace Tox {
       this.notify["blocked"].connect ((o, p) => update_user_status ());
 
       this.avatar.connect ((pixbuf) => {
-        string profile_dir = string.join ("/", Environment.get_user_config_dir (), "tox");
-        string avatars_dir = string.join ("/", profile_dir, "avatars");
-        File file_avatar = File.new_for_path (string.join ("/", avatars_dir, this.pubkey + ".png"));
+        string profile_dir = Path.build_path (Path.DIR_SEPARATOR_S, Environment.get_user_config_dir (), "tox");
+        string avatars_dir = Path.build_path (Path.DIR_SEPARATOR_S, profile_dir, "avatars");
+        File file_avatar = File.new_for_path (Path.build_path (Path.DIR_SEPARATOR_S, avatars_dir, this.pubkey + ".png"));
 
         uint8[] pixels;
         pixbuf.save_to_buffer (out pixels, "png");
