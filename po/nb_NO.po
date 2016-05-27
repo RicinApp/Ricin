@@ -8,83 +8,88 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-04-14 17:44+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2016-05-27 20:57+0000\n"
+"Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
+"Language-Team: Norwegian Bokmål "
+"<https://hosted.weblate.org/projects/ricin/app/nb_NO/>\n"
 "Language: nb_NO\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2.7-dev\n"
 
 #: src/ChatView.vala:367
 msgid " is now "
-msgstr ""
+msgstr " går nå "
 
 #: src/Wrapper.vala:222
 msgid " is now known as "
-msgstr ""
+msgstr " under navnet "
 
 #: res/ui/chat-view.ui:517
 msgid "**bold**"
-msgstr ""
+msgstr "**fet*"
 
 #: res/ui/chat-view.ui:506
 msgid "*bold*"
-msgstr ""
+msgstr "*fet*"
 
 #: res/ui/chat-view.ui:553
 msgid "//italic//"
-msgstr ""
+msgstr "//kursiv//"
 
 #: res/ui/chat-view.ui:542
 msgid "/italic/"
-msgstr ""
+msgstr "/kursiv/"
 
 #: res/ui/friend-list-notification_unusable.ui:42
 msgid ""
 "3 unused profiles found:\n"
 "<b>Snow, Guy, Aztek</b>"
 msgstr ""
+"Fant 3 ubrukte profiler:\n"
+"<b>Snø, Fyr, Azteker</b>"
 
 #: res/ui/settings-view.ui:642
 msgid "9050"
-msgstr ""
+msgstr "9050"
 
 #: res/ui/chat-view.ui:293
 msgid "<b>Available Markdown tags</b>"
-msgstr ""
+msgstr "<b>Tilgjengelige markdown-tagger</b>"
 
 #: res/ui/settings-view.ui:906
 msgid "<b>Display friend's status changes?</b>"
-msgstr ""
+msgstr "<b>Vis statusoppdateringer fra venner?</b>"
 
 #: res/ui/settings-view.ui:728
 msgid "<b>Enable custom themes?</b>"
-msgstr ""
+msgstr "<b>Egendefinerte drakter?</b>"
 
 #: res/ui/group-chat-view.ui:219
 msgid "<b>Friends</b>"
-msgstr ""
+msgstr "<b>Venner</b>"
 
 #: res/ui/settings-view.ui:513
 msgid "<b>IPv6</b>"
-msgstr ""
+msgstr "<b>IPv6</b>"
 
 #: res/ui/settings-view.ui:849
 msgid "<b>Language:</b>"
-msgstr ""
+msgstr "<b>Språk:</b>"
 
 #: src/Wrapper.vala:597
 msgid "<b>Last online:</b>"
-msgstr ""
+msgstr "<b>Sist pålogget:</b>"
 
 #: res/ui/chat-view.ui:1123
 msgid "<b>Last seen:</b>"
-msgstr ""
+msgstr "<b>Sist sett:</b>"
 
 #: res/ui/settings-view.ui:577
 msgid "<b>Proxy (SOCKS 5)</b>"
-msgstr ""
+msgstr "<b>Mellomtjener (SOCKS 5)</b>"
 
 #: src/Ricin.vala:4 res/ui/settings-view.ui:1277
 msgid ""
@@ -92,500 +97,510 @@ msgid ""
 "customizable</i> chat client using the awesome and open-source <b>ToxCore</"
 "b> library."
 msgstr ""
+"<b>Ricin</b> tar mål av seg å være en <i>sikker, lett, hackervennlig og "
+"tilpasningsdyktig</i> sludreklient som bruker det ærverdige og frie "
+"<b>ToxCore</b>-bibliotket."
 
 #: res/ui/settings-view.ui:1091
 msgid "<b>Send typing notifications?</b>"
-msgstr ""
+msgstr "<b>Send skriveforvarsler?</b>"
 
 #: res/ui/settings-view.ui:475
 msgid "<b>UDP</b>"
-msgstr ""
+msgstr "<b>UDP</b>"
 
 #: res/ui/group-chat-view.ui:247
 msgid "<b>Unknown peers</b>"
-msgstr ""
+msgstr "<b>Ukjente likemenn</b>"
 
 #: res/ui/settings-view.ui:1236
 msgid "<b>Version:</b>"
-msgstr ""
+msgstr "<b>Versjon:</b>"
 
 #: res/ui/settings-view.ui:191
 msgid "<b>Your Tox alias:</b>"
-msgstr ""
+msgstr "<b>Ditt Tox-alias:</b>"
 
 #: res/ui/settings-view.ui:72
 msgid "<b>Your ToxID:</b>"
-msgstr ""
+msgstr "<b>Din ToxID:</b>"
 
 #: res/ui/chat-view.ui:1671
 msgid "<i>Friend is typing</i>"
-msgstr ""
+msgstr "<i>En venn skriver</i>"
 
 #: res/ui/chat-view.ui:455
 msgid ">quote"
-msgstr ""
+msgstr ">sitat"
 
 #: res/ui/settings-view.ui:1455
 msgid "About"
-msgstr ""
+msgstr "Om"
 
 #: res/ui/main-window.ui:376
 msgid "Accept"
-msgstr ""
+msgstr "Godta"
 
 #: res/ui/inline-file-message-list-row.ui:205
 msgid "Accept/Resume file"
-msgstr ""
+msgstr "Godta/fortsett overførsel"
 
 #: src/MainWindow.vala:564 src/MainWindow.vala:589 res/ui/main-window.ui:474
 #: res/ui/main-window.ui:541
 msgid "Add a friend"
-msgstr ""
+msgstr "Legg til en venn"
 
 #: res/ui/main-window.ui:616
 msgid "Add friend"
-msgstr ""
+msgstr "Legg til venn"
 
 #: src/MainWindow.vala:169
 msgid "All friends"
-msgstr ""
+msgstr "Alle venner"
 
 #: res/ui/chat-view.ui:352
 msgid "Alt syntax"
-msgstr ""
+msgstr "All syntaks"
 
 #: src/MainWindow.vala:455 src/Util.vala:156
 msgid "Away"
-msgstr ""
+msgstr "Borte"
 
 #: res/ui/settings-view.ui:257
 msgid "Biography"
-msgstr ""
+msgstr "Biografi"
 
 #: src/ChatView.vala:402 res/ui/chat-view.ui:1225
 msgid "Block"
-msgstr ""
+msgstr "Blokker"
 
 #: src/FriendListRow.vala:64
 msgid "Block friend"
-msgstr ""
+msgstr "Blokker venn"
 
 #: src/Util.vala:150
 msgid "Blocked"
-msgstr ""
+msgstr "Blokkert"
 
 #: res/ui/chat-view.ui:492
 msgid "Bold"
-msgstr ""
+msgstr "Fet"
 
 #: src/MainWindow.vala:445 src/Util.vala:159
 msgid "Busy"
-msgstr ""
+msgstr "Oppdatt"
 
 #: res/ui/chat-view.ui:854
 msgid "Call friend"
-msgstr ""
+msgstr "Ring en venn"
 
 #: src/MainWindow.vala:103
 msgid "Can't load the profile"
-msgstr ""
+msgstr "Kan ikke hente profil"
 
 #: res/ui/main-window.ui:637
 msgid "Cancel"
-msgstr ""
+msgstr "Avbryt"
 
 #: res/ui/inline-file-message-list-row.ui:175
 msgid "Cancel/pause file"
-msgstr ""
+msgstr "Avbryt/pause filoverførsel"
 
 #: res/ui/settings-view.ui:101
+#, fuzzy
 msgid "Change Nospam"
-msgstr ""
+msgstr "Skift Nospam"
 
 #: res/ui/main-window.ui:86
 msgid "Change your avatar"
-msgstr ""
+msgstr "Bytt profilbilde"
 
 #: res/ui/main-window.ui:133
 msgid "Change your status"
-msgstr ""
+msgstr "Bytt status"
 
 #: res/ui/settings-view.ui:442
 msgid ""
 "Changing Network settings will temporarily disconnect you from the Tox "
 "network"
 msgstr ""
+"Under endringer av nettverksinnstillinger vil du midlertidig bli frakoblet "
+"Tox-nettverket"
 
 #: src/ChatView.vala:462
 msgid "Choose a file"
-msgstr ""
+msgstr "Velg en fil"
 
 #: src/ProfileChooser.vala:106
 msgid "Choose a name for the profile"
-msgstr ""
+msgstr "Velg et annet navn på profiler"
 
 #: res/ui/chat-view.ui:1472
 msgid "Choose smileys"
-msgstr ""
+msgstr "Velg smilefjes"
 
 #: src/SettingsView.vala:95
 msgid "Clearer theme"
-msgstr ""
+msgstr "Klarere drakt"
 
 #: res/ui/chat-view.ui:1371
 msgid "Close the popup"
-msgstr ""
+msgstr "Lukk oppsprettsvinduet"
 
 #: res/ui/settings-view.ui:1345
 msgid "Contributors"
-msgstr ""
+msgstr "Bidragsytere"
 
 #: res/ui/settings-view.ui:83 res/ui/settings-view.ui:213
 msgid "Copy"
-msgstr ""
+msgstr "Kopier"
 
 #: res/ui/chat-view.ui:1265
 msgid "Copy friend's ToxID"
-msgstr ""
+msgstr "Kopier din venns ToxID"
 
 #: res/ui/profile-chooser-window.ui:141
 msgid "Create a profile"
-msgstr ""
+msgstr "Opprett profil"
 
 #: res/ui/profile-chooser-window.ui:116
 msgid "Create this profile"
-msgstr ""
+msgstr "Opprett denne profilen"
 
 #: src/SettingsView.vala:93
 msgid "Dark theme"
-msgstr ""
+msgstr "Mørk drakt"
 
 #: res/ui/main-window.ui:356
 msgid "Decline"
-msgstr ""
+msgstr "Avslå"
 
 #: res/ui/chat-view.ui:1245
 msgid "Delete"
-msgstr ""
+msgstr "Slett"
 
 #: res/ui/friend-list-notification_unusable.ui:59
 msgid "Delete friends (3)"
-msgstr ""
+msgstr "Slett venner (3)"
 
 #: res/ui/settings-view.ui:1026
 msgid "Display typing notifications?"
-msgstr ""
+msgstr "Vist tastefornemmelser?"
 
 #: res/ui/settings-view.ui:962
 msgid "Display unread messages notice?"
-msgstr ""
+msgstr "Vis meddelelser om uleste meldinger?"
 
 #: res/ui/profile-chooser-window.ui:88
 msgid "Enter a name for the profile"
-msgstr ""
+msgstr "Navngi profilen"
 
 #: res/ui/chat-view.ui:763
 msgid "Friend's profile"
-msgstr ""
+msgstr "Din venns profil"
 
 #: res/ui/settings-view.ui:410
+#, fuzzy
 msgid "General"
-msgstr ""
+msgstr "Generelt"
 
 #: res/ui/settings-view.ui:1307
 msgid "GitHub"
-msgstr ""
+msgstr "Github"
 
 #: res/ui/group-chat-view.ui:60
 msgid "Groupchat name"
-msgstr ""
+msgstr "Navn på gruppesludring"
 
 #: src/MainWindow.vala:410
 #, c-format
 msgid "Hello! It's %s, let's be friends."
-msgstr ""
+msgstr "Hei, %s her, vil du være venner?"
 
 #: src/InlineImageMessageListRow.vala:97
 msgid "Image saved!"
-msgstr ""
+msgstr "Blide lagret!"
 
 #: res/ui/chat-view.ui:600
 msgid "Inline code"
-msgstr ""
+msgstr "Innebygd kode"
 
 #: res/ui/settings-view.ui:1150
 msgid "Interface"
-msgstr ""
+msgstr "Grensesnitt"
 
 #: res/ui/chat-view.ui:528
 msgid "Italic"
-msgstr ""
+msgstr "Kursiv"
 
 #: res/ui/group-chat-view.ui:289
 msgid "Leave"
-msgstr ""
+msgstr "Forlat"
 
 #: res/ui/settings-view.ui:1395
 msgid "License (GNU General Public License 3)"
-msgstr ""
+msgstr "Lisens (GNU General Public License versjon 3)"
 
 #: res/ui/profile-chooser-window.ui:72
 msgid "Load a profile"
-msgstr ""
+msgstr "Last inn profil"
 
 #: res/ui/profile-chooser-window.ui:50
+#, fuzzy
 msgid "Login"
-msgstr ""
+msgstr "Logg på"
 
 #: res/ui/group-chat-view.ui:310
 msgid "Mute"
-msgstr ""
+msgstr "Demp mikrofon"
 
 #: res/ui/settings-view.ui:684
 msgid "Network"
-msgstr ""
+msgstr "Nettverk"
 
 #: res/ui/settings-view.ui:335
 msgid "New Tox alias"
-msgstr ""
+msgstr "Nytt Tox-alias"
 
 #: src/MainWindow.vala:383
 msgid "No"
-msgstr ""
+msgstr "Nei"
 
 #: res/ui/chat-view.ui:1160
 msgid "Notes about the user:"
-msgstr ""
+msgstr "Notater om brukeren:"
 
 #: src/Util.vala:163
 msgid "Offline"
-msgstr ""
+msgstr "Frakoblet"
 
 #: src/MainWindow.vala:435 src/Util.vala:153
 msgid "Online"
-msgstr ""
+msgstr "Påkoblet"
 
 #: src/MainWindow.vala:168
 msgid "Online friends"
-msgstr ""
+msgstr "Påkoblede venner"
 
 #: src/ProfileChooser.vala:87
 msgid "Please enter a profile name."
-msgstr ""
+msgstr "Angi et nytt profilnavn."
 
 #: src/ProfileChooser.vala:94
 msgid "Profile name already taken."
-msgstr ""
+msgstr "Profilnavn allerede lagret."
 
 #: src/MainWindow.vala:465
 msgid "Quit"
-msgstr ""
+msgstr "Avslutt"
 
 #: res/ui/chat-view.ui:433
+#, fuzzy
 msgid "Quote"
-msgstr ""
+msgstr "Sitat"
 
 #: res/ui/settings-view.ui:803
 msgid "Reload custom theme"
-msgstr ""
+msgstr "Gjeninnlast egendefinert drakt"
 
 #: res/ui/settings-view.ui:1326
 msgid "Report an issue"
-msgstr ""
+msgstr "Rapporter et problem"
 
 #: res/ui/settings-view.ui:368
 msgid "Request deletion"
-msgstr ""
+msgstr "Anmod sletting"
 
 #: src/MainWindow.vala:538
 msgid "Restart later"
-msgstr ""
+msgstr "Omstart senere"
 
 #: src/MainWindow.vala:538
 msgid "Restart now"
-msgstr ""
+msgstr "Omstart nå"
 
 #: src/MainWindow.vala:535
 msgid "Restart required"
-msgstr ""
+msgstr "Omstart påkrevd"
 
 #: res/ui/settings-view.ui:1204
 msgid "Ricin"
-msgstr ""
+msgstr "Ricin"
 
 #: src/MainWindow.vala:598
 msgid "Ricin doesn't supports ToxDNS yet."
-msgstr ""
+msgstr "Ricin støtter ikke ToxDNS enda."
 
 #: src/MainWindow.vala:537
 msgid ""
 "Ricin needs to restart in order to apply settings. Do you want to restart?"
-msgstr ""
+msgstr "Omstart av Ricin kreves for å bruke de nye innstillingene. Omstart nå?"
 
 #: res/ui/settings-view.ui:1415
 msgid "Ricin official website"
-msgstr ""
+msgstr "Ricins offisielle nettside"
 
 #: res/ui/chat-view.ui:1613
 msgid "Scroll to bottom"
-msgstr ""
+msgstr "Rull ned til bunnen"
 
 #: res/ui/welcome-view.ui:87
 msgid "Select a chat to start messaging."
-msgstr ""
+msgstr "Velg et vindu for å starte sludring."
 
 #: src/ProfileChooser.vala:23 res/ui/profile-chooser-window.ui:23
 msgid "Select a profile"
-msgstr ""
+msgstr "Velg en profil"
 
 #: src/MainWindow.vala:675
 msgid "Select your avatar"
-msgstr ""
+msgstr "Velg ditt profilbilde"
 
 #: res/ui/chat-view.ui:1500
 msgid "Send file"
-msgstr ""
+msgstr "Send fil"
 
 #: res/ui/chat-view.ui:1526
 msgid "Send message"
-msgstr ""
+msgstr "Send melding"
 
 #: src/MainWindow.vala:117 src/MainWindow.vala:553 res/ui/main-window.ui:494
 msgid "Settings"
-msgstr ""
+msgstr "Innstillinger"
 
 #: res/ui/chat-view.ui:820
 msgid "Status message..."
-msgstr ""
+msgstr "Statusmelding…"
 
 #: res/ui/chat-view.ui:636
 msgid "Striked"
-msgstr ""
+msgstr "Gjennomstreket"
 
 #: res/ui/chat-view.ui:338
 msgid "Syntax"
-msgstr ""
+msgstr "Syntaks"
 
 #: res/ui/chat-view.ui:324
 msgid "Tag Name"
-msgstr ""
+msgstr "Navn på tagg"
 
 #: src/ProfileChooser.vala:78
 msgid "The selected profile doesn't exists."
-msgstr ""
+msgstr "Valgt profil finnes ikke."
 
 #: res/ui/settings-view.ui:767
 msgid "Theme:"
-msgstr ""
+msgstr "Drakt:"
 
 #: res/ui/chat-view.ui:1595
 msgid "There are unread messages in this chat"
-msgstr ""
+msgstr "Uleste meldinger i denne samtalen"
 
 #: src/MessageListRow.vala:91 src/PlainLabel.vala:22 src/QuoteLabel.vala:22
 msgid "ToxDNS is not supported yet."
-msgstr ""
+msgstr "ToxDNS støttes ikke enda."
 
 #: src/MainWindow.vala:600
 msgid "ToxID can't be empty."
-msgstr ""
+msgstr "ToxID kan ikke stå tom."
 
 #: src/MainWindow.vala:602
 msgid "ToxID is invalid."
-msgstr ""
+msgstr "Ugyldig ToxID."
 
 #: res/ui/main-window.ui:562
 msgid "ToxID to add..."
-msgstr ""
+msgstr "ToxID å tilføye…"
 
 #: res/ui/settings-view.ui:268
 msgid "ToxMe server"
-msgstr ""
+msgstr "ToxMe-tjener"
 
 #: res/ui/main-window.ui:190
 msgid "Type to search..."
-msgstr ""
+msgstr "Skriv for å søke…"
 
 #: src/ChatView.vala:400
 msgid "Unblock"
-msgstr ""
+msgstr "Fjern blokkering"
 
 #: src/FriendListRow.vala:64
 msgid "Unblock friend"
-msgstr ""
+msgstr "Fjern blokkering av venn"
 
 #: res/ui/chat-view.ui:564
 msgid "Underline"
-msgstr ""
+msgstr "Understreking"
 
 #: res/ui/settings-view.ui:351
+#, fuzzy
 msgid "Update record"
-msgstr ""
+msgstr "Oppdater rulleblad"
 
 #: res/ui/chat-view.ui:797 res/ui/settings-view.ui:246
 msgid "Username"
-msgstr ""
+msgstr "Brukernavn"
 
 #: res/ui/chat-view.ui:882
 msgid "Video call friend"
-msgstr ""
+msgstr "Start videosamband med venn"
 
 #: src/SettingsView.vala:94
 msgid "White theme"
-msgstr ""
+msgstr "Hvit drakt"
 
 #: src/MainWindow.vala:383
 msgid "Yes"
-msgstr ""
+msgstr "Ja"
 
 #: res/ui/main-window.ui:260
 msgid "You got a new friend request"
-msgstr ""
+msgstr "Du har mottatt en venneforespørsel"
 
 #: src/ChatView.vala:463 src/MainWindow.vala:678
 msgid "_Cancel"
-msgstr ""
+msgstr "_Avbryt"
 
 #: src/ChatView.vala:464 src/MainWindow.vala:679
 msgid "_Open"
-msgstr ""
+msgstr "_Åpne"
 
 #: res/ui/chat-view.ui:589
 msgid "__underline__"
-msgstr ""
+msgstr "__understrek__"
 
 #: res/ui/chat-view.ui:578
 msgid "_underline_"
-msgstr ""
+msgstr "_understrek_"
 
 #: res/ui/chat-view.ui:615
 msgid "`inline code`"
-msgstr ""
+msgstr "`innebygd kode`"
 
 #: src/SettingsView.vala:76
 msgid "default"
-msgstr ""
+msgstr "forvalg"
 
 #: src/ChatView.vala:317
 msgid "is typing"
-msgstr ""
+msgstr "skriver"
 
 #: res/ui/settings-view.ui:1488
 msgid "ricin.io (stable)"
-msgstr ""
+msgstr "ricin.io (stabil)"
 
 #: src/SettingsView.vala:77
 msgid "stable"
-msgstr ""
+msgstr "stabil"
 
 #: res/ui/settings-view.ui:1491
 msgid "toxme.io"
-msgstr ""
+msgstr "toxme.io"
 
 #: res/ui/chat-view.ui:650
 msgid "~striked~"
-msgstr ""
+msgstr "~gjennomstreket~"
 
 #: res/ui/chat-view.ui:661
 msgid "~~striked~~"
-msgstr ""
+msgstr "~~gjennomstreket~~"
