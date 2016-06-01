@@ -5,6 +5,7 @@
 |:-----------------------|:----------:|----------:|
 | python2 **or** python3 |  building  |           |
 | valac                  |  building  | >=0.28.1  |
+| intltool               |  building  | >=0.35.5  |
 | gtk+3                  |            | >=3.16    |
 | [libtoxcore]           |            | >=0.0.0   |
 | glib2                  |            | >=2.38    |
