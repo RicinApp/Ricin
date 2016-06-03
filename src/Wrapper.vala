@@ -272,8 +272,6 @@ namespace Tox {
         }
 
         this.friends[num].status_message = Util.arr2str (message);
-        debug (@"Util: $(Util.arr2str (message))");
-        debug (@"Status: $(this.friends[num].status_message)");
       });
 
       this.handle.callback_friend_message ((self, num, type, message) => {
@@ -391,7 +389,7 @@ namespace Tox {
               var pixbuf = new Gdk.Pixbuf.from_stream_at_scale (stream, 48, 48, true);
               fr.avatar (pixbuf);
             } catch (Error e) {
-              warning ("Error processing friend avatar: %s", e.message);
+              warning ("Error processing avatar for %s: %s", fr.name, e.message);
             }
           } else {
             fr.file_done (dl.name, bytes, file);
@@ -481,7 +479,7 @@ namespace Tox {
         debug ("Done bootstrapping");
       }
     }
-
+    
     public Friend? add_friend (string id, string message) throws ErrFriendAdd {
       if (id.length != ToxCore.ADDRESS_SIZE && id.index_of_char ('@') != -1) {
         error ("Invalid Tox ID");
@@ -492,7 +490,6 @@ namespace Tox {
 
       switch (err) {
         case ERR_FRIEND_ADD.OK:
-          debug (@"Friend request sent to $id: \"$message\"");
           return new Friend (this, friend_num);
         case ERR_FRIEND_ADD.NULL:
           throw new ErrFriendAdd.Null ("One of the arguments to the function was NULL when it was not expected.");
@@ -520,13 +517,13 @@ namespace Tox {
         error ("Invalid Public Key");
       }
 
-      debug (@"accepting friend request from $id");
+      debug (@"Accepting friend request from $id");
       ERR_FRIEND_ADD err;
       uint32 friend_num = this.handle.friend_add_norequest (Util.hex2bin(id), out err);
 
       switch (err) {
         case ERR_FRIEND_ADD.OK:
-          debug (@"Public key $id added as friend number $friend_num.");
+          debug (@"$id friend number: $friend_num");
           return this.add_friend_by_num (friend_num);
         case ERR_FRIEND_ADD.NULL:
           throw new ErrFriendAdd.Null ("One of the arguments to the function was NULL when it was not expected.");
@@ -550,7 +547,7 @@ namespace Tox {
     }
 
     public Friend? add_friend_by_num (uint32 num) {
-      debug (@"Adding friend: num → $num");
+      debug (@"Adding friend: $num");
       var friend = new Friend (this, num);
       this.friends[num] = friend;
       return friend;
@@ -806,13 +803,11 @@ namespace Tox {
     }
 
     public uint32 send_message (string message) {
-      debug (@"sending \"$message\" to friend $num");
       ERR_FRIEND_SEND_MESSAGE err;
       return tox.handle.friend_send_message (this.num, MessageType.NORMAL, message.data, out err);
     }
 
     public void send_action (string action_message) {
-      debug (@"sending action \"$action_message\" to friend $num");
       ERR_FRIEND_SEND_MESSAGE err;
       tox.handle.friend_send_message (this.num, MessageType.ACTION, action_message.data, out err);
     }
@@ -825,7 +820,6 @@ namespace Tox {
         uint8[] avatar_id = new uint8[ToxCore.HASH_LENGTH];
         ToxCore.Tox.hash (avatar_id, pixels);
 
-        debug (@"sending avatar to friend $num");
         ERR_FILE_SEND err;
         uint32 transfer = this.tox.handle.file_send (this.num, FileKind.AVATAR, pixels.length, avatar_id, null, out err);
         if (err != ERR_FILE_SEND.OK) {
@@ -837,7 +831,6 @@ namespace Tox {
     }
 
     public uint32 send_file (string path) {
-      debug (@"Sending $path to friend $num");
       var file = File.new_for_path (path);
       var info = file.query_info ("standard::size", FileQueryInfoFlags.NONE);
       var id = this.tox.handle.file_send (this.num, FileKind.DATA, info.get_size (), null, file.get_basename ().data, null);
