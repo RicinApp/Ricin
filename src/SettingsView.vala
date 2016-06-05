@@ -333,7 +333,7 @@ class Ricin.SettingsView : Gtk.Box {
       Gtk.DialogFlags.MODAL,
       Gtk.MessageType.WARNING,
       Gtk.ButtonsType.NONE,
-      title
+      "%s", title
     );
 
     dialog.secondary_use_markup = true;
