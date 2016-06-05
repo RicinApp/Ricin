@@ -19,7 +19,7 @@ class Ricin.InlineImageMessageListRow : Gtk.ListBoxRow {
 
   public signal void accept_image (bool response, uint32 file_id);
 
-  public InlineImageMessageListRow (Tox.Tox handle, Tox.Friend sender, uint32 file_id, string name, string image_path, string timestamp, bool? is_local) {
+  public InlineImageMessageListRow (Tox.Tox handle, Tox.Friend sender, uint32 file_id, string name, string image_path, string timestamp, bool? is_local, Gdk.Pixbuf? image_pixbuf = null, string? pixbuf_name = null) {
     this.handle = handle;
     this.settings = Settings.instance;
 
@@ -37,14 +37,23 @@ class Ricin.InlineImageMessageListRow : Gtk.ListBoxRow {
       this.handle.bind_property ("username", label_name, "label", BindingFlags.DEFAULT);
     }
 
-    if (is_local) {
-      var pixbuf = new Gdk.Pixbuf.from_file_at_scale (this.image.get_path (), 400, 250, true);
+    if (image_pixbuf == null) {
+      if (is_local) {
+        var pixbuf = new Gdk.Pixbuf.from_file_at_scale (this.image.get_path (), 400, 150, true);
+        this.image_inline.set_from_pixbuf (pixbuf);
+        FileInfo info = this.image.query_info ("standard::*", 0);
+        this.image_name = info.get_display_name ();
+        var image_size = info.get_size () / 1000;
+        this.label_image_name.set_text (@"$(this.image_name)");
+        this.label_image_size.set_text (Util.size_to_string (image_size));
+      }
+    } else {
+      var pixbuf = image_pixbuf.scale_simple (this.width_request, 200, Gdk.InterpType.BILINEAR);
       this.image_inline.set_from_pixbuf (pixbuf);
-      FileInfo info = this.image.query_info ("standard::*", 0);
-      this.image_name = info.get_display_name ();
-      var image_size = info.get_size () / 1000;
-      this.label_image_name.set_text (@"$(this.image_name)");
-      this.label_image_size.set_text (Util.size_to_string (image_size));
+      this.label_image_name.set_text (pixbuf_name);
+      this.label_image_size.set_text (Util.size_to_string (image_pixbuf.get_byte_length () / 1000));
+
+      return;
     }
 
     this.sender.file_done.connect ((name, bytes, id) => {
