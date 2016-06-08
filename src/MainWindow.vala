@@ -620,8 +620,8 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
   private void hide_add_friend_popover () {
     this.add_friend.reveal_child = false;
     this.label_add_error.set_text (_("Add a friend"));
-    //this.button_add_friend_show.visible = true;
-    //this.button_settings.visible = true;
+    this.button_add_friend_show.visible = true;
+    this.button_settings.visible = true;
     this.box_bottom_buttons.visible = true;
   }
 
@@ -645,7 +645,7 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
         this.entry_friend_id.set_text (""); // Clear the entry after adding a friend.
         this.add_friend.reveal_child = false;
         this.label_add_error.set_text (_("Add a friend"));
-        //this.button_add_friend_show.visible = true;
+        this.button_add_friend_show.visible = true;
         this.box_bottom_buttons.visible = true;
         return;
       } catch (Tox.ErrFriendAdd e) {
@@ -659,7 +659,7 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
         this.entry_friend_id.set_text (""); // Clear the entry after adding a friend.
         this.add_friend.reveal_child = false;
         this.label_add_error.set_text (_("Add a friend"));
-        //this.button_add_friend_show.visible = true;
+        this.button_add_friend_show.visible = true;
         this.box_bottom_buttons.visible = true;
         return;
       } catch (Tox.ErrFriendAdd e) {
@@ -680,7 +680,7 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
     }
 
     this.add_friend.reveal_child = false;
-    //this.button_add_friend_show.visible = true;
+    this.button_add_friend_show.visible = true;
     this.box_bottom_buttons.visible = true;
   }
 
