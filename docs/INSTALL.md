@@ -8,7 +8,7 @@
 * [Installing](#installing-ricin)
   * [Linux](#linux)
     * [ArchLinux](#archlinux-1)
-    * [MilisLinux](milis-linux-milis-isletim-sistemi)
+    * [MilisLinux](#milis-linux-milis-isletim-sistemi)
     * [Other linux distributions](#others-linux)
   * [Windows](#windows)
 
