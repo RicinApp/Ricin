@@ -14,6 +14,7 @@ _Screenshot might be outdated but it should give you a general idea of what Rici
 ![Early version](http://i.imgur.com/f7np85T.png)
 
 # Download
+## Linux
 You can download Ricin as an AppImage. An AppImage is a single file that contains Ricin + the required libraries.  
 The main goal of this is having Ricin working on every Linux distribution without the hassle of installing any dependency.  
 
@@ -24,6 +25,14 @@ wget https://cdn.ricin.im/ricin-0.1.1.app
 chmod a+x ricin-0.1.1.app
 ./ricin-0.1.1.app
 ```
+
+## Windows
+Ricin for Windows can be downloaded at the following URL.  
+*Please note that this is the first release of Ricin for Windows and that it may
+contains bugs, please report any of them (even the insignifiant ones) via the
+issue tracker.*
+
+* [Ricin for Windows (64 bits)](https://cdn.ricin.im/windows/ricin-0.1.1-win32_x86-64.zip)
 
 # Install
 Installation instructions are available inside our [INSTALL.md] file. :)
