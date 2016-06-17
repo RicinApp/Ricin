@@ -6,6 +6,7 @@ class Ricin.FriendListRow : Gtk.ListBoxRow {
   [GtkChild] public Gtk.Box box_infos;
   [GtkChild] public Gtk.Label username;
   [GtkChild] Gtk.Label status;
+  [GtkChild] Gtk.Label label_unread_count;
   [GtkChild] Gtk.Image userstatus;
 
   public Tox.Friend fr;
@@ -33,14 +34,14 @@ class Ricin.FriendListRow : Gtk.ListBoxRow {
       if (this.fr.get_uname () == null) {
         this.username.set_text (this.fr.pubkey);
       } else {
-        this.username.set_text (Util.escape_html(this.fr.get_uname ()));
+        this.username.set_text (Util.escape_html (this.fr.get_uname ()));
       }
-      this.status.set_markup (Util.escape_html(this.fr.get_ustatus_message ()));
-      this.status.set_tooltip_markup (Util.escape_html(this.fr.get_ustatus_message ()));
+      this.status.set_markup (Util.escape_html (this.fr.get_ustatus_message ()));
+      this.status.set_tooltip_markup (Util.escape_html (this.fr.get_ustatus_message ()));
     } else {
-      this.username.set_text(Util.escape_html(this.fr.name));
-      this.status.set_text(Util.escape_html(this.fr.status_message));
-      this.status.set_tooltip_markup (Util.escape_html(this.fr.status_message));
+      this.username.set_text (Util.escape_html (this.fr.name));
+      this.status.set_text (Util.escape_html (this.fr.status_message));
+      this.status.set_tooltip_markup (Util.escape_html (this.fr.status_message));
     }
 
     this.init_context_menu ();
@@ -80,7 +81,7 @@ class Ricin.FriendListRow : Gtk.ListBoxRow {
     });
 
     fr.notify["status"].connect ((obj, prop) => {
-      string icon = Util.status_to_icon (this.fr.status, this.unreadCount);
+      string icon = Util.status_to_icon (this.fr.status, 0);
       this.userstatus.set_from_resource (@"/chat/tox/ricin/images/status/$icon.png");
       this.changed (); // we sort by user status
     });
@@ -91,7 +92,7 @@ class Ricin.FriendListRow : Gtk.ListBoxRow {
 
     fr.avatar.connect ((pixbuf_avatar) => {
       this.pixbuf = pixbuf_avatar;
-      this.switch_view_type(this.view_type);
+      this.switch_view_type (this.view_type);
     });
 
     fr.message.connect (this.notify_new_messages);
@@ -99,20 +100,28 @@ class Ricin.FriendListRow : Gtk.ListBoxRow {
 
     this.activate.connect (() => {
       this.unreadCount = 0;
+      this.update_icon ();
       this.changed ();
 
-      var main_window = this.get_toplevel () as MainWindow;
+      var main_window = ((MainWindow) this.get_toplevel ());
       main_window.friendlist.invalidate_filter ();
     });
   }
 
   public void update_icon () {
-    string icon = Util.status_to_icon (this.fr.status, this.unreadCount);
-    this.userstatus.set_from_resource (@"/chat/tox/ricin/images/status/$icon.png");
+    /*string icon = Util.status_to_icon (this.fr.status, this.unreadCount);
+    this.userstatus.set_from_resource (@"/chat/tox/ricin/images/status/$icon.png");*/
+
+    if (this.unreadCount == 0) {
+      this.label_unread_count.visible = false;
+    } else {
+      this.label_unread_count.set_text (@"$(this.unreadCount)");
+      this.label_unread_count.visible = true;
+    }
   }
 
   private void notify_new_messages (string message) {
-    var main_window = this.get_toplevel () as MainWindow;
+    var main_window = ((MainWindow) this.get_toplevel ());
     if (main_window.focused_view == "chat-" + this.fr.pubkey) {
       return;
     }

@@ -6,10 +6,8 @@
     <property name="width_request">250</property>
     <property name="height_request">25</property>
     <property name="visible">True</property>
-    <property name="can_focus">False</property>
+    <property name="can_focus">True</property>
     <property name="resize_mode">immediate</property>
-    <property name="activatable">False</property>
-    <property name="selectable">False</property>
     <child>
       <object class="GtkBox" id="box1">
         <property name="visible">True</property>
@@ -25,6 +23,9 @@
             <property name="can_focus">False</property>
             <property name="valign">center</property>
             <property name="vexpand">True</property>
+            <style>
+              <class name="info-message"/>
+            </style>
           </object>
           <packing>
             <property name="expand">True</property>
@@ -62,6 +63,9 @@
             <property name="can_focus">False</property>
             <property name="valign">center</property>
             <property name="vexpand">True</property>
+            <style>
+              <class name="info-message"/>
+            </style>
           </object>
           <packing>
             <property name="expand">True</property>

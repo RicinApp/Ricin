@@ -203,9 +203,9 @@ class Ricin.ChatView : Gtk.Box {
       this.label_friend_last_seen.set_markup (this.fr.last_online ("%H:%M %d/%m/%Y"));
 
       var visible_child = this.stack.get_visible_child_name ();
-      var main_window = this.get_toplevel () as MainWindow;
+      var main_window = ((MainWindow) this.get_toplevel ());
 
-      if (!main_window.is_active) {
+      if (!main_window.is_active || !main_window.is_focus) {
         var avatar_path = Tox.profile_dir () + "avatars/" + this.fr.pubkey + ".png";
         if (FileUtils.test (avatar_path, FileTest.EXISTS)) {
           var pixbuf = new Gdk.Pixbuf.from_file_at_scale (avatar_path, 46, 46, true);
@@ -404,7 +404,7 @@ class Ricin.ChatView : Gtk.Box {
 
   [GtkCallback]
   private void delete_friend () {
-    var main_window = this.get_toplevel () as MainWindow;
+    var main_window = ((MainWindow) this.get_toplevel ());
     main_window.remove_friend (this.fr);
   }
 

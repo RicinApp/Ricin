@@ -2,6 +2,8 @@
 class Ricin.MessageListRow : Gtk.ListBoxRow {
   [GtkChild] Gtk.Label label_name;
   [GtkChild] Gtk.Label label_message;
+
+  [GtkChild] Gtk.Stack stack;
   [GtkChild] Gtk.Spinner spinner_read;
   [GtkChild] Gtk.Label label_timestamp;
 
@@ -18,24 +20,27 @@ class Ricin.MessageListRow : Gtk.ListBoxRow {
     this.sender = sender;
     this.is_child = is_child;
 
+    this.stack.set_visible_child_name ("spinner");
+
     string name;
 
     if (this.sender == null) {
       name = Util.escape_html (this.handle.username);
       this.label_name.set_markup ("<b>" + name + "</b>");
-
       this.handle.bind_property ("username", label_name, "label", BindingFlags.DEFAULT);
+
       this.handle.message_read.connect ((friend_num, message_id) => {
         if (message_id != this.message_id) {
           return;
         }
 
-        this.spinner_read.visible = false;
+        this.stack.set_visible_child_name ("timestamp");
       });
     } else {
       name = Util.escape_html (this.sender.get_uname ());
       this.label_name.set_text (name);
-      this.spinner_read.visible = false;
+
+      this.stack.set_visible_child_name ("timestamp");
     }
 
     debug (@"Message sent by $name");
@@ -66,7 +71,7 @@ class Ricin.MessageListRow : Gtk.ListBoxRow {
     */
 
     // If message is our (ugly&hacky way).
-    if (this.handle.username == name) {
+    /*if (this.handle.username == name) {
       this.handle.bind_property ("username", label_name, "label", BindingFlags.DEFAULT);
       this.handle.message_read.connect ((friend_num, message_id) => {
         if (message_id != this.message_id) {
@@ -77,7 +82,7 @@ class Ricin.MessageListRow : Gtk.ListBoxRow {
       });
     } else {
       this.spinner_read.visible = false;
-    }
+    }*/
   }
 
   private bool handle_links (string uri) {
@@ -85,7 +90,7 @@ class Ricin.MessageListRow : Gtk.ListBoxRow {
       return false; // Default behavior.
     }
 
-    var main_window = this.get_toplevel () as MainWindow;
+    var main_window = ((MainWindow) this.get_toplevel ());
     var toxid = uri.split ("tox:")[1];
     if (toxid.length == ToxCore.ADDRESS_SIZE * 2) {
       main_window.show_add_friend_popover_with_text (toxid);

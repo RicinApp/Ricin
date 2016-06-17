@@ -70,7 +70,7 @@ public class Ricin.Ricin : Gtk.Application {
 
       // Load the default css.
       var provider = new Gtk.CssProvider ();
-      provider.load_from_resource(this.current_theme);
+      provider.load_from_resource (this.current_theme);
       Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (),
           provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
     }
@@ -89,22 +89,22 @@ public class Ricin.Ricin : Gtk.Application {
 
   // OptionContext: Permits to handle commands the proper way.
   private static bool version = false;
-  private const GLib.OptionEntry[] options = {
-		{ "version", 'v', 0, OptionArg.NONE, ref version, "Display the Ricin version", null },
+  private const GLib.OptionEntry[] OPTIONS = {
+    { "version", 'v', 0, OptionArg.NONE, ref version, "Display the Ricin version", null },
     { null } // List terminator
   };
 
-  public static int main(string[] args) {
+  public static int main (string[] args) {
     try {
-			var opt_context = new OptionContext ("- Ricin instant messaging Tox client");
-			opt_context.set_help_enabled (true);
-			opt_context.add_main_entries (options, null);
-			opt_context.parse (ref args);
-		} catch (OptionError e) {
-			stdout.printf ("error: %s\n", e.message);
-			stdout.printf ("Run '%s --help' to see a full list of available command line options.\n", args[0]);
-			return 0;
-		}
+      var opt_context = new OptionContext ("- Ricin instant messaging Tox client");
+      opt_context.set_help_enabled (true);
+      opt_context.add_main_entries (OPTIONS, null);
+      opt_context.parse (ref args);
+    } catch (OptionError e) {
+      stdout.printf ("error: %s\n", e.message);
+      stdout.printf ("Run '%s --help' to see a full list of available command line options.\n", args[0]);
+      return 0;
+    }
 
     /**
     * Display Ricin + libs versions.
