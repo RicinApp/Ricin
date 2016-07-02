@@ -91,20 +91,44 @@ public class Ricin.PasswordDialog : Gtk.Dialog {
     var pass_confirm = this.entry_password_confirm.get_text ();
 
     if (this.dtype == PasswordDialogType.ADD_PASSWORD) {
-      if (pass != pass_confirm) throw new ErrPassword.NotConfirmed (_("Password doesn't match confirmation."));
-      if (pass.length < 8) throw new ErrPassword.Weak (_("Password must be at least 8 characters."));
-      if (pass.strip () == "") throw new ErrPassword.Null (_("Password cannot be blank."));
-      if (pass_confirm.strip () == "") throw new ErrPassword.Null (_("Password confirmation cannot be blank."));
+      if (pass != pass_confirm) {
+        throw new ErrPassword.NotConfirmed (_("Password doesn't match confirmation."));
+      }
+      if (pass.length < 8) {
+        throw new ErrPassword.Weak (_("Password must be at least 8 characters."));
+      }
+      if (pass.strip () == "") {
+        throw new ErrPassword.Null (_("Password cannot be blank."));
+      }
+      if (pass_confirm.strip () == "") {
+        throw new ErrPassword.Null (_("Password confirmation cannot be blank."));
+      }
     } else if (this.dtype == PasswordDialogType.EDIT_PASSWORD) {
-      if (current_pass == pass) throw new ErrPassword.NotDifferent (_("New password cannot be same as the old one."));
-      if (pass != pass_confirm) throw new ErrPassword.NotConfirmed (_("Password doesn't match confirmation."));
-      if (pass.length < 8) throw new ErrPassword.Weak (_("Password must be at least 8 characters."));
-      if (pass.strip () == "") throw new ErrPassword.Null (_("Password cannot be blank."));
-      if (pass_confirm.strip () == "") throw new ErrPassword.Null (_("Password confirmation cannot be blank."));
-      if (current_pass.strip () == "") throw new ErrPassword.Null (_("Current password cannot be blank."));
+      if (current_pass == pass) {
+        throw new ErrPassword.NotDifferent (_("New password must be different from the older one."));
+      }
+      if (pass != pass_confirm) {
+        throw new ErrPassword.NotConfirmed (_("Password doesn't match confirmation."));
+      }
+      if (pass.length < 8) {
+        throw new ErrPassword.Weak (_("Password must be at least 8 characters."));
+      }
+      if (pass.strip () == "") {
+        throw new ErrPassword.Null (_("Password cannot be blank."));
+      }
+      if (pass_confirm.strip () == "") {
+        throw new ErrPassword.Null (_("Password confirmation cannot be blank."));
+      }
+      if (current_pass.strip () == "") {
+        throw new ErrPassword.Null (_("Current password cannot be blank."));
+      }
     } else if (this.dtype == PasswordDialogType.REMOVE_PASSWORD) {
-      if (current_pass.length < 8) throw new ErrPassword.Weak (_("Password must be at least 8 characters."));
-      if (current_pass.strip () == "") throw new ErrPassword.Null (_("Password cannot be blank."));
+      if (current_pass.length < 8) {
+        throw new ErrPassword.Weak (_("Password must be at least 8 characters."));
+      }
+      if (current_pass.strip () == "") {
+        throw new ErrPassword.Null (_("Password cannot be blank."));
+      }
     }
 
     return true;

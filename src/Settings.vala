@@ -67,7 +67,7 @@ class Settings : GLib.Object {
     get {
       if (_instance == null) {
         string settings_file = "%s/ricin.json".printf (Tox.profile_dir ());
-        _instance = new Settings(settings_file);
+        _instance = new Settings (settings_file);
       }
       return _instance;
     }
@@ -103,7 +103,7 @@ class Settings : GLib.Object {
       parser.load_from_file (this.profile);
       node = parser.get_root ();
 
-      Settings? settings = Json.gobject_deserialize (typeof (Settings), node) as Settings;
+      Settings? settings = ((Settings) Json.gobject_deserialize (typeof (Settings), node));
       if (settings != null) {
         this.has_toxme            = settings.has_toxme;
         this.toxme_id             = settings.toxme_id;

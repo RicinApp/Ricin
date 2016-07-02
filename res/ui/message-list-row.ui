@@ -6,10 +6,8 @@
     <property name="width_request">250</property>
     <property name="height_request">20</property>
     <property name="visible">True</property>
-    <property name="can_focus">False</property>
+    <property name="can_focus">True</property>
     <property name="resize_mode">immediate</property>
-    <property name="activatable">False</property>
-    <property name="selectable">False</property>
     <child>
       <object class="GtkEventBox" id="eventbox1">
         <property name="visible">True</property>
@@ -18,6 +16,7 @@
           <object class="GtkBox" id="box1">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
+            <property name="spacing">10</property>
             <child>
               <object class="GtkLabel" id="label_name">
                 <property name="width_request">80</property>
@@ -27,7 +26,6 @@
                 <property name="halign">start</property>
                 <property name="valign">start</property>
                 <property name="label">label</property>
-                <property name="selectable">True</property>
                 <property name="ellipsize">end</property>
                 <property name="width_chars">12</property>
                 <property name="single_line_mode">True</property>
@@ -44,7 +42,6 @@
               <object class="GtkLabel" id="label_message">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="halign">start</property>
                 <property name="valign">start</property>
                 <property name="margin_left">5</property>
                 <property name="margin_right">5</property>
@@ -61,42 +58,55 @@
               </packing>
             </child>
             <child>
-              <object class="GtkSpinner" id="spinner_read">
-                <property name="width_request">16</property>
-                <property name="height_request">16</property>
+              <object class="GtkStack" id="stack">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="halign">start</property>
                 <property name="valign">start</property>
-                <property name="active">True</property>
+                <child>
+                  <object class="GtkLabel" id="label_timestamp">
+                    <property name="name">timestamp</property>
+                    <property name="width_request">70</property>
+                    <property name="height_request">20</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="halign">end</property>
+                    <property name="valign">start</property>
+                    <property name="label">00:00.00</property>
+                    <property name="justify">right</property>
+                    <property name="ellipsize">end</property>
+                    <property name="single_line_mode">True</property>
+                    <property name="track_visited_links">False</property>
+                    <attributes>
+                      <attribute name="size" value="9000"/>
+                    </attributes>
+                  </object>
+                  <packing>
+                    <property name="name">timestamp</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkSpinner" id="spinner_read">
+                    <property name="name">spinner</property>
+                    <property name="width_request">70</property>
+                    <property name="height_request">16</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="halign">center</property>
+                    <property name="valign">start</property>
+                    <property name="margin_top">2</property>
+                    <property name="margin_bottom">2</property>
+                    <property name="active">True</property>
+                  </object>
+                  <packing>
+                    <property name="name">spinner</property>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
               </object>
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">True</property>
                 <property name="position">2</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkLabel" id="label_timestamp">
-                <property name="width_request">70</property>
-                <property name="height_request">20</property>
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="halign">end</property>
-                <property name="valign">start</property>
-                <property name="label">00:00.00</property>
-                <property name="justify">right</property>
-                <property name="selectable">True</property>
-                <property name="ellipsize">end</property>
-                <property name="single_line_mode">True</property>
-                <attributes>
-                  <attribute name="size" value="9000"/>
-                </attributes>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">3</property>
               </packing>
             </child>
           </object>

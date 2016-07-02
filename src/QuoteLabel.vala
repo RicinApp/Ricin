@@ -1,6 +1,6 @@
 [GtkTemplate (ui="/chat/tox/ricin/ui/quote-label.ui")]
 class Ricin.QuoteLabel : Gtk.ListBoxRow {
-  [GtkChild] Gtk.Label label_quote;
+  [GtkChild] public Gtk.Label label_quote;
 
   public QuoteLabel (string label) {
     this.label_quote.set_markup (label);
@@ -14,7 +14,7 @@ class Ricin.QuoteLabel : Gtk.ListBoxRow {
       return false; // Default behavior.
     }
 
-    var main_window = this.get_toplevel () as MainWindow;
+    var main_window = ((MainWindow) this.get_toplevel ());
     var toxid = uri.split ("tox:")[1];
     if (toxid.length == ToxCore.ADDRESS_SIZE * 2) {
       main_window.show_add_friend_popover_with_text (toxid);

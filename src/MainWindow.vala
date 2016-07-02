@@ -58,11 +58,8 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
   private string window_title;
   private string profile;
 
-  [Signal (action = true)]
-  private signal void change_chat_up ();
-
-  [Signal (action = true)]
-  private signal void change_chat_down ();
+  [Signal (action = true)] private signal void change_chat_up ();
+  [Signal (action = true)] private signal void change_chat_down ();
 
   public signal void notify_message (string message, int timeout = 5000);
 
@@ -189,7 +186,7 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
     });*/
     this.friendlist.set_filter_func (row => {
       string? search = this.searchentry_friend.text.down ();
-      var friend = row as FriendListRow;
+      var friend = ((FriendListRow) row);
       string name = friend.fr.name.down ();
       Tox.UserStatus status = friend.fr.status;
       var mode = this.combobox_friend_filter.active;
@@ -218,7 +215,7 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
     this.combobox_friend_filter.changed.connect (this.friend_list_update_search);
 
     this.friendlist.set_sort_func (sort_friendlist_online);
-    this.friendlist.bind_model (this.friends, fr => new FriendListRow (fr as Tox.Friend));
+    this.friendlist.bind_model (this.friends, fr => new FriendListRow ((Tox.Friend) fr));
 
     tox.notify["connected"].connect ((src, prop) => {
       string icon = "";
@@ -404,8 +401,8 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
   * Contact status: Online → Away → Busy → Blocked → Offlines with name → Offlines without name.
   */
   public static int sort_friendlist_online (Gtk.Widget row1, Gtk.Widget row2) {
-    var friend1 = (row1 as FriendListRow);
-    var friend2 = (row2 as FriendListRow);
+    var friend1 = ((FriendListRow) row1);
+    var friend2 = ((FriendListRow) row2);
 
     if (friend1.unreadCount > friend2.unreadCount) {
       return -1;
@@ -488,41 +485,41 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
     this.menu_statusicon_main = new Gtk.Menu ();
 
     // ONLINE
-    var menuOnline = new Gtk.ImageMenuItem.with_label(_("Online"));
-    var menuOnlineImage = new Gtk.Image.from_resource("/chat/tox/ricin/images/status/online.png");
+    var menuOnline = new Gtk.ImageMenuItem.with_label (_("Online"));
+    var menuOnlineImage = new Gtk.Image.from_resource ("/chat/tox/ricin/images/status/online.png");
     menuOnline.always_show_image = true;
-    menuOnline.set_image(menuOnlineImage);
+    menuOnline.set_image (menuOnlineImage);
     menuOnline.activate.connect (() => {
       this.tox.status = Tox.UserStatus.ONLINE;
-      this.image_user_status.set_from_resource("/chat/tox/ricin/images/status/online.png");
+      this.image_user_status.set_from_resource ("/chat/tox/ricin/images/status/online.png");
     });
 
     // BUSY
-    var menuBusy = new Gtk.ImageMenuItem.with_label(_("Busy"));
-    var menuBusyImage = new Gtk.Image.from_resource("/chat/tox/ricin/images/status/busy.png");
+    var menuBusy = new Gtk.ImageMenuItem.with_label (_("Busy"));
+    var menuBusyImage = new Gtk.Image.from_resource ("/chat/tox/ricin/images/status/busy.png");
     menuBusy.always_show_image = true;
-    menuBusy.set_image(menuBusyImage);
+    menuBusy.set_image (menuBusyImage);
     menuBusy.activate.connect (() => {
       this.tox.status = Tox.UserStatus.BUSY;
-      this.image_user_status.set_from_resource("/chat/tox/ricin/images/status/busy.png");
+      this.image_user_status.set_from_resource ("/chat/tox/ricin/images/status/busy.png");
     });
 
     // AWAY
-    var menuAway = new Gtk.ImageMenuItem.with_label(_("Away"));
-    var menuAwayImage = new Gtk.Image.from_resource("/chat/tox/ricin/images/status/idle.png");
+    var menuAway = new Gtk.ImageMenuItem.with_label (_("Away"));
+    var menuAwayImage = new Gtk.Image.from_resource ("/chat/tox/ricin/images/status/idle.png");
     menuAway.always_show_image = true;
-    menuAway.set_image(menuAwayImage);
+    menuAway.set_image (menuAwayImage);
     menuAway.activate.connect (() => {
       this.tox.status = Tox.UserStatus.AWAY;
-      this.image_user_status.set_from_resource("/chat/tox/ricin/images/status/idle.png");
+      this.image_user_status.set_from_resource ("/chat/tox/ricin/images/status/idle.png");
     });
 
     // QUIT
-    var menuQuit = new Gtk.ImageMenuItem.with_label(_("Quit"));
-    var menuQuitImage = new Gtk.Image.from_icon_name("window-close", Gtk.IconSize.MENU);
+    var menuQuit = new Gtk.ImageMenuItem.with_label (_("Quit"));
+    var menuQuitImage = new Gtk.Image.from_icon_name ("window-close", Gtk.IconSize.MENU);
     menuQuit.always_show_image = true;
-    menuQuit.set_image(menuQuitImage);
-    menuQuit.activate.connect(this.close);
+    menuQuit.set_image (menuQuitImage);
+    menuQuit.activate.connect (this.close);
 
     this.menu_statusicon_main.append (menuOnline);
     this.menu_statusicon_main.append (menuAway);
@@ -531,9 +528,10 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
 
     this.statusicon_main.popup_menu.connect ((button, time) => {
       this.menu_statusicon_main.popup (null, null, null, button, time);
+      print (@"Button code: $(button)\n");
     });
 
-    this.statusicon_main.activate.connect(() => {
+    this.statusicon_main.activate.connect (() => {
       if (this.visible) {
         this.hide ();
       } else {
@@ -686,17 +684,17 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
 
   [GtkCallback]
   private void show_friend_chatview (Gtk.ListBoxRow row) {
-    var item = (row as FriendListRow);
+    var item = ((FriendListRow) row);
     item.unreadCount = 0;
     item.update_icon ();
 
-    var friend = (row as FriendListRow).fr;
+    var friend = ((FriendListRow) row).fr;
     var view_name = "chat-%s".printf (friend.pubkey);
     var chat_view = this.chat_stack.get_child_by_name (view_name);
     debug ("ChatView name: %s", view_name);
 
     if (chat_view != null) {
-      (chat_view as ChatView).entry.grab_focus ();
+      ((ChatView) chat_view).entry.grab_focus ();
       this.chat_stack.set_visible_child (chat_view);
       this.focused_view = view_name;
       this.selected_row = row;

@@ -18,6 +18,7 @@
 @define-color ui_main   #FFFFFF;
 @define-color ui_text   #000000;
 @define-color selected_text_color #5688F9;
+@define-color ui_system_color #2a92c6;
 
 @define-color plain_color @ui_text;
 @define-color quote_color @ui_green;

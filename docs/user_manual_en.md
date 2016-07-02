@@ -4,6 +4,7 @@
 - [Introduction]
   1. [Basic Tox concepts]
   2. [Definition table]
+  3. [Keyboard shortcuts]
 - [Create a profile]
 - [Customize your profile]
   1. [Name]
@@ -38,7 +39,7 @@
     1. [Themes system]
     2. [Choose a language]
     3. [Configure the Ricin interface]
-    
+
 ## Introduction
 **Ricin** aims to be a popular instant messaging client for the Tox network. We built it in order to offer the most intuitive and performing talk app. The point of Ricin is to provide the highest quality when chatting with your friends, contacts, employees, and other people that matters in your life.
 
@@ -63,6 +64,16 @@ This ToxID is composed of a **Public Key** (64 chars), a **nospam** (6 chars) an
 - Profile name: Not an username, this is only your `.tox` file name.
 
 **TODO:** Add definitions here as I write the manual.
+
+### Keyboard shortcuts
+**Note**: The _Global_ context means that you can use the shortcut in the whole app.
+
+| Shortcut       | Context            | Comments                               |
+|:--------------:|:-------------------|:--------------------------------------:|
+| `Ctrl+UP`      | Global             | Quickly switch to the previous contact.|
+| `Ctrl+DOWN`    | Global             | Quickly switch to the next contact.    |
+| `Ctrl+Shift+Q` | Messages selection | Quote a selection of messages.         |
+| `Ctrl+C`       | Messages selection | Copy a selection of messages.          |
 
 ## Create a profile
 The first time you launch Ricin, if you never used Tox before, you'll have to create a profile. A profile is a single `.tox` file that contains your name, your status message, your friends list, etc. This file **must not** be modified by hand, only Ricin (or another Tox client) should write in it. Editing this file by hand *may* expose you to profile corruption.
@@ -127,6 +138,7 @@ The other way to add a friend is by only knowing it's Public Key. The difference
 [Introduction]: #introduction
 [Basic Tox concepts]: #basic-tox-concepts
 [Definition table]: #definition-table
+[Keyboard Shortcuts]: #keyboard-shortcuts
 [Create a profile]: #create-a-profile
 
 [Customize your profile]: #customize-your-profile
