@@ -2,7 +2,7 @@ class HistoryManager {
   private static ThemeManager? _instance;
   public static ThemeManager instance {
     get {
-      if(_instance == null) {
+      if (_instance == null) {
         _instance = new ThemeManager ();
       }
       return _instance;
@@ -38,7 +38,7 @@ class HistoryManager {
       //
       // Read n bytes:
       //
-      FileInputStream @is = ios.input_stream as FileInputStream;
+      FileInputStream @is = ((FileInputStream) ios.input_stream);
 
       // Output: ``M``
       uint8 buffer[1];

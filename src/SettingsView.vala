@@ -72,8 +72,8 @@ class Ricin.SettingsView : Gtk.Box {
     this.box_tab_buttons.add (box);
 
     // About tab →
-    this.label_app_description.set_markup (Ricin.APP_SUMMARY);
-    this.label_app_version.set_text (_(Ricin.APP_VERSION));
+    this.label_app_description.set_markup (_(Ricin.APP_SUMMARY));
+    this.label_app_version.set_text (Ricin.APP_VERSION);
 
     this.label_tox_id.set_text (handle.id);
 
@@ -88,6 +88,7 @@ class Ricin.SettingsView : Gtk.Box {
     this.combobox_languages.append_text ("German");
     this.combobox_languages.append_text ("Ukrainian");
     this.combobox_languages.append_text ("Russian");
+    this.combobox_languages.append_text ("Polish");
 
     this.combobox_toxme_servers.append_text (@"Ricin.im ($default_str)");
     this.combobox_toxme_servers.append_text (@"ToxMe.io ($stable_str)");
@@ -122,6 +123,8 @@ class Ricin.SettingsView : Gtk.Box {
       this.combobox_languages.active = 7;
     } else if (selected_language == "ru_RU") {
       this.combobox_languages.active = 8;
+    } else if (selected_language == "pl") {
+      this.combobox_languages.active = 9;
     }
 
     this.combobox_languages.changed.connect (() => {
@@ -172,6 +175,11 @@ class Ricin.SettingsView : Gtk.Box {
         Environment.set_variable ("LANG", "ru_RU", true);
         Intl.setlocale (LocaleCategory.MESSAGES, "ru_RU");
         this.settings.selected_language = "ru_RU";
+      } else if (slang == 9) { // Polish
+        info ("Changed locale to Polish.");
+        Environment.set_variable ("LANG", "pl", true);
+        Intl.setlocale (LocaleCategory.MESSAGES, "pl");
+        this.settings.selected_language = "pl";
       }
 
       this.reload_options ();
@@ -327,7 +335,7 @@ class Ricin.SettingsView : Gtk.Box {
   }
 
   private bool show_dialog (string title, string message) {
-    var main_window = this.get_toplevel () as MainWindow;
+    var main_window = ((MainWindow) this.get_toplevel ());
     var dialog = new Gtk.MessageDialog (
       main_window,
       Gtk.DialogFlags.MODAL,
@@ -344,7 +352,7 @@ class Ricin.SettingsView : Gtk.Box {
     );
 
     uint response_id = dialog.run ();
-    dialog.destroy();
+    dialog.destroy ();
 
     if (response_id == Gtk.ResponseType.ACCEPT) {
       return true;
@@ -388,7 +396,7 @@ class Ricin.SettingsView : Gtk.Box {
   **/
   [GtkCallback]
   private void  select_save_path () {
-    var main_window = this.get_toplevel () as MainWindow;
+    var main_window = ((MainWindow) this.get_toplevel ());
     var chooser = new Gtk.FileChooserDialog (
       _("Choose a folder where to save files"),
       main_window,
@@ -414,7 +422,7 @@ class Ricin.SettingsView : Gtk.Box {
   private void add_password () {
     debug ("Add Password triggered.");
     PasswordDialog dialog = new PasswordDialog (
-      this.get_toplevel () as MainWindow,
+      ((MainWindow) this.get_toplevel ()),
       _("Encrypt your profile"),
       _("In order to encrypt your profile you need to specify a password. This password will be asked each time you login.") + "\n<b>" + _("Do you want to proceed anyway?") + "</b>",
       PasswordDialogType.ADD_PASSWORD
@@ -442,7 +450,7 @@ class Ricin.SettingsView : Gtk.Box {
   private void change_password () {
     debug ("Change Password triggered.");
     PasswordDialog dialog = new PasswordDialog (
-      this.get_toplevel () as MainWindow,
+      ((MainWindow) this.get_toplevel ()),
       _("Edit your password"),
       _("Changing your password will cause Ricin to decrypt your profile then re-encrypt it with the new password.") + "\n<b>" + _("Do you want to proceed anyway?") + "</b>",
       PasswordDialogType.EDIT_PASSWORD
@@ -467,7 +475,7 @@ class Ricin.SettingsView : Gtk.Box {
   private void remove_password () {
     debug ("Remove Password triggered.");
     PasswordDialog dialog = new PasswordDialog (
-      this.get_toplevel () as MainWindow,
+      ((MainWindow) this.get_toplevel ()),
       _("Unencrypt your profile"),
       _("Removing your password will unencrypt your profile, chat logs and settings.") + "\n<b>" + _("Do you want to proceed anyway?") + "</b>",
       PasswordDialogType.REMOVE_PASSWORD

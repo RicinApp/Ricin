@@ -1,6 +1,6 @@
-# Ricin.
-# Copyright (C) 2016 SkyzohKey and contributors
-# This file is distributed under the same license as the Ricin package.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
 # SkyzohKey <SkyzohKey@users.noreply.github.com>, 2016
@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ricin\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-12 21:11+0200\n"
-"PO-Revision-Date: 2016-04-12 19:24+0000\n"
+"POT-Creation-Date: 2016-07-02 21:20+0200\n"
+"PO-Revision-Date: 2016-07-02 20:06+0000\n"
 "Last-Translator: SkyzohKey <SkyzohKey@users.noreply.github.com>\n"
 "Language-Team: French (http://www.transifex.com/ricinapp/ricin/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -18,13 +18,13 @@ msgstr ""
 "Language: fr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: src/ChatView.vala:367
+#: src/ChatView.vala:387
 msgid " is now "
 msgstr " est maintenant "
 
-#: src/Wrapper.vala:219
+#: src/Wrapper.vala:260
 msgid " is now known as "
-msgstr " s'appel désormais "
+msgstr " s'appelle désormais "
 
 #: res/ui/chat-view.ui:517
 msgid "**bold**"
@@ -42,13 +42,17 @@ msgstr "//italique//"
 msgid "/italic/"
 msgstr "/italic/"
 
+#: res/ui/friend-list-row.ui:101
+msgid "10"
+msgstr "10"
+
 #: res/ui/friend-list-notification_unusable.ui:42
 msgid ""
 "3 unused profiles found:\n"
 "<b>Snow, Guy, Aztek</b>"
 msgstr "3 contacts inutiles trouvés:\n<b>Snow, Guy, Aztek</b>"
 
-#: res/ui/settings-view.ui:642
+#: res/ui/settings-view.ui:801
 msgid "9050"
 msgstr "9050"
 
@@ -56,11 +60,11 @@ msgstr "9050"
 msgid "<b>Available Markdown tags</b>"
 msgstr "<b>Balises Markdown disponibles</b>"
 
-#: res/ui/settings-view.ui:906
+#: res/ui/settings-view.ui:1065
 msgid "<b>Display friend's status changes?</b>"
 msgstr "<b>Afficher les changements de statut ?</b>"
 
-#: res/ui/settings-view.ui:728
+#: res/ui/settings-view.ui:887
 msgid "<b>Enable custom themes?</b>"
 msgstr "<b>Activer les thèmes personnalisés ?</b>"
 
@@ -68,38 +72,38 @@ msgstr "<b>Activer les thèmes personnalisés ?</b>"
 msgid "<b>Friends</b>"
 msgstr "<b>Contacts</b>"
 
-#: res/ui/settings-view.ui:513
+#: res/ui/settings-view.ui:672
 msgid "<b>IPv6</b>"
 msgstr "<b>IPv6</b>"
 
-#: res/ui/settings-view.ui:849
+#: res/ui/settings-view.ui:1008
 msgid "<b>Language:</b>"
 msgstr "<b>Langue:</b>"
 
-#: src/Wrapper.vala:585
+#: src/Wrapper.vala:784
 msgid "<b>Last online:</b>"
 msgstr "<b>Dernière connexion:</b>"
 
-#: res/ui/chat-view.ui:1123
+#: res/ui/chat-view.ui:1125
 msgid "<b>Last seen:</b>"
 msgstr "<b>Dernière action:</b>"
 
-#: res/ui/settings-view.ui:577
+#: res/ui/settings-view.ui:736
 msgid "<b>Proxy (SOCKS 5)</b>"
 msgstr "<b>Proxy (SOCKS 5)</b>"
 
-#: res/ui/settings-view.ui:1277
+#: res/ui/settings-view.ui:1470
 msgid ""
 "<b>Ricin</b> aims to be a <i>secure, lightweight, hackable and fully-"
 "customizable</i> chat client using the awesome and open-source "
 "<b>ToxCore</b> library."
 msgstr "<b>Ricin</b> se veut être un logiciel de discussions instantanées <i>sécurisé, léger et customisable à souhait</i> en utilisant la super bibliothèque open-source <b>ToxCore</b>"
 
-#: res/ui/settings-view.ui:1091
+#: res/ui/settings-view.ui:1250
 msgid "<b>Send typing notifications?</b>"
 msgstr "<b>Envoyer des notifications d'écriture ?</b>"
 
-#: res/ui/settings-view.ui:475
+#: res/ui/settings-view.ui:634
 msgid "<b>UDP</b>"
 msgstr "<b>UDP</b>"
 
@@ -107,19 +111,19 @@ msgstr "<b>UDP</b>"
 msgid "<b>Unknown peers</b>"
 msgstr "<b>Pairs inconnus</b>"
 
-#: res/ui/settings-view.ui:1236
+#: res/ui/settings-view.ui:1429
 msgid "<b>Version:</b>"
 msgstr "<b>Version:</b>"
 
-#: res/ui/settings-view.ui:191
+#: res/ui/settings-view.ui:281
 msgid "<b>Your Tox alias:</b>"
 msgstr "<b>Votre alias Tox:</b>"
 
-#: res/ui/settings-view.ui:72
+#: res/ui/settings-view.ui:75
 msgid "<b>Your ToxID:</b>"
 msgstr "<b>Votre ToxID:</b>"
 
-#: res/ui/chat-view.ui:1671
+#: res/ui/chat-view.ui:1673
 msgid "<i>Friend is typing</i>"
 msgstr "<i>contact est entrain d'écrire</i>"
 
@@ -127,11 +131,11 @@ msgstr "<i>contact est entrain d'écrire</i>"
 msgid ">quote"
 msgstr ">citation"
 
-#: res/ui/settings-view.ui:1455
+#: res/ui/settings-view.ui:1648
 msgid "About"
 msgstr "À propos"
 
-#: res/ui/main-window.ui:376
+#: res/ui/main-window.ui:377
 msgid "Accept"
 msgstr "Accepter"
 
@@ -139,16 +143,20 @@ msgstr "Accepter"
 msgid "Accept/Resume file"
 msgstr "Accepter/Reprendre"
 
-#: src/MainWindow.vala:564 src/MainWindow.vala:589 res/ui/main-window.ui:474
-#: res/ui/main-window.ui:541
+#: src/MainWindow.vala:609 src/MainWindow.vala:620 src/MainWindow.vala:645
+#: src/MainWindow.vala:659 res/ui/main-window.ui:475 res/ui/main-window.ui:542
 msgid "Add a friend"
 msgstr "Ajouter un contact"
 
-#: res/ui/main-window.ui:616
+#: res/ui/main-window.ui:617
 msgid "Add friend"
 msgstr "Ajouter le contact"
 
-#: src/MainWindow.vala:169
+#: res/ui/settings-view.ui:191
+msgid "Add password"
+msgstr "Ajouter un mot de passe"
+
+#: src/MainWindow.vala:179
 msgid "All friends"
 msgstr "Tout les contacts"
 
@@ -156,23 +164,23 @@ msgstr "Tout les contacts"
 msgid "Alt syntax"
 msgstr "Syntaxe alt."
 
-#: src/MainWindow.vala:455 src/Util.vala:156
+#: src/MainWindow.vala:508 src/Util.vala:166
 msgid "Away"
 msgstr "Absent"
 
-#: res/ui/settings-view.ui:257
+#: res/ui/settings-view.ui:347
 msgid "Biography"
 msgstr "Biographie"
 
-#: src/ChatView.vala:402 res/ui/chat-view.ui:1225
+#: src/ChatView.vala:561 res/ui/chat-view.ui:1227
 msgid "Block"
 msgstr "Bloquer"
 
-#: src/FriendListRow.vala:63
+#: src/FriendListRow.vala:90
 msgid "Block friend"
 msgstr "Bloquer le contact"
 
-#: src/Util.vala:150
+#: src/Util.vala:160
 msgid "Blocked"
 msgstr "Bloqué"
 
@@ -180,7 +188,7 @@ msgstr "Bloqué"
 msgid "Bold"
 msgstr "Gras"
 
-#: src/MainWindow.vala:445 src/Util.vala:159
+#: src/MainWindow.vala:498 src/Util.vala:169
 msgid "Busy"
 msgstr "Occupé"
 
@@ -188,11 +196,11 @@ msgstr "Occupé"
 msgid "Call friend"
 msgstr "Appel audio"
 
-#: src/MainWindow.vala:103
+#: src/MainWindow.vala:110
 msgid "Can't load the profile"
 msgstr "Impossible de charger le proil"
 
-#: res/ui/main-window.ui:637
+#: res/ui/main-window.ui:638
 msgid "Cancel"
 msgstr "Annuler"
 
@@ -200,73 +208,119 @@ msgstr "Annuler"
 msgid "Cancel/pause file"
 msgstr "Annuler/Pause"
 
-#: res/ui/settings-view.ui:101
+#: res/ui/settings-view.ui:104
 msgid "Change Nospam"
 msgstr "Changer le NoSpam"
 
-#: res/ui/main-window.ui:86
+#: res/ui/settings-view.ui:208
+msgid "Change password"
+msgstr "Modifier le mot de passe"
+
+#: res/ui/main-window.ui:87
 msgid "Change your avatar"
 msgstr "Changer votre avatar"
 
-#: res/ui/main-window.ui:133
+#: res/ui/main-window.ui:134
 msgid "Change your status"
 msgstr "Changer votre statut"
 
-#: res/ui/settings-view.ui:442
+#: res/ui/settings-view.ui:601
 msgid ""
 "Changing Network settings will temporarily disconnect you from the Tox "
 "network"
 msgstr "En modifiant les paramètres Réseau vous allez temporairement être deconnecté du réseau Tox"
 
-#: src/ChatView.vala:462
+#: src/SettingsView.vala:447
+msgid ""
+"Changing your password will cause Ricin to decrypt your profile then re-"
+"encrypt it with the new password."
+msgstr "Lors de la modification de votre mot de passe Ricin devra déchiffrer votre profil et le chiffrer de nouveau avec votre nouveau mot de passe."
+
+#: src/ChatView.vala:628
 msgid "Choose a file"
 msgstr "Choisissez un fichier"
 
-#: src/ProfileChooser.vala:106
+#: src/SettingsView.vala:393
+msgid "Choose a folder where to save files"
+msgstr "Choisissez un dossier où sauvegarder les fichiers"
+
+#: src/ProfileChooser.vala:142
 msgid "Choose a name for the profile"
 msgstr "Choissisez un nom pour le profil"
 
-#: res/ui/chat-view.ui:1472
+#: res/ui/settings-view.ui:535
+msgid "Choose directory"
+msgstr "Choisir un dossier"
+
+#: res/ui/chat-view.ui:1474
 msgid "Choose smileys"
 msgstr "Choisir des smileys"
 
-#: src/SettingsView.vala:93
+#: src/SettingsView.vala:98
 msgid "Clearer theme"
 msgstr "Thème clair"
 
-#: res/ui/chat-view.ui:1371
+#: res/ui/chat-view.ui:1373
 msgid "Close the popup"
 msgstr "Fermer la fenêtre"
 
-#: res/ui/settings-view.ui:1345
+#: res/ui/settings-view.ui:1307
+msgid "Compact friend list?"
+msgstr "Liste de contacts compacte ?"
+
+#: res/ui/password-dialog.ui:176
+msgid "Confirm new password"
+msgstr "Confirmer le nouveau mot de passe"
+
+#: res/ui/settings-view.ui:1538
 msgid "Contributors"
 msgstr "Contributeurs"
 
-#: res/ui/settings-view.ui:83 res/ui/settings-view.ui:213
+#: res/ui/settings-view.ui:86 res/ui/settings-view.ui:303
 msgid "Copy"
 msgstr "Copier"
 
-#: res/ui/chat-view.ui:1265
+#: res/ui/chat-view.ui:1267
 msgid "Copy friend's ToxID"
 msgstr "Copier le ToxID"
 
-#: res/ui/profile-chooser-window.ui:141
+#: src/ChatView.vala:433
+msgid "Copy quote in clipboard"
+msgstr "Copier la citation dans le presse-papier"
+
+#: src/ChatView.vala:432
+msgid "Copy selection in clipboard"
+msgstr "Copier la séléction dans le presse-papier"
+
+#: res/ui/profile-chooser-window.ui:179
 msgid "Create a profile"
 msgstr "Créer un profil"
 
-#: res/ui/profile-chooser-window.ui:116
+#: res/ui/profile-chooser-window.ui:154
 msgid "Create this profile"
 msgstr "Créer ce profil"
 
-#: src/SettingsView.vala:91
+#: res/ui/password-dialog.ui:101
+msgid "Current password"
+msgstr "Mot de passe actuel"
+
+#: src/PasswordDialog.vala:123
+msgid "Current password cannot be blank."
+msgstr "Le mot de passe actuel ne peut être vide."
+
+#: src/SettingsView.vala:96
 msgid "Dark theme"
 msgstr "Thème sombre"
 
-#: res/ui/main-window.ui:356
+#: res/ui/main-window.ui:357
 msgid "Decline"
 msgstr "Rejeter"
 
-#: res/ui/chat-view.ui:1245
+#: res/ui/settings-view.ui:507
+msgid "Default save path:"
+msgstr "Dossier de téléchargement :"
+
+#: res/ui/chat-view.ui:1247
 msgid "Delete"
 msgstr "Supprimer"
 
@@ -274,27 +328,44 @@ msgstr "Supprimer"
 msgid "Delete friends (3)"
 msgstr "Supprimer les contacts (3)"
 
-#: res/ui/settings-view.ui:1026
+#: res/ui/settings-view.ui:1185
 msgid "Display typing notifications?"
 msgstr "Afficher les notifications d'écriture ?"
 
-#: res/ui/settings-view.ui:962
+#: res/ui/settings-view.ui:1121
 msgid "Display unread messages notice?"
 msgstr "Être averti des messages non lus ?"
 
-#: res/ui/profile-chooser-window.ui:88
+#: src/SettingsView.vala:419 src/SettingsView.vala:447
+#: src/SettingsView.vala:472
+msgid "Do you want to proceed anyway?"
+msgstr "Êtes-vous sûr de vouloir procéder ?"
+
+#: src/SettingsView.vala:446
+msgid "Edit your password"
+msgstr "Modifier le mot de passe"
+
+#: src/SettingsView.vala:418
+msgid "Encrypt your profile"
+msgstr "Chiffrer le profil"
+
+#: res/ui/profile-chooser-window.ui:107
 msgid "Enter a name for the profile"
 msgstr "Entrez un nom pour le profil"
+
+#: res/ui/profile-chooser-window.ui:58 res/ui/profile-chooser-window.ui:143
+msgid "Enter your password..."
+msgstr "Entrez votre mot de passe..."
 
 #: res/ui/chat-view.ui:763
 msgid "Friend's profile"
 msgstr "Profil du contact"
 
-#: res/ui/settings-view.ui:410
+#: res/ui/settings-view.ui:571
 msgid "General"
 msgstr "Général"
 
-#: res/ui/settings-view.ui:1307
+#: res/ui/settings-view.ui:1500
 msgid "GitHub"
 msgstr "GitHub"
 
@@ -302,20 +373,26 @@ msgstr "GitHub"
 msgid "Groupchat name"
 msgstr "Nom du groupe"
 
-#: src/MainWindow.vala:410
+#: src/MainWindow.vala:463
 #, c-format
 msgid "Hello! It's %s, let's be friends."
 msgstr "Bonjour! C'est %s, soyons amis."
 
-#: src/InlineImageMessageListRow.vala:97
+#: src/InlineImageMessageListRow.vala:103
 msgid "Image saved!"
 msgstr "Image enregistrée !"
+
+#: src/SettingsView.vala:419
+msgid ""
+"In order to encrypt your profile you need to specify a password. This "
+"password will be asked each time you login."
+msgstr "Afin de chiffrer votre profile, merci de spécifier un mot de passe. Ce mot de passe vous sera demandé à chaque lancement de Ricin."
 
 #: res/ui/chat-view.ui:600
 msgid "Inline code"
 msgstr "code"
 
-#: res/ui/settings-view.ui:1150
+#: res/ui/settings-view.ui:1360
 msgid "Interface"
 msgstr "Interface"
 
@@ -327,15 +404,15 @@ msgstr "Italique"
 msgid "Leave"
 msgstr "Quitter"
 
-#: res/ui/settings-view.ui:1395
+#: res/ui/settings-view.ui:1588
 msgid "License (GNU General Public License 3)"
 msgstr "License (GNU License Publique Générale 3)"
 
-#: res/ui/profile-chooser-window.ui:72
+#: res/ui/profile-chooser-window.ui:91
 msgid "Load a profile"
 msgstr "Charger un profil"
 
-#: res/ui/profile-chooser-window.ui:50
+#: res/ui/profile-chooser-window.ui:69
 msgid "Login"
 msgstr "Connexion"
 
@@ -343,43 +420,78 @@ msgstr "Connexion"
 msgid "Mute"
 msgstr "Silence"
 
-#: res/ui/settings-view.ui:684
+#: res/ui/settings-view.ui:843
 msgid "Network"
 msgstr "Réseau"
 
-#: res/ui/settings-view.ui:335
+#: res/ui/settings-view.ui:425
 msgid "New Tox alias"
 msgstr "Nouvel alias Tox"
 
-#: src/MainWindow.vala:383
+#: res/ui/password-dialog.ui:138
+msgid "New password"
+msgstr "Nouveau mot de passe"
+
+#: src/PasswordDialog.vala:108
+msgid "New password must be different from the older one."
+msgstr "Le nouveau mot de passe doit être différent de l'ancien."
+
+#: src/MainWindow.vala:435 src/SettingsView.vala:343
+#: res/ui/password-dialog.ui:32
 msgid "No"
 msgstr "Non"
 
-#: res/ui/chat-view.ui:1160
+#: res/ui/chat-view.ui:1162
 msgid "Notes about the user:"
 msgstr "Notes:"
 
-#: src/Util.vala:163
+#: src/Util.vala:173
 msgid "Offline"
 msgstr "Hors ligne"
 
-#: src/MainWindow.vala:435 src/Util.vala:153
+#: src/MainWindow.vala:488 src/Util.vala:163
 msgid "Online"
 msgstr "En ligne"
 
-#: src/MainWindow.vala:168
+#: src/MainWindow.vala:178
 msgid "Online friends"
 msgstr "Contacts en ligne"
 
-#: src/ProfileChooser.vala:87
+#: res/ui/password-dialog.ui:213
+msgid "Password Strength"
+msgstr "Force du mot de passe"
+
+#: src/PasswordDialog.vala:101 src/PasswordDialog.vala:117
+#: src/PasswordDialog.vala:130
+msgid "Password cannot be blank."
+msgstr "Le mot de passe ne peut être vide."
+
+#: src/PasswordDialog.vala:104 src/PasswordDialog.vala:120
+msgid "Password confirmation cannot be blank."
+msgstr "La confirmation du mot de passe ne peut être vide."
+
+#: src/PasswordDialog.vala:95 src/PasswordDialog.vala:111
+msgid "Password doesn't match confirmation."
+msgstr "Le mot de passe ne correspond pas à la confirmation."
+
+#: src/PasswordDialog.vala:98 src/PasswordDialog.vala:114
+#: src/PasswordDialog.vala:127
+msgid "Password must be at least 8 characters."
+msgstr "Le mot de passe doit comporter un minimum de 8 caractères."
+
+#: src/ProfileChooser.vala:98
+msgid "Please enter a password"
+msgstr "Merci d'enter un mot de passe"
+
+#: src/ProfileChooser.vala:121
 msgid "Please enter a profile name."
 msgstr "Merci de choisir un nom pour le profil."
 
-#: src/ProfileChooser.vala:94
+#: src/ProfileChooser.vala:128
 msgid "Profile name already taken."
 msgstr "Un profil avec ce nom existe déjà."
 
-#: src/MainWindow.vala:465
+#: src/MainWindow.vala:518
 msgid "Quit"
 msgstr "Quitter"
 
@@ -387,48 +499,67 @@ msgstr "Quitter"
 msgid "Quote"
 msgstr "Citation"
 
-#: res/ui/settings-view.ui:803
+#: src/ChatView.vala:434
+msgid "Quote selection"
+msgstr "Citer la séléction"
+
+#: res/ui/settings-view.ui:962
 msgid "Reload custom theme"
 msgstr "Recharger le thème"
 
-#: res/ui/settings-view.ui:1326
+#: res/ui/settings-view.ui:225
+msgid "Remove password"
+msgstr "Supprimer le mot de passe"
+
+#: res/ui/password-dialog.ui:62
+msgid "Remove password?"
+msgstr "Voulez-vous supprimer votre mot de passe ?"
+
+#: src/SettingsView.vala:472
+msgid ""
+"Removing your password will unencrypt your profile, chat logs and settings."
+msgstr "Supprimer votre mot de passe aura pour effets de déchiffrer votre profil, votre historique de messages ainsi que vos préférences."
+
+#: res/ui/password-dialog.ui:79
+msgid ""
+"Removing your password will unencrypt your profile, chat logs and settings. "
+"<b>Do you want to proceed anyway?</b>"
+msgstr "Supprimer votre mot de passe aura pour effets de déchiffrer votre profil, votre historique de messages ainsi que vos préférences. <b>Êtes-vous sûr de vouloir effectuer cette action ?</b>"
+
+#: res/ui/settings-view.ui:1519
 msgid "Report an issue"
 msgstr "Signaler un bug"
 
-#: res/ui/settings-view.ui:368
+#: res/ui/settings-view.ui:458
 msgid "Request deletion"
 msgstr "Supprimer l'alias"
 
-#: src/MainWindow.vala:538
+#: src/MainWindow.vala:592
 msgid "Restart later"
 msgstr "Redémarrer plus tard"
 
-#: src/MainWindow.vala:538
+#: src/MainWindow.vala:592
 msgid "Restart now"
 msgstr "Redémarrer maintenant"
 
-#: src/MainWindow.vala:535
+#: src/MainWindow.vala:589
 msgid "Restart required"
 msgstr "Redémarrage requis"
 
-#: res/ui/settings-view.ui:1204
-msgid "Ricin"
-msgstr "Ricin"
-
-#: src/MainWindow.vala:598
+#: src/MainWindow.vala:668
 msgid "Ricin doesn't supports ToxDNS yet."
 msgstr "Ricin ne supporte pas encore ToxMe."
 
-#: src/MainWindow.vala:537
+#: src/MainWindow.vala:591
 msgid ""
 "Ricin needs to restart in order to apply settings. Do you want to restart?"
 msgstr "Ricin doit redémarrer afin d'appliquer les paramètres. Voulez-vous redémarrer Ricin ?"
 
-#: res/ui/settings-view.ui:1415
+#: res/ui/settings-view.ui:1608
 msgid "Ricin official website"
 msgstr "Site officiel de Ricin"
 
-#: res/ui/chat-view.ui:1613
+#: res/ui/chat-view.ui:1615
 msgid "Scroll to bottom"
 msgstr "Descendre"
 
@@ -436,23 +567,23 @@ msgstr "Descendre"
 msgid "Select a chat to start messaging."
 msgstr "Selectionnez un contact pour commencer à discuter"
 
-#: src/ProfileChooser.vala:23 res/ui/profile-chooser-window.ui:23
+#: src/ProfileChooser.vala:25 res/ui/profile-chooser-window.ui:23
 msgid "Select a profile"
 msgstr "Selectionner un profil"
 
-#: src/MainWindow.vala:675
+#: src/MainWindow.vala:745
 msgid "Select your avatar"
 msgstr "Choisissez un avatar"
 
-#: res/ui/chat-view.ui:1500
+#: res/ui/chat-view.ui:1502
 msgid "Send file"
 msgstr "Envoyer un fichier"
 
-#: res/ui/chat-view.ui:1526
+#: res/ui/chat-view.ui:1528
 msgid "Send message"
 msgstr "Envoyer un message"
 
-#: src/MainWindow.vala:117 src/MainWindow.vala:553 res/ui/main-window.ui:494
+#: src/MainWindow.vala:124 src/MainWindow.vala:608 res/ui/main-window.ui:495
 msgid "Settings"
 msgstr "Paramètres"
 
@@ -472,47 +603,47 @@ msgstr "Syntaxe"
 msgid "Tag Name"
 msgstr "Balise"
 
-#: src/ProfileChooser.vala:78
+#: src/ProfileChooser.vala:110
 msgid "The selected profile doesn't exists."
 msgstr "Le profil selectionné n'existe pas."
 
-#: res/ui/settings-view.ui:767
+#: res/ui/settings-view.ui:926
 msgid "Theme:"
 msgstr "Thème:"
 
-#: res/ui/chat-view.ui:1595
+#: res/ui/chat-view.ui:1597
 msgid "There are unread messages in this chat"
 msgstr "Il y'a des messages non lus dans cette discussion"
 
-#: src/MessageListRow.vala:91 src/PlainLabel.vala:22 src/QuoteLabel.vala:22
+#: src/MessageListRow.vala:102 src/PlainLabel.vala:22 src/QuoteLabel.vala:22
 msgid "ToxDNS is not supported yet."
 msgstr "ToxMe n'est pas encore supporté."
 
-#: src/MainWindow.vala:600
+#: src/MainWindow.vala:670
 msgid "ToxID can't be empty."
 msgstr "Le ToxID ne peut pas être vide."
 
-#: src/MainWindow.vala:602
+#: src/MainWindow.vala:672
 msgid "ToxID is invalid."
 msgstr "Le ToxID est invalide."
 
-#: res/ui/main-window.ui:562
+#: res/ui/main-window.ui:563
 msgid "ToxID to add..."
 msgstr "Contact à ajouter"
 
-#: res/ui/settings-view.ui:268
+#: res/ui/settings-view.ui:358
 msgid "ToxMe server"
 msgstr "Serveur ToxMe"
 
-#: res/ui/main-window.ui:190
+#: res/ui/main-window.ui:191
 msgid "Type to search..."
 msgstr "Rechercher..."
 
-#: src/ChatView.vala:400
+#: src/ChatView.vala:559
 msgid "Unblock"
 msgstr "Débloquer"
 
-#: src/FriendListRow.vala:63
+#: src/FriendListRow.vala:90
 msgid "Unblock friend"
 msgstr "Débloquer le contact"
 
@@ -520,11 +651,15 @@ msgstr "Débloquer le contact"
 msgid "Underline"
 msgstr "Souligné"
 
-#: res/ui/settings-view.ui:351
+#: src/SettingsView.vala:471
+msgid "Unencrypt your profile"
+msgstr "Déchiffrer votre profil"
+
+#: res/ui/settings-view.ui:441
 msgid "Update record"
 msgstr "Modifier l'alias"
 
-#: res/ui/chat-view.ui:797 res/ui/settings-view.ui:246
+#: res/ui/chat-view.ui:797 res/ui/settings-view.ui:336
 msgid "Username"
 msgstr "Pseudo"
 
@@ -532,23 +667,24 @@ msgstr "Pseudo"
 msgid "Video call friend"
 msgstr "Appel vidéo"
 
-#: src/SettingsView.vala:92
+#: src/SettingsView.vala:97
 msgid "White theme"
 msgstr "Thème blanc"
 
-#: src/MainWindow.vala:383
+#: src/MainWindow.vala:435 src/SettingsView.vala:342
+#: res/ui/password-dialog.ui:19
 msgid "Yes"
 msgstr "Oui"
 
-#: res/ui/main-window.ui:260
+#: res/ui/main-window.ui:261
 msgid "You got a new friend request"
 msgstr "Vous avez une demande d'ami"
 
-#: src/ChatView.vala:463 src/MainWindow.vala:678
+#: src/ChatView.vala:629 src/MainWindow.vala:748 src/SettingsView.vala:396
 msgid "_Cancel"
 msgstr "_Annuler"
 
-#: src/ChatView.vala:464 src/MainWindow.vala:679
+#: src/ChatView.vala:630 src/MainWindow.vala:749 src/SettingsView.vala:397
 msgid "_Open"
 msgstr "_Ouvrir"
 
@@ -564,23 +700,23 @@ msgstr "_souligné_"
 msgid "`inline code`"
 msgstr "`code`"
 
-#: src/SettingsView.vala:76
+#: src/SettingsView.vala:80
 msgid "default"
 msgstr "défaut"
 
-#: src/ChatView.vala:317
+#: src/ChatView.vala:337
 msgid "is typing"
 msgstr "est entrain d'écrire"
 
-#: res/ui/settings-view.ui:1488
+#: res/ui/settings-view.ui:1676
 msgid "ricin.io (stable)"
 msgstr "ricin.im (stable)"
 
-#: src/SettingsView.vala:77
+#: src/SettingsView.vala:81
 msgid "stable"
 msgstr "stable"
 
-#: res/ui/settings-view.ui:1491
+#: res/ui/settings-view.ui:1679
 msgid "toxme.io"
 msgstr "toxme.io"
 

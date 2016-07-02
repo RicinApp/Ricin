@@ -951,8 +951,10 @@
                         <child>
                           <object class="GtkListBox" id="messages_list">
                             <property name="visible">True</property>
-                            <property name="can_focus">False</property>
+                            <property name="can_focus">True</property>
+                            <property name="has_focus">True</property>
                             <property name="selection_mode">multiple</property>
+                            <property name="activate_on_single_click">False</property>
                             <signal name="size-allocate" handler="scroll_to_bottom" swapped="no"/>
                             <style>
                               <class name="message-list"/>

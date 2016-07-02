@@ -446,7 +446,7 @@ namespace Tox {
         Server[] servers = {};
         var array = json.get_root ().get_object ().get_array_member ("servers");
         array.foreach_element ((arr, index, node) => {
-          servers += Json.gobject_deserialize (typeof (Server), node) as Server;
+          servers += ((Server) Json.gobject_deserialize (typeof (Server), node));
         });
         while (!this.connected) {
           for (int i = 0; i < 4; ++i) { // bootstrap to 4 random nodes
@@ -523,7 +523,7 @@ namespace Tox {
 
       debug (@"Accepting friend request from $id");
       ERR_FRIEND_ADD err;
-      uint32 friend_num = this.handle.friend_add_norequest (Util.hex2bin(id), out err);
+      uint32 friend_num = this.handle.friend_add_norequest (Util.hex2bin (id), out err);
 
       switch (err) {
         case ERR_FRIEND_ADD.OK:
@@ -715,7 +715,7 @@ namespace Tox {
     // ByteArray is mutable
     internal HashTable<uint32, FileDownload> files_recv = new HashTable<uint32, FileDownload> (direct_hash, direct_equal);
 
-    /* We could implement this as just a get { } that goes to libtoxcore, and
+    /* We could implement this like just a get { } that goes to libtoxcore, and
      * use GLib.Object.notify_property () in the callbacks, but the name is not
      * set until we leave the callback so we'll just keep our own copy.
      */
@@ -785,7 +785,7 @@ namespace Tox {
       //debug (@" for $num: $last");
 
       DateTime time = new DateTime.from_unix_local ((int64)last);
-      return time.format((format != null) ? format : _("<b>Last online:</b>") + " %H:%M %d/%m/%Y");
+      return time.format ((format != null) ? format : _("<b>Last online:</b>") + " %H:%M %d/%m/%Y");
     }
 
     public void set_user_status (ToxCore.UserStatus status) {

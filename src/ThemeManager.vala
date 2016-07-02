@@ -2,7 +2,7 @@ class ThemeManager : GLib.Object {
   private static ThemeManager? _instance;
   public static ThemeManager instance {
     get {
-      if(_instance == null) {
+      if (_instance == null) {
         _instance = new ThemeManager ();
       }
       return _instance;
@@ -43,7 +43,7 @@ class ThemeManager : GLib.Object {
     debug (@"Theme name: $(this.current_theme_name)");
 
     var provider = new Gtk.CssProvider ();
-    provider.load_from_resource(@"$(this.custom_themes_base_path)/themes/$(this.current_theme_name).css");
+    provider.load_from_resource (@"$(this.custom_themes_base_path)/themes/$(this.current_theme_name).css");
     this.add_provider (provider);
   }
 

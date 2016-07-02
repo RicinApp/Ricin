@@ -120,9 +120,9 @@ namespace ToxIdenticon {
     private void render () {
       var hash = Checksum.compute_for_string (ChecksumType.SHA512, this.hash + this.salt);
       var size = this.size;
-      var baseMargin = Math.floor(size * this.margin);
-      var cell = Math.floor((size - (baseMargin * 2)) / 5);
-      var margin = Math.floor((size - cell * 5) / 2);
+      var baseMargin = Math.floor (size * this.margin);
+      var cell = Math.floor ((size - (baseMargin * 2)) / 5);
+      var margin = Math.floor ((size - cell * 5) / 2);
 
       // Background color
       var background = RGB () {

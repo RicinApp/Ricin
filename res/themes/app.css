@@ -7,6 +7,17 @@
 /** GTK reset **/
 @import url("reset.css");
 
+.badge {
+	background-color: @ui_system_color;
+	color: #ffffff;
+	border-radius: 0px;
+	padding: 3px 5px;
+	font-size: 7px;
+}
+*:link {
+	color: @ui_system_color;
+}
+
 GtkEntry,
 GtkEntry:focus,
 GtkComboBox,
@@ -206,10 +217,6 @@ RicinProfileChooser .notebook .entry {
 
 RicinProfileChooser .notebook .entry:hover {
   background-color: @ui_main;
-}
-
-GtkLabel.info-message {
-    color: #2a92c6;
 }
 
 .ricin-navigation {
@@ -479,6 +486,9 @@ GtkScrolledWindow {
 .message-list GtkLabel {
   color: @ui_text;
 }
+.message-list GtkLabel:link {
+	color: @ui_system_color;
+}
 
 .entry-principal {
 	background-image: none;
@@ -625,9 +635,18 @@ GtkScrolledWindow {
   color: @ui_text;
 }
 
-/** ENTRIES SELECTION COLOR **/
-GtkSearchEntry:selected,
-GtkEntry:selected {
+/** SELECTION COLOR **/
+.message-list .activatable:selected *,
+.message-list .activatable:selected,
+:selected:not(.friendlist-row),
+.entry:selected {
+  color: #ffffff;
   background-color: @selected_text_color;
-  color: @ui_text;
+  outline: none;
+}
+.message-list .activatable {
+  outline: none;
+}
+.message-list .info-message {
+	color: @ui_system_color;
 }

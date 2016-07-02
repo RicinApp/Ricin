@@ -20,7 +20,7 @@ namespace Util {
 
   public inline static string arr2str (uint8[] array) {
     uint8[] str = new uint8[array.length + 1];
-    Memory.copy (str, array, sizeof(uint8) * array.length);
+    Memory.copy (str, array, sizeof (uint8) * array.length);
     str[array.length] = '\0';
     string result = (string) str;
     assert (result.validate ());
@@ -69,20 +69,18 @@ namespace Util {
     string message = escaped_text;
 
     try {
-      Regex code_block = new Regex("^`((?s).*)`$", RegexCompileFlags.MULTILINE);
+      Regex code_block = new Regex ("^`((?s).*)`$", RegexCompileFlags.MULTILINE);
       MatchInfo match_info;
 
       if (code_block.match (escaped_text, 0, out match_info)) {
         // If message is a code block, doesn't render markdown.
-        /*var code = /^`([^`]{2,}?)`$/.replace (escaped_text, -1, 0, "<span face=\"monospace\" size=\"smaller\">\\1</span>");
-        message = code;*/
         debug ("Code block regex compiled, returning monospaced text.");
 
         // 0 is the full text of the match, 1 is the first paren set.
         string matched_text = match_info.fetch (1);
         return @"<span face=\"monospace\" size=\"smaller\">$matched_text</span>";
       } else {
-        var uri = /(\w+:\S+)/.replace (emoji, -1, 0, "<span color=\"#2a92c6\"><a href=\"\\1\">\\1</a></span>");
+        var uri = /(\w+:\S+)/.replace (emoji, -1, 0, "<a href=\"\\1\">\\1</a>");
 
         var bold = /\B\*\*([^\*\*]{2,}?)\*\*\B/.replace (uri, -1, 0, "<b>\\1</b>");
         bold = /\B\*([^\*]{2,}?)\*\B/.replace (bold, -1, 0, "<b>\\1</b>");
