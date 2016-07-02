@@ -20,10 +20,10 @@ The main goal of this is having Ricin working on every Linux distribution withou
 
 Downloading and running Ricin is simple as doing the following:
 ```shell
-# Assuming that the current version is 0.1.1
-wget https://cdn.ricin.im/ricin-0.1.1.app
-chmod a+x ricin-0.1.1.app
-./ricin-0.1.1.app
+# Assuming that the current version is 0.2.1
+wget https://cdn.ricin.im/linux/ricin-0.2.1.app
+chmod a+x ricin-0.2.1.app
+./ricin-0.2.1.app
 ```
 
 ## Windows
