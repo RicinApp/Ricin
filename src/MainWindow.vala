@@ -58,11 +58,8 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
   private string window_title;
   private string profile;
 
-  [Signal (action = true)]
-  private signal void change_chat_up ();
-
-  [Signal (action = true)]
-  private signal void change_chat_down ();
+  [Signal (action = true)] private signal void change_chat_up ();
+  [Signal (action = true)] private signal void change_chat_down ();
 
   public signal void notify_message (string message, int timeout = 5000);
 
@@ -531,6 +528,7 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
 
     this.statusicon_main.popup_menu.connect ((button, time) => {
       this.menu_statusicon_main.popup (null, null, null, button, time);
+      print (@"Button code: $(button)\n");
     });
 
     this.statusicon_main.activate.connect (() => {

@@ -48,6 +48,9 @@ class Ricin.ChatView : Gtk.Box {
   [GtkChild] Gtk.Label label_notify_text;
   [GtkChild] Gtk.Button button_notify_close;
 
+  [Signal (action = true)] private signal void copy_messages_selection ();
+  [Signal (action = true)] private signal void quote_messages_selection ();
+
   public Tox.Friend fr;
   private weak Tox.Tox handle;
   private weak Gtk.Stack stack;
@@ -130,6 +133,8 @@ class Ricin.ChatView : Gtk.Box {
       return false;
     });
 
+    this.init_messages_menu ();
+    this.init_messages_shortcuts ();
 
     this.popover_markdown_help = new Gtk.Popover (this.button_show_markdown_help);
     //set popover content
@@ -383,6 +388,145 @@ class Ricin.ChatView : Gtk.Box {
         this.last_status = status;
       }
     });
+  }
+
+  private bool messages_selected () {
+    return (this.messages_list.get_selected_rows ().length () > 0);
+  }
+
+  private string get_selected_messages (bool as_quote, bool include_names) {
+    StringBuilder sb = new StringBuilder ();
+    foreach (Gtk.ListBoxRow item in this.messages_list.get_selected_rows ()) {
+      string name = "";
+      string txt = "";
+
+      if (item is MessageListRow) {
+        name = ((MessageListRow) item).author;
+        txt  = ((MessageListRow) item).label_message.get_text ();
+      } else if (item is SystemMessageListRow) {
+        name = "* ";
+        txt  = ((SystemMessageListRow) item).label_message.get_text ();
+      } else if (item is QuoteMessageListRow) {
+        name = ((QuoteMessageListRow) item).author;
+        txt  = ((QuoteMessageListRow) item).get_quote ();
+      }
+
+      if (as_quote) {
+        sb.append_c ('>');
+      }
+      if (include_names) {
+        sb.append (@"[$name] ");
+      }
+
+      sb.append (txt);
+      sb.append_c ('\n');
+    }
+
+    sb.truncate (sb.len - 1);
+    return (string) sb.data;
+  }
+
+  public void init_messages_menu () {
+    var menu = new Gtk.Menu ();
+
+    var menu_copy_selection = new Gtk.MenuItem.with_label (_("Copy selection in clipboard"));
+    var menu_copy_quote = new Gtk.MenuItem.with_label (_("Copy quote in clipboard"));
+    var menu_quote_selection = new Gtk.MenuItem.with_label (_("Quote selection"));
+    //var menu_
+
+    menu_copy_selection.activate.connect (() => {
+      if (this.messages_selected () == false) {
+        return;
+      }
+
+      string selection = this.get_selected_messages (false, true);
+      Gtk.Clipboard.get (Gdk.SELECTION_CLIPBOARD).set_text (selection, -1);
+      this.messages_list.unselect_all ();
+    });
+    menu_copy_quote.activate.connect (() => {
+      if (this.messages_selected () == false) {
+        return;
+      }
+
+      string quote = this.get_selected_messages (true, true);
+      Gtk.Clipboard.get (Gdk.SELECTION_CLIPBOARD).set_text (quote, -1);
+      this.messages_list.unselect_all ();
+    });
+    menu_quote_selection.activate.connect (() => {
+      if (this.messages_selected () == false) {
+        return;
+      }
+
+      string quote = this.get_selected_messages (true, false);
+      this.entry.set_text (quote);
+      this.messages_list.unselect_all ();
+      this.entry.grab_focus_without_selecting ();
+    });
+
+    menu.append (menu_copy_selection);
+    menu.append (menu_copy_quote);
+    menu.append (menu_quote_selection);
+    menu.show_all ();
+
+    this.messages_list.button_press_event.connect ((e) => {
+      // If at least 1 message is selected.
+      if (this.messages_list.get_selected_rows ().length () < 1) {
+        return false;
+      }
+
+      // If the event was a right click.
+      if (e.button != 3) {
+        return false;
+      }
+
+      menu.popup (null, null, null, 3, Gtk.get_current_event_time ());
+      return true;
+    });
+  }
+
+  private void init_messages_shortcuts () {
+    var main_window = ((MainWindow) this.get_toplevel ());
+    Gtk.AccelGroup accel_group = new Gtk.AccelGroup ();
+    main_window.add_accel_group (accel_group);
+    /**
+    * Keyboard shortcut for copying or quoting selected messages.
+    **/
+    this.copy_messages_selection.connect (() => {
+      if (this.messages_selected () == false) {
+        return;
+      }
+
+      string selection = this.get_selected_messages (false, true);
+      Gtk.Clipboard.get (Gdk.SELECTION_CLIPBOARD).set_text (selection, -1);
+      this.messages_list.unselect_all ();
+    });
+
+    this.quote_messages_selection.connect (() => {
+      if (this.messages_selected () == false) {
+        return;
+      }
+
+      string quote = this.get_selected_messages (true, false);
+      this.entry.set_text (quote);
+      this.messages_list.unselect_all ();
+      this.entry.grab_focus_without_selecting ();
+    });
+
+    /**
+    * Shortcut for Ctrl+C: Copy selected messages if selection > 0
+    **/
+    this.add_accelerator (
+      "copy-messages-selection", accel_group, Gdk.keyval_from_name("C"),
+      Gdk.ModifierType.CONTROL_MASK, Gtk.AccelFlags.VISIBLE
+    );
+
+    /**
+    * Shortcut for Ctrl+Shift+Q: Quote selected messages if selection > 0
+    **/
+    this.add_accelerator (
+      "quote-messages-selection", accel_group, Gdk.keyval_from_name("Q"),
+      Gdk.ModifierType.CONTROL_MASK | Gdk.ModifierType.SHIFT_MASK, Gtk.AccelFlags.VISIBLE
+    );
   }
 
   public void show_notice (string text, string icon_name = "help-info-symbolic") {

@@ -1,6 +1,6 @@
 [GtkTemplate (ui="/chat/tox/ricin/ui/quote-label.ui")]
 class Ricin.QuoteLabel : Gtk.ListBoxRow {
-  [GtkChild] Gtk.Label label_quote;
+  [GtkChild] public Gtk.Label label_quote;
 
   public QuoteLabel (string label) {
     this.label_quote.set_markup (label);

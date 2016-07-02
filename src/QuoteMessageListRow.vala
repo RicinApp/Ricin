@@ -7,6 +7,8 @@ class Ricin.QuoteMessageListRow : Gtk.ListBoxRow {
   [GtkChild] Gtk.Spinner spinner_read;
   [GtkChild] Gtk.Label label_timestamp;
 
+  public string author { get; set; default = ""; }
+
   private uint position;
   private uint32 message_id;
   public bool is_child = false;
@@ -43,6 +45,8 @@ class Ricin.QuoteMessageListRow : Gtk.ListBoxRow {
       this.stack.set_visible_child_name ("timestamp");
     }
 
+    this.author = name;
+
     if (this.is_child) {
       // Don't display name for childs.
       this.label_name.set_text ("");
@@ -58,6 +62,25 @@ class Ricin.QuoteMessageListRow : Gtk.ListBoxRow {
         this.listbox_quotes.add (new PlainLabel (line));
       }
     }
+  }
+
+  public string get_quote () {
+    StringBuilder sb = new StringBuilder ();
+    foreach (Gtk.Widget item in this.listbox_quotes.get_children ()) {
+      var txt = "";
+
+      if (item is QuoteLabel) {
+        txt = ">" + ((QuoteLabel) item).label_quote.get_text ();
+      } else if (item is PlainLabel) {
+        txt = ((PlainLabel) item).label_text.get_text ();
+      }
+
+      sb.append (txt);
+      sb.append_c ('\n');
+    }
+
+    sb.truncate (sb.len - 1);
+    return (string) sb.data;
   }
 
   private bool handle_links (string uri) {

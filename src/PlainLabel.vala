@@ -1,6 +1,6 @@
 [GtkTemplate (ui="/chat/tox/ricin/ui/plain-label.ui")]
 class Ricin.PlainLabel : Gtk.ListBoxRow {
-  [GtkChild] Gtk.Label label_text;
+  [GtkChild] public Gtk.Label label_text;
 
   public PlainLabel (string label) {
     this.label_text.set_markup (label);

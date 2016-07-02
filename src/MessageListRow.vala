@@ -1,11 +1,13 @@
 [GtkTemplate (ui="/chat/tox/ricin/ui/message-list-row.ui")]
 class Ricin.MessageListRow : Gtk.ListBoxRow {
-  [GtkChild] Gtk.Label label_name;
-  [GtkChild] Gtk.Label label_message;
+  [GtkChild] public Gtk.Label label_name;
+  [GtkChild] public Gtk.Label label_message;
 
   [GtkChild] Gtk.Stack stack;
   [GtkChild] Gtk.Spinner spinner_read;
   [GtkChild] Gtk.Label label_timestamp;
+
+  public string author { get; set; default = ""; }
 
   private uint position;
   private uint32 message_id;
@@ -43,10 +45,12 @@ class Ricin.MessageListRow : Gtk.ListBoxRow {
       this.stack.set_visible_child_name ("timestamp");
     }
 
+    this.author = name;
+
     debug (@"Message sent by $name");
     if (this.is_child) {
       // Don't display name for childs.
-      this.label_name.set_text (" ");
+      this.label_name.set_text ("");
     }
 
     /**

@@ -1,7 +1,7 @@
 # Ricin.
 # Copyright (C) 2016 SkyzohKey and contributors
 # This file is distributed under the same license as the Ricin package.
-# 
+#
 # Translators:
 # SkyzohKey <SkyzohKey@users.noreply.github.com>, 2016
 msgid ""
@@ -24,7 +24,7 @@ msgstr " est maintenant "
 
 #: src/Wrapper.vala:219
 msgid " is now known as "
-msgstr " s'appel désormais "
+msgstr " s'appelle désormais "
 
 #: res/ui/chat-view.ui:517
 msgid "**bold**"
