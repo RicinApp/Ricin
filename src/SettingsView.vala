@@ -88,6 +88,7 @@ class Ricin.SettingsView : Gtk.Box {
     this.combobox_languages.append_text ("German");
     this.combobox_languages.append_text ("Ukrainian");
     this.combobox_languages.append_text ("Russian");
+    this.combobox_languages.append_text ("Polish");
 
     this.combobox_toxme_servers.append_text (@"Ricin.im ($default_str)");
     this.combobox_toxme_servers.append_text (@"ToxMe.io ($stable_str)");
@@ -122,6 +123,8 @@ class Ricin.SettingsView : Gtk.Box {
       this.combobox_languages.active = 7;
     } else if (selected_language == "ru_RU") {
       this.combobox_languages.active = 8;
+    } else if (selected_language == "pl") {
+      this.combobox_languages.active = 9;
     }
 
     this.combobox_languages.changed.connect (() => {
@@ -172,6 +175,11 @@ class Ricin.SettingsView : Gtk.Box {
         Environment.set_variable ("LANG", "ru_RU", true);
         Intl.setlocale (LocaleCategory.MESSAGES, "ru_RU");
         this.settings.selected_language = "ru_RU";
+      } else if (slang == 9) { // Polish
+        info ("Changed locale to Polish.");
+        Environment.set_variable ("LANG", "pl", true);
+        Intl.setlocale (LocaleCategory.MESSAGES, "pl");
+        this.settings.selected_language = "pl";
       }
 
       this.reload_options ();
