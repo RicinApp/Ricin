@@ -70,9 +70,14 @@ class Ricin.QuoteMessageListRow : Gtk.ListBoxRow {
       var txt = "";
 
       if (item is QuoteLabel) {
-        txt = ">" + ((QuoteLabel) item).label_quote.get_text ();
+        txt = ((QuoteLabel) item).label_quote.get_text ();
       } else if (item is PlainLabel) {
         txt = ((PlainLabel) item).label_text.get_text ();
+      }
+
+      string[] lines = txt.split ("\n");
+      foreach (string line in lines) {
+        txt = ">" + line;
       }
 
       sb.append (txt);

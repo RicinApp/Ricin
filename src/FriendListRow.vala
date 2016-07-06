@@ -81,6 +81,15 @@ class Ricin.FriendListRow : Gtk.ListBoxRow {
     });
 
     fr.notify["status"].connect ((obj, prop) => {
+      if (fr.status == Tox.UserStatus.ONLINE || fr.status == Tox.UserStatus.OFFLINE) {
+        string status_str = Util.status_to_string (this.fr.status);
+        Notification.notify (
+          this.fr.name + _(" is now ") + status_str,
+          this.fr.status_message,
+          3000
+        );
+      }
+
       string icon = Util.status_to_icon (this.fr.status, 0);
       this.userstatus.set_from_resource (@"/chat/tox/ricin/images/status/$icon.png");
       this.changed (); // we sort by user status
@@ -99,11 +108,13 @@ class Ricin.FriendListRow : Gtk.ListBoxRow {
     fr.action.connect (this.notify_new_messages);
 
     this.activate.connect (() => {
+      var main_window = ((MainWindow) this.get_toplevel ());
+      main_window.global_unread_counter -= this.unreadCount;
+
       this.unreadCount = 0;
       this.update_icon ();
       this.changed ();
 
-      var main_window = ((MainWindow) this.get_toplevel ());
       main_window.friendlist.invalidate_filter ();
     });
   }
@@ -115,7 +126,9 @@ class Ricin.FriendListRow : Gtk.ListBoxRow {
     if (this.unreadCount == 0) {
       this.label_unread_count.visible = false;
     } else {
-      this.label_unread_count.set_text (@"$(this.unreadCount)");
+      string count_str = this.unreadCount > 10 ? "<b>10+</b>" : @"$(this.unreadCount)";
+
+      this.label_unread_count.set_markup (count_str);
       this.label_unread_count.visible = true;
     }
   }
@@ -127,6 +140,7 @@ class Ricin.FriendListRow : Gtk.ListBoxRow {
     }
 
     this.unreadCount++;
+    main_window.global_unread_counter += this.unreadCount;
     this.update_icon ();
   }
 

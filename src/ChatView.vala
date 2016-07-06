@@ -50,6 +50,7 @@ class Ricin.ChatView : Gtk.Box {
 
   [Signal (action = true)] private signal void copy_messages_selection ();
   [Signal (action = true)] private signal void quote_messages_selection ();
+  [Signal (action = true)] private signal void entry_insert_newline ();
 
   public Tox.Friend fr;
   private weak Tox.Tox handle;
@@ -59,7 +60,7 @@ class Ricin.ChatView : Gtk.Box {
   private Settings settings;
 
   private Tox.UserStatus last_status;
-  private string last_message_sender;
+  private string last_message_sender { get; set; default = "ricin"; }
   private string last_message = null;
   private bool is_bottom = true;
 
@@ -401,13 +402,13 @@ class Ricin.ChatView : Gtk.Box {
       string txt = "";
 
       if (item is MessageListRow) {
-        name = ((MessageListRow) item).author;
+        name = "[" + ((MessageListRow) item).author + "]";
         txt  = ((MessageListRow) item).label_message.get_text ();
       } else if (item is SystemMessageListRow) {
         name = "* ";
         txt  = ((SystemMessageListRow) item).label_message.get_text ();
       } else if (item is QuoteMessageListRow) {
-        name = ((QuoteMessageListRow) item).author;
+        name = "[" + ((QuoteMessageListRow) item).author + "]";
         txt  = ((QuoteMessageListRow) item).get_quote ();
       }
 
@@ -415,7 +416,7 @@ class Ricin.ChatView : Gtk.Box {
         sb.append_c ('>');
       }
       if (include_names) {
-        sb.append (@"[$name] ");
+        sb.append (@"$name ");
       }
 
       sb.append (txt);
@@ -442,6 +443,8 @@ class Ricin.ChatView : Gtk.Box {
       string selection = this.get_selected_messages (false, true);
       Gtk.Clipboard.get (Gdk.SELECTION_CLIPBOARD).set_text (selection, -1);
       this.messages_list.unselect_all ();
+      this.entry.grab_focus_without_selecting ();
+      this.entry.set_position (-1);
     });
     menu_copy_quote.activate.connect (() => {
       if (this.messages_selected () == false) {
@@ -451,6 +454,8 @@ class Ricin.ChatView : Gtk.Box {
       string quote = this.get_selected_messages (true, true);
       Gtk.Clipboard.get (Gdk.SELECTION_CLIPBOARD).set_text (quote, -1);
       this.messages_list.unselect_all ();
+      this.entry.grab_focus_without_selecting ();
+      this.entry.set_position (-1);
     });
     menu_quote_selection.activate.connect (() => {
       if (this.messages_selected () == false) {
@@ -461,6 +466,7 @@ class Ricin.ChatView : Gtk.Box {
       this.entry.set_text (quote);
       this.messages_list.unselect_all ();
       this.entry.grab_focus_without_selecting ();
+      this.entry.set_position (-1);
     });
 
     menu.append (menu_copy_selection);
@@ -484,13 +490,21 @@ class Ricin.ChatView : Gtk.Box {
     });
   }
 
+  /*private MainWindow get_top () {
+
+  }*/
+
   private void init_messages_shortcuts () {
-    var main_window = ((MainWindow) this.get_toplevel ());
-    Gtk.AccelGroup accel_group = new Gtk.AccelGroup ();
-    main_window.add_accel_group (accel_group);
+    //var main_window = ((MainWindow) this.get_toplevel ().get_toplevel ());
+
     /**
-    * Keyboard shortcut for copying or quoting selected messages.
+    * Shortcut for Ctrl+C: Copy selected messages if selection > 0
     **/
+    this.add_accelerator (
+      "copy-messages-selection", MainWindow.accel_group, Gdk.keyval_from_name("C"),
+      Gdk.ModifierType.CONTROL_MASK, Gtk.AccelFlags.VISIBLE
+    );
+
     this.copy_messages_selection.connect (() => {
       if (this.messages_selected () == false) {
         return;
@@ -499,7 +513,17 @@ class Ricin.ChatView : Gtk.Box {
       string selection = this.get_selected_messages (false, true);
       Gtk.Clipboard.get (Gdk.SELECTION_CLIPBOARD).set_text (selection, -1);
       this.messages_list.unselect_all ();
+      this.entry.grab_focus_without_selecting ();
+      this.entry.set_position (-1);
     });
+
+    /**
+    * Shortcut for Ctrl+Shift+Q: Quote selected messages if selection > 0
+    **/
+    this.add_accelerator (
+      "quote-messages-selection", MainWindow.accel_group, Gdk.keyval_from_name("Q"),
+      Gdk.ModifierType.CONTROL_MASK | Gdk.ModifierType.SHIFT_MASK, Gtk.AccelFlags.VISIBLE
+    );
 
     this.quote_messages_selection.connect (() => {
       if (this.messages_selected () == false) {
@@ -510,23 +534,29 @@ class Ricin.ChatView : Gtk.Box {
       this.entry.set_text (quote);
       this.messages_list.unselect_all ();
       this.entry.grab_focus_without_selecting ();
+      this.entry.set_position (-1);
     });
 
     /**
-    * Shortcut for Ctrl+C: Copy selected messages if selection > 0
+    * Shortcut for Shift+Enter in this.entry: Add a newline (\n).
     **/
     this.add_accelerator (
-      "copy-messages-selection", accel_group, Gdk.keyval_from_name("C"),
-      Gdk.ModifierType.CONTROL_MASK, Gtk.AccelFlags.VISIBLE
+      "entry-insert-newline", MainWindow.accel_group, Gdk.Key.Return,
+      Gdk.ModifierType.SHIFT_MASK, Gtk.AccelFlags.VISIBLE
     );
 
-    /**
-    * Shortcut for Ctrl+Shift+Q: Quote selected messages if selection > 0
-    **/
-    this.add_accelerator (
-      "quote-messages-selection", accel_group, Gdk.keyval_from_name("Q"),
-      Gdk.ModifierType.CONTROL_MASK | Gdk.ModifierType.SHIFT_MASK, Gtk.AccelFlags.VISIBLE
-    );
+    this.entry_insert_newline.connect (() => {
+      debug ("entry_insert_newline: Called.");
+
+      int cursor_position = this.entry.get_position ();
+      string text = this.entry.get_text ();
+      string newline = "\n";
+
+      this.entry.insert_at_cursor (newline);
+      this.entry.grab_focus_without_selecting ();
+      this.entry.set_position (cursor_position + newline.length);
+
+    });
   }
 
   public void show_notice (string text, string icon_name = "help-info-symbolic") {
