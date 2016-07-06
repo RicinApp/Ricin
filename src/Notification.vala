@@ -9,6 +9,7 @@ class Ricin.Notification : Object {
         notif = new Notify.Notification (sender, message, null);
         notif.set_image_from_pixbuf (icon);
       }
+      
       notif.set_category ("im.received");
       notif.set_hint ("sound-name", new Variant.string ("message-new-instant"));
       notif.set_timeout (timeout);

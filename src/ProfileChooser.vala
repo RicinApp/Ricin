@@ -28,6 +28,9 @@ class Ricin.ProfileChooser : Gtk.ApplicationWindow {
     this.set_resizable (false);
 
     this.populate_profiles ();
+
+    this.entry_login_password.activate.connect (this.login);
+
     this.show_all ();
   }
 
