@@ -74,6 +74,7 @@ This ToxID is composed of a **Public Key** (64 chars), a **nospam** (6 chars) an
 | `Ctrl+DOWN`    | Global             | Quickly switch to the next contact.    |
 | `Ctrl+Shift+Q` | Messages selection | Quote a selection of messages.         |
 | `Ctrl+C`       | Messages selection | Copy a selection of messages.          |
+| `Shift+Enter`  | Chat entry         | Add a newline character.
 
 ## Create a profile
 The first time you launch Ricin, if you never used Tox before, you'll have to create a profile. A profile is a single `.tox` file that contains your name, your status message, your friends list, etc. This file **must not** be modified by hand, only Ricin (or another Tox client) should write in it. Editing this file by hand *may* expose you to profile corruption.
