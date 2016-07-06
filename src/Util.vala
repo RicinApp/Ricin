@@ -75,39 +75,6 @@ namespace Util {
     string escaped_text = escape_html (text);
     string emojified = render_emojis (escaped_text);
 
-    /*string emoji = escaped_text
-      .replace (":+1:", Util.emoji ("👍"))
-      .replace (":-1:", Util.emoji ("👎"))
-      .replace (":@", Util.emoji ("😠"))
-      .replace (">:(", Util.emoji ("😠"))
-      .replace (":$", Util.emoji ("😊"))
-      .replace ("<3", Util.emoji ("💙"))
-      .replace (":3", Util.emoji ("🐱"))
-      .replace (":\\", Util.emoji ("😕"))
-      .replace (":'(", Util.emoji ("😢"))
-      .replace (":-'(", Util.emoji ("😢"))
-      .replace (":o", Util.emoji ("😵"))
-      .replace (":O", Util.emoji ("😵"))
-      .replace (":(", Util.emoji ("😦"))
-      .replace (":-(", Util.emoji ("😦"))
-      .replace (":-[", Util.emoji ("😦"))
-      .replace (":[", Util.emoji ("😦"))
-      .replace ("xD", Util.emoji ("😆"))
-      .replace ("XD", Util.emoji ("😆"))
-      .replace ("0:)", Util.emoji ("😇"))
-      .replace (":)", Util.emoji ("😄"))
-      .replace (":D", Util.emoji ("😁"))
-      .replace (":-D", Util.emoji ("😁"))
-      .replace (":|", Util.emoji ("😐"))
-      .replace (":-|", Util.emoji ("😐"))
-      .replace (":p", Util.emoji ("😛"))
-      .replace (":-p", Util.emoji ("😛"))
-      .replace (":P", Util.emoji ("😛"))
-      .replace (":-P", Util.emoji ("😛"))
-      .replace ("8)", Util.emoji ("😎"))
-      .replace ("8-)", Util.emoji ("😎"));
-    */
-
     // Markdown.
     // Returns plaintext as fallback in case of parsing error.
     string message = escaped_text;
