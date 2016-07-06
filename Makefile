@@ -4,7 +4,7 @@ autogen:
 	./waf distclean
 	./waf configure
 
-build: autogen
+build:
 	./waf build
 
 debug: build
