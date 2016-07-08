@@ -53,19 +53,36 @@ namespace Util {
     return result;
   }
 
-  public static string emojify (string emoji) {
-    return "<span face=\"EmojiOne\" foreground=\"#fcd226\">" + emoji + "</span>";
+  public static string emojify (string emoji, string color = "#fcd226") {
+    return @"<span face=\"EmojiOne\" foreground=\"$color\" weight=\"heavy\">$emoji</span>";
   }
 
   public static string escape_html (string text) {
     return Markup.escape_text (text);
   }
 
+  private static string get_emoji_color (int index) {
+    HashTable<int, string> colors = new HashTable<int, string> (direct_hash, direct_equal);
+    colors.insert (5, "#e74c3c");
+    colors.insert (40, "#171717");
+    colors.insert (41, "#171717");
+    colors.insert (42, "#3498db");
+    colors.insert (43, "#27ae60");
+
+    if (colors.contains (index)) {
+      return colors.get (index);
+    }
+
+    return "#fcd226";
+  }
+
   public static string render_emojis (string text) {
     string buffer = text;
+    string color;
+
     for (int i = 0; i < Util.EMOJIS.length; i++) {
-      buffer = buffer.replace (Util.EMOJIS[i], Util.emojify (Util.EMOJIS[i]));
-      buffer = buffer.replace (Util.escape_html (Util.TAGS[i]), Util.emojify (Util.EMOJIS[i]));
+      buffer = buffer.replace (Util.EMOJIS[i], Util.emojify (Util.EMOJIS[i], get_emoji_color (i)));
+      buffer = buffer.replace (Util.escape_html (Util.TAGS[i]), Util.emojify (Util.EMOJIS[i], get_emoji_color (i)));
     }
 
     return buffer;
