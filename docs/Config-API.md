@@ -3,7 +3,7 @@ This document aims to cover every supported property in the `ricin.json` user-pr
 Here are described every property you may use in the file, not defined here proprerties are likely
 to not work/works badly.
 
-For more informations about the config API, just take a look at the [Settings.vala](../src/Settings.vala) file.
+For more informations about the config API, just take a look at the [Settings.vala](../src/Settings.vala#L10-34) file.
 
 ## (String) last-profile
 * **Usage**: The last profile used name.
