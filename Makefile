@@ -2,7 +2,7 @@
 
 autogen:
 	./waf distclean
-	./waf configure
+	./waf configure --prefix=/usr/
 
 build:
 	./waf build
