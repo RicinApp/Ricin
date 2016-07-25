@@ -71,12 +71,6 @@ def build(bld):
 	if bld.env.ENABLE_TEXT_VIEW:
 		pass
 
-	if bld.cmd == 'install':
-		try:
-			bld.exec_command(["update-mime-database", Utils.subst_vars("${DATADIR}/mime", bld.env)])
-			bld.exec_command(["update-desktop-database", Utils.subst_vars("${DATADIR}/applications", bld.env)])
-		except:
-			pass
 
 	# Lang files
 	langs = bld(
@@ -85,6 +79,9 @@ def build(bld):
 		podir        = 'po',
 		install_path = "${LOCALEDIR}"
 	)
+
+	# Icon
+	icon = bld.install_as('${DATADIR}/icons/hicolor/scalable/apps/ricin.svg', 'res/images/icons/ricin.svg')
 
 	# Desktop file
 	desktop = bld(
@@ -121,3 +118,11 @@ def build(bld):
 		header_path      = None,
 		install_path     = "${BINDIR}"
 	)
+
+	# Now that everything is installed, lets update icons cache and desktop db
+	if bld.cmd == 'install':
+		try:
+			bld.exec_command(["update-mime-database", Utils.subst_vars("${DATADIR}/mime", bld.env)])
+			bld.exec_command(["update-desktop-database", Utils.subst_vars("${DATADIR}/applications", bld.env)])
+		except:
+			pass
