@@ -442,10 +442,14 @@ class Ricin.ChatView : Gtk.Box {
     menu_quote_selection.always_show_image = true;
     menu_quote_selection.set_image (new Gtk.Image.from_icon_name ("insert-text-symbolic", Gtk.IconSize.MENU));
     
+    var menu_remove_selection = new Gtk.ImageMenuItem.with_label (_("Delete selected messages"));
+    menu_remove_selection.always_show_image = true;
+    menu_remove_selection.set_image (new Gtk.Image.from_icon_name ("edit-clear-symbolic", Gtk.IconSize.MENU));
+    
     var menu_clear_chat = new Gtk.ImageMenuItem.with_label (_("Clear conversation"));
     menu_clear_chat.always_show_image = true;
     menu_clear_chat.set_image (new Gtk.Image.from_icon_name ("edit-clear-all-symbolic", Gtk.IconSize.MENU));
-    //var menu_
+
 
     menu_copy_selection.activate.connect (() => {
       if (this.messages_selected () == false) {
@@ -480,12 +484,23 @@ class Ricin.ChatView : Gtk.Box {
       this.entry.grab_focus_without_selecting ();
       this.entry.set_position (-1);
     });
+    menu_remove_selection.activate.connect (() => {
+      if (this.messages_selected () == false) {
+        return;
+      }
+      
+      List<weak Gtk.Widget> childs = this.messages_list.get_selected_rows ();
+      foreach (Gtk.Widget m in childs) {
+        this.messages_list.remove (m);
+      }
+    });
     menu_clear_chat.activate.connect(this.clear);
 
     menu.append (menu_copy_selection);
     menu.append (menu_copy_quote);
     menu.append (menu_quote_selection);
     menu.append (new Gtk.SeparatorMenuItem ());
+    menu.append (menu_remove_selection);
     menu.append (menu_clear_chat);
     menu.show_all ();
 
@@ -495,10 +510,12 @@ class Ricin.ChatView : Gtk.Box {
         menu_copy_quote.sensitive = false;
         menu_copy_selection.sensitive = false;
         menu_quote_selection.sensitive = false;
+        menu_remove_selection.sensitive = false;
       } else {
         menu_copy_quote.sensitive = true;
         menu_copy_selection.sensitive = true;
         menu_quote_selection.sensitive = true;
+        menu_remove_selection.sensitive = true;
       }
       
       // Only allow chatview to be cleared if it contains messages.
