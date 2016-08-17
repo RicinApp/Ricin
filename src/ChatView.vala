@@ -211,7 +211,7 @@ class Ricin.ChatView : Gtk.Box {
       var visible_child = this.stack.get_visible_child_name ();
       var main_window = ((MainWindow) this.get_toplevel ());
 
-      if (!main_window.is_active || !main_window.is_focus) {
+      if (visible_child != this.view_name) {
         var avatar_path = Tox.profile_dir () + "avatars/" + this.fr.pubkey + ".png";
         if (FileUtils.test (avatar_path, FileTest.EXISTS)) {
           var pixbuf = new Gdk.Pixbuf.from_file_at_scale (avatar_path, 46, 46, true);
@@ -382,12 +382,12 @@ class Ricin.ChatView : Gtk.Box {
       this.label_friend_last_seen.set_markup (this.fr.last_online ("%H:%M %d/%m/%Y"));
 
       bool display_friends_status_changes = this.settings.show_status_changes;
-      if (this.last_status != status && display_friends_status_changes) {
+      if (this.fr.last_status != this.fr.status && display_friends_status_changes) {
         var status_str = Util.status_to_string (this.fr.status);
         this.last_message_sender = "friend";
         messages_list.add (new StatusMessageListRow (fr.name + _(" is now ") + status_str, status));
-        this.last_status = status;
       }
+      this.fr.last_status = this.fr.status;
     });
   }
 
@@ -430,9 +430,21 @@ class Ricin.ChatView : Gtk.Box {
   public void init_messages_menu () {
     var menu = new Gtk.Menu ();
 
-    var menu_copy_selection = new Gtk.MenuItem.with_label (_("Copy selection in clipboard"));
-    var menu_copy_quote = new Gtk.MenuItem.with_label (_("Copy quote in clipboard"));
-    var menu_quote_selection = new Gtk.MenuItem.with_label (_("Quote selection"));
+    var menu_copy_selection = new Gtk.ImageMenuItem.with_label (_("Copy selection in clipboard"));
+    menu_copy_selection.always_show_image = true;
+    menu_copy_selection.set_image (new Gtk.Image.from_icon_name ("edit-copy-symbolic", Gtk.IconSize.MENU));
+    
+    var menu_copy_quote = new Gtk.ImageMenuItem.with_label (_("Copy quote in clipboard"));
+    menu_copy_quote.always_show_image = true;
+    menu_copy_quote.set_image (new Gtk.Image.from_icon_name ("edit-copy-symbolic", Gtk.IconSize.MENU));
+    
+    var menu_quote_selection = new Gtk.ImageMenuItem.with_label (_("Quote selection"));
+    menu_quote_selection.always_show_image = true;
+    menu_quote_selection.set_image (new Gtk.Image.from_icon_name ("insert-text-symbolic", Gtk.IconSize.MENU));
+    
+    var menu_clear_chat = new Gtk.ImageMenuItem.with_label (_("Clear conversation"));
+    menu_clear_chat.always_show_image = true;
+    menu_clear_chat.set_image (new Gtk.Image.from_icon_name ("edit-clear-all-symbolic", Gtk.IconSize.MENU));
     //var menu_
 
     menu_copy_selection.activate.connect (() => {
@@ -468,16 +480,24 @@ class Ricin.ChatView : Gtk.Box {
       this.entry.grab_focus_without_selecting ();
       this.entry.set_position (-1);
     });
+    menu_clear_chat.activate.connect(this.clear);
 
     menu.append (menu_copy_selection);
     menu.append (menu_copy_quote);
     menu.append (menu_quote_selection);
+    menu.append (new Gtk.SeparatorMenuItem ());
+    menu.append (menu_clear_chat);
     menu.show_all ();
 
     this.messages_list.button_press_event.connect ((e) => {
-      // If at least 1 message is selected.
       if (this.messages_list.get_selected_rows ().length () < 1) {
-        return false;
+        menu_copy_quote.sensitive = false;
+        menu_copy_selection.sensitive = false;
+        menu_quote_selection.sensitive = false;
+      } else {
+        menu_copy_quote.sensitive = true;
+        menu_copy_selection.sensitive = true;
+        menu_quote_selection.sensitive = true;
       }
 
       // If the event was a right click.
@@ -569,6 +589,13 @@ class Ricin.ChatView : Gtk.Box {
     this.notify.reveal_child = true;
     this.scroll_to_bottom ();
   }
+  
+  private void clear () {
+    List<weak Gtk.Widget> childs = this.messages_list.get_children ();
+    foreach (Gtk.Widget m in childs) {
+      this.messages_list.remove (m);
+    }
+  }
 
   [GtkCallback]
   private void toggle_friend_menu () {
@@ -609,10 +636,7 @@ class Ricin.ChatView : Gtk.Box {
     if (message.strip () == "") {
       return;
     } else if (message.strip () == "/clear") {
-      List<weak Gtk.Widget> childs = this.messages_list.get_children ();
-      foreach (Gtk.Widget m in childs) {
-        this.messages_list.remove (m);
-      }
+      this.clear();
 
       this.entry.text = "";
       return;

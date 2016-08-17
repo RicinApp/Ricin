@@ -18,4 +18,15 @@ class Ricin.Notification : Object {
       warning ("Notification error: %s", error.message);
     }
   }
+  
+  public static void notify_status (Tox.Friend friend) {
+    /*if (friend.status == friend.last_status) {
+      return;
+    }*/
+  
+    if (friend.status == Tox.UserStatus.ONLINE || friend.status == Tox.UserStatus.OFFLINE) {
+      string status_str = Util.status_to_string (friend.status);
+      Notification.notify (friend.name + _(" is now ") + status_str, friend.status_message, 3000);
+    }
+  }
 }

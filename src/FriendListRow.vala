@@ -81,13 +81,8 @@ class Ricin.FriendListRow : Gtk.ListBoxRow {
     });
 
     fr.notify["status"].connect ((obj, prop) => {
-      if (fr.status == Tox.UserStatus.ONLINE || fr.status == Tox.UserStatus.OFFLINE) {
-        string status_str = Util.status_to_string (this.fr.status);
-        Notification.notify (
-          this.fr.name + _(" is now ") + status_str,
-          this.fr.status_message,
-          3000
-        );
+      if (this.fr.status != this.fr.last_status) {
+        Notification.notify_status (fr);
       }
 
       string icon = Util.status_to_icon (this.fr.status, 0);

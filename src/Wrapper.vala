@@ -728,6 +728,7 @@ namespace Tox {
     }
 
     public UserStatus status { get; private set; }
+    public UserStatus? last_status { get; set; }
     public bool connected { get; set; }
     public bool typing { get; set; }
     public bool blocked { get; set; default = false; }
@@ -747,6 +748,7 @@ namespace Tox {
     public Friend (Tox tox, uint32 num) {
       this.tox = tox;
       this.num = num;
+      this.last_status = UserStatus.OFFLINE;
 
       string profile_dir = Path.build_path (Path.DIR_SEPARATOR_S, Environment.get_user_config_dir (), "tox");
       string avatars_dir = Path.build_path (Path.DIR_SEPARATOR_S, profile_dir, "avatars");
