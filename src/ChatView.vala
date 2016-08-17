@@ -183,6 +183,8 @@ class Ricin.ChatView : Gtk.Box {
       this.entry.grab_focus_without_selecting ();
     });
 
+    this.entry.paste_clipboard.connect (this.paste_clipboard);
+
     fr.friend_info.connect ((message) => {
       this.last_message_sender = "friend";
       messages_list.add (new SystemMessageListRow (message));
@@ -289,20 +291,21 @@ class Ricin.ChatView : Gtk.Box {
       /**
       * TODO: debug this.
       **/
-      /*if (file_content_type.has_prefix ("image/")) {
-        var image_row = new InlineImageMessageListRow (this.handle, fr, id, fr.name, path, time (), false);
-        image_row.accept_image.connect ((response, file_id) => {
+      if (file_content_type.has_prefix ("image/")) {
+        this.last_message_sender = "friend";
+        var image_row = new FileListRow (this.handle, fr, id, fr.name, path, size, time ());
+        image_row.accept_file.connect ((response, file_id) => {
           fr.reply_file_transfer (response, file_id);
         });
         messages_list.add (image_row);
-      } else {*/
-      this.last_message_sender = "friend";
-      var file_row = new InlineFileMessageListRow (this.handle, fr, id, fr.name, path, size, time ());
-      file_row.accept_file.connect ((response, file_id) => {
-        fr.reply_file_transfer (response, file_id);
-      });
-      messages_list.add (file_row);
-      //}
+      } else {
+        this.last_message_sender = "friend";
+        var file_row = new FileListRow (this.handle, fr, id, fr.name, path, size, time ());
+        file_row.accept_file.connect ((response, file_id) => {
+          fr.reply_file_transfer (response, file_id);
+        });
+        messages_list.add (file_row);
+      }
     });
 
     fr.bind_property ("connected", entry, "sensitive", BindingFlags.DEFAULT);
@@ -622,6 +625,26 @@ class Ricin.ChatView : Gtk.Box {
     }
   }
 
+  public void paste_clipboard () {
+    Gtk.Clipboard clipboard = Gtk.Clipboard.get (Gdk.SELECTION_CLIPBOARD);
+    Gdk.Pixbuf image = clipboard.wait_for_image ();
+
+    Rand rnd = new Rand.with_seed ((uint32)new DateTime.now_local ().hash ());
+    uint32 rnd_id = rnd.next_int ();
+    string image_name = @"ricin-$rnd_id.png";
+
+    if (image != null) { // Cool, the content is an image, let's send it to our friend!
+      uint32 file_id = this.fr.send_image (image, image_name);
+
+      // Finally, add the inline image to the ChatView
+      var image_widget = new FileListRow (
+        this.handle, this.fr, file_id, this.handle.username,
+        "", image.get_byte_length (), time (), false, image, image_name
+      );
+      messages_list.add (image_widget);
+    }
+  }
+
   [GtkCallback]
   private void toggle_friend_menu () {
     this.revealer_friend_menu.set_reveal_child (!this.revealer_friend_menu.child_revealed);
@@ -722,12 +745,18 @@ class Ricin.ChatView : Gtk.Box {
 
       if (file_content_type.has_prefix ("image/")) {
         /*var pixbuf = new Gdk.Pixbuf.from_file_at_scale (filename, 400, 250, true);*/
-        var image_widget = new InlineImageMessageListRow (this.handle, fr, file_id, this.handle.username, file.get_path (), time (), true);
-        image_widget.button_save_inline.visible = false;
+        var image_widget = new FileListRow (
+          this.handle, fr, file_id, this.handle.username,
+          file.get_path (), size, time (), true
+        );
+        //image_widget.button_save_inline.visible = false;
         messages_list.add (image_widget);
       } else {
         //fr.friend_info (@"Sending file $filename");
-        var file_row = new InlineFileMessageListRow (this.handle, fr, file_id, this.handle.username, filename, size, time ());
+        var file_row = new FileListRow (
+          this.handle, fr, file_id, this.handle.username,
+          filename, size, time (), false
+        );
         messages_list.add (file_row);
       }
     }

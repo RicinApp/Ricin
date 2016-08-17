@@ -397,6 +397,10 @@ namespace Tox {
           fr.files_recv.remove (file);
           return;
         }
+
+        debug (@"friend $friend, file $file: chunk request, pos=$position");
+        this.friends[friend].file_progress (file, position);
+
         assert (fr.files_recv[file].data.len == position);
         fr.files_recv[file].data.append (data);
       });
@@ -848,6 +852,15 @@ namespace Tox {
       var id = this.tox.handle.file_send (this.num, FileKind.DATA, info.get_size (), null, file.get_basename ().data, null);
       uint8[] data;
       FileUtils.get_data (path, out data);
+      this.files_send[id] = new Bytes.take (data);
+
+      return id;
+    }
+
+    public uint32 send_image (Gdk.Pixbuf pixbuf, string name) {
+      uint8[] data;
+      pixbuf.save_to_buffer (out data, "png");
+      var id = this.tox.handle.file_send (this.num, FileKind.DATA, data.length, null, name.data, null);
       this.files_send[id] = new Bytes.take (data);
 
       return id;

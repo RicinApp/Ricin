@@ -40,7 +40,8 @@ def configure(conf):
 		'-Wno-unused-variable',
 		'-Wno-unused-but-set-variable',
 		'-Wno-unused-function',
-		'-DGETTEXT_PACKAGE="ricin"'
+		'-DGETTEXT_PACKAGE="ricin"',
+		'-O3' # Optimizatiooooons!
 	])
 	# Vala compiler flags.
 	conf.env.append_unique('VALAFLAGS', [
