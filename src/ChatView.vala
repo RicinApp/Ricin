@@ -490,6 +490,7 @@ class Ricin.ChatView : Gtk.Box {
     menu.show_all ();
 
     this.messages_list.button_press_event.connect ((e) => {
+      // Only allow messages operations if some messages are selected.
       if (this.messages_list.get_selected_rows ().length () < 1) {
         menu_copy_quote.sensitive = false;
         menu_copy_selection.sensitive = false;
@@ -498,6 +499,13 @@ class Ricin.ChatView : Gtk.Box {
         menu_copy_quote.sensitive = true;
         menu_copy_selection.sensitive = true;
         menu_quote_selection.sensitive = true;
+      }
+      
+      // Only allow chatview to be cleared if it contains messages.
+      if (this.messages_list.get_children ().length () < 1) {
+        menu_clear_chat.sensitive = false;
+      } else {
+        menu_clear_chat.sensitive = true;
       }
 
       // If the event was a right click.
