@@ -1,15 +1,37 @@
 # Change Log
 
-## [Unreleased](https://github.com/RicinApp/Ricin/tree/HEAD)
+## [v0.2.3](https://github.com/RicinApp/Ricin/tree/v0.2.3) (2016-07-06)
+[Full Changelog](https://github.com/RicinApp/Ricin/compare/v0.2.2...v0.2.3)
 
-[Full Changelog](https://github.com/RicinApp/Ricin/compare/v0.1.1...HEAD)
+**Implemented enhancements:**
+
+- feat\(emojione\): add support for EmojiOne font if installed on the system [\#139](https://github.com/RicinApp/Ricin/pull/139) ([SkyzohKey](https://github.com/SkyzohKey))
+
+## [v0.2.2](https://github.com/RicinApp/Ricin/tree/v0.2.2) (2016-07-06)
+[Full Changelog](https://github.com/RicinApp/Ricin/compare/v0.2.1...v0.2.2)
+
+**Implemented enhancements:**
+
+- feat\(chatview-ux\): multiple UX improvements [\#138](https://github.com/RicinApp/Ricin/pull/138) ([SkyzohKey](https://github.com/SkyzohKey))
+
+**Fixed bugs:**
+
+- symbol lookup error: ./lib/libgtk-3.so.0: undefined symbol: g\_list\_model\_get\_type [\#135](https://github.com/RicinApp/Ricin/issues/135)
+
+## [v0.2.1](https://github.com/RicinApp/Ricin/tree/v0.2.1) (2016-07-02)
+[Full Changelog](https://github.com/RicinApp/Ricin/compare/v0.2.0...v0.2.1)
+
+## [v0.2.0](https://github.com/RicinApp/Ricin/tree/v0.2.0) (2016-07-02)
+[Full Changelog](https://github.com/RicinApp/Ricin/compare/v0.1.1...v0.2.0)
 
 **Implemented enhancements:**
 
 - Add profiles encryption/decryption [\#63](https://github.com/RicinApp/Ricin/issues/63)
+- refactor\(chatview\): Add ability to select and copy/quote multiple messages [\#137](https://github.com/RicinApp/Ricin/pull/137) ([SkyzohKey](https://github.com/SkyzohKey))
 
 **Fixed bugs:**
 
+- Add friend button doesn't work, and button disappears. [\#131](https://github.com/RicinApp/Ricin/issues/131)
 - AppImage doesn't work on elementary OS 0.3.2 \(based on Ubuntu 14.04\) [\#127](https://github.com/RicinApp/Ricin/issues/127)
 
 **Closed issues:**

@@ -1,4 +1,30 @@
 namespace Util {
+  // TAGS to replace with EMOJIS, indexes MUST match.
+  public static const string[] TAGS = {
+    ":+1:", ":-1:", ":@", ">:(", ":$",
+    "<3", ":3", ":\\", ":'(", ":-'(",
+    ":o", ":O", ":(", ":-(", ":[",
+    ":-[", "xd", "xD", "Xd", "XD",
+    "0:)", "o:)", "O:)", ":)", ":-)",
+    ":]", ":-]", ":d", ":D", ":-D",
+    ":|", ":-|", ":p", ":P", ":-p",
+    ":-P", "8)", "8-)", "B:)", "B:-)",
+    ":tox:", ":lock:", ":ghost:", ":alien:", ":skull:",
+  };
+
+  // EMOJIS that replaces TAGS, indexes MUST match.
+  public static const string[] EMOJIS = {
+    "👍", "👎", "😠", "😠", "😊",
+    "💙", "🐱", "😕", "😢", "😢",
+    "😵", "😵", "😦", "😦", "😦",
+    "😦", "😆", "😆", "😆", "😆",
+    "😇", "😇", "😇", "😄", "😄",
+    "😄", "😄", "😆", "😆", "😆",
+    "😐", "😐", "😛", "😛", "😛",
+    "😛", "😎", "😎", "😎", "😎",
+    "🔒", "🔒", "👻", "👽", "💀",
+  };
+
   public static uint8[] hex2bin (string s) {
     uint8[] buf = new uint8[s.length / 2];
     for (int i = 0; i < buf.length; ++i) {
@@ -27,42 +53,44 @@ namespace Util {
     return result;
   }
 
+  public static string emojify (string emoji, string color = "#fcd226") {
+    return @"<span face=\"EmojiOne\" foreground=\"$color\" weight=\"heavy\">$emoji</span>";
+  }
+
   public static string escape_html (string text) {
     return Markup.escape_text (text);
   }
 
+  private static string get_emoji_color (int index) {
+    HashTable<int, string> colors = new HashTable<int, string> (direct_hash, direct_equal);
+    colors.insert (5, "#e74c3c");
+    colors.insert (40, "#171717");
+    colors.insert (41, "#171717");
+    colors.insert (42, "#3498db");
+    colors.insert (43, "#27ae60");
+
+    if (colors.contains (index)) {
+      return colors.get (index);
+    }
+
+    return "#fcd226";
+  }
+
+  public static string render_emojis (string text) {
+    string buffer = text;
+    string color;
+
+    for (int i = 0; i < Util.EMOJIS.length; i++) {
+      buffer = buffer.replace (Util.EMOJIS[i], Util.emojify (Util.EMOJIS[i], get_emoji_color (i)));
+      buffer = buffer.replace (Util.escape_html (Util.TAGS[i]), Util.emojify (Util.EMOJIS[i], get_emoji_color (i)));
+    }
+
+    return buffer;
+  }
+
   public static string render_litemd (string text) {
     string escaped_text = escape_html (text);
-    string emoji = escaped_text.replace (":+1:", "👍")
-                   .replace (":-1:", "👎")
-                   .replace (":@", "😠")
-                   .replace (">:(", "😠")
-                   .replace (":$", "😊")
-                   .replace ("<3", "💙")
-                   .replace (":3", "🐱")
-                   .replace (":\\", "😕")
-                   .replace (":'(", "😢")
-                   .replace (":-'(", "😢")
-                   .replace (":o", "😵")
-                   .replace (":O", "😵")
-                   .replace (":(", "😦")
-                   .replace (":-(", "😦")
-                   .replace (":-[", "😦")
-                   .replace (":[", "😦")
-                   .replace ("xD", "😆")
-                   .replace ("XD", "😆")
-                   .replace ("0:)", "😇")
-                   .replace (":)", "😄")
-                   .replace (":D", "😁")
-                   .replace (":-D", "😁")
-                   .replace (":|", "😐")
-                   .replace (":-|", "😐")
-                   .replace (":p", "😛")
-                   .replace (":-p", "😛")
-                   .replace (":P", "😛")
-                   .replace (":-P", "😛")
-                   .replace ("8)", "😎")
-                   .replace ("8-)", "😎");
+    string emojified = render_emojis (escaped_text);
 
     // Markdown.
     // Returns plaintext as fallback in case of parsing error.
@@ -80,7 +108,7 @@ namespace Util {
         string matched_text = match_info.fetch (1);
         return @"<span face=\"monospace\" size=\"smaller\">$matched_text</span>";
       } else {
-        var uri = /(\w+:\S+)/.replace (emoji, -1, 0, "<a href=\"\\1\">\\1</a>");
+        var uri = /(\w+:\S+)/.replace (emojified, -1, 0, "<a href=\"\\1\">\\1</a>");
 
         var bold = /\B\*\*([^\*\*]{2,}?)\*\*\B/.replace (uri, -1, 0, "<b>\\1</b>");
         bold = /\B\*([^\*]{2,}?)\*\B/.replace (bold, -1, 0, "<b>\\1</b>");

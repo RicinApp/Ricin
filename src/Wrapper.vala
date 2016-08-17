@@ -719,6 +719,7 @@ namespace Tox {
      * use GLib.Object.notify_property () in the callbacks, but the name is not
      * set until we leave the callback so we'll just keep our own copy.
      */
+    public Gdk.Pixbuf? avatar_pixbuf { get; set; default = null; }
     public string name { get; set; }
     public string status_message { get; set; }
 
@@ -731,6 +732,7 @@ namespace Tox {
     }
 
     public UserStatus status { get; private set; }
+    public UserStatus? last_status { get; set; }
     public bool connected { get; set; }
     public bool typing { get; set; }
     public bool blocked { get; set; default = false; }
@@ -750,19 +752,29 @@ namespace Tox {
     public Friend (Tox tox, uint32 num) {
       this.tox = tox;
       this.num = num;
+      this.last_status = UserStatus.OFFLINE;
+
+      string profile_dir = Path.build_path (Path.DIR_SEPARATOR_S, Environment.get_user_config_dir (), "tox");
+      string avatars_dir = Path.build_path (Path.DIR_SEPARATOR_S, profile_dir, "avatars");
+      string avatar_path = Path.build_path (Path.DIR_SEPARATOR_S, avatars_dir, this.pubkey + ".png");
+
+      if (FileUtils.test (avatar_path, FileTest.EXISTS)) {
+        var pixbuf = new Gdk.Pixbuf.from_file_at_scale (avatar_path, 48, 48, false);
+        this.avatar_pixbuf = pixbuf;
+      } else {
+        Cairo.Surface surface = Util.identicon_for_pubkey (this.pubkey);
+        this.avatar_pixbuf = Gdk.pixbuf_get_from_surface (surface, 0, 0, 48, 48);
+      }
 
       this.notify["connected"].connect ((o, p) => update_user_status ());
       this.notify["blocked"].connect ((o, p) => update_user_status ());
 
       this.avatar.connect ((pixbuf) => {
-        string profile_dir = Path.build_path (Path.DIR_SEPARATOR_S, Environment.get_user_config_dir (), "tox");
-        string avatars_dir = Path.build_path (Path.DIR_SEPARATOR_S, profile_dir, "avatars");
-        File file_avatar = File.new_for_path (Path.build_path (Path.DIR_SEPARATOR_S, avatars_dir, this.pubkey + ".png"));
-
         uint8[] pixels;
         pixbuf.save_to_buffer (out pixels, "png");
+        FileUtils.set_data (avatar_path, pixels);
 
-        FileUtils.set_data (file_avatar.get_path (), pixels);
+        this.avatar_pixbuf = pixbuf;
       });
     }
 
