@@ -6,8 +6,6 @@ class Ricin.SettingsView : Gtk.Box {
 
   // General settings tab.
   [GtkChild] Gtk.Label label_tox_id;
-  [GtkChild] Gtk.Label label_toxme_alias;
-  [GtkChild] Gtk.ComboBoxText combobox_toxme_servers;
   [GtkChild] Gtk.ComboBoxText combobox_languages;
   [GtkChild] Gtk.Label label_default_save_path;
   [GtkChild] Gtk.Entry entry_default_save_path;
@@ -90,16 +88,11 @@ class Ricin.SettingsView : Gtk.Box {
     this.combobox_languages.append_text ("Russian");
     this.combobox_languages.append_text ("Polish");
 
-    this.combobox_toxme_servers.append_text (@"Ricin.im ($default_str)");
-    this.combobox_toxme_servers.append_text (@"ToxMe.io ($stable_str)");
-    this.combobox_toxme_servers.append_text (@"uTox.org ($stable_str)");
-
     this.combobox_selected_theme.append_text (_("Dark theme") + @" ($default_str)");
     this.combobox_selected_theme.append_text (_("White theme"));
     this.combobox_selected_theme.append_text (_("Clearer theme"));
 
-    this.combobox_languages.active      = 0;
-    this.combobox_toxme_servers.active  = 0;
+    this.combobox_languages.active = 0;
 
     this.handle.notify["encrypted"].connect (this.reset_profile_buttons);
     this.reset_profile_buttons ();
@@ -375,20 +368,6 @@ class Ricin.SettingsView : Gtk.Box {
   private void change_nospam () {
     this.handle.nospam = Random.next_int ();
     this.label_tox_id.label = this.handle.id; // Update the ToxID
-  }
-
-  /**
-  * ToxMe registration section.
-  **/
-  [GtkCallback]
-  private void copy_toxme_alias () {
-    string toxme_alias = this.label_toxme_alias.label;
-
-    Gtk.Clipboard
-    .get (Gdk.SELECTION_CLIPBOARD)
-    .set_text (toxme_alias, -1);
-
-    debug (@"ToxMe alias: $toxme_alias");
   }
 
   /**
