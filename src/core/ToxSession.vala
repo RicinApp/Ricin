@@ -42,7 +42,7 @@ public class Ricin.ToxSession : Object {
   * Here we init our ToxOptions, load the profile, init toxcore, etc.
   **/
   public ToxSession (Profile profile, Options options) {
-    this.profile = profile;
+    this.current_profile = profile;
     this.options = options;
 
     // If options is null, let's use default values.
@@ -86,7 +86,7 @@ public class Ricin.ToxSession : Object {
   
   private void init_signals () {
     // We get a reference of the handle, to avoid ddosing ourselves with a big contacts list.
-    unowned ToxCore.Tox handle = this.handle;
+    unowned ToxCore.Tox handle = this.tox_handle;
     
     handle.callback_self_connection_status ((self, status) => {
       switch (status) {
