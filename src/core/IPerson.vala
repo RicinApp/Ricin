@@ -5,7 +5,7 @@ using Ricin;
 * @interface IPerson - Defines a Tox person.
 * This is used as a way to unify contacts and self profile methods/properties.
 **/
-public interface Ricin.IPerson {
+public interface Ricin.IPerson : Object {
   /**
   * The person name.
   **/

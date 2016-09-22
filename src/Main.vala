@@ -3,11 +3,18 @@ using Gtk;
 using Ricin;
 
 class Ricin.RicinApp : Object {
+  /**
+  * Let's keep an instance of ToxSession for the test.
+  **/
+  private ToxSession handle { get; set; default = null; }
+
   public RicinApp (string[] args) {
     /**
     * TODO: Parse OptionContext (args) and launch the app.
     * TODO: Init GetText (i18n).
     **/
+    
+    this.handle = new ToxSession (null, null); // Create an instance without profile nor options.
   }
 
   public void run () {
