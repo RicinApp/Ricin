@@ -30,8 +30,8 @@ class Ricin.RicinApp : Object {
 * Entrypoint of the application. Used to launch our RicinApp class.
 **/
 public static int main (string[] args) {
-  RicinApp app = new RicinApp(args);
-  app.run();
+  RicinApp app = new RicinApp (args);
+  app.run ();
 
   return 0;
 }
