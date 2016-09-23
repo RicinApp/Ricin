@@ -19,7 +19,7 @@ public interface Ricin.IPerson : Object {
   /**
   * The person ToxID. Identifier class allows to get nospam, checksum, etc more easily.
   **/
-  public abstract Identifier id { get; private set; }
+  public abstract Identifier? id { get; set; default = null; }
   
   /**
   * The person presence status.

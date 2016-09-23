@@ -113,7 +113,7 @@ def build(bld):
 		packages         = 'glib-2.0 gio-2.0 gobject-2.0 gmodule-2.0 gtk+-3.0 libsoup-2.4 json-glib-1.0 libnotify libtoxcore libtoxencryptsave',
 		uselib           = 'GLIB GIO GOBJECT GMODULE GTK3 SOUP JSONGLIB NOTIFY TOXCORE TOXES',
 		vala_target_glib = '2.38',
-		source           = bld.path.ant_glob('src/*.vala'),
+		source           = bld.path.ant_glob('src/**/**.vala'),
 		vapi_dirs        = 'src/vapis',
 		#vala_resources   = 'data/resources/ricin.gresource.xml',
 		valaflags        = '--generate-source',

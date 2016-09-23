@@ -23,14 +23,14 @@ public class Ricin.ToxSession : Object {
   public Profile current_profile { get; private set; }
 
   /**
-  * This property defines the Tox instance from libtoxcore.vapi
+  * This defines the Tox instance from libtoxcore.vapi
   **/
-  internal ToxCore.Tox tox_handle { get; private set; }
+  internal ToxCore.Tox tox_handle;
 
   /**
-  * This property aims to "cache" the options for the duration of the toxcore execution.
+  * This aims to "cache" the options for the duration of the toxcore execution.
   **/
-  public ToxCore.Options? tox_options { get; private set; default = null; }
+  public unowned ToxCore.Options? tox_options;
 
   /**
   * We keep a list of contacts thanks to the ContactsList class.
@@ -41,20 +41,24 @@ public class Ricin.ToxSession : Object {
   * ToxSession constructor.
   * Here we init our ToxOptions, load the profile, init toxcore, etc.
   **/
-  public ToxSession (Profile profile, Options options) {
+  public ToxSession (Profile? profile, Options? options) {
     this.current_profile = profile;
-    this.options = options;
+    this.tox_options = options;
 
     // If options is null, let's use default values.
-    if (this.options == null) {
-      Options opts = Options.default ();
-      this.options = opts;
+    if (this.tox_options == null) {
+      // TODO:
+      //Options opts = new Options.default ();
+      //this.tox_options = opts;
     }
 
-    ERR_NEW error = null;
-    this.tox_handle = new ToxCore.Tox (this.options, out error);
+    ERR_NEW error;
+    this.tox_handle = new ToxCore.Tox (this.tox_options, out error);
 
-    switch (error) {
+    /**
+    * TODO: Write a class for the throwables errors.
+    **/
+    /*switch (error) {
       case ERR_NEW.NULL:
         throw new ErrNew.Null ("One of the arguments to the function was NULL when it was not expected.");
       case ERR_NEW.MALLOC:
@@ -75,11 +79,7 @@ public class Ricin.ToxSession : Object {
         throw new ErrNew.LoadFailed ("The data format was invalid. This can happen when loading data that was saved by an older version of Tox, or when the data has been corrupted. When loading from badly formatted data, some data may have been loaded, and the rest is discarded. Passing an invalid length parameter also causes this error.");
       default:
         throw new ErrNew.LoadFailed ("An unknown error happenend and ToxCore wasn't able to start.");
-    }
-
-    if (error != null) { // Safety check, this should never be triggered but..
-      return;
-    }
+    }*/
 
     this.init_signals ();
   }
