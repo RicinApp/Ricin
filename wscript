@@ -72,7 +72,7 @@ def build(bld):
 	if bld.env.ENABLE_TEXT_VIEW:
 		pass
 
-
+	"""
 	# Lang files
 	langs = bld(
 		features     = 'intltool_po',
@@ -93,26 +93,29 @@ def build(bld):
 		target       = 'ricin.desktop',
 		install_path = "${DATADIR}/applications",
 	)
+	"""
 
 	# Resources file
+	"""
 	resource = bld(
 		features = 'c glib2',
 		use      = 'GLIB GIO GOBJECT',
 		source   = 'data/resources/ricin.gresource.xml',
 		target   = 'ricinres'
 	)
+	"""
 
 	# Ricin
 	ricin = bld.program(
 		appname          = APPNAME,
 		features         = 'c cprogram glib2',
-		use              = 'ricinres',
+		#use              = 'ricinres',
 		packages         = 'glib-2.0 gio-2.0 gobject-2.0 gmodule-2.0 gtk+-3.0 libsoup-2.4 json-glib-1.0 libnotify libtoxcore libtoxencryptsave',
 		uselib           = 'GLIB GIO GOBJECT GMODULE GTK3 SOUP JSONGLIB NOTIFY TOXCORE TOXES',
 		vala_target_glib = '2.38',
 		source           = bld.path.ant_glob('src/*.vala'),
-		vapi_dirs        = 'vapis',
-		vala_resources   = 'res/ricin.gresource.xml',
+		vapi_dirs        = 'src/vapis',
+		#vala_resources   = 'data/resources/ricin.gresource.xml',
 		valaflags        = '--generate-source',
 		target           = 'ricin',
 		install_binding  = False,
