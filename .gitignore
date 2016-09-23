@@ -1,0 +1,23 @@
+# Build directories.
+build/
+build-osx/
+build-linux/
+build-win32/
+
+# Waf files and folders.
+.waf-*
+.lock-*
+
+# AStyle original files.
+*.orig
+
+# GDB logs.
+.gdb_history
+
+# C files, this is a Vala project.
+*.c
+*.h
+
+# Stupid Glade's temp files.
+*.ui~
+*.ui#
