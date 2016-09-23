@@ -4,17 +4,17 @@ public class Ricin.Identifier : Object {
   /**
   * The public key of the identifier.
   **/
-  private string public_key { get; protected set; default = ""; }
+  public string public_key { get; protected set; default = ""; }
   
   /**
   * The nospam value of the identifier.
   **/
-  private string nospam { get; protected set; default = ""; }
+  public string nospam { get; protected set; default = ""; }
   
   /**
   * The checksum value that permits to verify the ToxID integrity.
   **/
-  private string checksum { get; protected set; default = ""; }
+  public string checksum { get; protected set; default = ""; }
 
   /**
   * The identifier constructor.
@@ -34,20 +34,6 @@ public class Ricin.Identifier : Object {
   }
   
   /**
-  * This method returns the public key.
-  **/
-  public string get_pubkey_value () {
-    return this.public_key;
-  }
-  
-  /**
-  * This method returns the nospam.
-  **/
-  public string get_nospam_value () {
-    return this.nospam;
-  }
-  
-  /**
   * This method permits to randomly change the nospam both in the identifier and in toxcore save.
   **/
   public string randomize_nospam () {
@@ -55,13 +41,6 @@ public class Ricin.Identifier : Object {
     * TODO: Write code to randomize a nospam and trigger the ToxSession signal to change it.
     **/
     return ""; // Temp code, see TODO.
-  }
-  
-  /**
-  * This method return the checksum.
-  **/
-  public string get_checksum_value () {
-    return this.checksum;
   }
   
   /**
