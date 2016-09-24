@@ -15,6 +15,7 @@ class Ricin.RicinApp : Object {
     **/
     
     this.handle = new ToxSession (null, null); // Create an instance without profile nor options.
+    this.handle.tox_run_loop (); // Run toxcore instance.
   }
 
   public void run () {
