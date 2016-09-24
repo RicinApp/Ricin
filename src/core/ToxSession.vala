@@ -13,7 +13,7 @@ public class Ricin.ToxSession : Object {
   private bool toxcore_started { get; private set; default = false; }
   
   /**
-  * This property is a switch to know wheter or not Toxcore connected to the network.
+  * This property is a switch to know whether or not Toxcore connected to the network.
   **/
   public bool toxcore_connected { get; private set; default = false; }
 
