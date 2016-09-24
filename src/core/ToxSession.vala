@@ -94,7 +94,6 @@ public class Ricin.ToxSession : Object {
 
   /**
   * This methods initialize all the tox callbacks and "connect" them to this class signals.
-  * @param {ToxCore.Tox} handle - An unowned toxcore handle.
   **/
   private void init_signals () {
     this.tox_handle.callback_self_connection_status ((handle, status) => {
