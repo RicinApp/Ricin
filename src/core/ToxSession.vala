@@ -58,8 +58,8 @@ public class Ricin.ToxSession : Object {
     // If options is null, let's use default values.
     if (this.tox_options == null) {
       // TODO:
-      //Options opts = new Options.default ();
-      //this.tox_options = opts;
+      Options opts = ToxOptions.create ();
+      this.tox_options = opts;
     }
 
     ERR_NEW error;
@@ -100,10 +100,10 @@ public class Ricin.ToxSession : Object {
   **/
   private void init_signals () {
     // We get a reference of the handle, to avoid ddosing ourselves with a big contacts list.
-    unowned ToxCore.Tox handle = this.tox_handle;
+    //unowned ToxCore.Tox handle = this.tox_handle;
     
-    handle.callback_self_connection_status ((self, status) => {
-      switch (status) {
+    this.tox_handle.callback_self_connection_status ((handle, status) => {
+      /*switch (status) {
         case ConnectionStatus.NONE:
           debug ("Connection: None.");
           break;
@@ -116,7 +116,15 @@ public class Ricin.ToxSession : Object {
       }
 
       this.tox_connected = (status != ConnectionStatus.NONE);
-      this.tox_connection ((status != ConnectionStatus.NONE));
+      this.tox_connection ((status != ConnectionStatus.NONE));*/
+      
+      if (status != ConnectionStatus.NONE) {
+        this.tox_connected = true;
+        debug ("Connected to the Tox network.");
+      } else {
+        this.tox_connected = false;
+        debug ("Disconnected from the Tox network.");
+      }
     });
   }
 
@@ -139,7 +147,8 @@ public class Ricin.ToxSession : Object {
     }
 
     try {
-      json_parsed = json.load_from_data ((string) bytes.get_data (), bytes.length);
+      uint8[] json_content = bytes.get_data ();
+      json_parsed = json.load_from_data ((string) json_content, (ssize_t) bytes.get_size ());
     } catch (Error e) {
       error (@"Cannot parse dht-nodes.json, error: $(e.message)");
     }
@@ -167,7 +176,7 @@ public class Ricin.ToxSession : Object {
 
           // First we try UDP IPv6, if available for this node.
           if (!success && try_ipv6) {
-            debug ("B: UDP bootstrap %s:%llu by %s", rnd_node.ipv6, rnd_node.port, rnd_node.owner);
+            debug ("B: UDP IPv6 bootstrap %s:%d by %s", rnd_node.ipv6, (int) rnd_node.port, rnd_node.owner);
             success = this.tox_handle.bootstrap (
               rnd_node.ipv6,
               (uint16) rnd_node.port,
@@ -178,7 +187,7 @@ public class Ricin.ToxSession : Object {
 
           // Then, if bootstrap didn't worked in UDP IPv6, we use UDP IPv4.
           if (!success) {
-            debug ("B: UDP bootstrap %s:%llu by %s", rnd_node.ipv4, rnd_node.port, rnd_node.owner);
+            debug ("B: UDP IPv4 bootstrap %s:%d by %s", rnd_node.ipv4, (int) rnd_node.port, rnd_node.owner);
             success = this.tox_handle.bootstrap (
               rnd_node.ipv4,
               (uint16) rnd_node.port,
@@ -189,7 +198,7 @@ public class Ricin.ToxSession : Object {
 
           // If UDP didn't worked, let's do the same but with TCP IPv6.
           if (!success && try_ipv6) {
-            debug ("B: TCP bootstrap %s:%llu by %s", rnd_node.ipv6, rnd_node.port, rnd_node.owner);
+            debug ("B: TCP IPv6 bootstrap %s:%d by %s", rnd_node.ipv6, (int) rnd_node.port, rnd_node.owner);
             success = this.tox_handle.add_tcp_relay (
               rnd_node.ipv6,
               (uint16) rnd_node.port,
@@ -200,7 +209,7 @@ public class Ricin.ToxSession : Object {
 
           // Then, if bootstrap didn't worked in TCP IPv6, we use TCP IPv4.
           if (!success) {
-            debug ("B: TCP bootstrap %s:%llu by %s", rnd_node.ipv4, rnd_node.port, rnd_node.owner);
+            debug ("B: TCP IPv4 bootstrap %s:%d by %s", rnd_node.ipv4, (int) rnd_node.port, rnd_node.owner);
             success = this.tox_handle.add_tcp_relay (
               rnd_node.ipv4,
               (uint16) rnd_node.port,

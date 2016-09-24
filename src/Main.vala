@@ -7,6 +7,11 @@ class Ricin.RicinApp : Object {
   * Let's keep an instance of ToxSession for the test.
   **/
   private ToxSession handle { get; set; default = null; }
+  
+  /**
+  * Define a new GLib.MainLoop to avoid app to exit.
+  **/
+  private MainLoop loop = new MainLoop ();
 
   public RicinApp (string[] args) {
     /**
@@ -16,6 +21,7 @@ class Ricin.RicinApp : Object {
     
     this.handle = new ToxSession (null, null); // Create an instance without profile nor options.
     this.handle.tox_run_loop (); // Run toxcore instance.
+    this.loop.run (); // Run the main loop.
   }
 
   public void run () {
