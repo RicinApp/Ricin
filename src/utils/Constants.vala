@@ -1,4 +1,6 @@
-class Ricin.Constants {
+using GLib;
+
+public class Ricin.Constants : Object {
   /**
   * The application name.
   **/
