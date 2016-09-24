@@ -156,12 +156,12 @@ public class Ricin.ToxSession : Object {
     if (json_parsed) {
       debug ("B: dht-nodes.json was found, parsing it.");
 
-      DhtNode[] nodes = {};
+      ToxDhtNode[] nodes = {};
       var nodes_array = json.get_root ().get_object ().get_array_member ("servers");
 
-      // Let's get our nodes from the JSON file as DhtNode objects.
+      // Let's get our nodes from the JSON file as ToxDhtNode objects.
       nodes_array.foreach_element ((array, index, node) => {
-        nodes += ((DhtNode) Json.gobject_deserialize (typeof (DhtNode), node));
+        nodes += ((ToxDhtNode) Json.gobject_deserialize (typeof (ToxDhtNode), node));
       });
 
       debug ("B: Parsed dht-nodes.json, bootstraping in progress...");
@@ -169,7 +169,7 @@ public class Ricin.ToxSession : Object {
       while (!this.tox_connected) {
         // Bootstrap to 6 random nodes, faaast! :)
         for (int i = 0; i < 6; i++) {
-          DhtNode rnd_node = nodes[Random.int_range (0, nodes.length)];
+          ToxDhtNode rnd_node = nodes[Random.int_range (0, nodes.length)];
 
           bool success = false;
           bool try_ipv6 = this.tox_options.ipv6_enabled && rnd_node.ipv6 != null;

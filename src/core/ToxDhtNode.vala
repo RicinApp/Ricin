@@ -1,4 +1,4 @@
-public class Ricin.DhtNode : Object {
+public class Ricin.ToxDhtNode : Object {
   /**
   * The DHT Node owner/maintainer name.
   **/
