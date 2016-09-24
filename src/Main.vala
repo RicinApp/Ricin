@@ -1,6 +1,7 @@
 using GLib;
 using Gtk;
 using Ricin;
+using ToxCore;
 
 class Ricin.RicinApp : Object {
   /**
@@ -21,10 +22,16 @@ class Ricin.RicinApp : Object {
   }
 
   public void run () {
-    stdout.printf ("%s v.%s started !\n", Constants.APP_NAME, Constants.APP_VERSION);
+    print ("Running ToxCore version %u.%u.%u\n", ToxCore.Version.MAJOR, ToxCore.Version.MINOR, ToxCore.Version.PATCH);
+    print ("%s version %s started !\n", Constants.APP_NAME, Constants.APP_VERSION);
 
     try {
-      this.handle = new ToxSession (null, null); // Create an instance without profile nor options.
+      Options options = new Options (null);
+      options.ipv6_enabled = true;
+      options.udp_enabled = true;
+      options.proxy_type = ProxyType.NONE;
+      
+      this.handle = new ToxSession (null, options);
     } catch (ErrNew e) {
       error (@"Ricin wasn't able to start a new ToxSession, error: $(e.message)");
     }

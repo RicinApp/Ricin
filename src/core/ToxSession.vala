@@ -88,8 +88,15 @@ public class Ricin.ToxSession : Object {
     // We get a reference of the handle, to avoid ddosing ourselves with a big contacts list.
     // unowned ToxCore.Tox handle = this.tox_handle;
 
-    this.init_signals ();
     this.tox_bootstrap_nodes.begin ();
+    this.init_signals ();
+    
+    /**
+    * TEMP DEV ZONE.
+    **/
+    uint8[] toxid = new uint8[ToxCore.ADDRESS_SIZE];
+    this.tox_handle.self_get_address (toxid);
+    print ("ToxID: %s\n", Utils.Helpers.bin2hex (toxid));
   }
 
   /**
@@ -107,6 +114,8 @@ public class Ricin.ToxSession : Object {
 
       this.tox_connection (this.tox_connected);
     });
+    
+    this.tox_handle.callback_friend_request (this.on_friend_request);
   }
 
   /**
@@ -244,5 +253,24 @@ public class Ricin.ToxSession : Object {
       this.tox_schedule_loop_iteration ();
       return false;
     });
+  }
+  
+  /**
+  * Friend request callback handler.
+  **/
+  private void on_friend_request (Tox handle, uint8[] public_key, uint8[] message) {
+    public_key.length = ToxCore.PUBLIC_KEY_SIZE; // Fix an issue with Vala.
+    
+    string request_pubkey  = Utils.Helpers.bin2hex (public_key);
+    string request_message = (string) message;
+    
+    print ("Friend request received:\n");
+    print ("-- %s\n", request_pubkey);
+    print ("-- %s\n", request_message);
+    
+    /**
+    * TODO: Handle errors.
+    **/
+    this.tox_handle.friend_add_norequest (public_key, null);
   }
 }
