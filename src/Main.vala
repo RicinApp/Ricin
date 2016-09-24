@@ -7,7 +7,7 @@ class Ricin.RicinApp : Object {
   * Let's keep an instance of ToxSession for the test.
   **/
   private ToxSession handle { get; set; default = null; }
-  
+
   /**
   * Define a new GLib.MainLoop to avoid app to exit.
   **/
@@ -18,15 +18,15 @@ class Ricin.RicinApp : Object {
     * TODO: Parse OptionContext (args) and launch the app.
     * TODO: Init GetText (i18n).
     **/
-    
-    this.handle = new ToxSession (null, null); // Create an instance without profile nor options.
-    this.handle.tox_run_loop (); // Run toxcore instance.
-    this.loop.run (); // Run the main loop.
   }
 
   public void run () {
     stdout.printf ("%s v.%s started !\n", Constants.APP_NAME, Constants.APP_VERSION);
-    
+
+    this.handle = new ToxSession (null, null); // Create an instance without profile nor options.
+    this.handle.tox_run_loop (); // Run toxcore instance.
+    this.loop.run (); // Run the main loop.
+
     /**
     * TODO: Initialize Gtk and launch the application main window.
     **/
