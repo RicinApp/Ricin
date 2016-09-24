@@ -23,7 +23,12 @@ class Ricin.RicinApp : Object {
   public void run () {
     stdout.printf ("%s v.%s started !\n", Constants.APP_NAME, Constants.APP_VERSION);
 
-    this.handle = new ToxSession (null, null); // Create an instance without profile nor options.
+    try {
+      this.handle = new ToxSession (null, null); // Create an instance without profile nor options.
+    } catch (ErrNew e) {
+      error (@"Ricin wasn't able to start a new ToxSession, error: $(e.message)");
+    }
+
     this.handle.tox_run_loop (); // Run toxcore instance.
     this.loop.run (); // Run the main loop.
 

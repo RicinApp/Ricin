@@ -51,13 +51,12 @@ public class Ricin.ToxSession : Object {
   * ToxSession constructor.
   * Here we init our ToxOptions, load the profile, init toxcore, etc.
   **/
-  public ToxSession (Profile? profile, Options? options) {
+  public ToxSession (Profile? profile, Options? options) throws ErrNew {
     this.current_profile = profile;
     this.tox_options = options;
 
     // If options is null, let's use default values.
     if (this.tox_options == null) {
-      // TODO:
       Options opts = ToxOptions.create ();
       this.tox_options = opts;
     }
@@ -65,10 +64,7 @@ public class Ricin.ToxSession : Object {
     ERR_NEW error;
     this.tox_handle = new ToxCore.Tox (this.tox_options, out error);
 
-    /**
-    * TODO: Write a class for the throwables errors.
-    **/
-    /*switch (error) {
+    switch (error) {
       case ERR_NEW.NULL:
         throw new ErrNew.Null ("One of the arguments to the function was NULL when it was not expected.");
       case ERR_NEW.MALLOC:
@@ -87,9 +83,10 @@ public class Ricin.ToxSession : Object {
         throw new ErrNew.LoadFailed ("The byte array to be loaded contained an encrypted save.");
       case ERR_NEW.LOAD_BAD_FORMAT:
         throw new ErrNew.LoadFailed ("The data format was invalid. This can happen when loading data that was saved by an older version of Tox, or when the data has been corrupted. When loading from badly formatted data, some data may have been loaded, and the rest is discarded. Passing an invalid length parameter also causes this error.");
-      default:
-        throw new ErrNew.LoadFailed ("An unknown error happenend and ToxCore wasn't able to start.");
-    }*/
+    }
+
+    // We get a reference of the handle, to avoid ddosing ourselves with a big contacts list.
+    // unowned ToxCore.Tox handle = this.tox_handle;
 
     this.init_signals ();
     this.tox_bootstrap_nodes.begin ();
@@ -97,27 +94,10 @@ public class Ricin.ToxSession : Object {
 
   /**
   * This methods initialize all the tox callbacks and "connect" them to this class signals.
+  * @param {ToxCore.Tox} handle - An unowned toxcore handle.
   **/
   private void init_signals () {
-    // We get a reference of the handle, to avoid ddosing ourselves with a big contacts list.
-    //unowned ToxCore.Tox handle = this.tox_handle;
-    
     this.tox_handle.callback_self_connection_status ((handle, status) => {
-      /*switch (status) {
-        case ConnectionStatus.NONE:
-          debug ("Connection: None.");
-          break;
-        case ConnectionStatus.TCP:
-          debug ("Connection: TCP.");
-          break;
-        case ConnectionStatus.UDP:
-          debug ("Connection: UDP.");
-          break;
-      }
-
-      this.tox_connected = (status != ConnectionStatus.NONE);
-      this.tox_connection ((status != ConnectionStatus.NONE));*/
-      
       if (status != ConnectionStatus.NONE) {
         this.tox_connected = true;
         debug ("Connected to the Tox network.");
@@ -125,6 +105,8 @@ public class Ricin.ToxSession : Object {
         this.tox_connected = false;
         debug ("Disconnected from the Tox network.");
       }
+
+      this.tox_connection (this.tox_connected);
     });
   }
 
@@ -143,14 +125,14 @@ public class Ricin.ToxSession : Object {
     try {
       bytes = resources_lookup_data ("/im/ricin/client/jsons/dht-nodes.json", ResourceLookupFlags.NONE);
     } catch (Error e) {
-      error (@"Cannot load dht-nodes.json, error: $(e.message)");
+      error (@"B: Cannot load dht-nodes.json, error: $(e.message)");
     }
 
     try {
       uint8[] json_content = bytes.get_data ();
       json_parsed = json.load_from_data ((string) json_content, (ssize_t) bytes.get_size ());
     } catch (Error e) {
-      error (@"Cannot parse dht-nodes.json, error: $(e.message)");
+      error (@"B: Cannot parse dht-nodes.json, error: $(e.message)");
     }
 
     if (json_parsed) {
