@@ -1,4 +1,11 @@
-# Ricin
+# Ricin - A dead simple, privacy oriented, instant messaging client!
+
+[![Ricin license](https://img.shields.io/badge/license-GPLv3-blue.svg?style=flat)](https://raw.githubusercontent.com/RicinApp/Ricin/rewrite-clean/LICENSE)
+[![Ricin release](https://img.shields.io/github/release/RicinApp/Ricin.svg?style=flat)](https://github.com/RicinApp/Ricin/releases/latest)
+[![Ricin open issues](https://img.shields.io/github/issues/RicinApp/Ricin.svg?style=flat)](https://github.com/RicinApp/Ricin/issues)
+[![Codecov rewrite-clean](https://img.shields.io/codecov/c/github/RicinApp/Ricin/rewrite-clean.svg?style=flat)](https://codecov.io/github/RicinApp/Ricin)
+[![TravisCI](https://img.shields.io/travis/RicinApp/Ricin/rewrite-clean.svg?style=flat)](https://travis-ci.org/RicinApp/Ricin)
+
 Ricin aims to be a modern way to securly communicate with people that matters in your life.  
 Ricin is using the Tox protocol to perform P2P encrypted instant messaging, file transfers, audio/video calls, etc.
 
