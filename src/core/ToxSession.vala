@@ -313,7 +313,7 @@ public class Ricin.ToxSession : Object {
         /**
         * TODO: Add the newly created contact to contacts_list and save .tox file.
         **/
-        Contact contact = new Contact (tox_contact_number, public_key);
+        Contact contact = new Contact (ref this.tox_handle, tox_contact_number, public_key);
         this.contact_request_accepted (contact, request);
         
         /**

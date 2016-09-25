@@ -26,17 +26,17 @@ public interface Ricin.IRequest : Object {
   /**
   * The request state.
   **/
-  public virtual RequestState state { get; internal set; default = RequestState.PENDING; }
-  
+  public abstract RequestState state { get; internal set; default = RequestState.PENDING; }
+
   /**
-  * The request type (contact request or groupchat request, for now).
+  * The request type/kind (contact request or groupchat request, for now).
   **/
-  public virtual RequestType type { get; internal set; default = RequestType.CONTACT; }
-  
+  public abstract RequestType kind { get; internal set; default = RequestType.CONTACT; }
+
   /**
   * Signal: Triggered once the request has been accepted.
   **/
-  public virtual signal void state_changed (RequestState old_state, RequestState new_state);
+  public abstract signal void state_changed (RequestState old_state, RequestState new_state);
 
   /**
   * Use this method to accept a request.

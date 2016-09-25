@@ -3,10 +3,20 @@ using Ricin;
 
 public class Ricin.ContactRequest : IRequest, Object {
   /**
+  * The request state.
+  **/
+  public RequestState state { get; internal set; default = RequestState.PENDING; }
+
+  /**
+  * The request type/kind (contact request or groupchat request, for now).
+  **/
+  public RequestType kind { get; internal set; default = RequestType.CONTACT; }
+
+  /**
   * The request contact's identifier built from the public key.
   **/
   public Identifier? id { get; internal set; default = null; }
-  
+
   /**
   * The contact request message.
   **/
