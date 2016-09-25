@@ -49,9 +49,9 @@ public class Ricin.ToxSession : Object {
   
   /**
   * Signal: Triggered once a contact request is received.
-  * @except {bool} - Signal handler needs to return true to accept the CR, false to reject it.
+  * Use accept()/reject() methods from IRequest to interact with the `request` object.
   **/
-  public signal bool contact_request (ContactRequest request); // TODO: Write the ContactRequest interface.
+  public signal void contact_request (ContactRequest request); // TODO: Write the ContactRequest interface.
   
   /**
   * Signal: Triggered once a contact request has been accepted.
@@ -306,18 +306,28 @@ public class Ricin.ToxSession : Object {
     print ("-- %s\n", request_message);
     
     ContactRequest request = new ContactRequest (request_pubkey, request_message);
-    bool accept = this.contact_request (request);
-    
-    if (accept) {
-      uint32 tox_contact_number = this.tox_handle.friend_add_norequest (public_key, null);
+    request.state_changed.connect ((old_state, state) => {
+      if (state == RequestState.ACCEPTED) {
+        uint32 tox_contact_number = this.tox_handle.friend_add_norequest (public_key, null);
       
-      /**
-      * TODO: Add the newly created contact to contacts_list and save .tox file.
-      **/
-      Contact contact = new Contact (tox_contact_number, public_key);
-      this.contact_request_accepted (contact, request);
-    }
-    
+        /**
+        * TODO: Add the newly created contact to contacts_list and save .tox file.
+        **/
+        Contact contact = new Contact (tox_contact_number, public_key);
+        this.contact_request_accepted (contact, request);
+        
+        /**
+        * TODO: Log the request in log file. "Contact request was accepted at time/day... $details"
+        **/
+      } else if (state == RequestState.REJECTED) {
+        /**
+        * TODO: Log the request in log file. "Contact request was rejected at time/day... $details"
+        **/
+      }
+    });
+
+    this.contact_request (request);
+
     /**
     * TODO: Handle errors.
     **/

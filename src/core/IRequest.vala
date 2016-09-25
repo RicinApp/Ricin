@@ -36,7 +36,7 @@ public interface Ricin.IRequest : Object {
   /**
   * Signal: Triggered once the request has been accepted.
   **/
-  public signal void state_changed (RequestState old_state, RequestState new_state);
+  public virtual signal void state_changed (RequestState old_state, RequestState new_state);
 
   /**
   * Use this method to accept a request.
