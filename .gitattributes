@@ -1,0 +1,9 @@
+# Tell github that waf build script is python.
+wscript linguist-language=python
+wscript-build linguist-language=python
+ 
+# Prevent issues with Windows MSYS.
+*.sh eol=lf
+
+# Don't count the translation files in the language stats
+data/languages/* linguist-vendored
