@@ -83,6 +83,7 @@ def build(bld):
 
 	# Icon
 	#icon = bld.install_as('${DATADIR}/icons/hicolor/scalable/apps/ricin.svg', 'res/images/icons/ricin.svg')
+	"""
 
 	# Desktop file
 	desktop = bld(
@@ -93,7 +94,6 @@ def build(bld):
 		target       = 'ricin.desktop',
 		install_path = "${DATADIR}/applications",
 	)
-	"""
 
 	# Resources file
 	resource = bld(

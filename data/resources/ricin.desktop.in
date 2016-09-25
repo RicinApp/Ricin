@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Ricin
+Comment=A dead simple, privacy oriented, instant messaging client!
+Categories=Network;Internet;
+Encoding=UTF-8
+Exec=ricin
+Icon=ricin.svg
+Type=Application
+Terminal=false
+X-UserData=$CONFIG/ricin;
