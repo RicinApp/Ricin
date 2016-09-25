@@ -93,7 +93,7 @@ rm -rf build docs filter_audio gcovr-* libsodium po res src tools toxcore vapis 
 # desktopintegration asks the user on first run to install a menu item
 ########################################################################
 
-( cd usr/bin ; mv Ricin ricin )
+( cd usr/bin )
 get_desktopintegration $LOWERAPP
 
 ########################################################################
