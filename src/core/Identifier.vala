@@ -9,21 +9,28 @@ public class Ricin.Identifier : Object {
   /**
   * The nospam value of the identifier.
   **/
-  public string nospam { get; protected set; default = ""; }
+  public string? nospam { get; protected set; default = null; }
   
   /**
   * The checksum value that permits to verify the ToxID integrity.
   **/
-  public string checksum { get; protected set; default = ""; }
+  public string? checksum { get; protected set; default = null; }
 
   /**
   * The identifier constructor.
   * @param {string} key - A string containing or a full toxid, or a public key.
   **/
   public Identifier (string key) {
-    /**
-    * TODO: use `key` to fill the public_key, nospam and checksum.
-    **/
+    if (key.length == ToxCore.PUBLIC_KEY_SIZE) { // In key is a public key (no nospam/checksum).
+      this.public_key = key;
+    } else if (key.length == ToxCore.ADDRESS_SIZE) { // If key is a ToxID.
+      this.public_key = key.slice (0, ToxCore.PUBLIC_KEY_SIZE);
+      this.nospam = key.slice (ToxCore.PUBLIC_KEY_SIZE, Constants.NOSPAM_SIZE);
+      this.checksum = key.slice (ToxCore.PUBLIC_KEY_SIZE + Constants.NOSPAM_SIZE, Constants.CHECKSUM_SIZE);
+    } else if (key.length == ToxCore.PUBLIC_KEY_SIZE + Constants.NOSPAM_SIZE) { // Pubkey + nospam but no checksum.
+      this.public_key = key.slice (0, ToxCore.PUBLIC_KEY_SIZE);
+      this.nospam = key.slice (ToxCore.PUBLIC_KEY_SIZE, Constants.NOSPAM_SIZE);
+    }
   }
   
   /**

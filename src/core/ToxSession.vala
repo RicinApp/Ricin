@@ -46,6 +46,43 @@ public class Ricin.ToxSession : Object {
   * Signal: Triggered once the Tox bootstraping state is finished.
   **/
   public signal void tox_bootstrap_finished ();
+  
+  /**
+  * Signal: Triggered once a contact request is received.
+  * @except {bool} - Signal handler needs to return true to accept the CR, false to reject it.
+  **/
+  public signal bool contact_request (ContactRequest request); // TODO: Write the ContactRequest interface.
+  
+  /**
+  * Signal: Triggered once a contact request has been accepted.
+  **/
+  public signal void contact_request_accepted (IPerson contact, ContactRequest request);
+  
+  /**
+  * Signal: Triggered once a contact request has been rejected.
+  **/
+  public signal void contact_request_rejected (IPerson contact, ContactRequest request);
+  
+  /**
+  * Signal: Triggered once a groupchat request is received.
+  * @except {bool} - Signal handler needs to return true to accept the CR, false to reject it.
+  **/
+  public signal bool groupchat_request (GroupchatRequest request); // TODO: Write the GroupchatRequest interface.
+  
+  /**
+  * Signal: Triggered once a groupchat request has been accepted.
+  **/
+  public signal void groupchat_request_accepted (IGroupchat groupchat, GroupchatRequest request);
+  
+  /**
+  * Signal: Triggered once a groupchat request has been rejected.
+  **/
+  public signal void groupchat_request_rejected (IGroupchat groupchat, GroupchatRequest request);
+  
+  /**
+  * Signal: Triggered once the contacts list needs to be refreshed (friend added, etc).
+  **/
+  public signal void contacts_list_needs_update ();
 
   /**
   * ToxSession constructor.
@@ -268,9 +305,22 @@ public class Ricin.ToxSession : Object {
     print ("-- %s\n", request_pubkey);
     print ("-- %s\n", request_message);
     
+    ContactRequest request = new ContactRequest (request_pubkey, request_message);
+    bool accept = this.contact_request (request);
+    
+    if (accept) {
+      uint32 tox_contact_number = this.tox_handle.friend_add_norequest (public_key, null);
+      
+      /**
+      * TODO: Add the newly created contact to contacts_list and save .tox file.
+      **/
+      Contact contact = new Contact (tox_contact_number, public_key);
+      this.contact_request_accepted (contact, request);
+    }
+    
     /**
     * TODO: Handle errors.
     **/
-    this.tox_handle.friend_add_norequest (public_key, null);
+    
   }
 }
