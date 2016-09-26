@@ -57,18 +57,24 @@ public class Ricin.Profile : IPerson, Object {
   /**
   * The profile password, private and only used to encrypt the profile when it needs to be written on the disk.
   **/
-  private string password { get; set; default = null; }
+  private string? password { get; set; default = null; }
 
   /**
   * This constructor permits to load an existing profile.
   * @param {ToxCore.Tox} handle - A reference to the toxcore instance.
   * @param {string} path - The profile path.
+  * @param {string?} password - The profile path if any, can be null for not-protected profiles.
   **/
-  public Profile (ToxCore.Tox handle, string path) {
+  public Profile (ToxCore.Tox handle, string path, string? password = null) {
     this.handle = handle;
     this.path = path;
+    this.password = password;
     
-    this.load_data ();
+    try {
+      this.load_data ();
+    } catch (ErrDecrypt e) {
+      error (@"Cannot load the profile at `$(this.path)`, error: $(e.message)");
+    }
   }
 
   /**
@@ -103,7 +109,7 @@ public class Ricin.Profile : IPerson, Object {
   /**
   * This method permits to load the profile data into this class.
   **/
-  public void load_data () {
+  public void load_data () throws ErrDecrypt {
     try {
       if (FileUtils.test (this.path, FileTest.EXISTS)) {
         uint8[] buffer = null;
@@ -153,7 +159,7 @@ public class Ricin.Profile : IPerson, Object {
   /**
   * This method permits to save the profile data from this class to the .tox save.
   **/
-  public void save_data () {
+  public void save_data () throws ErrDecrypt {
     debug (@"P: Saving profile to Tox save for $(this.name) profile.");
     uint32 data_size = this.handle.get_savedata_size ();
     uint8[] buffer = new uint8[data_size];
