@@ -264,7 +264,7 @@ public class Ricin.ToxSession : Object {
   * This methods allow to kill the ToxCore instance properly.
   **/
   private void tox_disconnect () {
-    this.tox_started = true;
+    this.tox_started = false;
 
     this.tox_handle.kill ();
     this.tox_connection (false); // Tox connection stopped, inform the signal.
@@ -274,6 +274,7 @@ public class Ricin.ToxSession : Object {
   * Method to call in order to start toxcore execution loop.
   **/
   public void tox_run_loop () {
+    this.tox_started = true;
     this.tox_schedule_loop_iteration ();
   }
 
@@ -282,7 +283,7 @@ public class Ricin.ToxSession : Object {
   **/
   private void tox_schedule_loop_iteration () {
     Timeout.add (this.tox_handle.iteration_interval (), () => {
-      if (this.tox_started) { // Let's stop the iteration if this var is set to true.
+      if (this.tox_started == false) { // Let's stop the iteration if this var is set to true.
         return true;
       }
 
