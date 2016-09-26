@@ -61,14 +61,14 @@ public class Ricin.Profile : IPerson, Object {
 
   /**
   * This constructor permits to load an existing profile.
+  * @param {ToxCore.Tox} handle - A reference to the toxcore instance.
   * @param {string} path - The profile path.
   **/
-  public Profile (string path) {
+  public Profile (ToxCore.Tox handle, string path) {
+    this.handle = handle;
     this.path = path;
     
-    /**
-    * TODO: Call this.load_profile.
-    **/
+    this.load_data ();
   }
 
   /**
