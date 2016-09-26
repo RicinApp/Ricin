@@ -32,12 +32,46 @@ public class Ricin.Profile : IPerson, Object {
   /**
   * The person name.
   **/
-  public string name { get; set; default = Constants.DEFAULT_NAME; }
+  public string name { 
+    owned get {
+      uint32 buffer_size = this.handle.self_get_name_size ();
+      uint8[] buffer = new uint8[buffer_size];
+      this.handle.self_get_name (buffer);
+
+      return Utils.Helpers.arr2str (buffer);
+    }
+    set {
+      this.handle.self_set_name (value.data, null);
+
+      try {
+        this.save_data (); // Let's save once name changes.
+      } catch (ErrDecrypt e) {
+        debug ("P: Cannot save new name in tox save, error: $(e.message)");
+      }
+    }
+  }
 
   /**
   * The person status message.
   **/
-  public string status_message { get; set; default = Constants.DEFAULT_STATUS_MESSAGE; }
+  public string status_message {
+    owned get {
+      uint32 buffer_size = this.handle.self_get_status_message_size ();
+      uint8[] buffer = new uint8[buffer_size];
+      this.handle.self_get_status_message (buffer);
+
+      return Utils.Helpers.arr2str (buffer);
+    }
+    set {
+      this.handle.self_set_status_message (value.data, null);
+      
+      try {
+        this.save_data (); // Let's save once status message changes.
+      } catch (ErrDecrypt e) {
+        debug ("P: Cannot save new status message in tox save, error: $(e.message)");
+      }
+    }
+  }
 
   /**
   * The person presence status.
@@ -73,8 +107,10 @@ public class Ricin.Profile : IPerson, Object {
     try {
       this.load_data ();
     } catch (ErrDecrypt e) {
-      error (@"Cannot load the profile at `$(this.path)`, error: $(e.message)");
+      error (@"P: Cannot load the profile at `$(this.path)`, error: $(e.message)");
     }
+    
+    this.init_signals ();
   }
 
   /**
@@ -90,6 +126,13 @@ public class Ricin.Profile : IPerson, Object {
     * TODO: If password is not null, encrypt the profile and mark the profile as encrypted.
     * TODO: Call this.load_data().
     **/
+  }
+  
+  /**
+  * Init some profile specific signals.
+  **/
+  private void init_signals () {
+    
   }
 
   /**
