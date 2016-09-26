@@ -61,7 +61,7 @@ public class Ricin.ToxSession : Object {
   /**
   * Signal: Triggered once a contact request has been rejected.
   **/
-  public signal void contact_request_rejected (IPerson contact, ContactRequest request);
+  public signal void contact_request_rejected (ContactRequest request);
   
   /**
   * Signal: Triggered once a groupchat request is received.
@@ -77,7 +77,7 @@ public class Ricin.ToxSession : Object {
   /**
   * Signal: Triggered once a groupchat request has been rejected.
   **/
-  public signal void groupchat_request_rejected (IGroupchat groupchat, GroupchatRequest request);
+  public signal void groupchat_request_rejected (GroupchatRequest request);
   
   /**
   * Signal: Triggered once the contacts list needs to be refreshed (friend added, etc).
@@ -310,9 +310,10 @@ public class Ricin.ToxSession : Object {
     request.state_changed.connect ((old_state, state) => {
       if (state == RequestState.ACCEPTED) {
         uint32 tox_contact_number = this.tox_handle.friend_add_norequest (public_key, null);
+        this.current_profile.save_data ();
       
         /**
-        * TODO: Add the newly created contact to contacts_list and save .tox file.
+        * TODO: Add the newly created contact to contacts_list.
         **/
         Contact contact = new Contact (ref this.tox_handle, tox_contact_number, public_key);
         this.contact_request_accepted (contact, request);
@@ -324,6 +325,7 @@ public class Ricin.ToxSession : Object {
         /**
         * TODO: Log the request in log file. "Contact request was rejected at time/day... $details"
         **/
+        this.contact_request_rejected (request);
       }
     });
 
