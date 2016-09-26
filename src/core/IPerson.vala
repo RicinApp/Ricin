@@ -13,13 +13,19 @@ public interface Ricin.IPerson : Object {
 
   /**
   * The person name.
+  * TODO: Fix issue:
+  *   Type and/or accessors of overriding property `Ricin.Profile.name' do not match overridden property
+  *   `Ricin.IPerson.name': incompatible get accessor type.
   **/
-  public abstract string name { get; set; default = Constants.DEFAULT_NAME; }
+  //public abstract string name { get; set; }
 
   /**
   * The person status message.
-  **/
-  public abstract string status_message { get; set; default = Constants.DEFAULT_STATUS_MESSAGE; }
+  * TODO: Fix issue:
+  *   Type and/or accessors of overriding property `Ricin.Profile.status_message' do not match overridden property
+  *   `Ricin.IPerson.status_message': incompatible get accessor type.
+  **/ 
+  //public abstract string status_message { get; set; }
 
   /**
   * The person presence status.

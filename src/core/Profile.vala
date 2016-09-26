@@ -34,11 +34,16 @@ public class Ricin.Profile : IPerson, Object {
   **/
   public string name { 
     owned get {
-      uint32 buffer_size = this.handle.self_get_name_size ();
+      size_t buffer_size = this.handle.self_get_name_size ();
       uint8[] buffer = new uint8[buffer_size];
       this.handle.self_get_name (buffer);
 
-      return Utils.Helpers.arr2str (buffer);
+      string _name = Utils.Helpers.arr2str (buffer);
+      if (_name == "") {
+        return Constants.DEFAULT_NAME;
+      } else {
+        return _name;
+      }
     }
     set {
       this.handle.self_set_name (value.data, null);
@@ -56,11 +61,16 @@ public class Ricin.Profile : IPerson, Object {
   **/
   public string status_message {
     owned get {
-      uint32 buffer_size = this.handle.self_get_status_message_size ();
+      size_t buffer_size = this.handle.self_get_status_message_size ();
       uint8[] buffer = new uint8[buffer_size];
       this.handle.self_get_status_message (buffer);
 
-      return Utils.Helpers.arr2str (buffer);
+      string _status_message = Utils.Helpers.arr2str (buffer);
+      if (_status_message == "") {
+        return Constants.DEFAULT_STATUS_MESSAGE;
+      } else {
+        return _status_message;
+      }
     }
     set {
       this.handle.self_set_status_message (value.data, null);
