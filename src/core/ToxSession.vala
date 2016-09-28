@@ -36,6 +36,11 @@ public class Ricin.ToxSession : Object {
   * We keep a list of contacts thanks to the ContactsList class.
   **/
   private ContactsList contacts_list { private get; private set; }
+  
+  /**
+  * We keep a list of groupchats thanks to the GroupchatsList class.
+  **/
+  private GroupchatsList groupchats_list { private get; private set; }
 
   /**
   * Signal: Triggered once the Tox connection state changes.
@@ -72,7 +77,7 @@ public class Ricin.ToxSession : Object {
   /**
   * Signal: Triggered once a groupchat request has been accepted.
   **/
-  public signal void groupchat_request_accepted (IGroupchat groupchat, GroupchatRequest request);
+  public signal void groupchat_request_accepted (Groupchat groupchat, GroupchatRequest request);
   
   /**
   * Signal: Triggered once a groupchat request has been rejected.
@@ -310,7 +315,12 @@ public class Ricin.ToxSession : Object {
     request.state_changed.connect ((old_state, state) => {
       if (state == RequestState.ACCEPTED) {
         uint32 tox_contact_number = this.tox_handle.friend_add_norequest (public_key, null);
-        this.current_profile.save_data ();
+        
+        try {
+          this.current_profile.save_data ();
+        } catch (ErrDecrypt e) {
+          debug (@"Cannot save the newly added friend to the Tox save, error: $(e.message)");
+        }
       
         /**
         * TODO: Add the newly created contact to contacts_list.
