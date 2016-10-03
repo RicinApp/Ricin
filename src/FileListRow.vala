@@ -1,6 +1,7 @@
 [GtkTemplate (ui="/chat/tox/ricin/ui/file-list-row.ui")]
 class Ricin.FileListRow : Gtk.ListBoxRow {
-  [GtkChild] Gtk.Label label_name;
+  [GtkChild] public Gtk.Image image_author;
+  [GtkChild] public Gtk.Label label_name;
   [GtkChild] Gtk.Label label_timestamp;
 
   [GtkChild] Gtk.Box box_widget;
@@ -43,6 +44,9 @@ class Ricin.FileListRow : Gtk.ListBoxRow {
     this.file = File.new_for_path (file_path);
     this.file_id = file_id;
     this.raw_size = file_size;
+    
+    var size_req = new Gtk.Requisition ();
+    this.get_preferred_size (out size_req, null);
 
     if (is_local_image) { // File is a local image.
       FileInfo info = this.file.query_info ("standard::*", 0);
@@ -51,13 +55,15 @@ class Ricin.FileListRow : Gtk.ListBoxRow {
 
       //var pix = new Gdk.Pixbuf.from_file_at_scale (this.file.get_path (), 400, 400, true);
       var pix = new Gdk.Pixbuf.from_file (this.file.get_path ());
-      this.image_preview.set_from_pixbuf (pix);
+      var pix_scaled = pix.scale_simple (size_req.width, 200, Gdk.InterpType.BILINEAR);
+      
+      this.image_preview.set_from_pixbuf (pix_scaled);
     } else if (pixbuf != null) { // File is an image.
       this.file_name = pixbuf_name;
       this.file_size = pixbuf.get_byte_length ();
 
-      var pix = pixbuf.scale_simple (this.aspectframe_preview.width_request, 200, Gdk.InterpType.BILINEAR);
-      this.image_preview.set_from_pixbuf (pixbuf);
+      var pix = pixbuf.scale_simple (size_req.width, 200, Gdk.InterpType.BILINEAR);
+      this.image_preview.set_from_pixbuf (pix);
       this.image_preview.visible = true;
     } else { // Normal file.
       this.file_name = this.file.get_basename ();
@@ -76,6 +82,47 @@ class Ricin.FileListRow : Gtk.ListBoxRow {
       this.handle.bind_property ("username", label_name, "label", BindingFlags.DEFAULT);
     }
 
+    if (this.settings.compact_mode) {
+      this.label_name.visible = false;
+      this.image_author.visible = true;
+    } else {
+      this.label_name.visible = true;
+      this.image_author.visible = false;
+    }
+    this.settings.notify["compact-mode"].connect (() => {
+      if (this.settings.compact_mode) {
+        this.label_name.visible = false;
+        this.image_author.visible = true;
+      } else {
+        this.label_name.visible = true;
+        this.image_author.visible = false;
+      }
+    });
+
+    if (this.sender == null) {
+      this.image_author.set_from_pixbuf (Util.pubkey_to_image (this.handle.pubkey, 24, 24));
+      this.image_author.pixbuf = this.image_author.pixbuf.scale_simple (24, 24, Gdk.InterpType.BILINEAR);
+      this.image_author.set_pixel_size (24);
+      this.image_author.set_size_request (24, 24);
+      
+      this.handle.notify["avatar"].connect (() => {
+        this.image_author.pixbuf = this.handle.avatar.scale_simple (24, 24, Gdk.InterpType.BILINEAR);;
+      });
+      
+      this.image_author.set_tooltip_text (this.handle.username);
+      this.handle.notify["username"].connect (() => {
+        this.image_author.set_tooltip_text (this.handle.username);
+      });
+    } else {
+      this.image_author.set_from_pixbuf (Util.pubkey_to_image (this.sender.pubkey, 24, 24));
+      this.image_author.pixbuf = this.image_author.pixbuf.scale_simple (24, 24, Gdk.InterpType.BILINEAR);
+      this.image_author.set_pixel_size (24);
+      this.image_author.set_size_request (24, 24);
+      
+      this.sender.avatar.connect (p => {
+        this.image_author.pixbuf = p.scale_simple (24, 24, Gdk.InterpType.BILINEAR);;
+      });
+    }
 
     this.sender.file_done.connect ((name, bytes, id) => {
       if (id != this.file_id) {
@@ -241,6 +288,7 @@ class Ricin.FileListRow : Gtk.ListBoxRow {
     this.button_reject.set_size_request (65, 20);
     this.button_reject.sensitive = false;
     this.button_save.visible = false;
+    this.progress_file_percent.visible = false;
   }
 
   private void open_file () {
