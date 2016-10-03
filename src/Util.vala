@@ -52,6 +52,20 @@ namespace Util {
     assert (result.validate ());
     return result;
   }
+  
+  public static Gdk.Pixbuf pubkey_to_image (string pubkey, int width = 48, int height = 48) {
+    var _avatar_path = Tox.profile_dir () + "avatars/" + pubkey + ".png";
+    Gdk.Pixbuf pixbuf = null;
+    
+    if (FileUtils.test (_avatar_path, FileTest.EXISTS)) {
+      pixbuf = new Gdk.Pixbuf.from_file_at_scale (_avatar_path, 48, 48, false);
+    } else {
+      Cairo.Surface surface = Util.identicon_for_pubkey (pubkey);
+      pixbuf = Gdk.pixbuf_get_from_surface (surface, 0, 0, 48, 48);
+    }
+    
+    return pixbuf;
+  }
 
   public static string emojify (string emoji, string color = "#fcd226") {
     return @"<span face=\"EmojiOne\" foreground=\"$color\" weight=\"heavy\">$emoji</span>";

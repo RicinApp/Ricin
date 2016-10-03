@@ -193,6 +193,37 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
       var friend2 = row2 as FriendListRow;
       return friend1.fr.status - friend2.fr.status;
     });*/
+    
+    this.combobox_friend_filter.changed.connect (this.friend_list_update_search);
+
+    this.friendlist.set_sort_func (sort_friendlist_online);
+    this.friendlist.bind_model (this.friends, fr => new FriendListRow ((Tox.Friend) fr));
+    
+    /**
+    * Set how the contact list is filtered.
+    * Returns true if the row should be shown, false if not.
+    **/
+    /*this.friendlist.set_filter_func ((row) => {
+      string? search = this.searchentry_friend.text;
+      FriendListRow row_friend = ((FriendListRow) row);
+      string friend_pubkey = row_friend.fr.pubkey.down();
+      string friend_name = row_friend.fr.name.down();
+      string friend_mood = row_friend.fr.status_message.down();
+      Tox.UserStatus friend_status = row_friend.fr.status;
+      int friend_unread_messages = row_friend.unreadCount;
+      bool isSearch = (search != null || search.length != 0);
+      bool showOnlineOnly = (this.combobox_friend_filter.active == 0);
+      
+      //if (showOnlineOnly && friend_status == Tox.UserStatus.OFFLINE) return false; // If show only online && contact is offline.
+      if (isSearch) { // If the user inputed text in the search input.
+        if (friend_pubkey.index_of (search.down()) != -1) return true; // If we match the friend pubkey.
+        if (friend_name.index_of (search.down()) != -1) return true; // If the search exists in friend name.
+        if (friend_mood.index_of (search.down()) != -1) return true; // If the search exists in friend status message.
+        return false;
+      }
+      return false;
+    });*/
+    
     this.friendlist.set_filter_func (row => {
       string? search = this.searchentry_friend.text.down ();
       var friend = ((FriendListRow) row);
@@ -220,11 +251,33 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
       }
       return false;
     });
+    
+          
+      
+      /*var friend = ((FriendListRow) row);
+      string name = friend.fr.name.down ();
+      Tox.UserStatus status = friend.fr.status;
+      var mode = this.combobox_friend_filter.active;
 
-    this.combobox_friend_filter.changed.connect (this.friend_list_update_search);
+      if (search == null || search.length == 0) {
+        if (friend.unreadCount > 0) {
+          return true;
+        }
 
-    this.friendlist.set_sort_func (sort_friendlist_online);
-    this.friendlist.bind_model (this.friends, fr => new FriendListRow ((Tox.Friend) fr));
+        if (mode == 0 && status == Tox.UserStatus.OFFLINE) {
+          return false;
+        }
+        return true;
+      } else if (mode == 0) {
+        if (status == Tox.UserStatus.OFFLINE) {
+          return false;
+        }
+      }
+
+      if (name.index_of (search) != -1) {
+        return true;
+      }
+      return false;*/
 
     tox.notify["connected"].connect ((src, prop) => {
       string icon = "";
@@ -786,7 +839,7 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
 
   [GtkCallback]
   private void friend_list_update_search () {
-    friendlist.invalidate_filter ();
+    this.friendlist.invalidate_filter ();
   }
 
   ~MainWindow () {

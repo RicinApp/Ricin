@@ -1,5 +1,6 @@
 [GtkTemplate (ui="/chat/tox/ricin/ui/quote-message-list-row.ui")]
 class Ricin.QuoteMessageListRow : Gtk.ListBoxRow {
+  [GtkChild] public Gtk.Image image_author;
   [GtkChild] public Gtk.Label label_name;
   [GtkChild] Gtk.ListBox listbox_quotes;
 
@@ -15,18 +16,55 @@ class Ricin.QuoteMessageListRow : Gtk.ListBoxRow {
 
   private weak Tox.Tox handle;
   private weak Tox.Friend sender;
+  private Settings settings;
 
   public QuoteMessageListRow (Tox.Tox handle, Tox.Friend? sender, string message, string timestamp, uint32 message_id, bool is_child) {
     this.handle = handle;
     this.message_id = message_id;
     this.sender = sender;
     this.is_child = is_child;
+    this.settings = Settings.instance;
 
     this.stack.set_visible_child_name ("spinner");
+    this.image_author.set_from_pixbuf (Util.pubkey_to_image (this.sender.pubkey, 24, 24));
+    this.sender.avatar.connect (p => {
+      this.image_author.pixbuf = p;
+    });
 
     string name;
+    
+    if (this.settings.compact_mode) {
+      this.label_name.visible = false;
+      this.image_author.visible = true;
+    } else {
+      this.label_name.visible = true;
+      this.image_author.visible = false;
+    }
+    this.settings.notify["compact-mode"].connect (() => {
+      if (this.settings.compact_mode) {
+        this.label_name.visible = false;
+        this.image_author.visible = true;
+      } else {
+        this.label_name.visible = true;
+        this.image_author.visible = false;
+      }
+    });
 
     if (this.sender == null) {
+      this.image_author.set_from_pixbuf (Util.pubkey_to_image (this.handle.pubkey, 24, 24));
+      this.image_author.pixbuf = this.image_author.pixbuf.scale_simple (24, 24, Gdk.InterpType.BILINEAR);
+      this.image_author.set_pixel_size (24);
+      this.image_author.set_size_request (24, 24);
+      
+      this.handle.notify["avatar"].connect (() => {
+        this.image_author.pixbuf = this.handle.avatar.scale_simple (24, 24, Gdk.InterpType.BILINEAR);;
+      });
+      
+      this.image_author.set_tooltip_text (this.handle.username);
+      this.handle.notify["username"].connect (() => {
+        this.image_author.set_tooltip_text (this.handle.username);
+      });
+    
       name = Util.escape_html (this.handle.username);
       this.label_name.set_markup ("<b>" + name + "</b>");
       this.handle.bind_property ("username", label_name, "label", BindingFlags.DEFAULT);
@@ -39,6 +77,15 @@ class Ricin.QuoteMessageListRow : Gtk.ListBoxRow {
         this.stack.set_visible_child_name ("timestamp");
       });
     } else {
+      this.image_author.set_from_pixbuf (Util.pubkey_to_image (this.sender.pubkey, 24, 24));
+      this.image_author.pixbuf = this.image_author.pixbuf.scale_simple (24, 24, Gdk.InterpType.BILINEAR);
+      this.image_author.set_pixel_size (24);
+      this.image_author.set_size_request (24, 24);
+      
+      this.sender.avatar.connect (p => {
+        this.image_author.pixbuf = p.scale_simple (24, 24, Gdk.InterpType.BILINEAR);;
+      });
+    
       name = Util.escape_html (this.sender.get_uname ());
       this.label_name.set_text (name);
 

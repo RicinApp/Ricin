@@ -63,6 +63,7 @@ class Ricin.ChatView : Gtk.Box {
   private string last_message_sender { get; set; default = "ricin"; }
   private string last_message = null;
   private bool is_bottom = true;
+  private ViewType view_type;
 
   /**
   * TODO: Use this enum to determine the current message type.
@@ -74,6 +75,11 @@ class Ricin.ChatView : Gtk.Box {
     InlineImage,
     InlineFile,
     GtkListBoxRow
+  }
+  
+  private enum ViewType {
+    FULL,
+    COMPACT
   }
 
   private string time () {
@@ -132,6 +138,20 @@ class Ricin.ChatView : Gtk.Box {
         this.entry.set_text ("");
       }
       return false;
+    });
+    
+    if (this.settings.compact_mode) {
+      this.switch_view_type (ViewType.COMPACT);
+    } else {
+      this.switch_view_type (ViewType.FULL);
+    }
+    
+    this.settings.notify["compact-mode"].connect (() => {
+      if (this.settings.compact_mode) {
+        this.switch_view_type (ViewType.COMPACT);
+      } else {
+        this.switch_view_type (ViewType.FULL);
+      }
     });
 
     this.init_messages_menu ();
@@ -392,6 +412,38 @@ class Ricin.ChatView : Gtk.Box {
       }
       this.fr.last_status = this.fr.status;
     });
+  }
+  
+  private void switch_view_type (ViewType type) {
+    /*if (type == ViewType.FULL) {
+      foreach (Gtk.Widget item in this.messages_list.get_children ()) {
+        if (item is MessageListRow) {
+          ((MessageListRow) item).label_name.visible = true;
+          ((MessageListRow) item).image_author.visible = false;
+        } else if (item is QuoteMessageListRow) {
+          ((QuoteMessageListRow) item).label_name.visible = true;
+          ((QuoteMessageListRow) item).image_author.visible = false;
+        } else if (item is FileListRow) {
+          ((FileListRow) item).label_name.visible = true;
+          ((FileListRow) item).image_author.visible = false;
+        }
+      }
+    } else if (type == ViewType.COMPACT) {
+      foreach (Gtk.Widget item in this.messages_list.get_children ()) {
+        if (item is MessageListRow) {
+          ((MessageListRow) item).label_name.visible = false;
+          ((MessageListRow) item).image_author.visible = true;
+        } else if (item is QuoteMessageListRow) {
+          ((QuoteMessageListRow) item).label_name.visible = false;
+          ((QuoteMessageListRow) item).image_author.visible = true;
+        } else if (item is FileListRow) {
+          ((FileListRow) item).label_name.visible = false;
+          ((FileListRow) item).image_author.visible = true;
+        }
+      }
+    }
+
+    this.view_type = type;*/
   }
 
   private bool messages_selected () {

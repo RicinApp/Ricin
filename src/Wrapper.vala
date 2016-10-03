@@ -399,7 +399,7 @@ namespace Tox {
         }
 
         debug (@"friend $friend, file $file: chunk request, pos=$position");
-        this.friends[friend].file_progress (file, position);
+        this.friends[friend].file_progress (file, data.length);
 
         assert (fr.files_recv[file].data.len == position);
         fr.files_recv[file].data.append (data);
