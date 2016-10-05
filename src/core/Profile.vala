@@ -2,6 +2,7 @@ using Gdk;
 using ToxEncrypt;
 using Ricin;
 using Ricin.Utils;
+using Ricin.Utils.Logger;
 using Ricin.Core;
 
 namespace Ricin.Core {
@@ -53,7 +54,7 @@ namespace Ricin.Core {
         try {
           this.save_data (); // Let's save once name changes.
         } catch (ErrDecrypt e) {
-          debug ("P: Cannot save new name in tox save, error: $(e.message)");
+          RError ("P: Cannot save new name in tox save, error: $(e.message)");
         }
       }
     }
@@ -80,7 +81,7 @@ namespace Ricin.Core {
         try {
           this.save_data (); // Let's save once status message changes.
         } catch (ErrDecrypt e) {
-          debug ("P: Cannot save new status message in tox save, error: $(e.message)");
+          RError ("P: Cannot save new status message in tox save, error: $(e.message)");
         }
       }
     }
@@ -119,7 +120,7 @@ namespace Ricin.Core {
       try {
         this.load_data ();
       } catch (ErrDecrypt e) {
-        error (@"P: Cannot load the profile at `$(this.path)`, error: $(e.message)");
+        RError (@"P: Cannot load the profile at `$(this.path)`, error: $(e.message)");
       }
 
       this.init_signals ();
@@ -207,7 +208,7 @@ namespace Ricin.Core {
           **/
         }
       } catch (Error e) {
-        debug (@"P: Cannot load profile, error: $(e.message)");
+        RError (@"P: Cannot load profile, error: $(e.message)");
       }
     }
 
@@ -215,7 +216,7 @@ namespace Ricin.Core {
     * This method permits to save the profile data from this class to the .tox save.
     **/
     public void save_data () throws ErrDecrypt {
-      debug (@"P: Saving profile to Tox save for $(this.name) profile.");
+      RInfo (@"P: Saving profile to Tox save for $(this.name) profile.");
       uint32 data_size = this.handle.get_savedata_size ();
       uint8[] buffer = new uint8[data_size];
       this.handle.get_savedata (buffer);
@@ -254,7 +255,7 @@ namespace Ricin.Core {
           **/
         }
       } catch (Error e) {
-        debug (@"P: Cannot save profile, error: $(e.message)");
+        RError (@"P: Cannot save profile, error: $(e.message)");
       }
     }
   }

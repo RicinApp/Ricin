@@ -2,6 +2,7 @@ using ToxCore; // only in this file
 using ToxEncrypt; // only in this file
 using Ricin;
 using Ricin.Utils;
+using Ricin.Utils.Logger;
 using Ricin.Core;
 
 namespace Ricin.Core {
@@ -133,15 +134,14 @@ namespace Ricin.Core {
       // We get a reference of the handle, to avoid ddosing ourselves with a big contacts list.
       // unowned ToxCore.Tox handle = this.tox_handle;
 
-      this.tox_bootstrap_nodes.begin ();
-      this.init_signals ();
-
-      /**
-      * TEMP DEV ZONE.
-      **/
+      // Let's display our ToxID, temporarily.
       uint8[] toxid = new uint8[ToxCore.ADDRESS_SIZE];
       this.tox_handle.self_get_address (toxid);
-      print ("ToxID: %s\n", Utils.Helpers.bin2hex (toxid));
+      RInfo ("ToxID: %s", Utils.Helpers.bin2hex (toxid));
+
+      // Now bootstrap and init signals.
+      this.tox_bootstrap_nodes.begin ();
+      this.init_signals ();
     }
 
     /**
@@ -151,10 +151,10 @@ namespace Ricin.Core {
       this.tox_handle.callback_self_connection_status ((handle, status) => {
         if (status != ConnectionStatus.NONE) {
           this.tox_connected = true;
-          debug ("Connected to the Tox network.");
+          RInfo ("Connected to the Tox network.");
         } else {
           this.tox_connected = false;
-          debug ("Disconnected from the Tox network.");
+          RInfo ("Disconnected from the Tox network.");
         }
 
         this.tox_connection (this.tox_connected);
@@ -169,7 +169,7 @@ namespace Ricin.Core {
     * It also takes care of bootstraping correctly by using TCP as a fallback, and IPv6 in priority.
     **/
     private async void tox_bootstrap_nodes () {
-      debug ("B: Started Tox bootstraping process...");
+      RDebug ("B: Started Tox bootstraping process...");
 
       var json = new Json.Parser ();
       Bytes bytes;
@@ -178,18 +178,22 @@ namespace Ricin.Core {
       try {
         bytes = resources_lookup_data ("/im/ricin/client/jsons/dht-nodes.json", ResourceLookupFlags.NONE);
       } catch (Error e) {
-        error (@"B: Cannot load dht-nodes.json, error: $(e.message)");
+        RError (@"B: Cannot load dht-nodes.json, error: $(e.message)");
+        yield;
+        return;
       }
 
       try {
         uint8[] json_content = bytes.get_data ();
         json_parsed = json.load_from_data ((string) json_content, (ssize_t) bytes.get_size ());
       } catch (Error e) {
-        error (@"B: Cannot parse dht-nodes.json, error: $(e.message)");
+        RError (@"B: Cannot parse dht-nodes.json, error: $(e.message)");
+        yield;
+        return;
       }
 
       if (json_parsed) {
-        debug ("B: dht-nodes.json was found, parsing it.");
+        RDebug ("B: dht-nodes.json was found, parsing it.");
 
         ToxDhtNode[] nodes = {};
         var nodes_array = json.get_root ().get_object ().get_array_member ("servers");
@@ -199,7 +203,7 @@ namespace Ricin.Core {
           nodes += ((ToxDhtNode) Json.gobject_deserialize (typeof (ToxDhtNode), node));
         });
 
-        debug ("B: Parsed dht-nodes.json, bootstraping in progress...");
+        RDebug ("B: Parsed dht-nodes.json, bootstraping in progress...");
 
         while (!this.tox_connected) {
           // Bootstrap to 6 random nodes, faaast! :)
@@ -211,7 +215,7 @@ namespace Ricin.Core {
 
             // First we try UDP IPv6, if available for this node.
             if (!success && try_ipv6) {
-              debug ("B: UDP IPv6 bootstrap %s:%d by %s", rnd_node.ipv6, (int) rnd_node.port, rnd_node.owner);
+              RDebug ("B: UDP IPv6 bootstrap %s:%d by %s", rnd_node.ipv6, (int) rnd_node.port, rnd_node.owner);
               success = this.tox_handle.bootstrap (
                 rnd_node.ipv6,
                 (uint16) rnd_node.port,
@@ -222,7 +226,7 @@ namespace Ricin.Core {
 
             // Then, if bootstrap didn't worked in UDP IPv6, we use UDP IPv4.
             if (!success) {
-              debug ("B: UDP IPv4 bootstrap %s:%d by %s", rnd_node.ipv4, (int) rnd_node.port, rnd_node.owner);
+              RDebug ("B: UDP IPv4 bootstrap %s:%d by %s", rnd_node.ipv4, (int) rnd_node.port, rnd_node.owner);
               success = this.tox_handle.bootstrap (
                 rnd_node.ipv4,
                 (uint16) rnd_node.port,
@@ -233,7 +237,7 @@ namespace Ricin.Core {
 
             // If UDP didn't worked, let's do the same but with TCP IPv6.
             if (!success && try_ipv6) {
-              debug ("B: TCP IPv6 bootstrap %s:%d by %s", rnd_node.ipv6, (int) rnd_node.port, rnd_node.owner);
+              RDebug ("B: TCP IPv6 bootstrap %s:%d by %s", rnd_node.ipv6, (int) rnd_node.port, rnd_node.owner);
               success = this.tox_handle.add_tcp_relay (
                 rnd_node.ipv6,
                 (uint16) rnd_node.port,
@@ -244,7 +248,7 @@ namespace Ricin.Core {
 
             // Then, if bootstrap didn't worked in TCP IPv6, we use TCP IPv4.
             if (!success) {
-              debug ("B: TCP IPv4 bootstrap %s:%d by %s", rnd_node.ipv4, (int) rnd_node.port, rnd_node.owner);
+              RDebug ("B: TCP IPv4 bootstrap %s:%d by %s", rnd_node.ipv4, (int) rnd_node.port, rnd_node.owner);
               success = this.tox_handle.add_tcp_relay (
                 rnd_node.ipv4,
                 (uint16) rnd_node.port,
@@ -263,7 +267,7 @@ namespace Ricin.Core {
           yield;
         }
 
-        debug ("B: Boostraping to the Tox network finished successfully.");
+        RDebug ("B: Boostraping to the Tox network finished successfully.");
         this.tox_bootstrap_finished ();
       }
     }
@@ -309,10 +313,7 @@ namespace Ricin.Core {
 
       string request_pubkey  = Utils.Helpers.bin2hex (public_key);
       string request_message = (string) message;
-
-      print ("Friend request received:\n");
-      print ("-- %s\n", request_pubkey);
-      print ("-- %s\n", request_message);
+      RInfo ("Friend request received:\n-- %s\n-- %s", request_pubkey, request_message);
 
       ContactRequest request = new ContactRequest (request_pubkey, request_message);
       request.state_changed.connect ((old_state, state) => {
@@ -322,7 +323,7 @@ namespace Ricin.Core {
           try {
             this.current_profile.save_data ();
           } catch (ErrDecrypt e) {
-            debug (@"Cannot save the newly added friend to the Tox save, error: $(e.message)");
+            RError (@"Cannot save the newly added friend to the Tox save, error: $(e.message)");
           }
 
           /**

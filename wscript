@@ -31,6 +31,9 @@ def configure(conf):
 	conf.check_cfg(package='json-glib-1.0', uselib_store='JSONGLIB', mandatory=1, args='--cflags --libs')
 	conf.check_cfg(package='libnotify', uselib_store='NOTIFY', mandatory=1, args='--cflags --libs')
 	conf.check_cfg(package='libtoxcore', uselib_store='TOXCORE', mandatory=1, args='--cflags --libs')
+	conf.check_cfg(package='posix', uselib_store='USE_POSIX', mandatory=0, args='--cflags --libs')
+
+	# Until libtoxencryptsave hasn't a .pc file.
 	conf.check(lib='toxencryptsave', uselib_store='TOXES', mandatory=1, args='--cflags --libs')
 
 	# C compiler flags.
@@ -108,8 +111,8 @@ def build(bld):
 		appname          = APPNAME,
 		features         = 'c cprogram glib2',
 		use              = 'ricinres',
-		packages         = 'glib-2.0 gio-2.0 gobject-2.0 gmodule-2.0 gtk+-3.0 libsoup-2.4 json-glib-1.0 libnotify libtoxcore libtoxencryptsave',
-		uselib           = 'GLIB GIO GOBJECT GMODULE GTK3 SOUP JSONGLIB NOTIFY TOXCORE TOXES',
+		packages         = 'glib-2.0 gio-2.0 gobject-2.0 gmodule-2.0 gtk+-3.0 libsoup-2.4 json-glib-1.0 libnotify libtoxcore libtoxencryptsave posix',
+		uselib           = 'GLIB GIO GOBJECT GMODULE GTK3 SOUP JSONGLIB NOTIFY TOXCORE TOXES USE_POSIX',
 		vala_target_glib = '2.38',
 		source           = bld.path.ant_glob('src/**/**.vala'),
 		vapi_dirs        = 'src/vapis',
@@ -128,4 +131,3 @@ def build(bld):
 			bld.exec_command(["update-desktop-database", Utils.subst_vars("${DATADIR}/applications", bld.env)])
 		except:
 			pass
-
