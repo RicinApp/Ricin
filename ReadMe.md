@@ -1,6 +1,6 @@
 # Ricin - A dead simple, privacy oriented, instant messaging client!
 
-[![Ricin license](https://img.shields.io/badge/license-GPLv3-blue.svg?style=flat)](https://raw.githubusercontent.com/RicinApp/Ricin/rewrite-clean/LICENSE)
+[![Ricin license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://raw.githubusercontent.com/RicinApp/Ricin/rewrite-clean/LICENSE)
 [![Ricin release](https://img.shields.io/github/release/RicinApp/Ricin.svg?style=flat)](https://github.com/RicinApp/Ricin/releases/latest)
 [![Ricin open issues](https://img.shields.io/github/issues/RicinApp/Ricin.svg?style=flat)](https://github.com/RicinApp/Ricin/issues)
 [![Codecov rewrite-clean](https://img.shields.io/codecov/c/github/RicinApp/Ricin/rewrite-clean.svg?style=flat)](https://codecov.io/github/RicinApp/Ricin)
@@ -25,14 +25,14 @@ If you are looking for the current version of Ricin, [here you go](https://githu
 
 # Donations
 Rewriting my client with a top-notch code will be long and hard, but I know I can do it.  
-Anyway, hope is not a way to live and I need to stay on my computer for writing code, so I can't work on anything else, 
+Anyway, hope is not a way to live and I need to stay on my computer for writing code, so I can't work on anything else,
 while rewriting Ricin.
 
-That's why I wrote this statement, donations are not always about money, you can also donate me some love, feedbacks, 
+That's why I wrote this statement, donations are not always about money, you can also donate me some love, feedbacks,
 report the bugs you've seen, contribute to the code, pay me a bear (wuups, a beer, eheh).
 
-Of course if you really wish to give me some money for that work, i won't reject it. But before donating money, ask 
-yourself "Do he really merits that money? Do I believe in privacy enough to give some cents to this crazy guy?". If you 
+Of course if you really wish to give me some money for that work, i won't reject it. But before donating money, ask
+yourself "Do he really merits that money? Do I believe in privacy enough to give some cents to this crazy guy?". If you
 can answer both by **yes**, then here are how you can make a donation:
 
 ###### Bitcoin
