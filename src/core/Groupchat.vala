@@ -1,11 +1,13 @@
-using GLib;
 using Ricin;
+using Ricin.Core;
 
-public enum Ricin.GroupchatType {
-  TEXT,
-  AUDIO
-}
+namespace Ricin.Core {
+  public enum GroupchatType {
+    TEXT,
+    AUDIO
+  }
 
-public class Ricin.Groupchat {
+  public class Groupchat {
 
+  }
 }

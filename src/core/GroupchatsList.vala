@@ -1,6 +1,8 @@
-using GLib;
 using Ricin;
+using Ricin.Core;
 
-public class Ricin.GroupchatsList : Object {
+namespace Ricin.Core {
+  public class GroupchatsList : Object {
 
+  }
 }

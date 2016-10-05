@@ -1,7 +1,10 @@
 using Ricin;
+using Ricin.Core;
 
-public class Ricin.ContactsList : Object {
-  public ContactsList () {
-  
+namespace Ricin.Core {
+  public class ContactsList : Object {
+    public ContactsList () {
+
+    }
   }
 }

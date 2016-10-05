@@ -1,6 +1,6 @@
 using GLib;
 
-namespace Ricin.Constants {
+namespace Ricin.Utils.Constants {
   /**
   * The application name.
   **/
