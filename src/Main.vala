@@ -25,7 +25,7 @@ namespace Ricin {
     private static bool show_version = false;
     private const OptionEntry[] options = {
       { "enable-debug", 'd', 0, OptionArg.NONE, ref debug, "Run Ricin in debug mode." , null },
-      { "profile", 'p', 0, OptionArg.STRING, ref profile, "Profile name|path to load.", "NAME|PATH" },
+      { "profile", 'p', 0, OptionArg.STRING, ref profile, "Profile name OR path to load.", "[name/path]" },
       { "version", 'v', 0, OptionArg.NONE, ref show_version, "Displays the Ricin version.", null },
       { null } // List terminator.
     };
@@ -77,10 +77,10 @@ namespace Ricin {
 
       if (show_version) {
         RInfo ("%s version %s", Constants.APP_NAME, Constants.APP_VERSION);
-        return 1;
+        return 0;
       }
 
-      return 0;
+      return -1;
     }
   }
 }
@@ -91,7 +91,7 @@ namespace Ricin {
 public static int main (string[] args) {
   RicinApp app = new RicinApp ();
   int parse = app.parse_args (args);
-  if (parse != 0) {
+  if (parse != -1) {
     return parse;
   }
   app.run ();
