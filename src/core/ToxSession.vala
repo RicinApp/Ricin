@@ -12,7 +12,7 @@ namespace Ricin.Core {
   **/
   public class ToxSession : Object {
     /**
-    * This property allow us to stop ToxCore internal loop simply. But we'll prefer using this.toxcore_stop().
+    * This property allow us to stop ToxCore internal loop simply. But we'll prefer using this.tox_disconnect ().
     **/
     private bool tox_started { get; private set; default = false; }
 
