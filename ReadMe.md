@@ -9,8 +9,9 @@
 Ricin aims to be a modern way to securly communicate with people that matters in your life.  
 Ricin is using the Tox protocol to perform P2P encrypted instant messaging, file transfers, audio/video calls, etc.
 
-This is a complete rewrite of the current code, which is an evil shit. I hope this time i'll be able to do things right.  
-If you are looking for the current version of Ricin, [here you go](https://github.com/RicinApp/Ricin/tree/master).
+This is a complete rewrite of the current code, which is an evil shit. I hope this time i'll be able to do things right.
+
+##### If you are looking for the current version of Ricin, [here you go](https://github.com/RicinApp/Ricin/tree/master).
 
 # Roadmap
 * Properly abstract things using interfaces ;
