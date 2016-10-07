@@ -5,7 +5,7 @@
 from waflib import Utils
 
 # the following two variables are used by the target "waf dist"
-VERSION = '2.0.0'
+VERSION = '1.2.0'
 APPNAME = 'ricin'
 
 # these variables are mandatory ('/' are converted automatically)
@@ -43,7 +43,7 @@ def configure(conf):
 		'-Wno-unused-variable',
 		'-Wno-unused-but-set-variable',
 		'-Wno-unused-function',
-		'-DGETTEXT_PACKAGE="ricin"',
+		'-DGETTEXT_PACKAGE="ricin-messenger"',
 		'-O3' # Optimizatiooooons!
 	])
 	# Vala compiler flags.
@@ -75,7 +75,6 @@ def build(bld):
 	if bld.env.ENABLE_TEXT_VIEW:
 		pass
 
-	"""
 	# Lang files
 	langs = bld(
 		features     = 'intltool_po',
@@ -84,6 +83,7 @@ def build(bld):
 		install_path = "${LOCALEDIR}"
 	)
 
+	"""
 	# Icon
 	#icon = bld.install_as('${DATADIR}/icons/hicolor/scalable/apps/ricin.svg', 'res/images/icons/ricin.svg')
 	"""

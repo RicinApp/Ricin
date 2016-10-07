@@ -30,12 +30,54 @@ namespace Ricin {
       { null } // List terminator.
     };
 
+    /**
+    * Main app constructor. Init GetText, declare application_id, etc...
+    **/
     public RicinApp () {
-      /**
-      * TODO: Init GetText (i18n).
-      **/
+      //Object (application_id: "im.ricin.messenger", flags: ApplicationFlags.FLAGS_NONE); // TODO: Handle open.
+
+      try {
+        Intl.setlocale (LocaleCategory.MESSAGES, "");
+        Intl.textdomain (Constants.GETTEXT_PACKAGE);
+        Intl.bind_textdomain_codeset (Constants.GETTEXT_PACKAGE, "utf-8");
+        Intl.bindtextdomain (Constants.GETTEXT_PACKAGE, "./data/languages"); // For debug.
+      } catch (Error e) {
+        RError ("Cannot initialize GetText, Ricin will run with default language (C). Error: %s", e.message);
+      }
+
+      RInfo (_("This is a sentence in English."));
     }
 
+    /**
+    * Parse arguments given to the app.
+    * @param {string[]} args - The array of arguments.
+    **/
+    public int parse_args (string[] args) {
+      /**
+      * TODO: Parse arguments and handle them.
+      **/
+      try {
+        var opt_context = new OptionContext ("- Ricin: A dead simple, privacy oriented, instant messaging client!");
+        opt_context.set_help_enabled (true);
+        opt_context.add_main_entries (options, null);
+        opt_context.parse (ref args);
+      } catch (Error e) {
+        RError ("Error: %s", e.message);
+        RInfo ("Run '%s --help' to see a full list of available command line options.", args[0]);
+        return 1;
+      }
+
+      if (show_version) {
+        RInfo ("%s version %s", Constants.APP_NAME, Constants.APP_VERSION);
+        return 0;
+      }
+
+      return -1;
+    }
+
+    /**
+    * This methods permits to run the app.
+    **/
     public void run () {
       RInfo ("Running ToxCore version %u.%u.%u", ToxCore.Version.MAJOR, ToxCore.Version.MINOR, ToxCore.Version.PATCH);
       RInfo ("%s version %s started !", Constants.APP_NAME, Constants.APP_VERSION);
@@ -58,29 +100,6 @@ namespace Ricin {
       /**
       * TODO: Initialize Gtk and launch the application main window.
       **/
-    }
-
-    public int parse_args (string[] args) {
-      /**
-      * TODO: Parse arguments and handle them.
-      **/
-      try {
-        var opt_context = new OptionContext ("- Ricin: A dead simple, privacy oriented, instant messaging client!");
-        opt_context.set_help_enabled (true);
-        opt_context.add_main_entries (options, null);
-        opt_context.parse (ref args);
-      } catch (Error e) {
-        RError ("Error: %s", e.message);
-        RInfo ("Run '%s --help' to see a full list of available command line options.", args[0]);
-        return 1;
-      }
-
-      if (show_version) {
-        RInfo ("%s version %s", Constants.APP_NAME, Constants.APP_VERSION);
-        return 0;
-      }
-
-      return -1;
     }
   }
 }

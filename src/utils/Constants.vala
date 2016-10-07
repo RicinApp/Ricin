@@ -12,6 +12,11 @@ namespace Ricin.Utils.Constants {
   public const string APP_VERSION = "1.2.0";
 
   /**
+  * The application GetText package name.
+  **/
+  public const string GETTEXT_PACKAGE = "ricin-messenger";
+
+  /**
   * Defines the default name a person will have until it choose one.
   **/
   public const string DEFAULT_NAME = "Ricin user";

@@ -176,7 +176,7 @@ namespace Ricin.Core {
       bool json_parsed = false;
 
       try {
-        bytes = resources_lookup_data ("/im/ricin/client/jsons/dht-nodes.json", ResourceLookupFlags.NONE);
+        bytes = resources_lookup_data ("/im/ricin/messenger/jsons/dht-nodes.json", ResourceLookupFlags.NONE);
       } catch (Error e) {
         RError (@"B: Cannot load dht-nodes.json, error: $(e.message)");
         yield;
