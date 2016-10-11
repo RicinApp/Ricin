@@ -52,7 +52,7 @@ namespace Ricin.Core {
     public DateTime received_time { get; private set; }
 
     /**
-    * Signal: Triggered once the message get mark as received by the recipient.
+    * Signal: Triggered once the message get marked as received by the recipient.
     * It is triggered by the read_receipt_callback from toxcore.
     * @param {DateTime} time - The time when the message got received.
     **/
