@@ -19,44 +19,44 @@ namespace Ricin.Core {
     /**
     * The message sender.
     **/
-    public IPerson sender { get; private set; }
+    public abstract IPerson sender { get; private set; }
 
     /**
     * The message recipient.
     **/
-    public IPerson recipient { get; private set; }
+    public abstract IPerson recipient { get; private set; }
 
     /**
     * The message text.
     **/
-    public string text { get; private set; }
+    public abstract string text { get; private set; }
 
     /**
     * The message type.
     **/
-    public MessageKind kind { get; private set; default = MessageKind.Text; }
+    public abstract MessageKind kind { get; private set; default = MessageKind.Text; }
 
     /**
     * Has the message been received ?
     **/
-    public bool received { get; set; default = false; }
+    public abstract bool received { get; set; default = false; }
 
     /**
     * The message sending timestamp.
     **/
-    public DateTime sent_time { get; private set; }
+    public abstract DateTime sent_time { get; private set; }
 
     /**
     * The message receiving timestamp.
     **/
-    public DateTime received_time { get; private set; }
+    public abstract DateTime received_time { get; private set; }
 
     /**
     * Signal: Triggered once the message get marked as received by the recipient.
     * It is triggered by the read_receipt_callback from toxcore.
     * @param {DateTime} time - The time when the message got received.
     **/
-    public signal void received (DateTime time);
+    public abstract signal void received (DateTime time);
 
     /**
     * This virtual allows to get a formated timestamp for the message.
