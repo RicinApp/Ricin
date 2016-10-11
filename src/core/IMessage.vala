@@ -8,7 +8,6 @@ namespace Ricin.Core {
   public enum MessageKind {
     Text, // A normal message
     Action, // An action message: /me
-    Quote, // A quote message: starts by >
     Inline, // An inline media message: images, videos, web infos, music, etc...
     System // A system message: Status changes, key verification, etc...
   }
