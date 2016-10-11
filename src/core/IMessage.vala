@@ -62,6 +62,6 @@ namespace Ricin.Core {
     * This virtual allows to get a formated timestamp for the message.
     * @return {string} - Returns the formated timestamp.
     **/
-    public string get_formated_time ();
+    public virtual string get_formated_time ();
   }
 }
