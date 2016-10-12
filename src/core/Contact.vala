@@ -6,11 +6,6 @@ using Ricin.Utils;
 namespace Ricin.Core {
   public class Contact : IPerson, Object {
     /**
-    * A reference to the ToxCore instance object.
-    **/
-    private weak ToxCore.Tox handle;
-
-    /**
     * The contact number within toxcore internal contacts list.
     **/
     public uint32 contact_number { get; internal set; default = -1; }
@@ -46,8 +41,7 @@ namespace Ricin.Core {
     * @param {uint32} tox_contact_number - The contact number within toxcore internal contacts list.
     * @param {uint8[]} public_key - The contact public key, used to build an Identifier.
     **/
-    public Contact (ref ToxCore.Tox handle, uint32 tox_contact_number, uint8[] public_key) {
-      this.handle = handle;
+    public Contact (uint32 tox_contact_number, uint8[] public_key) {
       this.contact_number = tox_contact_number;
       this.id = new Identifier (Utils.Helpers.bin2hex (public_key));
 

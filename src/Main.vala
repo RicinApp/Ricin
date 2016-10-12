@@ -36,14 +36,10 @@ namespace Ricin {
     public RicinApp () {
       //Object (application_id: "im.ricin.messenger", flags: ApplicationFlags.FLAGS_NONE); // TODO: Handle open.
 
-      try {
-        Intl.setlocale (LocaleCategory.MESSAGES, "");
-        Intl.textdomain (Constants.GETTEXT_PACKAGE);
-        Intl.bind_textdomain_codeset (Constants.GETTEXT_PACKAGE, "utf-8");
-        Intl.bindtextdomain (Constants.GETTEXT_PACKAGE, "./data/languages"); // For debug.
-      } catch (Error e) {
-        RError ("Cannot initialize GetText, Ricin will run with default language (C). Error: %s", e.message);
-      }
+      Intl.setlocale (LocaleCategory.MESSAGES, "");
+      Intl.textdomain (Constants.GETTEXT_PACKAGE);
+      Intl.bind_textdomain_codeset (Constants.GETTEXT_PACKAGE, "utf-8");
+      Intl.bindtextdomain (Constants.GETTEXT_PACKAGE, "./data/languages"); // For debug.
 
       RInfo (_("This is a sentence in English."));
     }

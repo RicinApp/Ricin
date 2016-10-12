@@ -8,11 +8,6 @@ using Ricin.Core;
 namespace Ricin.Core {
   public class Profile : IPerson, Object {
     /**
-    * A reference to the ToxCore instance object.
-    **/
-    private weak ToxCore.Tox handle;
-
-    /**
     * The profile tox data.
     **/
     public uint8[] savedata { get; internal set; }
@@ -37,9 +32,9 @@ namespace Ricin.Core {
     **/
     public string name {
       owned get {
-        size_t buffer_size = this.handle.self_get_name_size ();
+        size_t buffer_size = ToxSession.handle.self_get_name_size ();
         uint8[] buffer = new uint8[buffer_size];
-        this.handle.self_get_name (buffer);
+        ToxSession.handle.self_get_name (buffer);
 
         string _name = Utils.Helpers.arr2str (buffer);
         if (_name == "") {
@@ -49,7 +44,7 @@ namespace Ricin.Core {
         }
       }
       set {
-        this.handle.self_set_name (value.data, null);
+        ToxSession.handle.self_set_name (value.data, null);
 
         try {
           this.save_data (); // Let's save once name changes.
@@ -64,9 +59,9 @@ namespace Ricin.Core {
     **/
     public string status_message {
       owned get {
-        size_t buffer_size = this.handle.self_get_status_message_size ();
+        size_t buffer_size = ToxSession.handle.self_get_status_message_size ();
         uint8[] buffer = new uint8[buffer_size];
-        this.handle.self_get_status_message (buffer);
+        ToxSession.handle.self_get_status_message (buffer);
 
         string _status_message = Utils.Helpers.arr2str (buffer);
         if (_status_message == "") {
@@ -76,7 +71,7 @@ namespace Ricin.Core {
         }
       }
       set {
-        this.handle.self_set_status_message (value.data, null);
+        ToxSession.handle.self_set_status_message (value.data, null);
 
         try {
           this.save_data (); // Let's save once status message changes.
@@ -112,8 +107,7 @@ namespace Ricin.Core {
     * @param {string} path - The profile path.
     * @param {string?} password - The profile path if any, can be null for not-protected profiles.
     **/
-    public Profile (ToxCore.Tox handle, string path, string? password = null) {
-      this.handle = handle;
+    public Profile (string path, string? password = null) {
       this.path = path;
       this.password = password;
 
@@ -166,6 +160,11 @@ namespace Ricin.Core {
     * This method permits to load the profile data into this class.
     **/
     public void load_data () throws ErrDecrypt {
+      if (this.path == null) {
+        RError ("Cannot load a profile that doesn't have a path.");
+        return;
+      }
+
       try {
         if (FileUtils.test (this.path, FileTest.EXISTS)) {
           uint8[] buffer = null;
@@ -216,10 +215,15 @@ namespace Ricin.Core {
     * This method permits to save the profile data from this class to the .tox save.
     **/
     public void save_data () throws ErrDecrypt {
+      if (this.path == null) {
+        RError ("Cannot save a profile that doesn't have a path.");
+        return;
+      }
+
       RInfo (@"P: Saving profile to Tox save for $(this.name) profile.");
-      uint32 data_size = this.handle.get_savedata_size ();
+      uint32 data_size = ToxSession.handle.get_savedata_size ();
       uint8[] buffer = new uint8[data_size];
-      this.handle.get_savedata (buffer);
+      ToxSession.handle.get_savedata (buffer);
 
       try {
         if (FileUtils.test (this.path, FileTest.EXISTS)) {
@@ -227,7 +231,7 @@ namespace Ricin.Core {
             ERR_ENCRYPTION error;
             uint8[] password = this.password.data;
 
-            this.handle.get_savedata (buffer);
+            ToxSession.handle.get_savedata (buffer);
 
             uint32 savedata_size = buffer.length + ToxEncrypt.PASS_ENCRYPTION_EXTRA_LENGTH;
             uint8[] encrypted_buffer = new uint8[savedata_size];
