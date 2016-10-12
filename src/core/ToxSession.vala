@@ -107,6 +107,12 @@ namespace Ricin.Core {
         this.tox_options = opts;
       }
 
+      // If profile is not null and loaded, let's link it to the Tox handle.
+      if (this.current_profile != null && this.current_profile.loaded) {
+        this.tox_options.savedata_type = SaveDataType.TOX_SAVE;
+        this.tox_options.savedata_data = this.current_profile.savedata;
+      }
+
       ERR_NEW error;
       this.tox_handle = new ToxCore.Tox (this.tox_options, out error);
 
@@ -148,19 +154,14 @@ namespace Ricin.Core {
     * This methods initialize all the tox callbacks and "connect" them to this class signals.
     **/
     private void init_signals () {
-      this.tox_handle.callback_self_connection_status ((handle, status) => {
-        if (status != ConnectionStatus.NONE) {
-          this.tox_connected = true;
-          RInfo ("Connected to the Tox network.");
-        } else {
-          this.tox_connected = false;
-          RInfo ("Disconnected from the Tox network.");
-        }
-
-        this.tox_connection (this.tox_connected);
-      });
-
+      this.tox_handle.callback_self_connection_status (this.on_self_connection_status);
       this.tox_handle.callback_friend_request (this.on_friend_request);
+      this.tox_handle.callback_friend_name (this.on_friend_name);
+      this.tox_handle.callback_friend_status_message (this.on_friend_status_message);
+      this.tox_handle.callback_friend_connection_status (this.on_friend_presence);
+      this.tox_handle.callback_friend_typing (this.on_friend_typing);
+      this.tox_handle.callback_friend_read_receipt (this.on_friend_read_receipt);
+      this.tox_handle.callback_friend_message (this.on_friend_message);
     }
 
     /**
@@ -306,6 +307,21 @@ namespace Ricin.Core {
     }
 
     /**
+    * Self connection status callback handler.
+    **/
+    private void on_self_connection_status (Tox handle, ConnectionStatus status) {
+      if (status != ConnectionStatus.NONE) {
+        this.tox_connected = true;
+        RInfo ("Connected to the Tox network.");
+      } else {
+        this.tox_connected = false;
+        RInfo ("Disconnected from the Tox network.");
+      }
+
+      this.tox_connection (this.tox_connected);
+    }
+
+    /**
     * Friend request callback handler.
     **/
     private void on_friend_request (Tox handle, uint8[] public_key, uint8[] message) {
@@ -348,6 +364,56 @@ namespace Ricin.Core {
       /**
       * TODO: Handle errors.
       **/
+    }
+
+    /**
+    * Friend name callback handler.
+    **/
+    private void on_friend_name (Tox handle, uint32 friend_number, uint8[] name) {
+      RDebug ("Friend %d name changed to %s", friend_number, name);
+    }
+
+    /**
+    * Friend status message callback handler.
+    **/
+    private void on_friend_status_message (Tox handle, uint32 friend_number, uint8[] message) {
+      RDebug ("Friend %d status message changed to %s", friend_number, (string) message);
+    }
+
+    /**
+    * Friend presence callback handler.
+    **/
+    private void on_friend_presence (Tox handle, uint32 friend_number, ConnectionStatus connection_status) {
+      RDebug ("Friend %d presence changed to %s", friend_number, connection_status.to_string ());
+    }
+
+    /**
+    * Friend typing callback handler.
+    **/
+    private void on_friend_typing (Tox handle, uint32 friend_number, bool is_typing) {
+      if (is_typing) {
+        RDebug ("Friend %d is typing", friend_number);
+      } else {
+        RDebug ("Friend %d is not typing", friend_number);
+      }
+    }
+
+    /**
+    * Friend read receipt callback handler.
+    **/
+    private void on_friend_read_receipt (Tox handle, uint32 friend_number, uint32 message_id) {
+      RDebug ("Friend %d marked message %d as read/received", friend_number, message_id);
+    }
+
+    /**
+    * Friend message callback handler.
+    **/
+    private void on_friend_message (Tox handle, uint32 friend_number, MessageType type, uint8[] message) {
+      if (type == MessageType.NORMAL) {
+        RDebug ("Friend %d sent you a message: %s", friend_number, (string) message);
+      } else if (type == MessageType.ACTION) {
+        RDebug ("Friend %d sent you an action: %s", friend_number, (string) message);
+      }
     }
   }
 }

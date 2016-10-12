@@ -94,6 +94,13 @@ namespace Ricin {
         return;
       }
 
+      /**
+      * Temp code to auto-accept friend requests.
+      **/
+      this.handle.contact_request.connect ((request) => {
+        request.accept ();
+      });
+
       this.handle.tox_run_loop (); // Run toxcore instance.
       this.loop.run (); // Run the main loop.
 

@@ -15,7 +15,7 @@ namespace Ricin.Core {
     /**
     * The profile tox data.
     **/
-    private uint8[] savedata { get; internal set; }
+    public uint8[] savedata { get; internal set; }
 
     /**
     * Is the profile an encrypted profile ?

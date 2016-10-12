@@ -54,7 +54,7 @@ namespace Ricin.Core {
     **/
     public virtual void reject () {
       RequestState old_state = this.state;
-      this.state = RequestState.ACCEPTED;
+      this.state = RequestState.REJECTED;
       this.state_changed (old_state, this.state);
     }
   }

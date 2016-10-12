@@ -37,9 +37,9 @@ namespace Ricin.Core {
     public abstract MessageKind kind { get; private set; default = MessageKind.Text; }
 
     /**
-    * Has the message been received ?
+    * Has the message been read/received ?
     **/
-    public abstract bool received { get; set; default = false; }
+    public abstract bool readed { get; set; default = false; }
 
     /**
     * The message sending timestamp.
@@ -62,6 +62,6 @@ namespace Ricin.Core {
     * This virtual allows to get a formated timestamp for the message.
     * @return {string} - Returns the formated timestamp.
     **/
-    public virtual string get_formated_time ();
+    public abstract string get_formated_time ();
   }
 }
