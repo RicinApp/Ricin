@@ -151,6 +151,44 @@ namespace Ricin.Core {
     }
 
     /**
+    * This methods allow to kill the ToxCore instance properly.
+    **/
+    public void tox_disconnect () {
+      this.tox_started = false;
+
+      this.tox_handle.kill ();
+      this.tox_connection (false); // Tox connection stopped, inform the signal.
+    }
+
+    /**
+    * Method to call in order to start toxcore execution loop.
+    **/
+    public void tox_run_loop () {
+      this.tox_started = true;
+      this.tox_schedule_loop_iteration ();
+    }
+
+    /**
+    * Temp function to send a message to a friend.
+    * @param {uint32} friend_number - The friend number.
+    * @param {uint8[]} message - An array of uint8 that contains the message.
+    **/
+    public void send_message (uint32 friend_number, uint8[] message) {
+      RDebug ("Sent message to friend %d: %s", friend_number, (string) message);
+      this.tox_handle.friend_send_message (friend_number, MessageType.NORMAL, message, null);
+    }
+
+    /**
+    * Temp function to send an action to a friend.
+    * @param {uint32} friend_number - The friend number.
+    * @param {uint8[]} action - An array of uint8 that contains the action.
+    **/
+    public void send_action (uint32 friend_number, uint8[] action) {
+      RDebug ("Sent action to friend %d: %s", friend_number, (string) action);
+      this.tox_handle.friend_send_message (friend_number, MessageType.ACTION, action, null);
+    }
+
+    /**
     * This methods initialize all the tox callbacks and "connect" them to this class signals.
     **/
     private void init_signals () {
@@ -274,24 +312,6 @@ namespace Ricin.Core {
     }
 
     /**
-    * This methods allow to kill the ToxCore instance properly.
-    **/
-    private void tox_disconnect () {
-      this.tox_started = false;
-
-      this.tox_handle.kill ();
-      this.tox_connection (false); // Tox connection stopped, inform the signal.
-    }
-
-    /**
-    * Method to call in order to start toxcore execution loop.
-    **/
-    public void tox_run_loop () {
-      this.tox_started = true;
-      this.tox_schedule_loop_iteration ();
-    }
-
-    /**
     * Iteration loop used to maintain the toxcore instance updated.
     **/
     private void tox_schedule_loop_iteration () {
@@ -329,7 +349,7 @@ namespace Ricin.Core {
 
       string request_pubkey  = Utils.Helpers.bin2hex (public_key);
       string request_message = (string) message;
-      RInfo ("Friend request received:\n-- %s\n-- %s", request_pubkey, request_message);
+      RDebug ("Friend request received:\n-- %s\n-- %s", request_pubkey, request_message);
 
       ContactRequest request = new ContactRequest (request_pubkey, request_message);
       request.state_changed.connect ((old_state, state) => {
@@ -411,8 +431,10 @@ namespace Ricin.Core {
     private void on_friend_message (Tox handle, uint32 friend_number, MessageType type, uint8[] message) {
       if (type == MessageType.NORMAL) {
         RDebug ("Friend %d sent you a message: %s", friend_number, (string) message);
+        this.send_message (friend_number, message);
       } else if (type == MessageType.ACTION) {
         RDebug ("Friend %d sent you an action: %s", friend_number, (string) message);
+        this.send_action (friend_number, message);
       }
     }
   }
