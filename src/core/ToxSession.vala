@@ -151,13 +151,10 @@ namespace Ricin.Core {
           throw new ErrNew.LoadFailed ("The data format was invalid. This can happen when loading data that was saved by an older version of Tox, or when the data has been corrupted. When loading from badly formatted data, some data may have been loaded, and the rest is discarded. Passing an invalid length parameter also causes this error.");
       }
 
-      // We get a reference of the handle, to avoid ddosing ourselves with a big contacts list.
-      // unowned ToxCore.Tox handle = ToxSession.handle;
-
       // Let's display our ToxID, temporarily.
       uint8[] toxid = new uint8[ToxCore.ADDRESS_SIZE];
       ToxSession.handle.self_get_address (toxid);
-      RInfo ("ToxID: %s", Utils.Helpers.bin2hex (toxid));
+      RDebug ("ToxID: %s", Utils.Helpers.bin2hex (toxid));
 
       // Now bootstrap and init signals.
       this.tox_bootstrap_nodes.begin ();

@@ -75,8 +75,8 @@ namespace Ricin {
     * This methods permits to run the app.
     **/
     public void run () {
-      RInfo ("Running ToxCore version %u.%u.%u", ToxCore.Version.MAJOR, ToxCore.Version.MINOR, ToxCore.Version.PATCH);
       RInfo ("%s version %s started !", Constants.APP_NAME, Constants.APP_VERSION);
+      RInfo ("Running ToxCore version %u.%u.%u", ToxCore.Version.MAJOR, ToxCore.Version.MINOR, ToxCore.Version.PATCH);
 
       try {
         Options options = new Options (null);
