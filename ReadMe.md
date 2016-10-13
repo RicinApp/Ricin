@@ -26,7 +26,7 @@ This is a complete rewrite of the current code, which is an evil shit. I hope th
 
 # Compile the beast!
 In order to compile Ricin you'll need some dependencies, instead of loosing time to maintain a list here,
-I'll thanks you to read the [wscript](wscript#L25) file that currently takes care of dependencies hell.
+I'll thanks you to read the [wscript](wscript#L25-L37) file that currently takes care of dependencies hell.
 
 Once you have all the dependencies (at least the one marked as mandatory), you should be able to build
 Ricin using the following commands under linux/bsd (i'll provide OSX/Windoesn't commands later):
