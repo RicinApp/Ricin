@@ -24,6 +24,21 @@ This is a complete rewrite of the current code, which is an evil shit. I hope th
 * Setup an OBS repository and make a `.spec` file to have Ricin packaged everywhere ;
 * Dominate the world!
 
+# Compile the beast!
+In order to compile Ricin you'll need some dependencies, instead of loosing time to maintain a list here,
+I'll thanks you to read the [wscript](wscript#L25) file that currently takes care of dependencies hell.
+
+Once you have all the dependencies (at least the one marked as mandatory), you should be able to build
+Ricin using the following commands under linux/bsd (i'll provide OSX/Windoesn't commands later):
+
+```bash
+# Ensure you are in the correct directory (the one you just cloned) then:
+./waf configure build
+
+# Now run it!
+./build/ricin --version
+```
+
 # Donations
 Rewriting my client with a top-notch code will be long and hard, but I know I can do it.  
 Anyway, hope is not a way to live and I need to stay on my computer for writing code, so I can't work on anything else,
