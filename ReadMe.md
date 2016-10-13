@@ -6,7 +6,7 @@
 [![Codecov rewrite-clean](https://img.shields.io/codecov/c/github/RicinApp/Ricin/rewrite-clean.svg?style=flat)](https://codecov.io/github/RicinApp/Ricin)
 [![TravisCI](https://img.shields.io/travis/RicinApp/Ricin/rewrite-clean.svg?style=flat)](https://travis-ci.org/RicinApp/Ricin)
 
-Ricin aims to be a modern way to securly communicate with people that matter to you in your life.  
+Ricin aims to be a modern way to securely communicate with people that matter to you in your life.  
 Ricin is using the Tox protocol to perform P2P encrypted instant messaging, file transfers, audio/video calls, etc.
 
 This is a complete rewrite of the current codebase, which is an evil shit. I hope this time I'll be able to do things right.
