@@ -92,6 +92,11 @@ namespace Ricin {
           this.handle = new ToxSession (p, options);
         } else {
           RDebug ("Started Tox instance without specified profile");
+
+          /**
+          * TODO: Load the profile chooser GUI instead of launching a ToxSession.
+          **/
+
           this.handle = new ToxSession (null, options);
         }
       } catch (ErrNew e) {
