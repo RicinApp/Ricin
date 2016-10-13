@@ -14,7 +14,7 @@ This is a complete rewrite of the current codebase, which is an evil shit. I hop
 
 **Ricin is currently in a stage where the actual working version (`master` branch) is deprecated.
 I won't provide support for it anymore. Development now takes place on `rewrite-clean` branch.  
-If you are looking for the current version of Ricin, [here you go](https://github.com/RicinApp/Ricin/tree/master).**
+If you are looking for the current version of Ricin, [\[deprecated\] here you go ](https://github.com/RicinApp/Ricin/tree/master).**
 
 # Roadmap
 * Properly abstract things using interfaces ;
