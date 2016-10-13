@@ -11,7 +11,10 @@ Ricin is using the Tox protocol to perform P2P encrypted instant messaging, file
 
 This is a complete rewrite of the current code, which is an evil shit. I hope this time i'll be able to do things right.
 
-##### If you are looking for the current version of Ricin, [here you go](https://github.com/RicinApp/Ricin/tree/master).
+
+**Ricin is currently in a stage where the actual working version (`master` branch) is deprecated.
+I won't provide support for it anymore. Development now takes place on `rewrite-clean` branch.  
+If you are looking for the current version of Ricin, [here you go](https://github.com/RicinApp/Ricin/tree/master).**
 
 # Roadmap
 * Properly abstract things using interfaces ;
