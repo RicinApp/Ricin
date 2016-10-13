@@ -6,10 +6,10 @@
 [![Codecov rewrite-clean](https://img.shields.io/codecov/c/github/RicinApp/Ricin/rewrite-clean.svg?style=flat)](https://codecov.io/github/RicinApp/Ricin)
 [![TravisCI](https://img.shields.io/travis/RicinApp/Ricin/rewrite-clean.svg?style=flat)](https://travis-ci.org/RicinApp/Ricin)
 
-Ricin aims to be a modern way to securly communicate with people that matters in your life.  
+Ricin aims to be a modern way to securly communicate with people that matter to you in your life.  
 Ricin is using the Tox protocol to perform P2P encrypted instant messaging, file transfers, audio/video calls, etc.
 
-This is a complete rewrite of the current code, which is an evil shit. I hope this time i'll be able to do things right.
+This is a complete rewrite of the current codebase, which is an evil shit. I hope this time I'll be able to do things right.
 
 ##### If you are looking for the current version of Ricin, [here you go](https://github.com/RicinApp/Ricin/tree/master).
 
@@ -25,11 +25,11 @@ This is a complete rewrite of the current code, which is an evil shit. I hope th
 * Dominate the world!
 
 # Compile the beast!
-In order to compile Ricin you'll need some dependencies, instead of loosing time to maintain a list here,
-I'll thanks you to read the [wscript](wscript#L25-L37) file that currently takes care of dependencies hell.
+In order to compile Ricin you'll need some dependencies. Instead of loosing time to maintain a list here,
+you can check out the [wscript](wscript#L25-L37) file that currently takes care of dependencies hell.
 
 Once you have all the dependencies (at least the one marked as mandatory), you should be able to build
-Ricin using the following commands under linux/bsd (i'll provide OSX/Windoesn't commands later):
+Ricin using the following commands under linux/bsd (I'll provide OSX/Windoesn't commands later):
 
 ```bash
 # Ensure you are in the correct directory (the one you just cloned) then:
@@ -47,12 +47,12 @@ while rewriting Ricin.
 That's why I wrote this statement, donations are not always about money, you can also donate me some love, feedbacks,
 report the bugs you've seen, contribute to the code, pay me a bear (wuups, a beer, eheh).
 
-Of course if you really wish to give me some money for that work, i won't reject it. But before donating money, ask
-yourself "Do he really merits that money? Do I believe in privacy enough to give some cents to this crazy guy?". If you
+Of course if you really wish to give me some money for that work, I won't reject it. But before donating money, ask
+yourself "Does he really merit that money? Do I believe in privacy enough to give some cents to this crazy guy?". If you
 can answer both by **yes**, then here are how you can make a donation:
 
 ###### Bitcoin
-Yep, Bitcoin is my favourite way of handling donations. Why? Cuz their is no fees, no central authority, no bullshit taxes.
+Yep, Bitcoin is my favourite way of handling donations. Why? Cuz there are no fees, no central authority, no bullshit taxes.
 
 * Here's my Bitcoin donation address: **16NAwHmK9HwqJzgbpsNgjpsHE18Z8rvFsv**
 
