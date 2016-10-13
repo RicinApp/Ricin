@@ -20,7 +20,7 @@ This is a complete rewrite of the current codebase, which is an evil shit. I hop
 * Setup a clean build system and integrations (CI, Code coverage, tests) ;
 * Write tests to ensure everything works properly ;
 * Once all these steps are done correctly, start working on the GUI ;
-* Connect the GUI signals to the proper methods/signals ;
+* Connect ricin-core's signals to the UI and connect the UI events to ricin-core methods ;
 * Setup an OBS repository and make a `.spec` file to have Ricin packaged everywhere ;
 * Dominate the world!
 
