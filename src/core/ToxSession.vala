@@ -29,21 +29,7 @@ namespace Ricin.Core {
     /**
     * This defines the Tox instance from libtoxcore.vapi
     **/
-    private static ToxCore.Tox tox_handle;
-
-    /**
-    * Static instance of the Tox handle.
-    **/
-    public static unowned ToxCore.Tox handle {
-      get {
-        if (tox_handle == null) {
-          Options opts = ToxOptions.create ();
-          tox_handle = new Tox (opts, null);
-        }
-        return tox_handle;
-      }
-      private set {}
-    }
+    internal ToxCore.Tox tox_handle;
 
     /**
     * This aims to "cache" the options for the duration of the toxcore execution.
@@ -113,10 +99,13 @@ namespace Ricin.Core {
     **/
     public ToxSession (Profile? profile, Options? options) throws ErrNew {
       this.current_profile = profile;
-      this.tox_options = options;
+      if (this.current_profile == null) {
+        this.current_profile = new Profile (null, null);
+      }
+      this.current_profile.handle = this.tox_handle; // Let's pass our tox handle to the profile.
 
-      // If options is null, let's use default values.
-      if (this.tox_options == null) {
+      this.tox_options = options;
+      if (this.tox_options == null) { // If options is null, let's use default values.
         Options opts = ToxOptions.create ();
         this.tox_options = opts;
       }
@@ -128,7 +117,7 @@ namespace Ricin.Core {
       }
 
       ERR_NEW error;
-      ToxSession.handle = new ToxCore.Tox (this.tox_options, out error);
+      this.tox_handle = new ToxCore.Tox (this.tox_options, out error);
 
       switch (error) {
         case ERR_NEW.NULL:
@@ -153,7 +142,7 @@ namespace Ricin.Core {
 
       // Let's display our ToxID, temporarily.
       uint8[] toxid = new uint8[ToxCore.ADDRESS_SIZE];
-      ToxSession.handle.self_get_address (toxid);
+      this.tox_handle.self_get_address (toxid);
       RDebug ("ToxID: %s", Utils.Helpers.bin2hex (toxid));
 
       // Now bootstrap and init signals.
@@ -167,7 +156,7 @@ namespace Ricin.Core {
     public void tox_disconnect () {
       this.tox_started = false;
 
-      ToxSession.handle.kill ();
+      this.tox_handle.kill ();
       this.tox_connection (false); // Tox connection stopped, inform the signal.
     }
 
@@ -186,7 +175,7 @@ namespace Ricin.Core {
     **/
     public void send_message (uint32 friend_number, uint8[] message) {
       RDebug ("Sent message to friend %d: %s", friend_number, (string) message);
-      ToxSession.handle.friend_send_message (friend_number, MessageType.NORMAL, message, null);
+      this.tox_handle.friend_send_message (friend_number, MessageType.NORMAL, message, null);
     }
 
     /**
@@ -196,21 +185,21 @@ namespace Ricin.Core {
     **/
     public void send_action (uint32 friend_number, uint8[] action) {
       RDebug ("Sent action to friend %d: %s", friend_number, (string) action);
-      ToxSession.handle.friend_send_message (friend_number, MessageType.ACTION, action, null);
+      this.tox_handle.friend_send_message (friend_number, MessageType.ACTION, action, null);
     }
 
     /**
     * This methods initialize all the tox callbacks and "connect" them to this class signals.
     **/
     private void init_signals () {
-      ToxSession.handle.callback_self_connection_status (this.on_self_connection_status);
-      ToxSession.handle.callback_friend_request (this.on_friend_request);
-      ToxSession.handle.callback_friend_name (this.on_friend_name);
-      ToxSession.handle.callback_friend_status_message (this.on_friend_status_message);
-      ToxSession.handle.callback_friend_connection_status (this.on_friend_presence);
-      ToxSession.handle.callback_friend_typing (this.on_friend_typing);
-      ToxSession.handle.callback_friend_read_receipt (this.on_friend_read_receipt);
-      ToxSession.handle.callback_friend_message (this.on_friend_message);
+      this.tox_handle.callback_self_connection_status (this.on_self_connection_status);
+      this.tox_handle.callback_friend_request (this.on_friend_request);
+      this.tox_handle.callback_friend_name (this.on_friend_name);
+      this.tox_handle.callback_friend_status_message (this.on_friend_status_message);
+      this.tox_handle.callback_friend_connection_status (this.on_friend_presence);
+      this.tox_handle.callback_friend_typing (this.on_friend_typing);
+      this.tox_handle.callback_friend_read_receipt (this.on_friend_read_receipt);
+      this.tox_handle.callback_friend_message (this.on_friend_message);
     }
 
     /**
@@ -266,7 +255,7 @@ namespace Ricin.Core {
             // First we try UDP IPv6, if available for this node.
             if (!success && try_ipv6) {
               RDebug ("B: UDP IPv6 bootstrap %s:%d by %s", rnd_node.ipv6, (int) rnd_node.port, rnd_node.owner);
-              success = ToxSession.handle.bootstrap (
+              success = this.tox_handle.bootstrap (
                 rnd_node.ipv6,
                 (uint16) rnd_node.port,
                 Utils.Helpers.hex2bin (rnd_node.pubkey),
@@ -277,7 +266,7 @@ namespace Ricin.Core {
             // Then, if bootstrap didn't worked in UDP IPv6, we use UDP IPv4.
             if (!success) {
               RDebug ("B: UDP IPv4 bootstrap %s:%d by %s", rnd_node.ipv4, (int) rnd_node.port, rnd_node.owner);
-              success = ToxSession.handle.bootstrap (
+              success = this.tox_handle.bootstrap (
                 rnd_node.ipv4,
                 (uint16) rnd_node.port,
                 Utils.Helpers.hex2bin (rnd_node.pubkey),
@@ -288,7 +277,7 @@ namespace Ricin.Core {
             // If UDP didn't worked, let's do the same but with TCP IPv6.
             if (!success && try_ipv6) {
               RDebug ("B: TCP IPv6 bootstrap %s:%d by %s", rnd_node.ipv6, (int) rnd_node.port, rnd_node.owner);
-              success = ToxSession.handle.add_tcp_relay (
+              success = this.tox_handle.add_tcp_relay (
                 rnd_node.ipv6,
                 (uint16) rnd_node.port,
                 Utils.Helpers.hex2bin (rnd_node.pubkey),
@@ -299,7 +288,7 @@ namespace Ricin.Core {
             // Then, if bootstrap didn't worked in TCP IPv6, we use TCP IPv4.
             if (!success) {
               RDebug ("B: TCP IPv4 bootstrap %s:%d by %s", rnd_node.ipv4, (int) rnd_node.port, rnd_node.owner);
-              success = ToxSession.handle.add_tcp_relay (
+              success = this.tox_handle.add_tcp_relay (
                 rnd_node.ipv4,
                 (uint16) rnd_node.port,
                 Utils.Helpers.hex2bin (rnd_node.pubkey),
@@ -326,12 +315,12 @@ namespace Ricin.Core {
     * Iteration loop used to maintain the toxcore instance updated.
     **/
     private void tox_schedule_loop_iteration () {
-      Timeout.add (ToxSession.handle.iteration_interval (), () => {
+      Timeout.add (this.tox_handle.iteration_interval (), () => {
         if (this.tox_started == false) { // Let's stop the iteration if this var is set to true.
           return true;
         }
 
-        ToxSession.handle.iterate ();
+        this.tox_handle.iterate ();
         this.tox_schedule_loop_iteration ();
         return false;
       });
@@ -365,7 +354,7 @@ namespace Ricin.Core {
       ContactRequest request = new ContactRequest (request_pubkey, request_message);
       request.state_changed.connect ((old_state, state) => {
         if (state == RequestState.ACCEPTED) {
-          uint32 tox_contact_number = ToxSession.handle.friend_add_norequest (public_key, null);
+          uint32 tox_contact_number = this.tox_handle.friend_add_norequest (public_key, null);
 
           try {
             this.current_profile.save_data ();

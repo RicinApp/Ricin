@@ -43,7 +43,7 @@ namespace Ricin.Utils.Logger {
         case NORMAL: return "\x1B[0m";
         case GREEN: return "\x1B[32m\x1B[1m";
         case BLUE: return "\x1B[34m\x1B[1m";
-        case ORANGE: return "";
+        case ORANGE: return "\x1B[33m\x1B[1m";
         case RED: return "\x1B[31m\x1B[1m";
         default: return LogColor.NORMAL.to_string ();
       }

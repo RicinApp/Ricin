@@ -41,7 +41,7 @@ namespace Ricin {
       Intl.bind_textdomain_codeset (Constants.GETTEXT_PACKAGE, "utf-8");
       Intl.bindtextdomain (Constants.GETTEXT_PACKAGE, "./data/languages"); // For debug.
 
-      RInfo (_("This is a sentence in English."));
+      RDebug ("GetText test: %s", _("This is a sentence in English."));
     }
 
     /**
@@ -78,13 +78,22 @@ namespace Ricin {
       RInfo ("%s version %s started !", Constants.APP_NAME, Constants.APP_VERSION);
       RInfo ("Running ToxCore version %u.%u.%u", ToxCore.Version.MAJOR, ToxCore.Version.MINOR, ToxCore.Version.PATCH);
 
-      try {
-        Options options = new Options (null);
-        options.ipv6_enabled = true;
-        options.udp_enabled = true;
-        options.proxy_type = ProxyType.NONE;
+      Options options = new Options (null);
+      options.ipv6_enabled = true;
+      options.udp_enabled = true;
+      options.proxy_type = ProxyType.NONE;
 
-        this.handle = new ToxSession (null, options);
+      try {
+        if (profile != null) {
+          string profile_name = (profile.has_suffix (".tox")) ? profile : profile + ".tox";
+          string profile_path = Path.build_path (Path.DIR_SEPARATOR_S, Environment.get_user_config_dir (), "tox", profile_name);
+          Profile p = new Profile (profile_path, null);
+          RDebug ("Loading profile for path: %s", profile_path);
+          this.handle = new ToxSession (p, options);
+        } else {
+          RDebug ("Started Tox instance without specified profile");
+          this.handle = new ToxSession (null, options);
+        }
       } catch (ErrNew e) {
         RError (@"Ricin wasn't able to start a new ToxSession, error: $(e.message)");
         return;

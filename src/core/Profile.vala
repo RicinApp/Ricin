@@ -32,9 +32,9 @@ namespace Ricin.Core {
     **/
     public string name {
       owned get {
-        size_t buffer_size = ToxSession.handle.self_get_name_size ();
+        size_t buffer_size = this.handle.self_get_name_size ();
         uint8[] buffer = new uint8[buffer_size];
-        ToxSession.handle.self_get_name (buffer);
+        this.handle.self_get_name (buffer);
 
         string _name = Utils.Helpers.arr2str (buffer);
         if (_name == "") {
@@ -44,7 +44,7 @@ namespace Ricin.Core {
         }
       }
       set {
-        ToxSession.handle.self_set_name (value.data, null);
+        this.handle.self_set_name (value.data, null);
 
         try {
           this.save_data (); // Let's save once name changes.
@@ -59,9 +59,9 @@ namespace Ricin.Core {
     **/
     public string status_message {
       owned get {
-        size_t buffer_size = ToxSession.handle.self_get_status_message_size ();
+        size_t buffer_size = this.handle.self_get_status_message_size ();
         uint8[] buffer = new uint8[buffer_size];
-        ToxSession.handle.self_get_status_message (buffer);
+        this.handle.self_get_status_message (buffer);
 
         string _status_message = Utils.Helpers.arr2str (buffer);
         if (_status_message == "") {
@@ -71,7 +71,7 @@ namespace Ricin.Core {
         }
       }
       set {
-        ToxSession.handle.self_set_status_message (value.data, null);
+        this.handle.self_set_status_message (value.data, null);
 
         try {
           this.save_data (); // Let's save once status message changes.
@@ -97,6 +97,11 @@ namespace Ricin.Core {
     public bool loaded { get; internal set; default = false; }
 
     /**
+    * The Tox handle reference.
+    **/
+    public weak ToxCore.Tox handle { get; set; default = null; }
+
+    /**
     * The profile password, private and only used to encrypt the profile when it needs to be written on the disk.
     **/
     private string? password { get; set; default = null; }
@@ -107,7 +112,7 @@ namespace Ricin.Core {
     * @param {string} path - The profile path.
     * @param {string?} password - The profile path if any, can be null for not-protected profiles.
     **/
-    public Profile (string path, string? password = null) {
+    public Profile (string? path, string? password = null) {
       this.path = path;
       this.password = password;
 
@@ -161,7 +166,7 @@ namespace Ricin.Core {
     **/
     public void load_data () throws ErrDecrypt {
       if (this.path == null) {
-        RError ("Cannot load a profile that doesn't have a path.");
+        RWarn ("Cannot load a profile that doesn't have a path.");
         return;
       }
 
@@ -216,14 +221,14 @@ namespace Ricin.Core {
     **/
     public void save_data () throws ErrDecrypt {
       if (this.path == null) {
-        RError ("Cannot save a profile that doesn't have a path.");
+        RWarn ("Cannot save a profile that doesn't have a path.");
         return;
       }
 
       RInfo (@"P: Saving profile to Tox save for $(this.name) profile.");
-      uint32 data_size = ToxSession.handle.get_savedata_size ();
+      uint32 data_size = this.handle.get_savedata_size ();
       uint8[] buffer = new uint8[data_size];
-      ToxSession.handle.get_savedata (buffer);
+      this.handle.get_savedata (buffer);
 
       try {
         if (FileUtils.test (this.path, FileTest.EXISTS)) {
@@ -231,7 +236,7 @@ namespace Ricin.Core {
             ERR_ENCRYPTION error;
             uint8[] password = this.password.data;
 
-            ToxSession.handle.get_savedata (buffer);
+            this.handle.get_savedata (buffer);
 
             uint32 savedata_size = buffer.length + ToxEncrypt.PASS_ENCRYPTION_EXTRA_LENGTH;
             uint8[] encrypted_buffer = new uint8[savedata_size];

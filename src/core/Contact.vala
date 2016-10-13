@@ -36,6 +36,11 @@ namespace Ricin.Core {
     public Pixbuf? avatar { get; set; default = null; }
 
     /**
+    * The Tox handle reference.
+    **/
+    private weak ToxCore.Tox handle { get; set; default = null; }
+
+    /**
     * This constructor allows to create a new contact.
     * @param {ToxCore.Tox} handle - A reference to the ToxCore instance object.
     * @param {uint32} tox_contact_number - The contact number within toxcore internal contacts list.
