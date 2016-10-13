@@ -48,7 +48,7 @@ That's why I wrote this statement, donations are not always about money, you can
 report the bugs you've seen, contribute to the code, pay me a bear (wuups, a beer, eheh).
 
 Of course if you really wish to give me some money for that work, I won't reject it. But before donating money, ask
-yourself "Dos he really merit that money? Do I believe in privacy enough to give some cents to this crazy guy?". If you
+yourself "Does he really merit that money? Do I believe in privacy enough to give some cents to this crazy guy?". If you
 can answer both by **yes**, then here are how you can make a donation:
 
 ###### Bitcoin
