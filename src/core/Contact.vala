@@ -38,7 +38,7 @@ namespace Ricin.Core {
     /**
     * The Tox handle reference.
     **/
-    private weak ToxCore.Tox handle { get; set; default = null; }
+    private weak ToxCore.Tox handle;
 
     /**
     * This constructor allows to create a new contact.

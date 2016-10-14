@@ -87,9 +87,8 @@ namespace Ricin {
         if (profile != null) {
           string profile_name = (profile.has_suffix (".tox")) ? profile : profile + ".tox";
           string profile_path = Path.build_path (Path.DIR_SEPARATOR_S, Environment.get_user_config_dir (), "tox", profile_name);
-          Profile p = new Profile (profile_path, null);
           RDebug ("Loading profile for path: %s", profile_path);
-          this.handle = new ToxSession (p, options);
+          this.handle = new ToxSession (profile_path, options);
         } else {
           RDebug ("Started Tox instance without specified profile");
 

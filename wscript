@@ -14,6 +14,7 @@ out = 'build'
 
 def options(opt):
 	opt.load('compiler_c vala')
+	opt.add_option('--enable-debug', action='store_true', default=False, help='Run the app in debug mode')
 	opt.add_option('--enable-docs', action='store_true', default=False, help='Generate user documentation')
 	opt.add_option('--enable-text-view', action='store_true', default=False, help='Enable use of GtkTextView to display messages')
 	#opt.recurse('tests')
@@ -42,7 +43,7 @@ def configure(conf):
 		'-Wno-deprecated-declarations',
 		'-Wno-unused-variable',
 		'-Wno-unused-but-set-variable',
-		'-Wno-unused-function',
+		#'-Wno-unused-function',
 		'-DGETTEXT_PACKAGE="ricin-messenger"',
 		'-O3' # Optimizatiooooons!
 	])
@@ -62,6 +63,11 @@ def configure(conf):
 	# TODO: Add a way to enable this.
 	if conf.options.enable_text_view:
 		conf.env.ENABLE_TEXT_VIEW = True
+
+	if conf.options.enable_debug:
+		conf.env.append_unique('VALAFLAGS', [
+			'-g', # Support for built-in debug.
+		])
 
 def build(bld):
 	bld.load('compiler_c vala')

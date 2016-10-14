@@ -97,13 +97,9 @@ namespace Ricin.Core {
     * ToxSession constructor.
     * Here we init our ToxOptions, load the profile, init toxcore, etc.
     **/
-    public ToxSession (Profile? profile, Options? options) throws ErrNew {
-      this.current_profile = profile;
-      if (this.current_profile == null) {
-        this.current_profile = new Profile (null, null);
-      }
-      this.current_profile.handle = this.tox_handle; // Let's pass our tox handle to the profile.
-
+    public ToxSession (string? profile, Options? options) throws ErrNew {
+      //this.current_profile = profile;
+      this.current_profile = new Profile (this.tox_handle, profile, null);
       this.tox_options = options;
       if (this.tox_options == null) { // If options is null, let's use default values.
         Options opts = ToxOptions.create ();

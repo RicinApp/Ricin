@@ -32,6 +32,11 @@ namespace Ricin.Core {
     **/
     public string name {
       owned get {
+        if (this.handle == null) {
+          RCritical ("Trying to get name while no profile handle is created.");
+          return Constants.DEFAULT_NAME;
+        }
+
         size_t buffer_size = this.handle.self_get_name_size ();
         uint8[] buffer = new uint8[buffer_size];
         this.handle.self_get_name (buffer);
@@ -59,6 +64,11 @@ namespace Ricin.Core {
     **/
     public string status_message {
       owned get {
+        if (this.handle == null) {
+          RCritical ("Trying to get status message while no profile handle is created.");
+          return Constants.DEFAULT_STATUS_MESSAGE;
+        }
+
         size_t buffer_size = this.handle.self_get_status_message_size ();
         uint8[] buffer = new uint8[buffer_size];
         this.handle.self_get_status_message (buffer);
@@ -99,7 +109,7 @@ namespace Ricin.Core {
     /**
     * The Tox handle reference.
     **/
-    public weak ToxCore.Tox handle { get; set; default = null; }
+    public weak ToxCore.Tox handle;
 
     /**
     * The profile password, private and only used to encrypt the profile when it needs to be written on the disk.
@@ -112,7 +122,8 @@ namespace Ricin.Core {
     * @param {string} path - The profile path.
     * @param {string?} password - The profile path if any, can be null for not-protected profiles.
     **/
-    public Profile (string? path, string? password = null) {
+    public Profile (ToxCore.Tox handle, string? path, string? password = null) {
+      this.handle = handle;
       this.path = path;
       this.password = password;
 
@@ -127,14 +138,19 @@ namespace Ricin.Core {
 
     /**
     * This constructor permits to create a new profile.
+    * @param {ToxCore.Tox} handle - A reference to the toxcore instance.
     * @param {string} name - The profile name (will be used both as a filename and username).
     * @param {string} password - The profile encryption password. If null, profile won't be encrypted.
     **/
-    public Profile.create (string name, string? password = null) {
+    public Profile.create (ToxCore.Tox handle, string name, string? password = null) {
+      this.handle = handle;
+      //this.path = this.path_for_new (name);
+      this.password = password;
+
       /**
       * TODO: Create the .tox file for this new profile.
-      * TODO: Set the profile name to `name`.
       * TODO: Save the default Tox state inside the newly created file.
+      * TODO: Set the profile name to `name`.
       * TODO: If password is not null, encrypt the profile and mark the profile as encrypted.
       * TODO: Call this.load_data().
       **/
