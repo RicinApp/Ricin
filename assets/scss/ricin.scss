@@ -192,6 +192,7 @@ $footer-height: 60px;
     padding: 40px 0;
 
     background-color: $swatch-principal;
+    background: url("https://cdn.ricin.im/images/intro.png") top center/cover fixed;
 
     a:hover {
       padding: 12px 16px;
@@ -229,6 +230,7 @@ $footer-height: 60px;
           display: flex;
           flex-flow: row wrap;
           flex: 1;
+          align-items: center;
           
           background-color: transparent;
           transform: skew(0deg, 3deg) !important;
@@ -239,6 +241,7 @@ $footer-height: 60px;
             display: flex;
             flex-flow: row wrap;
             flex: 1;
+            align-items: center;
           
             p {
               margin-bottom: 15px;
