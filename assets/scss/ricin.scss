@@ -192,7 +192,7 @@ $footer-height: 60px;
     padding: 40px 0;
 
     background-color: $swatch-principal;
-    background: url("https://cdn.ricin.im/images/intro.png") top center/cover fixed;
+    background: url("https://cdn.ricin.im/images/intro.png") top center/cover fixed $swatch-principal;
 
     a:hover {
       padding: 12px 16px;
@@ -243,11 +243,28 @@ $footer-height: 60px;
             flex: 1;
             align-items: center;
           
+            h3 {
+              padding: 10px 0;
+            }
+          
             p {
               margin-bottom: 15px;
+              padding: 0 10px;
+              
+              font-size: 16px;
               text-align: justify;
             }
             p:last-child { margin-bottom: 0; }
+            
+            a {
+              color: $swatch-principal;
+              font-weight: bold;
+              text-decoration: none;
+
+              &:hover {
+                text-decoration: underline;
+              }
+            }
           }
 
           #content--extra {
