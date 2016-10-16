@@ -1,0 +1,40 @@
+/**
+* Ricin Messenger website (v2)
+* @author SkyzohKey <skyzohkey@protonmail.com>
+* @license MIT
+**/
+
+/**
+* Fonts:
+**/
+$font-fallback: sans-serif; // Use sans-serif as a fallback.
+$site-font: Aller, Verdana, $font-fallback;
+
+/**
+* Colors:
+**/
+$swatch-principal: #00adb5;
+$swatch-secondary: #393e46;
+$swatch-secondary-light: #505762;
+$swatch-white: #ffffff;
+
+$site-background: $swatch-secondary-light;
+$site-color: $swatch-white;
+
+$bg-main-color: black;
+$bg-second-color: white;
+$text-main-color: white;
+$text-second-color: black;
+
+/**
+* Text sizes:
+**/
+$base-size: 16px;
+$text-size: 1em;
+
+$h1-size: 2em;
+$h2-size: 1.4em;
+$h3-size: 1.2em;
+$h4-size: 1em;
+$h5-size: .8em;
+$h6-size: .6em;

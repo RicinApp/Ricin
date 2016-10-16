@@ -1,0 +1,15 @@
+/**
+* Ricin Messenger website (v2)
+* @author SkyzohKey <skyzohkey@protonmail.com>
+* @license MIT
+**/
+
+/**
+* This file is intended for @import only.
+* No css rules should appears in this file.
+**/
+@import 'variables'; // First, let's import our site style variables.
+
+@import 'components/reset'; // Let's reset our document before applying any style.
+@import 'components/defaults'; // Let's apply new default styles to elements.
+@import 'components/flex-wrapper';
