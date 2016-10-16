@@ -8,8 +8,280 @@
 * This file is intended for @import only.
 * No css rules should appears in this file.
 **/
-@import 'variables'; // First, let's import our site style variables.
+@import 'color-swatch'; // Load our colors.
+@import 'variables'; // Let's import our site style variables.
 
 @import 'components/reset'; // Let's reset our document before applying any style.
 @import 'components/defaults'; // Let's apply new default styles to elements.
 @import 'components/flex-wrapper';
+
+
+/**
+* TEMP CODE ZONE.
+* TODO: Split the following into components.
+**/
+$global-padding: 10%;
+$menu-height: 50px;
+$header-height: 150px;
+$callout-height: 50px;
+$footer-height: 60px;
+
+* {
+  box-sizing: border-box;
+
+  &:hover {
+    transition: all linear .2s;
+  }
+}
+
+#site--menu {
+  padding: 0 $global-padding;
+
+  display: flex;
+  flex-flow: row wrap;
+  flex: 0 0 $menu-height;
+  justify-content: space-around;
+  align-items: center;
+
+  background-color: $swatch-secondary;
+
+  #menu--logo {
+    height: 100%;
+
+    display: flex;
+    flex: 0 0 auto;
+    justify-content: flex-start;
+    align-items: center;
+
+    color: $swatch-white;
+    font-size: 26px;
+    text-decoration: none;
+
+    border-top: 3px solid transparent;
+    border-bottom: 3px solid transparent;
+
+    #menu--logo-small {
+      padding: 4px 8px;
+      font-size: 16px;
+      font-weight: lighter;
+    }
+
+    &:hover {
+      color: $swatch-principal;
+      border-bottom: 3px solid $swatch-principal;
+    }
+  }
+  #menu--links {
+    height: 100%;
+
+    display: flex;
+    flex: 1;
+    justify-content: flex-end;
+    align-items: center;
+
+    a {
+      height: 100%;
+      padding: 0 20px;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      color: $swatch-white;
+      text-decoration: none;
+
+      // Fix an issue with borders.
+      border-top: 3px solid transparent;
+      border-bottom: 3px solid transparent;
+
+      &:hover {
+        background-color: $swatch-principal;
+        border-bottom: 3px solid $swatch-white;
+      }
+    }
+  }
+}
+#site--content {
+  display: flex;
+  flex-flow: column wrap;
+  flex: 1;
+
+  #content--header {
+    padding: 0 $global-padding;
+
+    display: flex;
+    flex-flow: column wrap;
+    flex: 0 0 $header-height;
+    justify-content: center;
+    align-items: center;
+
+    background-color: $swatch-principal;
+    background: url('/assets/images/intro.png') top center/cover fixed;
+
+    #header--logo {
+      font-size: 48px;
+      font-weight: bold;
+    }
+    #header--logo-small {
+      font-size: 32px;
+      font-weight: lighter;
+    }
+    #header--tagline {
+      font-style: italic;
+    }
+  }
+  #app--callout,
+  #app--callout-secondary {
+    z-index: 500;
+    padding: 0 $global-padding;
+
+    display: flex;
+    flex-flow: column wrap;
+    flex: 0 0 $callout-height;
+    justify-content: center;
+    align-items: center;
+
+    background-color: $swatch-secondary;
+
+    h1 {
+      margin: 10px 0 0 10px;
+      font-weight: bold;
+    }
+    h2 {
+      margin: 5px 0 5px 0;
+      font-style: italic;
+    }
+
+    #callout--links {
+      padding: 14px 10px;
+
+      display: flex;
+      flex-flow: row wrap;
+      flex: 1;
+      justify-content: space-around;
+      align-items: center;
+
+      a {
+        height: 100%;
+        padding: 8px 12px;
+        margin: 0 5px;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        background-color: $swatch-secondary-light;
+        border-radius: 3px;
+        color: $swatch-white;
+        text-decoration: none;
+
+        &:hover {
+          background-color: $swatch-principal;
+          color: $swatch-white;
+        }
+      }
+    }
+  }
+  #app--callout-secondary {
+    padding: 40px 0;
+
+    background-color: $swatch-principal;
+
+    a:hover {
+      background-color: $swatch-white !important;
+      color: $swatch-principal !important;
+    }
+  }
+
+  #app--infos {
+    z-index: 100;
+    background: linear-gradient(
+      to bottom,
+      $swatch-principal 100px, // To have nice first child.
+      $swatch-secondary // Same as above but for the last one.
+    );
+
+    section {
+      padding: 80px $global-padding;
+
+      background-color: $swatch-principal;
+      transform: skew(0deg, -3deg);
+
+      div {
+        transform: skew(0deg, 3deg) !important;
+
+        h2 { margin-bottom: 20px; }
+        p { margin-bottom: 15px; }
+        p:last-child { margin-bottom: 0; }
+      }
+    }
+
+    section:nth-child(odd) {
+      background-color: $swatch-principal;
+    }
+    section:nth-child(even) {
+      background-color: $swatch-secondary;
+    }
+  }
+  #site--footer {
+    padding: 10px $global-padding;
+
+    display: flex;
+    flex-flow: row wrap;
+    flex: 0 0 $footer-height;
+    justify-content: center;
+    align-items: center;
+
+    background-color: $swatch-secondary;
+
+    #footer--copyright {
+      display: flex;
+      flex-flow: row wrap;
+      flex: 1;
+      justify-content: flex-start;
+
+      p {
+        display: inline-block; // Fix a flexbox issue with text wrapping.
+        font-size: 14px;
+      }
+
+      #copyright--heart {
+        color: #e74c3c;
+      }
+    }
+    #footer--links {
+      display: flex;
+      flex: 0 0 40%;
+      justify-content: flex-end;
+
+      div {
+        display: inline-block;
+
+        a {
+          padding: 0 5px;
+          font-weight: lighter;
+        }
+        &::after {
+          content: '—';
+
+          opacity: .6;
+          font-size: 12px;
+          color: $swatch-white;
+        }
+        &:last-child::after {
+          content: '';
+        }
+      }
+    }
+
+    a {
+      color: $swatch-principal;
+      font-weight: bold;
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
