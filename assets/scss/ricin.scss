@@ -60,6 +60,8 @@ $footer-height: 60px;
     border-top: 3px solid transparent;
     border-bottom: 3px solid transparent;
 
+    user-select: none; // We don't want the users to be able to select the logo.
+
     #menu--logo-small {
       padding: 4px 8px;
       font-size: 16px;
@@ -93,6 +95,8 @@ $footer-height: 60px;
       // Fix an issue with borders.
       border-top: 3px solid transparent;
       border-bottom: 3px solid transparent;
+      
+      user-select: none; // We don't want the users to be able to select the menu.
 
       &:hover {
         background-color: $swatch-principal;
@@ -116,7 +120,7 @@ $footer-height: 60px;
     align-items: center;
 
     background-color: $swatch-principal;
-    background: url('/assets/images/intro.png') top center/cover fixed;
+    background: url('https://cdn.ricin.im/images/intro.png') top center/cover fixed;
 
     #header--logo {
       font-size: 48px;
@@ -174,6 +178,8 @@ $footer-height: 60px;
         border-radius: 3px;
         color: $swatch-white;
         text-decoration: none;
+        
+        user-select: none; // We don't want the users to be able to select the buttons.
 
         &:hover {
           background-color: $swatch-principal;
@@ -188,6 +194,8 @@ $footer-height: 60px;
     background-color: $swatch-principal;
 
     a:hover {
+      padding: 12px 16px;
+    
       background-color: $swatch-white !important;
       color: $swatch-principal !important;
     }
@@ -208,19 +216,68 @@ $footer-height: 60px;
       transform: skew(0deg, -3deg);
 
       div {
-        transform: skew(0deg, 3deg) !important;
+        display: flex;
+        flex-flow: column wrap;
+        
+        #infos--header {
+          margin-bottom: 20px;
+          transform: skew(0deg, 3deg) !important;
+        }
+        #infos--content {
+          padding: 0;
+          
+          display: flex;
+          flex-flow: row wrap;
+          flex: 1;
+          
+          background-color: transparent;
+          transform: skew(0deg, 3deg) !important;
+          
+          #content--text {
+            margin-right: 20px;
+          
+            display: flex;
+            flex-flow: row wrap;
+            flex: 1;
+          
+            p {
+              margin-bottom: 15px;
+              text-align: justify;
+            }
+            p:last-child { margin-bottom: 0; }
+          }
 
-        h2 { margin-bottom: 20px; }
-        p { margin-bottom: 15px; }
-        p:last-child { margin-bottom: 0; }
+          #content--extra {
+            display: flex;
+            flex-flow: row wrap;
+            justify-content: center;
+            align-items: center;
+            
+            user-select: none; // We don't want the users to be able to select the images.
+          }
+        }
       }
     }
 
     section:nth-child(odd) {
       background-color: $swatch-principal;
+      
+      div {
+        #infos--content {
+          flex-flow: row wrap;
+          #content--text { margin-right: 20px; }
+        }
+      }
     }
     section:nth-child(even) {
       background-color: $swatch-secondary;
+      
+      div {
+        #infos--content {
+          flex-flow: row-reverse wrap;
+          #content--text { margin-left: 20px; }
+        }
+      }
     }
   }
   #site--footer {
@@ -259,8 +316,11 @@ $footer-height: 60px;
 
         a {
           padding: 0 5px;
+          font-size: 12px;
           font-weight: lighter;
+          user-select: none; // We don't want the users to be able to select the footer links.
         }
+        
         &::after {
           content: '—';
 
@@ -268,6 +328,7 @@ $footer-height: 60px;
           font-size: 12px;
           color: $swatch-white;
         }
+        
         &:last-child::after {
           content: '';
         }
