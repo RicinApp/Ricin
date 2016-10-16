@@ -46,7 +46,7 @@ $footer-height: 60px;
   background-color: $swatch-secondary;
 
   #menu--logo {
-    height: 100%;
+    height: 35px;
 
     display: flex;
     flex: 0 0 auto;
@@ -74,7 +74,7 @@ $footer-height: 60px;
     }
   }
   #menu--links {
-    height: 100%;
+    height: $menu-height;
 
     display: flex;
     flex: 1;
@@ -82,7 +82,7 @@ $footer-height: 60px;
     align-items: center;
 
     a {
-      height: 100%;
+      height: $menu-height;
       padding: 0 20px;
 
       display: flex;
