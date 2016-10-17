@@ -46,32 +46,37 @@ $footer-height: 60px;
 
   background-color: $swatch-secondary;
 
-  #menu--logo {
-    height: 35px;
-
+  #menu--left {
     display: flex;
-    flex: 0 0 auto;
-    justify-content: flex-start;
-    align-items: center;
+    flex-flow: row wrap;
+  
+    #menu--logo {
+      height: 35px;
 
-    color: $swatch-white;
-    font-size: 26px;
-    text-decoration: none;
+      display: flex;
+      flex: 0 0 auto;
+      justify-content: flex-start;
+      align-items: center;
 
-    border-top: 3px solid transparent;
-    border-bottom: 3px solid transparent;
+      color: $swatch-white;
+      font-size: 26px;
+      text-decoration: none;
 
-    user-select: none; // We don't want the users to be able to select the logo.
+      border-top: 3px solid transparent;
+      border-bottom: 3px solid transparent;
 
-    #menu--logo-small {
-      padding: 4px 8px;
-      font-size: 16px;
-      font-weight: lighter;
-    }
+      user-select: none; // We don't want the users to be able to select the logo.
 
-    &:hover {
-      color: $swatch-principal;
-      border-bottom: 3px solid $swatch-principal;
+      #menu--logo-small {
+        padding: 4px 8px;
+        font-size: 16px;
+        font-weight: lighter;
+      }
+
+      &:hover {
+        color: $swatch-principal;
+        border-bottom: 3px solid $swatch-principal;
+      }
     }
   }
   #menu--links {
@@ -79,6 +84,7 @@ $footer-height: 60px;
 
     display: flex;
     flex: 1;
+    flex-flow: row wrap;
     justify-content: flex-end;
     align-items: center;
 
@@ -363,6 +369,8 @@ $footer-height: 60px;
       }
 
       #copyright--heart {
+        margin: 0 4px;
+        
         text-indent: -9999px;
         color: #e74c3c;
       }
