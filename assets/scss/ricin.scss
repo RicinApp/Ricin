@@ -14,6 +14,7 @@
 @import 'components/reset'; // Let's reset our document before applying any style.
 @import 'components/defaults'; // Let's apply new default styles to elements.
 @import 'components/flex-wrapper';
+@import 'components/icons';
 
 
 /**
@@ -30,7 +31,7 @@ $footer-height: 60px;
   box-sizing: border-box;
 
   &:hover {
-    transition: all linear .2s;
+    transition: all linear .3s;
   }
 }
 
@@ -166,7 +167,7 @@ $footer-height: 60px;
       align-items: center;
 
       a {
-        height: 100%;
+        height: 30px;
         padding: 8px 12px;
         margin: 0 5px;
 
@@ -180,10 +181,14 @@ $footer-height: 60px;
         text-decoration: none;
         
         user-select: none; // We don't want the users to be able to select the buttons.
-
+        
         &:hover {
           background-color: $swatch-principal;
           color: $swatch-white;
+        }
+        
+        span.icon {
+          margin-right: 8px;
         }
       }
     }
@@ -266,6 +271,40 @@ $footer-height: 60px;
               }
             }
           }
+          
+          #content--rows {
+            display: flex;
+            flex-flow: row nowrap;
+            flex: 1;
+            
+            article {
+              margin: 0 10px;
+              padding: 10px 12px;
+            
+              display: flex;
+              flex-flow: column wrap;
+              justify-content: flex-start;
+              align-items: center;
+              
+              //background-color: red;
+              
+              .icon {
+                //height: 2em;
+                margin: 0 0 10px 0;
+              
+                font-size: 48px;
+                user-select: none;
+                pointer-events: none;
+              }
+              h3 {
+                margin: 0 0 10px 0;
+                text-align: center;
+              }
+              p {
+                text-align: justify;
+              }
+            }
+          }
 
           #content--extra {
             display: flex;
@@ -274,6 +313,7 @@ $footer-height: 60px;
             align-items: center;
             
             user-select: none; // We don't want the users to be able to select the images.
+            pointer-events: none;
           }
         }
       }
@@ -323,6 +363,7 @@ $footer-height: 60px;
       }
 
       #copyright--heart {
+        text-indent: -9999px;
         color: #e74c3c;
       }
     }
