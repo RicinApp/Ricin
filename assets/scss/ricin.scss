@@ -304,12 +304,10 @@ $footer-height: 60px;
                 font-size: 48px;
                 user-select: none;
                 pointer-events: none;
-                transition: .6s ease-in-out;
               }
               h3 {
                 margin: 0 0 10px 0;
                 text-align: center;
-                transition: .6s ease-in-out;
               }
               p {
                 text-align: justify;
@@ -319,8 +317,12 @@ $footer-height: 60px;
                 .icon {
                   color: $swatch-principal;
                   transform: rotate(-360deg);
+                  transition: .6s ease-in-out;
                 }
-                h3 { color: $swatch-principal; }
+                h3 {
+                  color: $swatch-principal;
+                  transition: .6s ease-in-out;
+                }
               }
             }
           }
