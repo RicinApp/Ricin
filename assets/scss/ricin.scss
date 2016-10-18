@@ -304,10 +304,12 @@ $footer-height: 60px;
                 font-size: 48px;
                 user-select: none;
                 pointer-events: none;
+                transition: .6s color;
               }
               h3 {
                 margin: 0 0 10px 0;
                 text-align: center;
+                transition: .6s color;
               }
               p {
                 text-align: justify;
