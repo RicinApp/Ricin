@@ -248,7 +248,7 @@ $footer-height: 60px;
           transform: skew(0deg, 3deg) !important;
           
           #content--text {
-            margin-right: 20px;
+            margin-right: 30px;
           
             display: flex;
             flex-flow: row wrap;
@@ -281,7 +281,7 @@ $footer-height: 60px;
           
           #content--rows {
             display: flex;
-            flex-flow: row nowrap;
+            flex-flow: row wrap;
             flex: 1;
             
             article {
@@ -290,6 +290,7 @@ $footer-height: 60px;
             
               display: flex;
               flex-flow: column wrap;
+              flex: 0 0 30%;
               justify-content: flex-start;
               align-items: center;
               
@@ -324,7 +325,7 @@ $footer-height: 60px;
 
           #content--extra {
             display: flex;
-            flex-flow: row wrap;
+            flex-flow: column wrap;
             justify-content: center;
             align-items: center;
             
@@ -341,7 +342,11 @@ $footer-height: 60px;
       div {
         #infos--content {
           flex-flow: row wrap;
-          #content--text { margin-right: 20px; }
+          
+          #content--rows {
+            article:hover { color: $swatch-secondary-dark; }
+          }
+          #content--extra { margin-left: 30px; }
         }
       }
     }
@@ -351,7 +356,11 @@ $footer-height: 60px;
       div {
         #infos--content {
           flex-flow: row-reverse wrap;
-          #content--text { margin-left: 20px; }
+          
+          #content--rows {
+            article:hover { color: $swatch-principal; }
+          }
+          #content--extra { margin-right: 30px; }
         }
       }
     }
