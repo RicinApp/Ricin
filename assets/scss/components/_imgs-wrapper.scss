@@ -10,6 +10,7 @@ $img-box-radius: 6px;
 $img-box-shadow-alpha: .6;
 
 img.box {
+  background-color: $img-box-color;
   border-radius: $img-box-radius;
   box-shadow: 0px 0px ($img-box-size * 2) 0px rgba(0, 0, 0, $img-box-shadow-alpha);
   cursor: pointer;
