@@ -25,7 +25,7 @@
 $global-padding: 10%;
 $menu-height: 50px;
 $header-height: 150px;
-$callout-height: 50px;
+$callout-height: 65px;
 $footer-height: 60px;
 
 * {
@@ -148,7 +148,7 @@ $footer-height: 60px;
     padding: 0 $global-padding;
 
     display: flex;
-    flex-flow: column wrap;
+    flex-flow: column nowrap;
     flex: 0 0 $callout-height;
     justify-content: center;
     align-items: center;
@@ -201,6 +201,7 @@ $footer-height: 60px;
     }
   }
   #app--callout-secondary {
+    flex: 0 0 200px;
     padding: 40px 0;
 
     background-color: $swatch-principal;
@@ -303,7 +304,7 @@ $footer-height: 60px;
                 font-size: 48px;
                 user-select: none;
                 pointer-events: none;
-                transition: .3s ease-in-out;
+                transition: .6s ease-in-out;
               }
               h3 {
                 margin: 0 0 10px 0;
@@ -314,11 +315,11 @@ $footer-height: 60px;
               }
               
               &:hover {
-                color: $swatch-principal;
-                
                 .icon {
+                  color: $swatch-principal;
                   transform: rotate(-360deg);
                 }
+                h3 { color: $swatch-principal; }
               }
             }
           }
@@ -344,7 +345,10 @@ $footer-height: 60px;
           flex-flow: row wrap;
           
           #content--rows {
-            article:hover { color: $swatch-secondary-dark; }
+            article:hover {
+              .icon { color: $swatch-secondary-dark; }
+              h3 { color: $swatch-secondary-dark; }
+            }
           }
           #content--extra { margin-left: 30px; }
         }
@@ -358,7 +362,10 @@ $footer-height: 60px;
           flex-flow: row-reverse wrap;
           
           #content--rows {
-            article:hover { color: $swatch-principal; }
+            article:hover {
+              .icon { color: $swatch-principal; }
+              h3 { color: $swatch-principal; }
+            }
           }
           #content--extra { margin-right: 30px; }
         }
