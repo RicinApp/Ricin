@@ -14,6 +14,7 @@
 @import 'components/reset'; // Let's reset our document before applying any style.
 @import 'components/defaults'; // Let's apply new default styles to elements.
 @import 'components/flex-wrapper';
+@import 'components/imgs-wrapper';
 @import 'components/icons';
 
 
@@ -114,7 +115,7 @@ $footer-height: 60px;
 }
 #site--content {
   display: flex;
-  flex-flow: column wrap;
+  flex-flow: column nowrap;
   flex: 1;
 
   #content--header {
@@ -173,7 +174,7 @@ $footer-height: 60px;
       align-items: center;
 
       a {
-        height: 30px;
+        height: 38px;
         padding: 8px 12px;
         margin: 0 5px;
 
@@ -301,6 +302,7 @@ $footer-height: 60px;
                 font-size: 48px;
                 user-select: none;
                 pointer-events: none;
+                transition: .3s ease-in-out;
               }
               h3 {
                 margin: 0 0 10px 0;
@@ -308,6 +310,14 @@ $footer-height: 60px;
               }
               p {
                 text-align: justify;
+              }
+              
+              &:hover {
+                color: $swatch-principal;
+                
+                .icon {
+                  transform: rotate(-360deg);
+                }
               }
             }
           }

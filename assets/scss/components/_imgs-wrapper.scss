@@ -1,0 +1,25 @@
+/**
+* Ricin Messenger website (v2)
+* @author SkyzohKey <skyzohkey@protonmail.com>
+* @license MIT
+**/
+
+$img-box-color: white;
+$img-box-size: 4px;
+$img-box-radius: 6px;
+$img-box-shadow-alpha: .6;
+
+img.box {
+  border-radius: $img-box-radius;
+  box-shadow: 0px 0px ($img-box-size * 2) 0px rgba(0, 0, 0, $img-box-shadow-alpha);
+  cursor: pointer;
+  pointer-events: initial;
+  transition: 0s ease-out;
+}
+img.box:hover {
+  border: $img-box-size solid $img-box-color;
+  box-shadow: 0px 0px ($img-box-size * 2.5) 0px rgba(0, 0, 0, $img-box-shadow-alpha);
+  transition: .2s ease;
+  transform: rotate(-3deg);
+  z-index: 1000;
+}
