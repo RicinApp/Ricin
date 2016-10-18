@@ -115,8 +115,11 @@ $footer-height: 60px;
     background: url('https://cdn.ricin.im/images/intro.png') top center/cover fixed;
 
     #header--logo {
+      margin-bottom: 10px;
       font-size: 48px;
       font-weight: bold;
+      text-align: center;
+      line-height: 28px;
     }
     #header--logo-small {
       font-size: 38px;
