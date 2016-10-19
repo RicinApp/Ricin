@@ -4,8 +4,13 @@
 * @license MIT
 **/
 
-$swatch-principal: #00adb5;
+//$swatch-principal: #00adb5; // NICE BLUE.
+$swatch-principal: #29A176;
+$swatch-principal-light: lighten($swatch-principal, 10%);
+
 $swatch-secondary: #222831;
+$swatch-secondary-lighter: white;
+
 $swatch-secondary-light: #505762;
 $swatch-secondary-dark: #34495e;
 $swatch-white: #ffffff;

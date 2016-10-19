@@ -59,8 +59,8 @@ $footer-height: 60px;
       }
 
       &:hover {
-        color: $swatch-principal;
-        border-bottom: 3px solid $swatch-principal;
+        color: $swatch-principal-light;
+        border-bottom: 3px solid $swatch-principal-light;
       }
     }
   }
@@ -91,7 +91,7 @@ $footer-height: 60px;
       user-select: none; // We don't want the users to be able to select the menu.
 
       &:hover {
-        background-color: $swatch-principal;
+        background-color: $swatch-principal-light;
         border-bottom: 3px solid $swatch-white;
       }
     }
@@ -180,7 +180,7 @@ $footer-height: 60px;
         user-select: none; // We don't want the users to be able to select the buttons.
         
         &:hover {
-          background-color: $swatch-principal;
+          background-color: $swatch-principal-light;
           color: $swatch-white;
         }
         
@@ -201,7 +201,7 @@ $footer-height: 60px;
       padding: 12px 16px;
     
       background-color: $swatch-white !important;
-      color: $swatch-principal !important;
+      color: $swatch-principal-light !important;
     }
   }
 
@@ -286,7 +286,6 @@ $footer-height: 60px;
               align-items: center;
               justify-content: flex-start;
               
-              color: white;
               min-width: 200px;
               
               //background-color: red;
@@ -311,12 +310,12 @@ $footer-height: 60px;
               
               &:hover {
                 .icon {
-                  color: $swatch-principal;
-                  transform: rotate(-360deg);
+                  color: $swatch-principal-light;
+                  transform: rotate(360deg);
                   transition: .6s ease-in-out;
                 }
                 h3 {
-                  color: $swatch-principal;
+                  color: $swatch-principal-light;
                   transition: .6s ease-in-out;
                 }
               }
@@ -345,8 +344,8 @@ $footer-height: 60px;
           
           #content--rows {
             article:hover {
-              .icon { color: $swatch-secondary-dark; }
-              h3 { color: $swatch-secondary-dark; }
+              .icon { color: $swatch-secondary-lighter; }
+              h3 { color: $swatch-secondary-lighter; }
             }
           }
           #content--extra { margin-left: 30px; }
@@ -362,8 +361,8 @@ $footer-height: 60px;
           
           #content--rows {
             article:hover {
-              .icon { color: $swatch-principal; }
-              h3 { color: $swatch-principal; }
+              .icon { color: $swatch-principal-light; }
+              h3 { color: $swatch-principal-light; }
             }
           }
           #content--extra { margin-right: 30px; }
