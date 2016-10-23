@@ -82,6 +82,8 @@ class Ricin.FriendListRow : Gtk.ListBoxRow {
 
     fr.notify["status"].connect ((obj, prop) => {
       if (this.fr.status != this.fr.last_status) {
+        if (this.settings.enable_notify_status == false) return;
+
         Notification.notify_status (fr);
       }
 

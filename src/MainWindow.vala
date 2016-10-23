@@ -62,6 +62,8 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
   private string profile;
 
   public signal void notify_message (string message, int timeout = 5000);
+  private signal void set_hint (bool hint);
+  
   [Signal (action = true)] private signal void change_chat_up ();
   [Signal (action = true)] private signal void change_chat_down ();
 
@@ -384,10 +386,35 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
         return false;
       });
     });
+    
+    this.notify["has-toplevel-focus"].connect (() => {
+      if (this.has_toplevel_focus) {
+        this.minimized = false;
+      }
+      this.set_urgency_hint (false);
+    });
+    this.window_state_event.connect ((e) => {
+      if (e.new_window_state == Gdk.WindowState.ICONIFIED) {
+        this.minimized = true;
+      }
+      
+      return false;
+    });
 
     this.tox.run_loop ();
     this.show_all ();
     this.append_friends.begin ();
+  }
+
+  private bool minimized = false;
+  public void set_desktop_hint (bool hint) {  
+    if (this.settings.enable_taskbar_notify == false) return;
+    //var state = this.get_window ().get_state ();
+    //if (state != Gdk.WindowState.ICONIFIED || this.has_toplevel_focus) return;
+
+    if (this.minimized && this.has_toplevel_focus == false) {
+      this.set_urgency_hint (hint);
+    }
   }
 
   private void init_keyboard_shortcuts () {

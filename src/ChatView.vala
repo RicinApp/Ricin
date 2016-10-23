@@ -217,6 +217,8 @@ class Ricin.ChatView : Gtk.Box {
       this.last_message_sender = "friend";
       messages_list.add (new SystemMessageListRow (message));
       //this.add_row (MessageRowType.System, new SystemMessageListRow (message));
+      
+      ((MainWindow) this.get_toplevel ()).set_desktop_hint (true);
     });
 
     fr.avatar.connect (p => {
@@ -259,6 +261,8 @@ class Ricin.ChatView : Gtk.Box {
         messages_list.add (new MessageListRow (this.handle, this.fr, Util.add_markup (message), current_time, -1, is_child));
       }
       //this.add_row (MessageRowType.Normal, new MessageListRow (fr.name, Util.add_markup (message), time ()));
+      
+      ((MainWindow) this.get_toplevel ()).set_desktop_hint (true);
     });
 
     fr.action.connect (message => {
@@ -289,6 +293,8 @@ class Ricin.ChatView : Gtk.Box {
       this.last_message_sender = "friend";
       messages_list.add (new SystemMessageListRow (message_escaped));
       //this.add_row (MessageRowType.Action, new SystemMessageListRow (message_escaped));
+      
+      ((MainWindow) this.get_toplevel ()).set_desktop_hint (true);
     });
 
     fr.file_transfer.connect ((name, size, id) => {
@@ -326,6 +332,8 @@ class Ricin.ChatView : Gtk.Box {
         });
         messages_list.add (file_row);
       }
+      
+      ((MainWindow) this.get_toplevel ()).set_desktop_hint (true);
     });
 
     fr.bind_property ("connected", entry, "sensitive", BindingFlags.DEFAULT);

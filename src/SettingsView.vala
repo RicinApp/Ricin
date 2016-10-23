@@ -24,6 +24,10 @@ class Ricin.SettingsView : Gtk.Box {
   [GtkChild] Gtk.Switch switch_display_typing_notifications;
   [GtkChild] Gtk.Switch switch_typing_notifications;
   [GtkChild] Gtk.Switch switch_compact_friendlist;
+  
+  // Notifications settings tab.
+  [GtkChild] Gtk.Switch switch_taskbar_notify;
+  [GtkChild] Gtk.Switch switch_show_status_change_notifications;
 
   // Network settings tab.
   [GtkChild] Gtk.Switch switch_udp_enabled;
@@ -275,6 +279,22 @@ class Ricin.SettingsView : Gtk.Box {
     this.switch_compact_friendlist.active = this.settings.compact_mode;
     this.switch_compact_friendlist.notify["active"].connect (() => {
       this.settings.compact_mode = this.switch_compact_friendlist.active;
+    });
+    
+    // Switch taskbar notifications (urgency hint).
+    this.switch_taskbar_notify.active = this.settings.enable_taskbar_notify;
+    this.switch_taskbar_notify.notify["active"].connect (() => {
+      this.settings.enable_taskbar_notify = this.switch_taskbar_notify.active;
+      
+      if (this.switch_taskbar_notify.active == false) {
+        ((MainWindow) this.get_toplevel ()).set_desktop_hint (false); // Disable taskbar notify.
+      }
+    });
+    
+    // Switch status changes (online/offline only) notifications.
+    this.switch_show_status_change_notifications.active = this.settings.enable_notify_status;
+    this.switch_show_status_change_notifications.notify["active"].connect (() => {
+      this.settings.enable_notify_status = this.switch_show_status_change_notifications.active;
     });
 
     var udp = this.settings.network_udp;
