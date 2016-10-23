@@ -6,7 +6,6 @@ class Ricin.SettingsView : Gtk.Box {
 
   // General settings tab.
   [GtkChild] Gtk.Label label_tox_id;
-  [GtkChild] Gtk.ComboBoxText combobox_languages;
   [GtkChild] Gtk.Label label_default_save_path;
   [GtkChild] Gtk.Entry entry_default_save_path;
   [GtkChild] Gtk.Button button_set_default_save_path;
@@ -18,6 +17,8 @@ class Ricin.SettingsView : Gtk.Box {
   [GtkChild] Gtk.Switch switch_custom_themes;
   [GtkChild] Gtk.ComboBoxText combobox_selected_theme;
   [GtkChild] Gtk.Button button_reload_theme;
+  [GtkChild] Gtk.ComboBoxText combobox_languages;
+  [GtkChild] Gtk.ComboBoxText combobox_message_parsing_mode;
 
   [GtkChild] Gtk.Switch switch_status_changes;
   [GtkChild] Gtk.Switch switch_unread_messages;
@@ -95,8 +96,12 @@ class Ricin.SettingsView : Gtk.Box {
     this.combobox_selected_theme.append_text (_("Dark theme") + @" ($default_str)");
     this.combobox_selected_theme.append_text (_("White theme"));
     this.combobox_selected_theme.append_text (_("Clearer theme"));
+    
+    this.combobox_message_parsing_mode.append_text (_("Markdown"));
+    this.combobox_message_parsing_mode.append_text (_("Plaintext"));
 
     this.combobox_languages.active = 0;
+    this.combobox_message_parsing_mode.active = this.settings.message_parsing_mode;
 
     this.handle.notify["encrypted"].connect (this.reset_profile_buttons);
     this.reset_profile_buttons ();
@@ -190,6 +195,10 @@ class Ricin.SettingsView : Gtk.Box {
     } else {
       this.combobox_selected_theme.active = 2;
     }
+    
+    this.combobox_message_parsing_mode.changed.connect (() => {
+      this.settings.message_parsing_mode = this.combobox_message_parsing_mode.active;
+    });
 
     bool enable_custom_themes = this.settings.enable_custom_themes;
     this.switch_custom_themes.active = enable_custom_themes;

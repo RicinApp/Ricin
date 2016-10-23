@@ -143,8 +143,11 @@ namespace Util {
   }
 
   public static string add_markup (string text) {
-    var md = Util.render_litemd (text);
-    return md;
+    string markup = text; // Plaintext.
+    if (Settings.instance.message_parsing_mode == 0) { // Markdown.
+      markup = Util.render_litemd (text);
+    }
+    return markup;
   }
 
   public static string size_to_string (uint64 size) {

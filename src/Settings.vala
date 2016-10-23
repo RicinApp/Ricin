@@ -29,6 +29,7 @@ class Settings : GLib.Object {
   public const string ENABLE_TASKBAR_NOTIFY_KEY = "enable-taskbar-notify";
   public const string DEFAULT_SAVE_PATH_KEY    = "default-save-path";
   public const string COMPACT_MODE_KEY         = "compact-mode";
+  public const string MESSAGE_PARSING_MODE_KEY = "message-parsing-mode";
 
   /**
   * Public members, can be get/set.
@@ -55,6 +56,7 @@ class Settings : GLib.Object {
   public bool enable_taskbar_notify { get; set; }
   public string default_save_path  { get; set; }
   public bool compact_mode         { get; set; }
+  public int message_parsing_mode { get; set; default = 0; }
 
   private static Settings? _instance;
   public static Settings instance {
@@ -121,6 +123,7 @@ class Settings : GLib.Object {
         this.enable_taskbar_notify = settings.enable_taskbar_notify;
         this.default_save_path    = settings.default_save_path;
         this.compact_mode         = settings.compact_mode;
+        this.message_parsing_mode = settings.message_parsing_mode;
       }
     } catch (Error e) {
       debug (@"Error loading settings: $(e.message)");
