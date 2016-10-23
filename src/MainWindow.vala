@@ -412,7 +412,7 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
     //var state = this.get_window ().get_state ();
     //if (state != Gdk.WindowState.ICONIFIED || this.has_toplevel_focus) return;
 
-    if (this.minimized && this.has_toplevel_focus == false) {
+    if (this.minimized || this.has_toplevel_focus == false) {
       this.set_urgency_hint (hint);
     }
   }
