@@ -14,10 +14,9 @@ $footer-height: 60px;
 
 * {
   box-sizing: border-box;
-
-  &:hover {
-    transition: all linear .3s;
-  }
+}
+a:hover {
+  transition: all linear .3s;
 }
 
 #site--menu {
