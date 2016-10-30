@@ -54,6 +54,7 @@ class ThemeManager : GLib.Object {
     this.current_theme_name = this.system_theme;
     var provider = Gtk.CssProvider.get_named (this.system_theme, null);
     this.add_provider (provider);
+    this.set_theme ("styles"); // We need those styles base.
   }
 
   public void reload_theme () {
