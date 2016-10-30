@@ -15,7 +15,7 @@ _Screenshot might be outdated but it should give you a general idea of what Rici
 
 # Download
 ## Linux
-You can download Ricin as an AppImage. An AppImage is a single file that contains Ricin + the required libraries.  
+You can download Ricin as an [AppImage](http://appimage.org/). An AppImage is a single file that contains Ricin + the required libraries.  
 The main goal of this is having Ricin working on every Linux distribution without the hassle of installing any dependency.  
 
 Downloading and running Ricin is simple as doing the following:
