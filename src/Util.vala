@@ -58,10 +58,10 @@ namespace Util {
     Gdk.Pixbuf pixbuf = null;
     
     if (FileUtils.test (_avatar_path, FileTest.EXISTS)) {
-      pixbuf = new Gdk.Pixbuf.from_file_at_scale (_avatar_path, 48, 48, false);
+      pixbuf = new Gdk.Pixbuf.from_file_at_scale (_avatar_path, width, height, false);
     } else {
-      Cairo.Surface surface = Util.identicon_for_pubkey (pubkey);
-      pixbuf = Gdk.pixbuf_get_from_surface (surface, 0, 0, 48, 48);
+      Cairo.Surface surface = Util.identicon_for_pubkey (pubkey, width);
+      pixbuf = Gdk.pixbuf_get_from_surface (surface, 0, 0, width, height);
     }
     
     return pixbuf;
@@ -222,9 +222,9 @@ namespace Util {
     return str;
   }
 
-  public static Cairo.Surface identicon_for_pubkey (string pubkey, string salt = "") {
+  public static Cairo.Surface identicon_for_pubkey (string pubkey, int size = 48, string salt = "") {
     ToxIdenticon.ToxIdenticon identicon = new ToxIdenticon.ToxIdenticon ();
     identicon.stroke = false;
-    return identicon.generate (48, pubkey, salt);
+    return identicon.generate (size, pubkey, salt);
   }
 }

@@ -1,0 +1,22 @@
+@define-color blue_primary #2a92c6;
+
+@define-color badge_color @blue_primary;
+@define-color links_color @blue_primary;
+
+.badge {
+	background-color: @badge_color;
+	color: #ffffff;
+	border-radius: 0px;
+	padding: 3px 5px;
+	font-size: 7px;
+}
+
+*:link {
+	color: @link_color;
+}
+
+.box-search GtkSearchEntry,
+.box-search GtkToggleButton {
+  border-radius: 0;
+}
+

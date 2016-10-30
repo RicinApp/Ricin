@@ -247,6 +247,7 @@
                         </child>
                         <style>
                           <class name="image-desc"/>
+                          <class name="background"/>
                         </style>
                       </object>
                       <packing>

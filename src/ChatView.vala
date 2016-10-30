@@ -119,14 +119,16 @@ class Ricin.ChatView : Gtk.Box {
 
     var _avatar_path = Tox.profile_dir () + "avatars/" + this.fr.pubkey + ".png";
     if (FileUtils.test (_avatar_path, FileTest.EXISTS)) {
-      var pixbuf = new Gdk.Pixbuf.from_file_at_scale (_avatar_path, 48, 48, false);
-      this.user_avatar.pixbuf = pixbuf;
+      var pixbuf_scaled = new Gdk.Pixbuf.from_file_at_scale (_avatar_path, 48, 48, false);
+      var pixbuf = new Gdk.Pixbuf.from_file_at_scale (_avatar_path, 128, 128, false);
+      
+      this.user_avatar.pixbuf = pixbuf_scaled;
       this.friend_profil_avatar.pixbuf = pixbuf;
     } else {
       Cairo.Surface surface = Util.identicon_for_pubkey (this.fr.pubkey);
-      var pixbuf = Gdk.pixbuf_get_from_surface (surface, 0, 0, 48, 48);
-      this.user_avatar.pixbuf = pixbuf;
-      this.friend_profil_avatar.pixbuf = pixbuf;
+      var pixbuf_scaled = Gdk.pixbuf_get_from_surface (surface, 0, 0, 48, 48);
+      this.user_avatar.pixbuf = pixbuf_scaled;
+      this.friend_profil_avatar.pixbuf = Util.pubkey_to_image(this.fr.pubkey, 128, 128);
     }
 
     this.entry.key_press_event.connect ((event) => {
@@ -223,7 +225,8 @@ class Ricin.ChatView : Gtk.Box {
 
     fr.avatar.connect (p => {
       this.user_avatar.pixbuf = p;
-      this.friend_profil_avatar.pixbuf = p;
+      //this.friend_profil_avatar.pixbuf = p;
+      this.friend_profil_avatar.pixbuf = Util.pubkey_to_image(this.fr.pubkey, 128, 128);
 
       this.label_friend_last_seen.set_markup (this.fr.last_online ("%H:%M %d/%m/%Y"));
     });
@@ -245,7 +248,7 @@ class Ricin.ChatView : Gtk.Box {
           }
         } else {
           if (this.handle.status != Tox.UserStatus.BUSY) {
-            Notification.notify (this.fr.name, message, 5000);
+            Notification.notify (this.fr.name, message, 5000, Util.pubkey_to_image (this.fr.pubkey, 46, 46));
           }
         }
       }
@@ -281,7 +284,7 @@ class Ricin.ChatView : Gtk.Box {
           }
         } else {
           if (this.handle.status != Tox.UserStatus.BUSY) {
-            Notification.notify (fr.name, message, 5000);
+            Notification.notify (fr.name, message, 5000, Util.pubkey_to_image (this.fr.pubkey, 46, 46));
           }
         }
 

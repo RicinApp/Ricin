@@ -70,11 +70,11 @@ public class Ricin.EditableLabel : Gtk.EventBox {
 
     this.entry.get_style_context ().add_class ("entry-principal");
     this.button_ok.get_style_context ().add_class ("button-dark");
-    this.button_ok.relief = Gtk.ReliefStyle.NONE;
+    this.button_ok.relief = Gtk.ReliefStyle.NORMAL;
     this.button_cancel.get_style_context ().add_class ("button-dark");
-    this.button_cancel.relief = Gtk.ReliefStyle.NONE;
+    this.button_cancel.relief = Gtk.ReliefStyle.NORMAL;
 
-    this.entry.has_frame = false;
+    this.entry.has_frame = true;
     this.entry.width_chars = 10;
 
     this.button_ok.add (new Gtk.Image.from_icon_name ("object-select-symbolic", Gtk.IconSize.BUTTON));

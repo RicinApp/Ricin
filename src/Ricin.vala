@@ -70,7 +70,13 @@ public class Ricin.Ricin : Gtk.Application {
 
       // Load the default css.
       var provider = new Gtk.CssProvider ();
+      provider.load_from_resource ("/chat/tox/ricin/themes/styles.css"); // Load default css helpers.
       provider.load_from_resource (this.current_theme);
+      Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (),
+          provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+    } else {
+      var provider = new Gtk.CssProvider ();
+      provider.load_from_resource ("/chat/tox/ricin/themes/styles.css"); // Load default css helpers.
       Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (),
           provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
     }

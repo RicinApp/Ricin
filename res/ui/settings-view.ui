@@ -23,6 +23,7 @@
         </child>
         <style>
           <class name="notebook-buttons"/>
+          <class name="background"/>
         </style>
       </object>
       <packing>

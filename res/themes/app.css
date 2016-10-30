@@ -7,17 +7,6 @@
 /** GTK reset **/
 @import url("reset.css");
 
-.badge {
-	background-color: @ui_system_color;
-	color: #ffffff;
-	border-radius: 0px;
-	padding: 3px 5px;
-	font-size: 7px;
-}
-*:link {
-	color: @ui_system_color;
-}
-
 GtkEntry,
 GtkEntry:focus,
 GtkComboBox,
