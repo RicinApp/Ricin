@@ -19,7 +19,7 @@ class Ricin.StatusMessageListRow : Gtk.ListBoxRow {
 
     this.label_name.set_text ("");
     this.image_status.set_from_resource (@"/chat/tox/ricin/images/status/$icon.png");
-    this.label_message.set_markup ("<span color=\"#2a92c6\">" + message + "</span>");
+    this.label_message.set_markup (message);
     this.label_timestamp.set_text (time ());
   }
 

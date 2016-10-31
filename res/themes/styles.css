@@ -7,6 +7,8 @@
 @define-color quote_border @green_primary;
 @define-color plain_border @white_primary;
 @define-color selected_color @blue_primary;
+@define-color info_message_color @blue_primary;
+@define-color status_info_color @blue_primary;
 
 .badge {
   background-color: @badge_color;
@@ -49,5 +51,8 @@
 }
 
 .info-message {
-  color: @selected_color;
+  color: @info_message_color;
+}
+.status-info-message {
+  color: @status_info_color;
 }
