@@ -799,6 +799,17 @@ namespace Tox {
       DateTime time = new DateTime.from_unix_local ((int64)last);
       return time.format ((format != null) ? format : _("<b>Last online:</b>") + " %H:%M %d/%m/%Y");
     }
+    
+    public bool is_presumed_dead () {
+      uint64 last = this.tox.handle.friend_get_last_online (this.num, null);
+      DateTime time = new DateTime.from_unix_local ((int64)last);
+      DateTime dead_time = time.add_months (4); // Profile presumed dead when not active for 6+ months.
+      
+      if (time.compare (dead_time) > 0) {
+        return true;
+      }
+      return false;
+    }
 
     public void set_user_status (ToxCore.UserStatus status) {
       if (blocked) {

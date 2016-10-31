@@ -23,7 +23,7 @@
     <property name="visible">True</property>
     <property name="can_focus">False</property>
     <property name="xpad">5</property>
-    <property name="icon_name">contact-new-symbolic</property>
+    <property name="icon_name">list-add-symbolic</property>
   </object>
   <object class="GtkImage" id="image4">
     <property name="visible">True</property>
@@ -244,6 +244,9 @@
                         <child>
                           <object class="GtkBox" id="box_friend_request_new">
                             <property name="can_focus">False</property>
+                            <property name="margin_left">10</property>
+                            <property name="margin_right">10</property>
+                            <property name="margin_top">5</property>
                             <property name="spacing">5</property>
                             <child>
                               <object class="GtkImage" id="image5">
@@ -310,6 +313,8 @@
                                   <object class="GtkBox" id="box4">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
+                                    <property name="margin_left">10</property>
+                                    <property name="margin_right">10</property>
                                     <property name="orientation">vertical</property>
                                     <child>
                                       <object class="GtkLabel" id="label_friend_request_pubkey">
@@ -352,6 +357,10 @@
                                   <object class="GtkBox" id="box3">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
+                                    <property name="margin_left">10</property>
+                                    <property name="margin_right">10</property>
+                                    <property name="margin_bottom">5</property>
+                                    <property name="spacing">5</property>
                                     <property name="homogeneous">True</property>
                                     <child>
                                       <object class="GtkButton" id="button_friend_request_cancel">
@@ -360,7 +369,6 @@
                                         <property name="can_focus">True</property>
                                         <property name="receives_default">True</property>
                                         <property name="image">image8</property>
-                                        <property name="relief">none</property>
                                         <property name="always_show_image">True</property>
                                         <style>
                                           <class name="button-dark"/>
@@ -380,7 +388,6 @@
                                         <property name="can_focus">True</property>
                                         <property name="receives_default">True</property>
                                         <property name="image">image7</property>
-                                        <property name="relief">none</property>
                                         <property name="always_show_image">True</property>
                                         <style>
                                           <class name="button-dark"/>
@@ -631,9 +638,8 @@
                             <property name="can_focus">False</property>
                             <property name="margin_left">10</property>
                             <property name="margin_right">10</property>
-                            <property name="margin_top">5</property>
-                            <property name="margin_bottom">5</property>
-                            <property name="spacing">10</property>
+                            <property name="margin_bottom">10</property>
+                            <property name="spacing">5</property>
                             <property name="baseline_position">bottom</property>
                             <child>
                               <object class="GtkButton" id="button_add_friend">
