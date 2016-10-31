@@ -965,6 +965,63 @@
                                 <property name="position">0</property>
                               </packing>
                             </child>
+                            <child>
+                              <object class="GtkRevealer" id="friend_typing">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="transition_type">crossfade</property>
+                                <child>
+                                  <object class="GtkBox" id="box19">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="spacing">10</property>
+                                    <child>
+                                      <object class="GtkImage" id="image1">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">False</property>
+                                        <property name="valign">baseline</property>
+                                        <property name="margin_left">10</property>
+                                        <property name="pixel_size">24</property>
+                                        <property name="icon_name">content-loading-symbolic</property>
+                                        <property name="icon_size">5</property>
+                                      </object>
+                                      <packing>
+                                        <property name="expand">False</property>
+                                        <property name="fill">True</property>
+                                        <property name="position">0</property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <object class="GtkLabel" id="label_friend_is_typing">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">False</property>
+                                        <property name="label" translatable="yes">&lt;i&gt;Friend is typing&lt;/i&gt;</property>
+                                        <property name="use_markup">True</property>
+                                      </object>
+                                      <packing>
+                                        <property name="expand">False</property>
+                                        <property name="fill">True</property>
+                                        <property name="position">1</property>
+                                      </packing>
+                                    </child>
+                                    <style>
+                                      <class name="list"/>
+                                    </style>
+                                  </object>
+                                </child>
+                                <style>
+                                  <class name="list"/>
+                                </style>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="fill">True</property>
+                                <property name="position">1</property>
+                              </packing>
+                            </child>
+                            <style>
+                              <class name="list"/>
+                            </style>
                           </object>
                         </child>
                       </object>
@@ -1599,59 +1656,6 @@
             <property name="expand">True</property>
             <property name="fill">True</property>
             <property name="position">2</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkRevealer" id="friend_typing">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="transition_type">slide-up</property>
-            <child>
-              <object class="GtkBox" id="box19">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="spacing">10</property>
-                <child>
-                  <object class="GtkImage" id="image1">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="valign">baseline</property>
-                    <property name="margin_left">10</property>
-                    <property name="pixel_size">24</property>
-                    <property name="icon_name">content-loading-symbolic</property>
-                    <property name="icon_size">5</property>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="position">0</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkLabel" id="label_friend_is_typing">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">&lt;i&gt;Friend is typing&lt;/i&gt;</property>
-                    <property name="use_markup">True</property>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="position">1</property>
-                  </packing>
-                </child>
-                <style>
-                  <class name="user-infos"/>
-                  <class name="popover"/>
-                  <class name="background"/>
-                </style>
-              </object>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">3</property>
           </packing>
         </child>
       </object>

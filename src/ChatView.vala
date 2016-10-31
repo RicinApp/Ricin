@@ -373,12 +373,12 @@ class Ricin.ChatView : Gtk.Box {
       this.friend_typing.reveal_child = this.fr.typing;
     });
 
-    this.friend_typing.notify["child-revealed"].connect (() => {
+    /*this.friend_typing.notify["child-revealed"].connect (() => {
       Gtk.Adjustment adj = this.scroll_messages.get_vadjustment ();
       if (adj.value == this._bottom_scroll) {
         this.scroll_bottom ();
       }
-    });
+    });*/
 
     this.fr.notify["status-message"].connect ((obj, prop) => {
       string markup = Util.add_markup (this.fr.status_message);
@@ -609,11 +609,11 @@ class Ricin.ChatView : Gtk.Box {
     //var main_window = ((MainWindow) this.get_toplevel ().get_toplevel ());
 
     /**
-    * Shortcut for Ctrl+C: Copy selected messages if selection > 0
+    * Shortcut for Ctrl+Shift+C: Copy selected messages if selection > 0
     **/
     this.add_accelerator (
       "copy-messages-selection", MainWindow.accel_group, Gdk.keyval_from_name("C"),
-      Gdk.ModifierType.CONTROL_MASK, Gtk.AccelFlags.VISIBLE
+      Gdk.ModifierType.CONTROL_MASK | Gdk.ModifierType.SHIFT_MASK, Gtk.AccelFlags.VISIBLE
     );
 
     this.copy_messages_selection.connect (() => {
