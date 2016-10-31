@@ -228,58 +228,64 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
     
     this.friendlist.set_filter_func (row => {
       string? search = this.searchentry_friend.text.down ();
+
       var friend = ((FriendListRow) row);
       string name = friend.fr.name.down ();
+      string status_message = friend.fr.status_message.down ();
+      string pubkey = friend.fr.pubkey.down ();
       Tox.UserStatus status = friend.fr.status;
+      bool is_blocked = friend.fr.blocked;
+
       var mode = this.combobox_friend_filter.active;
 
-      if (search == null || search.length == 0) {
-        if (friend.unreadCount > 0) {
+      /*
+      if (search.length == 0) {
+        // If a friend have unread messages, show it.
+        if (friend.unreadCount > 0) return true;
+        if (mode == 0 && status == Tox.UserStatus.OFFLINE) return false;
+        return true;
+      } else {
+      
+        if (name.index_of (search) != -1) {
           return true;
+        } else if (status_message.index_of (search) != -1) {
+          return true;
+        } else  {
+          return true;
+        } else {
+          if (mode == 0 && status == Tox.UserStatus.OFFLINE) return false;
         }
+      }
+      
+      return false;*/
 
-        if (mode == 0 && status == Tox.UserStatus.OFFLINE) {
-          return false;
-        }
+      if (search == null || search.length == 0) {
+        if (friend.unreadCount > 0) return true;
+        if (mode == 0 && status == Tox.UserStatus.OFFLINE) return false;
         return true;
+      } else if (search.length > 0) {
+        switch (search) {
+          case "f:blocked":
+            if (is_blocked) return true;
+            return false;
+          case "f:old":
+            if (friend.fr.is_presumed_dead ()) return true;
+            return false;
+            
+        }
       } else if (mode == 0) {
-        if (status == Tox.UserStatus.OFFLINE) {
-          return false;
-        }
+        if (status == Tox.UserStatus.OFFLINE) return false;
       }
 
-      if (name.index_of (search) != -1) {
-        return true;
-      }
+      if (name.index_of (search) != -1) return true;
+      if (status_message.index_of (search) != -1) return true;
+      if (pubkey == search) return true;
       return false;
     });
     
           
       
-      /*var friend = ((FriendListRow) row);
-      string name = friend.fr.name.down ();
-      Tox.UserStatus status = friend.fr.status;
-      var mode = this.combobox_friend_filter.active;
-
-      if (search == null || search.length == 0) {
-        if (friend.unreadCount > 0) {
-          return true;
-        }
-
-        if (mode == 0 && status == Tox.UserStatus.OFFLINE) {
-          return false;
-        }
-        return true;
-      } else if (mode == 0) {
-        if (status == Tox.UserStatus.OFFLINE) {
-          return false;
-        }
-      }
-
-      if (name.index_of (search) != -1) {
-        return true;
-      }
-      return false;*/
+      /**/
 
     tox.notify["connected"].connect ((src, prop) => {
       string icon = "";
