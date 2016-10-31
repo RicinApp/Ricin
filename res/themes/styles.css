@@ -6,10 +6,11 @@
 @define-color links_color @blue_primary;
 @define-color quote_border @green_primary;
 @define-color plain_border @white_primary;
+@define-color selected_color @blue_primary;
 
 .badge {
   background-color: @badge_color;
-  color: #ffffff;
+  color: @white_primary;
   border-radius: 0px;
   padding: 3px 5px;
   font-size: 7px;
@@ -33,4 +34,20 @@
 }
 .plain-container {
   border-left: 4px solid @plain_border;
+}
+
+.message-list .activatable:selected *,
+.message-list .activatable:selected,
+:selected:not(.friendlist-row),
+.entry:selected {
+  color: @white_primary;
+  background-color: @selected_color;
+  outline: none;
+}
+.message-list .activatable {
+  outline: none;
+}
+
+.info-message {
+  color: @selected_color;
 }
