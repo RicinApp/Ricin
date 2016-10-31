@@ -1,18 +1,22 @@
 @define-color blue_primary #2a92c6;
+@define-color green_primary #2ECC71;
+@define-color white_primary #FFFFFF;
 
 @define-color badge_color @blue_primary;
 @define-color links_color @blue_primary;
+@define-color quote_border @green_primary;
+@define-color plain_border @white_primary;
 
 .badge {
-	background-color: @badge_color;
-	color: #ffffff;
-	border-radius: 0px;
-	padding: 3px 5px;
-	font-size: 7px;
+  background-color: @badge_color;
+  color: #ffffff;
+  border-radius: 0px;
+  padding: 3px 5px;
+  font-size: 7px;
 }
 
 *:link {
-	color: @link_color;
+  color: @link_color;
 }
 
 .box-search GtkSearchEntry,
@@ -20,3 +24,13 @@
   border-radius: 0;
 }
 
+.quotes-listbox {
+  background: none;
+  background-image: none;
+}
+.quote-container {
+  border-left: 4px solid @quote_border;
+}
+.plain-container {
+  border-left: 4px solid @plain_border;
+}

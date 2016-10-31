@@ -497,14 +497,18 @@ class Ricin.ChatView : Gtk.Box {
     var menu = new Gtk.Menu ();
 
     var menu_copy_selection = new Gtk.ImageMenuItem.with_label (_("Copy selection in clipboard"));
+    var label_copy_selection = ((Gtk.AccelLabel) menu_copy_selection.get_child ());
+    label_copy_selection.set_accel (Gdk.keyval_from_name("C"), Gdk.ModifierType.CONTROL_MASK | Gdk.ModifierType.SHIFT_MASK);
     menu_copy_selection.always_show_image = true;
     menu_copy_selection.set_image (new Gtk.Image.from_icon_name ("edit-copy-symbolic", Gtk.IconSize.MENU));
     
-    var menu_copy_quote = new Gtk.ImageMenuItem.with_label (_("Copy quote in clipboard"));
+    var menu_copy_quote = new Gtk.ImageMenuItem.with_label (_("Copy quote in clipboard"));    
     menu_copy_quote.always_show_image = true;
     menu_copy_quote.set_image (new Gtk.Image.from_icon_name ("edit-copy-symbolic", Gtk.IconSize.MENU));
     
     var menu_quote_selection = new Gtk.ImageMenuItem.with_label (_("Quote selection"));
+    var label_quote_selection = ((Gtk.AccelLabel) menu_quote_selection.get_child ());
+    label_quote_selection.set_accel (Gdk.keyval_from_name("Q"), Gdk.ModifierType.SHIFT_MASK);
     menu_quote_selection.always_show_image = true;
     menu_quote_selection.set_image (new Gtk.Image.from_icon_name ("insert-text-symbolic", Gtk.IconSize.MENU));
     
@@ -633,7 +637,7 @@ class Ricin.ChatView : Gtk.Box {
     **/
     this.add_accelerator (
       "quote-messages-selection", MainWindow.accel_group, Gdk.keyval_from_name("Q"),
-      Gdk.ModifierType.CONTROL_MASK | Gdk.ModifierType.SHIFT_MASK, Gtk.AccelFlags.VISIBLE
+      Gdk.ModifierType.SHIFT_MASK, Gtk.AccelFlags.VISIBLE
     );
 
     this.quote_messages_selection.connect (() => {

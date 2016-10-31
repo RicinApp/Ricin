@@ -72,6 +72,9 @@
                 <property name="margin_right">5</property>
                 <property name="selection_mode">none</property>
                 <property name="activate_on_single_click">False</property>
+                <style>
+                  <class name="quotes-listbox"/>
+                </style>
               </object>
               <packing>
                 <property name="expand">True</property>
