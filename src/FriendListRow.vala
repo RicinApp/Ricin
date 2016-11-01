@@ -101,6 +101,7 @@ class Ricin.FriendListRow : Gtk.ListBoxRow {
 
     fr.message.connect (this.notify_new_messages);
     fr.action.connect (this.notify_new_messages);
+    fr.file_transfer.connect (this.notify_new_messages);
 
     this.activate.connect (() => {
       var main_window = ((MainWindow) this.get_toplevel ());
@@ -121,7 +122,7 @@ class Ricin.FriendListRow : Gtk.ListBoxRow {
     if (this.unreadCount == 0) {
       this.label_unread_count.visible = false;
     } else {
-      string count_str = this.unreadCount > 10 ? "<b>10+</b>" : @"$(this.unreadCount)";
+      string count_str = this.unreadCount > 90 ? "<b>90+</b>" : @"$(this.unreadCount)";
 
       this.label_unread_count.set_markup (count_str);
       this.label_unread_count.visible = true;

@@ -82,6 +82,7 @@ class Ricin.QuoteMessageListRow : Gtk.ListBoxRow {
       this.image_author.set_pixel_size (24);
       this.image_author.set_size_request (24, 24);
       
+      this.image_author.set_tooltip_text (this.sender.name);
       this.sender.avatar.connect (p => {
         this.image_author.pixbuf = p.scale_simple (24, 24, Gdk.InterpType.BILINEAR);;
       });

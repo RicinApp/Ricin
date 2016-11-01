@@ -55,15 +55,24 @@ class Ricin.FileListRow : Gtk.ListBoxRow {
 
       //var pix = new Gdk.Pixbuf.from_file_at_scale (this.file.get_path (), 400, 400, true);
       var pix = new Gdk.Pixbuf.from_file (this.file.get_path ());
-      var pix_scaled = pix.scale_simple (size_req.width, 200, Gdk.InterpType.BILINEAR);
+      if (pix.width > size_req.width) {
+        var pix_scaled = pix.scale_simple (size_req.width, 200, Gdk.InterpType.BILINEAR);
+        this.image_preview.set_from_pixbuf (pix_scaled);
+      } else {
+        this.image_preview.set_from_pixbuf (pix);
+      }
       
-      this.image_preview.set_from_pixbuf (pix_scaled);
+      this.image_preview.visible = true;
     } else if (pixbuf != null) { // File is an image.
       this.file_name = pixbuf_name;
       this.file_size = pixbuf.get_byte_length ();
 
-      var pix = pixbuf.scale_simple (size_req.width, 200, Gdk.InterpType.BILINEAR);
-      this.image_preview.set_from_pixbuf (pix);
+      if (pixbuf.width > size_req.width) {
+        var pix_scaled = pixbuf.scale_simple (size_req.width, 200, Gdk.InterpType.BILINEAR);
+        this.image_preview.set_from_pixbuf (pix_scaled);
+      } else {
+        this.image_preview.set_from_pixbuf (pixbuf);
+      }
       this.image_preview.visible = true;
     } else { // Normal file.
       this.file_name = this.file.get_basename ();
@@ -119,8 +128,9 @@ class Ricin.FileListRow : Gtk.ListBoxRow {
       this.image_author.set_pixel_size (24);
       this.image_author.set_size_request (24, 24);
       
-      this.sender.avatar.connect (p => {
-        this.image_author.pixbuf = p.scale_simple (24, 24, Gdk.InterpType.BILINEAR);;
+      this.image_author.set_tooltip_text (this.sender.name);
+      this.sender.avatar.connect (px => {
+        this.image_author.pixbuf = px.scale_simple (24, 24, Gdk.InterpType.BILINEAR);;
       });
     }
 
@@ -149,6 +159,19 @@ class Ricin.FileListRow : Gtk.ListBoxRow {
         FileUtils.set_data (file_destination.get_path (), bytes.get_data ());
         this.file = file_destination;
       }
+      
+      this.set_redraw_on_allocate (true);
+      Gdk.Pixbuf p = new Gdk.Pixbuf.from_file (this.file.get_path ());
+      if (p.width > size_req.width) {
+        var pix_scaled = p.scale_simple (size_req.width, 200, Gdk.InterpType.BILINEAR);
+        this.image_preview.set_from_pixbuf (pix_scaled);
+      } else {
+        this.image_preview.set_from_pixbuf (p);
+      }
+      
+      this.image_preview.visible = true;
+      this.changed ();
+      this.set_size_request (-1, -1);
 
       this.downloaded = true;
       this.box_widget.get_style_context().add_class ("saved-file");
@@ -175,7 +198,9 @@ class Ricin.FileListRow : Gtk.ListBoxRow {
     });
 
     this.sender.file_progress.connect ((id, position) => {
-      if (id != this.file_id) return;
+      if (id != this.file_id) {
+        return;
+      }
 
       var percent = position / this.raw_size;
       debug (@"File $id - Size: $(this.raw_size) - Position: $position");
