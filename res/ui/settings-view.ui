@@ -46,6 +46,7 @@
           <object class="GtkScrolledWindow" id="tab_general">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
+            <property name="hscrollbar_policy">never</property>
             <child>
               <object class="GtkViewport" id="viewport1">
                 <property name="visible">True</property>
@@ -346,6 +347,7 @@
           <object class="GtkScrolledWindow" id="tab_network">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
+            <property name="hscrollbar_policy">never</property>
             <child>
               <object class="GtkViewport" id="viewport2">
                 <property name="visible">True</property>
@@ -619,6 +621,7 @@
           <object class="GtkScrolledWindow" id="tab_interface">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
+            <property name="hscrollbar_policy">never</property>
             <child>
               <object class="GtkViewport" id="viewport3">
                 <property name="visible">True</property>
@@ -654,6 +657,9 @@
                                     <property name="halign">start</property>
                                     <property name="label" translatable="yes">&lt;b&gt;Enable custom themes?&lt;/b&gt;</property>
                                     <property name="use_markup">True</property>
+                                    <property name="justify">fill</property>
+                                    <property name="wrap">True</property>
+                                    <property name="wrap_mode">word-char</property>
                                   </object>
                                   <packing>
                                     <property name="expand">True</property>
@@ -692,6 +698,9 @@
                                     <property name="can_focus">False</property>
                                     <property name="halign">start</property>
                                     <property name="label" translatable="yes">Theme:</property>
+                                    <property name="justify">fill</property>
+                                    <property name="wrap">True</property>
+                                    <property name="wrap_mode">word-char</property>
                                     <attributes>
                                       <attribute name="weight" value="bold"/>
                                     </attributes>
@@ -776,6 +785,9 @@
                                 <property name="halign">start</property>
                                 <property name="label" translatable="yes">&lt;b&gt;Language:&lt;/b&gt;</property>
                                 <property name="use_markup">True</property>
+                                <property name="justify">fill</property>
+                                <property name="wrap">True</property>
+                                <property name="wrap_mode">word-char</property>
                               </object>
                               <packing>
                                 <property name="expand">True</property>
@@ -834,6 +846,9 @@
                                 <property name="can_focus">False</property>
                                 <property name="halign">start</property>
                                 <property name="label" translatable="yes">Message parsing mode:</property>
+                                <property name="justify">fill</property>
+                                <property name="wrap">True</property>
+                                <property name="wrap_mode">word-char</property>
                                 <attributes>
                                   <attribute name="weight" value="bold"/>
                                 </attributes>
@@ -896,6 +911,9 @@
                                 <property name="halign">start</property>
                                 <property name="label" translatable="yes">&lt;b&gt;Display friend's status changes?&lt;/b&gt;</property>
                                 <property name="use_markup">True</property>
+                                <property name="justify">fill</property>
+                                <property name="wrap">True</property>
+                                <property name="wrap_mode">word-char</property>
                               </object>
                               <packing>
                                 <property name="expand">True</property>
@@ -940,6 +958,9 @@
                                     <property name="can_focus">False</property>
                                     <property name="halign">start</property>
                                     <property name="label" translatable="yes">Display unread messages notice?</property>
+                                    <property name="justify">fill</property>
+                                    <property name="wrap">True</property>
+                                    <property name="wrap_mode">word-char</property>
                                     <attributes>
                                       <attribute name="weight" value="bold"/>
                                     </attributes>
@@ -993,6 +1014,9 @@
                                     <property name="can_focus">False</property>
                                     <property name="halign">start</property>
                                     <property name="label" translatable="yes">Display typing notifications?</property>
+                                    <property name="justify">fill</property>
+                                    <property name="wrap">True</property>
+                                    <property name="wrap_mode">word-char</property>
                                     <attributes>
                                       <attribute name="weight" value="bold"/>
                                     </attributes>
@@ -1052,6 +1076,9 @@
                                 <property name="can_focus">False</property>
                                 <property name="halign">start</property>
                                 <property name="label" translatable="yes">Compact friend list?</property>
+                                <property name="justify">fill</property>
+                                <property name="wrap">True</property>
+                                <property name="wrap_mode">word-char</property>
                                 <attributes>
                                   <attribute name="weight" value="bold"/>
                                 </attributes>
@@ -1115,6 +1142,7 @@
           <object class="GtkScrolledWindow" id="tab_notify">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
+            <property name="hscrollbar_policy">never</property>
             <child>
               <object class="GtkViewport" id="viewport5">
                 <property name="visible">True</property>
@@ -1145,6 +1173,9 @@
                                 <property name="halign">start</property>
                                 <property name="label" translatable="yes">&lt;b&gt;Make the icon in taskbar to blink on new messages?&lt;/b&gt;</property>
                                 <property name="use_markup">True</property>
+                                <property name="justify">fill</property>
+                                <property name="wrap">True</property>
+                                <property name="wrap_mode">word-char</property>
                               </object>
                               <packing>
                                 <property name="expand">True</property>
@@ -1184,6 +1215,9 @@
                                 <property name="can_focus">False</property>
                                 <property name="halign">start</property>
                                 <property name="label" translatable="yes">Show notifications when friends status changes?</property>
+                                <property name="justify">fill</property>
+                                <property name="wrap">True</property>
+                                <property name="wrap_mode">word-char</property>
                                 <attributes>
                                   <attribute name="weight" value="bold"/>
                                 </attributes>
@@ -1238,6 +1272,9 @@
                                 <property name="halign">start</property>
                                 <property name="label" translatable="yes">&lt;b&gt;Send typing notifications?&lt;/b&gt;</property>
                                 <property name="use_markup">True</property>
+                                <property name="justify">fill</property>
+                                <property name="wrap">True</property>
+                                <property name="wrap_mode">word-char</property>
                               </object>
                               <packing>
                                 <property name="expand">True</property>
@@ -1299,6 +1336,7 @@
           <object class="GtkScrolledWindow" id="tab_about">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
+            <property name="hscrollbar_policy">never</property>
             <child>
               <object class="GtkViewport" id="viewport4">
                 <property name="visible">True</property>
