@@ -15,6 +15,11 @@ $footer-height: 60px;
 * {
   box-sizing: border-box;
 }
+*::selection {
+  background: $swatch-principal-light !important;
+  color: $swatch-white !important;
+}
+
 a:hover {
   transition: all linear .3s;
 }
@@ -194,7 +199,7 @@ a:hover {
     padding: 40px 0;
 
     background-color: $swatch-principal;
-    background: url("https://cdn.ricin.im/images/intro.png") top center/cover fixed $swatch-principal;
+    //background: url("https://cdn.ricin.im/images/intro.png") top center/cover fixed $swatch-principal;
 
     a:hover {
       padding: 12px 16px;
@@ -350,6 +355,10 @@ a:hover {
           #content--extra { margin-left: 30px; }
         }
       }
+      
+      *::selection {
+        background: $swatch-secondary;
+      }
     }
     section:nth-child(even) {
       background-color: $swatch-secondary;
@@ -366,6 +375,10 @@ a:hover {
           }
           #content--extra { margin-right: 30px; }
         }
+      }
+      
+      *::selection {
+        background: $swatch-principal;
       }
     }
   }
@@ -395,8 +408,21 @@ a:hover {
       #copyright--heart {
         margin: 0 4px;
         
-        text-indent: -9999px;
-        color: #e74c3c;
+        display: inline-block;
+        //text-indent: -9999px;
+        color: transparent;
+        font-size: 0;
+        width: 20px;
+        
+        &::before {
+          color: #e74c3c;
+          text-indent: 0;
+          font-size: 20px;
+        }
+        &::selection {
+          color: transparent;
+          background: transparent;
+        }
       }
     }
     #footer--links {
