@@ -1,0 +1,11 @@
+{% for (url, icon, text) in [
+  ('#', 'linux', 'GNU/Linux'),
+  ('#', 'windows', 'Windows'),
+  ('#', 'apple', 'Mac OSX'),
+  ('https://github.com/RicinApp/Ricin', 'github', 'Source code'),
+] %}
+<a href="{{ url }}">
+  <span class="icon ic-{{ icon }}"></span>
+  <span class="mobile--hidden">{{ text }}</span>
+</a>
+{% endfor %}

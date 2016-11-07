@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="{{ DEFAULT_LANG }}">
+  <head prefix="og: http://ogp.me/ns#">
+    {% block head %}
+    <!-- SEO optimization done manually by SkyzohKey. -->
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie-edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Ricin aims to be a modern way to securely communicate with people that matter to you! Enjoy the power of a trully P2P instant messaging app!">
+    <meta name="keywords" content="ricin, messenger, privacy, peer-to-peer, p2p, encrypted, encryption, secure, tox, open-source, foss, free, skype like, discord replacement, telegram alternative, modern, communicate, talk, chat, im, surveillance, easy-to-use, no ads, network, decentralized, snowden, protocol, no servers, end-to-end, distributed, client, toxcore, instant messaging, voice, video, screen streaming, file transfers, group chats, 1337">
+    <meta name="author" content="SkyzohKey <SkyzohKey@framasphere.org>">
+    
+    <!-- Open Graph Protocol meta tags (facebook, diaspora, etc). -->
+    <meta property="og:title" content="{{ SITENAME }}{%- if self.title() == '' %} - {{ TAG_LINE }}{% else %} - {{ self.title() }}{% endif -%}">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ricin.im">
+    <meta property="og:image" content="https://cdn.ricin.im/images/ricin-icon-plain-color.svg">
+    <meta property="og:site_name" content="Ricin Messenger">
+    <meta property="og:description" content="Whether it's corporations or governments, digital surveillance today is widespread. Ricin Messenger is easy-to-use software that connects you with your friends and your family without anyone else listening in. While other big-name services require you to pay for features, Ricin Messenger is completely free and comes without advertising &mdash; forever.">
+    
+    <!-- Twitter Card meta tags. -->
+    <meta property="twitter:card" content="summary">
+    <meta property="twitter:site" content="@SkyzohKey">
+    <meta property="twitter:title" content="{{ SITENAME }}{%- if self.title() == '' %} - {{ TAG_LINE }}{% else %} - {{ self.title() }}{% endif -%}">
+    <meta property="twitter:description" content="Ricin aims to be a modern way to securely communicate with people that matter to you! Enjoy the power of a trully P2P instant messaging app!">
+    <meta property="twitter:image:src" content="https://cdn.ricin.im/images/ricin-icon-card-twitter.png">
+    <meta property="twitter:image:alt" content="The Ricin Messenger logo, with colors!">
+    <meta property="twitter:url" content="https://ricin.im">
+    
+    <!-- Theme colors, apple touch icons, MS Tile images, etc. -->
+    <meta name="theme-color" content="#29A176">
+    <meta name="msapplication-TileColor" content="#29A176">
+    <meta name="msapplication-TileImage" content="https://cdn.ricin.im/images/ricin-icon-plain-colors.png">
+    <link rel="apple-touch-icon" type="image/x-icon" href="https://cdn.ricin.im/images/ricin-icon-plain.svg">
+    <link rel="mask-icon" color="#29A176" href="https://cdn.ricin.im/images/ricin-icon-plain.svg">
+    <link rel="shortcut icon" href="https://cdn.ricin.im/images/ricin-icon-plain.svg">
+    <link rel="icon" type="image/x-icon" href="https://cdn.ricin.im/images/ricin-icon-plain.svg">
+    <link rel="stylesheet" href="https://cdn.ricin.im/styles/ricin.css">
+
+    <title>
+      {{ SITENAME }}{%- if self.title() == "" %} - {{ TAG_LINE }}{% else %} - {%- block title %}{% endblock -%}{% endif -%}
+    </title>
+    {% endblock %}
+  </head>
+  <body>
+    <div id="site--wrapper">
+      <aside id="site--menu">
+        <section id="menu--left">
+          <a id="menu--logo" href="/">Ricin <span id="menu--logo-small">Messenger</span></a>
+        </section>
+        <nav id="menu--links" class="mobile--hidden">
+          <a href="#about">About Ricin</a>
+          <a href="#features">Features</a>
+          <a href="#privacy">Privacy</a>
+          <a href="#download">Download</a>
+          <a href="https://wiki.ricin.im">Wiki</a>
+        </nav>
+      </aside>
+      <main id="site--content">
+        <header id="content--header">
+          <h1 id="header--logo">Ricin <span id="header--logo-small">Messenger</span></h1>
+          <h2 id="header--tagline">Dead simple, privacy oriented, instant messaging app!</h2>
+        </header>
+        <section id="app--callout">
+          <nav id="callout--links">
+            {% include '_callout_links.html' %}
+          </nav>
+        </section>
+        {% block content %}{% endblock %}
+        <section id="app--callout-secondary">
+          <h1 id="download">So, what are you waiting for?</h1>
+          <h2>Download Ricin Messenger now, for free!</h2>
+          <nav id="callout--links">
+            {% include '_callout_links.html' %}
+          </nav>
+        </section>
+        <!--
+        <footer id="site--languages">
+          TODO: List available languages.
+        </footer>
+        -->
+        <footer id="site--footer">
+          <section id="footer--copyright">
+            <p>
+              &copy; 2015-2016 <a href="https://ricin.im">Ricin.im</a> - Design and code by <a href="https://github.com/SkyzohKey">SkyzohKey</a>. Made with <span id="copyright--heart" class="icon ic-heart" title="Love!" alt="♥"></span> in France.
+            </p>
+          </section>
+          <nav id="footer--links" class="mobile--hidden">
+            <div><a href="https://git.ricin.im/Ricin/ricin.im">Website source code</a></div>
+            <div><a href="https://git.ricin.im">Git server</a></div>
+            <div><a href="https://wiki.ricin.im">Wiki</a></div>
+            <div><a href="tox:skz@toxme.io">Contact</a></div>
+          </nav>
+        </footer>
+      </main>
+    </div>
+  </body>
+</html>

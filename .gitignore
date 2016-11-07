@@ -2,3 +2,10 @@
 styles/*
 Prepros Build/*
 langs/*
+
+# Pelican stuff that we don't care to track.
+cache
+public
+content
+*.pyc
+*.pid
