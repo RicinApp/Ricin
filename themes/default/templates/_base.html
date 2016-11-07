@@ -11,7 +11,7 @@
     <meta name="author" content="SkyzohKey <SkyzohKey@framasphere.org>">
     
     <!-- Open Graph Protocol meta tags (facebook, diaspora, etc). -->
-    <meta property="og:title" content="{{ SITENAME }}{%- if self.title() == '' %} - {{ TAG_LINE }}{% else %} - {{ self.title() }}{% endif -%}">
+    <meta property="og:title" content="{{ SITENAME }}{%- if self.title() == '' %} − {{ TAG_LINE }}{% else %} − {{ self.title() }}{% endif -%}">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://ricin.im">
     <meta property="og:image" content="https://cdn.ricin.im/images/ricin-icon-plain-color.svg">
@@ -21,7 +21,7 @@
     <!-- Twitter Card meta tags. -->
     <meta property="twitter:card" content="summary">
     <meta property="twitter:site" content="@SkyzohKey">
-    <meta property="twitter:title" content="{{ SITENAME }}{%- if self.title() == '' %} - {{ TAG_LINE }}{% else %} - {{ self.title() }}{% endif -%}">
+    <meta property="twitter:title" content="{{ SITENAME }}{%- if self.title() == '' %} − {{ TAG_LINE }}{% else %} − {{ self.title() }}{% endif -%}">
     <meta property="twitter:description" content="Ricin aims to be a modern way to securely communicate with people that matter to you! Enjoy the power of a trully P2P instant messaging app!">
     <meta property="twitter:image:src" content="https://cdn.ricin.im/images/ricin-icon-card-twitter.png">
     <meta property="twitter:image:alt" content="The Ricin Messenger logo, with colors!">
@@ -38,7 +38,7 @@
     <link rel="stylesheet" href="https://cdn.ricin.im/styles/ricin.css">
 
     <title>
-      {{ SITENAME }}{%- if self.title() == "" %} - {{ TAG_LINE }}{% else %} - {%- block title %}{% endblock -%}{% endif -%}
+      {{ SITENAME }}&nbsp;−&nbsp;{%- if self.title() == "" %}{{ TAG_LINE }}{% else %}{%- block title %}{% endblock -%}{% endif -%}
     </title>
     {% endblock %}
   </head>
