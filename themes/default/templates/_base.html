@@ -35,7 +35,7 @@
     <link rel="mask-icon" color="#29A176" href="https://cdn.ricin.im/images/ricin-icon-plain.svg">
     <link rel="shortcut icon" href="https://cdn.ricin.im/images/ricin-icon-plain.svg">
     <link rel="icon" type="image/x-icon" href="https://cdn.ricin.im/images/ricin-icon-plain.svg">
-    <link rel="stylesheet" href="https://cdn.ricin.im/styles/ricin.css">
+    <link rel="stylesheet" href="https://cdn.ricin.im/styles/ricin.css?cf">
 
     <title>
       {{ SITENAME }}&nbsp;−&nbsp;{%- if self.title() == "" %}{{ TAG_LINE }}{% else %}{%- block title %}{% endblock -%}{% endif -%}
@@ -52,7 +52,7 @@
           <a href="#about">About Ricin</a>
           <a href="#features">Features</a>
           <a href="#privacy">Privacy</a>
-          <a href="#download">Download</a>
+          <a href="/downloads.html">Download</a>
           <a href="https://wiki.ricin.im">Wiki</a>
         </nav>
       </aside>
@@ -67,13 +67,6 @@
           </nav>
         </section>
         {% block content %}{% endblock %}
-        <section id="app--callout-secondary">
-          <h1 id="download">So, what are you waiting for?</h1>
-          <h2>Download Ricin Messenger now, for free!</h2>
-          <nav id="callout--links">
-            {% include '_callout_links.html' %}
-          </nav>
-        </section>
         <!--
         <footer id="site--languages">
           TODO: List available languages.

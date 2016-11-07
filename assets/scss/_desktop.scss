@@ -379,6 +379,7 @@ a:hover {
     align-items: center;
 
     background-color: $swatch-secondary;
+    z-index: 900;
 
     #footer--copyright {
       display: flex;
