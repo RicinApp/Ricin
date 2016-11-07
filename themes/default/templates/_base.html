@@ -35,7 +35,7 @@
     <link rel="mask-icon" color="#29A176" href="https://cdn.ricin.im/images/ricin-icon-plain.svg">
     <link rel="shortcut icon" href="https://cdn.ricin.im/images/ricin-icon-plain.svg">
     <link rel="icon" type="image/x-icon" href="https://cdn.ricin.im/images/ricin-icon-plain.svg">
-    <link rel="stylesheet" href="https://cdn.ricin.im/styles/style.css">
+    <link rel="stylesheet" href="https://cdn.ricin.im/styles/styles.prod.css">
 
     <title>
       {{ SITENAME }}&nbsp;−&nbsp;{%- if self.title() == "" %}{% trans %}Dead simple, privacy oriented, instant messaging app!{% endtrans %}{% else %}{%- block title %}{% endblock -%}{% endif -%}
@@ -67,11 +67,16 @@
           </nav>
         </section>
         {% block content %}{% endblock %}
-        <!--
+        
         <footer id="site--languages">
-          TODO: List available languages.
+          <nav id="languages--links">
+            {% for lang, siteurl in lang_siteurls.items() %}
+            <div{% if lang == DEFAULT_LANG %} class="active"{% endif %}>
+              <a href="{{ siteurl }}/">{{ lang | lookup_lang_name }}</a>
+            </div>
+            {% endfor %}
+          </nav>
         </footer>
-        -->
         <footer id="site--footer">
           <section id="footer--copyright">
             <p>

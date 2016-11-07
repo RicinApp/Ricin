@@ -382,6 +382,48 @@ a:hover {
       }
     }
   }
+  #site--languages {
+    padding: 10px $global-padding;
+
+    display: flex;
+    flex-flow: row wrap;
+    flex: 0 0 $footer-height;
+    justify-content: center;
+    align-items: center;
+
+    background-color: $swatch-principal-light;
+    z-index: 900;
+    
+    #languages--links {
+      display: flex;
+      flex: 1;
+      justify-content: center;
+
+      div {
+        display: inline-block;
+
+        a {
+          padding: 0 5px;
+          font-size: 12px;
+          font-weight: lighter;
+          user-select: none; // We don't want the users to be able to select the footer links.
+          color: $swatch-white;
+        }
+        
+        &::after {
+          content: '—';
+
+          opacity: .6;
+          font-size: 12px;
+          color: $swatch-secondary;
+        }
+        
+        &:last-child::after {
+          content: '';
+        }
+      }
+    }
+  }
   #site--footer {
     padding: 10px $global-padding;
 

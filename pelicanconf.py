@@ -6,7 +6,7 @@ import fnmatch
 
 AUTHOR = u'SkyzohKey <skyzohkey@framasphere.org>'
 SITENAME = u'Ricin'
-SITEURL = u'https://ricin.im/'
+SITEURL = u'https://ricin.im'
 TAG_LINE = u'Dead simple, privacy oriented, instant messaging app!'
 
 PATH = 'content'
@@ -35,6 +35,24 @@ I18N_SUBSITES = {
         'AUTHOR': 'SkyzohKey <skyzohkey@framasphere.org>',
         'LOCALE': 'fr.UTF-8',
     },
+    'ru': {
+        'SITENAME': 'Ricin',
+        'AUTHOR': 'Ingvar',
+        'LOCALE': 'ru_RU.UTF-8'
+    },
+}
+
+languages_lookup = {
+    'en': 'English',
+    'fr': 'Français',
+    'ru': 'Русский',
+}
+
+def lookup_lang_name(lang_code):
+    return languages_lookup[lang_code]
+
+JINJA_FILTERS = {
+    'lookup_lang_name': lookup_lang_name,
 }
 
 # pelican is mainly aimed at blogs and a regular pelican template has only

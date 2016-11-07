@@ -21,59 +21,63 @@ msgstr ""
 
 #: templates/_base.html:41 templates/_base.html:62
 msgid "Dead simple, privacy oriented, instant messaging app!"
-msgstr ""
+msgstr "Убийственно простое и ориентированное на приватность приложение "
+"по мгновенному обмену сообщениями!"
 
 #: templates/_base.html:52
 msgid "About Ricin"
-msgstr ""
+msgstr "О Ricin"
 
 #: templates/_base.html:53
 msgid "Features"
-msgstr ""
+msgstr "Функции"
 
 #: templates/_base.html:54
 msgid "Privacy"
-msgstr ""
+msgstr "Приватность"
 
 #: templates/_base.html:55
 msgid "Download"
-msgstr ""
+msgstr "Загрузить"
 
 #: templates/_base.html:56 templates/_base.html:84
 msgid "Wiki"
-msgstr ""
+msgstr "Вики"
 
 #: templates/_base.html:78
 msgid "Design and code by"
-msgstr ""
+msgstr "Дизайн и код созданы"
 
 #: templates/_base.html:82
 msgid "Website source code"
-msgstr ""
+msgstr "Исходный код веб-сайта"
 
 #: templates/_base.html:83
 msgid "Git server"
-msgstr ""
+msgstr "Сервер Git"
 
 #: templates/_base.html:85
 msgid "Contact"
-msgstr ""
+msgstr "Контакты"
 
 #: templates/index.html:7
 msgid "About Ricin Messenger"
-msgstr ""
+msgstr "О мессенджере Ricin"
 
 #: templates/index.html:8
 msgid ""
 "Ricin aims to be a modern way to securely communicate with people that "
 "matter to you."
-msgstr ""
+msgstr "Ricin стремится быть современным путём для общения с людьми, которые "
+"важны для вас."
 
 #: templates/index.html:13
 msgid ""
 "Whether it's corporations or governments, digital surveillance today is "
 "widespread."
 msgstr ""
+"Будь то корпорации или правительства, цифровое наблюдение сегодня "
+"широко распространено."
 
 #: templates/index.html:16
 msgid ""
@@ -83,24 +87,31 @@ msgid ""
 "features, <strong>Ricin Messenger is completely free and comes without "
 "advertising — forever</strong>."
 msgstr ""
+"<strong>Мессенджер  Ricin</strong> - это простое в использовании ПО, <em>которое "
+"соединяет Вас с Вашими друзьями и семьей, не позволяя никому прослушивать Вас. "
+"</em>. В то время как остальные известные сервисы требуют платить за "
+"удобства, <strong>Ricin полностью бесплатен и не содержит "
+"рекламы — навсегда</strong>."
 
 #: templates/index.html:20
 msgid "A redacted screenshot of a conversation inside Ricin, with black theme."
-msgstr ""
+msgstr "Отредактированный скриншот переписки в Ricin, с темной темой."
 
 #: templates/index.html:28
 msgid "About the Tox network"
-msgstr ""
+msgstr "О сети Tox"
 
 #: templates/index.html:29
 msgid "What is the Tox network and why is it better than centralized services?"
-msgstr ""
+msgstr "Что такое сеть Tox и почему она лучше централизованных сервисов?"
 
 #: templates/index.html:34
 msgid ""
 "<strong>Tox</strong> began a few years ago, <em>in the wake of Edward "
 "Snowden's leaks regarding <strong>NSA spying</strong> activity</em>."
 msgstr ""
+"<strong>Tox</strong> появился несколько лет назад, <em>благодаря утечкам от "
+"Эдварда Сноудена о <strong>шпионской деятельности АНБ</strong></em>."
 
 #: templates/index.html:37
 msgid ""
@@ -112,6 +123,13 @@ msgid ""
 " would be <strong>easily usable by the layperson</strong> with no "
 "practical knowledge of cryptography or distributed systems."
 msgstr ""
+"Идеей было <strong>создать протокол для мгновенного обмена сообщениями</strong> "
+"который работает <strong>без</strong> каких бы то ни было серверов. Система"
+" должна быть <strong>распределенной</strong>, <strong>peer-to-peer</strong>, "
+"и <strong>end-to-end шифрованием</strong>, без возможности "
+"отключить шифрование. В то же время, протокол"
+" должен быть <strong>легок в использовании обычным человеков</strong> без "
+"знаний о работе распределенных систем или шифровании."
 
 #: templates/index.html:40
 msgid ""
@@ -122,6 +140,12 @@ msgid ""
 "<em>thousands of users</em>, <em>hundreds of contributors</em>, and the "
 "project shows <em>no sign of slowing down</em>."
 msgstr ""
+"<em>По прошествии нескольких лет</em>, существует несколько "
+"независимых клиентов <strong>Tox</strong>, а также практически готовая "
+"(в плане функций) <strong>библиотека Tox core</strong>"
+". <strong>Tox</strong> (клиенты и ядро) имеет "
+"<em>тысячи пользователей</em>, <em>сотни разработчиков</em>, и проект "
+"до сих пор <em>не снижает темпов развития</em>."
 
 #: templates/index.html:43
 msgid ""
@@ -130,94 +154,106 @@ msgid ""
 "organization built around <em>the protection</em>, <em>promotion</em>, "
 "and advancement of <strong>Tox</strong> and its development."
 msgstr ""
+"<em>Не так давно</em>, группа <em>из нескольких главных разработчиков проекта"
+"</em> создала <strong>The Tox Project</strong> - организацию, "
+"созданную для <em>защиты</em>, <em>продвижения</em>, "
+"и распространения <strong>Tox</strong> и его дальнейшей разработки."
 
 #: templates/index.html:46
 msgid ""
 "For more informations about <a href=\"https://tox.chat\">The Tox "
 "Project</a>, click this link."
 msgstr ""
+"Для получения информации о <a href=\"https://tox.chat\">Проекте "
+"Tox</a>, перейдите по этой ссылке."
 
 #: templates/index.html:50
 msgid "The Tox project logo."
-msgstr ""
+msgstr "Логотип проекта Tox"
 
 #: templates/index.html:58
 msgid "Ricin Messenger features"
-msgstr ""
+msgstr "Возможности мессенджера Ricin"
 
 #: templates/index.html:59
 msgid "Why should you use Ricin instead of Skype, Discord or even Telegram?"
-msgstr ""
+msgstr "Почему Вы должны использовать Ricin вместо Skype, Discord или даже Telegram?"
 
 #: templates/index.html:65
 msgid "Instant messaging"
-msgstr ""
+msgstr "Мгновенные сообщения"
 
 #: templates/index.html:67
 msgid "Chat instantly across the globe with Ricin's secure messages."
-msgstr ""
+msgstr "Мгновенная переписка в любой точке земного шара с безопасными"
+" сообщениями от Ricin."
 
 #: templates/index.html:72
 msgid "Voice"
-msgstr ""
+msgstr "Голос"
 
 #: templates/index.html:74
 msgid ""
 "Keep in touch with friends and family using Ricin's completely free and "
 "encrypted voice calls."
 msgstr ""
+"Оставайтесь на связи с друзьями и семьёй через полностью бесплатные и "
+"зашифрованные голосовые вызовы."
 
 #: templates/index.html:79
 msgid "Video"
-msgstr ""
+msgstr "Видео"
 
 #: templates/index.html:81
 msgid "Catch up face to face, over Ricin's secure video calls."
-msgstr ""
+msgstr "Встречайтесь лицом к лицу через защищённые видеозвонки в Ricin."
 
 #: templates/index.html:87
 msgid "Screen streaming"
-msgstr ""
+msgstr "Стриминг экрана"
 
 #: templates/index.html:89
 msgid "Share your desktop with your friends with Ricin's secure screen sharing."
-msgstr ""
+msgstr "Демонстрируйте свой рабочий стол своим друзьям при помощи "
+"защищенной демонстрации экрана в Ricin."
 
 #: templates/index.html:94
 msgid "File transfers"
-msgstr ""
+msgstr "Передача файлов"
 
 #: templates/index.html:96
 msgid "Trade files, with no artificial limits or caps and enhanced security."
-msgstr ""
+msgstr "Обменивайтесь файлами без искусственных ограничений и с повышенной безопасностью."
 
 #: templates/index.html:101
 msgid "Group chats"
-msgstr ""
+msgstr "Групповые чаты"
 
 #: templates/index.html:103
 msgid ""
 "Chat, call, and share video and files with the whole gang in Ricin's "
 "group chats."
 msgstr ""
+"Чат, звонки, видео и файлы среди всей компании в групповых чатах в Ricin."
 
 #: templates/index.html:108
 msgid "A redacted screenshot of a conversation inside Ricin, with white theme."
-msgstr ""
+msgstr "Отредактированный скриншот переписки в Ricin, с белой темой."
 
 #: templates/index.html:116
 msgid "Privacy oriented software"
-msgstr ""
+msgstr "Программное обеспечение, ориентированное на приватность"
 
 #: templates/index.html:117
 msgid ""
 "Ricin is developed with users privacy in mind, we wants you to be safe "
 "while chatting!"
-msgstr ""
+msgstr "Ricin был создан пользователями, которые беспокоятся о приватности. "
+"Мы хотим, чтобы Вы могли переписываться безопасно."
 
 #: templates/index.html:123
 msgid "Encrypted"
-msgstr ""
+msgstr "Зашифрованный"
 
 #: templates/index.html:125
 msgid ""
@@ -226,10 +262,13 @@ msgid ""
 "can see <strong>your</strong> conversations <em>are the people you're "
 "talking with</em>."
 msgstr ""
+"<strong>Всё</strong>, что Вы делаете в <strong>мессенджере Ricin</strong> "
+"шифруется при помощи <em>библиотек с открытым исходным кодом</em>. <strong>Ваши</strong> "
+"сообщения могут читать только те люди, <em>которым Вы пишете</em>."
 
 #: templates/index.html:131
 msgid "Distributed"
-msgstr ""
+msgstr "Распределенный"
 
 #: templates/index.html:133
 msgid ""
@@ -238,10 +277,14 @@ msgid ""
 " — <strong>the network is made up of its users</strong>. Say goodbye to "
 "server outages!"
 msgstr ""
+"<strong>Ricin <em>не имеет центральных серверов</em></strong>, которые могут быть "
+"<em>взломаны</em>, <em>отключены</em> или <em>принуждены к передаче данных другим лицам</em>"
+" — <strong>сеть сделана для своих пользователей</strong>. Скажите прощай "
+"перерывам в работе серверов!"
 
 #: templates/index.html:138
 msgid "Free!"
-msgstr ""
+msgstr "Бесплатный!"
 
 #: templates/index.html:140
 msgid ""
@@ -250,12 +293,17 @@ msgid ""
 "<strong>Ricin is yours</strong> — <em>to use, modify, and share</em> — "
 "because <strong>Ricin is developed by and for the users</strong>."
 msgstr ""
+"<strong>Ricin - свободно программное обеспечение</strong>. Оно \"free as in "
+"<strong>freedom</strong>, <em>as well as in price\"</em>. Это значит, что "
+"<strong>Ricin Ваш</strong> <em>для использования, изменения и распространения</em>, "
+"потому что <strong>Ricin создан пользователями для них самих</strong>."
 
 #: templates/index.html:149
 msgid "So, what are you waiting for?"
-msgstr ""
+msgstr "Так чего же Вы ждете?"
 
 #: templates/index.html:150
 msgid "Never ask for privacy, just take it! Download Ricin now, for free!"
-msgstr ""
+msgstr "Никогда не спрашивайте про приватность, просто получайте её! "
+"Загружайте Ricin прямо сейчас, абсолютно бесплатно!"
 
