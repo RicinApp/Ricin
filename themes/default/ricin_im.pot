@@ -1,0 +1,259 @@
+# Translations template for PROJECT.
+# Copyright (C) 2016 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2016.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2016-11-07 14:45+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.3.4\n"
+
+#: templates/_base.html:41 templates/_base.html:62
+msgid "Dead simple, privacy oriented, instant messaging app!"
+msgstr ""
+
+#: templates/_base.html:52
+msgid "About Ricin"
+msgstr ""
+
+#: templates/_base.html:53
+msgid "Features"
+msgstr ""
+
+#: templates/_base.html:54
+msgid "Privacy"
+msgstr ""
+
+#: templates/_base.html:55
+msgid "Download"
+msgstr ""
+
+#: templates/_base.html:56 templates/_base.html:84
+msgid "Wiki"
+msgstr ""
+
+#: templates/_base.html:78
+msgid "Design and code by"
+msgstr ""
+
+#: templates/_base.html:82
+msgid "Website source code"
+msgstr ""
+
+#: templates/_base.html:83
+msgid "Git server"
+msgstr ""
+
+#: templates/_base.html:85
+msgid "Contact"
+msgstr ""
+
+#: templates/index.html:7
+msgid "About Ricin Messenger"
+msgstr ""
+
+#: templates/index.html:8
+msgid ""
+"Ricin aims to be a modern way to securely communicate with people that "
+"matter to you."
+msgstr ""
+
+#: templates/index.html:13
+msgid ""
+"Whether it's corporations or governments, digital surveillance today is "
+"widespread."
+msgstr ""
+
+#: templates/index.html:16
+msgid ""
+"<strong>Ricin Messenger</strong> is easy-to-use software <em>that "
+"connects you with your friends and your family without anyone else "
+"listening in</em>. While other big-name services require you to pay for "
+"features, <strong>Ricin Messenger is completely free and comes without "
+"advertising — forever</strong>."
+msgstr ""
+
+#: templates/index.html:20
+msgid "A redacted screenshot of a conversation inside Ricin, with black theme."
+msgstr ""
+
+#: templates/index.html:28
+msgid "About the Tox network"
+msgstr ""
+
+#: templates/index.html:29
+msgid "What is the Tox network and why is it better than centralized services?"
+msgstr ""
+
+#: templates/index.html:34
+msgid ""
+"<strong>Tox</strong> began a few years ago, <em>in the wake of Edward "
+"Snowden's leaks regarding <strong>NSA spying</strong> activity</em>."
+msgstr ""
+
+#: templates/index.html:37
+msgid ""
+"The idea was <strong>to create an instant messaging protocol</strong> "
+"that ran <strong>without</strong> any kind of central servers. The system"
+" would be <strong>distributed</strong>, <strong>peer-to-peer</strong>, "
+"and <strong>encrypted</strong> <strong>end-to-end</strong>, with no way "
+"to disable any of the encryption features; at the same time, the protocol"
+" would be <strong>easily usable by the layperson</strong> with no "
+"practical knowledge of cryptography or distributed systems."
+msgstr ""
+
+#: templates/index.html:40
+msgid ""
+"<em>Fast-forward a few years to today</em>, and there exist several "
+"independent <strong>Tox</strong> client projects, and the original "
+"<strong>Tox core library</strong> implementation is nearing completion "
+"(in terms of features). <strong>Tox</strong> (both core and clients) has "
+"<em>thousands of users</em>, <em>hundreds of contributors</em>, and the "
+"project shows <em>no sign of slowing down</em>."
+msgstr ""
+
+#: templates/index.html:43
+msgid ""
+"<em>Recently</em>, a group of <em>some of the project's major "
+"contributors</em> have formed <strong>The Tox Project</strong>, an "
+"organization built around <em>the protection</em>, <em>promotion</em>, "
+"and advancement of <strong>Tox</strong> and its development."
+msgstr ""
+
+#: templates/index.html:46
+msgid ""
+"For more informations about <a href=\"https://tox.chat\">The Tox "
+"Project</a>, click this link."
+msgstr ""
+
+#: templates/index.html:50
+msgid "The Tox project logo."
+msgstr ""
+
+#: templates/index.html:58
+msgid "Ricin Messenger features"
+msgstr ""
+
+#: templates/index.html:59
+msgid "Why should you use Ricin instead of Skype, Discord or even Telegram?"
+msgstr ""
+
+#: templates/index.html:65
+msgid "Instant messaging"
+msgstr ""
+
+#: templates/index.html:67
+msgid "Chat instantly across the globe with Ricin's secure messages."
+msgstr ""
+
+#: templates/index.html:72
+msgid "Voice"
+msgstr ""
+
+#: templates/index.html:74
+msgid ""
+"Keep in touch with friends and family using Ricin's completely free and "
+"encrypted voice calls."
+msgstr ""
+
+#: templates/index.html:79
+msgid "Video"
+msgstr ""
+
+#: templates/index.html:81
+msgid "Catch up face to face, over Ricin's secure video calls."
+msgstr ""
+
+#: templates/index.html:87
+msgid "Screen streaming"
+msgstr ""
+
+#: templates/index.html:89
+msgid "Share your desktop with your friends with Ricin's secure screen sharing."
+msgstr ""
+
+#: templates/index.html:94
+msgid "File transfers"
+msgstr ""
+
+#: templates/index.html:96
+msgid "Trade files, with no artificial limits or caps and enhanced security."
+msgstr ""
+
+#: templates/index.html:101
+msgid "Group chats"
+msgstr ""
+
+#: templates/index.html:103
+msgid ""
+"Chat, call, and share video and files with the whole gang in Ricin's "
+"group chats."
+msgstr ""
+
+#: templates/index.html:108
+msgid "A redacted screenshot of a conversation inside Ricin, with white theme."
+msgstr ""
+
+#: templates/index.html:116
+msgid "Privacy oriented software"
+msgstr ""
+
+#: templates/index.html:117
+msgid ""
+"Ricin is developed with users privacy in mind, we wants you to be safe "
+"while chatting!"
+msgstr ""
+
+#: templates/index.html:123
+msgid "Encrypted"
+msgstr ""
+
+#: templates/index.html:125
+msgid ""
+"<strong>Everything</strong> you do with <strong>Ricin Messenger</strong> "
+"is encrypted using <em>open-source libraries</em>. The only people who "
+"can see <strong>your</strong> conversations <em>are the people you're "
+"talking with</em>."
+msgstr ""
+
+#: templates/index.html:131
+msgid "Distributed"
+msgstr ""
+
+#: templates/index.html:133
+msgid ""
+"<strong>Ricin has <em>no central servers</em></strong> that can be "
+"<em>raided</em>, <em>shut down</em>, or <em>forced to turn over data</em>"
+" — <strong>the network is made up of its users</strong>. Say goodbye to "
+"server outages!"
+msgstr ""
+
+#: templates/index.html:138
+msgid "Free!"
+msgstr ""
+
+#: templates/index.html:140
+msgid ""
+"<strong>Ricin is free software</strong>. That's free as in "
+"<strong>freedom</strong>, <em>as well as in price</em>. This means "
+"<strong>Ricin is yours</strong> — <em>to use, modify, and share</em> — "
+"because <strong>Ricin is developed by and for the users</strong>."
+msgstr ""
+
+#: templates/index.html:149
+msgid "So, what are you waiting for?"
+msgstr ""
+
+#: templates/index.html:150
+msgid "Never ask for privacy, just take it! Download Ricin now, for free!"
+msgstr ""
+

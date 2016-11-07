@@ -6,6 +6,7 @@ langs/*
 # Pelican stuff that we don't care to track.
 cache
 public
+plugins
 content
 *.pyc
 *.pid

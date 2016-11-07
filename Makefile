@@ -3,6 +3,7 @@ PELICAN?=pelican
 PELICANOPTS=
 
 BASEDIR=$(CURDIR)
+#INPUTDIR=$(BASEDIR)/content
 OUTPUTDIR=$(BASEDIR)/public
 CONFFILE=$(BASEDIR)/pelicanconf.py
 
@@ -19,7 +20,7 @@ help:
 	@echo '   make clean                       remove the generated files         '
 	@echo '   make regenerate                  regenerate files upon modification '
 	@echo '   make devserver_start [PORT=8000] start/restart develop_server.sh    '
-	@echo '   make sevserver_stop              stop develop_server.sh             '
+	@echo '   make devserver_stop              stop develop_server.sh             '
 	@echo '                                                                       '
 	@echo 'Set the DEBUG variable to 1 to enable debugging, e.g. make DEBUG=1 html'
 	@echo '                                                                       '
