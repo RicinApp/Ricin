@@ -113,7 +113,7 @@ class Ricin.SettingsView : Gtk.Box {
       this.combobox_languages.active = 1;
     } else if (selected_language == "pt_PT") {
       this.combobox_languages.active = 2;
-    } else if (selected_language == "da_DK") {
+    } else if (selected_language == "da") {
       this.combobox_languages.active = 3;
     } else if (selected_language == "eo") {
       this.combobox_languages.active = 4;
@@ -149,9 +149,9 @@ class Ricin.SettingsView : Gtk.Box {
         this.settings.selected_language = "pt_PT";
       } else if (slang == 3) { // Danish
         info ("Changed locale to Danish.");
-        Environment.set_variable ("LANG", "da_DK", true);
-        Intl.setlocale (LocaleCategory.MESSAGES, "da_DK");
-        this.settings.selected_language = "da_DK";
+        Environment.set_variable ("LANG", "da", true);
+        Intl.setlocale (LocaleCategory.MESSAGES, "da");
+        this.settings.selected_language = "da";
       } else if (slang == 4) { // Esperanto
         info ("Changed locale to Esperanto.");
         Environment.set_variable ("LANG", "eo", true);
