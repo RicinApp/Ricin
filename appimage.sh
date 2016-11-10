@@ -55,6 +55,7 @@ cp $(ldconfig -p | grep libgio-2.0.so.0 | head -n 1 | cut -d ">" -f 2 | xargs) .
 cp $(ldconfig -p | grep libgmodule-2.0.so.0 | head -n 1 | cut -d ">" -f 2 | xargs) ./usr/lib/
 cp $(ldconfig -p | grep libgobject-2.0.so.0 | head -n 1 | cut -d ">" -f 2 | xargs) ./usr/lib/
 cp $(ldconfig -p | grep libgthread-2.0.so.0 | head -n 1 | cut -d ">" -f 2 | xargs) ./usr/lib/
+cp $(ldconfig -p | grep libpcre.so.3 | head -n 1 | cut -d ">" -f 2 | xargs) ./usr/lib/
 
 export LD_LIBRARY_PATH=/home/travis/build/RicinApp/Ricin.AppImage/usr/lib/:LD_LIBRARY_PATH
 copy_deps
