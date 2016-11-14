@@ -14,6 +14,7 @@
     <property name="orientation">vertical</property>
     <child>
       <object class="GtkBox" id="box_tab_buttons">
+        <property name="name">settings-header</property>
         <property name="height_request">62</property>
         <property name="visible">True</property>
         <property name="can_focus">False</property>
@@ -34,18 +35,19 @@
     </child>
     <child>
       <object class="GtkNotebook" id="notebook_settings">
+        <property name="name">settings-content</property>
         <property name="visible">True</property>
         <property name="can_focus">True</property>
         <property name="margin_left">10</property>
         <property name="margin_right">10</property>
-        <property name="margin_top">10</property>
-        <property name="margin_bottom">10</property>
         <property name="show_tabs">False</property>
         <property name="show_border">False</property>
         <child>
           <object class="GtkScrolledWindow" id="tab_general">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
+            <property name="margin_top">10</property>
+            <property name="margin_bottom">10</property>
             <property name="hscrollbar_policy">never</property>
             <child>
               <object class="GtkViewport" id="viewport1">
@@ -78,7 +80,7 @@
                                 <property name="use_markup">True</property>
                               </object>
                               <packing>
-                                <property name="expand">False</property>
+                                <property name="expand">True</property>
                                 <property name="fill">True</property>
                                 <property name="position">0</property>
                               </packing>
@@ -89,6 +91,7 @@
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">True</property>
+                                <property name="valign">start</property>
                                 <signal name="clicked" handler="copy_toxid" swapped="no"/>
                                 <style>
                                   <class name="button-dark"/>
@@ -347,6 +350,8 @@
           <object class="GtkScrolledWindow" id="tab_network">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
+            <property name="margin_top">10</property>
+            <property name="margin_bottom">10</property>
             <property name="hscrollbar_policy">never</property>
             <child>
               <object class="GtkViewport" id="viewport2">
@@ -415,6 +420,7 @@
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="halign">start</property>
+                                <property name="valign">start</property>
                                 <property name="active">True</property>
                               </object>
                               <packing>
@@ -453,6 +459,7 @@
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="halign">start</property>
+                                <property name="valign">start</property>
                                 <property name="active">True</property>
                               </object>
                               <packing>
@@ -517,6 +524,7 @@
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="halign">start</property>
+                                <property name="valign">start</property>
                               </object>
                               <packing>
                                 <property name="expand">False</property>
@@ -621,6 +629,8 @@
           <object class="GtkScrolledWindow" id="tab_interface">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
+            <property name="margin_top">10</property>
+            <property name="margin_bottom">10</property>
             <property name="hscrollbar_policy">never</property>
             <child>
               <object class="GtkViewport" id="viewport3">
@@ -672,6 +682,7 @@
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
                                     <property name="halign">end</property>
+                                    <property name="valign">start</property>
                                     <property name="active">True</property>
                                   </object>
                                   <packing>
@@ -718,6 +729,7 @@
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
                                     <property name="opacity">0.9882352941176471</property>
+                                    <property name="valign">start</property>
                                     <property name="active">0</property>
                                     <property name="button_sensitivity">on</property>
                                     <style>
@@ -739,6 +751,7 @@
                                     <property name="receives_default">True</property>
                                     <property name="tooltip_text" translatable="yes">Reload custom theme</property>
                                     <property name="halign">end</property>
+                                    <property name="valign">start</property>
                                     <property name="image">image1</property>
                                     <property name="always_show_image">True</property>
                                   </object>
@@ -803,6 +816,7 @@
                                 <property name="can_focus">False</property>
                                 <property name="opacity">0.9882352941176471</property>
                                 <property name="halign">end</property>
+                                <property name="valign">start</property>
                                 <property name="active">0</property>
                                 <property name="button_sensitivity">on</property>
                                 <style>
@@ -867,6 +881,7 @@
                                 <property name="can_focus">False</property>
                                 <property name="opacity">0.9882352941176471</property>
                                 <property name="halign">end</property>
+                                <property name="valign">start</property>
                                 <property name="active">0</property>
                                 <property name="button_sensitivity">on</property>
                                 <style>
@@ -926,6 +941,7 @@
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="halign">end</property>
+                                <property name="valign">start</property>
                                 <property name="active">True</property>
                               </object>
                               <packing>
@@ -976,6 +992,7 @@
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
                                     <property name="halign">end</property>
+                                    <property name="valign">start</property>
                                   </object>
                                   <packing>
                                     <property name="expand">False</property>
@@ -1032,6 +1049,7 @@
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
                                     <property name="halign">end</property>
+                                    <property name="valign">start</property>
                                     <property name="active">True</property>
                                   </object>
                                   <packing>
@@ -1094,6 +1112,7 @@
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="halign">end</property>
+                                <property name="valign">start</property>
                               </object>
                               <packing>
                                 <property name="expand">False</property>
@@ -1142,6 +1161,8 @@
           <object class="GtkScrolledWindow" id="tab_notify">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
+            <property name="margin_top">10</property>
+            <property name="margin_bottom">10</property>
             <property name="hscrollbar_policy">never</property>
             <child>
               <object class="GtkViewport" id="viewport5">
@@ -1188,6 +1209,7 @@
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="halign">end</property>
+                                <property name="valign">start</property>
                                 <property name="active">True</property>
                               </object>
                               <packing>
@@ -1233,6 +1255,7 @@
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="halign">end</property>
+                                <property name="valign">start</property>
                                 <property name="active">True</property>
                               </object>
                               <packing>
@@ -1287,6 +1310,7 @@
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="halign">end</property>
+                                <property name="valign">start</property>
                                 <property name="active">True</property>
                               </object>
                               <packing>
@@ -1336,6 +1360,8 @@
           <object class="GtkScrolledWindow" id="tab_about">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
+            <property name="margin_top">10</property>
+            <property name="margin_bottom">10</property>
             <property name="hscrollbar_policy">never</property>
             <child>
               <object class="GtkViewport" id="viewport4">
@@ -1631,9 +1657,6 @@
         <property name="position">1</property>
       </packing>
     </child>
-    <style>
-      <class name="secondary-background"/>
-    </style>
   </template>
   <object class="GtkListStore" id="liststore1">
     <columns>

@@ -716,6 +716,7 @@
         <property name="can_focus">False</property>
         <child>
           <object class="GtkBox" id="box4">
+            <property name="name">chatview-header</property>
             <property name="height_request">62</property>
             <property name="visible">True</property>
             <property name="can_focus">False</property>
@@ -810,7 +811,6 @@
               <object class="GtkBox" id="box6">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="spacing">2</property>
                 <child>
                   <object class="GtkButton" id="button_audio_call">
                     <property name="width_request">58</property>
@@ -867,40 +867,37 @@
                     <property name="position">1</property>
                   </packing>
                 </child>
+                <child>
+                  <object class="GtkButton" id="button_toggle_friend_menu">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="receives_default">True</property>
+                    <property name="tooltip_text" translatable="yes">Friend's profile</property>
+                    <property name="relief">none</property>
+                    <signal name="clicked" handler="toggle_friend_menu" swapped="no"/>
+                    <child>
+                      <object class="GtkImage" id="image7">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="pixel_size">24</property>
+                        <property name="icon_name">view-more-symbolic</property>
+                      </object>
+                    </child>
+                    <style>
+                      <class name="button-dark"/>
+                    </style>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">2</property>
+                  </packing>
+                </child>
               </object>
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">True</property>
                 <property name="position">3</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkButton" id="button_toggle_friend_menu">
-                <property name="height_request">58</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="tooltip_text" translatable="yes">Friend's profile</property>
-                <property name="margin_top">1</property>
-                <property name="margin_bottom">1</property>
-                <property name="relief">none</property>
-                <signal name="clicked" handler="toggle_friend_menu" swapped="no"/>
-                <child>
-                  <object class="GtkImage" id="image7">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="pixel_size">24</property>
-                    <property name="icon_name">view-more-symbolic</property>
-                  </object>
-                </child>
-                <style>
-                  <class name="button-dark"/>
-                </style>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">6</property>
               </packing>
             </child>
           </object>
@@ -930,6 +927,7 @@
             <property name="can_focus">False</property>
             <child>
               <object class="GtkBox" id="box1">
+                <property name="name">chatview-content</property>
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="orientation">vertical</property>
@@ -938,6 +936,7 @@
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="hscrollbar_policy">never</property>
+                    <property name="vscrollbar_policy">always</property>
                     <child>
                       <object class="GtkViewport" id="viewport2">
                         <property name="visible">True</property>
@@ -965,60 +964,6 @@
                                 <property name="position">0</property>
                               </packing>
                             </child>
-                            <child>
-                              <object class="GtkRevealer" id="friend_typing">
-                                <property name="visible">True</property>
-                                <property name="can_focus">False</property>
-                                <property name="transition_type">crossfade</property>
-                                <child>
-                                  <object class="GtkBox" id="box19">
-                                    <property name="visible">True</property>
-                                    <property name="can_focus">False</property>
-                                    <property name="spacing">10</property>
-                                    <child>
-                                      <object class="GtkImage" id="image1">
-                                        <property name="visible">True</property>
-                                        <property name="can_focus">False</property>
-                                        <property name="valign">baseline</property>
-                                        <property name="margin_left">10</property>
-                                        <property name="pixel_size">24</property>
-                                        <property name="icon_name">content-loading-symbolic</property>
-                                        <property name="icon_size">5</property>
-                                      </object>
-                                      <packing>
-                                        <property name="expand">False</property>
-                                        <property name="fill">True</property>
-                                        <property name="position">0</property>
-                                      </packing>
-                                    </child>
-                                    <child>
-                                      <object class="GtkLabel" id="label_friend_is_typing">
-                                        <property name="visible">True</property>
-                                        <property name="can_focus">False</property>
-                                        <property name="label" translatable="yes">&lt;i&gt;Friend is typing&lt;/i&gt;</property>
-                                        <property name="use_markup">True</property>
-                                      </object>
-                                      <packing>
-                                        <property name="expand">False</property>
-                                        <property name="fill">True</property>
-                                        <property name="position">1</property>
-                                      </packing>
-                                    </child>
-                                    <style>
-                                      <class name="list"/>
-                                    </style>
-                                  </object>
-                                </child>
-                                <style>
-                                  <class name="list"/>
-                                </style>
-                              </object>
-                              <packing>
-                                <property name="expand">False</property>
-                                <property name="fill">True</property>
-                                <property name="position">1</property>
-                              </packing>
-                            </child>
                             <style>
                               <class name="list"/>
                             </style>
@@ -1031,6 +976,60 @@
                     <property name="expand">True</property>
                     <property name="fill">True</property>
                     <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkRevealer" id="friend_typing">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="transition_type">crossfade</property>
+                    <child>
+                      <object class="GtkBox" id="box19">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="margin_left">10</property>
+                        <property name="spacing">10</property>
+                        <child>
+                          <object class="GtkImage" id="image1">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="valign">baseline</property>
+                            <property name="pixel_size">24</property>
+                            <property name="icon_name">content-loading-symbolic</property>
+                            <property name="icon_size">5</property>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">True</property>
+                            <property name="position">0</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkLabel" id="label_friend_is_typing">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="label" translatable="yes">&lt;i&gt;Friend is typing&lt;/i&gt;</property>
+                            <property name="use_markup">True</property>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">True</property>
+                            <property name="position">1</property>
+                          </packing>
+                        </child>
+                        <style>
+                          <class name="list"/>
+                        </style>
+                      </object>
+                    </child>
+                    <style>
+                      <class name="list"/>
+                    </style>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">1</property>
                   </packing>
                 </child>
               </object>
@@ -1054,6 +1053,7 @@
             <property name="transition_type">slide-left</property>
             <child>
               <object class="GtkBox" id="box_friend_profil">
+                <property name="name">chatview-profile</property>
                 <property name="width_request">210</property>
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
@@ -1156,22 +1156,38 @@
                             <property name="orientation">vertical</property>
                             <property name="spacing">10</property>
                             <child>
-                              <object class="GtkLabel" id="label_friend_profile_status_message">
-                                <property name="name">10</property>
+                              <object class="GtkScrolledWindow" id="scrolledwindow1">
                                 <property name="visible">True</property>
-                                <property name="can_focus">False</property>
-                                <property name="label">label</property>
-                                <property name="use_markup">True</property>
-                                <property name="justify">center</property>
-                                <property name="wrap">True</property>
-                                <property name="selectable">True</property>
-                                <property name="width_chars">0</property>
-                                <property name="max_width_chars">10</property>
-                                <property name="lines">5</property>
+                                <property name="can_focus">True</property>
+                                <property name="hscrollbar_policy">never</property>
+                                <child>
+                                  <object class="GtkViewport" id="viewport1">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="vscroll_policy">natural</property>
+                                    <property name="shadow_type">none</property>
+                                    <child>
+                                      <object class="GtkLabel" id="label_friend_profile_status_message">
+                                        <property name="name">10</property>
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">False</property>
+                                        <property name="valign">start</property>
+                                        <property name="label">label</property>
+                                        <property name="use_markup">True</property>
+                                        <property name="justify">center</property>
+                                        <property name="wrap">True</property>
+                                        <property name="selectable">True</property>
+                                        <property name="width_chars">0</property>
+                                        <property name="max_width_chars">10</property>
+                                        <property name="lines">5</property>
+                                      </object>
+                                    </child>
+                                  </object>
+                                </child>
                               </object>
                               <packing>
-                                <property name="expand">False</property>
-                                <property name="fill">False</property>
+                                <property name="expand">True</property>
+                                <property name="fill">True</property>
                                 <property name="position">0</property>
                               </packing>
                             </child>
@@ -1214,7 +1230,7 @@
                             </child>
                           </object>
                           <packing>
-                            <property name="expand">False</property>
+                            <property name="expand">True</property>
                             <property name="fill">True</property>
                             <property name="position">0</property>
                           </packing>
@@ -1430,6 +1446,7 @@
         </child>
         <child>
           <object class="GtkBox" id="box15">
+            <property name="name">chatview-input</property>
             <property name="height_request">32</property>
             <property name="visible">True</property>
             <property name="can_focus">False</property>

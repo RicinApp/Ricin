@@ -1,0 +1,144 @@
+@define-color main_dark @ui_dark;
+@define-color main_ddark #292929;
+@define-color main_ddark_hover #343434;
+@define-color main_grey #949494;
+@define-color main_blue #2283d7;
+@define-color blue_primary #2a92c6;
+@define-color green_primary #2ECC71;
+@define-color white_primary #FFFFFF;
+
+@define-color text_color #e2e2e2;
+@define-color text_color_hover #aca8a8;
+@define-color text_copy #7a7a7a;
+
+@define-color gtk_box #343434;
+
+@define-color ui_green   #2ecc71;
+@define-color ui_greener #27ae60;
+
+@define-color ui_darker #171717;
+@define-color ui_dark   #222222;
+@define-color ui_main   #333333;
+@define-color ui_text   #FFFFFF;
+@define-color selected_text_color #5688F9;
+@define-color ui_system_color #2a92c6;
+@define-color selected_color @blue_primary;
+
+/** Non standard Ricin colors names, only used for this theme. */
+@define-color quote_background #444444;
+@define-color quote_text @ui_text;
+@define-color quote_plain_color @main_grey;
+@define-color swatch_principal @ui_green;
+@define-color swatch_gray #E0E0E0;
+
+@import url("app.css");
+
+RicinQuoteMessageListRow GtkListBox RicinPlainLabel {
+  border-left: 5px solid @plain_color;
+  padding: 0 10px 0 5px;
+}
+RicinQuoteMessageListRow GtkListBox RicinQuoteLabel {
+  border-left: 5px solid @quote_color;
+  padding: 0 7px 0 5px;
+}
+
+#chatview-header,
+#settings-header {
+  background-color: #ffffff;
+  color: black;
+  border-bottom: 1px solid @swatch_gray;
+}
+#chatview-header .button,
+#settings-header .button {
+  background-color: #ffffff;
+  color: @swatch_principal;
+  border-bottom: 1px solid @swatch_gray;
+}
+
+#chatview-content,
+#chatview-content RicinMessageListRow,
+#settings-content GtkScrolledWindow  {
+  background-color: #ffffff;
+  color: black;
+}
+#chatview-content .label:selected,
+#chatview-input .entry:selected,
+#settings-content .entry:selected {
+  background-color: @swatch_principal;
+  color: white;
+}
+
+.message-list .activatable:selected *,
+.message-list .activatable:selected {
+  color: @white_primary;
+  background-color: @selected_color;
+  outline: none;
+}
+
+.message-list .activatable *,
+.message-list .activatable {
+  color: black;
+}
+.quote-container {
+  border-left: 5px solid @swatch_principal;
+}
+.plain-container {
+  border-left: 5px solid black;
+}
+.message {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+#chatview-input .entry {
+  color: #000000;
+}
+#chatview-input * {
+  background-color: @swatch_gray;
+  color: @swatch_principal;
+}
+#chatview-input .button * {
+  background: none;
+}
+
+#chatview-profile {
+  background-color: #F0F0F0;
+  color: black;
+}
+#chatview-profile .button,
+#settings-content .button,
+#settings-content .entry {
+  background-color: @swatch_gray;
+  color: black;
+}
+
+#chatview-profile .button:hover,
+#chatview-header .button:hover,
+#chatview-input .button:hover,
+#chatview-input .button:hover *,
+#settings-header .button:hover,
+#settings-content .button:hover {
+  background-color: @swatch_principal;
+  color: #fff;
+}
+
+RicinSettingsView,
+RicinSettingsView .secondary-background {
+  background: white;
+}
+#settings-header .button {
+  border-right: 1px solid @swatch_gray;
+}
+#settings-header .button:last-child {
+  border-right: none;
+}
+
+.friendlist-row:selected {
+  background-color: white;
+  color: black;
+}
+
+.box-search {
+  background-color: #333333;
+  border-bottom: 1px solid #171717;  
+}

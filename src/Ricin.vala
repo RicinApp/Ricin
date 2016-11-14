@@ -6,7 +6,7 @@ public class Ricin.Ricin : Gtk.Application {
   public static const string RES_BASE_PATH = "/chat/tox/ricin/";
   public static const string ICON_PATH = RES_BASE_PATH + "images/icons/ricin.svg";
 
-  private string default_theme = "dark"; // Will be overrided by settings.
+  private string default_theme = "tox"; // Will be overrided by settings.
   private string current_theme;
   private Settings settings;
 
