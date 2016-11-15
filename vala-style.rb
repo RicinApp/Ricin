@@ -1,87 +1,146 @@
-def explore(directory)
-    files = Dir.entries(directory) rescue abort("SystemCallError: Directory doesn't exist.")
-    vala_files = Array.new
+# encoding: UTF-8
+
+def explore (top)
+    files = Dir.entries(top)
+
+    vala_files = []
 
     files.each do |file|
-        next if file.start_with?('.', '..', '.git')
+        if file == '.' or file == '..' or file == '.git'
+            next
+        end
 
-        vala_files << file if file.end_with?('.vala')
-
-        subdir = "#{directory}/#{file}"
-        if File.directory?(subdir)
-            explore(subdir).each { |sub_file| vala_files << "#{file}/#{sub_file}" }
+        if file.end_with?('.vala')
+            vala_files << file
+        elsif File.directory?(top + '/' + file)
+            in_subdir = explore(top + '/' + file)
+            in_subdir.each do |sub_file|
+                vala_files << file + '/' + sub_file
+            end
         end
     end
-
-    vala_files
+    return vala_files
 end
 
-def check(file)
-    content = String.new
-    errors  = 0
+def check (file)
+    content = ''
+    errors = 0
 
-    open(file, 'r:UTF-8') do |f|
+    open(file,'r:UTF-8') do |f|
         line_num = 0
-        in_comm  = false
-
+        in_comm = false
         while line = f.gets
 
-            unless line.index(/\*\//).nil?
+            if line.index(/\*\//) != nil
                 in_comm = false
-                line    = line.gsub(/.*\*\//, '')
+                line = line.gsub(/.*\*\//, '')
             end
 
-            line_num += 1 and next if in_comm
+            if in_comm
+                line_num += 1
+                next
+            end
 
-            unless line.index(/\/\*/).nil?
+            if line.index(/\/\*/) != nil
                 in_comm = true
-                line    = line.gsub(/.*\/\*/, '')
+                line = line.gsub(/.*\/\*/, '')
             end
 
-            line     = line.gsub(/\/\/.*/, '')
-            content  += line
+            # removing comments
+            line = line.gsub(/\/\/.*/, '')
+            content += line
             line_num += 1
+            # don't use as
+            if line.include?(' as ')
+                puts 'In file ' + file + ', at line ' + line_num.to_s + ' : avoid using as.'
+                errors += 1
+            end
 
-            puts "#{file}:#{line_num}: Avoid using keyword \"as\"." and errors += 1 if line.include?(' as ')
-
+            # capitals const
             const_re = /const [[:graph:]]* (?<name>[[:graph:]]*)/
             res = const_re.match(line)
-            unless res.nil?
+            if not res == nil
                 name = res[1]
-                unless name == name.upcase
-                    puts "#{file}:#{line_num}: Constant #{name} should be named #{name.upcase}"
+                maj_name = name.upcase
+                if name != maj_name
+                    puts 'In file ' + file + ', at line ' + line_num.to_s + ' : constant ' + name + ' should be named ' + maj_name
                     errors += 1
                 end
             end
 
+            # never forget the space before a ( or a {
             space_re = /(?!\()[[:graph:]]*\(.*\)/
-            space_res = space_re.match(line.gsub(/".*"/, ''))
-            unless space_res == nil && !space_res.to_s.include?('_()')
-                puts "#{file}:#{line_num}: Space missong before parenthesis."
+            space_res = space_re.match(line.gsub(/".*?"/, ''))
+            if not space_res == nil
+                puts 'In file ' + file + ', at line ' + line_num.to_s + ' : you forgoten a space before a ('
                 errors += 1
+            end
+
+            curly_re = /(?!\{)[[:graph:]]*\{.*\}/
+            curly_res = curly_re.match(line.gsub(/".*?"/, ''))
+            if not curly_res == nil
+                puts 'In file ' + file + ', at line ' + line_num.to_s + ' : you forgoten a space before a {'
+                errors += 1
+            end
+
+            # Put whitespace in math
+            math_re = /(.)(=|\+|-|\*|\/|(\d)+)(.)/
+            allowed_re = /(\(|\[|\s|=|>|<|!|\+|-|\/|\*)/
+            math_res = math_re.match(line.gsub(/".*?"/, ''))
+            if (not math_res == nil) and not (math_res[1].match(allowed_re) or math_res[2].match(allowed_re))
+                puts 'In file ' + file + ', at line ' + line_num.to_s + ' : math symbols are not well spaced'
+                errors += 1
+            end
+
+            if line.strip == '{'
+                puts 'In file ' + file + ', at line ' + line_num.to_s + ' : curly braces shouldn\'t be on their own line.'
+                errors += 1
+            end
+
+            if line.strip == 'using GLib;' or line.include? 'GLib.print'
+                puts 'In file ' + file + ', at line ' + line_num.to_s + ' : useless reference to GLib.'
+            end
+
+            if line.include? 'stdout.printf'
+                puts 'In file ' + file + ', at line ' + line_num.to_s + ' : just use `print`.'
             end
         end
     end
 
     content = content.gsub(/\/\*.*\*\//su, '')
 
-    if (content.scan(' class ').length + content.scan(' interface ').length) > 1
-        puts "#{file}: Too many classes or interfaces defined here."
+    # one class, struct or iterface by file
+    if content.scan(' class ').length + content.scan(' interface ').length + content.scan(' struct').length > 1
+        puts 'In file ' + file + ' : too many classes or interfaces defined here.'
         errors += 1
     end
 
-    errors > 0 ? true : false
+    if errors > 0
+        return true
+    else
+        return false
+    end
+
 end
 
-to_check  = explore('.')
-bad_files = 0
+def main
 
-to_check.each { |vala| bad_files += 1 if check(vala) }
+    to_check = explore ('.')
 
-puts "bad files : #{bad_files}, total : #{to_check.length}"
+    bad_files = 0
 
-coverage = 100 - (100 * bad_files.to_f / to_check.length.to_f)
-puts "Coverage : #{coverage.to_s[0..4]}"
+    to_check.each do |vala|
+        # puts 'Checking file ' + vala
+        if check(vala)
+            bad_files += 1
+        end
+    end
 
+    puts 'bad files : ' + bad_files.to_s + ', total : ' + to_check.length.to_s
 
+    coverage = 100 - (100 * bad_files.to_f / to_check.length.to_f)
+    puts 'Coverage : ' + coverage.to_s[0..4]
+end
+
+main
 

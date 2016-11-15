@@ -74,14 +74,18 @@
 }
 
 .message-list .activatable:selected *,
-.message-list .activatable:selected {
+.message-list .activatable:selected,
+.message-list .activatable:selected #timestamp,
+.message-list .activatable:selected #username {
   color: @white_primary;
   background-color: @selected_color;
   outline: none;
 }
 
 .message-list .activatable *,
-.message-list .activatable {
+.message-list .activatable,
+.message-list * #timestamp,
+.message-list * #username {
   color: black;
 }
 .quote-container {

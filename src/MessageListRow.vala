@@ -110,7 +110,7 @@ class Ricin.MessageListRow : Gtk.ListBoxRow {
     try {
       this.label_message.set_markup (msg);
     } catch (Error e) {
-      debug(e.message);
+      debug (e.message);
       this.label_message.set_text (msg);
     }
     this.label_message.set_line_wrap_mode (Pango.WrapMode.WORD_CHAR);

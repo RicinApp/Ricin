@@ -42,6 +42,7 @@
                 </child>
                 <child>
                   <object class="GtkLabel" id="label_name">
+                    <property name="name">username</property>
                     <property name="width_request">80</property>
                     <property name="height_request">20</property>
                     <property name="visible">True</property>
@@ -284,6 +285,7 @@
             </child>
             <child>
               <object class="GtkLabel" id="label_timestamp">
+                <property name="name">timestamp</property>
                 <property name="width_request">70</property>
                 <property name="height_request">20</property>
                 <property name="visible">True</property>
