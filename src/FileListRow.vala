@@ -82,12 +82,12 @@ class Ricin.FileListRow : Gtk.ListBoxRow {
     this.label_name.set_markup (@"<b>$username</b>");
     this.label_timestamp.set_text (timestamp);
     this.label_file_name.set_text (this.file_name);
+    this.label_file_name.set_tooltip_text (this.file_name);
     this.label_file_size.set_text (Util.size_to_string (this.file_size));
     this.progress_file_percent.set_fraction (0.0);
 
     // If message is our (ugly&hacky way).
     if (this.handle.username == username) {
-      debug ("Keeping names in sync !");
       this.handle.bind_property ("username", label_name, "label", BindingFlags.DEFAULT);
     }
 
@@ -174,7 +174,7 @@ class Ricin.FileListRow : Gtk.ListBoxRow {
       this.set_size_request (-1, -1);
 
       this.downloaded = true;
-      this.box_widget.get_style_context().add_class ("saved-file");
+      this.box_widget.get_style_context ().add_class ("saved-file");
       this.button_save.set_size_request (65, 20);
       this.button_reject.visible = false;
       this.image_save_inline.icon_name = "folder-open-symbolic";
@@ -188,7 +188,7 @@ class Ricin.FileListRow : Gtk.ListBoxRow {
 
       this.downloaded = true;
       this.progress_file_percent.visible = false;
-      this.box_widget.get_style_context().add_class ("saved-file");
+      this.box_widget.get_style_context ().add_class ("saved-file");
       this.button_save.set_size_request (65, 20);
       this.button_reject.visible = false;
       this.button_save.sensitive = true;
@@ -202,16 +202,14 @@ class Ricin.FileListRow : Gtk.ListBoxRow {
         return;
       }
 
-      var percent = position / this.raw_size;
-      debug (@"File $id - Size: $(this.raw_size) - Position: $position");
-      debug (@"Progress percent: $percent");
-      //debug (@"Received %s% of file %s", percent, id);
-      this.progress_file_percent.set_fraction ((int) percent);
-      this.progress_file_percent.visible = true;
-
-      /*this.progressbar_buffer.notify["fraction"].connect((o, p) => {
-        this.label_foreground.width_request = (int) this.progressbar_buffer.fraction * 100;
-      });*/
+      uint64 size_total = this.raw_size;
+      uint64 size_received = position;
+      double percent = size_received / (double)size_total;
+      this.progress_file_percent.set_fraction (percent);
+      
+      if (this.progress_file_percent.visible == false) {
+        this.progress_file_percent.visible = true;
+      }
     });
 
     this.sender.file_paused.connect (id => {

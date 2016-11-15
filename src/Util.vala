@@ -150,26 +150,31 @@ namespace Util {
     return markup;
   }
 
-  public static string size_to_string (uint64 size) {
-    string sizeString = "";
-
+  public static string size_to_string (uint64 base_size) {
+    double size = base_size;
+    string suffix = "bytes";
+    
     if (size >= 1073741824) {
-      sizeString = "%s Gb".printf ((size / 1073741824).to_string ());
+      size = size / (double)1073741824;
+      suffix = "Gb";
     } else if (size >= 1048576) {
-      sizeString = "%s Mb".printf ((size / 1048576).to_string ());
+      size = size / (double)1048576;
+      suffix = "Mb";
     } else if (size >= 1024) {
-      sizeString = "%s Kb".printf ((size / 1024).to_string ());
+      size = size / (double)1024;
+      suffix = "Kb";
     } else if (size > 1) {
-      sizeString = "%s bytes".printf ((size).to_string ());
+      size = size;
+      suffix = "bytes";
     } else if (size == 1) {
-      sizeString = "%s byte".printf ((size).to_string ());
+      size = size;
+      suffix = "bytes";
     } else {
-      sizeString = "0 bytes";
+      size = 0;
+      suffix = "bytes";
     }
 
-    debug(@"Converted size: %s", sizeString);
-
-    return sizeString;
+    return "%.*f %s".printf (2, size, suffix);
   }
 
   public static string status_to_icon (Tox.UserStatus status, int messagesCount = 0) {
