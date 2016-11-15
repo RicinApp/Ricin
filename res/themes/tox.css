@@ -30,35 +30,40 @@
 @define-color quote_plain_color @main_grey;
 @define-color swatch_principal @ui_green;
 @define-color swatch_gray #E0E0E0;
+@define-color swatch_gray_disabled #acacac;
+@define-color swatch_gray_border #ABB;
 
 @import url("app.css");
 
-RicinQuoteMessageListRow GtkListBox RicinPlainLabel {
-  border-left: 5px solid @plain_color;
-  padding: 0 10px 0 5px;
-}
-RicinQuoteMessageListRow GtkListBox RicinQuoteLabel {
-  border-left: 5px solid @quote_color;
-  padding: 0 7px 0 5px;
+.badge {
+  background-color: @swatch_principal;
+  color: @white_primary;
+  border-radius: 0px;
+  padding: 3px 5px;
+  font-size: 7px;
 }
 
 #chatview-header,
 #settings-header {
-  background-color: #ffffff;
-  color: black;
+  background-color: @white_primary;
+  color: @ui_main;
   border-bottom: 1px solid @swatch_gray;
 }
 #chatview-header .button,
 #settings-header .button {
-  background-color: #ffffff;
+  background-color: @white_primary;
   color: @swatch_principal;
   border-bottom: 1px solid @swatch_gray;
+}
+#chatview-header,
+#chatview-header .button {
+  border-bottom: 1px solid @swatch_gray_border;
 }
 
 #chatview-content,
 #chatview-content RicinMessageListRow,
 #settings-content GtkScrolledWindow  {
-  background-color: #ffffff;
+  background-color: @white_primary;
   color: black;
 }
 #chatview-content .label:selected,
@@ -83,7 +88,7 @@ RicinQuoteMessageListRow GtkListBox RicinQuoteLabel {
   border-left: 5px solid @swatch_principal;
 }
 .plain-container {
-  border-left: 5px solid black;
+  border-left: 5px solid @ui_main;
 }
 .message {
   padding-left: 0;
@@ -91,40 +96,72 @@ RicinQuoteMessageListRow GtkListBox RicinQuoteLabel {
 }
 
 #chatview-input .entry {
-  color: #000000;
+  color: @ui_main;
 }
 #chatview-input * {
   background-color: @swatch_gray;
-  color: @swatch_principal;
+  color: @ui_main;
 }
 #chatview-input .button * {
   background: none;
 }
+#chatview-input .button,
+#chatview-input .entry {
+  border-right: 1px solid @swatch_gray_border;
+  border-top: 1px solid @swatch_gray_border;
+}
+#chatview-input .button:last-child {
+  border-right: none;
+}
+#chatview-input .button GtkImage {
+  background: none;
+}
+#chatview-input .button:hover {
+  border-top: 1px solid @ui_darker;
+  background-color: @ui_darker;
+  color: @white_primary;
+}
+#chatview-input .button:hover GtkImage {
+  color: @white_primary;
+}
+#chatview-input .entry:selected {
+  background-color: @selected_color;
+  color: @white_primary;
+}
 
 #chatview-profile {
   background-color: #F0F0F0;
+  border-left: 1px solid @swatch_gray_border;
   color: black;
 }
+
 #chatview-profile .button,
 #settings-content .button,
 #settings-content .entry {
   background-color: @swatch_gray;
-  color: black;
+  border: 1px solid @swatch_gray_border;
+  color: @ui_darker;
+}
+#chatview-profile .button:disabled,
+#settings-content .button:disabled,
+#settings-content .entry:disabled,
+#chatview-input .entry:disabled,
+#chatview-input .button:disabled {
+  background-color: @swatch_gray_disabled;
+  color: @ui_darker;
 }
 
 #chatview-profile .button:hover,
 #chatview-header .button:hover,
-#chatview-input .button:hover,
-#chatview-input .button:hover *,
 #settings-header .button:hover,
 #settings-content .button:hover {
   background-color: @swatch_principal;
-  color: #fff;
+  color: @white_primary;
 }
 
 RicinSettingsView,
 RicinSettingsView .secondary-background {
-  background: white;
+  background: @white_primary;
 }
 #settings-header .button {
   border-right: 1px solid @swatch_gray;
@@ -134,11 +171,19 @@ RicinSettingsView .secondary-background {
 }
 
 .friendlist-row:selected {
-  background-color: white;
-  color: black;
+  background-color: @white_primary;
+  color: @ui_main;
 }
 
 .box-search {
-  background-color: #333333;
-  border-bottom: 1px solid #171717;  
+  background-color: @ui_main;
+  border-bottom: 1px solid @ui_darker;  
+}
+.box-search .entry {
+  border-right: 1px solid @ui_dark;
+}
+
+#friendlist-footer .button {
+  border-top: 1px solid #101010;
+  border-right: 1px solid #101010;
 }
