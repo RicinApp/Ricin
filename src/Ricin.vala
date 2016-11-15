@@ -26,6 +26,9 @@ public class Ricin.Ricin : Gtk.Application {
       Intl.textdomain (GETTEXT_PACKAGE);
       Intl.bind_textdomain_codeset (GETTEXT_PACKAGE, "utf-8");
     } catch (Error e) {
+      // Fallback to native language.
+      Intl.textdomain (GETTEXT_PACKAGE);
+      Intl.bind_textdomain_codeset (GETTEXT_PACKAGE, "utf-8");
       error (@"Error initializing gettext: $(e.message)");
     }
   }
