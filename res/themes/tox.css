@@ -179,3 +179,22 @@ RicinSettingsView .secondary-background {
   border-top: 1px solid #101010;
   border-right: 1px solid #101010;
 }
+
+#add-friend-box {
+  border-top: 1px solid #101010;
+}
+#add-friend-box .button,
+#add-friend-box .entry,
+#add-friend-box GtkTextView {
+  border: 1px solid #101010;
+  background-color: @ui_dark;
+}
+#add-friend-box .entry:focus {
+  border: 1px solid @swatch_principal;
+}
+#add-friend-box .button:hover {
+  background-color: @swatch_principal;
+}
+#add-friend-box *:selected {
+  background-color: @selected_color;
+}
