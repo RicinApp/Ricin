@@ -1,81 +1,63 @@
-# encoding: UTF-8
-
-def explore (top)
-    files = Dir.entries(top)
-
-    vala_files = []
+def explore(directory)
+    files = Dir.entries(directory) rescue abort("SystemCallError: Directory doesn't exist.")
+    vala_files = Array.new
 
     files.each do |file|
-        if file == '.' or file == '..' or file == '.git'
-            next
-        end
+        next if file.start_with?('.', '..', '.git')
 
-        if file.end_with?('.vala')
-            vala_files << file
-        elsif File.directory?(top + '/' + file)
-            in_subdir = explore(top + '/' + file)
-            in_subdir.each do |sub_file|
-                vala_files << file + '/' + sub_file
-            end
+        vala_files << file if file.end_with?('.vala')
+
+        subdir = "#{directory}/#{file}"
+        if File.directory?(subdir)
+            explore(subdir).each { |sub_file| vala_files << "#{file}/#{sub_file}" }
         end
     end
-    return vala_files
+
+    vala_files
 end
 
-def check (file)
-    content = ''
-    errors = 0
+def check(file)
+    content = String.new
+    errors  = 0
 
-    open(file,"r:UTF-8") do |f|
+    open(file, 'r:UTF-8') do |f|
         line_num = 0
-        in_comm = false
+        in_comm  = false
+
         while line = f.gets
 
-            if line.index(/\*\//) != nil
+            unless line.index(/\*\//).nil?
                 in_comm = false
-                line = line.gsub(/.*\*\//, '')
+                line    = line.gsub(/.*\*\//, '')
             end
 
-            if in_comm
-                line_num += 1
-                next
-            end
+            line_num += 1 and next if in_comm
 
-            if line.index(/\/\*/) != nil
+            unless line.index(/\/\*/).nil?
                 in_comm = true
-                line = line.gsub(/.*\/\*/, '')
+                line    = line.gsub(/.*\/\*/, '')
             end
 
-            # removing comments
-            line = line.gsub(/\/\/.*/, '')
-            content += line
+            line     = line.gsub(/\/\/.*/, '')
+            content  += line
             line_num += 1
-            # don't use as
-            if line.include?(' as ')
-                puts file + ':' + line_num.to_s + ': Avoid using keyword "as".'
-                errors += 1
-            end
 
-            #capitals const
+            puts "#{file}:#{line_num}: Avoid using keyword \"as\"." and errors += 1 if line.include?(' as ')
+
             const_re = /const [[:graph:]]* (?<name>[[:graph:]]*)/
             res = const_re.match(line)
-            if not res == nil
+            unless res.nil?
                 name = res[1]
-                maj_name = name.upcase
-                if name != maj_name
-                    puts file + ':' + line_num.to_s + ': Constant ' + name + ' should be named ' + maj_name
+                unless name == name.upcase
+                    puts "#{file}:#{line_num}: Constant #{name} should be named #{name.upcase}"
                     errors += 1
                 end
             end
 
-            # never forget the space before a (. NEVER
-            # Ignore _() as used for gettext this way.
             space_re = /(?!\()[[:graph:]]*\(.*\)/
             space_res = space_re.match(line.gsub(/".*"/, ''))
-            space_res_s = space_res.to_s
-            if not space_res == nil and !space_res_s.include? "_()"
-              #  puts space_res.to_s
-                puts file + ':' + line_num.to_s + ': Space missing before parenthesis'
+            unless space_res == nil && !space_res.to_s.include?('_()')
+                puts "#{file}:#{line_num}: Space missong before parenthesis."
                 errors += 1
             end
         end
@@ -83,37 +65,23 @@ def check (file)
 
     content = content.gsub(/\/\*.*\*\//su, '')
 
-    # one class or interface by file
-    if content.scan(' class ').length + content.scan(' interface ').length > 1
-        puts file + ': Too many classes or interfaces defined here.'
+    if (content.scan(' class ').length + content.scan(' interface ').length) > 1
+        puts "#{file}: Too many classes or interfaces defined here."
         errors += 1
     end
 
-    if errors > 0
-        return true
-    else
-        return false
-    end
-
+    errors > 0 ? true : false
 end
 
-def main
+to_check  = explore('.')
+bad_files = 0
 
-    to_check = explore ('.')
+to_check.each { |vala| bad_files += 1 if check(vala) }
 
-    bad_files = 0
+puts "bad files : #{bad_files}, total : #{to_check.length}"
 
-    to_check.each do |vala|
-        # puts 'Checking file ' + vala
-        if check(vala)
-            bad_files += 1
-        end
-    end
+coverage = 100 - (100 * bad_files.to_f / to_check.length.to_f)
+puts "Coverage : #{coverage.to_s[0..4]}"
 
-    puts 'bad files : ' + bad_files.to_s + ', total : ' + to_check.length.to_s
 
-    coverage = 100 - (100 * bad_files.to_f / to_check.length.to_f)
-    puts 'Coverage : ' + coverage.to_s[0..4]
-end
 
-main
