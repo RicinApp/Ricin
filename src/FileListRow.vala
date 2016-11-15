@@ -174,7 +174,7 @@ class Ricin.FileListRow : Gtk.ListBoxRow {
       this.set_size_request (-1, -1);
 
       this.downloaded = true;
-      this.box_widget.get_style_context ().add_class ("saved-file");
+      this.button_save.get_style_context ().add_class ("saved-file");
       this.button_save.set_size_request (65, 20);
       this.button_reject.visible = false;
       this.image_save_inline.icon_name = "folder-open-symbolic";
@@ -188,7 +188,7 @@ class Ricin.FileListRow : Gtk.ListBoxRow {
 
       this.downloaded = true;
       this.progress_file_percent.visible = false;
-      this.box_widget.get_style_context ().add_class ("saved-file");
+      this.button_save.get_style_context ().add_class ("saved-file");
       this.button_save.set_size_request (65, 20);
       this.button_reject.visible = false;
       this.button_save.sensitive = true;
@@ -234,7 +234,7 @@ class Ricin.FileListRow : Gtk.ListBoxRow {
       }
 
       this.file_id = -1; // File doesn't exists now, avoid issues.
-      this.box_widget.get_style_context().add_class ("canceled-file");
+      this.button_save.get_style_context().add_class ("canceled-file");
       this.button_reject.set_size_request (65, 20);
       this.button_reject.sensitive = false;
       //this.label_foreground.width_request = -1;
@@ -304,7 +304,7 @@ class Ricin.FileListRow : Gtk.ListBoxRow {
     * TODO: Change box_widget background to red.
     * NOTE: Use the .canceled-file css class defined in default.css
     **/
-    this.box_widget.get_style_context().add_class ("canceled-file");
+    this.button_save.get_style_context().add_class ("canceled-file");
 
     //this.button_reject.label = "Canceled";
     /*this.progress_transfers.visible = false;*/
