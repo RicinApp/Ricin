@@ -93,9 +93,9 @@ class Ricin.SettingsView : Gtk.Box {
     this.combobox_languages.append_text ("Russian");
     this.combobox_languages.append_text ("Polish");
 
-    this.combobox_selected_theme.append_text (_("Dark theme") + @" ($default_str)");
+    this.combobox_selected_theme.append_text (_("The Tox theme") + @" ($default_str)");
+    this.combobox_selected_theme.append_text (_("Dark theme"));
     this.combobox_selected_theme.append_text (_("White theme"));
-    this.combobox_selected_theme.append_text (_("The Tox theme"));
     
     this.combobox_message_parsing_mode.append_text (_("Markdown"));
     this.combobox_message_parsing_mode.append_text (_("Plaintext"));
@@ -188,11 +188,11 @@ class Ricin.SettingsView : Gtk.Box {
     });
 
     string selected_theme = this.settings.selected_theme;
-    if (selected_theme == "dark") {
+    if (selected_theme == "tox") {
       this.combobox_selected_theme.active = 0;
-    } else if (selected_theme == "white") {
+    } else if (selected_theme == "dark") {
       this.combobox_selected_theme.active = 1;
-    } else if (selected_theme == "tox") {
+    } else if (selected_theme == "white") {
       this.combobox_selected_theme.active = 2;
     }
     
@@ -214,16 +214,16 @@ class Ricin.SettingsView : Gtk.Box {
 
         switch (active) {
           case 0:
+            ThemeManager.instance.set_theme ("tox");
+            this.settings.selected_theme = "tox";
+            break;
+          case 1:
             ThemeManager.instance.set_theme ("dark");
             this.settings.selected_theme = "dark";
             break;
-          case 1:
+          case 2:
             ThemeManager.instance.set_theme ("white");
             this.settings.selected_theme = "white";
-            break;
-          case 2:
-            ThemeManager.instance.set_theme ("tox");
-            this.settings.selected_theme = "tox";
             break;
         }
 
@@ -242,16 +242,16 @@ class Ricin.SettingsView : Gtk.Box {
 
       switch (active) {
         case 0:
+          ThemeManager.instance.set_theme ("tox");
+          this.settings.selected_theme = "tox";
+          break;
+        case 1:
           ThemeManager.instance.set_theme ("dark");
           this.settings.selected_theme = "dark";
           break;
-        case 1:
+        case 2:
           ThemeManager.instance.set_theme ("white");
           this.settings.selected_theme = "white";
-          break;
-        case 2:
-          ThemeManager.instance.set_theme ("tox");
-          this.settings.selected_theme = "tox";
           break;
       }
     });

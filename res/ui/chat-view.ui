@@ -1101,8 +1101,6 @@
                             <property name="height_request">128</property>
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="margin_top">10</property>
-                            <property name="margin_bottom">5</property>
                             <property name="pixel_size">128</property>
                             <property name="resource">/chat/tox/ricin/images/noavatar.gif</property>
                           </object>
@@ -1174,12 +1172,37 @@
                                 <property name="can_focus">False</property>
                                 <property name="orientation">vertical</property>
                                 <child>
-                                  <object class="GtkImage" id="image_friend_status">
-                                    <property name="width_request">20</property>
-                                    <property name="height_request">20</property>
+                                  <object class="GtkBox" id="box13">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
-                                    <property name="resource">/chat/tox/ricin/images/status/offline.png</property>
+                                    <property name="halign">center</property>
+                                    <child>
+                                      <object class="GtkImage" id="image_friend_status">
+                                        <property name="width_request">20</property>
+                                        <property name="height_request">20</property>
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">False</property>
+                                        <property name="resource">/chat/tox/ricin/images/status/offline.png</property>
+                                      </object>
+                                      <packing>
+                                        <property name="expand">False</property>
+                                        <property name="fill">True</property>
+                                        <property name="position">0</property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <object class="GtkLabel" id="label2">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">False</property>
+                                        <property name="label" translatable="yes">&lt;b&gt;Last seen:&lt;/b&gt;</property>
+                                        <property name="use_markup">True</property>
+                                      </object>
+                                      <packing>
+                                        <property name="expand">False</property>
+                                        <property name="fill">True</property>
+                                        <property name="position">1</property>
+                                      </packing>
+                                    </child>
                                   </object>
                                   <packing>
                                     <property name="expand">False</property>
@@ -1192,19 +1215,6 @@
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
                                     <property name="label">14:30</property>
-                                  </object>
-                                  <packing>
-                                    <property name="expand">False</property>
-                                    <property name="fill">True</property>
-                                    <property name="position">1</property>
-                                  </packing>
-                                </child>
-                                <child>
-                                  <object class="GtkLabel" id="label2">
-                                    <property name="visible">True</property>
-                                    <property name="can_focus">False</property>
-                                    <property name="label" translatable="yes">&lt;b&gt;Last seen:&lt;/b&gt;</property>
-                                    <property name="use_markup">True</property>
                                   </object>
                                   <packing>
                                     <property name="expand">False</property>
