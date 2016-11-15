@@ -169,7 +169,6 @@ namespace Tox {
     public Tox (ToxCore.Options? opts = null, string? profile = null, string? password = null, bool is_new = false) throws ErrNew, ErrDecrypt {
       debug ("ToxCore Version %u.%u.%u", ToxCore.Version.MAJOR, ToxCore.Version.MINOR, ToxCore.Version.PATCH);
 
-
       if (profile != null) { // Profile specified.
         this.profile = profile;
         this.password = password;
@@ -203,7 +202,7 @@ namespace Tox {
       this.handle = new ToxCore.Tox (opts, out error);
       unowned ToxCore.Tox handle = this.handle;
 
-      if (is_new && this.password != null) {
+      if (is_new && this.password != null && this.password != "") {
         this.add_password (password);
       }
 

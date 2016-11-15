@@ -116,23 +116,33 @@ class Ricin.ProfileChooser : Gtk.ApplicationWindow {
 
   [GtkCallback]
   private void register () {
-    var entry = this.entry_register_name.get_text ();
-    var pass = this.entry_register_password.get_text ();
+    string entry = this.entry_register_name.get_text ();
+    string pass = this.entry_register_password.get_text ();
     var password = (pass.strip () != "") ? pass : null;
 
     if (entry.strip () == "") {
       this.label_create_profile.set_markup ("<span color=\"#e74c3c\">" + _("Please enter a profile name.") + "</span>");
       return;
     }
+    
+    if (password != null && password.length < 8) {
+      this.label_create_profile.set_markup ("<span color=\"#e74c3c\">" + _("Password must be at least 8 characters.") + "</span>");
+      return;
+    }
 
-    var profile = Tox.profile_dir () + entry.replace (" ", "-") + ".tox";
-
+    string profile = Tox.profile_dir () + entry.replace (" ", "-") + ".tox";
     if (FileUtils.test (profile, FileTest.EXISTS)) {
       this.label_create_profile.set_markup ("<span color=\"#e74c3c\">" + _("Profile name already taken.") + "</span>");
     } else {
       this.entry_register_name.sensitive = false; // To prevent issue.
       this.button_register.sensitive = false; // To prevent issue.
-      new MainWindow (this.application, profile, pass, true);
+      
+      if (password == null) {
+        new MainWindow (this.application, profile, null, true);
+      } else {
+        new MainWindow (this.application, profile, pass, true);
+      }
+
       this.button_register.sensitive = true;
       this.populate_profiles ();
       this.close ();
