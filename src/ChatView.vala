@@ -678,10 +678,10 @@ class Ricin.ChatView : Gtk.Box {
     this.image_notify.icon_name = icon_name;
     this.label_notify_text.set_text (text);
     this.button_notify_close.clicked.connect (() => {
-      this.notify.reveal_child = false;
+      this.notify.set_reveal_child (false);
     });
 
-    this.notify.reveal_child = true;
+    this.notify.set_reveal_child (true);
     this.scroll_to_bottom ();
   }
   
@@ -846,12 +846,12 @@ class Ricin.ChatView : Gtk.Box {
       this.is_bottom = true;
 
       if (this.settings.show_unread_messages) {
-        this.revealer_unread_messages.reveal_child = false;
+        this.revealer_unread_messages.set_reveal_child (false);
       }
     } else {
       this.is_bottom = false;
       if (this.settings.show_unread_messages) {
-        this.revealer_unread_messages.reveal_child = true;
+        this.revealer_unread_messages.set_reveal_child (true);
       }
     }
 
@@ -867,7 +867,7 @@ class Ricin.ChatView : Gtk.Box {
       }
     });
     if (this.revealer_unread_messages.reveal_child == true) {
-      this.revealer_unread_messages.reveal_child = false;
+      this.revealer_unread_messages.set_reveal_child (false);
     }
   }
 

@@ -287,8 +287,8 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
     this.tox.friend_request.connect ((id, message) => {
       debug (@"Received friend request from $id: $message");
 
-      this.revealer_friend_request.reveal_child = true;
-      this.revealer_friend_request_details.reveal_child = false;
+      this.revealer_friend_request.set_reveal_child (true);
+      this.revealer_friend_request_details.set_reveal_child (false);
 
       this.label_friend_request_pubkey.set_text (id);
       this.label_friend_request_message.set_text (message);
@@ -296,7 +296,7 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
 
       this.button_friend_request_expand.clicked.connect (() => {
         bool is_expanded = this.revealer_friend_request_details.child_revealed;
-        this.revealer_friend_request_details.reveal_child = !is_expanded;
+        this.revealer_friend_request_details.set_reveal_child (!is_expanded);
         this.image_friend_request_expand.icon_name = (is_expanded) ? "go-top-symbolic" : "go-down-symbolic";
       });
 
@@ -314,16 +314,16 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
           chat_stack.add_named (new ChatView (this.tox, friend, this.chat_stack, view_name), view_name);
         }
 
-        this.revealer_friend_request.reveal_child = false;
-        this.revealer_friend_request_details.reveal_child = false;
+        this.revealer_friend_request.set_reveal_child (false);
+        this.revealer_friend_request_details.set_reveal_child (false);
         this.label_friend_request_pubkey.set_text ("");
         this.label_friend_request_message.set_text ("");
       });
 
       this.button_friend_request_cancel.clicked.connect (() => {
         debug (@"Rejected friend request from $id");
-        this.revealer_friend_request.reveal_child = false;
-        this.revealer_friend_request_details.reveal_child = false;
+        this.revealer_friend_request.set_reveal_child (false);
+        this.revealer_friend_request_details.set_reveal_child (false);
         this.label_friend_request_pubkey.set_text ("");
         this.label_friend_request_message.set_text ("");
       });
@@ -345,9 +345,9 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
     this.notify_message.connect ((message, timeout) =>  {
       this.label_system_notify.use_markup = true;
       this.label_system_notify.set_markup (message);
-      this.revealer_system_notify.reveal_child = true;
+      this.revealer_system_notify.set_reveal_child (true);
       Timeout.add (timeout, () => {
-        this.revealer_system_notify.reveal_child = false;
+        this.revealer_system_notify.set_reveal_child (false);
         //return Source.REMOVE;
         return false;
       });
@@ -523,7 +523,7 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
 
     this.entry_friend_id.set_text (toxid);
     this.entry_friend_message.buffer.text = friend_message;
-    this.add_friend.reveal_child = true;
+    this.add_friend.set_reveal_child (true);
   }
 
   private void init_tray_icon () {
@@ -671,7 +671,7 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
 
   [GtkCallback]
   private void hide_add_friend_popover () {
-    this.add_friend.reveal_child = false;
+    this.add_friend.set_reveal_child (false);
     this.label_add_error.set_text (_("Add a friend"));
   }
 
@@ -693,7 +693,7 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
         var friend = tox.add_friend (tox_id, message);
         this.tox.save_data (); // Needed to avoid breaking profiles if app crash.
         this.entry_friend_id.set_text (""); // Clear the entry after adding a friend.
-        this.add_friend.reveal_child = false;
+        this.add_friend.set_reveal_child (false);
         this.label_add_error.set_text (_("Add a friend"));
         return;
       } catch (Tox.ErrFriendAdd e) {
@@ -705,7 +705,7 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
         var friend = tox.accept_friend_request (tox_id);
         this.tox.save_data (); // Needed to avoid breaking profiles if app crash.
         this.entry_friend_id.set_text (""); // Clear the entry after adding a friend.
-        this.add_friend.reveal_child = false;
+        this.add_friend.set_reveal_child (false);
         this.label_add_error.set_text (_("Add a friend"));
         return;
       } catch (Tox.ErrFriendAdd e) {
@@ -725,7 +725,7 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
       return;
     }
 
-    this.add_friend.reveal_child = false;
+    this.add_friend.set_reveal_child (false);
   }
 
   [GtkCallback]
