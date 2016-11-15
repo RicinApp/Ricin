@@ -142,14 +142,6 @@
   border: 1px solid @swatch_gray_border;
   color: @ui_darker;
 }
-#chatview-profile .button:disabled,
-#settings-content .button:disabled,
-#settings-content .entry:disabled,
-#chatview-input .entry:disabled,
-#chatview-input .button:disabled {
-  background-color: @swatch_gray_disabled;
-  color: @ui_darker;
-}
 
 #chatview-profile .button:hover,
 #chatview-header .button:hover,

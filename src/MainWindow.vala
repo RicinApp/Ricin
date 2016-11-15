@@ -3,8 +3,6 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
   // User profile.
   [GtkChild] Gtk.Box box_profile;
   [GtkChild] Gtk.Image avatar_image;
-  //[GtkChild] Gtk.Entry entry_name;
-  //[GtkChild] Gtk.Entry entry_status;
   private EditableLabel entry_name;
   private EditableLabel entry_status;
   [GtkChild] Gtk.Button button_user_status;
@@ -181,20 +179,12 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
       this.tox.status_message = Util.escape_html (text);
     });
 
-    /*this.entry_name.set_text (tox.username);
-    this.entry_status.set_text (tox.status_message);*/
     this.image_user_status.set_from_resource ("/chat/tox/ricin/images/status/offline.png");
 
     // Filter + search.
     this.combobox_friend_filter.append_text (_("Online friends"));
     this.combobox_friend_filter.append_text (_("All friends"));
     this.combobox_friend_filter.active = 0;
-
-    /*this.friendlist.set_sort_func ((row1, row2) => {
-      var friend1 = row1 as FriendListRow;
-      var friend2 = row2 as FriendListRow;
-      return friend1.fr.status - friend2.fr.status;
-    });*/
     
     this.combobox_friend_filter.changed.connect (this.friend_list_update_search);
 
@@ -204,6 +194,7 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
     /**
     * Set how the contact list is filtered.
     * Returns true if the row should be shown, false if not.
+    * TODO: DEBUG THAT SOMEDAYS.
     **/
     /*this.friendlist.set_filter_func ((row) => {
       string? search = this.searchentry_friend.text;
@@ -238,27 +229,6 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
 
       var mode = this.combobox_friend_filter.active;
 
-      /*
-      if (search.length == 0) {
-        // If a friend have unread messages, show it.
-        if (friend.unreadCount > 0) return true;
-        if (mode == 0 && status == Tox.UserStatus.OFFLINE) return false;
-        return true;
-      } else {
-      
-        if (name.index_of (search) != -1) {
-          return true;
-        } else if (status_message.index_of (search) != -1) {
-          return true;
-        } else  {
-          return true;
-        } else {
-          if (mode == 0 && status == Tox.UserStatus.OFFLINE) return false;
-        }
-      }
-      
-      return false;*/
-
       if (search == null || search.length == 0) {
         if (friend.unreadCount > 0) return true;
         if (mode == 0 && status == Tox.UserStatus.OFFLINE) return false;
@@ -282,10 +252,6 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
       if (pubkey == search) return true;
       return false;
     });
-    
-          
-      
-      /**/
 
     tox.notify["connected"].connect ((src, prop) => {
       string icon = "";
@@ -352,9 +318,6 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
         this.revealer_friend_request_details.reveal_child = false;
         this.label_friend_request_pubkey.set_text ("");
         this.label_friend_request_message.set_text ("");
-        /*this.box_notify_friend_request.visible = false;
-        this.box_friend_request_new.visible = false;
-        this.image_friend_request_expand.icon_name = "go-down-symbolic";*/
       });
 
       this.button_friend_request_cancel.clicked.connect (() => {
@@ -363,9 +326,6 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
         this.revealer_friend_request_details.reveal_child = false;
         this.label_friend_request_pubkey.set_text ("");
         this.label_friend_request_message.set_text ("");
-        /*this.box_notify_friend_request.visible = false;
-        this.box_friend_request_new.visible = false;
-        this.image_friend_request_expand.icon_name = "go-down-symbolic";*/
       });
     });
 
@@ -415,8 +375,6 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
   private bool minimized = false;
   public void set_desktop_hint (bool hint) {  
     if (this.settings.enable_taskbar_notify == false) return;
-    //var state = this.get_window ().get_state ();
-    //if (state != Gdk.WindowState.ICONIFIED || this.has_toplevel_focus) return;
 
     if (this.minimized || this.has_toplevel_focus == false) {
       this.set_urgency_hint (hint);
@@ -557,18 +515,14 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
   }
 
   public void show_add_friend_popover_with_text (string toxid = "", string message = "") {
-    var friend_message = "";
-
+    string friend_message = "";
     if (message.strip () == "") {
-      var username = this.tox.username;
+      string username = this.tox.username;
       friend_message = _("Hello! It's %s, let's be friends.").printf (username);
     }
 
     this.entry_friend_id.set_text (toxid);
     this.entry_friend_message.buffer.text = friend_message;
-    //this.button_add_friend_show.visible = false;
-    //this.button_settings.visible = false;
-    this.box_bottom_buttons.visible = false;
     this.add_friend.reveal_child = true;
   }
 
@@ -719,9 +673,6 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
   private void hide_add_friend_popover () {
     this.add_friend.reveal_child = false;
     this.label_add_error.set_text (_("Add a friend"));
-    this.button_add_friend_show.visible = true;
-    this.button_settings.visible = true;
-    this.box_bottom_buttons.visible = true;
   }
 
   [GtkCallback]
@@ -744,8 +695,6 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
         this.entry_friend_id.set_text (""); // Clear the entry after adding a friend.
         this.add_friend.reveal_child = false;
         this.label_add_error.set_text (_("Add a friend"));
-        this.button_add_friend_show.visible = true;
-        this.box_bottom_buttons.visible = true;
         return;
       } catch (Tox.ErrFriendAdd e) {
         debug (@"Cannot add friend from ToxID: $(e.message)");
@@ -758,8 +707,6 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
         this.entry_friend_id.set_text (""); // Clear the entry after adding a friend.
         this.add_friend.reveal_child = false;
         this.label_add_error.set_text (_("Add a friend"));
-        this.button_add_friend_show.visible = true;
-        this.box_bottom_buttons.visible = true;
         return;
       } catch (Tox.ErrFriendAdd e) {
         debug (@"Cannot add friend from PublicKey: $(e.message)");
@@ -779,8 +726,6 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
     }
 
     this.add_friend.reveal_child = false;
-    this.button_add_friend_show.visible = true;
-    this.box_bottom_buttons.visible = true;
   }
 
   [GtkCallback]
@@ -802,11 +747,6 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
       this.set_title (@"$(this.window_title) - $(friend.get_uname ())");
     }
   }
-
-  //[GtkCallback]
-  /*private void set_username_from_entry () {
-    this.tox.username = Util.escape_html (this.entry_name.label.text);
-  }*/
 
   [GtkCallback]
   private void cycle_user_status () {
@@ -879,7 +819,5 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
     this.tox.save_data ();
     this.settings.save_settings ();
     this.tox.disconnect ();
-    //this.tox.handle = null;
-    //this.tox = null;
   }
 }

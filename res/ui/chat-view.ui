@@ -1074,6 +1074,28 @@
                         <property name="orientation">vertical</property>
                         <property name="spacing">5</property>
                         <child>
+                          <object class="GtkLabel" id="label_friend_profil_name">
+                            <property name="width_request">160</property>
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="margin_left">10</property>
+                            <property name="margin_right">10</property>
+                            <property name="label">SkyzohKey</property>
+                            <property name="justify">fill</property>
+                            <property name="single_line_mode">True</property>
+                            <property name="max_width_chars">40</property>
+                            <attributes>
+                              <attribute name="weight" value="bold"/>
+                              <attribute name="size" value="18000"/>
+                            </attributes>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">False</property>
+                            <property name="position">0</property>
+                          </packing>
+                        </child>
+                        <child>
                           <object class="GtkImage" id="friend_profil_avatar">
                             <property name="width_request">200</property>
                             <property name="height_request">128</property>
@@ -1083,50 +1105,6 @@
                             <property name="margin_bottom">5</property>
                             <property name="pixel_size">128</property>
                             <property name="resource">/chat/tox/ricin/images/noavatar.gif</property>
-                          </object>
-                          <packing>
-                            <property name="expand">False</property>
-                            <property name="fill">True</property>
-                            <property name="position">0</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkBox" id="box13">
-                            <property name="visible">True</property>
-                            <property name="can_focus">False</property>
-                            <child>
-                              <object class="GtkImage" id="image_friend_status">
-                                <property name="width_request">20</property>
-                                <property name="height_request">20</property>
-                                <property name="visible">True</property>
-                                <property name="can_focus">False</property>
-                                <property name="resource">/chat/tox/ricin/images/status/offline.png</property>
-                              </object>
-                              <packing>
-                                <property name="expand">False</property>
-                                <property name="fill">True</property>
-                                <property name="position">0</property>
-                              </packing>
-                            </child>
-                            <child>
-                              <object class="GtkLabel" id="label_friend_profil_name">
-                                <property name="width_request">160</property>
-                                <property name="visible">True</property>
-                                <property name="can_focus">False</property>
-                                <property name="label">SkyzohKey</property>
-                                <property name="justify">fill</property>
-                                <property name="single_line_mode">True</property>
-                                <property name="max_width_chars">10</property>
-                                <attributes>
-                                  <attribute name="weight" value="bold"/>
-                                </attributes>
-                              </object>
-                              <packing>
-                                <property name="expand">False</property>
-                                <property name="fill">False</property>
-                                <property name="position">1</property>
-                              </packing>
-                            </child>
                           </object>
                           <packing>
                             <property name="expand">False</property>
@@ -1196,11 +1174,12 @@
                                 <property name="can_focus">False</property>
                                 <property name="orientation">vertical</property>
                                 <child>
-                                  <object class="GtkLabel" id="label2">
+                                  <object class="GtkImage" id="image_friend_status">
+                                    <property name="width_request">20</property>
+                                    <property name="height_request">20</property>
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
-                                    <property name="label" translatable="yes">&lt;b&gt;Last seen:&lt;/b&gt;</property>
-                                    <property name="use_markup">True</property>
+                                    <property name="resource">/chat/tox/ricin/images/status/offline.png</property>
                                   </object>
                                   <packing>
                                     <property name="expand">False</property>
@@ -1218,6 +1197,19 @@
                                     <property name="expand">False</property>
                                     <property name="fill">True</property>
                                     <property name="position">1</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkLabel" id="label2">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="label" translatable="yes">&lt;b&gt;Last seen:&lt;/b&gt;</property>
+                                    <property name="use_markup">True</property>
+                                  </object>
+                                  <packing>
+                                    <property name="expand">False</property>
+                                    <property name="fill">True</property>
+                                    <property name="position">2</property>
                                   </packing>
                                 </child>
                               </object>
