@@ -16,9 +16,12 @@ class ThemeManager : GLib.Object {
   public string custom_themes_base_path = "/chat/tox/ricin";
   public string system_theme;
   public string current_theme_name = "dark";
+  private bool use_gtk32 = false;
+  private string themes_folder = "gtk-3.1x";
 
   public ThemeManager () {
-
+    this.use_gtk32 = (Gtk.MINOR_VERSION >= 20);
+    this.themes_folder = (use_gtk32) ? "gtk-3.2x" : "gtk-3.1x";
   }
 
   private void add_provider (Gtk.CssProvider provider) {
@@ -43,7 +46,7 @@ class ThemeManager : GLib.Object {
     debug (@"Theme name: $(this.current_theme_name)");
 
     var provider = new Gtk.CssProvider ();
-    provider.load_from_resource (@"$(this.custom_themes_base_path)/themes/$(this.current_theme_name).css");
+    provider.load_from_resource (@"$(this.custom_themes_base_path)/themes/$(this.themes_folder)/$(this.current_theme_name).css");
     this.add_provider (provider);
   }
 
