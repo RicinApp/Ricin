@@ -58,9 +58,11 @@ public class Ricin.Ricin : Gtk.Application {
       config_sample.copy (config_file, FileCopyFlags.OVERWRITE);
     }*/
 
+    bool use_gtk32 = (Gtk.MINOR_VERSION >= 20);
+    string themes_folder = (use_gtk32) ? "gtk-3.2x" : "gtk-3.1x";
     if (this.settings.enable_custom_themes) {
       string selected_theme = this.settings.selected_theme;
-      string theme_path = @"$resource_base_path/themes/";
+      string theme_path = @"$resource_base_path/themes/$(themes_folder)/";
       string theme_file = theme_path + selected_theme + ".css";
 
       // If theme doesn't exists apply the default one.
@@ -73,13 +75,13 @@ public class Ricin.Ricin : Gtk.Application {
 
       // Load the default css.
       var provider = new Gtk.CssProvider ();
-      provider.load_from_resource ("/chat/tox/ricin/themes/styles.css"); // Load default css helpers.
+      provider.load_from_resource (@"/chat/tox/ricin/themes/$(themes_folder)/styles.css"); // Load default css helpers.
       provider.load_from_resource (this.current_theme);
       Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (),
           provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
     } else {
       var provider = new Gtk.CssProvider ();
-      provider.load_from_resource ("/chat/tox/ricin/themes/styles.css"); // Load default css helpers.
+      provider.load_from_resource (@"/chat/tox/ricin/$(themes_folder)/styles.css"); // Load default css helpers.
       Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (),
           provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
     }
