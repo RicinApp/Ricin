@@ -8,7 +8,7 @@ class Ricin.StatusMessageListRow : Gtk.ListBoxRow {
 
   public StatusMessageListRow (string message, Tox.UserStatus status) {
     string icon = Util.status_to_icon (status, 0);
-    
+
     if (Settings.instance.compact_mode) {
       this.label_name.visible = false;
       this.image_status.margin_left = 12; // Half compact image mode.

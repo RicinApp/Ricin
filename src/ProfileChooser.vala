@@ -124,7 +124,7 @@ class Ricin.ProfileChooser : Gtk.ApplicationWindow {
       this.label_create_profile.set_markup ("<span color=\"#e74c3c\">" + _("Please enter a profile name.") + "</span>");
       return;
     }
-    
+
     if (password != null && password.length < 8) {
       this.label_create_profile.set_markup ("<span color=\"#e74c3c\">" + _("Password must be at least 8 characters.") + "</span>");
       return;
@@ -136,7 +136,7 @@ class Ricin.ProfileChooser : Gtk.ApplicationWindow {
     } else {
       this.entry_register_name.sensitive = false; // To prevent issue.
       this.button_register.sensitive = false; // To prevent issue.
-      
+
       if (password == null) {
         new MainWindow (this.application, profile, null, true);
       } else {

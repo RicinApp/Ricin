@@ -52,18 +52,18 @@ namespace Util {
     assert (result.validate ());
     return result;
   }
-  
+
   public static Gdk.Pixbuf pubkey_to_image (string pubkey, int width = 48, int height = 48) {
     var _avatar_path = Tox.profile_dir () + "avatars/" + pubkey + ".png";
     Gdk.Pixbuf pixbuf = null;
-    
+
     if (FileUtils.test (_avatar_path, FileTest.EXISTS)) {
       pixbuf = new Gdk.Pixbuf.from_file_at_scale (_avatar_path, width, height, false);
     } else {
       Cairo.Surface surface = Util.identicon_for_pubkey (pubkey, width);
       pixbuf = Gdk.pixbuf_get_from_surface (surface, 0, 0, width, height);
     }
-    
+
     return pixbuf;
   }
 
@@ -124,14 +124,14 @@ namespace Util {
       } else {
         var uri = /(\w+:\S+)/.replace (emojified, -1, 0, "<a href=\"\\1\">\\1</a>");
 
-        var bold = /\B\*\*([^\*\*]{2,}?)\*\*\B/.replace (uri, -1, 0, "<b>\\1</b>");
-        bold = /\B\*([^\*]{2,}?)\*\B/.replace (bold, -1, 0, "<b>\\1</b>");
-        var italic = /^\/\/([^\/\/]{2,}?)\/\/$/.replace (bold, -1, 0, "<i>\\1</i>");
-        italic = /^\/([^\/]{2,}?)\/$/.replace (italic, -1, 0, "<i>\\1</i>");
-        var underlined = /\b__([^__]{2,}?)__\b/.replace (italic, -1, 0, "<u>\\1</u>");
-        underlined = /\b_([^_]{2,}?)_\b/.replace (underlined, -1, 0, "<u>\\1</u>");
-        var striked = /\B~~([^~~]{2,}?)~~\B/.replace (underlined, -1, 0, "<s>\\1</s>");
-        striked = /\B~([^~]{2,}?)~\B/.replace (striked, -1, 0, "<s>\\1</s>");
+        var bold = /\B\*\*([^\*\*] {2,}?)\*\*\B/.replace (uri, -1, 0, "<b>\\1</b>");
+        bold = /\B\*([^\*] {2,}?)\*\B/.replace (bold, -1, 0, "<b>\\1</b>");
+        var italic = /^\/\/([^\/\/] {2,}?)\/\/$/.replace (bold, -1, 0, "<i>\\1</i>");
+        italic = /^\/([^\/] {2,}?)\/$/.replace (italic, -1, 0, "<i>\\1</i>");
+        var underlined = /\b__([^__] {2,}?)__\b/.replace (italic, -1, 0, "<u>\\1</u>");
+        underlined = /\b_([^_] {2,}?)_\b/.replace (underlined, -1, 0, "<u>\\1</u>");
+        var striked = /\B~~([^~~] {2,}?)~~\B/.replace (underlined, -1, 0, "<s>\\1</s>");
+        striked = /\B~([^~] {2,}?)~\B/.replace (striked, -1, 0, "<s>\\1</s>");
         var inline_code = /\B`([^`]*)`\B/.replace (striked, -1, 0, "<span face=\"monospace\" size=\"smaller\">\\1</span>");
 
         return inline_code;
@@ -153,7 +153,7 @@ namespace Util {
   public static string size_to_string (uint64 base_size) {
     double size = base_size;
     string suffix = "bytes";
-    
+
     if (size >= 1073741824) {
       size = size / (double)1073741824;
       suffix = "Gb";

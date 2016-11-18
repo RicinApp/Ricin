@@ -10,6 +10,8 @@ class Ricin.FriendListRow : Gtk.ListBoxRow {
   [GtkChild] Gtk.Image userstatus;
 
   public Tox.Friend fr;
+  public weak Tox.Group group;
+
   private string current_status_icon = "";
   private Gtk.Menu menu_friend;
   private Gtk.ImageMenuItem block_friend;
@@ -18,6 +20,8 @@ class Ricin.FriendListRow : Gtk.ListBoxRow {
   private ViewType view_type;
   private string iconName = "offline";
   private Gdk.Pixbuf pixbuf;
+
+  public string view_name;
   public int unreadCount = 0;
 
   private enum ViewType {
@@ -28,6 +32,7 @@ class Ricin.FriendListRow : Gtk.ListBoxRow {
   public FriendListRow (Tox.Friend fr) {
     this.fr = fr;
     this.settings = Settings.instance;
+    this.view_name = "chat-%s".printf (fr.pubkey);
 
     debug (@"Friend name: $(this.fr.name)");
     if (this.fr.name == null) {
@@ -99,9 +104,15 @@ class Ricin.FriendListRow : Gtk.ListBoxRow {
       this.switch_view_type (this.view_type);
     });
 
-    fr.message.connect (this.notify_new_messages);
-    fr.action.connect (this.notify_new_messages);
-    fr.file_transfer.connect (this.notify_new_messages);
+    fr.message.connect (() => {
+      this.notify_new_messages ();
+    });
+    fr.action.connect (() => {
+      this.notify_new_messages ();
+    });
+    fr.file_transfer.connect (() => {
+      this.notify_new_messages ();
+    });
 
     this.activate.connect (() => {
       var main_window = ((MainWindow) this.get_toplevel ());
@@ -112,6 +123,70 @@ class Ricin.FriendListRow : Gtk.ListBoxRow {
       this.changed ();
 
       main_window.friendlist.invalidate_filter ();
+      main_window.grouplist.invalidate_filter ();
+    });
+  }
+
+  public FriendListRow.groupchat (Tox.Group group) {
+    this.settings = Settings.instance;
+    this.view_name = "group-%d".printf (group.id);
+    this.group = group;
+
+    this.username.set_text (this.group.name);
+    this.username.set_tooltip_text (this.group.name);
+    this.status.set_text (_("People in group: %d").printf (this.group.peers_count));
+    //this.status.set_text ("Peers: 0");
+    this.userstatus.visible = false;
+    Cairo.Surface surface = Util.identicon_for_pubkey (this.group.name);
+    this.avatar.pixbuf = Gdk.pixbuf_get_from_surface (surface, 0, 0, 48, 48);
+    this.pixbuf = this.avatar.pixbuf;
+
+    if (this.settings.compact_mode) {
+      this.switch_view_type (ViewType.COMPACT);
+    }
+    this.settings.notify["compact-mode"].connect (() => {
+      if (this.settings.compact_mode) {
+        this.switch_view_type (ViewType.COMPACT);
+      } else {
+        this.switch_view_type (ViewType.FULL);
+      }
+    });
+
+    this.group.peer_count_changed.connect ((peer) => {
+      this.status.set_text (_("People in group: %d").printf (this.group.peers_count));
+    });
+
+    this.group.title_changed.connect ((peer_num, title) => {
+      this.username.set_text (this.group.name);
+      this.username.set_tooltip_text (this.group.name);
+      //this.status.set_text (_("Peers: %d", this.group.peers.length ()));
+      if (this.view_type == ViewType.COMPACT) {
+        Cairo.Surface s = Util.identicon_for_pubkey (this.group.name, 24);
+        this.avatar.pixbuf = Gdk.pixbuf_get_from_surface (s, 0, 0, 24, 24);
+      } else {
+        Cairo.Surface s = Util.identicon_for_pubkey (this.group.name, 48);
+        this.avatar.pixbuf = Gdk.pixbuf_get_from_surface (s, 0, 0, 48, 48);
+      }
+      this.pixbuf = this.avatar.pixbuf;
+    });
+
+    this.group.message.connect (() => {
+      this.notify_new_messages ();
+    });
+    this.group.action.connect (() => {
+      this.notify_new_messages ();
+    });
+
+    this.activate.connect (() => {
+      var main_window = ((MainWindow) this.get_toplevel ());
+      main_window.global_unread_counter -= this.unreadCount;
+
+      this.unreadCount = 0;
+      this.update_icon ();
+      this.changed ();
+
+      main_window.friendlist.invalidate_filter ();
+      main_window.grouplist.invalidate_filter ();
     });
   }
 
@@ -129,9 +204,13 @@ class Ricin.FriendListRow : Gtk.ListBoxRow {
     }
   }
 
-  private void notify_new_messages (string message) {
+  private void notify_new_messages () {
     var main_window = ((MainWindow) this.get_toplevel ());
-    if (main_window.focused_view == "chat-" + this.fr.pubkey) {
+    if (main_window.focused_view == this.view_name) {
+      return;
+    }
+    
+    if (this.group.muted) {
       return;
     }
 
@@ -159,6 +238,7 @@ class Ricin.FriendListRow : Gtk.ListBoxRow {
 
       this.status.set_margin_bottom (7);
       this.status.set_valign (Gtk.Align.END);
+      this.status.set_halign (Gtk.Align.START);
     } else if (type == ViewType.COMPACT) {
       this.set_size_request (100, 30);
 
@@ -177,13 +257,19 @@ class Ricin.FriendListRow : Gtk.ListBoxRow {
 
       this.status.set_margin_bottom (0);
       this.status.set_valign (Gtk.Align.CENTER);
+
+      if (this.view_name.index_of ("group") != -1) {
+        this.username.set_vexpand (true);
+        this.status.set_halign (Gtk.Align.END);
+        this.box_infos.set_halign (Gtk.Align.FILL);
+      }
     }
 
     this.view_type = type;
   }
 
   private void init_context_menu () {
-    /*debug ("Initializing context menu for friend.");
+    debug ("Initializing context menu for friend.");
 
     this.button_press_event.connect (event => {
       if (event.button == Gdk.BUTTON_SECONDARY) {
@@ -194,8 +280,61 @@ class Ricin.FriendListRow : Gtk.ListBoxRow {
     });
 
     this.menu_friend = new Gtk.Menu ();
-    var delete_friend = new Gtk.ImageMenuItem.with_label ("Delete friend");
-    var delete_friend_icon = new Gtk.Image.from_icon_name ("window-close-symbolic", Gtk.IconSize.MENU);
+
+    // Open friend profile.
+    var open_friend_profile = new Gtk.ImageMenuItem.with_label (_("Friend's profile"));
+    var open_friend_profile_icon = new Gtk.Image.from_icon_name ("dialog-information-symbolic", Gtk.IconSize.MENU);
+    open_friend_profile.always_show_image = true;
+    open_friend_profile.set_image (open_friend_profile_icon);
+    open_friend_profile.activate.connect (() => {
+      var main_window = this.get_toplevel () as MainWindow;
+      main_window.open_profile (this.fr);
+    });
+
+    // Copy friend ToxID.
+    var copy_friend_toxid = new Gtk.ImageMenuItem.with_label (_("Copy friend's ToxID"));
+    var copy_friend_toxid_icon = new Gtk.Image.from_icon_name ("edit-copy-symbolic", Gtk.IconSize.MENU);
+    copy_friend_toxid.always_show_image = true;
+    copy_friend_toxid.set_image (copy_friend_toxid_icon);
+    copy_friend_toxid.activate.connect (() => {
+      Gtk.Clipboard.get (Gdk.SELECTION_CLIPBOARD).set_text (this.fr.pubkey, -1);
+    });
+
+    // Invite to groupchat.
+    // TODO: List groupchats available in a submenu.
+    /*var invite_groupchat = new Gtk.ImageMenuItem.with_label (_("Invite to groupchat"));
+    var invite_groupchat_icon = new Gtk.Image.from_icon_name ("address-book-new-symbolic", Gtk.IconSize.MENU);
+    invite_groupchat.always_show_image = true;
+    invite_groupchat.set_image (invite_groupchat_icon);
+
+    var groupchats_menu = new Gtk.Menu ();
+    var parent = this.get_toplevel () as MainWindow;
+    
+    if (parent.grouplist.get_children ().length () > 0) {
+      List<weak Gtk.Widget> childs = parent.grouplist.get_children ();
+      foreach (Gtk.Widget m in childs) {
+        FriendListRow item = (FriendListRow) m;
+        Tox.Group group = item.group;
+        groupchats_menu.append (new Gtk.MenuItem.with_label (group.name));
+      }
+    }
+    for (int i = 0; i < groupchats.get_children ().length (); i++) {
+      Tox.Group group = ((FriendListRow) groupchats.get_row_at_index (i)).group;
+      var _menu = new Gtk.MenuItem.with_label (group.name);
+      _menu.activate.connect (() => {
+        this.fr.invite_to_group (group.num);
+      });
+      groupchats_menu.append (_menu);
+    }
+    
+    groupchats_menu.append (new Gtk.SeparatorMenuItem ());
+    groupchats_menu.append (new Gtk.MenuItem.with_label (_("New groupchat...")));
+
+    invite_groupchat.set_submenu (groupchats_menu);*/
+
+    // Delete friend action.
+    var delete_friend = new Gtk.ImageMenuItem.with_label (_("Delete"));
+    var delete_friend_icon = new Gtk.Image.from_icon_name ("edit-delete-symbolic", Gtk.IconSize.MENU);
     delete_friend.always_show_image = true;
     delete_friend.set_image (delete_friend_icon);
     delete_friend.activate.connect (() => {
@@ -203,21 +342,29 @@ class Ricin.FriendListRow : Gtk.ListBoxRow {
       main_window.remove_friend (this.fr);
     });
 
-    var block_friend_label = (this.fr.blocked) ? "Unblock friend" : "Block friend";
-    var block_friend_icon = new Gtk.Image.from_icon_name ("action-unavailable-symbolic", Gtk.IconSize.MENU);
+    // Block friend action.
+    var block_friend_label = (this.fr.blocked) ? _("Unblock") : _("Block");
+    var block_friend_icon = new Gtk.Image.from_icon_name ("dialog-error-symbolic.symbolic", Gtk.IconSize.MENU);
     this.block_friend = new Gtk.ImageMenuItem.with_label (block_friend_label);
     this.block_friend.always_show_image = true;
     this.block_friend.set_image (block_friend_icon);
     this.block_friend.activate.connect (() => {
-      this.fr.blocked = !this.fr.blocked;
+      var main_window = this.get_toplevel () as MainWindow;
+      var view = main_window.chat_stack.get_child_by_name ("chat-%s".printf (this.fr.pubkey));
+      ((ChatView) view).block_friend ();
     });
 
+    this.menu_friend.append (open_friend_profile);
+    this.menu_friend.append (copy_friend_toxid);
+    /*this.menu_friend.append (new Gtk.SeparatorMenuItem ());
+    this.menu_friend.append (invite_groupchat);*/
+    this.menu_friend.append (new Gtk.SeparatorMenuItem ());
     this.menu_friend.append (block_friend);
     this.menu_friend.append (delete_friend);
     this.menu_friend.attach_to_widget (this, null);
     this.menu_friend.show_all ();
 
-    this.popup_menu.connect ((widget, event) => {
+    /*this.popup_menu.connect ((widget, event) => {
       debug ("Displaying context menu...");
       this.menu_friend.popup (null, null, null, event.button, event.time);
       return true;

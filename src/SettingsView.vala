@@ -25,7 +25,7 @@ class Ricin.SettingsView : Gtk.Box {
   [GtkChild] Gtk.Switch switch_display_typing_notifications;
   [GtkChild] Gtk.Switch switch_typing_notifications;
   [GtkChild] Gtk.Switch switch_compact_friendlist;
-  
+
   // Notifications settings tab.
   [GtkChild] Gtk.Switch switch_taskbar_notify;
   [GtkChild] Gtk.Switch switch_show_status_change_notifications;
@@ -96,7 +96,7 @@ class Ricin.SettingsView : Gtk.Box {
     this.combobox_selected_theme.append_text (_("The Tox theme") + @" ($default_str)");
     this.combobox_selected_theme.append_text (_("Dark theme"));
     this.combobox_selected_theme.append_text (_("White theme"));
-    
+
     this.combobox_message_parsing_mode.append_text (_("Markdown"));
     this.combobox_message_parsing_mode.append_text (_("Plaintext"));
 
@@ -195,7 +195,7 @@ class Ricin.SettingsView : Gtk.Box {
     } else if (selected_theme == "white") {
       this.combobox_selected_theme.active = 2;
     }
-    
+
     this.combobox_message_parsing_mode.changed.connect (() => {
       this.settings.message_parsing_mode = this.combobox_message_parsing_mode.active;
     });
@@ -289,17 +289,17 @@ class Ricin.SettingsView : Gtk.Box {
     this.switch_compact_friendlist.notify["active"].connect (() => {
       this.settings.compact_mode = this.switch_compact_friendlist.active;
     });
-    
+
     // Switch taskbar notifications (urgency hint).
     this.switch_taskbar_notify.active = this.settings.enable_taskbar_notify;
     this.switch_taskbar_notify.notify["active"].connect (() => {
       this.settings.enable_taskbar_notify = this.switch_taskbar_notify.active;
-      
+
       if (this.switch_taskbar_notify.active == false) {
         ((MainWindow) this.get_toplevel ()).set_desktop_hint (false); // Disable taskbar notify.
       }
     });
-    
+
     // Switch status changes (online/offline only) notifications.
     this.switch_show_status_change_notifications.active = this.settings.enable_notify_status;
     this.switch_show_status_change_notifications.notify["active"].connect (() => {

@@ -98,6 +98,8 @@
                 <property name="can_focus">False</property>
                 <property name="halign">start</property>
                 <property name="valign">center</property>
+                <property name="margin_left">5</property>
+                <property name="margin_right">5</property>
                 <property name="label" translatable="yes">10</property>
                 <style>
                   <class name="badge"/>

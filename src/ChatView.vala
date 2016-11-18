@@ -76,7 +76,7 @@ class Ricin.ChatView : Gtk.Box {
     InlineFile,
     GtkListBoxRow
   }
-  
+
   private enum ViewType {
     FULL,
     COMPACT
@@ -121,7 +121,7 @@ class Ricin.ChatView : Gtk.Box {
     if (FileUtils.test (_avatar_path, FileTest.EXISTS)) {
       var pixbuf_scaled = new Gdk.Pixbuf.from_file_at_scale (_avatar_path, 48, 48, false);
       var pixbuf = new Gdk.Pixbuf.from_file_at_scale (_avatar_path, 128, 128, false);
-      
+
       this.user_avatar.pixbuf = pixbuf_scaled;
       this.friend_profil_avatar.pixbuf = pixbuf;
     } else {
@@ -141,13 +141,13 @@ class Ricin.ChatView : Gtk.Box {
       }
       return false;
     });
-    
+
     if (this.settings.compact_mode) {
       this.switch_view_type (ViewType.COMPACT);
     } else {
       this.switch_view_type (ViewType.FULL);
     }
-    
+
     this.settings.notify["compact-mode"].connect (() => {
       if (this.settings.compact_mode) {
         this.switch_view_type (ViewType.COMPACT);
@@ -219,7 +219,7 @@ class Ricin.ChatView : Gtk.Box {
       this.last_message_sender = "friend";
       messages_list.add (new SystemMessageListRow (message));
       //this.add_row (MessageRowType.System, new SystemMessageListRow (message));
-      
+
       ((MainWindow) this.get_toplevel ()).set_desktop_hint (true);
     });
 
@@ -264,7 +264,7 @@ class Ricin.ChatView : Gtk.Box {
         messages_list.add (new MessageListRow (this.handle, this.fr, Util.add_markup (message), current_time, -1, is_child));
       }
       //this.add_row (MessageRowType.Normal, new MessageListRow (fr.name, Util.add_markup (message), time ()));
-      
+
       ((MainWindow) this.get_toplevel ()).set_desktop_hint (true);
     });
 
@@ -296,7 +296,7 @@ class Ricin.ChatView : Gtk.Box {
       this.last_message_sender = "friend";
       messages_list.add (new SystemMessageListRow (message_escaped));
       //this.add_row (MessageRowType.Action, new SystemMessageListRow (message_escaped));
-      
+
       ((MainWindow) this.get_toplevel ()).set_desktop_hint (true);
     });
 
@@ -335,7 +335,7 @@ class Ricin.ChatView : Gtk.Box {
         });
         messages_list.add (file_row);
       }
-      
+
       ((MainWindow) this.get_toplevel ()).set_desktop_hint (true);
     });
 
@@ -424,7 +424,7 @@ class Ricin.ChatView : Gtk.Box {
       this.fr.last_status = this.fr.status;
     });
   }
-  
+
   private void switch_view_type (ViewType type) {
     /*if (type == ViewType.FULL) {
       foreach (Gtk.Widget item in this.messages_list.get_children ()) {
@@ -501,21 +501,21 @@ class Ricin.ChatView : Gtk.Box {
     label_copy_selection.set_accel (Gdk.keyval_from_name("C"), Gdk.ModifierType.CONTROL_MASK | Gdk.ModifierType.SHIFT_MASK);
     menu_copy_selection.always_show_image = true;
     menu_copy_selection.set_image (new Gtk.Image.from_icon_name ("edit-copy-symbolic", Gtk.IconSize.MENU));
-    
-    var menu_copy_quote = new Gtk.ImageMenuItem.with_label (_("Copy quote in clipboard"));    
+
+    var menu_copy_quote = new Gtk.ImageMenuItem.with_label (_("Copy quote in clipboard"));
     menu_copy_quote.always_show_image = true;
     menu_copy_quote.set_image (new Gtk.Image.from_icon_name ("edit-copy-symbolic", Gtk.IconSize.MENU));
-    
+
     var menu_quote_selection = new Gtk.ImageMenuItem.with_label (_("Quote selection"));
     var label_quote_selection = ((Gtk.AccelLabel) menu_quote_selection.get_child ());
     label_quote_selection.set_accel (Gdk.keyval_from_name("Q"), Gdk.ModifierType.SHIFT_MASK);
     menu_quote_selection.always_show_image = true;
     menu_quote_selection.set_image (new Gtk.Image.from_icon_name ("insert-text-symbolic", Gtk.IconSize.MENU));
-    
+
     var menu_remove_selection = new Gtk.ImageMenuItem.with_label (_("Delete selected messages"));
     menu_remove_selection.always_show_image = true;
     menu_remove_selection.set_image (new Gtk.Image.from_icon_name ("edit-clear-symbolic", Gtk.IconSize.MENU));
-    
+
     var menu_clear_chat = new Gtk.ImageMenuItem.with_label (_("Clear conversation"));
     menu_clear_chat.always_show_image = true;
     menu_clear_chat.set_image (new Gtk.Image.from_icon_name ("edit-clear-all-symbolic", Gtk.IconSize.MENU));
@@ -558,7 +558,7 @@ class Ricin.ChatView : Gtk.Box {
       if (this.messages_selected () == false) {
         return;
       }
-      
+
       List<weak Gtk.Widget> childs = this.messages_list.get_selected_rows ();
       foreach (Gtk.Widget m in childs) {
         this.messages_list.remove (m);
@@ -587,7 +587,7 @@ class Ricin.ChatView : Gtk.Box {
         menu_quote_selection.sensitive = true;
         menu_remove_selection.sensitive = true;
       }
-      
+
       // Only allow chatview to be cleared if it contains messages.
       if (this.messages_list.get_children ().length () < 1) {
         menu_clear_chat.sensitive = false;
@@ -684,7 +684,7 @@ class Ricin.ChatView : Gtk.Box {
     this.notify.set_reveal_child (true);
     this.scroll_to_bottom ();
   }
-  
+
   private void clear () {
     List<weak Gtk.Widget> childs = this.messages_list.get_children ();
     foreach (Gtk.Widget m in childs) {
@@ -713,7 +713,7 @@ class Ricin.ChatView : Gtk.Box {
   }
 
   [GtkCallback]
-  private void toggle_friend_menu () {
+  public void toggle_friend_menu () {
     this.revealer_friend_menu.set_reveal_child (!this.revealer_friend_menu.child_revealed);
     this.entry.grab_focus_without_selecting ();
   }
@@ -725,7 +725,7 @@ class Ricin.ChatView : Gtk.Box {
   }
 
   [GtkCallback]
-  private void block_friend () {
+  public void block_friend () {
     this.fr.blocked = !this.fr.blocked;
     if (this.fr.blocked) {
       this.button_friend_block.label = _("Unblock");
@@ -751,7 +751,7 @@ class Ricin.ChatView : Gtk.Box {
     if (message.strip () == "") {
       return;
     } else if (message.strip () == "/clear") {
-      this.clear();
+      this.clear ();
 
       this.entry.text = "";
       return;

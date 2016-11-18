@@ -70,6 +70,7 @@ namespace Tox {
   public class Tox : Object {
     internal ToxCore.Tox handle;
     private HashTable<uint32, Friend> friends = new HashTable<uint32, Friend> (direct_hash, direct_equal);
+    private HashTable<int, Group> groups = new HashTable<int, Group> (direct_hash, direct_equal);
 
     private bool ipv6_enabled   = true;
     private string? profile     = null;
@@ -163,6 +164,8 @@ namespace Tox {
 
     public signal void friend_request (string id, string message);
     public signal void friend_online (Friend friend);
+    public signal bool group_request (int32 friend_number, uint8 type, uint8[] data);
+
     public signal void global_info (string message);
     public signal void message_read (uint32 friend_number, uint32 message_id);
 
@@ -227,7 +230,7 @@ namespace Tox {
           throw new ErrNew.LoadFailed ("The data format was invalid. This can happen when loading data that was saved by an older version of Tox, or when the data has been corrupted. When loading from badly formatted data, some data may have been loaded, and the rest is discarded. Passing an invalid length parameter also causes this error.");
       }
 
-      handle.callback_self_connection_status ((self, status) => {
+      this.handle.callback_self_connection_status ((self, status) => {
         switch (status) {
           case ConnectionStatus.NONE:
             debug ("Connection: none");
@@ -242,7 +245,7 @@ namespace Tox {
         this.connected = (status != ConnectionStatus.NONE);
       });
 
-      handle.callback_friend_connection_status ((self, num, status) => {
+      this.handle.callback_friend_connection_status ((self, num, status) => {
         if (this.friends[num] == null) { // new friend
           this.friends[num] = new Friend (this, num);
           this.friend_online (this.friends[num]); // TODO
@@ -252,7 +255,7 @@ namespace Tox {
         this.friends[num].send_avatar (); // Send our avatar, in case friend doesn't have it.
       });
 
-      handle.callback_friend_name ((self, num, name) => {
+      this.handle.callback_friend_name ((self, num, name) => {
         var old_name = this.friends[num].name ?? (this.friends[num].pubkey.slice (0, 16) + "...");
         var new_name = Util.arr2str (name);
         if (old_name != new_name) {
@@ -261,7 +264,7 @@ namespace Tox {
         }
       });
 
-      handle.callback_friend_status ((self, num, status) => {
+      this.handle.callback_friend_status ((self, num, status) => {
         this.friends[num].set_user_status (status);
       });
 
@@ -297,7 +300,7 @@ namespace Tox {
         this.friends[num].typing = is_typing;
       });
 
-      handle.callback_friend_request ((self, pubkey, message) => {
+      this.handle.callback_friend_request ((self, pubkey, message) => {
         pubkey.length = ToxCore.PUBLIC_KEY_SIZE;
         string id = Util.bin2hex (pubkey);
         string msg = Util.arr2str (message);
@@ -306,7 +309,7 @@ namespace Tox {
       });
 
       // send
-      handle.callback_file_chunk_request ((self, friend, file, position, length) => {
+      this.handle.callback_file_chunk_request ((self, friend, file, position, length) => {
         if (this.friends[friend].blocked) {
           return;
         }
@@ -404,10 +407,72 @@ namespace Tox {
         fr.files_recv[file].data.append (data);
       });
 
+      // Groupchats:
+      this.handle.callback_group_invite ((self, friend_number, type, data) => {
+        if (this.friends[friend_number].blocked) {
+          return;
+        }
+
+        //Friend friend = this.friends[(uint32)friend_number];
+        this.group_request (friend_number, type, data);
+      });
+
+      this.handle.callback_group_message ((self, group_num, peer_num, message) => {
+        if (this.handle.group_peernumber_is_ours (group_num, peer_num) == 1) {
+          return;
+        }
+        
+        if (this.groups[group_num].peers[peer_num].muted) {
+          return;
+        }
+
+        Peer peer = this.groups[group_num].peers[peer_num];
+        this.groups[group_num].message (peer, Util.arr2str (message));
+      });
+
+      this.handle.callback_group_action ((self, group_num, peer_num, action) => {
+        if (this.handle.group_peernumber_is_ours (group_num, peer_num) == 1) {
+          return;
+        }
+        
+        if (this.groups[group_num].peers[peer_num].muted) {
+          return;
+        }
+
+        Peer peer = this.groups[group_num].peers[peer_num];
+        this.groups[group_num].action (peer, Util.arr2str (action));
+      });
+
+      this.handle.callback_group_title ((self, group_num, peer_num, title) => {
+        string topic = Util.arr2str (title);
+        debug (@"Peer $(peer_num) changed title to: $(topic)");
+        this.groups[group_num].name = topic;
+        this.groups[group_num].title_changed (peer_num, topic);
+      });
+
+      this.handle.callback_group_namelist_change ((self, group_num, peer_num, change_type) => {
+        switch (change_type) {
+          case ChatChange.PEER_ADD:
+            this.groups[group_num].add_peer (peer_num);
+            break;
+          case ChatChange.PEER_DEL:
+            this.groups[group_num].remove_peer (peer_num);
+            break;
+          case ChatChange.PEER_NAME:
+            this.groups[group_num].change_peer_name (peer_num);
+            break;
+        }
+      });
+
+      // Let's bootstrap the Tox network now.
       this.bootstrap.begin ();
     }
 
     public void disconnect () {
+      for (int i = 0; i < this.groups.length; i++) {
+        this.groups[i].leave ();
+      }
+    
       this.must_stop = true;
       this.handle.kill ();
     }
@@ -544,9 +609,9 @@ namespace Tox {
           throw new ErrFriendAdd.BadNospam ("This ToxID have a new nospam.");
         case ERR_FRIEND_ADD.MALLOC:
           throw new ErrFriendAdd.Malloc ("A memory allocation failed when trying to increase the friend list size.");
-        default:
-          return null;
       }
+
+      return null;
     }
 
     public Friend? add_friend_by_num (uint32 num) {
@@ -554,6 +619,32 @@ namespace Tox {
       var friend = new Friend (this, num);
       this.friends[num] = friend;
       return friend;
+    }
+
+    public Group? accept_group_request (int32 friend_num, uint8[] data) {
+      int group_num = this.handle.join_groupchat (friend_num, data);
+      debug ("Accepted to join group number %d", group_num);
+
+      if (group_num != -1) {
+        var group = new Group (this, group_num);
+        this.groups[group_num] = group;
+        return group;
+      }
+
+      return null;
+    }
+
+    public Group? create_group (string name) {
+      int group_num = this.handle.add_groupchat ();
+
+      if (group_num != -1) {
+        var group = new Group (this, group_num);
+        this.groups[group_num] = group;
+        this.groups[group_num].name = "%s #%d".printf (name, group_num);
+        return group;
+      }
+
+      return null;
     }
 
     public void save_data (string? pass = null) throws ErrDecrypt {
@@ -705,6 +796,130 @@ namespace Tox {
     }
   }
 
+  public class Peer : Object {
+    private weak Tox tox;
+    public int group_num;
+    public int num;
+
+    public string name {
+      owned get {
+        uint8[] name = new uint8[ToxCore.MAX_NAME_LENGTH];
+        int size = this.tox.handle.group_peername (group_num, this.num, name);
+        
+        if (size >= 0) {
+          name[size] = 0; // Zero terminating.
+          return (string) name;
+        }
+        return "Peer #%d".printf (this.num);
+      }
+    }
+
+    public string pubkey {
+      owned get {
+        uint8[] pubkey = new uint8[ToxCore.PUBLIC_KEY_SIZE];
+        int size = this.tox.handle.group_peer_pubkey (group_num, this.num, pubkey);
+        if (size >= 0) {
+          pubkey[size] = 0; // Zero terminating.
+          return Util.bin2hex (pubkey);
+        }
+        return "%d".printf (this.num);
+      }
+    }
+    
+    public bool muted { get; set; default = false; }
+
+    public signal void name_changed ();
+    public signal void peer_removed ();
+
+    public Peer (Tox tox, int group_num, int num) {
+      this.tox = tox;
+      this.group_num = group_num;
+      this.num = num;
+
+      /*this.name = this.parent_group.get_peer_name (this.num);
+      this.pubkey = this.parent_group.get_peer_pubkey (this.num);*/
+    }
+  }
+
+  public class Group : Object {
+    private weak Tox tox;
+    public HashTable<int, Peer> peers = new HashTable<int, Peer> (direct_hash, direct_equal);
+    public int num;
+    public int id;
+
+    public string name { get; set; default = _("Untitled group"); }
+    public bool muted { get; set; default = false; }
+    
+    public int peers_count {
+      get {
+        return this.tox.handle.group_number_peers (this.num);
+      }
+    }
+
+    public signal void message (Peer peer, string message);
+    public signal void action (Peer peer, string action);
+    public signal void title_changed (int peer_num, string title);
+    public signal void removed ();
+    public signal void peer_count_changed ();
+    public signal void peer_added (Peer peer);
+    public signal void peer_removed (int peer_num);
+    public signal void peer_name_changed (Peer peer);
+
+    public Group (Tox tox, int num) {
+      this.tox = tox;
+      this.num = num;
+
+      Rand rnd = new Rand.with_seed ((uint32)new DateTime.now_local ().hash ());
+      uint32 rnd_id = rnd.next_int ();
+      this.id = (int)rnd_id;
+
+      this.init_signals ();
+    }
+
+    private void init_signals () {
+
+    }
+
+    public void add_peer (int peer_num) {
+      Peer peer = new Peer (this.tox, this.num, peer_num);
+      this.peers[peer_num] = peer;
+      this.peer_count_changed ();
+      this.peer_added (this.peers[peer_num]);
+    }
+
+    public void remove_peer (int peer_num) {
+      this.peers.remove (peer_num);
+      this.peer_count_changed ();
+      this.peer_removed (peer_num);
+      this.peers[peer_num].peer_removed ();
+    }
+    
+    public void change_peer_name (int peer_num) {
+      this.peer_name_changed (this.peers[peer_num]);
+      this.peers[peer_num].name_changed ();
+    }
+
+    public int send_message (string message) {
+      return this.tox.handle.group_message_send (this.num, message.data);
+    }
+
+    public int send_action (string action) {
+      return this.tox.handle.group_action_send (this.num, action.data);
+    }
+
+    public void set_title (string title) {
+      this.tox.handle.group_set_title (this.num, title.data);
+    }
+
+    public bool leave () {
+      if (this.tox.handle.del_groupchat (this.num) != -1) {
+        this.removed ();
+        return true;
+      }
+      return false;
+    }
+  }
+
   public class Friend : Object {
     private weak Tox tox;
     public uint32 num; // libtoxcore identifier
@@ -798,13 +1013,14 @@ namespace Tox {
       DateTime time = new DateTime.from_unix_local ((int64)last);
       return time.format ((format != null) ? format : _("<b>Last online:</b>") + " %H:%M %d/%m/%Y");
     }
-    
+
     public bool is_presumed_dead () {
       uint64 last = this.tox.handle.friend_get_last_online (this.num, null);
       DateTime time = new DateTime.from_unix_local ((int64)last);
-      DateTime dead_time = time.add_months (4); // Profile presumed dead when not active for 6+ months.
-      
-      if (time.compare (dead_time) > 0) {
+      DateTime dead_time = time.add_months (6); // Profile presumed dead when not active for 6+ months.
+      DateTime now = new DateTime.now_local ();
+
+      if (dead_time.compare (now) == -1) {
         return true;
       }
       return false;
@@ -833,9 +1049,9 @@ namespace Tox {
       return tox.handle.friend_send_message (this.num, MessageType.NORMAL, message.data, out err);
     }
 
-    public void send_action (string action_message) {
+    public uint32 send_action (string action_message) {
       ERR_FRIEND_SEND_MESSAGE err;
-      tox.handle.friend_send_message (this.num, MessageType.ACTION, action_message.data, out err);
+      return tox.handle.friend_send_message (this.num, MessageType.ACTION, action_message.data, out err);
     }
 
     public void send_avatar () {
@@ -890,6 +1106,13 @@ namespace Tox {
       }
 
       return retval;
+    }
+    
+    public bool invite_to_group (int group_num) {
+      if (this.tox.handle.invite_friend ((int32)this.num, group_num) != -1) {
+        return true;
+      }
+      return false;
     }
   }
 

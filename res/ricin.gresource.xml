@@ -17,6 +17,8 @@
         <file preprocess="xml-stripblanks" compressed="true">ui/chat-view.ui</file>
         <file preprocess="xml-stripblanks" compressed="true">ui/settings-view.ui</file>
         <file preprocess="xml-stripblanks" compressed="true">ui/welcome-view.ui</file>
+        <file preprocess="xml-stripblanks" compressed="true">ui/group-chat-view.ui</file>
+        <file preprocess="xml-stripblanks" compressed="true">ui/group-list-row.ui</file>
         <!-- Gtk+ 3.1x Themes -->
         <file compressed="true">themes/gtk-3.1x/styles.css</file>
         <file compressed="true">themes/gtk-3.1x/app.css</file>

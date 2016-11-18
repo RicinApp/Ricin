@@ -35,13 +35,24 @@ def configure(conf):
 
 	# C compiler flags.
 	conf.env.append_unique('CFLAGS', [
+		'-fsanitize=address',
 		'-Wall',
 		'-Wno-deprecated-declarations',
 		'-Wno-unused-variable',
 		'-Wno-unused-but-set-variable',
 		'-Wno-unused-function',
+		'-Wno-incompatible-pointer-types',
+		'-Wno-int-conversion',
+		'-Wno-discarded-qualifiers',
+		'-Wno-unused-label',
+		'-Wno-format',
+		'-Wno-strict-overflow',
 		'-DGETTEXT_PACKAGE="ricin"',
 		'-O3' # Optimizatiooooons!
+	])
+	# Linker flags.
+	conf.env.append_unique('LDFLAGS', [
+		'-fsanitize=address'
 	])
 	# Vala compiler flags.
 	conf.env.append_unique('VALAFLAGS', [
