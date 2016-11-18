@@ -131,17 +131,40 @@ class Ricin.GroupChatView : Gtk.Box {
     });
     
     this.group.peer_count_changed.connect (() => {
-      this.label_unknown_peers.set_markup ("%s (%d)".printf (_("<b>Unknown peers</b>"), this.group.peers_count));
+      this.label_unknown_peers.set_markup ("%s (%d)".printf (
+        _("<b>Unknown peers</b>"), (int)this.listbox_unknown_peers.get_children ().length ())
+      );
+      this.label_friends.set_markup ("%s (%d)".printf (
+        _("<b>Friends</b>"), (int)this.listbox_friends.get_children ().length ())
+      );
     });
 
     this.group.peer_added.connect (peer => {
+      if (peer.pubkey == this.handle.pubkey) {
+        return;
+      }
+    
       GroupListRow row = new GroupListRow (peer);
-      this.listbox_unknown_peers.insert (row, peer.num);
+      
+      if (this.handle.has_friend (peer.pubkey)) {
+        this.listbox_friends.insert (row, peer.num);
+      } else {
+        this.listbox_unknown_peers.insert (row, peer.num);
+      }
     });
 
-    this.group.peer_removed.connect (peer_num => {
-      Gtk.ListBoxRow row = this.listbox_unknown_peers.get_row_at_index (peer_num);
-      this.listbox_unknown_peers.remove (row);
+    this.group.peer_removed.connect ((peer_num, peer_pubkey) => {
+      if (peer_pubkey == this.handle.pubkey) {
+        return;
+      }
+    
+      if (this.handle.has_friend (peer_pubkey)) {
+        Gtk.ListBoxRow row = this.listbox_friends.get_row_at_index (peer_num);
+        this.listbox_friends.remove (row);
+      } else {
+        Gtk.ListBoxRow row = this.listbox_unknown_peers.get_row_at_index (peer_num);
+        this.listbox_unknown_peers.remove (row);
+      }
     });
   }
 

@@ -15,9 +15,7 @@ public class Ricin.GroupListRow : Gtk.ListBoxRow {
   }
 
   private void init_widgets () {
-    Cairo.Surface surface = Util.identicon_for_pubkey (this.peer.pubkey, 24);
-    var pixbuf_scaled = Gdk.pixbuf_get_from_surface (surface, 0, 0, 24, 24);
-    this.image_avatar.pixbuf = pixbuf_scaled;
+    this.image_avatar.pixbuf = Util.pubkey_to_image (this.peer.pubkey, 24, 24);
     
     this.label_name.set_text (this.peer.name);
     this.label_name.set_tooltip_text (this.peer.pubkey);
@@ -35,10 +33,10 @@ public class Ricin.GroupListRow : Gtk.ListBoxRow {
     
     if (this.peer.muted) {
       this.button_mute.set_tooltip_text (_("Unmute peer"));
-      this.image_mute.icon_name = "notifications-symbolic";
+      this.image_mute.icon_name = "notifications-disabled-symbolic";
     } else {
       this.button_mute.set_tooltip_text (_("Mute peer"));
-      this.image_mute.icon_name = "notifications-disabled-symbolic";
+      this.image_mute.icon_name = "notifications-symbolic";
     }
   }
 }

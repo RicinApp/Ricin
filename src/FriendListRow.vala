@@ -153,7 +153,7 @@ class Ricin.FriendListRow : Gtk.ListBoxRow {
     });
 
     this.group.peer_count_changed.connect ((peer) => {
-      this.status.set_text (_("People in group: %d").printf (this.group.peers_count));
+      this.status.set_text (_("%d peers").printf (this.group.peers_count - 1));
     });
 
     this.group.title_changed.connect ((peer_num, title) => {

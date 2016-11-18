@@ -548,6 +548,16 @@ namespace Tox {
       }
     }
 
+    public bool has_friend (string pubkey) {
+      for (int i = 0; i < this.friends.length; i++) {
+        if (this.friends[i].pubkey == pubkey) {
+          return true;
+        }
+      }
+      
+      return false;
+    }
+
     public Friend? add_friend (string id, string message) throws ErrFriendAdd {
       if (id.length != ToxCore.ADDRESS_SIZE && id.index_of_char ('@') != -1) {
         error ("Invalid Tox ID");
@@ -819,7 +829,7 @@ namespace Tox {
         uint8[] pubkey = new uint8[ToxCore.PUBLIC_KEY_SIZE];
         int size = this.tox.handle.group_peer_pubkey (group_num, this.num, pubkey);
         if (size >= 0) {
-          pubkey[size] = 0; // Zero terminating.
+          //pubkey[size] = 0; // Zero terminating.
           return Util.bin2hex (pubkey);
         }
         return "%d".printf (this.num);
@@ -862,7 +872,7 @@ namespace Tox {
     public signal void removed ();
     public signal void peer_count_changed ();
     public signal void peer_added (Peer peer);
-    public signal void peer_removed (int peer_num);
+    public signal void peer_removed (int peer_num, string pubkey);
     public signal void peer_name_changed (Peer peer);
 
     public Group (Tox tox, int num) {
@@ -888,9 +898,9 @@ namespace Tox {
     }
 
     public void remove_peer (int peer_num) {
+      this.peer_removed (peer_num, this.peers[peer_num].pubkey);
       this.peers.remove (peer_num);
       this.peer_count_changed ();
-      this.peer_removed (peer_num);
       this.peers[peer_num].peer_removed ();
     }
     
