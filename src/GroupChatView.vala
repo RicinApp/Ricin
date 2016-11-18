@@ -21,6 +21,7 @@ class Ricin.GroupChatView : Gtk.Box {
   [GtkChild] Gtk.Button button_group_mute;
 
   // Group content.
+  [GtkChild] Gtk.ScrolledWindow scroll_messages;
   [GtkChild] Gtk.ListBox messages_list;
 
   // Group input.
@@ -37,6 +38,7 @@ class Ricin.GroupChatView : Gtk.Box {
   private Settings settings;
   private string view_name;
   private string last_message = null;
+  private bool is_bottom = true;
 
   public GroupChatView (Tox.Tox handle, Tox.Group group, Gtk.Stack stack, string view_name) {
     this.group = group;
@@ -445,5 +447,33 @@ class Ricin.GroupChatView : Gtk.Box {
     } else {
       this.button_group_mute.label = _("Mute");
     }
+  }
+  
+  // Last scroll pos.
+  private double _bottom_scroll = 0.0;
+  private bool force_scroll = false;
+
+  [GtkCallback]
+  private void scroll_to_bottom () {
+    /**
+    * Check if the scrollbar is at the very max scroll, else don't do autoscroll.
+    * This prevent users searching in the history but getting bottom'd by the autoscroll.
+    **/
+    Gtk.Adjustment adj = this.scroll_messages.get_vadjustment ();
+    if (this._bottom_scroll == adj.value || this._bottom_scroll == 0.0) {
+      adj.set_value (adj.get_upper () - adj.get_page_size ());
+      this.is_bottom = true;
+    } else {
+      this.is_bottom = false;
+    }
+
+    this._bottom_scroll = adj.value;
+  }
+  
+  private void scroll_bottom () {
+    Gtk.Adjustment adj = this.scroll_messages.get_vadjustment ();
+    adj.set_value (adj.get_upper () - adj.get_page_size ());
+    this._bottom_scroll = adj.get_upper () - adj.get_page_size ();
+    this.is_bottom = true;
   }
 }

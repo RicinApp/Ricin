@@ -2,6 +2,18 @@
 <!-- Generated with glade 3.19.0 -->
 <interface>
   <requires lib="gtk+" version="3.16"/>
+  <object class="GtkImage" id="image4">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="xpad">5</property>
+    <property name="icon_name">window-close-symbolic</property>
+  </object>
+  <object class="GtkImage" id="image_block_user">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="xpad">5</property>
+    <property name="icon_name">notifications-disabled-symbolic</property>
+  </object>
   <template class="RicinGroupChatView" parent="GtkBox">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
@@ -149,11 +161,11 @@
     </child>
     <child>
       <object class="GtkBox" id="box7">
+        <property name="name">chatview-content</property>
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <child>
           <object class="GtkScrolledWindow" id="scroll_messages">
-            <property name="name">chatview-content</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="hscrollbar_policy">never</property>
@@ -175,6 +187,7 @@
                         <signal name="size-allocate" handler="scroll_to_bottom" swapped="no"/>
                         <style>
                           <class name="message-list"/>
+                          <class name="list"/>
                         </style>
                       </object>
                       <packing>
@@ -486,16 +499,4 @@
       </packing>
     </child>
   </template>
-  <object class="GtkImage" id="image4">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="xpad">5</property>
-    <property name="icon_name">window-close-symbolic</property>
-  </object>
-  <object class="GtkImage" id="image_block_user">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="xpad">5</property>
-    <property name="icon_name">notifications-disabled-symbolic</property>
-  </object>
 </interface>
