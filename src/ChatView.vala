@@ -56,25 +56,9 @@ class Ricin.ChatView : Gtk.Box {
   private bool is_bottom = true;
   private ViewType view_type;
 
-  /**
-  * TODO: Use this enum to determine the current message type.
-  **/
-  private enum MessageRowType {
-    Normal,
-    Action,
-    System,
-    InlineImage,
-    InlineFile,
-    GtkListBoxRow
-  }
-
   private enum ViewType {
     FULL,
     COMPACT
-  }
-
-  private string time () {
-    return new DateTime.now_local ().format ("%H:%M:%S %p");
   }
 
   public ChatView (Tox.Tox handle, Tox.Friend fr, Gtk.Stack stack, string view_name) {
@@ -85,42 +69,26 @@ class Ricin.ChatView : Gtk.Box {
     this.history = new HistoryManager (this.fr.pubkey);
     this.settings = Settings.instance;
 
-    if (this.fr.name == null) {
-      this.label_friend_profil_name.set_text (this.fr.get_uname ());
-      this.label_friend_profile_status_message.set_text (this.fr.get_ustatus_message ());
+    this.init_widgets ();
+    this.init_signals ();
+    this.init_messages_menu ();
+    this.init_messages_shortcuts ();
+    this.init_popovers ();
+  }
 
-      this.username.set_text (this.fr.get_uname ());
-      this.status_message.set_markup (Util.render_litemd (this.fr.get_ustatus_message ()));
-    } else {
-      this.label_friend_profil_name.set_text (this.fr.name);
-      this.label_friend_profile_status_message.set_markup (Util.render_litemd (this.fr.status_message));
+  private void init_widgets () {
+    this.label_friend_profil_name.set_text (this.fr.get_uname ());
+    this.label_friend_profile_status_message.set_markup (Util.render_litemd (this.fr.get_ustatus_message ()));
+    this.username.set_text (this.fr.get_uname ());
+    this.status_message.set_markup (Util.render_litemd (this.fr.get_ustatus_message ()));
 
-      this.username.set_text (this.fr.name);
-      this.status_message.set_markup (Util.render_litemd (this.fr.status_message));
-    }
-
+    this.user_avatar.pixbuf = Util.pubkey_to_image(this.fr.pubkey, 48, 48);;
+    this.friend_profil_avatar.pixbuf = Util.pubkey_to_image(this.fr.pubkey, 128, 128);
     this.label_friend_last_seen.set_markup (this.fr.last_online ("%H:%M %d/%m/%Y"));
-
-    debug (@"Status message for $(fr.name): $(fr.status_message)");
-    //this.status_message.set_text (fr.status_message);
-    fr.bind_property ("status-message", status_message, "label", BindingFlags.DEFAULT);
-    fr.bind_property ("name", this.label_friend_profil_name, "label", BindingFlags.DEFAULT);
-    fr.bind_property ("status-message", this.label_friend_profile_status_message, "label", BindingFlags.DEFAULT);
-    //this.status_message.set_markup (Util.add_markup (fr.status_message));
-
-    var _avatar_path = Tox.profile_dir () + "avatars/" + this.fr.pubkey + ".png";
-    if (FileUtils.test (_avatar_path, FileTest.EXISTS)) {
-      var pixbuf_scaled = new Gdk.Pixbuf.from_file_at_scale (_avatar_path, 48, 48, false);
-      var pixbuf = new Gdk.Pixbuf.from_file_at_scale (_avatar_path, 128, 128, false);
-
-      this.user_avatar.pixbuf = pixbuf_scaled;
-      this.friend_profil_avatar.pixbuf = pixbuf;
-    } else {
-      Cairo.Surface surface = Util.identicon_for_pubkey (this.fr.pubkey);
-      var pixbuf_scaled = Gdk.pixbuf_get_from_surface (surface, 0, 0, 48, 48);
-      this.user_avatar.pixbuf = pixbuf_scaled;
-      this.friend_profil_avatar.pixbuf = Util.pubkey_to_image(this.fr.pubkey, 128, 128);
-    }
+  }
+  
+  private void init_signals () {
+    this.entry.paste_clipboard.connect (this.paste_clipboard);
 
     this.entry.key_press_event.connect ((event) => {
       if (event.keyval == Gdk.Key.Up && this.entry.get_text () == "" && this.last_message != null) {
@@ -133,166 +101,66 @@ class Ricin.ChatView : Gtk.Box {
       return false;
     });
 
-    if (this.settings.compact_mode) {
-      this.switch_view_type (ViewType.COMPACT);
-    } else {
-      this.switch_view_type (ViewType.FULL);
-    }
+    this.entry.changed.connect (() => {
+      if (this.settings.send_typing_status == false) return;
 
-    this.settings.notify["compact-mode"].connect (() => {
-      if (this.settings.compact_mode) {
-        this.switch_view_type (ViewType.COMPACT);
-      } else {
-        this.switch_view_type (ViewType.FULL);
-      }
+      var is_typing = (this.entry.text.strip () != "");
+      this.fr.send_typing (is_typing);
     });
 
-    this.init_messages_menu ();
-    this.init_messages_shortcuts ();
+    this.entry.backspace.connect (() => {
+      if (this.settings.send_typing_status == false) return;
 
-    this.popover_markdown_help = new Gtk.Popover (this.button_show_markdown_help);
-    //set popover content
-    this.popover_markdown_help.set_size_request (250, 150);
-    this.popover_markdown_help.set_position (Gtk.PositionType.BOTTOM | Gtk.PositionType.RIGHT);
-    this.popover_markdown_help.set_modal (false);
-    this.popover_markdown_help.set_transitions_enabled (true);
-    this.popover_markdown_help.add (this.box_popover_markdown_help);
-
-    this.popover_markdown_help.closed.connect (() => {
-      this.entry.grab_focus_without_selecting ();
+      var is_typing = (this.entry.text.strip () != "");
+      this.fr.send_typing (is_typing);
     });
 
-    this.button_show_markdown_help.clicked.connect (() => {
-      if (this.popover_markdown_help.visible == false) {
-        this.popover_markdown_help.show_all ();
-      } else {
-        this.popover_markdown_help.hide ();
-      }
+    this.fr.bind_property ("connected", this.entry, "sensitive", BindingFlags.DEFAULT);
+    this.fr.bind_property ("connected", this.send, "sensitive", BindingFlags.DEFAULT);
+    this.fr.bind_property ("connected", this.send_file, "sensitive", BindingFlags.DEFAULT);
+    this.fr.bind_property ("connected", this.button_show_emoticons, "sensitive", BindingFlags.DEFAULT);
+    this.fr.bind_property ("connected", this.button_show_markdown_help, "sensitive", BindingFlags.DEFAULT);
+    this.fr.bind_property ("name", this.username, "label", BindingFlags.DEFAULT);
+    this.fr.bind_property ("status-message", this.status_message, "label", BindingFlags.DEFAULT);
+    this.fr.bind_property ("name", this.label_friend_profil_name, "label", BindingFlags.DEFAULT);
+    this.fr.bind_property ("status-message", this.label_friend_profile_status_message, "label", BindingFlags.DEFAULT);
 
-      // Avoid the user to loose focus with chat entry.
-      this.entry.grab_focus_without_selecting ();
-    });
-
-    this.popover_emoticons = new Gtk.Popover (this.button_show_emoticons);
-    //set popover content
-    this.popover_emoticons.set_size_request (250, 150);
-    this.popover_emoticons.set_position (Gtk.PositionType.TOP | Gtk.PositionType.LEFT);
-    this.popover_emoticons.set_modal (false);
-    this.popover_emoticons.set_transitions_enabled (true);
-    this.popover_emoticons.add (this.box_popover_emoticons);
-
-    this.popover_emoticons.closed.connect (() => {
-      this.entry.grab_focus_without_selecting ();
-    });
-
-    this.button_show_emoticons.clicked.connect (() => {
-      if (this.popover_emoticons.visible == false) {
-        this.popover_emoticons.show_all ();
-      } else {
-        this.popover_emoticons.hide ();
-      }
-
-      // Avoid the user to loose focus with chat entry.
-      this.entry.grab_focus_without_selecting ();
-    });
-
-    this.entry.paste_clipboard.connect (this.paste_clipboard);
-
-    fr.friend_info.connect ((message) => {
-      this.last_message_sender = "friend";
-      messages_list.add (new SystemMessageListRow (message));
-
-      this.label_friend_last_seen.set_markup (this.fr.last_online ("%H:%M %d/%m/%Y"));
-      //this.add_row (MessageRowType.System, new SystemMessageListRow (message));
-    });
-
-    handle.global_info.connect ((message) => {
-      this.last_message_sender = "friend";
-      messages_list.add (new SystemMessageListRow (message));
-      //this.add_row (MessageRowType.System, new SystemMessageListRow (message));
-
-      ((MainWindow) this.get_toplevel ()).set_desktop_hint (true);
-    });
-
-    fr.avatar.connect (p => {
-      this.user_avatar.pixbuf = p;
-      //this.friend_profil_avatar.pixbuf = p;
-      this.friend_profil_avatar.pixbuf = Util.pubkey_to_image(this.fr.pubkey, 128, 128);
-
+    this.fr.avatar.connect ((pixbuf) => {
+      this.user_avatar.pixbuf = Util.pubkey_to_image (this.fr.pubkey, 48, 48);
+      this.friend_profil_avatar.pixbuf = Util.pubkey_to_image (this.fr.pubkey, 128, 128);
       this.label_friend_last_seen.set_markup (this.fr.last_online ("%H:%M %d/%m/%Y"));
     });
 
-    fr.message.connect (message => {
-      var current_time = time ();
+    this.fr.notify["typing"].connect ((obj, prop) => {
+      if (this.settings.show_typing_status == false) return;
+
+      string friend_name = Util.escape_html (this.fr.name);
+      this.label_friend_is_typing.set_markup (@"<i>$friend_name " + _("is typing") + "</i>");
+      this.friend_typing.reveal_child = this.fr.typing;
+    });
+
+    this.fr.notify["status-message"].connect ((obj, prop) => {
+      string markup = Util.add_markup (this.fr.status_message);
+      this.status_message.set_markup (markup);
+      this.label_friend_profile_status_message.set_markup (markup);
+      this.label_friend_last_seen.set_markup (this.fr.last_online ("%H:%M %d/%m/%Y"));
+    });
+
+    this.fr.notify["status"].connect ((obj, prop) => {
+      var icon = Util.status_to_icon (this.fr.status, 0);
+      this.image_friend_status.set_from_resource (@"/chat/tox/ricin/images/status/$icon.png");
       this.label_friend_last_seen.set_markup (this.fr.last_online ("%H:%M %d/%m/%Y"));
 
-      var visible_child = this.stack.get_visible_child_name ();
-      var main_window = ((MainWindow) this.get_toplevel ());
-
-      if (visible_child != this.view_name) {
-        var avatar_path = Tox.profile_dir () + "avatars/" + this.fr.pubkey + ".png";
-        if (FileUtils.test (avatar_path, FileTest.EXISTS)) {
-          var pixbuf = new Gdk.Pixbuf.from_file_at_scale (avatar_path, 46, 46, true);
-
-          if (this.handle.status != Tox.UserStatus.BUSY) {
-            Notification.notify (this.fr.name, message, 5000, pixbuf);
-          }
-        } else {
-          if (this.handle.status != Tox.UserStatus.BUSY) {
-            Notification.notify (this.fr.name, message, 5000, Util.pubkey_to_image (this.fr.pubkey, 46, 46));
-          }
-        }
-      }
-
-      var is_child = (this.last_message_sender == "friend");
-      if (message.index_of (">", 0) == 0) {
-        var markup = Util.add_markup (message);
+      if (this.fr.last_status != this.fr.status && this.settings.show_status_changes) {
         this.last_message_sender = "friend";
-        messages_list.add (new QuoteMessageListRow (this.handle, this.fr, markup, current_time, -1, is_child));
-      } else {
-        this.history.write (this.fr.pubkey, @"[$current_time] [$(this.fr.name)] $message");
-        this.last_message_sender = "friend";
-        messages_list.add (new MessageListRow (this.handle, this.fr, Util.add_markup (message), current_time, -1, is_child));
+        this.messages_list.add (new StatusMessageListRow (
+          fr.name + _(" is now ") + Util.status_to_string (this.fr.status), this.fr.status)
+        );
       }
-      //this.add_row (MessageRowType.Normal, new MessageListRow (fr.name, Util.add_markup (message), time ()));
-
-      ((MainWindow) this.get_toplevel ()).set_desktop_hint (true);
+      this.fr.last_status = this.fr.status;
     });
-
-    fr.action.connect (message => {
-      var current_time = time ();
-      this.label_friend_last_seen.set_markup (this.fr.last_online ("%H:%M %d/%m/%Y"));
-
-      var visible_child = this.stack.get_visible_child_name ();
-      if (visible_child != this.view_name) {
-
-        var avatar_path = Tox.profile_dir () + "avatars/" + this.fr.pubkey + ".png";
-        if (FileUtils.test (avatar_path, FileTest.EXISTS)) {
-          var pixbuf = new Gdk.Pixbuf.from_file_at_scale (avatar_path, 46, 46, true);
-
-          if (this.handle.status != Tox.UserStatus.BUSY) {
-            Notification.notify (fr.name, message, 5000, pixbuf);
-          }
-        } else {
-          if (this.handle.status != Tox.UserStatus.BUSY) {
-            Notification.notify (fr.name, message, 5000, Util.pubkey_to_image (this.fr.pubkey, 46, 46));
-          }
-        }
-
-      }
-
-      this.history.write (this.fr.pubkey, @"[$current_time] ** $(this.fr.name) $message");
-
-      string message_escaped = @"<b>$(Util.escape_html(fr.name))</b> $(Util.escape_html(message))";
-      this.last_message_sender = "friend";
-      messages_list.add (new SystemMessageListRow (message_escaped));
-      //this.add_row (MessageRowType.Action, new SystemMessageListRow (message_escaped));
-
-      ((MainWindow) this.get_toplevel ()).set_desktop_hint (true);
-    });
-
-    fr.file_transfer.connect ((name, size, id) => {
-      var current_time = time ();
+    
+    this.fr.file_transfer.connect ((name, size, id) => {
       string downloads = Environment.get_user_special_dir (UserDirectory.DOWNLOAD) + "/";
       string filename = name;
       int i = 0;
@@ -301,216 +169,95 @@ class Ricin.ChatView : Gtk.Box {
         filename = @"$(++i)-$name";
       }
 
-      this.history.write (this.fr.pubkey, @"[$current_time] ** $(this.fr.name) sent you a file: $filename");
+      this.history.write (this.fr.pubkey, @"[$(time ())] ** $(this.fr.name) sent you a file: $filename");
+      string path = @"/tmp/$filename";
 
-      //FileUtils.set_data (path, bytes.get_data ());
-      var path = @"/tmp/$filename";
-      var file_path = File.new_for_path (path);
-      var file_content_type = ContentType.guess (path, null, null);
+      this.last_message_sender = "friend";
+      FileListRow file_row = new FileListRow (this.handle, this.fr, id, this.fr.name, path, size, time ());
+      file_row.accept_file.connect ((response, file_id) => {
+        this.fr.reply_file_transfer (response, file_id);
+      });
+      this.messages_list.add (file_row);
+      ((MainWindow) this.get_toplevel ()).set_desktop_hint (true);
+    });
+    
+    this.fr.action.connect ((message) => {
+      this.label_friend_last_seen.set_markup (this.fr.last_online ("%H:%M %d/%m/%Y"));
 
-      /**
-      * TODO: debug this.
-      **/
-      if (file_content_type.has_prefix ("image/")) {
+      this.history.write (this.fr.pubkey, @"[$(time ())] ** $(this.fr.name) $message");
+      string message_escaped = @"<b>$(Util.escape_html(fr.name))</b> $(Util.escape_html(message))";
+      this.last_message_sender = "friend";
+      this.messages_list.add (new SystemMessageListRow (message_escaped));
+
+      var visible_child = this.stack.get_visible_child_name ();
+      if (visible_child != this.view_name && this.handle.status != Tox.UserStatus.BUSY) {
+        Gdk.Pixbuf pixbuf = Util.pubkey_to_image (this.fr.pubkey, 46, 46);
+        Notification.notify (this.fr.name, message, 5000, pixbuf);
+      }
+      ((MainWindow) this.get_toplevel ()).set_desktop_hint (true);
+    });
+    
+    this.fr.message.connect ((message) => {
+      this.label_friend_last_seen.set_markup (this.fr.last_online ("%H:%M %d/%m/%Y"));
+      bool is_child = (this.last_message_sender == "friend");
+
+      if (message.index_of (">", 0) == 0) {
+        string markup = Util.add_markup (message);
         this.last_message_sender = "friend";
-        var image_row = new FileListRow (this.handle, fr, id, fr.name, path, size, time ());
-        image_row.accept_file.connect ((response, file_id) => {
-          fr.reply_file_transfer (response, file_id);
-        });
-        messages_list.add (image_row);
+        this.messages_list.add (new QuoteMessageListRow (this.handle, this.fr, markup, time (), -1, is_child));
       } else {
+        this.history.write (this.fr.pubkey, @"[$(time ())] [$(this.fr.name)] $message");
         this.last_message_sender = "friend";
-        var file_row = new FileListRow (this.handle, fr, id, fr.name, path, size, time ());
-        file_row.accept_file.connect ((response, file_id) => {
-          fr.reply_file_transfer (response, file_id);
-        });
-        messages_list.add (file_row);
+        this.messages_list.add (new MessageListRow (this.handle, this.fr, Util.add_markup (message), time (), -1, is_child));
       }
 
+      var visible_child = this.stack.get_visible_child_name ();
+      if (visible_child != this.view_name && this.handle.status != Tox.UserStatus.BUSY) {
+        Gdk.Pixbuf pixbuf = Util.pubkey_to_image (this.fr.pubkey, 46, 46);
+        Notification.notify (this.fr.name, message, 5000, pixbuf);
+      }
       ((MainWindow) this.get_toplevel ()).set_desktop_hint (true);
     });
 
-    fr.bind_property ("connected", entry, "sensitive", BindingFlags.DEFAULT);
-    fr.bind_property ("connected", send, "sensitive", BindingFlags.DEFAULT);
-    fr.bind_property ("connected", send_file, "sensitive", BindingFlags.DEFAULT);
-    fr.bind_property ("connected", button_show_emoticons, "sensitive", BindingFlags.DEFAULT);
-    //fr.bind_property ("typing", friend_typing, "reveal_child", BindingFlags.DEFAULT);
-    fr.bind_property ("name", username, "label", BindingFlags.DEFAULT);
-
-    this.entry.changed.connect (() => {
-      bool send_typing_notification = this.settings.send_typing_status;
-      if (!send_typing_notification) {
-        return;
-      }
-      var is_typing = (this.entry.text.strip () != "");
-      this.fr.send_typing (is_typing);
-    });
-    this.entry.backspace.connect (() => {
-      bool send_typing_notification = this.settings.send_typing_status;
-      if (!send_typing_notification) {
-        return;
-      }
-      var is_typing = (this.entry.text.strip () != "");
-      this.fr.send_typing (is_typing);
-    });
-
-    this.fr.notify["typing"].connect ((obj, prop) => {
-      if (!this.settings.show_typing_status) {
-        return;
-      }
-
-      string friend_name = Util.escape_html (this.fr.name);
-      this.label_friend_is_typing.set_markup (@"<i>$friend_name " + _("is typing") + "</i>");
-      this.friend_typing.reveal_child = this.fr.typing;
-    });
-
-    /*this.friend_typing.notify["child-revealed"].connect (() => {
-      Gtk.Adjustment adj = this.scroll_messages.get_vadjustment ();
-      if (adj.value == this._bottom_scroll) {
-        this.scroll_bottom ();
-      }
-    });*/
-
-    this.fr.notify["status-message"].connect ((obj, prop) => {
-      string markup = Util.add_markup (this.fr.status_message);
-      debug (@"Markup for md: $markup");
-      this.status_message.set_markup (markup);
-      this.label_friend_profile_status_message.set_markup (markup);
-
+    this.fr.friend_info.connect ((message) => {
+      this.last_message_sender = "friend";
+      this.messages_list.add (new SystemMessageListRow (message));
       this.label_friend_last_seen.set_markup (this.fr.last_online ("%H:%M %d/%m/%Y"));
     });
 
-    this.fr.notify["status"].connect ((obj, prop) => {
-      var status = this.fr.status;
-      var icon = "";
-
-      switch (status) {
-        case Tox.UserStatus.ONLINE:
-          icon = "online";
-          //messages_list.add(new SystemMessageListRow(fr.name + " is now online"));
-          break;
-        case Tox.UserStatus.AWAY:
-          icon = "idle";
-          //messages_list.add(new SystemMessageListRow(fr.name + " is now away"));
-          break;
-        case Tox.UserStatus.BUSY:
-          icon = "busy";
-          //messages_list.add(new SystemMessageListRow(fr.name + " is now busy"));
-          break;
-        default:
-          icon = "offline";
-          //messages_list.add(new SystemMessageListRow(fr.name + " is now offline"));
-          break;
-      }
-
-      this.image_friend_status.set_from_resource (@"/chat/tox/ricin/images/status/$icon.png");
-      this.label_friend_last_seen.set_markup (this.fr.last_online ("%H:%M %d/%m/%Y"));
-
-      bool display_friends_status_changes = this.settings.show_status_changes;
-      if (this.fr.last_status != this.fr.status && display_friends_status_changes) {
-        var status_str = Util.status_to_string (this.fr.status);
-        this.last_message_sender = "friend";
-        messages_list.add (new StatusMessageListRow (fr.name + _(" is now ") + status_str, status));
-      }
-      this.fr.last_status = this.fr.status;
+    this.handle.global_info.connect ((message) => {
+      this.last_message_sender = "friend";
+      this.messages_list.add (new SystemMessageListRow (message));
+      ((MainWindow) this.get_toplevel ()).set_desktop_hint (true);
     });
-  }
-
-  private void switch_view_type (ViewType type) {
-    /*if (type == ViewType.FULL) {
-      foreach (Gtk.Widget item in this.messages_list.get_children ()) {
-        if (item is MessageListRow) {
-          ((MessageListRow) item).label_name.visible = true;
-          ((MessageListRow) item).image_author.visible = false;
-        } else if (item is QuoteMessageListRow) {
-          ((QuoteMessageListRow) item).label_name.visible = true;
-          ((QuoteMessageListRow) item).image_author.visible = false;
-        } else if (item is FileListRow) {
-          ((FileListRow) item).label_name.visible = true;
-          ((FileListRow) item).image_author.visible = false;
-        }
-      }
-    } else if (type == ViewType.COMPACT) {
-      foreach (Gtk.Widget item in this.messages_list.get_children ()) {
-        if (item is MessageListRow) {
-          ((MessageListRow) item).label_name.visible = false;
-          ((MessageListRow) item).image_author.visible = true;
-        } else if (item is QuoteMessageListRow) {
-          ((QuoteMessageListRow) item).label_name.visible = false;
-          ((QuoteMessageListRow) item).image_author.visible = true;
-        } else if (item is FileListRow) {
-          ((FileListRow) item).label_name.visible = false;
-          ((FileListRow) item).image_author.visible = true;
-        }
-      }
-    }
-
-    this.view_type = type;*/
-  }
-
-  private bool messages_selected () {
-    return (this.messages_list.get_selected_rows ().length () > 0);
-  }
-
-  private string get_selected_messages (bool as_quote, bool include_names) {
-    StringBuilder sb = new StringBuilder ();
-    foreach (Gtk.ListBoxRow item in this.messages_list.get_selected_rows ()) {
-      string name = "";
-      string txt = "";
-
-      if (item is MessageListRow) {
-        name = "[" + ((MessageListRow) item).author + "]";
-        txt  = ((MessageListRow) item).label_message.get_text ();
-      } else if (item is SystemMessageListRow) {
-        name = "* ";
-        txt  = ((SystemMessageListRow) item).label_message.get_text ();
-      } else if (item is QuoteMessageListRow) {
-        name = "[" + ((QuoteMessageListRow) item).author + "]";
-        txt  = ((QuoteMessageListRow) item).get_quote ();
-      }
-
-      if (as_quote) {
-        sb.append_c ('>');
-      }
-      if (include_names) {
-        sb.append (@"$name ");
-      }
-
-      sb.append (txt);
-      sb.append_c ('\n');
-    }
-
-    sb.truncate (sb.len - 1);
-    return (string) sb.data;
   }
 
   public void init_messages_menu () {
-    var menu = new Gtk.Menu ();
+    Gtk.Menu menu = new Gtk.Menu ();
 
-    var menu_copy_selection = new Gtk.ImageMenuItem.with_label (_("Copy selection in clipboard"));
-    var label_copy_selection = ((Gtk.AccelLabel) menu_copy_selection.get_child ());
+    Gtk.ImageMenuItem menu_copy_selection = new Gtk.ImageMenuItem.with_label (_("Copy selection in clipboard"));
+    Gtk.AccelLabel label_copy_selection = ((Gtk.AccelLabel) menu_copy_selection.get_child ());
     label_copy_selection.set_accel (Gdk.keyval_from_name("C"), Gdk.ModifierType.CONTROL_MASK | Gdk.ModifierType.SHIFT_MASK);
     menu_copy_selection.always_show_image = true;
     menu_copy_selection.set_image (new Gtk.Image.from_icon_name ("edit-copy-symbolic", Gtk.IconSize.MENU));
 
-    var menu_copy_quote = new Gtk.ImageMenuItem.with_label (_("Copy quote in clipboard"));
+    Gtk.ImageMenuItem menu_copy_quote = new Gtk.ImageMenuItem.with_label (_("Copy quote in clipboard"));
     menu_copy_quote.always_show_image = true;
     menu_copy_quote.set_image (new Gtk.Image.from_icon_name ("edit-copy-symbolic", Gtk.IconSize.MENU));
 
-    var menu_quote_selection = new Gtk.ImageMenuItem.with_label (_("Quote selection"));
-    var label_quote_selection = ((Gtk.AccelLabel) menu_quote_selection.get_child ());
+    Gtk.ImageMenuItem menu_quote_selection = new Gtk.ImageMenuItem.with_label (_("Quote selection"));
+    Gtk.AccelLabel label_quote_selection = ((Gtk.AccelLabel) menu_quote_selection.get_child ());
     label_quote_selection.set_accel (Gdk.keyval_from_name("Q"), Gdk.ModifierType.SHIFT_MASK);
     menu_quote_selection.always_show_image = true;
     menu_quote_selection.set_image (new Gtk.Image.from_icon_name ("insert-text-symbolic", Gtk.IconSize.MENU));
 
-    var menu_remove_selection = new Gtk.ImageMenuItem.with_label (_("Delete selected messages"));
+    Gtk.ImageMenuItem menu_remove_selection = new Gtk.ImageMenuItem.with_label (_("Delete selected messages"));
     menu_remove_selection.always_show_image = true;
     menu_remove_selection.set_image (new Gtk.Image.from_icon_name ("edit-clear-symbolic", Gtk.IconSize.MENU));
 
-    var menu_clear_chat = new Gtk.ImageMenuItem.with_label (_("Clear conversation"));
+    Gtk.ImageMenuItem menu_clear_chat = new Gtk.ImageMenuItem.with_label (_("Clear conversation"));
     menu_clear_chat.always_show_image = true;
     menu_clear_chat.set_image (new Gtk.Image.from_icon_name ("edit-clear-all-symbolic", Gtk.IconSize.MENU));
-
 
     menu_copy_selection.activate.connect (() => {
       if (this.messages_selected () == false) {
@@ -523,10 +270,9 @@ class Ricin.ChatView : Gtk.Box {
       this.entry.grab_focus_without_selecting ();
       this.entry.set_position (-1);
     });
+
     menu_copy_quote.activate.connect (() => {
-      if (this.messages_selected () == false) {
-        return;
-      }
+      if (this.messages_selected () == false) return;
 
       string quote = this.get_selected_messages (true, true);
       Gtk.Clipboard.get (Gdk.SELECTION_CLIPBOARD).set_text (quote, -1);
@@ -534,10 +280,9 @@ class Ricin.ChatView : Gtk.Box {
       this.entry.grab_focus_without_selecting ();
       this.entry.set_position (-1);
     });
+
     menu_quote_selection.activate.connect (() => {
-      if (this.messages_selected () == false) {
-        return;
-      }
+      if (this.messages_selected () == false) return;
 
       string quote = this.get_selected_messages (true, false);
       this.entry.set_text (quote);
@@ -545,16 +290,16 @@ class Ricin.ChatView : Gtk.Box {
       this.entry.grab_focus_without_selecting ();
       this.entry.set_position (-1);
     });
+
     menu_remove_selection.activate.connect (() => {
-      if (this.messages_selected () == false) {
-        return;
-      }
+      if (this.messages_selected () == false) return;
 
       List<weak Gtk.Widget> childs = this.messages_list.get_selected_rows ();
       foreach (Gtk.Widget m in childs) {
         this.messages_list.remove (m);
       }
     });
+
     menu_clear_chat.activate.connect(this.clear);
 
     menu.append (menu_copy_selection);
@@ -596,13 +341,7 @@ class Ricin.ChatView : Gtk.Box {
     });
   }
 
-  /*private MainWindow get_top () {
-
-  }*/
-
   private void init_messages_shortcuts () {
-    //var main_window = ((MainWindow) this.get_toplevel ().get_toplevel ());
-
     /**
     * Shortcut for Ctrl+Shift+C: Copy selected messages if selection > 0
     **/
@@ -663,6 +402,90 @@ class Ricin.ChatView : Gtk.Box {
       this.entry.set_position (cursor_position + newline.length);
 
     });
+  }
+  
+  private void init_popovers () {
+    this.popover_markdown_help = new Gtk.Popover (this.button_show_markdown_help);
+    this.popover_markdown_help.set_size_request (250, 150);
+    this.popover_markdown_help.set_position (Gtk.PositionType.BOTTOM | Gtk.PositionType.RIGHT);
+    this.popover_markdown_help.set_modal (false);
+    this.popover_markdown_help.set_transitions_enabled (true);
+    this.popover_markdown_help.add (this.box_popover_markdown_help);
+    this.popover_markdown_help.closed.connect (() => {
+      this.entry.grab_focus_without_selecting ();
+    });
+
+    this.button_show_markdown_help.clicked.connect (() => {
+      if (this.popover_markdown_help.visible == false) {
+        this.popover_markdown_help.show_all ();
+      } else {
+        this.popover_markdown_help.hide ();
+      }
+
+      // Avoid the user to loose focus with chat entry.
+      this.entry.grab_focus_without_selecting ();
+    });
+
+    this.popover_emoticons = new Gtk.Popover (this.button_show_emoticons);
+    this.popover_emoticons.set_size_request (250, 150);
+    this.popover_emoticons.set_position (Gtk.PositionType.TOP | Gtk.PositionType.LEFT);
+    this.popover_emoticons.set_modal (false);
+    this.popover_emoticons.set_transitions_enabled (true);
+    this.popover_emoticons.add (this.box_popover_emoticons);
+    this.popover_emoticons.closed.connect (() => {
+      this.entry.grab_focus_without_selecting ();
+    });
+
+    this.button_show_emoticons.clicked.connect (() => {
+      if (this.popover_emoticons.visible == false) {
+        this.popover_emoticons.show_all ();
+      } else {
+        this.popover_emoticons.hide ();
+      }
+
+      // Avoid the user to loose focus with chat entry.
+      this.entry.grab_focus_without_selecting ();
+    });
+  }
+
+  private string time () {
+    return new DateTime.now_local ().format ("%H:%M:%S %p");
+  }
+
+  private bool messages_selected () {
+    return (this.messages_list.get_selected_rows ().length () > 0);
+  }
+
+  private string get_selected_messages (bool as_quote, bool include_names) {
+    StringBuilder sb = new StringBuilder ();
+    foreach (Gtk.ListBoxRow item in this.messages_list.get_selected_rows ()) {
+      string name = "";
+      string txt = "";
+
+      if (item is MessageListRow) {
+        name = "[" + ((MessageListRow) item).author + "]";
+        txt  = ((MessageListRow) item).label_message.get_text ();
+      } else if (item is SystemMessageListRow) {
+        name = "* ";
+        txt  = ((SystemMessageListRow) item).label_message.get_text ();
+      } else if (item is QuoteMessageListRow) {
+        name = "[" + ((QuoteMessageListRow) item).author + "]";
+        txt  = ((QuoteMessageListRow) item).get_quote ();
+      }
+
+      if (as_quote) {
+        sb.append_c ('>');
+      }
+      if (include_names) {
+        sb.append (@"$name ");
+      }
+
+      sb.append (txt);
+      sb.append_c ('\n');
+    }
+
+    sb.truncate (sb.len - 1);
+    return (string) sb.data;
   }
 
   private void clear () {
@@ -784,29 +607,17 @@ class Ricin.ChatView : Gtk.Box {
       var fname = file.get_basename ();
       this.history.write (this.fr.pubkey, @"[$current_time] ** You sent a file to $(this.fr.name): $fname");
 
-      if (file_content_type.has_prefix ("image/")) {
-        /*var pixbuf = new Gdk.Pixbuf.from_file_at_scale (filename, 400, 250, true);*/
-        var image_widget = new FileListRow (
-          this.handle, fr, file_id, this.handle.username,
-          file.get_path (), size, time (), true
-        );
-        //image_widget.button_save_inline.visible = false;
-        messages_list.add (image_widget);
-      } else {
-        //fr.friend_info (@"Sending file $filename");
-        var file_row = new FileListRow (
-          this.handle, fr, file_id, this.handle.username,
-          filename, size, time (), false
-        );
-        messages_list.add (file_row);
-      }
+      var file_row = new FileListRow (
+        this.handle, fr, file_id, this.handle.username,
+        file.get_path (), size, time (), true
+      );
+      messages_list.add (file_row);
     }
     chooser.close ();
   }
 
   // Last scroll pos.
   private double _bottom_scroll = 0.0;
-  private bool force_scroll = false;
 
   [GtkCallback]
   private void scroll_to_bottom () {
@@ -823,12 +634,5 @@ class Ricin.ChatView : Gtk.Box {
     }
 
     this._bottom_scroll = adj.value;
-  }
-
-  private void scroll_bottom () {
-    Gtk.Adjustment adj = this.scroll_messages.get_vadjustment ();
-    adj.set_value (adj.get_upper () - adj.get_page_size ());
-    this._bottom_scroll = adj.get_upper () - adj.get_page_size ();
-    this.is_bottom = true;
   }
 }
