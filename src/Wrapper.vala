@@ -70,7 +70,7 @@ namespace Tox {
   public class Tox : Object {
     internal ToxCore.Tox handle;
     private HashTable<uint32, Friend> friends = new HashTable<uint32, Friend> (direct_hash, direct_equal);
-    private HashTable<int, Group> groups = new HashTable<int, Group> (direct_hash, direct_equal);
+    public HashTable<int, Group> groups = new HashTable<int, Group> (direct_hash, direct_equal);
 
     private bool ipv6_enabled   = true;
     private string? profile     = null;
@@ -447,7 +447,12 @@ namespace Tox {
         string topic = Util.arr2str (title);
         debug (@"Peer $(peer_num) changed title to: $(topic)");
         this.groups[group_num].name = topic;
-        this.groups[group_num].title_changed (peer_num, topic);
+        
+        if (peer_num != -1) {
+          this.groups[group_num].title_changed (peer_num, topic);
+        } else {
+          this.groups[group_num].title_changed (0, topic);
+        }
       });
 
       this.handle.callback_group_namelist_change ((self, group_num, peer_num, change_type) => {
@@ -919,6 +924,8 @@ namespace Tox {
 
     public void set_title (string title) {
       this.tox.handle.group_set_title (this.num, title.data);
+      this.name = title;
+      this.title_changed (-1, title);
     }
 
     public bool leave () {

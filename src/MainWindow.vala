@@ -575,17 +575,22 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
     debug ("Removing group %d, %s", group.num, group.name);
     bool result = group.leave ();
     if (result) {
-      uint groups_count = this.grouplist.get_children ().length ();
-      Gtk.ListBoxRow next_row = this.friendlist.get_row_at_index (0);
+      //uint groups_count = this.grouplist.get_children ().length ();
+      try {
+        Gtk.ListBoxRow next_row = this.friendlist.get_row_at_index (0);
+        this.grouplist.remove (this.selected_row);
+        this.selected_row = next_row;
+        this.selected_row.activate ();
+        this.grouplist.select_row (next_row);
 
-      this.grouplist.remove (this.selected_row);
-      this.selected_row = next_row;
-      this.selected_row.activate ();
-      this.grouplist.select_row (next_row);
-
-      var next_view = ((FriendListRow) next_row).view_name;
-      var view = this.chat_stack.get_child_by_name (next_view);
-      this.chat_stack.set_visible_child (view);
+        var next_view = ((FriendListRow) next_row).view_name;
+        var view = this.chat_stack.get_child_by_name (next_view);
+        this.chat_stack.set_visible_child (view);
+      } catch (Error e) {
+        debug ("Error while leaving group %d, error: %s", group.num, e.message);
+        var view = this.chat_stack.get_child_by_name ("settings");
+        this.chat_stack.set_visible_child (view);
+      }
 
       this.grouplist.invalidate_filter (); // Update the grouplist.
       this.grouplist.invalidate_sort (); // Update the grouplist.

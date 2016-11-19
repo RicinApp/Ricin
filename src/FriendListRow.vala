@@ -134,7 +134,7 @@ class Ricin.FriendListRow : Gtk.ListBoxRow {
 
     this.username.set_text (this.group.name);
     this.username.set_tooltip_text (this.group.name);
-    this.status.set_text (_("People in group: %d").printf (this.group.peers_count));
+    this.status.set_text (_("%d peers").printf (this.group.peers_count));
     //this.status.set_text ("Peers: 0");
     this.userstatus.visible = false;
     Cairo.Surface surface = Util.identicon_for_pubkey (this.group.name);
@@ -300,38 +300,6 @@ class Ricin.FriendListRow : Gtk.ListBoxRow {
       Gtk.Clipboard.get (Gdk.SELECTION_CLIPBOARD).set_text (this.fr.pubkey, -1);
     });
 
-    // Invite to groupchat.
-    // TODO: List groupchats available in a submenu.
-    /*var invite_groupchat = new Gtk.ImageMenuItem.with_label (_("Invite to groupchat"));
-    var invite_groupchat_icon = new Gtk.Image.from_icon_name ("address-book-new-symbolic", Gtk.IconSize.MENU);
-    invite_groupchat.always_show_image = true;
-    invite_groupchat.set_image (invite_groupchat_icon);
-
-    var groupchats_menu = new Gtk.Menu ();
-    var parent = this.get_toplevel () as MainWindow;
-    
-    if (parent.grouplist.get_children ().length () > 0) {
-      List<weak Gtk.Widget> childs = parent.grouplist.get_children ();
-      foreach (Gtk.Widget m in childs) {
-        FriendListRow item = (FriendListRow) m;
-        Tox.Group group = item.group;
-        groupchats_menu.append (new Gtk.MenuItem.with_label (group.name));
-      }
-    }
-    for (int i = 0; i < groupchats.get_children ().length (); i++) {
-      Tox.Group group = ((FriendListRow) groupchats.get_row_at_index (i)).group;
-      var _menu = new Gtk.MenuItem.with_label (group.name);
-      _menu.activate.connect (() => {
-        this.fr.invite_to_group (group.num);
-      });
-      groupchats_menu.append (_menu);
-    }
-    
-    groupchats_menu.append (new Gtk.SeparatorMenuItem ());
-    groupchats_menu.append (new Gtk.MenuItem.with_label (_("New groupchat...")));
-
-    invite_groupchat.set_submenu (groupchats_menu);*/
-
     // Delete friend action.
     var delete_friend = new Gtk.ImageMenuItem.with_label (_("Delete"));
     var delete_friend_icon = new Gtk.Image.from_icon_name ("edit-delete-symbolic", Gtk.IconSize.MENU);
@@ -356,8 +324,6 @@ class Ricin.FriendListRow : Gtk.ListBoxRow {
 
     this.menu_friend.append (open_friend_profile);
     this.menu_friend.append (copy_friend_toxid);
-    /*this.menu_friend.append (new Gtk.SeparatorMenuItem ());
-    this.menu_friend.append (invite_groupchat);*/
     this.menu_friend.append (new Gtk.SeparatorMenuItem ());
     this.menu_friend.append (block_friend);
     this.menu_friend.append (delete_friend);

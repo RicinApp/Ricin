@@ -25,9 +25,6 @@ class Ricin.ChatView : Gtk.Box {
   [GtkChild] Gtk.Revealer friend_typing;
   [GtkChild] Gtk.Label label_friend_is_typing;
 
-  /* Unread messages (scroll to bottom) */
-  [GtkChild] Gtk.Revealer revealer_unread_messages;
-
   /* Friend menu toggle */
   [GtkChild] Gtk.Button button_toggle_friend_menu;
   [GtkChild] Gtk.Revealer revealer_friend_menu;
@@ -41,12 +38,6 @@ class Ricin.ChatView : Gtk.Box {
   [GtkChild] Gtk.Button button_friend_copy_toxid;
   [GtkChild] Gtk.Button button_friend_block;
   [GtkChild] Gtk.Button button_friend_delete;
-
-  /* ChatView notify system UI */
-  [GtkChild] Gtk.Revealer notify;
-  [GtkChild] Gtk.Image image_notify;
-  [GtkChild] Gtk.Label label_notify_text;
-  [GtkChild] Gtk.Button button_notify_close;
 
   [Signal (action = true)] private signal void copy_messages_selection ();
   [Signal (action = true)] private signal void quote_messages_selection ();
@@ -674,17 +665,6 @@ class Ricin.ChatView : Gtk.Box {
     });
   }
 
-  public void show_notice (string text, string icon_name = "help-info-symbolic") {
-    this.image_notify.icon_name = icon_name;
-    this.label_notify_text.set_text (text);
-    this.button_notify_close.clicked.connect (() => {
-      this.notify.set_reveal_child (false);
-    });
-
-    this.notify.set_reveal_child (true);
-    this.scroll_to_bottom ();
-  }
-
   private void clear () {
     List<weak Gtk.Widget> childs = this.messages_list.get_children ();
     foreach (Gtk.Widget m in childs) {
@@ -757,12 +737,6 @@ class Ricin.ChatView : Gtk.Box {
       return;
     }
     this.last_message = message;
-    // Notice example:
-    /*else if (message.index_of ("/n", 0) == 0) {
-      var msg = message.replace ("/n ", "");
-      return;
-      this.show_notice(msg);
-    }*/
 
     var is_child = (this.last_message_sender == "ricin");
     if (message.has_prefix ("/me ")) {
@@ -844,31 +818,11 @@ class Ricin.ChatView : Gtk.Box {
     if (this._bottom_scroll == adj.value || this._bottom_scroll == 0.0) {
       adj.set_value (adj.get_upper () - adj.get_page_size ());
       this.is_bottom = true;
-
-      if (this.settings.show_unread_messages) {
-        this.revealer_unread_messages.set_reveal_child (false);
-      }
     } else {
       this.is_bottom = false;
-      if (this.settings.show_unread_messages) {
-        this.revealer_unread_messages.set_reveal_child (true);
-      }
     }
 
     this._bottom_scroll = adj.value;
-  }
-
-  [GtkCallback]
-  private void unread_messages_scroll () {
-    this.revealer_unread_messages.notify["child-revealed"].connect (() => {
-      if (this.revealer_unread_messages.reveal_child == false) {
-        this.scroll_bottom ();
-        this.entry.grab_focus_without_selecting ();
-      }
-    });
-    if (this.revealer_unread_messages.reveal_child == true) {
-      this.revealer_unread_messages.set_reveal_child (false);
-    }
   }
 
   private void scroll_bottom () {
@@ -876,8 +830,5 @@ class Ricin.ChatView : Gtk.Box {
     adj.set_value (adj.get_upper () - adj.get_page_size ());
     this._bottom_scroll = adj.get_upper () - adj.get_page_size ();
     this.is_bottom = true;
-  }
-  private void toggle_unread_notice () {
-    this.revealer_unread_messages.reveal_child = !!this.is_bottom;
   }
 }

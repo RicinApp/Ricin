@@ -8,6 +8,7 @@
     <property name="icon_name">notifications-symbolic</property>
   </object>
   <template class="RicinGroupListRow" parent="GtkListBoxRow">
+    <property name="width_request">200</property>
     <property name="visible">True</property>
     <property name="can_focus">True</property>
     <child>
