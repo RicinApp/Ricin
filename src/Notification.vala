@@ -2,7 +2,6 @@ class Ricin.Notification : Object {
   public static new void notify (string sender, string message, int timeout = 5000, Gdk.Pixbuf? icon = null) {
     try {
       Notify.Notification notif;
-
       if (icon == null) {
         notif = new Notify.Notification (sender, message, "dialog-information");
       } else {
@@ -20,10 +19,6 @@ class Ricin.Notification : Object {
   }
 
   public static void notify_status (Tox.Friend friend) {
-    /*if (friend.status == friend.last_status) {
-      return;
-    }*/
-
     if (friend.status == Tox.UserStatus.ONLINE || friend.status == Tox.UserStatus.OFFLINE) {
       string status_str = Util.status_to_string (friend.status);
       Notification.notify (friend.name + _(" is now ") + status_str, friend.status_message, 3000);

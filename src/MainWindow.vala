@@ -572,23 +572,27 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
   }
 
   public void remove_group (Tox.Group group) {
-    debug ("Removing group %d, %s", group.num, group.name);
-    bool result = group.leave ();
+    //debug ("Removing group %d, %s", group.num, group.name);
+    bool result = this.tox.leave_group (group.num);
     if (result) {
+      debug ("Left group %d, %s", group.num, group.name);
       //uint groups_count = this.grouplist.get_children ().length ();
       try {
         Gtk.ListBoxRow next_row = this.friendlist.get_row_at_index (0);
+        //var old_view = this.chat_stack.get_child_by_name (((FriendListRow) this.selected_row).view_name);
+        //this.chat_stack.remove (old_view);
         this.grouplist.remove (this.selected_row);
+        
         this.selected_row = next_row;
         this.selected_row.activate ();
-        this.grouplist.select_row (next_row);
+        this.friendlist.select_row (next_row);
 
         var next_view = ((FriendListRow) next_row).view_name;
         var view = this.chat_stack.get_child_by_name (next_view);
         this.chat_stack.set_visible_child (view);
       } catch (Error e) {
         debug ("Error while leaving group %d, error: %s", group.num, e.message);
-        var view = this.chat_stack.get_child_by_name ("settings");
+        var view = this.chat_stack.get_child_by_name ("settings"); // Fallback to settings.
         this.chat_stack.set_visible_child (view);
       }
 

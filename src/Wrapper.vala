@@ -475,7 +475,8 @@ namespace Tox {
 
     public void disconnect () {
       for (int i = 0; i < this.groups.length; i++) {
-        this.groups[i].leave ();
+        Group g = this.groups[i];
+        this.leave_group (g.num);
       }
     
       this.must_stop = true;
@@ -661,6 +662,17 @@ namespace Tox {
 
       return null;
     }
+    
+    public bool leave_group (int group_num) {
+      bool deleted = (this.handle.del_groupchat (group_num) != -1);
+      if (deleted) {
+        this.groups.remove (group_num);
+        if (this.groups[group_num] == null) {
+          return true;
+        }
+      }
+      return false;
+    }
 
     public void save_data (string? pass = null) throws ErrDecrypt {
       if (this.profile != null) {
@@ -820,7 +832,6 @@ namespace Tox {
       owned get {
         uint8[] name = new uint8[ToxCore.MAX_NAME_LENGTH];
         int size = this.tox.handle.group_peername (group_num, this.num, name);
-        
         if (size >= 0) {
           name[size] = 0; // Zero terminating.
           return (string) name;
@@ -834,13 +845,12 @@ namespace Tox {
         uint8[] pubkey = new uint8[ToxCore.PUBLIC_KEY_SIZE];
         int size = this.tox.handle.group_peer_pubkey (group_num, this.num, pubkey);
         if (size >= 0) {
-          //pubkey[size] = 0; // Zero terminating.
           return Util.bin2hex (pubkey);
         }
         return "%d".printf (this.num);
       }
     }
-    
+
     public bool muted { get; set; default = false; }
 
     public signal void name_changed ();
@@ -898,15 +908,21 @@ namespace Tox {
     public void add_peer (int peer_num) {
       Peer peer = new Peer (this.tox, this.num, peer_num);
       this.peers[peer_num] = peer;
-      this.peer_count_changed ();
-      this.peer_added (this.peers[peer_num]);
+      
+      if (this.peers[peer_num] != null) {
+        this.peer_added (this.peers[peer_num]);
+        this.peer_count_changed ();
+      }
     }
 
     public void remove_peer (int peer_num) {
-      this.peer_removed (peer_num, this.peers[peer_num].pubkey);
+      string pubkey = this.peers[peer_num].pubkey;
       this.peers.remove (peer_num);
-      this.peer_count_changed ();
-      this.peers[peer_num].peer_removed ();
+      
+      if (this.peers[peer_num] == null) {
+        this.peer_removed (peer_num, pubkey);
+        this.peer_count_changed ();
+      }
     }
     
     public void change_peer_name (int peer_num) {
@@ -928,13 +944,22 @@ namespace Tox {
       this.title_changed (-1, title);
     }
 
-    public bool leave () {
-      if (this.tox.handle.del_groupchat (this.num) != -1) {
-        this.removed ();
-        return true;
+    /*public bool leave () {
+      if (this.tox.groups[this.num] == null) {
+        return;
       }
+
+      try {
+        if (this.tox.handle.del_groupchat (this.num) != -1) {
+          this.removed ();
+          return true;
+        }
+      } catch (Error e) {
+        debug ("Cannot leave group %d, error: %s", this.num, e.message);
+      }
+
       return false;
-    }
+    }*/
   }
 
   public class Friend : Object {
