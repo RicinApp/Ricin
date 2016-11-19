@@ -168,56 +168,6 @@ class Ricin.GroupChatView : Gtk.Box {
     });
   }
 
-  private string time () {
-    return new DateTime.now_local ().format ("%H:%M:%S %p");
-  }
-
-  /**
-  * Clear the current groupchat content.
-  **/
-  private void clear () {
-    List<weak Gtk.Widget> childs = this.messages_list.get_children ();
-    foreach (Gtk.Widget m in childs) {
-      this.messages_list.remove (m);
-    }
-  }
-  
-  private bool messages_selected () {
-    return (this.messages_list.get_selected_rows ().length () > 0);
-  }
-
-  private string get_selected_messages (bool as_quote, bool include_names) {
-    StringBuilder sb = new StringBuilder ();
-    foreach (Gtk.ListBoxRow item in this.messages_list.get_selected_rows ()) {
-      string name = "";
-      string txt = "";
-
-      if (item is MessageListRow) {
-        name = "[" + ((MessageListRow) item).author + "]";
-        txt  = ((MessageListRow) item).label_message.get_text ();
-      } else if (item is SystemMessageListRow) {
-        name = "* ";
-        txt  = ((SystemMessageListRow) item).label_message.get_text ();
-      } else if (item is QuoteMessageListRow) {
-        name = "[" + ((QuoteMessageListRow) item).author + "]";
-        txt  = ((QuoteMessageListRow) item).get_quote ();
-      }
-
-      if (as_quote) {
-        sb.append_c ('>');
-      }
-      if (include_names) {
-        sb.append (@"$name ");
-      }
-
-      sb.append (txt);
-      sb.append_c ('\n');
-    }
-
-    sb.truncate (sb.len - 1);
-    return (string) sb.data;
-  }
-
   public void init_messages_menu () {
     var menu = new Gtk.Menu ();
 
@@ -399,6 +349,56 @@ class Ricin.GroupChatView : Gtk.Box {
     });
   }
 
+  private string time () {
+    return new DateTime.now_local ().format ("%H:%M:%S %p");
+  }
+
+  /**
+  * Clear the current groupchat content.
+  **/
+  private void clear () {
+    List<weak Gtk.Widget> childs = this.messages_list.get_children ();
+    foreach (Gtk.Widget m in childs) {
+      this.messages_list.remove (m);
+    }
+  }
+  
+  private bool messages_selected () {
+    return (this.messages_list.get_selected_rows ().length () > 0);
+  }
+
+  private string get_selected_messages (bool as_quote, bool include_names) {
+    StringBuilder sb = new StringBuilder ();
+    foreach (Gtk.ListBoxRow item in this.messages_list.get_selected_rows ()) {
+      string name = "";
+      string txt = "";
+
+      if (item is MessageListRow) {
+        name = "[" + ((MessageListRow) item).author + "]";
+        txt  = ((MessageListRow) item).label_message.get_text ();
+      } else if (item is SystemMessageListRow) {
+        name = "* ";
+        txt  = ((SystemMessageListRow) item).label_message.get_text ();
+      } else if (item is QuoteMessageListRow) {
+        name = "[" + ((QuoteMessageListRow) item).author + "]";
+        txt  = ((QuoteMessageListRow) item).get_quote ();
+      }
+
+      if (as_quote) {
+        sb.append_c ('>');
+      }
+      if (include_names) {
+        sb.append (@"$name ");
+      }
+
+      sb.append (txt);
+      sb.append_c ('\n');
+    }
+
+    sb.truncate (sb.len - 1);
+    return (string) sb.data;
+  }
+
   // Callback: Send message.
   [GtkCallback]
   private void send_message () {
@@ -474,7 +474,6 @@ class Ricin.GroupChatView : Gtk.Box {
   
   // Last scroll pos.
   private double _bottom_scroll = 0.0;
-  private bool force_scroll = false;
 
   [GtkCallback]
   private void scroll_to_bottom () {
@@ -491,12 +490,5 @@ class Ricin.GroupChatView : Gtk.Box {
     }
 
     this._bottom_scroll = adj.value;
-  }
-  
-  private void scroll_bottom () {
-    Gtk.Adjustment adj = this.scroll_messages.get_vadjustment ();
-    adj.set_value (adj.get_upper () - adj.get_page_size ());
-    this._bottom_scroll = adj.get_upper () - adj.get_page_size ();
-    this.is_bottom = true;
   }
 }
