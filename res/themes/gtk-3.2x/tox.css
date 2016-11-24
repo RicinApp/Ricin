@@ -101,6 +101,7 @@
 
 #chatview-input entry {
   color: @ui_main;
+  padding: 8px 8px;
 }
 #chatview-input * {
   background-color: @swatch_gray;

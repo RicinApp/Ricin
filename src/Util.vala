@@ -67,7 +67,7 @@ namespace Util {
   }
 
   public static string emojify (string emoji, string color = "#fcd226") {
-    return @"<span face=\"EmojiOne\" foreground=\"$color\" weight=\"heavy\">$emoji</span>";
+    return @"<span face=\"$(Util.get_emojis_font ())\" size=\"$(Util.get_emojis_size ())\" weight=\"heavy\">$emoji</span>";
   }
 
   public static string escape_html (string text) {
@@ -87,6 +87,14 @@ namespace Util {
     }
 
     return "#fcd226";
+  }
+  
+  private static string get_emojis_font () {
+    return Settings.instance.emojis_font;
+  }
+  
+  private static string get_emojis_size () {
+    return Settings.instance.emojis_size;
   }
 
   public static string render_emojis (string text) {

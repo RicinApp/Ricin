@@ -918,11 +918,8 @@ namespace Tox {
     public void remove_peer (int peer_num) {
       string pubkey = this.peers[peer_num].pubkey;
       this.peers.remove (peer_num);
-      
-      if (this.peers[peer_num] == null) {
-        this.peer_removed (peer_num, pubkey);
-        this.peer_count_changed ();
-      }
+      this.peer_removed (peer_num, pubkey);
+      this.peer_count_changed ();
     }
     
     public void change_peer_name (int peer_num) {
@@ -943,23 +940,6 @@ namespace Tox {
       this.name = title;
       this.title_changed (-1, title);
     }
-
-    /*public bool leave () {
-      if (this.tox.groups[this.num] == null) {
-        return;
-      }
-
-      try {
-        if (this.tox.handle.del_groupchat (this.num) != -1) {
-          this.removed ();
-          return true;
-        }
-      } catch (Error e) {
-        debug ("Cannot leave group %d, error: %s", this.num, e.message);
-      }
-
-      return false;
-    }*/
   }
 
   public class Friend : Object {

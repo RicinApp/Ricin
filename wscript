@@ -58,6 +58,7 @@ def configure(conf):
 	conf.env.append_unique('VALAFLAGS', [
 		'--enable-experimental',
 		'--enable-deprecated',
+		'--debug'
 		#'--fatal-warnings'
 	])
 
@@ -94,6 +95,9 @@ def build(bld):
 
 	# Icon
 	icon = bld.install_as('${DATADIR}/icons/hicolor/scalable/apps/ricin.svg', 'res/images/icons/ricin.svg')
+
+	# Appdata
+	appdata = bld.install_as('${DATADIR}/appdata/ricin.appdata.xml', 'res/ricin.appdata.xml')
 
 	# Desktop file
 	desktop = bld(

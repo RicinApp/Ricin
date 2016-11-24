@@ -145,7 +145,6 @@ class Ricin.GroupChatView : Gtk.Box {
       }
     
       GroupListRow row = new GroupListRow (peer);
-      
       if (this.handle.has_friend (peer.pubkey)) {
         this.listbox_friends.insert (row, peer.num);
       } else {
@@ -157,13 +156,31 @@ class Ricin.GroupChatView : Gtk.Box {
       if (peer_pubkey == this.handle.pubkey) {
         return;
       }
-    
+
+      /*if (this.group.peers[peer_num] == null) {
+        return;
+      }*/
+
       if (this.handle.has_friend (peer_pubkey)) {
-        Gtk.ListBoxRow row = this.listbox_friends.get_row_at_index (peer_num);
-        this.listbox_friends.remove (row);
+        List<weak Gtk.Widget> childs = this.listbox_friends.get_children ();
+        foreach (Gtk.Widget m in childs) {
+          GroupListRow row = (GroupListRow) m;
+          if (row.pubkey == peer_pubkey) {
+            debug ("Friend %d left the group %d, %s", peer_num, this.group.num, this.group.name);
+            this.listbox_friends.remove (row);
+            break;
+          }
+        }
       } else {
-        Gtk.ListBoxRow row = this.listbox_unknown_peers.get_row_at_index (peer_num);
-        this.listbox_unknown_peers.remove (row);
+        List<weak Gtk.Widget> childs = this.listbox_unknown_peers.get_children ();
+        foreach (Gtk.Widget m in childs) {
+          GroupListRow row = (GroupListRow) m;
+          if (row.pubkey == peer_pubkey) {
+            debug ("Peer %d left the group %d, %s", peer_num, this.group.num, this.group.name);
+            this.listbox_unknown_peers.remove (row);
+            break;
+          }
+        }
       }
     });
   }

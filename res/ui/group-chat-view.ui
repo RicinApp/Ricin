@@ -2,6 +2,18 @@
 <!-- Generated with glade 3.19.0 -->
 <interface>
   <requires lib="gtk+" version="3.16"/>
+  <object class="GtkImage" id="image4">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="xpad">5</property>
+    <property name="icon_name">window-close-symbolic</property>
+  </object>
+  <object class="GtkImage" id="image_block_user">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="xpad">5</property>
+    <property name="icon_name">notifications-disabled-symbolic</property>
+  </object>
   <template class="RicinGroupChatView" parent="GtkBox">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
@@ -237,6 +249,7 @@
                             <property name="label">Topic text ipsum dolores sit amet</property>
                             <property name="wrap">True</property>
                             <property name="wrap_mode">word-char</property>
+                            <property name="selectable">True</property>
                             <property name="max_width_chars">23</property>
                           </object>
                           <packing>
@@ -358,7 +371,6 @@
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">True</property>
                                 <property name="image">image4</property>
-                                <property name="xalign">0</property>
                                 <property name="always_show_image">True</property>
                                 <signal name="clicked" handler="leave_group" swapped="no"/>
                                 <style>
@@ -379,7 +391,6 @@
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">True</property>
                                 <property name="image">image_block_user</property>
-                                <property name="xalign">0.34999999403953552</property>
                                 <property name="always_show_image">True</property>
                                 <signal name="clicked" handler="mute_group" swapped="no"/>
                                 <style>
@@ -434,10 +445,12 @@
     <child>
       <object class="GtkBox" id="box2">
         <property name="name">chatview-input</property>
+        <property name="height_request">32</property>
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <child>
           <object class="GtkEntry" id="entry">
+            <property name="height_request">32</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="max_width_chars">5</property>
@@ -466,7 +479,7 @@
               <object class="GtkImage" id="image2">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="icon_name">mail-replied-symbolic</property>
+                <property name="icon_name">mail-send-symbolic</property>
               </object>
             </child>
             <style>
@@ -491,16 +504,4 @@
       </packing>
     </child>
   </template>
-  <object class="GtkImage" id="image4">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="xpad">5</property>
-    <property name="icon_name">window-close-symbolic</property>
-  </object>
-  <object class="GtkImage" id="image_block_user">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="xpad">5</property>
-    <property name="icon_name">notifications-disabled-symbolic</property>
-  </object>
 </interface>

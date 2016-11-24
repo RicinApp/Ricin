@@ -6,9 +6,11 @@ public class Ricin.GroupListRow : Gtk.ListBoxRow {
   [GtkChild] Gtk.Image image_mute;
   
   public weak Tox.Peer peer;
+  public string pubkey;
   
   public GroupListRow (Tox.Peer peer) {
     this.peer = peer;
+    this.pubkey = peer.pubkey;
 
     this.init_widgets ();
     this.init_signals ();

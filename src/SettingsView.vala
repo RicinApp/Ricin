@@ -25,6 +25,14 @@ class Ricin.SettingsView : Gtk.Box {
   [GtkChild] Gtk.Switch switch_display_typing_notifications;
   [GtkChild] Gtk.Switch switch_typing_notifications;
   [GtkChild] Gtk.Switch switch_compact_friendlist;
+  
+  // Emojis settings.
+  [GtkChild] Gtk.Entry entry_emoji_font;
+  [GtkChild] Gtk.Button button_emoji_size_small;
+  [GtkChild] Gtk.Button button_emoji_size_medium;
+  [GtkChild] Gtk.Button button_emoji_size_large;
+  [GtkChild] Gtk.Button button_emoji_size_x_large;
+  [GtkChild] Gtk.Button button_emoji_size_xx_large;
 
   // Notifications settings tab.
   [GtkChild] Gtk.Switch switch_taskbar_notify;
@@ -321,6 +329,8 @@ class Ricin.SettingsView : Gtk.Box {
     this.switch_udp_enabled.notify["active"].connect (this.udp_state_changed);
     this.switch_ipv6_enabled.notify["active"].connect (this.ipv6_state_changed);
     this.switch_proxy_enabled.notify["active"].connect (this.proxy_state_changed);
+    
+    this.entry_emoji_font.set_text (this.settings.emojis_font);
   }
 
   private void udp_state_changed () {
@@ -500,5 +510,45 @@ class Ricin.SettingsView : Gtk.Box {
     });
 
     dialog.show ();
+  }
+  
+  [GtkCallback]
+  private void change_emoji_size_small () {
+    this.settings.emojis_size = "small";
+  }
+  
+  [GtkCallback]
+  private void change_emoji_size_medium () {
+    this.settings.emojis_size = "medium";
+  }
+  
+  [GtkCallback]
+  private void change_emoji_size_large () {
+    this.settings.emojis_size = "large";
+  }
+  
+  [GtkCallback]
+  private void change_emoji_size_x_large () {
+    this.settings.emojis_size = "x-large";
+  }
+  
+  [GtkCallback]
+  private void change_emoji_size_xx_large () {
+    this.settings.emojis_size = "xx-large";
+  }
+  
+  [GtkCallback]
+  private void update_emoji_font () {
+    string font = this.entry_emoji_font.get_text ();
+    string tpl = @"<span face=\"$(font)\" size=\"%s\" foreground=\"#e74c3c\" weight=\"heavy\">💙</span>";
+    
+    // Update emojis size buttons.
+    ((Gtk.Label) this.button_emoji_size_small.get_child ()).set_markup (tpl.printf ("small"));
+    ((Gtk.Label) this.button_emoji_size_medium.get_child ()).set_markup (tpl.printf ("medium"));
+    ((Gtk.Label) this.button_emoji_size_large.get_child ()).set_markup (tpl.printf ("large"));
+    ((Gtk.Label) this.button_emoji_size_x_large.get_child ()).set_markup (tpl.printf ("x-large"));
+    ((Gtk.Label) this.button_emoji_size_xx_large.get_child ()).set_markup (tpl.printf ("xx-large"));
+    
+    this.settings.emojis_font = font;
   }
 }
