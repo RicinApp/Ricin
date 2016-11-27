@@ -3,12 +3,13 @@
 ## Table of Contents
 * [Dependencies installation](#dependencies)
   * [Debian/Ubuntu](#debianubuntu)
-  * [ArchLinux](#archlinux)
+  * [Arch Linux](#arch-linux)
   * [Fedora](#fedora)
 * [Installing](#installing-ricin)
-  * [Linux](#linux)
-    * [ArchLinux](#archlinux-1)
-    * [MilisLinux](#milis-linux-milis-isletim-sistemi)
+  * [GNU/Linux](#linux)
+    * [Arch Linux](#arch-linux-1)
+    * [Gentoo Linux](#gentoo-linux)
+    * [Milis Linux](#milis-linux-milis-isletim-sistemi)
     * [Other linux distributions](#others-linux)
   * [Windows](#windows)
 
@@ -46,7 +47,7 @@ $ apt-get install gtk+3 libglib2.0-0 libglib2.0-dev \
 >**Note**: You may have to `sudo` both lines in order to have
 them running properly.
 
-### ArchLinux
+### Arch Linux
 To install all the Ricin's dependencies, simply write the
 following in a shell.
 
@@ -66,9 +67,9 @@ $ dnf install python3 valac glib2 gtk3 gtk3-devel \
 ```
 
 ## Installing Ricin
-### Linux
-#### ArchLinux
-Thanks to [LastAvenger], ArchLinux users can install Ricin via AUR: [ricin-git] / [ricin](https://aur.archlinux.org/packages/ricin).  
+### GNU/Linux
+#### Arch Linux
+Thanks to [LastAvenger], Arch Linux users can install Ricin via AUR: [ricin-git] / [ricin](https://aur.archlinux.org/packages/ricin).  
 You simply have to write the following line in a shell:
 
 ```bash
@@ -78,6 +79,22 @@ $ yaourt -S ricin-git
 # Use the latest release (stable), build and install.
 $ yatourt -S ricin
 ```
+
+#### Gentoo Linux
+Thanks to [gitgud-software](https://github.com/gitgud-software), Gentoo Linux and Funtoo Linux users can install Ricin using [layman](https://wiki.gentoo.org/wiki/Layman).
+
+```bash
+$ layman -o https://gitgud.io/snippets/90/raw -f -a ricin-overlay
+$ layman -s ricin-overlay
+$ emerge net-im/ricin
+```
+Gentoo and Funtoo users can also configure the ricin-overlay to be used as a portage repository by copying [ricin-overlay.conf](https://gitgud.io/gitgud-software/ricin-overlay/raw/master/ricin-overlay.conf) into ```/etc/portage/repos.conf/```, then syncing the portage tree.
+
+```bash
+$ emerge --sync
+$ emerge net-im/ricin
+```
+
 
 #### Milis Linux (Milis Isletim Sistemi)
 Thanks to [milisarge], [Milis Linux] users can install Ricin via MPS.  
