@@ -27,12 +27,10 @@
 | libnotify              |            | >=0.7.6   |
 
 ### Debian/Ubuntu
-On Ubuntu you need to compile ToxCore, Libsodium, and filter_audio by hand.
-Someone already wrote on how to achieve this, simply follow the guide
-to [Install ToxCore].
+On Ubuntu you need to compile ToxCore, Libsodium, and filter_audio from source.
+There is already sufficient documentation on this process, simply follow the guide to [Install ToxCore].
 
-After ToxCore is installed, run the following line to fetch & install
-the dependencies needed by Ricin to compile/run.
+After ToxCore is installed, run the following commands to fetch & install the dependencies needed by Ricin to compile/run.
 
 ```bash
 # Required to build Ricin:
@@ -57,9 +55,8 @@ $ pacman -S python3 vala gtk3 toxcore \
 ```
 
 ### Fedora
-On Fedora you need to compile ToxCore, Libsodium, and filter_audio by hand.
-Someone already wrote on how to achieve this, simply follow the guide
-to [Install ToxCore].
+On Fedora you need to compile ToxCore, Libsodium, and filter_audio from souce.
+There is already sufficient documentation on this process, simply follow the guide to [Install ToxCore].
 
 ```bash
 $ dnf install python3 valac glib2 gtk3 gtk3-devel \
@@ -104,9 +101,9 @@ You simply have to write the following line in a shell:
 $ mps -kur ricin
 ```
 
-#### Others Linux
-For other systems that doesn't yet have a package you have a to compile and
-install Ricin from sources. Compiling Ricin is super simple as we use
+#### Other GNU/Linux
+For other systems that do not have a Ricin package, you have to compile and
+install Ricin from source. Compiling Ricin is super simple as we use
 **The Waf Build System** that runs pretty much everywhere.  
 
 **Before** running the following commands, please ensure that you have installed
