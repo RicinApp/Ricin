@@ -55,7 +55,7 @@ $ pacman -S python3 vala gtk3 toxcore \
 ```
 
 ### Fedora
-On Fedora you need to compile ToxCore, Libsodium, and filter_audio from souce.
+On Fedora you need to compile ToxCore, Libsodium, and filter_audio from source.
 There is already sufficient documentation on this process, simply follow the guide to [Install ToxCore].
 
 ```bash
