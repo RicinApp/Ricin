@@ -58,11 +58,11 @@ public class Ricin.Ricin : Gtk.Application {
       config_sample.copy (config_file, FileCopyFlags.OVERWRITE);
     }*/
 
-    bool use_gtk32 = (Gtk.MINOR_VERSION >= 20);
+    bool use_gtk32 = (Gtk.MAJOR_VERSION >= 3 && Gtk.MINOR_VERSION >= 20);
     string themes_folder = (use_gtk32) ? "gtk-3.2x" : "gtk-3.1x";
     if (this.settings.enable_custom_themes) {
       string selected_theme = this.settings.selected_theme;
-      string theme_path = @"$resource_base_path/themes/$(themes_folder)/";
+      string theme_path = Ricin.RES_BASE_PATH + @"themes/$(themes_folder)/";
       string theme_file = theme_path + selected_theme + ".css";
 
       // If theme doesn't exists apply the default one.
@@ -75,13 +75,13 @@ public class Ricin.Ricin : Gtk.Application {
 
       // Load the default css.
       var provider = new Gtk.CssProvider ();
-      provider.load_from_resource (@"/chat/tox/ricin/themes/$(themes_folder)/styles.css"); // Load default css helpers.
+      provider.load_from_resource (Ricin.RES_BASE_PATH + @"themes/$(themes_folder)/styles.css"); // Load default css.
       provider.load_from_resource (this.current_theme);
       Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (),
           provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
     } else {
       var provider = new Gtk.CssProvider ();
-      provider.load_from_resource (@"/chat/tox/ricin/themes/$(themes_folder)/styles.css"); // Load default css helpers.
+      provider.load_from_resource (Ricin.RES_BASE_PATH + @"themes/$(themes_folder)/styles.css"); // Load default css.
       Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (),
           provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
     }
@@ -102,7 +102,7 @@ public class Ricin.Ricin : Gtk.Application {
   private static bool version = false;
   private const GLib.OptionEntry[] OPTIONS = {
     { "version", 'v', 0, OptionArg.NONE, ref version, "Display the Ricin version", null },
-    { null } // List terminator
+    { null } // List terminator.
   };
 
   public static int main (string[] args) {

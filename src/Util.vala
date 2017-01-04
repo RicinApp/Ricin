@@ -1,6 +1,11 @@
 namespace Util {
   // TAGS to replace with EMOJIS, indexes MUST match.
   public static const string[] TAGS = {
+    ":tox:", ":lock:", ":ghost:", ":alien:", ":skull:",
+    "<<3", ":wolf:", ":punch:", ":fuck:", ":muscle:",
+    ":poop:", ":imp:", ":smiling_imp:", ":money:", ":nerd:",
+    ":kiss:", ":sunglasses:", ":yum:", ":blush:", ":thinking:",
+    ":rage:", ":cowboy:", ":clown:", ":metal:", ":vulcan:",
     ":+1:", ":-1:", ":@", ">:(", ":$",
     "<3", ":3", ":\\", ":'(", ":-'(",
     ":o", ":O", ":(", ":-(", ":[",
@@ -8,12 +13,16 @@ namespace Util {
     "0:)", "o:)", "O:)", ":)", ":-)",
     ":]", ":-]", ":d", ":D", ":-D",
     ":|", ":-|", ":p", ":P", ":-p",
-    ":-P", "8)", "8-)", "B:)", "B:-)",
-    ":tox:", ":lock:", ":ghost:", ":alien:", ":skull:",
+    ":-P", "8)", "8-)", "B:)", "B:-)"
   };
 
   // EMOJIS that replaces TAGS, indexes MUST match.
   public static const string[] EMOJIS = {
+    "🔒", "🔒", "👻", "👽", "💀",
+    "♥", "🐺", "👊", "🖕", "💪",
+    "💩", "👿", "😈", "🤑", "🤓",
+    "😘", "😎", "😋", "😊", "🤔",
+    "😡", "🤠", "🤡", "🤘", "🖖",
     "👍", "👎", "😠", "😠", "😊",
     "💙", "🐱", "😕", "😢", "😢",
     "😵", "😵", "😦", "😦", "😦",
@@ -21,8 +30,7 @@ namespace Util {
     "😇", "😇", "😇", "😄", "😄",
     "😄", "😄", "😆", "😆", "😆",
     "😐", "😐", "😛", "😛", "😛",
-    "😛", "😎", "😎", "😎", "😎",
-    "🔒", "🔒", "👻", "👽", "💀",
+    "😛", "😎", "😎", "😎", "😎"
   };
 
   public static uint8[] hex2bin (string s) {
@@ -50,6 +58,21 @@ namespace Util {
     string result = (string) str;
     assert (result.validate ());
     return result;
+  }
+
+  public static int sort_az (string first, string second) {
+    int l = int.min (first.length, second.length);
+    for (int i = 0; i < l; i++) {
+      if (first[i] > second[i]) return 1;
+      if (second[i] > first[i]) return -1;
+    }
+    
+    if (first.length > l) return 1;
+    return -1;
+  }
+  
+  public static int sort_az_nocase (string first, string second) {
+    return Util.sort_az (first.down (), second.down ());
   }
 
   public static Gdk.Pixbuf pubkey_to_image (string pubkey, int width = 48, int height = 48) {

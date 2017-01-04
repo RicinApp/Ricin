@@ -32,11 +32,19 @@
 @define-color swatch_gray #E0E0E0;
 @define-color swatch_gray_disabled #acacac;
 @define-color swatch_gray_border #ABB;
+@define-color swatch_orange #e67e22;
 
 @import url("app.css");
 
 .badge {
   background-color: @swatch_principal;
+  color: @white_primary;
+  border-radius: 0px;
+  padding: 3px 5px;
+  font-size: 7px;
+}
+.badge-important {
+  background: @swatch_orange;
   color: @white_primary;
   border-radius: 0px;
   padding: 3px 5px;
@@ -58,6 +66,35 @@
 #chatview-header,
 #chatview-header button {
   border-bottom: 1px solid @swatch_gray_border;
+}
+
+#chatview-invite-peers {
+  background-color: @white_primary;
+  color: @ui_main;
+  border-bottom: 1px solid @swatch_gray;
+}
+
+#chatview-invite-peers entry,
+#chatview-invite-peers button {
+  background: @swatch_gray;
+  border: 1px solid @swatch_gray_border;
+  color: black;
+}
+
+#chatview-invite-peers entry:focus {
+  background: @white_primary;
+  border: 1px solid @swatch_principal;
+}
+#chatview-invite-peers entry:selected {
+  color: @white_primary;
+  background-color: @selected_color;
+  outline: none;
+}
+
+#chatview-invite-peers button:hover {
+  background: @swatch_principal;
+  border: 1px solid @swatch_principal;
+  color: @white_primary;
 }
 
 #chatview-content,

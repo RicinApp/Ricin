@@ -40,9 +40,11 @@ class Ricin.MessageListRow : Gtk.ListBoxRow {
       if (this.settings.compact_mode) {
         this.label_name.visible = false;
         this.image_author.visible = true;
+        this.image_author.set_size_request (-1, -1);
       } else {
         this.label_name.visible = true;
         this.image_author.visible = false;
+        this.label_name.set_size_request (-1, -1);
       }
     });
 

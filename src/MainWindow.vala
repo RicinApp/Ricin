@@ -1,3 +1,5 @@
+using Gtk;
+
 [GtkTemplate (ui="/chat/tox/ricin/ui/main-window.ui")]
 public class Ricin.MainWindow : Gtk.ApplicationWindow {
   // User profile.
@@ -46,8 +48,8 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
   [GtkChild] Gtk.Button button_settings;
 
   private SettingsView settings_view;
-  private ListStore friends = new ListStore (typeof (Tox.Friend));
-  private ListStore groups = new ListStore (typeof (Tox.Group));
+  private GLib.ListStore friends = new GLib.ListStore (typeof (Tox.Friend));
+  private GLib.ListStore groups = new GLib.ListStore (typeof (Tox.Group));
 
   public Tox.Tox tox;
   public string focused_view;
@@ -517,7 +519,6 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
         return 1;
       }
       return friend1.fr.status - friend2.fr.status;
-      //return friend1.fr.name  friend2.fr.name;
     }
     return friend1.fr.status - friend2.fr.status;
   }
@@ -535,7 +536,6 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
   }
 
   public void remove_friend (Tox.Friend fr) {
-    //var friend = (this.friends.get_object (fr.num) as Tox.Friend);
     var friend = fr;
     var name = friend.get_uname ();
     var dialog = new Gtk.MessageDialog (
@@ -572,33 +572,59 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
   }
 
   public void remove_group (Tox.Group group) {
-    //debug ("Removing group %d, %s", group.num, group.name);
+    /**
+    * Leave a group properly:
+    * 1. Remove the GroupChatView ;
+    * 2. Remove the FriendListRow associated to the group ;
+    * 3. Ask Tox instance to remove the groupchat ;
+    * 4. Switch to the next view.
+    **/
+    // Get the widgets.
+    FriendListRow row = (FriendListRow) this.selected_row;
+    GroupChatView view = (GroupChatView) this.chat_stack.get_child_by_name (row.view_name);
+    int row_index = row.get_index ();
+
+    // Now remove them.
+    this.chat_stack.remove (view);
+    this.grouplist.remove (row);
+
+    // Then guess the next row to select.
+    int groups_rows = (int) this.grouplist.get_children ().length ();
+    int friends_rows = (int) this.friendlist.get_children ().length ();
+    ListBoxRow next_row = null;
+
+    if (groups_rows > 0) // We have groups, next is a group.
+    {
+      next_row = (ListBoxRow) this.grouplist.get_row_at_index (0);
+      this.grouplist.select_row (next_row);
+    }
+    else if (groups_rows == 0 && friends_rows > 0) // We have no groups but friends, next is a friend.
+    {
+      next_row = (ListBoxRow) this.friendlist.get_row_at_index (0);
+      this.friendlist.select_row (next_row);
+    }
+    else // We have no groups nor friends, next is settings.
+    {
+      this.grouplist.select_row (null);
+      this.friendlist.select_row (null);
+    }
+    
+    // Now display the correct group, friend or setting view.
+    if (next_row != null) {
+      Widget next_view = this.chat_stack.get_child_by_name (((FriendListRow) next_row).view_name);
+      this.chat_stack.set_visible_child (next_view);
+    } else {
+      this.display_settings ();
+    }
+    
+    // Finally, ask toxcore to leave the group.
     bool result = this.tox.leave_group (group.num);
     if (result) {
-      debug ("Left group %d, %s", group.num, group.name);
-      //uint groups_count = this.grouplist.get_children ().length ();
-      try {
-        Gtk.ListBoxRow next_row = this.friendlist.get_row_at_index (0);
-        //var old_view = this.chat_stack.get_child_by_name (((FriendListRow) this.selected_row).view_name);
-        //this.chat_stack.remove (old_view);
-        this.grouplist.remove (this.selected_row);
-        
-        this.selected_row = next_row;
-        this.selected_row.activate ();
-        this.friendlist.select_row (next_row);
-
-        var next_view = ((FriendListRow) next_row).view_name;
-        var view = this.chat_stack.get_child_by_name (next_view);
-        this.chat_stack.set_visible_child (view);
-      } catch (Error e) {
-        debug ("Error while leaving group %d, error: %s", group.num, e.message);
-        var view = this.chat_stack.get_child_by_name ("settings"); // Fallback to settings.
-        this.chat_stack.set_visible_child (view);
-      }
-
-      this.grouplist.invalidate_filter (); // Update the grouplist.
-      this.grouplist.invalidate_sort (); // Update the grouplist.
+      debug ("Left the group number %d", group.num);
     }
+
+    this.grouplist.invalidate_filter (); // Update the grouplist.
+    this.grouplist.invalidate_sort (); // Update the grouplist.
   }
 
   public void show_add_friend_popover_with_text (string toxid = "", string message = "") {
@@ -713,7 +739,7 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
     /**
     * TODO + FIXME
     **/
-    /**
+    /*
     var opts = Tox.Options.create ();
     opts.ipv6_enabled = this.settings.get_bool ("ricin.network.ipv6");
     opts.udp_enabled = this.settings.get_bool ("ricin.network.udp");
@@ -729,7 +755,7 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
     } catch (Error e) {
       error (@"Cannot reload profile.");
     }
-    **/
+    */
 
     /**
     * Until I find a fix for the code above, lets just warn the user that
@@ -875,23 +901,19 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
         // Set status to away.
         this.tox.status = Tox.UserStatus.AWAY;
         icon = "idle";
-        //this.image_user_status.icon_name = "user-away";
         break;
       case Tox.UserStatus.AWAY:
         // Set status to busy.
         this.tox.status = Tox.UserStatus.BUSY;
         icon = "busy";
-        //this.image_user_status.icon_name = "user-busy";
         break;
       case Tox.UserStatus.BUSY:
         // Set status to online.
         this.tox.status = Tox.UserStatus.ONLINE;
         icon = "online";
-        //this.image_user_status.icon_name = "user-available";
         break;
       default:
         icon = "offline";
-        //this.image_user_status.icon_name = "user-offline";
         break;
     }
 

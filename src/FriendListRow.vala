@@ -20,6 +20,7 @@ class Ricin.FriendListRow : Gtk.ListBoxRow {
   private ViewType view_type;
   private string iconName = "offline";
   private Gdk.Pixbuf pixbuf;
+  private bool is_important_set = false;
 
   public string view_name;
   public int unreadCount = 0;
@@ -39,12 +40,12 @@ class Ricin.FriendListRow : Gtk.ListBoxRow {
       if (this.fr.get_uname () == null) {
         this.username.set_text (this.fr.pubkey);
       } else {
-        this.username.set_text (Util.escape_html (this.fr.get_uname ()));
+        this.username.set_markup (Util.render_emojis (Util.escape_html (this.fr.get_uname ())));
       }
       this.status.set_markup (Util.escape_html (this.fr.get_ustatus_message ()));
       this.status.set_tooltip_markup (Util.escape_html (this.fr.get_ustatus_message ()));
     } else {
-      this.username.set_text (Util.escape_html (this.fr.name));
+      this.username.set_markup (Util.render_emojis (Util.escape_html (this.fr.name)));
       this.status.set_text (Util.escape_html (this.fr.status_message));
       this.status.set_tooltip_markup (Util.escape_html (this.fr.status_message));
     }
@@ -76,9 +77,11 @@ class Ricin.FriendListRow : Gtk.ListBoxRow {
       }
     });
 
-    fr.bind_property ("name", username, "label", BindingFlags.DEFAULT);
-    //fr.bind_property ("status-message", status, "label", BindingFlags.DEFAULT);
     fr.avatar.connect (p => avatar.pixbuf = p);
+
+    fr.notify["name"].connect ((obj, prop) => {
+      this.username.set_markup (Util.render_emojis (Util.escape_html (this.fr.name)));
+    });
 
     fr.notify["status-message"].connect ((obj, prop) => {
       this.status.set_text (this.fr.status_message);
@@ -132,7 +135,7 @@ class Ricin.FriendListRow : Gtk.ListBoxRow {
     this.view_name = "group-%d".printf (group.id);
     this.group = group;
 
-    this.username.set_text (this.group.name);
+    this.username.set_markup (Util.render_emojis (this.group.name));
     this.username.set_tooltip_text (this.group.name);
     this.status.set_text (_("%d peers").printf (this.group.peers_count));
     //this.status.set_text ("Peers: 0");
@@ -157,7 +160,7 @@ class Ricin.FriendListRow : Gtk.ListBoxRow {
     });
 
     this.group.title_changed.connect ((peer_num, title) => {
-      this.username.set_text (this.group.name);
+      this.username.set_markup (Util.render_emojis (this.group.name));
       this.username.set_tooltip_text (this.group.name);
       //this.status.set_text (_("Peers: %d", this.group.peers.length ()));
       if (this.view_type == ViewType.COMPACT) {
@@ -170,10 +173,16 @@ class Ricin.FriendListRow : Gtk.ListBoxRow {
       this.pixbuf = this.avatar.pixbuf;
     });
 
-    this.group.message.connect (() => {
+    this.group.message.connect ((peer, msg) => {
+      if (this.is_important_set == false) {
+        this.is_important_set = (msg.down ().index_of (this.group.tox.username.down ()) != -1);
+      }
       this.notify_new_messages ();
     });
-    this.group.action.connect (() => {
+    this.group.action.connect ((peer, msg) => {
+      if (this.is_important_set == false) {
+        this.is_important_set = (msg.down ().index_of (this.group.tox.username.down ()) != -1);
+      }
       this.notify_new_messages ();
     });
 
@@ -182,6 +191,7 @@ class Ricin.FriendListRow : Gtk.ListBoxRow {
       main_window.global_unread_counter -= this.unreadCount;
 
       this.unreadCount = 0;
+      this.is_important_set = false;
       this.update_icon ();
       this.changed ();
 
@@ -191,15 +201,21 @@ class Ricin.FriendListRow : Gtk.ListBoxRow {
   }
 
   public void update_icon () {
-    /*string icon = Util.status_to_icon (this.fr.status, this.unreadCount);
-    this.userstatus.set_from_resource (@"/chat/tox/ricin/images/status/$icon.png");*/
-
+    if (this.is_important_set == true) {
+      this.label_unread_count.get_style_context ().remove_class ("badge");
+      this.label_unread_count.get_style_context ().add_class ("badge-important");
+    } else {
+      this.label_unread_count.get_style_context ().remove_class ("badge-important");
+      this.label_unread_count.get_style_context ().add_class ("badge");
+    }
+    
     if (this.unreadCount == 0) {
       this.label_unread_count.visible = false;
+      this.is_important_set = false;
     } else {
       string count_str = this.unreadCount > 90 ? "<b>90+</b>" : @"$(this.unreadCount)";
-
       this.label_unread_count.set_markup (count_str);
+      this.label_unread_count.set_size_request (-1, -1);
       this.label_unread_count.visible = true;
     }
   }

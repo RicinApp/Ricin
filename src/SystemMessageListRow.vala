@@ -4,6 +4,6 @@ class Ricin.SystemMessageListRow : Gtk.ListBoxRow {
   private uint position;
 
   public SystemMessageListRow (string message) {
-    this.label_message.set_markup (message);
+    this.label_message.set_markup (Util.render_emojis (message));
   }
 }

@@ -77,9 +77,9 @@ class Ricin.ChatView : Gtk.Box {
   }
 
   private void init_widgets () {
-    this.label_friend_profil_name.set_text (this.fr.get_uname ());
+    this.label_friend_profil_name.set_markup (Util.render_emojis (this.fr.get_uname ()));
     this.label_friend_profile_status_message.set_markup (Util.render_litemd (this.fr.get_ustatus_message ()));
-    this.username.set_text (this.fr.get_uname ());
+    this.username.set_markup (Util.render_emojis (this.fr.get_uname ()));
     this.status_message.set_markup (Util.render_litemd (this.fr.get_ustatus_message ()));
 
     this.user_avatar.pixbuf = Util.pubkey_to_image(this.fr.pubkey, 48, 48);;
@@ -120,9 +120,9 @@ class Ricin.ChatView : Gtk.Box {
     this.fr.bind_property ("connected", this.send_file, "sensitive", BindingFlags.DEFAULT);
     this.fr.bind_property ("connected", this.button_show_emoticons, "sensitive", BindingFlags.DEFAULT);
     this.fr.bind_property ("connected", this.button_show_markdown_help, "sensitive", BindingFlags.DEFAULT);
-    this.fr.bind_property ("name", this.username, "label", BindingFlags.DEFAULT);
+    //this.fr.bind_property ("name", this.username, "label", BindingFlags.DEFAULT);
     this.fr.bind_property ("status-message", this.status_message, "label", BindingFlags.DEFAULT);
-    this.fr.bind_property ("name", this.label_friend_profil_name, "label", BindingFlags.DEFAULT);
+    //this.fr.bind_property ("name", this.label_friend_profil_name, "label", BindingFlags.DEFAULT);
     this.fr.bind_property ("status-message", this.label_friend_profile_status_message, "label", BindingFlags.DEFAULT);
 
     this.fr.avatar.connect ((pixbuf) => {
@@ -137,6 +137,11 @@ class Ricin.ChatView : Gtk.Box {
       string friend_name = Util.escape_html (this.fr.name);
       this.label_friend_is_typing.set_markup (@"<i>$friend_name " + _("is typing") + "</i>");
       this.friend_typing.reveal_child = this.fr.typing;
+    });
+
+    this.fr.notify["name"].connect ((obj, prop) => {
+      this.label_friend_profil_name.set_markup (Util.render_emojis (this.fr.get_uname ()));
+      this.username.set_markup (Util.render_emojis (this.fr.get_uname ()));
     });
 
     this.fr.notify["status-message"].connect ((obj, prop) => {

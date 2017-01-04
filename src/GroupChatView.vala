@@ -20,6 +20,12 @@ class Ricin.GroupChatView : Gtk.Box {
   [GtkChild] Gtk.Button button_group_leave;
   [GtkChild] Gtk.Button button_group_mute;
 
+  // Invite peers in groupchat.
+  [GtkChild] Gtk.Image image_icon_invite_peers;
+  [GtkChild] Gtk.Revealer revealer_invite_peers;
+  [GtkChild] Gtk.Entry entry_invite_peers;
+  [GtkChild] Gtk.Button button_invite_peers;
+
   // Group content.
   [GtkChild] Gtk.ScrolledWindow scroll_messages;
   [GtkChild] Gtk.ListBox messages_list;
@@ -27,7 +33,7 @@ class Ricin.GroupChatView : Gtk.Box {
   // Group input.
   [GtkChild] public Gtk.Entry entry;
   [GtkChild] Gtk.Button button_send;
-  
+
   [Signal (action = true)] private signal void copy_messages_selection ();
   [Signal (action = true)] private signal void quote_messages_selection ();
   [Signal (action = true)] private signal void entry_insert_newline ();
@@ -40,6 +46,11 @@ class Ricin.GroupChatView : Gtk.Box {
   private string last_message = null;
   private bool is_bottom = true;
 
+  // Autocomplete popup.
+  private Gtk.ListStore peers = new Gtk.ListStore (1, typeof (string));
+  private Gtk.EntryCompletion completion = new Gtk.EntryCompletion ();
+
+  // Constructor.
   public GroupChatView (Tox.Tox handle, Tox.Group group, Gtk.Stack stack, string view_name) {
     this.group = group;
     this.handle = handle;
@@ -51,14 +62,15 @@ class Ricin.GroupChatView : Gtk.Box {
     this.init_signals ();
     this.init_messages_menu ();
     this.init_messages_shortcuts ();
+    this.init_completion ();
   }
 
   private void init_widgets () {
     // Initialize groupchat name.
     if (this.group.name != null) {
-      this.name.set_text (this.group.name);
+      this.name.set_markup (Util.render_emojis (this.group.name));
       this.topic.set_markup (Util.add_markup (this.group.name));
-      this.label_group_name.set_text (this.group.name);
+      this.label_group_name.set_markup (Util.render_emojis (this.group.name));
       this.label_group_topic.set_markup (Util.add_markup (this.group.name));
 
       // Perform ToxIdenticon against the group name.
@@ -66,6 +78,18 @@ class Ricin.GroupChatView : Gtk.Box {
       var pixbuf_scaled = Gdk.pixbuf_get_from_surface (surface, 0, 0, 48, 48);
       this.avatar.pixbuf = pixbuf_scaled;
     }
+
+    this.listbox_friends.set_sort_func ((row1, row2) => {
+      string peer_name1 = ((GroupListRow) row1).peer.name;
+      string peer_name2 = ((GroupListRow) row2).peer.name;
+      return Util.sort_az_nocase (peer_name1, peer_name2);
+    });
+
+    this.listbox_unknown_peers.set_sort_func ((row1, row2) => {
+      string peer_name1 = ((GroupListRow) row1).peer.name;
+      string peer_name2 = ((GroupListRow) row2).peer.name;
+      return Util.sort_az_nocase (peer_name1, peer_name2);
+    });
   }
 
   private void init_signals () {
@@ -87,23 +111,33 @@ class Ricin.GroupChatView : Gtk.Box {
 
     // Keep group name in sync.
     this.group.title_changed.connect ((peer, title) => {
-      this.name.set_text (this.group.name);
+      this.name.set_markup (Util.render_emojis (this.group.name));
       this.topic.set_markup (Util.add_markup (this.group.name));
-      this.label_group_name.set_text (this.group.name);
+      this.label_group_name.set_markup (Util.render_emojis (this.group.name));
       this.label_group_topic.set_markup (Util.add_markup (this.group.name));
 
       Cairo.Surface surface = Util.identicon_for_pubkey (this.group.name, 48);
       var pixbuf_scaled = Gdk.pixbuf_get_from_surface (surface, 0, 0, 48, 48);
       this.avatar.pixbuf = pixbuf_scaled;
+
+      string message = "";
+      if (this.group.peers[peer].name == null) {
+        message = _("The topic was set to « %s ».").printf (title);
+      } else {
+        message = _("%s set the topic to « %s ».").printf (this.group.peers[peer].name, title);
+      }
+
+      InfoListRow row = new InfoListRow (message);
+      this.messages_list.add (row);
     });
 
     this.group.message.connect ((peer, message) => {
-      print ("New message from group %d: [Peer %d] %s\n", this.group.num, peer.num, message);
-    
+      debug ("New message from group %d: [Peer %d] %s", this.group.num, peer.num, message);
       string current_time = time ();
       if (message.index_of (">", 0) == 0) {
         string markup = Util.add_markup (message);
         var msg = new QuoteMessageListRow (this.handle, null, markup, current_time, -1, false);
+        msg.author = peer.name;
         msg.label_name.set_text (peer.name);
         msg.image_author.set_tooltip_text (peer.name);
         msg.image_author.pixbuf = Util.pubkey_to_image (peer.pubkey, 24, 24);
@@ -112,6 +146,7 @@ class Ricin.GroupChatView : Gtk.Box {
       } else {
         string markup = Util.add_markup (message);
         var msg = new MessageListRow (this.handle, null, markup, current_time, -1, false);
+        msg.author = peer.name;
         msg.label_name.set_text (peer.name);
         msg.image_author.set_tooltip_text (peer.name);
         msg.image_author.pixbuf = Util.pubkey_to_image (peer.pubkey, 24, 24);
@@ -129,7 +164,7 @@ class Ricin.GroupChatView : Gtk.Box {
 
       ((MainWindow) this.get_toplevel ()).set_desktop_hint (true);
     });
-    
+
     this.group.peer_count_changed.connect (() => {
       this.label_unknown_peers.set_markup ("%s (%d)".printf (
         _("<b>Unknown peers</b>"), (int)this.listbox_unknown_peers.get_children ().length ())
@@ -137,51 +172,32 @@ class Ricin.GroupChatView : Gtk.Box {
       this.label_friends.set_markup ("%s (%d)".printf (
         _("<b>Friends</b>"), (int)this.listbox_friends.get_children ().length ())
       );
+
+      this.refresh_peers_list ();
     });
 
     this.group.peer_added.connect (peer => {
       if (peer.pubkey == this.handle.pubkey) {
         return;
       }
-    
-      GroupListRow row = new GroupListRow (peer);
-      if (this.handle.has_friend (peer.pubkey)) {
-        this.listbox_friends.insert (row, peer.num);
-      } else {
-        this.listbox_unknown_peers.insert (row, peer.num);
+
+      DateTime now = new DateTime.now_local ();
+      DateTime init_time = this.group.joined_time.add_seconds (10);
+      if (init_time.compare (now) == -1) { // Avoid spam when joining a group.
+        if (peer.name != "Tox User") {
+          InfoListRow info_row = new InfoListRow (_("%s joined the group.").printf (peer.name));
+          this.messages_list.add (info_row);
+        }
       }
     });
 
-    this.group.peer_removed.connect ((peer_num, peer_pubkey) => {
+    this.group.peer_removed.connect ((peer_num, peer_pubkey, peer_name) => {
       if (peer_pubkey == this.handle.pubkey) {
         return;
       }
 
-      /*if (this.group.peers[peer_num] == null) {
-        return;
-      }*/
-
-      if (this.handle.has_friend (peer_pubkey)) {
-        List<weak Gtk.Widget> childs = this.listbox_friends.get_children ();
-        foreach (Gtk.Widget m in childs) {
-          GroupListRow row = (GroupListRow) m;
-          if (row.pubkey == peer_pubkey) {
-            debug ("Friend %d left the group %d, %s", peer_num, this.group.num, this.group.name);
-            this.listbox_friends.remove (row);
-            break;
-          }
-        }
-      } else {
-        List<weak Gtk.Widget> childs = this.listbox_unknown_peers.get_children ();
-        foreach (Gtk.Widget m in childs) {
-          GroupListRow row = (GroupListRow) m;
-          if (row.pubkey == peer_pubkey) {
-            debug ("Peer %d left the group %d, %s", peer_num, this.group.num, this.group.name);
-            this.listbox_unknown_peers.remove (row);
-            break;
-          }
-        }
-      }
+      InfoListRow info_row = new InfoListRow (_("%s left the group.").printf (peer_name));
+      this.messages_list.add (info_row);
     });
   }
 
@@ -211,7 +227,6 @@ class Ricin.GroupChatView : Gtk.Box {
     var menu_clear_chat = new Gtk.ImageMenuItem.with_label (_("Clear conversation"));
     menu_clear_chat.always_show_image = true;
     menu_clear_chat.set_image (new Gtk.Image.from_icon_name ("edit-clear-all-symbolic", Gtk.IconSize.MENU));
-
 
     menu_copy_selection.activate.connect (() => {
       if (this.messages_selected () == false) {
@@ -297,13 +312,7 @@ class Ricin.GroupChatView : Gtk.Box {
     });
   }
 
-  /*private MainWindow get_top () {
-
-  }*/
-
   private void init_messages_shortcuts () {
-    //var main_window = ((MainWindow) this.get_toplevel ().get_toplevel ());
-
     /**
     * Shortcut for Ctrl+Shift+C: Copy selected messages if selection > 0
     **/
@@ -325,7 +334,7 @@ class Ricin.GroupChatView : Gtk.Box {
     });
 
     /**
-    * Shortcut for Ctrl+Shift+Q: Quote selected messages if selection > 0
+    * Shortcut for Shift+Q: Quote selected messages if selection > 0
     **/
     this.add_accelerator (
       "quote-messages-selection", MainWindow.accel_group, Gdk.keyval_from_name("Q"),
@@ -333,15 +342,13 @@ class Ricin.GroupChatView : Gtk.Box {
     );
 
     this.quote_messages_selection.connect (() => {
-      if (this.messages_selected () == false) {
-        return;
+      if (this.messages_selected () == true) {
+        string quote = this.get_selected_messages (true, false);
+        this.entry.set_text (quote);
+        this.messages_list.unselect_all ();
+        this.entry.grab_focus_without_selecting ();
+        this.entry.set_position (-1);
       }
-
-      string quote = this.get_selected_messages (true, false);
-      this.entry.set_text (quote);
-      this.messages_list.unselect_all ();
-      this.entry.grab_focus_without_selecting ();
-      this.entry.set_position (-1);
     });
 
     /**
@@ -366,6 +373,65 @@ class Ricin.GroupChatView : Gtk.Box {
     });
   }
 
+  private void init_completion () {
+    this.entry.set_completion (this.completion);
+
+    this.completion.set_model (this.peers);
+    this.completion.set_text_column (0);
+
+    this.completion.inline_selection = true;
+    this.completion.inline_completion = true;
+    this.completion.popup_completion = true;
+    this.completion.popup_set_width = false;
+  }
+
+  private void refresh_peers_list () {
+    Tox.Peer[] peers = this.handle.get_peers_for_group (this.group.num);
+
+    // Clear both peers listbox.
+    this.listbox_friends.forall ((element) => {
+      this.listbox_friends.remove (element);
+    });
+
+    this.listbox_unknown_peers.forall ((element) => {
+      this.listbox_unknown_peers.remove (element);
+    });
+
+    // Clear the listStore.
+    this.peers.clear ();
+
+    // Add peers in the correct listbox + liststore for completion.
+    Gtk.TreeIter iter;
+    for (int i = 0; i < peers.length; i++) {
+      Tox.Peer peer = peers[i];
+
+      if (peer.pubkey == this.handle.pubkey) {
+        continue;
+      }
+
+      GroupListRow row = new GroupListRow (peer);
+      row.init_mute_button ();
+
+      if (this.handle.has_friend (peer.pubkey)) {
+        peer.notify["name"].connect (() => {
+          this.listbox_friends.invalidate_sort ();
+        });
+        this.listbox_friends.insert (row, peer.num);
+      } else {
+        peer.notify["name"].connect (() => {
+          this.listbox_unknown_peers.invalidate_sort ();
+        });
+        this.listbox_unknown_peers.insert (row, peer.num);
+      }
+
+      this.peers.append (out iter);
+      this.peers.set (iter, 0, peer.name);
+    }
+
+    this.listbox_friends.invalidate_sort ();
+    this.listbox_unknown_peers.invalidate_sort ();
+  }
+
   private string time () {
     return new DateTime.now_local ().format ("%H:%M:%S %p");
   }
@@ -379,7 +445,7 @@ class Ricin.GroupChatView : Gtk.Box {
       this.messages_list.remove (m);
     }
   }
-  
+
   private bool messages_selected () {
     return (this.messages_list.get_selected_rows ().length () > 0);
   }
@@ -399,6 +465,9 @@ class Ricin.GroupChatView : Gtk.Box {
       } else if (item is QuoteMessageListRow) {
         name = "[" + ((QuoteMessageListRow) item).author + "]";
         txt  = ((QuoteMessageListRow) item).get_quote ();
+      } else if (item is InfoListRow) {
+        name = "* ";
+        txt = ((InfoListRow) item).message;
       }
 
       if (as_quote) {
@@ -463,6 +532,22 @@ class Ricin.GroupChatView : Gtk.Box {
     this.entry.text = "";
   }
 
+  // Callback: Invite preer in groupchat.
+  [GtkCallback]
+  private void toggle_invite_peers () {
+    this.revealer_invite_peers.notify["child-revealed"].connect (() => {
+      if (this.revealer_invite_peers.child_revealed) {
+        this.image_icon_invite_peers.set_from_icon_name ("window-close-symbolic", Gtk.IconSize.DND);
+        this.entry_invite_peers.grab_focus_without_selecting ();
+      } else {
+        this.image_icon_invite_peers.set_from_icon_name ("list-add-symbolic", Gtk.IconSize.DND);
+        this.entry.grab_focus_without_selecting ();
+      }
+    });
+
+    this.revealer_invite_peers.set_reveal_child (!this.revealer_invite_peers.child_revealed);
+  }
+
   // Callback: Toggle group menu.
   [GtkCallback]
   private void toggle_group_menu () {
@@ -474,21 +559,40 @@ class Ricin.GroupChatView : Gtk.Box {
   [GtkCallback]
   private void leave_group () {
     var main_window = ((MainWindow) this.get_toplevel ());
-    main_window.remove_group (this.group);
+    if (main_window != null) {
+      main_window.remove_group (this.group);
+    }
   }
 
   // Callback: Mute the group (no notifications).
   [GtkCallback]
   private void mute_group () {
     this.group.muted = !this.group.muted;
-    
     if (this.group.muted) {
       this.button_group_mute.label = _("Unmute");
     } else {
       this.button_group_mute.label = _("Mute");
     }
   }
-  
+
+  [GtkCallback]
+  private void peer_row_clicked (Gtk.ListBoxRow listbox_row) {
+    GroupListRow row = (GroupListRow) listbox_row;
+    string peer_name = row.peer.name;
+    int cursor_position = this.entry.get_position ();
+
+    string buffer = "";
+    if (cursor_position == 0) { // Start of the line, insert `$(peer_name): `.
+      buffer = @"$(peer_name): ";
+    } else { // Anywhere else, insert `$(peer_name)`.
+      buffer = peer_name;
+    }
+
+    this.entry.insert_at_cursor (buffer);
+    this.entry.grab_focus_without_selecting ();
+    this.entry.set_position (cursor_position + buffer.length);
+  }
+
   // Last scroll pos.
   private double _bottom_scroll = 0.0;
 

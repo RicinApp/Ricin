@@ -6,7 +6,7 @@ class Ricin.Notification : Object {
         notif = new Notify.Notification (sender, message, "dialog-information");
       } else {
         notif = new Notify.Notification (sender, message, null);
-        notif.set_image_from_pixbuf (icon);
+        notif.set_icon_from_pixbuf (icon);
       }
 
       notif.set_category ("im.received");
@@ -21,7 +21,8 @@ class Ricin.Notification : Object {
   public static void notify_status (Tox.Friend friend) {
     if (friend.status == Tox.UserStatus.ONLINE || friend.status == Tox.UserStatus.OFFLINE) {
       string status_str = Util.status_to_string (friend.status);
-      Notification.notify (friend.name + _(" is now ") + status_str, friend.status_message, 3000);
+      var icon = Util.pubkey_to_image (friend.pubkey, 48, 48);
+      Notification.notify (friend.name + _(" is now ") + status_str, friend.status_message, 3000, icon);
     }
   }
 }

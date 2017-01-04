@@ -673,6 +673,37 @@ namespace Tox {
       }
       return false;
     }
+    
+    public string[]? get_peers_name_for_group (int group_num) {
+      if (this.groups[group_num] == null) {
+        return null;
+      }
+      
+      string [] buffer = {};
+
+      for (int i = 0; i < this.groups[group_num].peers.length; i++) {
+        buffer += this.groups[group_num].peers[i].name;
+      }
+
+      return buffer;
+    }
+    
+    public Peer[]? get_peers_for_group (int group_num) {
+      if (this.groups[group_num] == null) {
+        return null;
+      }
+      
+      Peer[] peers = {};
+      for (int i = 0; i < this.groups[group_num].peers.length; i++) {
+        if (this.groups[group_num].peers[i] == null) {
+          continue;
+        }
+      
+        peers += this.groups[group_num].peers[i];
+      }
+      
+      return peers;
+    }
 
     public void save_data (string? pass = null) throws ErrDecrypt {
       if (this.profile != null) {
@@ -860,6 +891,7 @@ namespace Tox {
       this.tox = tox;
       this.group_num = group_num;
       this.num = num;
+      this.muted = false;
 
       /*this.name = this.parent_group.get_peer_name (this.num);
       this.pubkey = this.parent_group.get_peer_pubkey (this.num);*/
@@ -867,19 +899,22 @@ namespace Tox {
   }
 
   public class Group : Object {
-    private weak Tox tox;
+    public weak Tox tox;
     public HashTable<int, Peer> peers = new HashTable<int, Peer> (direct_hash, direct_equal);
     public int num;
     public int id;
 
     public string name { get; set; default = _("Untitled group"); }
+
     public bool muted { get; set; default = false; }
-    
+
     public int peers_count {
       get {
         return this.tox.handle.group_number_peers (this.num);
       }
     }
+
+    public DateTime joined_time { get; set; default = new DateTime.now_local (); }
 
     public signal void message (Peer peer, string message);
     public signal void action (Peer peer, string action);
@@ -887,7 +922,7 @@ namespace Tox {
     public signal void removed ();
     public signal void peer_count_changed ();
     public signal void peer_added (Peer peer);
-    public signal void peer_removed (int peer_num, string pubkey);
+    public signal void peer_removed (int peer_num, string peer_pubkey, string peer_name);
     public signal void peer_name_changed (Peer peer);
 
     public Group (Tox tox, int num) {
@@ -897,12 +932,8 @@ namespace Tox {
       Rand rnd = new Rand.with_seed ((uint32)new DateTime.now_local ().hash ());
       uint32 rnd_id = rnd.next_int ();
       this.id = (int)rnd_id;
-
-      this.init_signals ();
-    }
-
-    private void init_signals () {
-
+      
+      this.joined_time = new DateTime.now_local ();
     }
 
     public void add_peer (int peer_num) {
@@ -917,8 +948,10 @@ namespace Tox {
 
     public void remove_peer (int peer_num) {
       string pubkey = this.peers[peer_num].pubkey;
+      string peer_name = this.peers[peer_num].name;
+
       this.peers.remove (peer_num);
-      this.peer_removed (peer_num, pubkey);
+      this.peer_removed (peer_num, pubkey, peer_name);
       this.peer_count_changed ();
     }
     

@@ -28,11 +28,8 @@ public class Ricin.GroupListRow : Gtk.ListBoxRow {
       this.init_widgets ();
     });
   }
-
-  [GtkCallback]
-  private void mute_peer () {
-    this.peer.muted = !this.peer.muted;
-    
+  
+  public void init_mute_button () {
     if (this.peer.muted) {
       this.button_mute.set_tooltip_text (_("Unmute peer"));
       this.image_mute.icon_name = "notifications-disabled-symbolic";
@@ -40,5 +37,11 @@ public class Ricin.GroupListRow : Gtk.ListBoxRow {
       this.button_mute.set_tooltip_text (_("Mute peer"));
       this.image_mute.icon_name = "notifications-symbolic";
     }
+  }
+
+  [GtkCallback]
+  private void mute_peer () {
+    this.peer.muted = !this.peer.muted;
+    this.init_mute_button ();
   }
 }

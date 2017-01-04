@@ -151,7 +151,6 @@ class Settings : GLib.Object {
       );
       generator.to_stream (dos);
 
-      //debug (@"Saving settings to $(this.profile)");
       return true;
     } catch (Error e) {
       debug (@"Error saving settings: $(e.message)");
