@@ -8,83 +8,87 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-04-14 17:44+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2017-02-14 11:36+0000\n"
+"Last-Translator: Heimen Stoffels <vistausss@outlook.com>\n"
+"Language-Team: Dutch <https://hosted.weblate.org/projects/ricin/app/nl/>\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2.12-dev\n"
 
 #: src/ChatView.vala:367
 msgid " is now "
-msgstr ""
+msgstr " is nu "
 
 #: src/Wrapper.vala:222
 msgid " is now known as "
-msgstr ""
+msgstr " staat nu bekend als "
 
 #: res/ui/chat-view.ui:517
 msgid "**bold**"
-msgstr ""
+msgstr "**vetgedrukt**"
 
 #: res/ui/chat-view.ui:506
 msgid "*bold*"
-msgstr ""
+msgstr "*vetgedrukt*"
 
 #: res/ui/chat-view.ui:553
 msgid "//italic//"
-msgstr ""
+msgstr "//cursief//"
 
 #: res/ui/chat-view.ui:542
 msgid "/italic/"
-msgstr ""
+msgstr "/cursief/"
 
 #: res/ui/friend-list-notification_unusable.ui:42
 msgid ""
 "3 unused profiles found:\n"
 "<b>Snow, Guy, Aztek</b>"
 msgstr ""
+"3 ongebruikte profielen gevonden\n"
+"<b>Sneeuw, Man, Aztek</b>"
 
 #: res/ui/settings-view.ui:642
 msgid "9050"
-msgstr ""
+msgstr "9050"
 
 #: res/ui/chat-view.ui:293
 msgid "<b>Available Markdown tags</b>"
-msgstr ""
+msgstr "<b> Beschikbare opmaakmogelijkheden</b>"
 
 #: res/ui/settings-view.ui:906
 msgid "<b>Display friend's status changes?</b>"
-msgstr ""
+msgstr "<b>Wilt u statuswijzigingen van vrienden weergeven?</b>"
 
 #: res/ui/settings-view.ui:728
 msgid "<b>Enable custom themes?</b>"
-msgstr ""
+msgstr "<b>Wilt u aangepaste thema's inschakelen?</b>"
 
 #: res/ui/group-chat-view.ui:219
 msgid "<b>Friends</b>"
-msgstr ""
+msgstr "<b>Vrienden</b>"
 
 #: res/ui/settings-view.ui:513
 msgid "<b>IPv6</b>"
-msgstr ""
+msgstr "<b>IPv6</b>"
 
 #: res/ui/settings-view.ui:849
 msgid "<b>Language:</b>"
-msgstr ""
+msgstr "<b>Taal:</b>"
 
 #: src/Wrapper.vala:597
 msgid "<b>Last online:</b>"
-msgstr ""
+msgstr "<b>Laatst online op:</b>"
 
 #: res/ui/chat-view.ui:1123
 msgid "<b>Last seen:</b>"
-msgstr ""
+msgstr "<b>Laatst gezien op:</b>"
 
 #: res/ui/settings-view.ui:577
 msgid "<b>Proxy (SOCKS 5)</b>"
-msgstr ""
+msgstr "<b>Proxy (SOCKS 5)</b>"
 
 #: src/Ricin.vala:4 res/ui/settings-view.ui:1277
 msgid ""
@@ -92,500 +96,507 @@ msgid ""
 "customizable</i> chat client using the awesome and open-source <b>ToxCore</"
 "b> library."
 msgstr ""
+"<b>Ricin</b> streeft ernaar om een <i>veilige, lichtgewicht, tweakbare en "
+"volledig aanpasbare</i> chat-app te worden met behulp van de geweldige, open-"
+"bron <b>ToxCore</b>-bibliotheek."
 
 #: res/ui/settings-view.ui:1091
 msgid "<b>Send typing notifications?</b>"
-msgstr ""
+msgstr "<b>Wilt u 'bezig met typen'-meldingen versturen?</b>"
 
 #: res/ui/settings-view.ui:475
 msgid "<b>UDP</b>"
-msgstr ""
+msgstr "<b>UDP</b>"
 
 #: res/ui/group-chat-view.ui:247
 msgid "<b>Unknown peers</b>"
-msgstr ""
+msgstr "<b>Onbekende peers</b>"
 
 #: res/ui/settings-view.ui:1236
 msgid "<b>Version:</b>"
-msgstr ""
+msgstr "<b>Versie:</b>"
 
 #: res/ui/settings-view.ui:191
 msgid "<b>Your Tox alias:</b>"
-msgstr ""
+msgstr "<b>Uw Tox-alias:</b>"
 
 #: res/ui/settings-view.ui:72
 msgid "<b>Your ToxID:</b>"
-msgstr ""
+msgstr "<b>Uw ToxID:</b>"
 
 #: res/ui/chat-view.ui:1671
 msgid "<i>Friend is typing</i>"
-msgstr ""
+msgstr "<i>Uw vriend is bezig met typen</i>"
 
 #: res/ui/chat-view.ui:455
 msgid ">quote"
-msgstr ""
+msgstr ">citeren"
 
 #: res/ui/settings-view.ui:1455
 msgid "About"
-msgstr ""
+msgstr "Over"
 
 #: res/ui/main-window.ui:376
 msgid "Accept"
-msgstr ""
+msgstr "Accepteren"
 
 #: res/ui/inline-file-message-list-row.ui:205
 msgid "Accept/Resume file"
-msgstr ""
+msgstr "Bestand accepteren/hervatten"
 
 #: src/MainWindow.vala:564 src/MainWindow.vala:589 res/ui/main-window.ui:474
 #: res/ui/main-window.ui:541
 msgid "Add a friend"
-msgstr ""
+msgstr "Een vriend toevoegen"
 
 #: res/ui/main-window.ui:616
 msgid "Add friend"
-msgstr ""
+msgstr "Vriend toevoegen"
 
 #: src/MainWindow.vala:169
 msgid "All friends"
-msgstr ""
+msgstr "Alle vrienden"
 
 #: res/ui/chat-view.ui:352
 msgid "Alt syntax"
-msgstr ""
+msgstr "Alt-syntax"
 
 #: src/MainWindow.vala:455 src/Util.vala:156
 msgid "Away"
-msgstr ""
+msgstr "Afwezig"
 
 #: res/ui/settings-view.ui:257
 msgid "Biography"
-msgstr ""
+msgstr "Biografie"
 
 #: src/ChatView.vala:402 res/ui/chat-view.ui:1225
 msgid "Block"
-msgstr ""
+msgstr "Blokkeren"
 
 #: src/FriendListRow.vala:64
 msgid "Block friend"
-msgstr ""
+msgstr "Vriend blokkeren"
 
 #: src/Util.vala:150
 msgid "Blocked"
-msgstr ""
+msgstr "Geblokkeerd"
 
 #: res/ui/chat-view.ui:492
 msgid "Bold"
-msgstr ""
+msgstr "Vetgedrukt"
 
 #: src/MainWindow.vala:445 src/Util.vala:159
 msgid "Busy"
-msgstr ""
+msgstr "Bezig"
 
 #: res/ui/chat-view.ui:854
 msgid "Call friend"
-msgstr ""
+msgstr "Vriend bellen"
 
 #: src/MainWindow.vala:103
 msgid "Can't load the profile"
-msgstr ""
+msgstr "Het profiel kan niet worden geladen"
 
 #: res/ui/main-window.ui:637
 msgid "Cancel"
-msgstr ""
+msgstr "Annuleren"
 
 #: res/ui/inline-file-message-list-row.ui:175
 msgid "Cancel/pause file"
-msgstr ""
+msgstr "Bestand annuleren/pauzeren"
 
 #: res/ui/settings-view.ui:101
 msgid "Change Nospam"
-msgstr ""
+msgstr "Nospam wijzigen"
 
 #: res/ui/main-window.ui:86
 msgid "Change your avatar"
-msgstr ""
+msgstr "Wijzig uw gebruikersafbeelding"
 
 #: res/ui/main-window.ui:133
 msgid "Change your status"
-msgstr ""
+msgstr "Wijzig uw status"
 
 #: res/ui/settings-view.ui:442
 msgid ""
 "Changing Network settings will temporarily disconnect you from the Tox "
 "network"
 msgstr ""
+"Het wijzigen van netwerkinstellingen zorgt ervoor dat uw verbinding met het "
+"Tox-netwerk tijdelijk verbroken zal worden"
 
 #: src/ChatView.vala:462
 msgid "Choose a file"
-msgstr ""
+msgstr "Kies een bestand"
 
 #: src/ProfileChooser.vala:106
 msgid "Choose a name for the profile"
-msgstr ""
+msgstr "Kies een profielnaam"
 
 #: res/ui/chat-view.ui:1472
 msgid "Choose smileys"
-msgstr ""
+msgstr "Kies emoticons"
 
 #: src/SettingsView.vala:95
 msgid "Clearer theme"
-msgstr ""
+msgstr "Helderder thema"
 
 #: res/ui/chat-view.ui:1371
 msgid "Close the popup"
-msgstr ""
+msgstr "Pop-upvenster sluiten"
 
 #: res/ui/settings-view.ui:1345
 msgid "Contributors"
-msgstr ""
+msgstr "Bijdragers"
 
 #: res/ui/settings-view.ui:83 res/ui/settings-view.ui:213
 msgid "Copy"
-msgstr ""
+msgstr "Kopiëren"
 
 #: res/ui/chat-view.ui:1265
 msgid "Copy friend's ToxID"
-msgstr ""
+msgstr "ToxID van vriend kopiëren"
 
 #: res/ui/profile-chooser-window.ui:141
 msgid "Create a profile"
-msgstr ""
+msgstr "Een profiel creëren"
 
 #: res/ui/profile-chooser-window.ui:116
 msgid "Create this profile"
-msgstr ""
+msgstr "Dit profiel creëren"
 
 #: src/SettingsView.vala:93
 msgid "Dark theme"
-msgstr ""
+msgstr "Donker thema"
 
 #: res/ui/main-window.ui:356
 msgid "Decline"
-msgstr ""
+msgstr "Afwijzen"
 
 #: res/ui/chat-view.ui:1245
 msgid "Delete"
-msgstr ""
+msgstr "Verwijderen"
 
 #: res/ui/friend-list-notification_unusable.ui:59
 msgid "Delete friends (3)"
-msgstr ""
+msgstr "(3) vrienden verwijderen"
 
 #: res/ui/settings-view.ui:1026
 msgid "Display typing notifications?"
-msgstr ""
+msgstr "Wilt u 'bezig met typen'-meldingen weergeven?"
 
 #: res/ui/settings-view.ui:962
 msgid "Display unread messages notice?"
-msgstr ""
+msgstr "Wilt u een ongelezen berichten-indicator weergeven?"
 
 #: res/ui/profile-chooser-window.ui:88
 msgid "Enter a name for the profile"
-msgstr ""
+msgstr "Voer een profielnaam in"
 
 #: res/ui/chat-view.ui:763
 msgid "Friend's profile"
-msgstr ""
+msgstr "Profiel van vriend"
 
 #: res/ui/settings-view.ui:410
 msgid "General"
-msgstr ""
+msgstr "Algemeen"
 
 #: res/ui/settings-view.ui:1307
 msgid "GitHub"
-msgstr ""
+msgstr "GitHub"
 
 #: res/ui/group-chat-view.ui:60
 msgid "Groupchat name"
-msgstr ""
+msgstr "Naam van groepschat"
 
 #: src/MainWindow.vala:410
 #, c-format
 msgid "Hello! It's %s, let's be friends."
-msgstr ""
+msgstr "Hallo, %s hier! Laten we vrienden worden."
 
 #: src/InlineImageMessageListRow.vala:97
 msgid "Image saved!"
-msgstr ""
+msgstr "Afbeelding opgeslagen!"
 
 #: res/ui/chat-view.ui:600
 msgid "Inline code"
-msgstr ""
+msgstr "Inline-code"
 
 #: res/ui/settings-view.ui:1150
 msgid "Interface"
-msgstr ""
+msgstr "Uiterlijk"
 
 #: res/ui/chat-view.ui:528
 msgid "Italic"
-msgstr ""
+msgstr "Cursief"
 
 #: res/ui/group-chat-view.ui:289
 msgid "Leave"
-msgstr ""
+msgstr "Verlaten"
 
 #: res/ui/settings-view.ui:1395
 msgid "License (GNU General Public License 3)"
-msgstr ""
+msgstr "Licentie (GNU General Public License 3)"
 
 #: res/ui/profile-chooser-window.ui:72
 msgid "Load a profile"
-msgstr ""
+msgstr "Een profiel laden"
 
 #: res/ui/profile-chooser-window.ui:50
 msgid "Login"
-msgstr ""
+msgstr "Inloggen"
 
 #: res/ui/group-chat-view.ui:310
 msgid "Mute"
-msgstr ""
+msgstr "Dempen"
 
 #: res/ui/settings-view.ui:684
 msgid "Network"
-msgstr ""
+msgstr "Netwerk"
 
 #: res/ui/settings-view.ui:335
 msgid "New Tox alias"
-msgstr ""
+msgstr "Nieuwe Tox-alias"
 
 #: src/MainWindow.vala:383
 msgid "No"
-msgstr ""
+msgstr "Nee"
 
 #: res/ui/chat-view.ui:1160
 msgid "Notes about the user:"
-msgstr ""
+msgstr "Opmerkingen over de gebruiker:"
 
 #: src/Util.vala:163
 msgid "Offline"
-msgstr ""
+msgstr "Offline"
 
 #: src/MainWindow.vala:435 src/Util.vala:153
 msgid "Online"
-msgstr ""
+msgstr "Online"
 
 #: src/MainWindow.vala:168
 msgid "Online friends"
-msgstr ""
+msgstr "Online vrienden"
 
 #: src/ProfileChooser.vala:87
 msgid "Please enter a profile name."
-msgstr ""
+msgstr "Voer een profielnaam in."
 
 #: src/ProfileChooser.vala:94
 msgid "Profile name already taken."
-msgstr ""
+msgstr "De profielnaam is al in gebruik."
 
 #: src/MainWindow.vala:465
 msgid "Quit"
-msgstr ""
+msgstr "Afsluiten"
 
 #: res/ui/chat-view.ui:433
 msgid "Quote"
-msgstr ""
+msgstr "Citeren"
 
 #: res/ui/settings-view.ui:803
 msgid "Reload custom theme"
-msgstr ""
+msgstr "Aangepast thema herladen"
 
 #: res/ui/settings-view.ui:1326
 msgid "Report an issue"
-msgstr ""
+msgstr "Een probleem rapporteren"
 
 #: res/ui/settings-view.ui:368
 msgid "Request deletion"
-msgstr ""
+msgstr "Verwijdering aanvragen"
 
 #: src/MainWindow.vala:538
 msgid "Restart later"
-msgstr ""
+msgstr "Later herstarten"
 
 #: src/MainWindow.vala:538
 msgid "Restart now"
-msgstr ""
+msgstr "Nu herstarten"
 
 #: src/MainWindow.vala:535
 msgid "Restart required"
-msgstr ""
+msgstr "Herstart vereist"
 
 #: res/ui/settings-view.ui:1204
 msgid "Ricin"
-msgstr ""
+msgstr "Ricin"
 
 #: src/MainWindow.vala:598
 msgid "Ricin doesn't supports ToxDNS yet."
-msgstr ""
+msgstr "Ricin ondersteunt nog geen ToxDNS."
 
 #: src/MainWindow.vala:537
 msgid ""
 "Ricin needs to restart in order to apply settings. Do you want to restart?"
 msgstr ""
+"Ricin moet worden herstart om de instellingen te kunnen toepassen. Wilt u "
+"herstarten?"
 
 #: res/ui/settings-view.ui:1415
 msgid "Ricin official website"
-msgstr ""
+msgstr "Officiële Ricin-website"
 
 #: res/ui/chat-view.ui:1613
 msgid "Scroll to bottom"
-msgstr ""
+msgstr "Naar beneden scrollen"
 
 #: res/ui/welcome-view.ui:87
 msgid "Select a chat to start messaging."
-msgstr ""
+msgstr "Selecteer een chat om te beginnen met chatten."
 
 #: src/ProfileChooser.vala:23 res/ui/profile-chooser-window.ui:23
 msgid "Select a profile"
-msgstr ""
+msgstr "Selecteer een profiel"
 
 #: src/MainWindow.vala:675
 msgid "Select your avatar"
-msgstr ""
+msgstr "Selecteer uw gebruikersafbeelding"
 
 #: res/ui/chat-view.ui:1500
 msgid "Send file"
-msgstr ""
+msgstr "Bestand versturen"
 
 #: res/ui/chat-view.ui:1526
 msgid "Send message"
-msgstr ""
+msgstr "Bericht versturen"
 
 #: src/MainWindow.vala:117 src/MainWindow.vala:553 res/ui/main-window.ui:494
 msgid "Settings"
-msgstr ""
+msgstr "Instellingen"
 
 #: res/ui/chat-view.ui:820
 msgid "Status message..."
-msgstr ""
+msgstr "Statusbericht..."
 
 #: res/ui/chat-view.ui:636
 msgid "Striked"
-msgstr ""
+msgstr "Doorgehaald"
 
 #: res/ui/chat-view.ui:338
 msgid "Syntax"
-msgstr ""
+msgstr "Syntax"
 
 #: res/ui/chat-view.ui:324
 msgid "Tag Name"
-msgstr ""
+msgstr "Naam van mogelijkheid"
 
 #: src/ProfileChooser.vala:78
 msgid "The selected profile doesn't exists."
-msgstr ""
+msgstr "Het geselecteerde profiel bestaat niet."
 
 #: res/ui/settings-view.ui:767
 msgid "Theme:"
-msgstr ""
+msgstr "Thema:"
 
 #: res/ui/chat-view.ui:1595
 msgid "There are unread messages in this chat"
-msgstr ""
+msgstr "Er zijn ongelezen berichten in dit chatgesprek"
 
 #: src/MessageListRow.vala:91 src/PlainLabel.vala:22 src/QuoteLabel.vala:22
 msgid "ToxDNS is not supported yet."
-msgstr ""
+msgstr "ToxDNS wordt nog niet ondersteund."
 
 #: src/MainWindow.vala:600
 msgid "ToxID can't be empty."
-msgstr ""
+msgstr "De ToxID mag niet leeg worden gelaten."
 
 #: src/MainWindow.vala:602
 msgid "ToxID is invalid."
-msgstr ""
+msgstr "Ongeldige ToxID."
 
 #: res/ui/main-window.ui:562
 msgid "ToxID to add..."
-msgstr ""
+msgstr "Toe te voegen ToxID..."
 
 #: res/ui/settings-view.ui:268
 msgid "ToxMe server"
-msgstr ""
+msgstr "ToxMe-server"
 
 #: res/ui/main-window.ui:190
 msgid "Type to search..."
-msgstr ""
+msgstr "Typ om te zoeken..."
 
 #: src/ChatView.vala:400
 msgid "Unblock"
-msgstr ""
+msgstr "De-blokkeren"
 
 #: src/FriendListRow.vala:64
 msgid "Unblock friend"
-msgstr ""
+msgstr "Vriend de-blokkeren"
 
 #: res/ui/chat-view.ui:564
 msgid "Underline"
-msgstr ""
+msgstr "Onderstrepen"
 
 #: res/ui/settings-view.ui:351
 msgid "Update record"
-msgstr ""
+msgstr "Document bijwerken"
 
 #: res/ui/chat-view.ui:797 res/ui/settings-view.ui:246
 msgid "Username"
-msgstr ""
+msgstr "Gebruikersnaam"
 
 #: res/ui/chat-view.ui:882
 msgid "Video call friend"
-msgstr ""
+msgstr "Videobellen met vriend"
 
 #: src/SettingsView.vala:94
 msgid "White theme"
-msgstr ""
+msgstr "Wit thema"
 
 #: src/MainWindow.vala:383
 msgid "Yes"
-msgstr ""
+msgstr "Ja"
 
 #: res/ui/main-window.ui:260
 msgid "You got a new friend request"
-msgstr ""
+msgstr "U heeft een nieuw vriendschapsverzoek"
 
 #: src/ChatView.vala:463 src/MainWindow.vala:678
 msgid "_Cancel"
-msgstr ""
+msgstr "_Annuleren"
 
 #: src/ChatView.vala:464 src/MainWindow.vala:679
 msgid "_Open"
-msgstr ""
+msgstr "_Openen"
 
 #: res/ui/chat-view.ui:589
 msgid "__underline__"
-msgstr ""
+msgstr "__onderstrepen__"
 
 #: res/ui/chat-view.ui:578
 msgid "_underline_"
-msgstr ""
+msgstr "_onderstrepen_"
 
 #: res/ui/chat-view.ui:615
 msgid "`inline code`"
-msgstr ""
+msgstr "`inline-code`"
 
 #: src/SettingsView.vala:76
 msgid "default"
-msgstr ""
+msgstr "standaard"
 
 #: src/ChatView.vala:317
 msgid "is typing"
-msgstr ""
+msgstr "is aan het typen"
 
 #: res/ui/settings-view.ui:1488
 msgid "ricin.io (stable)"
-msgstr ""
+msgstr "ricin.io (stabiel)"
 
 #: src/SettingsView.vala:77
 msgid "stable"
-msgstr ""
+msgstr "stabiel"
 
 #: res/ui/settings-view.ui:1491
 msgid "toxme.io"
-msgstr ""
+msgstr "toxme.io"
 
 #: res/ui/chat-view.ui:650
 msgid "~striked~"
-msgstr ""
+msgstr "~doorgehaald~"
 
 #: res/ui/chat-view.ui:661
 msgid "~~striked~~"
-msgstr ""
+msgstr "~~doorgehaald~~"
