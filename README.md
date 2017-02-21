@@ -1,4 +1,4 @@
-# Project discontinued - Please look at [Konv.im](https://github.com/SkyzohKey/Konv) for Ricin v2 !
+# Project discontinued - Please look at [Konv.im](https://github.com/SkyzohKey/Konv) for Ricin v2!
 
 ## **Ricin** - A dead-simple but powerful Tox client
 ### [Download] - [Install] - [Compile] - [Contribute] - [Translate] - [Donate] - [Discover Vala]
