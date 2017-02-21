@@ -1,4 +1,6 @@
-# **Ricin** - A dead-simple but powerful Tox client
+# Project discontinued - Please look at [Konv.im](https://github.com/SkyzohKey/Konv) for Ricin v2 !
+
+## **Ricin** - A dead-simple but powerful Tox client
 ### [Download] - [Install] - [Compile] - [Contribute] - [Translate] - [Donate] - [Discover Vala]
 
 [![Ricin license](https://img.shields.io/badge/license-GPLv3-blue.svg?style=flat)](https://raw.githubusercontent.com/RicinApp/Ricin/master/LICENSE)
