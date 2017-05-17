@@ -5,8 +5,8 @@ import os
 import fnmatch
 
 AUTHOR = u'SkyzohKey <skyzohkey@framasphere.org>'
-SITENAME = u'Ricin'
-SITEURL = u'https://ricin.im'
+SITENAME = u'Konv'
+SITEURL = u'https://konv.im'
 TAG_LINE = u'Dead simple, privacy oriented, instant messaging app!'
 
 PATH = 'content'
@@ -69,4 +69,3 @@ for root, dirnames, filenames in os.walk(templates_dir):
         if not filename.startswith("_"):
             template = os.path.join(root, filename)[len(templates_dir)+1:]
             TEMPLATE_PAGES[template] = template
-

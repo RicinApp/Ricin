@@ -9,33 +9,33 @@
     <meta name="description" content="{% trans %}Ricin aims to be a modern way to securely communicate with people that matter to you.{% endtrans %}">
     <meta name="keywords" content="ricin, messenger, privacy, peer-to-peer, p2p, encrypted, encryption, secure, tox, open-source, foss, free, skype like, discord replacement, telegram alternative, modern, communicate, talk, chat, im, surveillance, easy-to-use, no ads, network, decentralized, snowden, protocol, no servers, end-to-end, distributed, client, toxcore, instant messaging, voice, video, screen streaming, file transfers, group chats, 1337">
     <meta name="author" content="SkyzohKey <SkyzohKey@framasphere.org>">
-    
+
     <!-- Open Graph Protocol meta tags (facebook, diaspora, etc). -->
     <meta property="og:title" content="{{ SITENAME }}&nbsp;−&nbsp;{%- if self.title() == '' %}{% trans %}Dead simple, privacy oriented, instant messaging app!{% endtrans %}{% else %}{{ self.title() }}{% endif -%}">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://ricin.im">
-    <meta property="og:image" content="https://cdn.ricin.im/images/ricin-icon-plain-color.svg">
+    <meta property="og:url" content="https://konv.im">
+    <meta property="og:image" content="https://cdn.konv.im/images/ricin-icon-plain-color.svg">
     <meta property="og:site_name" content="Ricin Messenger">
     <meta property="og:description" content="{% trans %}Whether it's corporations or governments, digital surveillance today is widespread.{% endtrans %} {% trans %}<strong>Ricin Messenger</strong> is easy-to-use software <em>that connects you with your friends and your family without anyone else listening in</em>. While other big-name services require you to pay for features, <strong>Ricin Messenger is completely free and comes without advertising — forever</strong>.{% endtrans %}">
-    
+
     <!-- Twitter Card meta tags. -->
     <meta property="twitter:card" content="summary">
     <meta property="twitter:site" content="@SkyzohKey">
     <meta property="twitter:title" content="{{ SITENAME }}&nbsp;−&nbsp;{%- if self.title() == '' %}{% trans %}Dead simple, privacy oriented, instant messaging app!{% endtrans %}{% else %}{{ self.title() }}{% endif -%}">
     <meta property="twitter:description" content="{% trans %}Ricin aims to be a modern way to securely communicate with people that matter to you.{% endtrans %}">
-    <meta property="twitter:image:src" content="https://cdn.ricin.im/images/ricin-icon-card-twitter.png">
+    <meta property="twitter:image:src" content="https://cdn.konv.im/images/ricin-icon-card-twitter.png">
     <meta property="twitter:image:alt" content="The Ricin Messenger logo, with colors!">
-    <meta property="twitter:url" content="https://ricin.im">
-    
+    <meta property="twitter:url" content="https://konv.im">
+
     <!-- Theme colors, apple touch icons, MS Tile images, etc. -->
     <meta name="theme-color" content="#29A176">
     <meta name="msapplication-TileColor" content="#29A176">
-    <meta name="msapplication-TileImage" content="https://cdn.ricin.im/images/ricin-icon-plain-colors.png">
-    <link rel="apple-touch-icon" type="image/x-icon" href="https://cdn.ricin.im/images/ricin-icon-plain.svg">
-    <link rel="mask-icon" color="#29A176" href="https://cdn.ricin.im/images/ricin-icon-plain.svg">
-    <link rel="shortcut icon" href="https://cdn.ricin.im/images/ricin-icon-plain.svg">
-    <link rel="icon" type="image/x-icon" href="https://cdn.ricin.im/images/ricin-icon-plain.svg">
-    <link rel="stylesheet" href="https://cdn.ricin.im/styles/styles.prod.css">
+    <meta name="msapplication-TileImage" content="https://cdn.konv.im/images/ricin-icon-plain-colors.png">
+    <link rel="apple-touch-icon" type="image/x-icon" href="https://cdn.konv.im/images/ricin-icon-plain.svg">
+    <link rel="mask-icon" color="#29A176" href="https://cdn.konv.im/images/ricin-icon-plain.svg">
+    <link rel="shortcut icon" href="https://cdn.konv.im/images/ricin-icon-plain.svg">
+    <link rel="icon" type="image/x-icon" href="https://cdn.konv.im/images/ricin-icon-plain.svg">
+    <link rel="stylesheet" href="https://cdn.konv.im/styles/styles.prod.css">
 
     <title>
       {{ SITENAME }}&nbsp;−&nbsp;{%- if self.title() == "" %}{% trans %}Dead simple, privacy oriented, instant messaging app!{% endtrans %}{% else %}{%- block title %}{% endblock -%}{% endif -%}
@@ -53,7 +53,7 @@
           <a href="{{ SITEURL }}/#features">{% trans %}Features{% endtrans %}</a>
           <a href="{{ SITEURL }}/#privacy">{% trans %}Privacy{% endtrans %}</a>
           <a href="{{ SITEURL }}/downloads.html">{% trans %}Download{% endtrans %}</a>
-          <a href="https://wiki.ricin.im">{% trans %}Wiki{% endtrans %}</a>
+          <a href="https://wiki.konv.im">{% trans %}Wiki{% endtrans %}</a>
         </nav>
       </aside>
       <main id="site--content">
@@ -67,7 +67,7 @@
           </nav>
         </section>
         {% block content %}{% endblock %}
-        
+
         <footer id="site--languages">
           <nav id="languages--links">
             {% for lang, siteurl in lang_siteurls.items() %}
@@ -80,13 +80,13 @@
         <footer id="site--footer">
           <section id="footer--copyright">
             <p>
-              &copy; 2015-2016 <a href="https://ricin.im">Ricin.im</a> - {% trans %}Design and code by{% endtrans %} <a href="https://github.com/SkyzohKey">SkyzohKey</a>. Made with <span id="copyright--heart" class="icon ic-heart" title="Love!" alt="♥">♥</span> in France.
+              &copy; 2015-2016 <a href="https://konv.im">konv.im</a> - {% trans %}Design and code by{% endtrans %} <a href="https://github.com/SkyzohKey">SkyzohKey</a>. Made with <span id="copyright--heart" class="icon ic-heart" title="Love!" alt="♥">♥</span> in France.
             </p>
           </section>
           <nav id="footer--links" class="mobile--hidden">
-            <div><a href="https://git.ricin.im/Ricin/ricin.im">{% trans %}Website source code{% endtrans %}</a></div>
-            <div><a href="https://git.ricin.im">{% trans %}Git server{% endtrans %}</a></div>
-            <div><a href="https://wiki.ricin.im">{% trans %}Wiki{% endtrans %}</a></div>
+            <div><a href="https://git.konv.im/Ricin/konv.im">{% trans %}Website source code{% endtrans %}</a></div>
+            <div><a href="https://git.konv.im">{% trans %}Git server{% endtrans %}</a></div>
+            <div><a href="https://wiki.konv.im">{% trans %}Wiki{% endtrans %}</a></div>
             <div><a href="tox:skz@toxme.io">{% trans %}Contact{% endtrans %}</a></div>
           </nav>
         </footer>
