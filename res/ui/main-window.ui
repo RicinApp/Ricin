@@ -31,6 +31,12 @@
     <property name="xpad">5</property>
     <property name="icon_name">system-run-symbolic</property>
   </object>
+  <object class="GtkImage" id="image6">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="xpad">5</property>
+    <property name="icon_name">address-book-new-symbolic</property>
+  </object>
   <object class="GtkImage" id="image7">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
@@ -446,14 +452,42 @@
                             <property name="can_focus">False</property>
                             <property name="shadow_type">etched-in</property>
                             <child>
-                              <object class="GtkListBox" id="friendlist">
+                              <object class="GtkBox" id="box1">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
-                                <signal name="row-activated" handler="show_friend_chatview" swapped="no"/>
-                                <style>
-                                  <class name="friendlist"/>
-                                  <class name="background"/>
-                                </style>
+                                <property name="orientation">vertical</property>
+                                <child>
+                                  <object class="GtkListBox" id="grouplist">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <signal name="row-activated" handler="show_friend_chatview" swapped="no"/>
+                                    <style>
+                                      <class name="friendlist"/>
+                                      <class name="background"/>
+                                    </style>
+                                  </object>
+                                  <packing>
+                                    <property name="expand">False</property>
+                                    <property name="fill">True</property>
+                                    <property name="position">0</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkListBox" id="friendlist">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <signal name="row-activated" handler="show_friend_chatview" swapped="no"/>
+                                    <style>
+                                      <class name="friendlist"/>
+                                      <class name="background"/>
+                                    </style>
+                                  </object>
+                                  <packing>
+                                    <property name="expand">True</property>
+                                    <property name="fill">True</property>
+                                    <property name="position">1</property>
+                                  </packing>
+                                </child>
                               </object>
                             </child>
                           </object>
@@ -500,6 +534,26 @@
                       </packing>
                     </child>
                     <child>
+                      <object class="GtkButton" id="button_create_group">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="receives_default">True</property>
+                        <property name="tooltip_text" translatable="yes">Create a new group chat</property>
+                        <property name="image">image6</property>
+                        <property name="relief">none</property>
+                        <property name="always_show_image">True</property>
+                        <signal name="clicked" handler="create_groupchat" swapped="no"/>
+                        <style>
+                          <class name="button-dark"/>
+                        </style>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">1</property>
+                      </packing>
+                    </child>
+                    <child>
                       <object class="GtkButton" id="button_settings">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
@@ -516,7 +570,7 @@
                       <packing>
                         <property name="expand">False</property>
                         <property name="fill">True</property>
-                        <property name="position">1</property>
+                        <property name="position">2</property>
                       </packing>
                     </child>
                     <style>

@@ -30,6 +30,8 @@ class Settings : GLib.Object {
   public const string DEFAULT_SAVE_PATH_KEY    = "default-save-path";
   public const string COMPACT_MODE_KEY         = "compact-mode";
   public const string MESSAGE_PARSING_MODE_KEY = "message-parsing-mode";
+  public const string EMOJIS_FONT_KEY          = "emojis-font";
+  public const string EMOJIS_SIZE_KEY          = "emojis-size";
 
   /**
   * Public members, can be get/set.
@@ -56,7 +58,10 @@ class Settings : GLib.Object {
   public bool enable_taskbar_notify { get; set; }
   public string default_save_path  { get; set; }
   public bool compact_mode         { get; set; }
-  public int message_parsing_mode { get; set; default = 0; }
+  public int message_parsing_mode  { get; set; default = 0; }
+  public string emojis_font        { get; set; default = "EmojiOne"; }
+  public string emojis_size        { get; set; default = "large"; }
+
 
   private static Settings? _instance;
   public static Settings instance {
@@ -124,6 +129,8 @@ class Settings : GLib.Object {
         this.default_save_path    = settings.default_save_path;
         this.compact_mode         = settings.compact_mode;
         this.message_parsing_mode = settings.message_parsing_mode;
+        this.emojis_font          = settings.emojis_font;
+        this.emojis_size          = settings.emojis_size;
       }
     } catch (Error e) {
       debug (@"Error loading settings: $(e.message)");
@@ -144,7 +151,6 @@ class Settings : GLib.Object {
       );
       generator.to_stream (dos);
 
-      //debug (@"Saving settings to $(this.profile)");
       return true;
     } catch (Error e) {
       debug (@"Error saving settings: $(e.message)");

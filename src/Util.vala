@@ -1,6 +1,11 @@
 namespace Util {
   // TAGS to replace with EMOJIS, indexes MUST match.
   public static const string[] TAGS = {
+    ":tox:", ":lock:", ":ghost:", ":alien:", ":skull:",
+    "<<3", ":wolf:", ":punch:", ":fuck:", ":muscle:",
+    ":poop:", ":imp:", ":smiling_imp:", ":money:", ":nerd:",
+    ":kiss:", ":sunglasses:", ":yum:", ":blush:", ":thinking:",
+    ":rage:", ":cowboy:", ":clown:", ":metal:", ":vulcan:",
     ":+1:", ":-1:", ":@", ">:(", ":$",
     "<3", ":3", ":\\", ":'(", ":-'(",
     ":o", ":O", ":(", ":-(", ":[",
@@ -8,12 +13,16 @@ namespace Util {
     "0:)", "o:)", "O:)", ":)", ":-)",
     ":]", ":-]", ":d", ":D", ":-D",
     ":|", ":-|", ":p", ":P", ":-p",
-    ":-P", "8)", "8-)", "B:)", "B:-)",
-    ":tox:", ":lock:", ":ghost:", ":alien:", ":skull:",
+    ":-P", "8)", "8-)", "B:)", "B:-)"
   };
 
   // EMOJIS that replaces TAGS, indexes MUST match.
   public static const string[] EMOJIS = {
+    "🔒", "🔒", "👻", "👽", "💀",
+    "♥", "🐺", "👊", "🖕", "💪",
+    "💩", "👿", "😈", "🤑", "🤓",
+    "😘", "😎", "😋", "😊", "🤔",
+    "😡", "🤠", "🤡", "🤘", "🖖",
     "👍", "👎", "😠", "😠", "😊",
     "💙", "🐱", "😕", "😢", "😢",
     "😵", "😵", "😦", "😦", "😦",
@@ -21,8 +30,7 @@ namespace Util {
     "😇", "😇", "😇", "😄", "😄",
     "😄", "😄", "😆", "😆", "😆",
     "😐", "😐", "😛", "😛", "😛",
-    "😛", "😎", "😎", "😎", "😎",
-    "🔒", "🔒", "👻", "👽", "💀",
+    "😛", "😎", "😎", "😎", "😎"
   };
 
   public static uint8[] hex2bin (string s) {
@@ -35,8 +43,7 @@ namespace Util {
     return buf;
   }
 
-  public static string bin2hex (uint8[] bin)
-  requires (bin.length != 0) {
+  public static string bin2hex (uint8[] bin) requires (bin.length != 0) {
     StringBuilder b = new StringBuilder ();
     for (int i = 0; i < bin.length; ++i) {
       b.append ("%02X".printf (bin[i]));
@@ -52,23 +59,38 @@ namespace Util {
     assert (result.validate ());
     return result;
   }
+
+  public static int sort_az (string first, string second) {
+    int l = int.min (first.length, second.length);
+    for (int i = 0; i < l; i++) {
+      if (first[i] > second[i]) return 1;
+      if (second[i] > first[i]) return -1;
+    }
+    
+    if (first.length > l) return 1;
+    return -1;
+  }
   
+  public static int sort_az_nocase (string first, string second) {
+    return Util.sort_az (first.down (), second.down ());
+  }
+
   public static Gdk.Pixbuf pubkey_to_image (string pubkey, int width = 48, int height = 48) {
     var _avatar_path = Tox.profile_dir () + "avatars/" + pubkey + ".png";
     Gdk.Pixbuf pixbuf = null;
-    
+
     if (FileUtils.test (_avatar_path, FileTest.EXISTS)) {
       pixbuf = new Gdk.Pixbuf.from_file_at_scale (_avatar_path, width, height, false);
     } else {
       Cairo.Surface surface = Util.identicon_for_pubkey (pubkey, width);
       pixbuf = Gdk.pixbuf_get_from_surface (surface, 0, 0, width, height);
     }
-    
+
     return pixbuf;
   }
 
   public static string emojify (string emoji, string color = "#fcd226") {
-    return @"<span face=\"EmojiOne\" foreground=\"$color\" weight=\"heavy\">$emoji</span>";
+    return @"<span face=\"$(Util.get_emojis_font ())\" size=\"$(Util.get_emojis_size ())\" weight=\"heavy\">$emoji</span>";
   }
 
   public static string escape_html (string text) {
@@ -88,6 +110,14 @@ namespace Util {
     }
 
     return "#fcd226";
+  }
+  
+  private static string get_emojis_font () {
+    return Settings.instance.emojis_font;
+  }
+  
+  private static string get_emojis_size () {
+    return Settings.instance.emojis_size;
   }
 
   public static string render_emojis (string text) {
@@ -124,14 +154,14 @@ namespace Util {
       } else {
         var uri = /(\w+:\S+)/.replace (emojified, -1, 0, "<a href=\"\\1\">\\1</a>");
 
-        var bold = /\B\*\*([^\*\*]{2,}?)\*\*\B/.replace (uri, -1, 0, "<b>\\1</b>");
-        bold = /\B\*([^\*]{2,}?)\*\B/.replace (bold, -1, 0, "<b>\\1</b>");
-        var italic = /^\/\/([^\/\/]{2,}?)\/\/$/.replace (bold, -1, 0, "<i>\\1</i>");
-        italic = /^\/([^\/]{2,}?)\/$/.replace (italic, -1, 0, "<i>\\1</i>");
-        var underlined = /\b__([^__]{2,}?)__\b/.replace (italic, -1, 0, "<u>\\1</u>");
-        underlined = /\b_([^_]{2,}?)_\b/.replace (underlined, -1, 0, "<u>\\1</u>");
-        var striked = /\B~~([^~~]{2,}?)~~\B/.replace (underlined, -1, 0, "<s>\\1</s>");
-        striked = /\B~([^~]{2,}?)~\B/.replace (striked, -1, 0, "<s>\\1</s>");
+        var bold = /\B\*\*([^\*\*] {2,}?)\*\*\B/.replace (uri, -1, 0, "<b>\\1</b>");
+        bold = /\B\*([^\*] {2,}?)\*\B/.replace (bold, -1, 0, "<b>\\1</b>");
+        var italic = /^\/\/([^\/\/] {2,}?)\/\/$/.replace (bold, -1, 0, "<i>\\1</i>");
+        italic = /^\/([^\/] {2,}?)\/$/.replace (italic, -1, 0, "<i>\\1</i>");
+        var underlined = /\b__([^__] {2,}?)__\b/.replace (italic, -1, 0, "<u>\\1</u>");
+        underlined = /\b_([^_] {2,}?)_\b/.replace (underlined, -1, 0, "<u>\\1</u>");
+        var striked = /\B~~([^~~] {2,}?)~~\B/.replace (underlined, -1, 0, "<s>\\1</s>");
+        striked = /\B~([^~] {2,}?)~\B/.replace (striked, -1, 0, "<s>\\1</s>");
         var inline_code = /\B`([^`]*)`\B/.replace (striked, -1, 0, "<span face=\"monospace\" size=\"smaller\">\\1</span>");
 
         return inline_code;
@@ -153,7 +183,7 @@ namespace Util {
   public static string size_to_string (uint64 base_size) {
     double size = base_size;
     string suffix = "bytes";
-    
+
     if (size >= 1073741824) {
       size = size / (double)1073741824;
       suffix = "Gb";

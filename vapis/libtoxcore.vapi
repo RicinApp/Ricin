@@ -303,6 +303,13 @@ namespace ToxCore {
         */
         SECRET_KEY
     }
+    
+    [CCode (cname="TOX_CHAT_CHANGE", cprefix="TOX_CHAT_CHANGE_", has_type_id=false)]
+    public enum ChatChange {
+        PEER_ADD,
+        PEER_DEL,
+        PEER_NAME
+    }
 
     [CCode (cname="TOX_ERR_NEW", cprefix = "TOX_ERR_NEW_")]
     public enum ERR_NEW {
@@ -1903,7 +1910,7 @@ namespace ToxCore {
           *
           * for what type means see ToxGroupChatType_
           */
-        public delegate void GroupInviteFunc (Tox self, uint32 friend_number, uint8[] type, uint8[] data);
+        public delegate void GroupInviteFunc (Tox self, int32 friend_number, uint8 type, uint8[] data);
 
         /**
          * Set the callback for group invites.
@@ -1939,16 +1946,10 @@ namespace ToxCore {
          */
         public void callback_group_title (GroupTitleFunc callback);
 
-        public enum CHAT_CHANGE_PEER {
-            ADD,
-            DEL,
-            NAME
-        }
-
         /**
          * The callback for peer name list changes
          */
-        public delegate void GroupNamelistChangeFunc (Tox self, int group_number, int peer_number, CHAT_CHANGE_PEER change_type);
+        public delegate void GroupNamelistChangeFunc (Tox self, int group_number, int peer_number, ToxCore.ChatChange change_type);
 
         /**
          * Set callback function for peer name list changes.
@@ -1977,7 +1978,7 @@ namespace ToxCore {
          *
          * @return length of name on success, -1 on failure
          */
-        public int group_peername (int group_number, int peer_number, [CCode (array_length=false)] out uint8[] name);
+        public int group_peername (int group_number, int peer_number, [CCode (array_length=false)] uint8[] name);
 
         /**
          * Copy the public key of peernumber who is in groupnumber to public_key.
@@ -1985,7 +1986,7 @@ namespace ToxCore {
          *
          * @return 0 on success, -1 on failure
          */
-        public int group_peer_pubkey (int group_number, int peer_number, [CCode (array_length=false)] out uint8[] public_key);
+        public int group_peer_pubkey (int group_number, int peer_number, [CCode (array_length=false)] uint8[] public_key);
 
         /**
          * invite friendnumber to groupnumber
@@ -2025,7 +2026,7 @@ namespace ToxCore {
          *
          * @return length of copied title on success, -1 on failure.
          */
-        public int group_get_title (int group_number, [CCode (array_length=false)] out uint8[] title, uint32 max_length);
+        public int group_get_title (int group_number, [CCode (array_length_type = "uint32_t")] ref uint8[] title);
 
         /**
          * Check if the current peernumber corresponds to ours.

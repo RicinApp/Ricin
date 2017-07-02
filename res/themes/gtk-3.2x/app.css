@@ -50,16 +50,16 @@ switch.trough:active:backdrop {
   background: #2ECC71;
 }
 
-switch.trough:insensitive {
+switch.trough:disabled {
   background-image: none;
   background: @ui_darker;
 }
 
-switch.trough:insensitive:backdrop {
+switch.trough:disabled:backdrop {
   background: @ui_darker;
 }
 
-switch.slider:insensitive {
+switch.slider:disabled {
   background-image: none;
   box-shadow: none;
   background: @ui_dark;
@@ -332,8 +332,7 @@ scrolledwindow {
     border-image: none;
 }
 
-.secondary-background notebook button:hover,
-.secondary-background notebook button:prelight {
+.secondary-background notebook button:hover {
     transition: 150ms ease-in-out;
     background-image: none;
     background: @main_ddark_hover;
@@ -541,7 +540,7 @@ entry-chat {
   color: @ui_text;
 }
 
-.btn-save-image:hover, .btn-save-image:insensitive {
+.btn-save-image:hover, .btn-save-image:disabled {
   background-image: none;
   border: none;
   border-radius: 0;
@@ -574,7 +573,7 @@ entry-chat {
 }
 
 .canceled-file .btn-save-image,
-.canceled-file .btn-save-image :insensitive {
+.canceled-file .btn-save-image :disabled {
   background-color: #e74c3c;
 }
 
@@ -592,7 +591,7 @@ entry-chat {
 }
 
 .saved-file .btn-save-image,
-.saved-file .btn-save-image:insensitive {
+.saved-file .btn-save-image:disabled {
   background-color: #2ecc71;
   color: white;
 }

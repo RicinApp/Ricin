@@ -2,9 +2,13 @@
 <!-- Generated with glade 3.19.0 -->
 <interface>
   <requires lib="gtk+" version="3.16"/>
+  <object class="GtkImage" id="image_mute">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="icon_name">notifications-symbolic</property>
+  </object>
   <template class="RicinGroupListRow" parent="GtkListBoxRow">
-    <property name="width_request">100</property>
-    <property name="height_request">60</property>
+    <property name="width_request">200</property>
     <property name="visible">True</property>
     <property name="can_focus">True</property>
     <child>
@@ -17,15 +21,11 @@
             <property name="can_focus">False</property>
             <child>
               <object class="GtkImage" id="image_avatar">
-                <property name="width_request">48</property>
-                <property name="height_request">48</property>
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="margin_left">5</property>
                 <property name="margin_right">5</property>
-                <property name="margin_top">5</property>
-                <property name="margin_bottom">5</property>
-                <property name="pixel_size">48</property>
+                <property name="pixel_size">24</property>
                 <property name="icon_name">network-workgroup</property>
                 <property name="icon_size">6</property>
               </object>
@@ -36,55 +36,16 @@
               </packing>
             </child>
             <child>
-              <object class="GtkBox" id="box2">
+              <object class="GtkLabel" id="label_name">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="orientation">vertical</property>
-                <child>
-                  <object class="GtkLabel" id="label_topic">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="halign">start</property>
-                    <property name="margin_left">5</property>
-                    <property name="margin_right">5</property>
-                    <property name="margin_top">7</property>
-                    <property name="label" translatable="no">name</property>
-                    <property name="ellipsize">end</property>
-                    <property name="single_line_mode">True</property>
-                    <attributes>
-                      <attribute name="weight" value="bold"/>
-                      <attribute name="size" value="12000"/>
-                    </attributes>
-                  </object>
-                  <packing>
-                    <property name="expand">True</property>
-                    <property name="fill">True</property>
-                    <property name="position">0</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkLabel" id="label_peers_number">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="halign">start</property>
-                    <property name="valign">end</property>
-                    <property name="margin_left">5</property>
-                    <property name="margin_right">5</property>
-                    <property name="margin_bottom">7</property>
-                    <property name="label" translatable="no">status</property>
-                    <property name="ellipsize">end</property>
-                    <property name="single_line_mode">True</property>
-                    <attributes>
-                      <attribute name="style" value="italic"/>
-                      <attribute name="size" value="10000"/>
-                    </attributes>
-                  </object>
-                  <packing>
-                    <property name="expand">True</property>
-                    <property name="fill">True</property>
-                    <property name="position">1</property>
-                  </packing>
-                </child>
+                <property name="margin_left">10</property>
+                <property name="margin_right">10</property>
+                <property name="label">name</property>
+                <property name="ellipsize">end</property>
+                <property name="single_line_mode">True</property>
+                <property name="track_visited_links">False</property>
+                <property name="xalign">0</property>
               </object>
               <packing>
                 <property name="expand">True</property>
@@ -93,27 +54,23 @@
               </packing>
             </child>
             <child>
-              <object class="GtkImage" id="image_notify">
-                <property name="width_request">16</property>
-                <property name="height_request">16</property>
+              <object class="GtkButton" id="button_mute">
                 <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="margin_right">3</property>
-                <property name="pixel_size">24</property>
-                <property name="resource">/chat/tox/ricin/images/status/offline.png</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="tooltip_text" translatable="yes">Mute the peer</property>
+                <property name="image">image_mute</property>
+                <signal name="clicked" handler="mute_peer" swapped="no"/>
               </object>
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">True</property>
-                <property name="position">3</property>
+                <property name="position">2</property>
               </packing>
             </child>
           </object>
         </child>
       </object>
     </child>
-    <style>
-      <class name="friendlist-row"/>
-    </style>
   </template>
 </interface>

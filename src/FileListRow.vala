@@ -44,7 +44,7 @@ class Ricin.FileListRow : Gtk.ListBoxRow {
     this.file = File.new_for_path (file_path);
     this.file_id = file_id;
     this.raw_size = file_size;
-    
+
     var size_req = new Gtk.Requisition ();
     this.get_preferred_size (out size_req, null);
 
@@ -61,7 +61,7 @@ class Ricin.FileListRow : Gtk.ListBoxRow {
       } else {
         this.image_preview.set_from_pixbuf (pix);
       }
-      
+
       this.image_preview.visible = true;
     } else if (pixbuf != null) { // File is an image.
       this.file_name = pixbuf_name;
@@ -113,11 +113,11 @@ class Ricin.FileListRow : Gtk.ListBoxRow {
       this.image_author.pixbuf = this.image_author.pixbuf.scale_simple (24, 24, Gdk.InterpType.BILINEAR);
       this.image_author.set_pixel_size (24);
       this.image_author.set_size_request (24, 24);
-      
+
       this.handle.notify["avatar"].connect (() => {
         this.image_author.pixbuf = this.handle.avatar.scale_simple (24, 24, Gdk.InterpType.BILINEAR);;
       });
-      
+
       this.image_author.set_tooltip_text (this.handle.username);
       this.handle.notify["username"].connect (() => {
         this.image_author.set_tooltip_text (this.handle.username);
@@ -127,7 +127,7 @@ class Ricin.FileListRow : Gtk.ListBoxRow {
       this.image_author.pixbuf = this.image_author.pixbuf.scale_simple (24, 24, Gdk.InterpType.BILINEAR);
       this.image_author.set_pixel_size (24);
       this.image_author.set_size_request (24, 24);
-      
+
       this.image_author.set_tooltip_text (this.sender.name);
       this.sender.avatar.connect (px => {
         this.image_author.pixbuf = px.scale_simple (24, 24, Gdk.InterpType.BILINEAR);;
@@ -159,7 +159,7 @@ class Ricin.FileListRow : Gtk.ListBoxRow {
         FileUtils.set_data (file_destination.get_path (), bytes.get_data ());
         this.file = file_destination;
       }
-      
+
       this.set_redraw_on_allocate (true);
       Gdk.Pixbuf p = new Gdk.Pixbuf.from_file (this.file.get_path ());
       if (p.width > size_req.width) {
@@ -168,7 +168,7 @@ class Ricin.FileListRow : Gtk.ListBoxRow {
       } else {
         this.image_preview.set_from_pixbuf (p);
       }
-      
+
       this.image_preview.visible = true;
       this.changed ();
       this.set_size_request (-1, -1);
@@ -206,7 +206,7 @@ class Ricin.FileListRow : Gtk.ListBoxRow {
       uint64 size_received = position;
       double percent = size_received / (double)size_total;
       this.progress_file_percent.set_fraction (percent);
-      
+
       if (this.progress_file_percent.visible == false) {
         this.progress_file_percent.visible = true;
       }

@@ -23,7 +23,9 @@ style:
 		src/*.vala
 
 lint:
-	ruby vala-style.rb
+	wget https://framagit.org/valse/vala-style/raw/master/style.rb
+	ruby style.rb
+	rm style.rb*
 
 nodesfile:
 	wget -O res/nodes.json https://build.tox.chat/job/nodefile_build_linux_x86_64_release/lastSuccessfulBuild/artifact/Nodefile.json

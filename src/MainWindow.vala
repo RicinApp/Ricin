@@ -1,3 +1,5 @@
+using Gtk;
+
 [GtkTemplate (ui="/chat/tox/ricin/ui/main-window.ui")]
 public class Ricin.MainWindow : Gtk.ApplicationWindow {
   // User profile.
@@ -25,8 +27,9 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
   [GtkChild] Gtk.Button button_friend_request_accept;
   [GtkChild] Gtk.Button button_friend_request_cancel;
 
-  // Friendlist + chatview.
+  // Friendlist + Grouplist + chatview.
   [GtkChild] public Gtk.ListBox friendlist;
+  [GtkChild] public Gtk.ListBox grouplist;
   [GtkChild] public Gtk.Stack chat_stack;
 
   // Add friend revealer.
@@ -45,7 +48,8 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
   [GtkChild] Gtk.Button button_settings;
 
   private SettingsView settings_view;
-  private ListStore friends = new ListStore (typeof (Tox.Friend));
+  private GLib.ListStore friends = new GLib.ListStore (typeof (Tox.Friend));
+  private GLib.ListStore groups = new GLib.ListStore (typeof (Tox.Group));
 
   public Tox.Tox tox;
   public string focused_view;
@@ -61,7 +65,7 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
 
   public signal void notify_message (string message, int timeout = 5000);
   private signal void set_hint (bool hint);
-  
+
   [Signal (action = true)] private signal void change_chat_up ();
   [Signal (action = true)] private signal void change_chat_down ();
 
@@ -185,12 +189,13 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
     this.combobox_friend_filter.append_text (_("Online friends"));
     this.combobox_friend_filter.append_text (_("All friends"));
     this.combobox_friend_filter.active = 0;
-    
+
     this.combobox_friend_filter.changed.connect (this.friend_list_update_search);
 
     this.friendlist.set_sort_func (sort_friendlist_online);
     this.friendlist.bind_model (this.friends, fr => new FriendListRow ((Tox.Friend) fr));
-    
+    this.grouplist.bind_model (this.groups, group => new FriendListRow.groupchat ((Tox.Group) group));
+
     /**
     * Set how the contact list is filtered.
     * Returns true if the row should be shown, false if not.
@@ -206,7 +211,7 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
       int friend_unread_messages = row_friend.unreadCount;
       bool isSearch = (search != null || search.length != 0);
       bool showOnlineOnly = (this.combobox_friend_filter.active == 0);
-      
+
       //if (showOnlineOnly && friend_status == Tox.UserStatus.OFFLINE) return false; // If show only online && contact is offline.
       if (isSearch) { // If the user inputed text in the search input.
         if (friend_pubkey.index_of (search.down()) != -1) return true; // If we match the friend pubkey.
@@ -216,7 +221,7 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
       }
       return false;
     });*/
-    
+
     this.friendlist.set_filter_func (row => {
       string? search = this.searchentry_friend.text.down ();
 
@@ -226,30 +231,46 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
       string pubkey = friend.fr.pubkey.down ();
       Tox.UserStatus status = friend.fr.status;
       bool is_blocked = friend.fr.blocked;
+      bool is_presumed_dead = friend.fr.is_presumed_dead ();
 
       var mode = this.combobox_friend_filter.active;
 
       if (search == null || search.length == 0) {
-        if (friend.unreadCount > 0) return true;
-        if (mode == 0 && status == Tox.UserStatus.OFFLINE) return false;
+        if (friend.unreadCount > 0) {
+          return true;
+        }
+        if (mode == 0 && status == Tox.UserStatus.OFFLINE) {
+          return false;
+        }
         return true;
       } else if (search.length > 0) {
         switch (search) {
           case "f:blocked":
-            if (is_blocked) return true;
+            if (is_blocked) {
+              return true;
+            }
             return false;
           case "f:old":
-            if (friend.fr.is_presumed_dead ()) return true;
+            if (is_presumed_dead) {
+              return true;
+            }
             return false;
-            
         }
       } else if (mode == 0) {
-        if (status == Tox.UserStatus.OFFLINE) return false;
+        if (status == Tox.UserStatus.OFFLINE) {
+          return false;
+        }
       }
 
-      if (name.index_of (search) != -1) return true;
-      if (status_message.index_of (search) != -1) return true;
-      if (pubkey == search) return true;
+      if (name.index_of (search) != -1) {
+        return true;
+      }
+      if (status_message.index_of (search) != -1) {
+        return true;
+      }
+      if (pubkey == search) {
+        return true;
+      }
       return false;
     });
 
@@ -282,6 +303,26 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
       icon = this.tox.connected ? icon : "offline";
       this.image_user_status.set_from_resource (@"/chat/tox/ricin/images/status/$icon.png");
       this.button_user_status.sensitive = this.tox.connected;
+    });
+    /*
+    * TODO: DEBUG THAT FUCKING SHIT.
+    */
+    this.tox.group_request.connect ((friend_number, type, data) => {
+      debug (@"Friend $(friend_number) invited you in a group, accepting...");
+      Tox.Group? group = this.tox.accept_group_request (friend_number, data);
+
+      if (group != null) {
+        try {
+          string view_name = "group-%d".printf (group.id);
+          this.chat_stack.add_named (new GroupChatView (this.tox, group, this.chat_stack, view_name), view_name);
+          this.groups.append (group);
+        } catch (Error e) {
+          debug (@"Error while joining group $(group.num), error: $(e.message)");
+        }
+        return true;
+      }
+
+      return false;
     });
 
     this.tox.friend_request.connect ((id, message) => {
@@ -352,7 +393,7 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
         return false;
       });
     });
-    
+
     this.notify["has-toplevel-focus"].connect (() => {
       if (this.has_toplevel_focus) {
         this.minimized = false;
@@ -363,7 +404,7 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
       if (e.new_window_state == Gdk.WindowState.ICONIFIED) {
         this.minimized = true;
       }
-      
+
       return false;
     });
 
@@ -373,8 +414,10 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
   }
 
   private bool minimized = false;
-  public void set_desktop_hint (bool hint) {  
-    if (this.settings.enable_taskbar_notify == false) return;
+  public void set_desktop_hint (bool hint) {
+    if (this.settings.enable_taskbar_notify == false) {
+      return;
+    }
 
     if (this.minimized || this.has_toplevel_focus == false) {
       this.set_urgency_hint (hint);
@@ -476,13 +519,23 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
         return 1;
       }
       return friend1.fr.status - friend2.fr.status;
-      //return friend1.fr.name  friend2.fr.name;
     }
     return friend1.fr.status - friend2.fr.status;
   }
+  
+  public void open_profile (Tox.Friend fr) {
+    var view = this.chat_stack.get_child_by_name ("chat-%s".printf (fr.pubkey));
+    ((ChatView) view).toggle_friend_menu ();
+    this.chat_stack.set_visible_child (view);
+  }
+  
+  public void copy_toxid (Tox.Friend fr) {
+    var view = this.chat_stack.get_child_by_name ("chat-%s".printf (fr.pubkey));
+    ((ChatView) view).toggle_friend_menu ();
+    this.chat_stack.set_visible_child (view);
+  }
 
   public void remove_friend (Tox.Friend fr) {
-    //var friend = (this.friends.get_object (fr.num) as Tox.Friend);
     var friend = fr;
     var name = friend.get_uname ();
     var dialog = new Gtk.MessageDialog (
@@ -502,6 +555,10 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
           this.selected_row.activate ();
           this.friendlist.select_row (next_row);
 
+          var next_view = ((FriendListRow) next_row).view_name;
+          var view = this.chat_stack.get_child_by_name (next_view);
+          this.chat_stack.set_visible_child (view);
+
           this.friendlist.invalidate_filter (); // Update the friendlist.
           this.friendlist.invalidate_sort (); // Update the friendlist.
           this.tox.save_data ();
@@ -512,6 +569,62 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
     });
 
     dialog.show ();
+  }
+
+  public void remove_group (Tox.Group group) {
+    /**
+    * Leave a group properly:
+    * 1. Remove the GroupChatView ;
+    * 2. Remove the FriendListRow associated to the group ;
+    * 3. Ask Tox instance to remove the groupchat ;
+    * 4. Switch to the next view.
+    **/
+    // Get the widgets.
+    FriendListRow row = (FriendListRow) this.selected_row;
+    GroupChatView view = (GroupChatView) this.chat_stack.get_child_by_name (row.view_name);
+    int row_index = row.get_index ();
+
+    // Now remove them.
+    this.chat_stack.remove (view);
+    this.grouplist.remove (row);
+
+    // Then guess the next row to select.
+    int groups_rows = (int) this.grouplist.get_children ().length ();
+    int friends_rows = (int) this.friendlist.get_children ().length ();
+    ListBoxRow next_row = null;
+
+    if (groups_rows > 0) // We have groups, next is a group.
+    {
+      next_row = (ListBoxRow) this.grouplist.get_row_at_index (0);
+      this.grouplist.select_row (next_row);
+    }
+    else if (groups_rows == 0 && friends_rows > 0) // We have no groups but friends, next is a friend.
+    {
+      next_row = (ListBoxRow) this.friendlist.get_row_at_index (0);
+      this.friendlist.select_row (next_row);
+    }
+    else // We have no groups nor friends, next is settings.
+    {
+      this.grouplist.select_row (null);
+      this.friendlist.select_row (null);
+    }
+    
+    // Now display the correct group, friend or setting view.
+    if (next_row != null) {
+      Widget next_view = this.chat_stack.get_child_by_name (((FriendListRow) next_row).view_name);
+      this.chat_stack.set_visible_child (next_view);
+    } else {
+      this.display_settings ();
+    }
+    
+    // Finally, ask toxcore to leave the group.
+    bool result = this.tox.leave_group (group.num);
+    if (result) {
+      debug ("Left the group number %d", group.num);
+    }
+
+    this.grouplist.invalidate_filter (); // Update the grouplist.
+    this.grouplist.invalidate_sort (); // Update the grouplist.
   }
 
   public void show_add_friend_popover_with_text (string toxid = "", string message = "") {
@@ -598,7 +711,15 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
   }
 
   public void display_settings () {
-    this.friendlist.unselect_row (this.selected_row);
+    if (this.friendlist.get_selected_rows ().length () == 0 && this.grouplist.get_selected_rows ().length () == 0) {
+      return;
+    }
+
+    if (((FriendListRow) this.selected_row).view_name.index_of ("group") != -1) {
+      this.grouplist.unselect_row (this.selected_row);
+    } else {
+      this.friendlist.unselect_row (this.selected_row);
+    }
     var settings_view = this.chat_stack.get_child_by_name ("settings");
 
     if (settings_view != null) {
@@ -610,13 +731,15 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
       this.chat_stack.set_visible_child (view);
       this.focused_view = "settings";
     }
+
+    this.selected_row = null;
   }
 
   private void reload_tox () {
     /**
     * TODO + FIXME
     **/
-    /**
+    /*
     var opts = Tox.Options.create ();
     opts.ipv6_enabled = this.settings.get_bool ("ricin.network.ipv6");
     opts.udp_enabled = this.settings.get_bool ("ricin.network.udp");
@@ -632,7 +755,7 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
     } catch (Error e) {
       error (@"Cannot reload profile.");
     }
-    **/
+    */
 
     /**
     * Until I find a fix for the code above, lets just warn the user that
@@ -730,21 +853,41 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
 
   [GtkCallback]
   private void show_friend_chatview (Gtk.ListBoxRow row) {
+    if (this.selected_row == row) {
+      return;
+    }
+
     var item = ((FriendListRow) row);
     item.unreadCount = 0;
     item.update_icon ();
-
-    var friend = ((FriendListRow) row).fr;
-    var view_name = "chat-%s".printf (friend.pubkey);
+    var view_name = item.view_name;
     var chat_view = this.chat_stack.get_child_by_name (view_name);
     debug ("ChatView name: %s", view_name);
 
     if (chat_view != null) {
-      ((ChatView) chat_view).entry.grab_focus ();
+      if (view_name.index_of ("group") != -1) {
+        var group = ((FriendListRow) row).group;
+
+        if (this.selected_row != null) {
+          this.friendlist.unselect_row (this.selected_row);
+        }
+
+        this.set_title (@"$(this.window_title) - $(group.name)");
+        ((GroupChatView) chat_view).entry.grab_focus ();
+      } else {
+        var friend = ((FriendListRow) row).fr;
+
+        if (this.selected_row != null) {
+          this.grouplist.unselect_row (this.selected_row);
+        }
+
+        this.set_title (@"$(this.window_title) - $(friend.get_uname ())");
+        ((ChatView) chat_view).entry.grab_focus ();
+      }
+
       this.chat_stack.set_visible_child (chat_view);
       this.focused_view = view_name;
       this.selected_row = row;
-      this.set_title (@"$(this.window_title) - $(friend.get_uname ())");
     }
   }
 
@@ -758,23 +901,19 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
         // Set status to away.
         this.tox.status = Tox.UserStatus.AWAY;
         icon = "idle";
-        //this.image_user_status.icon_name = "user-away";
         break;
       case Tox.UserStatus.AWAY:
         // Set status to busy.
         this.tox.status = Tox.UserStatus.BUSY;
         icon = "busy";
-        //this.image_user_status.icon_name = "user-busy";
         break;
       case Tox.UserStatus.BUSY:
         // Set status to online.
         this.tox.status = Tox.UserStatus.ONLINE;
         icon = "online";
-        //this.image_user_status.icon_name = "user-available";
         break;
       default:
         icon = "offline";
-        //this.image_user_status.icon_name = "user-offline";
         break;
     }
 
@@ -813,6 +952,16 @@ public class Ricin.MainWindow : Gtk.ApplicationWindow {
   [GtkCallback]
   private void friend_list_update_search () {
     this.friendlist.invalidate_filter ();
+  }
+
+  [GtkCallback]
+  private void create_groupchat () {
+    Tox.Group group = this.tox.create_group (_("Groupchat"));
+    if (group != null) {
+      string view_name = "group-%d".printf (group.id);
+      this.chat_stack.add_named (new GroupChatView (this.tox, group, this.chat_stack, view_name), view_name);
+      this.groups.append (group);
+    }
   }
 
   ~MainWindow () {

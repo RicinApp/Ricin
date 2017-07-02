@@ -1,8 +1,10 @@
 @define-color blue_primary #2a92c6;
 @define-color green_primary #2ECC71;
 @define-color white_primary #FFFFFF;
+@define-color orange_primary #e67e22;
 
 @define-color badge_color @blue_primary;
+@define-color badge_color_important @orange_primary;
 @define-color links_color @blue_primary;
 @define-color quote_border @green_primary;
 @define-color plain_border @white_primary;
@@ -12,6 +14,13 @@
 
 .badge {
   background-color: @badge_color;
+  color: @white_primary;
+  border-radius: 0px;
+  padding: 3px 5px;
+  font-size: 7px;
+}
+.badge-important {
+  background: @badge_color_important;
   color: @white_primary;
   border-radius: 0px;
   padding: 3px 5px;
