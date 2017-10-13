@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-04-14 17:44+0200\n"
-"PO-Revision-Date: 2017-09-17 23:07+0000\n"
+"PO-Revision-Date: 2017-10-14 23:48+0000\n"
 "Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
 "Language-Team: Norwegian Bokmål "
 "<https://hosted.weblate.org/projects/ricin/app/nb_NO/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.17-dev\n"
+"X-Generator: Weblate 2.17\n"
 
 #: src/ChatView.vala:367
 msgid " is now "
@@ -209,7 +209,7 @@ msgstr "Avbryt/pause filoverførsel"
 #: res/ui/settings-view.ui:101
 #, fuzzy
 msgid "Change Nospam"
-msgstr "Skift NoSpam"
+msgstr "Bytt NoSpam"
 
 #: res/ui/main-window.ui:86
 msgid "Change your avatar"
