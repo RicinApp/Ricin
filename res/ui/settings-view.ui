@@ -106,7 +106,7 @@
                             </child>
                             <child>
                               <object class="GtkButton" id="button_toxid_change_nospam">
-                                <property name="label" translatable="yes">Change Nospam</property>
+                                <property name="label" translatable="yes">Change NoSpam</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">True</property>
@@ -373,7 +373,7 @@
                           <object class="GtkLabel" id="label_network_info">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="label" translatable="yes">Changing Network settings will temporarily disconnect you from the Tox network</property>
+                            <property name="label" translatable="yes">Changing network settings will temporarily disconnect you from the Tox network</property>
                             <attributes>
                               <attribute name="foreground" value="#efef29292929"/>
                               <attribute name="size" value="9000"/>
@@ -1756,7 +1756,7 @@
                         <property name="spacing">5</property>
                         <child>
                           <object class="GtkLinkButton" id="linkbutton_license">
-                            <property name="label" translatable="yes">License (GNU General Public License 3)</property>
+                            <property name="label" translatable="yes">License (GNU General Public License 3+)</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">True</property>
