@@ -10,22 +10,23 @@ msgstr ""
 "Project-Id-Version: Ricin\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-04-14 17:44+0200\n"
-"PO-Revision-Date: 2016-04-27 18:14+0000\n"
-"Last-Translator: Sarah Kraßnigg <buckling.spring@tutanota.com>\n"
-"Language-Team: German (http://www.transifex.com/ricinapp/ricin/language/de/)\n"
+"PO-Revision-Date: 2019-05-19 17:49+0000\n"
+"Last-Translator: ssantos <ssantos@web.de>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/ricin/app/de/>\n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: de\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 3.7-dev\n"
 
 #: src/ChatView.vala:367
 msgid " is now "
-msgstr "ist jetzt"
+msgstr " ist jetzt "
 
 #: src/Wrapper.vala:222
 msgid " is now known as "
-msgstr "heißt jetzt"
+msgstr " heißt jetzt "
 
 #: res/ui/chat-view.ui:517
 msgid "**bold**"
@@ -94,7 +95,10 @@ msgid ""
 "<b>Ricin</b> aims to be a <i>secure, lightweight, hackable and fully-"
 "customizable</i> chat client using the awesome and open-source "
 "<b>ToxCore</b> library."
-msgstr "<b>Ricin</b> will ein <i>sicherer, schlanker, vollständig anpassbarer und einfach zu hackender</i> Chat-Client für die großartige Open-Source-Bibliothek <b>ToxCore</b> sein. "
+msgstr ""
+"<b>Ricin</b> will ein <i>sicherer, schlanker, vollständig anpassbarer und "
+"einfach zu hackender</i> Chat-Client für die großartige Open-Source-"
+"Bibliothek <b>ToxCore</b> sein."
 
 #: res/ui/settings-view.ui:1091
 msgid "<b>Send typing notifications?</b>"
@@ -217,7 +221,9 @@ msgstr "Status ändern"
 msgid ""
 "Changing Network settings will temporarily disconnect you from the Tox "
 "network"
-msgstr "Änderungen an den Netzwerkeinstellungen werden deine Verbindung zum Tox-Netzwerk temporär trennen."
+msgstr ""
+"Änderungen an den Netzwerkeinstellungen werden deine Verbindung zum Tox-"
+"Netzwerk vorübergehend trennen"
 
 #: src/ChatView.vala:462
 msgid "Choose a file"
@@ -483,7 +489,7 @@ msgstr "Thema:"
 
 #: res/ui/chat-view.ui:1595
 msgid "There are unread messages in this chat"
-msgstr "In diesem Chat sind ungelesene Nachrichten."
+msgstr "In diesem Chat sind ungelesene Nachrichten"
 
 #: src/MessageListRow.vala:91 src/PlainLabel.vala:22 src/QuoteLabel.vala:22
 msgid "ToxDNS is not supported yet."
@@ -555,11 +561,11 @@ msgstr "_Öffnen"
 
 #: res/ui/chat-view.ui:589
 msgid "__underline__"
-msgstr "__underline__"
+msgstr "__unterstreichen__"
 
 #: res/ui/chat-view.ui:578
 msgid "_underline_"
-msgstr "_underline_"
+msgstr "_unterstreichen_"
 
 #: res/ui/chat-view.ui:615
 msgid "`inline code`"
@@ -575,11 +581,11 @@ msgstr "tippt gerade"
 
 #: res/ui/settings-view.ui:1488
 msgid "ricin.io (stable)"
-msgstr "ricin.io (stable)"
+msgstr "ricin.io (Stabil)"
 
 #: src/SettingsView.vala:77
 msgid "stable"
-msgstr "stable"
+msgstr "Stabil"
 
 #: res/ui/settings-view.ui:1491
 msgid "toxme.io"
@@ -587,8 +593,8 @@ msgstr "toxme.io"
 
 #: res/ui/chat-view.ui:650
 msgid "~striked~"
-msgstr "~striked~"
+msgstr "~durchgestrichen~"
 
 #: res/ui/chat-view.ui:661
 msgid "~~striked~~"
-msgstr "~~striked~~"
+msgstr "~~durchgestrichen~~"
