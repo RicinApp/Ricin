@@ -11,8 +11,8 @@ msgstr ""
 "Project-Id-Version: Ricin\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-04-14 17:44+0200\n"
-"PO-Revision-Date: 2019-08-27 13:23+0000\n"
-"Last-Translator: leela <53352@protonmail.com>\n"
+"PO-Revision-Date: 2020-04-24 20:11+0000\n"
+"Last-Translator: Artem <KovalevArtem.ru@gmail.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/ricin/app/ru/>\n"
 "Language: ru_RU\n"
 "MIME-Version: 1.0\n"
@@ -20,15 +20,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<="
 "4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 3.9-dev\n"
+"X-Generator: Weblate 4.0.2-dev\n"
 
 #: src/ChatView.vala:367
 msgid " is now "
-msgstr "теперь"
+msgstr " теперь "
 
 #: src/Wrapper.vala:222
 msgid " is now known as "
-msgstr "также известен как"
+msgstr " также известен как "
 
 #: res/ui/chat-view.ui:517
 msgid "**bold**"
@@ -125,7 +125,7 @@ msgstr "<b>Ваш ToxID:</b>"
 
 #: res/ui/chat-view.ui:1671
 msgid "<i>Friend is typing</i>"
-msgstr "<b>Друг печатает</b>"
+msgstr "<i>Друг печатает</i>"
 
 #: res/ui/chat-view.ui:455
 msgid ">quote"
