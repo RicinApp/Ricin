@@ -9,15 +9,15 @@ msgstr ""
 "Project-Id-Version: Ricin\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-04-12 21:11+0200\n"
-"PO-Revision-Date: 2019-10-13 16:52+0000\n"
-"Last-Translator: Nathan <bonnemainsnathan@gmail.com>\n"
+"PO-Revision-Date: 2020-05-02 15:11+0000\n"
+"Last-Translator: Jeannette <j.lavoie@net-c.ca>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/ricin/app/fr/>\n"
 "Language: fr_FR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 3.9-dev\n"
+"X-Generator: Weblate 4.1-dev\n"
 
 #: src/ChatView.vala:367
 msgid " is now "
@@ -25,7 +25,7 @@ msgstr " est maintenant "
 
 #: src/Wrapper.vala:219
 msgid " is now known as "
-msgstr " s'appel désormais "
+msgstr " s'appelle désormais "
 
 #: res/ui/chat-view.ui:517
 msgid "**bold**"
@@ -284,7 +284,7 @@ msgstr "Afficher les notifications d'écriture ?"
 
 #: res/ui/settings-view.ui:962
 msgid "Display unread messages notice?"
-msgstr "Être averti des messages non lus ?"
+msgstr "Être averti(e) des messages non lus ?"
 
 #: res/ui/profile-chooser-window.ui:88
 msgid "Enter a name for the profile"
@@ -309,7 +309,7 @@ msgstr "Nom du groupe"
 #: src/MainWindow.vala:410
 #, c-format
 msgid "Hello! It's %s, let's be friends."
-msgstr "Bonjour! C'est %s, soyons amis."
+msgstr "Bonjour ! C'est %s, soyons amis."
 
 #: src/InlineImageMessageListRow.vala:97
 msgid "Image saved!"
@@ -397,7 +397,7 @@ msgstr "Recharger le thème"
 
 #: res/ui/settings-view.ui:1326
 msgid "Report an issue"
-msgstr "Signaler un bug"
+msgstr "Signaler un problème"
 
 #: res/ui/settings-view.ui:368
 msgid "Request deletion"
@@ -574,7 +574,7 @@ msgstr "défaut"
 
 #: src/ChatView.vala:317
 msgid "is typing"
-msgstr "est entrain d'écrire"
+msgstr "est en train d'écrire"
 
 #: res/ui/settings-view.ui:1488
 msgid "ricin.io (stable)"
