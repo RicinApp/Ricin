@@ -565,6 +565,10 @@ msgstr "Ved at fjerne dit kodeord vil din profil, logfiler og indstillinger ikke
 msgid "Report an issue"
 msgstr "Anmeld et problem"
 
+#: res/ui/settings-view.ui:368
+msgid "Request deletion"
+msgstr "Anmod om sletning"
+
 #: src/MainWindow.vala:698
 msgid "Restart later"
 msgstr "Genstart senere"

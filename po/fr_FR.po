@@ -9,14 +9,15 @@ msgstr ""
 "Project-Id-Version: Ricin\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-11-03 14:06+0100\n"
-"PO-Revision-Date: 2016-11-03 13:19+0000\n"
-"Last-Translator: SkyzohKey <SkyzohKey@users.noreply.github.com>\n"
-"Language-Team: French (http://www.transifex.com/ricinapp/ricin/language/fr/)\n"
+"PO-Revision-Date: 2020-05-02 15:11+0000\n"
+"Last-Translator: Jeannette <j.lavoie@net-c.ca>\n"
+"Language-Team: French <https://hosted.weblate.org/projects/ricin/app/fr/>\n"
+"Language: fr_FR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: fr\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 4.1-dev\n"
 
 #: src/ChatView.vala:422 src/Notification.vala:29
 msgid " is now "
@@ -101,7 +102,10 @@ msgid ""
 "<b>Ricin</b> aims to be a <i>secure, lightweight, hackable and fully-"
 "customizable</i> chat client using the awesome and open-source "
 "<b>ToxCore</b> library."
-msgstr "<b>Ricin</b> se veut être un logiciel de discussions instantanées <i>sécurisé, léger et customisable à souhait</i> en utilisant la super bibliothèque open-source <b>ToxCore</b>"
+msgstr ""
+"<b>Ricin</b> se veut être un logiciel de discussions instantanées <i>"
+"sécurisé, léger et customisable à souhait</i> en utilisant la super "
+"bibliothèque open-source <b>ToxCore</b>."
 
 #: res/ui/settings-view.ui:1239
 msgid "<b>Send typing notifications?</b>"
@@ -162,7 +166,7 @@ msgstr "Tout les contacts"
 
 #: res/ui/chat-view.ui:352
 msgid "Alt syntax"
-msgstr "Syntaxe alt."
+msgstr "Syntaxe alternative"
 
 #: src/MainWindow.vala:614 src/Util.vala:211
 msgid "Away"
@@ -353,7 +357,7 @@ msgstr "Afficher les notifications d'écriture ?"
 
 #: res/ui/settings-view.ui:942
 msgid "Display unread messages notice?"
-msgstr "Être averti des messages non lus ?"
+msgstr "Être averti(e) des messages non lus ?"
 
 #: src/SettingsView.vala:435 src/SettingsView.vala:463
 #: src/SettingsView.vala:488
@@ -401,7 +405,7 @@ msgstr "Nom du groupe"
 #: src/MainWindow.vala:569
 #, c-format
 msgid "Hello! It's %s, let's be friends."
-msgstr "Bonjour! C'est %s, soyons amis."
+msgstr "Bonjour ! C'est %s, soyons amis."
 
 #: src/InlineImageMessageListRow.vala:112
 msgid "Image saved!"
@@ -469,6 +473,10 @@ msgstr "Le nouveau mot de passe doit être différent de l'ancien."
 #: res/ui/password-dialog.ui:32
 msgid "No"
 msgstr "Non"
+
+#: res/ui/chat-view.ui:1160
+msgid "Notes about the user:"
+msgstr "Notes sur l'utilisateur :"
 
 #: res/ui/settings-view.ui:1291
 msgid "Notifications"
@@ -561,7 +569,7 @@ msgstr "Supprimer votre mot de passe aura pour effets de déchiffrer votre profi
 
 #: res/ui/settings-view.ui:1450
 msgid "Report an issue"
-msgstr "Signaler un bug"
+msgstr "Signaler un problème"
 
 #: src/MainWindow.vala:698
 msgid "Restart later"
@@ -594,7 +602,7 @@ msgstr "Descendre"
 
 #: res/ui/welcome-view.ui:87
 msgid "Select a chat to start messaging."
-msgstr "Selectionnez un contact pour commencer à discuter"
+msgstr "Sélectionnez une discussion pour commencer à discuter."
 
 #: src/ProfileChooser.vala:25 res/ui/profile-chooser-window.ui:23
 msgid "Select a profile"
@@ -622,7 +630,7 @@ msgstr "Afficher les changements de statut des contacts ?"
 
 #: res/ui/chat-view.ui:787
 msgid "Status message..."
-msgstr "Message d'humeur"
+msgstr "Message de statut…"
 
 #: res/ui/chat-view.ui:636
 msgid "Striked"
@@ -642,7 +650,7 @@ msgstr "Le profil selectionné n'existe pas."
 
 #: res/ui/settings-view.ui:694
 msgid "Theme:"
-msgstr "Thème:"
+msgstr "Thème :"
 
 #: res/ui/chat-view.ui:1614
 msgid "There are unread messages in this chat"
@@ -662,7 +670,7 @@ msgstr "Le ToxID est invalide."
 
 #: res/ui/main-window.ui:589
 msgid "ToxID to add..."
-msgstr "Contact à ajouter"
+msgstr "ToxID à ajouter..."
 
 #: res/ui/main-window.ui:193
 msgid "Type to search..."
@@ -731,7 +739,7 @@ msgstr "défaut"
 
 #: src/ChatView.vala:372
 msgid "is typing"
-msgstr "est entrain d'écrire"
+msgstr "est en train d'écrire"
 
 #: res/ui/settings-view.ui:1607
 msgid "ricin.io (stable)"

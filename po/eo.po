@@ -9,15 +9,16 @@ msgstr ""
 "Project-Id-Version: Ricin\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-03-08 18:19+0100\n"
-"PO-Revision-Date: 2016-03-10 02:05+0100\n"
-"Last-Translator: SkyzohKey <skyzohkey@tuta.io>\n"
-"Language-Team: Esperanto (http://www.transifex.com/ricinapp/ricin/language/eo/)\n"
+"PO-Revision-Date: 2019-08-27 13:23+0000\n"
+"Last-Translator: leela <53352@protonmail.com>\n"
+"Language-Team: Esperanto <https://hosted.weblate.org/projects/ricin/app/eo/>"
+"\n"
+"Language: eo\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: eo\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.8.6\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 3.9-dev\n"
 
 #: src/ChatView.vala:289
 msgid " is now "
@@ -37,11 +38,11 @@ msgstr ""
 
 #: res/ui/settings-view.ui:835
 msgid "<b>Display friend's status changes?</b>"
-msgstr "<b>Ĉu vidigi amikoajn statusajn ŝanĝojn?"
+msgstr "<b>Ĉu vidigi amikoajn statusajn ŝanĝojn?</b>"
 
 #: res/ui/settings-view.ui:726
 msgid "<b>Enable custom themes?</b>"
-msgstr "<b>Ĉu ebligi proprajn hautojn?"
+msgstr "<b>Ĉu ebligi proprajn hautojn?</b>"
 
 #: res/ui/group-chat-view.ui:219
 msgid "<b>Friends</b>"
@@ -194,7 +195,7 @@ msgstr "Elekti ridetaĵojn"
 
 #: src/SettingsView.vala:85
 msgid "Clearer theme"
-msgstr "Pli klara hauto"
+msgstr "Pli klara haŭto"
 
 #: res/ui/chat-view.ui:843
 msgid "Close the popup"
@@ -210,7 +211,7 @@ msgstr "Kopii"
 
 #: res/ui/chat-view.ui:598
 msgid "Copy friend's ToxID"
-msgstr "Kopii amikoan ToxID-on"
+msgstr "Kopii amikan ToxID-on"
 
 #: res/ui/profile-chooser-window.ui:141
 msgid "Create a profile"
@@ -222,7 +223,7 @@ msgstr "Krei ĉi tiun profilon"
 
 #: src/SettingsView.vala:83
 msgid "Dark theme"
-msgstr "Malhela hauto"
+msgstr "Malhela haŭto"
 
 #: res/ui/main-window.ui:352
 msgid "Decline"
@@ -242,7 +243,7 @@ msgstr "Enskribi nomon por la profilo"
 
 #: res/ui/chat-view.ui:95
 msgid "Friend's profile"
-msgstr "Amikoa profilo"
+msgstr "Amika profilo"
 
 #: res/ui/settings-view.ui:415
 msgid "General"
@@ -279,7 +280,7 @@ msgstr "Permisilo (GNU General Public License 3)"
 
 #: res/ui/profile-chooser-window.ui:72
 msgid "Load a profile"
-msgstr "Ŝorĝi profilon"
+msgstr "Ŝargi profilon"
 
 #: res/ui/profile-chooser-window.ui:50
 msgid "Login"
@@ -431,7 +432,7 @@ msgstr "Videotelefoni amikon"
 
 #: src/SettingsView.vala:84
 msgid "White theme"
-msgstr "Blanka hauto"
+msgstr "Blanka haŭto"
 
 #: src/MainWindow.vala:97
 msgid "Yes"
