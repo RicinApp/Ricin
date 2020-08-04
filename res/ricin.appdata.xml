@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2016 SkyzohKey <skyzohkey@framasphere.org> -->
+<component type="desktop">
+ <id>ricin.desktop</id>
+ <metadata_license>CC-BY-SA-3.0</metadata_license>
+ <project_license>GPL-3.0</project_license>
+ <name>Ricin</name>
+ <summary>Dead simple, privacy oriented, instant messaging app!</summary>
+ <description>
+  <p>
+   Ricin aims to be a modern way to securely communicate with people that matter to you.
+  </p>
+  <p>
+    Whether it's corporations or governments, digital surveillance today is widespread.
+  </p>
+  <p>
+    Ricin Messenger is easy-to-use software that connects you with your friends and your
+    family without anyone else listening in. While other big-name services require you
+    to pay for features, Ricin Messenger is completely free and comes without advertising
+     — forever. 
+  </p>
+  <p>Features:</p>
+  <ul>
+    <li>Instant Messaging: Chat instantly across the globe with Ricin's secure messages.</li>
+    <li>Voice: Keep in touch with friends and family using Ricin's completely free and encrypted voice calls.</li>
+    <li>Video: Catch up face to face, over Ricin's secure video calls.</li>
+    <li>Screen sharing: Stream your desktop with your friends with Ricin's secure screen sharing.</li>
+    <li>File transfers: Trade files, with no artificial limits or caps and enhanced security.</li>
+    <li>Group chats: Chat, call, and share video and files with the whole gang in Ricin's group chats.</li>
+  </ul>
+  <p>
+    Ricin is developed with users privacy in mind, we wants you to be safe while chatting!
+  </p>
+  <ul>
+    <li>ENCRYPTED: Everything you do with Ricin Messenger is encrypted using open-source libraries. The only people who can see your conversations are the people you're talking with.</li>
+    <li>DISTRIBUTED: Ricin has no central servers that can be raided, shut down, or forced to turn over data — the network is made up of its users. Say goodbye to server outages!</li>
+    <li>FREE: Ricin is free software. That's free as in freedom, as well as in price. This means Ricin is yours — to use, modify, and share — because Ricin is developed by and for the users.</li>
+  </ul>
+ </description>
+ <screenshots>
+  <screenshot type="default">
+   <image>https://cdn.ricin.im/images/ricin_01.png</image>
+   <caption>A redacted screen of an ongoing conversation on Ricin.</caption>
+  </screenshot>
+  <screenshot>
+   <image>https://cdn.ricin.im/images/ricin_02.png</image>
+   <caption>A redacted screen of an ongoing conversation on Ricin, using the clear theme.</caption>
+  </screenshot>
+  <screenshot>
+    <image>https://framasphere.org/camo/a4916d8a8b87174a1f4e073490a4d684348d88df/687474703a2f2f692e696d6775722e636f6d2f617046756b32442e706e67</image>
+    <caption>A screenshot of Ricin with The Tox Theme.</caption>
+ </screenshots>
+ <url type="homepage">https://ricin.im</url>
+ <update_contact>skyzohkey@protonmail.com</update_contact>
+ <project_group>RicinApp</project_group>
+</component>

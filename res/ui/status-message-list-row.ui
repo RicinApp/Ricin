@@ -20,13 +20,14 @@
             <property name="can_focus">False</property>
             <child>
               <object class="GtkLabel" id="label_name">
+                <property name="name">username</property>
                 <property name="width_request">80</property>
                 <property name="height_request">20</property>
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="halign">start</property>
                 <property name="valign">start</property>
-                <property name="label" translatable="no">label</property>
+                <property name="label">label</property>
                 <property name="selectable">True</property>
                 <property name="ellipsize">end</property>
                 <property name="width_chars">12</property>
@@ -62,11 +63,14 @@
                 <property name="can_focus">False</property>
                 <property name="halign">start</property>
                 <property name="valign">start</property>
-                <property name="label" translatable="no">label</property>
+                <property name="label">label</property>
                 <property name="justify">fill</property>
                 <property name="wrap">True</property>
                 <property name="wrap_mode">char</property>
                 <property name="selectable">True</property>
+                <style>
+                  <class name="status-info-message"/>
+                </style>
               </object>
               <packing>
                 <property name="expand">True</property>
@@ -76,13 +80,14 @@
             </child>
             <child>
               <object class="GtkLabel" id="label_timestamp">
+                <property name="name">timestamp</property>
                 <property name="width_request">70</property>
                 <property name="height_request">20</property>
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="halign">end</property>
                 <property name="valign">start</property>
-                <property name="label" translatable="no">00:00.00</property>
+                <property name="label">00:00.00</property>
                 <property name="justify">right</property>
                 <property name="selectable">True</property>
                 <property name="ellipsize">end</property>

@@ -1,0 +1,67 @@
+@define-color blue_primary #2a92c6;
+@define-color green_primary #2ECC71;
+@define-color white_primary #FFFFFF;
+@define-color orange_primary #e67e22;
+
+@define-color badge_color @blue_primary;
+@define-color badge_color_important @orange_primary;
+@define-color links_color @blue_primary;
+@define-color quote_border @green_primary;
+@define-color plain_border @white_primary;
+@define-color selected_color @blue_primary;
+@define-color info_message_color @blue_primary;
+@define-color status_info_color @blue_primary;
+
+.badge {
+  background-color: @badge_color;
+  color: @white_primary;
+  border-radius: 0px;
+  padding: 3px 5px;
+  font-size: 7px;
+}
+.badge-important {
+  background: @badge_color_important;
+  color: @white_primary;
+  border-radius: 0px;
+  padding: 3px 5px;
+  font-size: 7px;
+}
+
+*:link {
+  color: @link_color;
+}
+
+.box-search entry.search,
+.box-search button.toggle {
+  border-radius: 0;
+}
+
+.quotes-listbox {
+  background: none;
+  background-image: none;
+}
+.quote-container {
+  border-left: 4px solid @quote_border;
+}
+.plain-container {
+  border-left: 4px solid @plain_border;
+}
+
+.message-list .activatable:selected *,
+.message-list .activatable:selected,
+:selected:not(.friendlist-row),
+.entry:selected {
+  color: @white_primary;
+  background-color: @selected_color;
+  outline: none;
+}
+.message-list .activatable {
+  outline: none;
+}
+
+.info-message {
+  color: @info_message_color;
+}
+.status-info-message {
+  color: @status_info_color;
+}

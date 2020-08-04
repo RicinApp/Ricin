@@ -6,23 +6,37 @@ class Ricin.SettingsView : Gtk.Box {
 
   // General settings tab.
   [GtkChild] Gtk.Label label_tox_id;
-  [GtkChild] Gtk.Label label_toxme_alias;
-  [GtkChild] Gtk.ComboBoxText combobox_toxme_servers;
-  [GtkChild] Gtk.ComboBoxText combobox_languages;
   [GtkChild] Gtk.Label label_default_save_path;
   [GtkChild] Gtk.Entry entry_default_save_path;
   [GtkChild] Gtk.Button button_set_default_save_path;
+  [GtkChild] Gtk.Button button_password_add;
+  [GtkChild] Gtk.Button button_password_change;
+  [GtkChild] Gtk.Button button_password_remove;
 
   // Interface settings tab;
   [GtkChild] Gtk.Switch switch_custom_themes;
   [GtkChild] Gtk.ComboBoxText combobox_selected_theme;
   [GtkChild] Gtk.Button button_reload_theme;
+  [GtkChild] Gtk.ComboBoxText combobox_languages;
+  [GtkChild] Gtk.ComboBoxText combobox_message_parsing_mode;
 
   [GtkChild] Gtk.Switch switch_status_changes;
   [GtkChild] Gtk.Switch switch_unread_messages;
   [GtkChild] Gtk.Switch switch_display_typing_notifications;
   [GtkChild] Gtk.Switch switch_typing_notifications;
   [GtkChild] Gtk.Switch switch_compact_friendlist;
+  
+  // Emojis settings.
+  [GtkChild] Gtk.Entry entry_emoji_font;
+  [GtkChild] Gtk.Button button_emoji_size_small;
+  [GtkChild] Gtk.Button button_emoji_size_medium;
+  [GtkChild] Gtk.Button button_emoji_size_large;
+  [GtkChild] Gtk.Button button_emoji_size_x_large;
+  [GtkChild] Gtk.Button button_emoji_size_xx_large;
+
+  // Notifications settings tab.
+  [GtkChild] Gtk.Switch switch_taskbar_notify;
+  [GtkChild] Gtk.Switch switch_show_status_change_notifications;
 
   // Network settings tab.
   [GtkChild] Gtk.Switch switch_udp_enabled;
@@ -69,8 +83,8 @@ class Ricin.SettingsView : Gtk.Box {
     this.box_tab_buttons.add (box);
 
     // About tab →
-    this.label_app_description.set_markup (Ricin.APP_SUMMARY);
-    this.label_app_version.set_text (_(Ricin.APP_VERSION));
+    this.label_app_description.set_markup (_(Ricin.APP_SUMMARY));
+    this.label_app_version.set_text (Ricin.APP_VERSION);
 
     this.label_tox_id.set_text (handle.id);
 
@@ -85,17 +99,20 @@ class Ricin.SettingsView : Gtk.Box {
     this.combobox_languages.append_text ("German");
     this.combobox_languages.append_text ("Ukrainian");
     this.combobox_languages.append_text ("Russian");
+    this.combobox_languages.append_text ("Polish");
 
-    this.combobox_toxme_servers.append_text (@"Ricin.im ($default_str)");
-    this.combobox_toxme_servers.append_text (@"ToxMe.io ($stable_str)");
-    this.combobox_toxme_servers.append_text (@"uTox.org ($stable_str)");
-
-    this.combobox_selected_theme.append_text (_("Dark theme") + @" ($default_str)");
+    this.combobox_selected_theme.append_text (_("The Tox theme") + @" ($default_str)");
+    this.combobox_selected_theme.append_text (_("Dark theme"));
     this.combobox_selected_theme.append_text (_("White theme"));
-    this.combobox_selected_theme.append_text (_("Clearer theme"));
 
-    this.combobox_languages.active      = 0;
-    this.combobox_toxme_servers.active  = 0;
+    this.combobox_message_parsing_mode.append_text (_("Markdown"));
+    this.combobox_message_parsing_mode.append_text (_("Plaintext"));
+
+    this.combobox_languages.active = 0;
+    this.combobox_message_parsing_mode.active = this.settings.message_parsing_mode;
+
+    this.handle.notify["encrypted"].connect (this.reset_profile_buttons);
+    this.reset_profile_buttons ();
 
     string selected_language = this.settings.selected_language;
     if (selected_language == "en_US") {
@@ -104,7 +121,7 @@ class Ricin.SettingsView : Gtk.Box {
       this.combobox_languages.active = 1;
     } else if (selected_language == "pt_PT") {
       this.combobox_languages.active = 2;
-    } else if (selected_language == "da_DK") {
+    } else if (selected_language == "da") {
       this.combobox_languages.active = 3;
     } else if (selected_language == "eo") {
       this.combobox_languages.active = 4;
@@ -116,6 +133,8 @@ class Ricin.SettingsView : Gtk.Box {
       this.combobox_languages.active = 7;
     } else if (selected_language == "ru_RU") {
       this.combobox_languages.active = 8;
+    } else if (selected_language == "pl") {
+      this.combobox_languages.active = 9;
     }
 
     this.combobox_languages.changed.connect (() => {
@@ -138,9 +157,9 @@ class Ricin.SettingsView : Gtk.Box {
         this.settings.selected_language = "pt_PT";
       } else if (slang == 3) { // Danish
         info ("Changed locale to Danish.");
-        Environment.set_variable ("LANG", "da_DK", true);
-        Intl.setlocale (LocaleCategory.MESSAGES, "da_DK");
-        this.settings.selected_language = "da_DK";
+        Environment.set_variable ("LANG", "da", true);
+        Intl.setlocale (LocaleCategory.MESSAGES, "da");
+        this.settings.selected_language = "da";
       } else if (slang == 4) { // Esperanto
         info ("Changed locale to Esperanto.");
         Environment.set_variable ("LANG", "eo", true);
@@ -166,19 +185,28 @@ class Ricin.SettingsView : Gtk.Box {
         Environment.set_variable ("LANG", "ru_RU", true);
         Intl.setlocale (LocaleCategory.MESSAGES, "ru_RU");
         this.settings.selected_language = "ru_RU";
+      } else if (slang == 9) { // Polish
+        info ("Changed locale to Polish.");
+        Environment.set_variable ("LANG", "pl", true);
+        Intl.setlocale (LocaleCategory.MESSAGES, "pl");
+        this.settings.selected_language = "pl";
       }
 
       this.reload_options ();
     });
 
     string selected_theme = this.settings.selected_theme;
-    if (selected_theme == "dark") {
+    if (selected_theme == "tox") {
       this.combobox_selected_theme.active = 0;
-    } else if (selected_theme == "white") {
+    } else if (selected_theme == "dark") {
       this.combobox_selected_theme.active = 1;
-    } else {
+    } else if (selected_theme == "white") {
       this.combobox_selected_theme.active = 2;
     }
+
+    this.combobox_message_parsing_mode.changed.connect (() => {
+      this.settings.message_parsing_mode = this.combobox_message_parsing_mode.active;
+    });
 
     bool enable_custom_themes = this.settings.enable_custom_themes;
     this.switch_custom_themes.active = enable_custom_themes;
@@ -194,16 +222,16 @@ class Ricin.SettingsView : Gtk.Box {
 
         switch (active) {
           case 0:
+            ThemeManager.instance.set_theme ("tox");
+            this.settings.selected_theme = "tox";
+            break;
+          case 1:
             ThemeManager.instance.set_theme ("dark");
             this.settings.selected_theme = "dark";
             break;
-          case 1:
+          case 2:
             ThemeManager.instance.set_theme ("white");
             this.settings.selected_theme = "white";
-            break;
-          case 2:
-            ThemeManager.instance.set_theme ("clearer");
-            this.settings.selected_theme = "clearer";
             break;
         }
 
@@ -222,16 +250,16 @@ class Ricin.SettingsView : Gtk.Box {
 
       switch (active) {
         case 0:
+          ThemeManager.instance.set_theme ("tox");
+          this.settings.selected_theme = "tox";
+          break;
+        case 1:
           ThemeManager.instance.set_theme ("dark");
           this.settings.selected_theme = "dark";
           break;
-        case 1:
+        case 2:
           ThemeManager.instance.set_theme ("white");
           this.settings.selected_theme = "white";
-          break;
-        case 2:
-          ThemeManager.instance.set_theme ("clearer");
-          this.settings.selected_theme = "clearer";
           break;
       }
     });
@@ -270,6 +298,22 @@ class Ricin.SettingsView : Gtk.Box {
       this.settings.compact_mode = this.switch_compact_friendlist.active;
     });
 
+    // Switch taskbar notifications (urgency hint).
+    this.switch_taskbar_notify.active = this.settings.enable_taskbar_notify;
+    this.switch_taskbar_notify.notify["active"].connect (() => {
+      this.settings.enable_taskbar_notify = this.switch_taskbar_notify.active;
+
+      if (this.switch_taskbar_notify.active == false) {
+        ((MainWindow) this.get_toplevel ()).set_desktop_hint (false); // Disable taskbar notify.
+      }
+    });
+
+    // Switch status changes (online/offline only) notifications.
+    this.switch_show_status_change_notifications.active = this.settings.enable_notify_status;
+    this.switch_show_status_change_notifications.notify["active"].connect (() => {
+      this.settings.enable_notify_status = this.switch_show_status_change_notifications.active;
+    });
+
     var udp = this.settings.network_udp;
     var ipv6 = this.settings.network_ipv6;
     var proxy = this.settings.enable_proxy;
@@ -285,6 +329,8 @@ class Ricin.SettingsView : Gtk.Box {
     this.switch_udp_enabled.notify["active"].connect (this.udp_state_changed);
     this.switch_ipv6_enabled.notify["active"].connect (this.ipv6_state_changed);
     this.switch_proxy_enabled.notify["active"].connect (this.proxy_state_changed);
+    
+    this.entry_emoji_font.set_text (this.settings.emojis_font);
   }
 
   private void udp_state_changed () {
@@ -308,6 +354,45 @@ class Ricin.SettingsView : Gtk.Box {
     this.reload_options ();
   }
 
+  private void reset_profile_buttons () {
+    if (this.handle.encrypted) {
+      this.button_password_add.sensitive    = false;
+      this.button_password_change.sensitive = true;
+      this.button_password_remove.sensitive = true;
+    } else {
+      this.button_password_add.sensitive    = true;
+      this.button_password_change.sensitive = false;
+      this.button_password_remove.sensitive = false;
+    }
+  }
+
+  private bool show_dialog (string title, string message) {
+    var main_window = ((MainWindow) this.get_toplevel ());
+    var dialog = new Gtk.MessageDialog (
+      main_window,
+      Gtk.DialogFlags.MODAL,
+      Gtk.MessageType.WARNING,
+      Gtk.ButtonsType.NONE,
+      "%s", title
+    );
+
+    dialog.secondary_use_markup = true;
+    dialog.format_secondary_markup (message);
+    dialog.add_buttons (
+      _("Yes"), Gtk.ResponseType.ACCEPT,
+      _("No"), Gtk.ResponseType.REJECT
+    );
+
+    uint response_id = dialog.run ();
+    dialog.destroy ();
+
+    if (response_id == Gtk.ResponseType.ACCEPT) {
+      return true;
+    }
+
+    return false;
+  }
+
   /**
   * ToxID section.
   **/
@@ -325,26 +410,11 @@ class Ricin.SettingsView : Gtk.Box {
   }
 
   /**
-  * ToxMe registration section.
-  **/
-  [GtkCallback]
-  private void copy_toxme_alias () {
-    string toxme_alias = this.label_toxme_alias.label;
-
-    Gtk.Clipboard
-    .get (Gdk.SELECTION_CLIPBOARD)
-    .set_text (toxme_alias, -1);
-
-    debug (@"ToxMe alias: $toxme_alias");
-  }
-
-  /**
   * Select default save path section.
   **/
   [GtkCallback]
   private void  select_save_path () {
-    var main_window = this.get_toplevel () as MainWindow;
-
+    var main_window = ((MainWindow) this.get_toplevel ());
     var chooser = new Gtk.FileChooserDialog (
       _("Choose a folder where to save files"),
       main_window,
@@ -361,5 +431,124 @@ class Ricin.SettingsView : Gtk.Box {
       debug (@"Default save path set to $path");
     }
     chooser.close ();
+  }
+
+  /**
+  * Add a password to the currently opened profile.
+  **/
+  [GtkCallback]
+  private void add_password () {
+    debug ("Add Password triggered.");
+    PasswordDialog dialog = new PasswordDialog (
+      ((MainWindow) this.get_toplevel ()),
+      _("Encrypt your profile"),
+      _("In order to encrypt your profile you need to specify a password. This password will be asked each time you login.") + "\n<b>" + _("Do you want to proceed anyway?") + "</b>",
+      PasswordDialogType.ADD_PASSWORD
+    );
+
+    dialog.resp.connect ((response_id, password) => {
+      if (response_id == Gtk.ResponseType.ACCEPT) {
+        if (this.handle.add_password (password)) {
+          Timeout.add (2000, () => { // Time to write to disk.
+            this.reset_profile_buttons ();
+            return Source.REMOVE;
+          });
+        }
+      }
+      dialog.destroy ();
+    });
+
+    dialog.show ();
+  }
+
+  /**
+  * Change the password of the currently opened profile.
+  **/
+  [GtkCallback]
+  private void change_password () {
+    debug ("Change Password triggered.");
+    PasswordDialog dialog = new PasswordDialog (
+      ((MainWindow) this.get_toplevel ()),
+      _("Edit your password"),
+      _("Changing your password will cause Ricin to decrypt your profile then re-encrypt it with the new password.") + "\n<b>" + _("Do you want to proceed anyway?") + "</b>",
+      PasswordDialogType.EDIT_PASSWORD
+    );
+
+    dialog.resp.connect ((response_id, password, old_password) => {
+      if (response_id == Gtk.ResponseType.ACCEPT) {
+        if (this.handle.change_password (password, old_password)) {
+          this.reset_profile_buttons ();
+        }
+      }
+      dialog.destroy ();
+    });
+
+    dialog.show ();
+  }
+
+  /**
+  * Remove the password from the currently opened profile.
+  **/
+  [GtkCallback]
+  private void remove_password () {
+    debug ("Remove Password triggered.");
+    PasswordDialog dialog = new PasswordDialog (
+      ((MainWindow) this.get_toplevel ()),
+      _("Unencrypt your profile"),
+      _("Removing your password will unencrypt your profile, chat logs and settings.") + "\n<b>" + _("Do you want to proceed anyway?") + "</b>",
+      PasswordDialogType.REMOVE_PASSWORD
+    );
+
+    dialog.resp.connect ((response_id, password) => {
+      if (response_id == Gtk.ResponseType.ACCEPT) {
+        print (@"Password: $password.\n");
+        if (this.handle.remove_password (password)) {
+          this.reset_profile_buttons ();
+        }
+      }
+      dialog.destroy ();
+    });
+
+    dialog.show ();
+  }
+  
+  [GtkCallback]
+  private void change_emoji_size_small () {
+    this.settings.emojis_size = "small";
+  }
+  
+  [GtkCallback]
+  private void change_emoji_size_medium () {
+    this.settings.emojis_size = "medium";
+  }
+  
+  [GtkCallback]
+  private void change_emoji_size_large () {
+    this.settings.emojis_size = "large";
+  }
+  
+  [GtkCallback]
+  private void change_emoji_size_x_large () {
+    this.settings.emojis_size = "x-large";
+  }
+  
+  [GtkCallback]
+  private void change_emoji_size_xx_large () {
+    this.settings.emojis_size = "xx-large";
+  }
+  
+  [GtkCallback]
+  private void update_emoji_font () {
+    string font = this.entry_emoji_font.get_text ();
+    string tpl = @"<span face=\"$(font)\" size=\"%s\" foreground=\"#e74c3c\" weight=\"heavy\">💙</span>";
+    
+    // Update emojis size buttons.
+    ((Gtk.Label) this.button_emoji_size_small.get_child ()).set_markup (tpl.printf ("small"));
+    ((Gtk.Label) this.button_emoji_size_medium.get_child ()).set_markup (tpl.printf ("medium"));
+    ((Gtk.Label) this.button_emoji_size_large.get_child ()).set_markup (tpl.printf ("large"));
+    ((Gtk.Label) this.button_emoji_size_x_large.get_child ()).set_markup (tpl.printf ("x-large"));
+    ((Gtk.Label) this.button_emoji_size_xx_large.get_child ()).set_markup (tpl.printf ("xx-large"));
+    
+    this.settings.emojis_font = font;
   }
 }

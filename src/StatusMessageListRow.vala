@@ -9,9 +9,17 @@ class Ricin.StatusMessageListRow : Gtk.ListBoxRow {
   public StatusMessageListRow (string message, Tox.UserStatus status) {
     string icon = Util.status_to_icon (status, 0);
 
+    if (Settings.instance.compact_mode) {
+      this.label_name.visible = false;
+      this.image_status.margin_left = 12; // Half compact image mode.
+      this.label_message.margin_left = 16; // To correctly align the text with messages.
+    } else {
+      this.label_name.visible = true;
+    }
+
     this.label_name.set_text ("");
     this.image_status.set_from_resource (@"/chat/tox/ricin/images/status/$icon.png");
-    this.label_message.set_markup ("<span color=\"#2a92c6\">" + message + "</span>");
+    this.label_message.set_markup (message);
     this.label_timestamp.set_text (time ());
   }
 

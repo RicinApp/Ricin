@@ -2,11 +2,11 @@ public class Ricin.Ricin : Gtk.Application {
   const string GETTEXT_PACKAGE = "ricin";
   public static const string APP_NAME = "Ricin";
   public static const string APP_SUMMARY = "<b>Ricin</b> aims to be a <i>secure, lightweight, hackable and fully-customizable</i> chat client using the awesome and open-source <b>ToxCore</b> library.";
-  public static const string APP_VERSION = "0.0.9";
+  public static const string APP_VERSION = "0.3.0";
   public static const string RES_BASE_PATH = "/chat/tox/ricin/";
   public static const string ICON_PATH = RES_BASE_PATH + "images/icons/ricin.svg";
 
-  private string default_theme = "dark"; // Will be overrided by settings.
+  private string default_theme = "tox"; // Will be overrided by settings.
   private string current_theme;
   private Settings settings;
 
@@ -26,6 +26,9 @@ public class Ricin.Ricin : Gtk.Application {
       Intl.textdomain (GETTEXT_PACKAGE);
       Intl.bind_textdomain_codeset (GETTEXT_PACKAGE, "utf-8");
     } catch (Error e) {
+      // Fallback to native language.
+      Intl.textdomain (GETTEXT_PACKAGE);
+      Intl.bind_textdomain_codeset (GETTEXT_PACKAGE, "utf-8");
       error (@"Error initializing gettext: $(e.message)");
     }
   }
@@ -49,15 +52,17 @@ public class Ricin.Ricin : Gtk.Application {
       error (@"Error: $(e.message)");
     }
 
-    if (FileUtils.test (settings_file, FileTest.EXISTS) == false) {
+    /*if (FileUtils.test (settings_file, FileTest.EXISTS) == false) {
       File config_file = File.new_for_path (settings_file);
       File config_sample = File.new_for_uri (@"$resource_base_path/ricin.sample.json");
       config_sample.copy (config_file, FileCopyFlags.OVERWRITE);
-    }
+    }*/
 
+    bool use_gtk32 = (Gtk.MAJOR_VERSION >= 3 && Gtk.MINOR_VERSION >= 20);
+    string themes_folder = (use_gtk32) ? "gtk-3.2x" : "gtk-3.1x";
     if (this.settings.enable_custom_themes) {
       string selected_theme = this.settings.selected_theme;
-      string theme_path = @"$resource_base_path/themes/";
+      string theme_path = Ricin.RES_BASE_PATH + @"themes/$(themes_folder)/";
       string theme_file = theme_path + selected_theme + ".css";
 
       // If theme doesn't exists apply the default one.
@@ -70,7 +75,13 @@ public class Ricin.Ricin : Gtk.Application {
 
       // Load the default css.
       var provider = new Gtk.CssProvider ();
-      provider.load_from_resource(this.current_theme);
+      provider.load_from_resource (Ricin.RES_BASE_PATH + @"themes/$(themes_folder)/styles.css"); // Load default css.
+      provider.load_from_resource (this.current_theme);
+      Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (),
+          provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+    } else {
+      var provider = new Gtk.CssProvider ();
+      provider.load_from_resource (Ricin.RES_BASE_PATH + @"themes/$(themes_folder)/styles.css"); // Load default css.
       Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (),
           provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
     }
@@ -89,22 +100,22 @@ public class Ricin.Ricin : Gtk.Application {
 
   // OptionContext: Permits to handle commands the proper way.
   private static bool version = false;
-  private const GLib.OptionEntry[] options = {
-		{ "version", 'v', 0, OptionArg.NONE, ref version, "Display the Ricin version", null },
-    { null } // List terminator
+  private const GLib.OptionEntry[] OPTIONS = {
+    { "version", 'v', 0, OptionArg.NONE, ref version, "Display the Ricin version", null },
+    { null } // List terminator.
   };
 
-  public static int main(string[] args) {
+  public static int main (string[] args) {
     try {
-			var opt_context = new OptionContext ("- Ricin instant messaging Tox client");
-			opt_context.set_help_enabled (true);
-			opt_context.add_main_entries (options, null);
-			opt_context.parse (ref args);
-		} catch (OptionError e) {
-			stdout.printf ("error: %s\n", e.message);
-			stdout.printf ("Run '%s --help' to see a full list of available command line options.\n", args[0]);
-			return 0;
-		}
+      var opt_context = new OptionContext ("- Ricin instant messaging Tox client");
+      opt_context.set_help_enabled (true);
+      opt_context.add_main_entries (OPTIONS, null);
+      opt_context.parse (ref args);
+    } catch (OptionError e) {
+      stdout.printf ("error: %s\n", e.message);
+      stdout.printf ("Run '%s --help' to see a full list of available command line options.\n", args[0]);
+      return 0;
+    }
 
     /**
     * Display Ricin + libs versions.

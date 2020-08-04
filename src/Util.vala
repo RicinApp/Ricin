@@ -1,4 +1,38 @@
 namespace Util {
+  // TAGS to replace with EMOJIS, indexes MUST match.
+  public static const string[] TAGS = {
+    ":tox:", ":lock:", ":ghost:", ":alien:", ":skull:",
+    "<<3", ":wolf:", ":punch:", ":fuck:", ":muscle:",
+    ":poop:", ":imp:", ":smiling_imp:", ":money:", ":nerd:",
+    ":kiss:", ":sunglasses:", ":yum:", ":blush:", ":thinking:",
+    ":rage:", ":cowboy:", ":clown:", ":metal:", ":vulcan:",
+    ":+1:", ":-1:", ":@", ">:(", ":$",
+    "<3", ":3", ":\\", ":'(", ":-'(",
+    ":o", ":O", ":(", ":-(", ":[",
+    ":-[", "xd", "xD", "Xd", "XD",
+    "0:)", "o:)", "O:)", ":)", ":-)",
+    ":]", ":-]", ":d", ":D", ":-D",
+    ":|", ":-|", ":p", ":P", ":-p",
+    ":-P", "8)", "8-)", "B:)", "B:-)"
+  };
+
+  // EMOJIS that replaces TAGS, indexes MUST match.
+  public static const string[] EMOJIS = {
+    "🔒", "🔒", "👻", "👽", "💀",
+    "♥", "🐺", "👊", "🖕", "💪",
+    "💩", "👿", "😈", "🤑", "🤓",
+    "😘", "😎", "😋", "😊", "🤔",
+    "😡", "🤠", "🤡", "🤘", "🖖",
+    "👍", "👎", "😠", "😠", "😊",
+    "💙", "🐱", "😕", "😢", "😢",
+    "😵", "😵", "😦", "😦", "😦",
+    "😦", "😆", "😆", "😆", "😆",
+    "😇", "😇", "😇", "😄", "😄",
+    "😄", "😄", "😆", "😆", "😆",
+    "😐", "😐", "😛", "😛", "😛",
+    "😛", "😎", "😎", "😎", "😎"
+  };
+
   public static uint8[] hex2bin (string s) {
     uint8[] buf = new uint8[s.length / 2];
     for (int i = 0; i < buf.length; ++i) {
@@ -9,8 +43,7 @@ namespace Util {
     return buf;
   }
 
-  public static string bin2hex (uint8[] bin)
-  requires (bin.length != 0) {
+  public static string bin2hex (uint8[] bin) requires (bin.length != 0) {
     StringBuilder b = new StringBuilder ();
     for (int i = 0; i < bin.length; ++i) {
       b.append ("%02X".printf (bin[i]));
@@ -20,79 +53,116 @@ namespace Util {
 
   public inline static string arr2str (uint8[] array) {
     uint8[] str = new uint8[array.length + 1];
-    Memory.copy (str, array, sizeof(uint8) * array.length);
+    Memory.copy (str, array, sizeof (uint8) * array.length);
     str[array.length] = '\0';
     string result = (string) str;
     assert (result.validate ());
     return result;
   }
 
+  public static int sort_az (string first, string second) {
+    int l = int.min (first.length, second.length);
+    for (int i = 0; i < l; i++) {
+      if (first[i] > second[i]) return 1;
+      if (second[i] > first[i]) return -1;
+    }
+    
+    if (first.length > l) return 1;
+    return -1;
+  }
+  
+  public static int sort_az_nocase (string first, string second) {
+    return Util.sort_az (first.down (), second.down ());
+  }
+
+  public static Gdk.Pixbuf pubkey_to_image (string pubkey, int width = 48, int height = 48) {
+    var _avatar_path = Tox.profile_dir () + "avatars/" + pubkey + ".png";
+    Gdk.Pixbuf pixbuf = null;
+
+    if (FileUtils.test (_avatar_path, FileTest.EXISTS)) {
+      pixbuf = new Gdk.Pixbuf.from_file_at_scale (_avatar_path, width, height, false);
+    } else {
+      Cairo.Surface surface = Util.identicon_for_pubkey (pubkey, width);
+      pixbuf = Gdk.pixbuf_get_from_surface (surface, 0, 0, width, height);
+    }
+
+    return pixbuf;
+  }
+
+  public static string emojify (string emoji, string color = "#fcd226") {
+    return @"<span face=\"$(Util.get_emojis_font ())\" size=\"$(Util.get_emojis_size ())\" weight=\"heavy\">$emoji</span>";
+  }
+
   public static string escape_html (string text) {
     return Markup.escape_text (text);
   }
 
+  private static string get_emoji_color (int index) {
+    HashTable<int, string> colors = new HashTable<int, string> (direct_hash, direct_equal);
+    colors.insert (5, "#e74c3c");
+    colors.insert (40, "#171717");
+    colors.insert (41, "#171717");
+    colors.insert (42, "#3498db");
+    colors.insert (43, "#27ae60");
+
+    if (colors.contains (index)) {
+      return colors.get (index);
+    }
+
+    return "#fcd226";
+  }
+  
+  private static string get_emojis_font () {
+    return Settings.instance.emojis_font;
+  }
+  
+  private static string get_emojis_size () {
+    return Settings.instance.emojis_size;
+  }
+
+  public static string render_emojis (string text) {
+    string buffer = text;
+    string color;
+
+    for (int i = 0; i < Util.EMOJIS.length; i++) {
+      buffer = buffer.replace (Util.EMOJIS[i], Util.emojify (Util.EMOJIS[i], get_emoji_color (i)));
+      buffer = buffer.replace (Util.escape_html (Util.TAGS[i]), Util.emojify (Util.EMOJIS[i], get_emoji_color (i)));
+    }
+
+    return buffer;
+  }
+
   public static string render_litemd (string text) {
     string escaped_text = escape_html (text);
-    string emoji = escaped_text.replace (":+1:", "👍")
-                   .replace (":-1:", "👎")
-                   .replace (":@", "😠")
-                   .replace (">:(", "😠")
-                   .replace (":$", "😊")
-                   .replace ("<3", "💙")
-                   .replace (":3", "🐱")
-                   .replace (":\\", "😕")
-                   .replace (":'(", "😢")
-                   .replace (":-'(", "😢")
-                   .replace (":o", "😵")
-                   .replace (":O", "😵")
-                   .replace (":(", "😦")
-                   .replace (":-(", "😦")
-                   .replace (":-[", "😦")
-                   .replace (":[", "😦")
-                   .replace ("xD", "😁")
-                   .replace ("XD", "😁")
-                   .replace ("0:)", "😇")
-                   .replace (":)", "😄")
-                   .replace (":D", "😆")
-                   .replace (":-D", "😆")
-                   .replace (":|", "😐")
-                   .replace (":-|", "😐")
-                   .replace (":p", "😛")
-                   .replace (":-p", "😛")
-                   .replace (":P", "😛")
-                   .replace (":-P", "😛")
-                   .replace ("8)", "😎")
-                   .replace ("8-)", "😎");
+    string emojified = render_emojis (escaped_text);
 
     // Markdown.
     // Returns plaintext as fallback in case of parsing error.
     string message = escaped_text;
 
     try {
-      Regex code_block = new Regex("^`((?s).*)`$", RegexCompileFlags.MULTILINE);
+      Regex code_block = new Regex ("^`((?s).*)`$", RegexCompileFlags.MULTILINE);
       MatchInfo match_info;
 
       if (code_block.match (escaped_text, 0, out match_info)) {
         // If message is a code block, doesn't render markdown.
-        /*var code = /^`([^`]{2,}?)`$/.replace (escaped_text, -1, 0, "<span face=\"monospace\" size=\"smaller\">\\1</span>");
-        message = code;*/
         debug ("Code block regex compiled, returning monospaced text.");
 
         // 0 is the full text of the match, 1 is the first paren set.
         string matched_text = match_info.fetch (1);
         return @"<span face=\"monospace\" size=\"smaller\">$matched_text</span>";
       } else {
-        var uri = /(\w+:\S+)/.replace (emoji, -1, 0, "<span color=\"#2a92c6\"><a href=\"\\1\">\\1</a></span>");
+        var uri = /(\w+:\S+)/.replace (emojified, -1, 0, "<a href=\"\\1\">\\1</a>");
 
-        var bold = /\B\*\*([^\*\*]{2,}?)\*\*\B/.replace (uri, -1, 0, "<b>\\1</b>");
-        bold = /\B\*([^\*]{2,}?)\*\B/.replace (bold, -1, 0, "<b>\\1</b>");
-        var italic = /^\/\/([^\/\/]{2,}?)\/\/$/.replace(bold, -1, 0, "<i>\\1</i>");
-        italic = /^\/([^\/]{2,}?)\/$/.replace(italic, -1, 0, "<i>\\1</i>");
-        var underlined = /\b__([^__]{2,}?)__\b/.replace(italic, -1, 0, "<u>\\1</u>");
-        underlined = /\b_([^_]{2,}?)_\b/.replace(underlined, -1, 0, "<u>\\1</u>");
-        var striked = /\B~~([^~~]{2,}?)~~\B/.replace(underlined, -1, 0, "<s>\\1</s>");
-        striked = /\B~([^~]{2,}?)~\B/.replace(striked, -1, 0, "<s>\\1</s>");
-        var inline_code = /\B`([^`]*)`\B/.replace(striked, -1, 0, "<span face=\"monospace\" size=\"smaller\">\\1</span>");
+        var bold = /\B\*\*([^\*\*] {2,}?)\*\*\B/.replace (uri, -1, 0, "<b>\\1</b>");
+        bold = /\B\*([^\*] {2,}?)\*\B/.replace (bold, -1, 0, "<b>\\1</b>");
+        var italic = /^\/\/([^\/\/] {2,}?)\/\/$/.replace (bold, -1, 0, "<i>\\1</i>");
+        italic = /^\/([^\/] {2,}?)\/$/.replace (italic, -1, 0, "<i>\\1</i>");
+        var underlined = /\b__([^__] {2,}?)__\b/.replace (italic, -1, 0, "<u>\\1</u>");
+        underlined = /\b_([^_] {2,}?)_\b/.replace (underlined, -1, 0, "<u>\\1</u>");
+        var striked = /\B~~([^~~] {2,}?)~~\B/.replace (underlined, -1, 0, "<s>\\1</s>");
+        striked = /\B~([^~] {2,}?)~\B/.replace (striked, -1, 0, "<s>\\1</s>");
+        var inline_code = /\B`([^`]*)`\B/.replace (striked, -1, 0, "<span face=\"monospace\" size=\"smaller\">\\1</span>");
 
         return inline_code;
       }
@@ -103,30 +173,38 @@ namespace Util {
   }
 
   public static string add_markup (string text) {
-    var md = Util.render_litemd (text);
-    return md;
+    string markup = text; // Plaintext.
+    if (Settings.instance.message_parsing_mode == 0) { // Markdown.
+      markup = Util.render_litemd (text);
+    }
+    return markup;
   }
 
-  public static string size_to_string (uint64 size) {
-    string sizeString = "";
+  public static string size_to_string (uint64 base_size) {
+    double size = base_size;
+    string suffix = "bytes";
 
     if (size >= 1073741824) {
-      sizeString = "%s Gb".printf ((size / 1073741824).to_string ());
+      size = size / (double)1073741824;
+      suffix = "Gb";
     } else if (size >= 1048576) {
-      sizeString = "%s Mb".printf ((size / 1048576).to_string ());
+      size = size / (double)1048576;
+      suffix = "Mb";
     } else if (size >= 1024) {
-      sizeString = "%s Kb".printf ((size / 1024).to_string ());
+      size = size / (double)1024;
+      suffix = "Kb";
     } else if (size > 1) {
-      sizeString = "%s bytes".printf ((size).to_string ());
+      size = size;
+      suffix = "bytes";
     } else if (size == 1) {
-      sizeString = "%s byte".printf ((size).to_string ());
+      size = size;
+      suffix = "bytes";
     } else {
-      sizeString = "0 bytes";
+      size = 0;
+      suffix = "bytes";
     }
 
-    debug(@"Converted size: %s", sizeString);
-
-    return sizeString;
+    return "%.*f %s".printf (2, size, suffix);
   }
 
   public static string status_to_icon (Tox.UserStatus status, int messagesCount = 0) {
@@ -179,9 +257,9 @@ namespace Util {
     return str;
   }
 
-  public static Cairo.Surface identicon_for_pubkey (string pubkey, string salt = "") {
+  public static Cairo.Surface identicon_for_pubkey (string pubkey, int size = 48, string salt = "") {
     ToxIdenticon.ToxIdenticon identicon = new ToxIdenticon.ToxIdenticon ();
     identicon.stroke = false;
-    return identicon.generate (48, pubkey, salt);
+    return identicon.generate (size, pubkey, salt);
   }
 }

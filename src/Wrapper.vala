@@ -1,4 +1,5 @@
 using ToxCore; // only in this file
+using ToxEncrypt; // only in this file
 
 // so we don't conflict with libtoxcore
 [CCode (cprefix="ToxWrapper", lower_case_cprefix="tox_wrapper_")]
@@ -43,6 +44,14 @@ namespace Tox {
     LoadFailed
   }
 
+  public errordomain ErrDecrypt {
+    Null,
+    InvalidLength,
+    BadFormat,
+    KeyDerivationFailed,
+    Failed
+  }
+
   public errordomain ErrFriendAdd {
     Null,
     TooLong,
@@ -61,12 +70,17 @@ namespace Tox {
   public class Tox : Object {
     internal ToxCore.Tox handle;
     private HashTable<uint32, Friend> friends = new HashTable<uint32, Friend> (direct_hash, direct_equal);
-    private bool ipv6_enabled = true;
-    private string? profile = null;
+    public HashTable<int, Group> groups = new HashTable<int, Group> (direct_hash, direct_equal);
+
+    private bool ipv6_enabled   = true;
+    private string? profile     = null;
+    private string? password    = null;
     internal Gdk.Pixbuf? avatar = null;
 
     // Used to kill tox.
     private bool must_stop = false;
+
+    public bool encrypted { get; set; default = false; }
 
     public string username {
       owned get {
@@ -150,25 +164,50 @@ namespace Tox {
 
     public signal void friend_request (string id, string message);
     public signal void friend_online (Friend friend);
+    public signal bool group_request (int32 friend_number, uint8 type, uint8[] data);
+
     public signal void global_info (string message);
     public signal void message_read (uint32 friend_number, uint32 message_id);
 
-    public Tox (ToxCore.Options? opts = null, string? profile = null) throws ErrNew {
+    public Tox (ToxCore.Options? opts = null, string? profile = null, string? password = null, bool is_new = false) throws ErrNew, ErrDecrypt {
       debug ("ToxCore Version %u.%u.%u", ToxCore.Version.MAJOR, ToxCore.Version.MINOR, ToxCore.Version.PATCH);
 
-      if (profile != null) {
+      if (profile != null) { // Profile specified.
         this.profile = profile;
-        if (FileUtils.test (profile, FileTest.EXISTS)) { // load file
-          FileUtils.get_data (profile, out opts.savedata_data);
-          opts.savedata_type = ToxCore.SaveDataType.TOX_SAVE;
-        } else { // create new file
+        this.password = password;
+
+        // If profile doesn't exists, let's create it.
+        if (FileUtils.test (profile, FileTest.EXISTS) == false) {
           File.new_for_path (profile).create (FileCreateFlags.NONE, null);
         }
+
+        uint8[] tmp_save = null;
+        FileUtils.get_data (this.profile, out tmp_save);
+
+        // Profile is encrypted. Let's decrypt and load it.
+        if (is_data_encrypted (tmp_save) && is_new == false) {
+          opts.savedata_type = ToxCore.SaveDataType.TOX_SAVE;
+          opts.savedata_data = this.decrypt_profile (this.password);
+          this.encrypted = true;
+        } else if (is_new) {
+          opts.savedata_type = ToxCore.SaveDataType.NONE;
+          this.encrypted = false;
+        } else {
+          uint8[] savedata = null;
+          FileUtils.get_data (profile, out opts.savedata_data);
+          opts.savedata_type = ToxCore.SaveDataType.TOX_SAVE;
+          this.encrypted = false;
+        }
       }
+
       this.ipv6_enabled = opts.ipv6_enabled;
       ERR_NEW error;
       this.handle = new ToxCore.Tox (opts, out error);
       unowned ToxCore.Tox handle = this.handle;
+
+      if (is_new && this.password != null && this.password != "") {
+        this.add_password (password);
+      }
 
       switch (error) {
         case ERR_NEW.NULL:
@@ -191,7 +230,7 @@ namespace Tox {
           throw new ErrNew.LoadFailed ("The data format was invalid. This can happen when loading data that was saved by an older version of Tox, or when the data has been corrupted. When loading from badly formatted data, some data may have been loaded, and the rest is discarded. Passing an invalid length parameter also causes this error.");
       }
 
-      handle.callback_self_connection_status ((self, status) => {
+      this.handle.callback_self_connection_status ((self, status) => {
         switch (status) {
           case ConnectionStatus.NONE:
             debug ("Connection: none");
@@ -206,16 +245,17 @@ namespace Tox {
         this.connected = (status != ConnectionStatus.NONE);
       });
 
-      handle.callback_friend_connection_status ((self, num, status) => {
+      this.handle.callback_friend_connection_status ((self, num, status) => {
         if (this.friends[num] == null) { // new friend
           this.friends[num] = new Friend (this, num);
           this.friend_online (this.friends[num]); // TODO
         }
 
         this.friends[num].connected = (status != ConnectionStatus.NONE);
+        this.friends[num].send_avatar (); // Send our avatar, in case friend doesn't have it.
       });
 
-      handle.callback_friend_name ((self, num, name) => {
+      this.handle.callback_friend_name ((self, num, name) => {
         var old_name = this.friends[num].name ?? (this.friends[num].pubkey.slice (0, 16) + "...");
         var new_name = Util.arr2str (name);
         if (old_name != new_name) {
@@ -224,7 +264,7 @@ namespace Tox {
         }
       });
 
-      handle.callback_friend_status ((self, num, status) => {
+      this.handle.callback_friend_status ((self, num, status) => {
         this.friends[num].set_user_status (status);
       });
 
@@ -234,8 +274,6 @@ namespace Tox {
         }
 
         this.friends[num].status_message = Util.arr2str (message);
-        debug (@"Util: $(Util.arr2str (message))");
-        debug (@"Status: $(this.friends[num].status_message)");
       });
 
       this.handle.callback_friend_message ((self, num, type, message) => {
@@ -262,7 +300,7 @@ namespace Tox {
         this.friends[num].typing = is_typing;
       });
 
-      handle.callback_friend_request ((self, pubkey, message) => {
+      this.handle.callback_friend_request ((self, pubkey, message) => {
         pubkey.length = ToxCore.PUBLIC_KEY_SIZE;
         string id = Util.bin2hex (pubkey);
         string msg = Util.arr2str (message);
@@ -271,7 +309,7 @@ namespace Tox {
       });
 
       // send
-      handle.callback_file_chunk_request ((self, friend, file, position, length) => {
+      this.handle.callback_file_chunk_request ((self, friend, file, position, length) => {
         if (this.friends[friend].blocked) {
           return;
         }
@@ -353,7 +391,7 @@ namespace Tox {
               var pixbuf = new Gdk.Pixbuf.from_stream_at_scale (stream, 48, 48, true);
               fr.avatar (pixbuf);
             } catch (Error e) {
-              warning ("Error processing friend avatar: %s", e.message);
+              warning ("Error processing avatar for %s: %s", fr.name, e.message);
             }
           } else {
             fr.file_done (dl.name, bytes, file);
@@ -361,14 +399,86 @@ namespace Tox {
           fr.files_recv.remove (file);
           return;
         }
+
+        debug (@"friend $friend, file $file: chunk request, pos=$position");
+        this.friends[friend].file_progress (file, data.length);
+
         assert (fr.files_recv[file].data.len == position);
         fr.files_recv[file].data.append (data);
       });
 
+      // Groupchats:
+      this.handle.callback_group_invite ((self, friend_number, type, data) => {
+        if (this.friends[friend_number].blocked) {
+          return;
+        }
+
+        //Friend friend = this.friends[(uint32)friend_number];
+        this.group_request (friend_number, type, data);
+      });
+
+      this.handle.callback_group_message ((self, group_num, peer_num, message) => {
+        if (this.handle.group_peernumber_is_ours (group_num, peer_num) == 1) {
+          return;
+        }
+        
+        if (this.groups[group_num].peers[peer_num].muted) {
+          return;
+        }
+
+        Peer peer = this.groups[group_num].peers[peer_num];
+        this.groups[group_num].message (peer, Util.arr2str (message));
+      });
+
+      this.handle.callback_group_action ((self, group_num, peer_num, action) => {
+        if (this.handle.group_peernumber_is_ours (group_num, peer_num) == 1) {
+          return;
+        }
+        
+        if (this.groups[group_num].peers[peer_num].muted) {
+          return;
+        }
+
+        Peer peer = this.groups[group_num].peers[peer_num];
+        this.groups[group_num].action (peer, Util.arr2str (action));
+      });
+
+      this.handle.callback_group_title ((self, group_num, peer_num, title) => {
+        string topic = Util.arr2str (title);
+        debug (@"Peer $(peer_num) changed title to: $(topic)");
+        this.groups[group_num].name = topic;
+        
+        if (peer_num != -1) {
+          this.groups[group_num].title_changed (peer_num, topic);
+        } else {
+          this.groups[group_num].title_changed (0, topic);
+        }
+      });
+
+      this.handle.callback_group_namelist_change ((self, group_num, peer_num, change_type) => {
+        switch (change_type) {
+          case ChatChange.PEER_ADD:
+            this.groups[group_num].add_peer (peer_num);
+            break;
+          case ChatChange.PEER_DEL:
+            this.groups[group_num].remove_peer (peer_num);
+            break;
+          case ChatChange.PEER_NAME:
+            this.groups[group_num].change_peer_name (peer_num);
+            break;
+        }
+      });
+
+      // Let's bootstrap the Tox network now.
       this.bootstrap.begin ();
     }
 
     public void disconnect () {
+      for (int i = 0; i < this.groups.length; i++) {
+        Group g = this.groups[i];
+        this.leave_group (g.num);
+      }
+    
       this.must_stop = true;
       this.handle.kill ();
     }
@@ -406,7 +516,7 @@ namespace Tox {
         Server[] servers = {};
         var array = json.get_root ().get_object ().get_array_member ("servers");
         array.foreach_element ((arr, index, node) => {
-          servers += Json.gobject_deserialize (typeof (Server), node) as Server;
+          servers += ((Server) Json.gobject_deserialize (typeof (Server), node));
         });
         while (!this.connected) {
           for (int i = 0; i < 4; ++i) { // bootstrap to 4 random nodes
@@ -444,6 +554,16 @@ namespace Tox {
       }
     }
 
+    public bool has_friend (string pubkey) {
+      for (int i = 0; i < this.friends.length; i++) {
+        if (this.friends[i].pubkey == pubkey) {
+          return true;
+        }
+      }
+      
+      return false;
+    }
+
     public Friend? add_friend (string id, string message) throws ErrFriendAdd {
       if (id.length != ToxCore.ADDRESS_SIZE && id.index_of_char ('@') != -1) {
         error ("Invalid Tox ID");
@@ -454,7 +574,6 @@ namespace Tox {
 
       switch (err) {
         case ERR_FRIEND_ADD.OK:
-          debug (@"Friend request sent to $id: \"$message\"");
           return new Friend (this, friend_num);
         case ERR_FRIEND_ADD.NULL:
           throw new ErrFriendAdd.Null ("One of the arguments to the function was NULL when it was not expected.");
@@ -482,13 +601,13 @@ namespace Tox {
         error ("Invalid Public Key");
       }
 
-      debug (@"accepting friend request from $id");
+      debug (@"Accepting friend request from $id");
       ERR_FRIEND_ADD err;
-      uint32 friend_num = this.handle.friend_add_norequest (Util.hex2bin(id), out err);
+      uint32 friend_num = this.handle.friend_add_norequest (Util.hex2bin (id), out err);
 
       switch (err) {
         case ERR_FRIEND_ADD.OK:
-          debug (@"Public key $id added as friend number $friend_num.");
+          debug (@"$id friend number: $friend_num");
           return this.add_friend_by_num (friend_num);
         case ERR_FRIEND_ADD.NULL:
           throw new ErrFriendAdd.Null ("One of the arguments to the function was NULL when it was not expected.");
@@ -506,24 +625,210 @@ namespace Tox {
           throw new ErrFriendAdd.BadNospam ("This ToxID have a new nospam.");
         case ERR_FRIEND_ADD.MALLOC:
           throw new ErrFriendAdd.Malloc ("A memory allocation failed when trying to increase the friend list size.");
-        default:
-          return null;
       }
+
+      return null;
     }
 
     public Friend? add_friend_by_num (uint32 num) {
-      debug (@"Adding friend: num → $num");
+      debug (@"Adding friend: $num");
       var friend = new Friend (this, num);
       this.friends[num] = friend;
       return friend;
     }
 
-    public void save_data () {
+    public Group? accept_group_request (int32 friend_num, uint8[] data) {
+      int group_num = this.handle.join_groupchat (friend_num, data);
+      debug ("Accepted to join group number %d", group_num);
+
+      if (group_num != -1) {
+        var group = new Group (this, group_num);
+        this.groups[group_num] = group;
+        return group;
+      }
+
+      return null;
+    }
+
+    public Group? create_group (string name) {
+      int group_num = this.handle.add_groupchat ();
+
+      if (group_num != -1) {
+        var group = new Group (this, group_num);
+        this.groups[group_num] = group;
+        this.groups[group_num].name = "%s #%d".printf (name, group_num);
+        return group;
+      }
+
+      return null;
+    }
+    
+    public bool leave_group (int group_num) {
+      bool deleted = (this.handle.del_groupchat (group_num) != -1);
+      if (deleted) {
+        this.groups.remove (group_num);
+        if (this.groups[group_num] == null) {
+          return true;
+        }
+      }
+      return false;
+    }
+    
+    public string[]? get_peers_name_for_group (int group_num) {
+      if (this.groups[group_num] == null) {
+        return null;
+      }
+      
+      string [] buffer = {};
+
+      for (int i = 0; i < this.groups[group_num].peers.length; i++) {
+        buffer += this.groups[group_num].peers[i].name;
+      }
+
+      return buffer;
+    }
+    
+    public Peer[]? get_peers_for_group (int group_num) {
+      if (this.groups[group_num] == null) {
+        return null;
+      }
+      
+      Peer[] peers = {};
+      for (int i = 0; i < this.groups[group_num].peers.length; i++) {
+        if (this.groups[group_num].peers[i] == null) {
+          continue;
+        }
+      
+        peers += this.groups[group_num].peers[i];
+      }
+      
+      return peers;
+    }
+
+    public void save_data (string? pass = null) throws ErrDecrypt {
       if (this.profile != null) {
         debug ("Saving data to " + this.profile);
+
+        uint8[] savedata = null;
         uint8[] data = new uint8[this.handle.get_savedata_size ()];
         this.handle.get_savedata (data);
+
+        if (this.password != null) {
+          savedata = this.encrypt_profile (this.password, data);
+        } else {
+          savedata = data;
+        }
+
+        FileUtils.set_data (this.profile, savedata);
+      }
+    }
+
+    public uint8[] encrypt_profile (string password, uint8[]? data = null) throws ErrDecrypt {
+      ERR_ENCRYPTION err;
+      uint8[] pass = password.data;
+      uint8[] savedata = null;
+
+      if (data == null) {
+        savedata = new uint8[this.handle.get_savedata_size ()];
+        this.handle.get_savedata (savedata);
+      } else {
+        savedata = data;
+      }
+
+      if (is_data_encrypted (savedata)) {
+        throw new ErrDecrypt.Failed ("Profile is already encrypted, cannot encrypt non-decrypted data.");
+      }
+
+      uint32 savesize = savedata.length + ToxEncrypt.PASS_ENCRYPTION_EXTRA_LENGTH;
+      uint8[] encrypted_data = new uint8[savesize];
+      pass_encrypt (savedata, pass, encrypted_data, out err);
+      this.password = password;
+
+      if (err != ERR_ENCRYPTION.OK) {
+        switch (err) {
+          case ERR_ENCRYPTION.NULL:
+            throw new ErrDecrypt.Null ("Some input data, or maybe the output pointer, was null.");
+          case ERR_ENCRYPTION.KEY_DERIVATION_FAILED:
+            throw new ErrDecrypt.KeyDerivationFailed ("The crypto lib was unable to derive a key from the given passphrase, which is usually a lack of memory issue. The functions accepting keys do not produce this error.");
+          case ERR_ENCRYPTION.FAILED:
+            throw new ErrDecrypt.Failed ("The encryption itself failed.");
+        }
+      }
+
+      //this.encrypted = true;
+      return encrypted_data;
+    }
+
+    public uint8[] decrypt_profile (string password) throws ErrDecrypt {
+      ERR_DECRYPTION err;
+      uint8[]? savedata = null;
+      uint8[] pass = password.data;
+      FileUtils.get_data (this.profile, out savedata);
+
+      if (is_data_encrypted (savedata) == false) {
+        throw new ErrDecrypt.Failed ("Profile isn't encrypted, cannot decrypt plain text.");
+      }
+
+      int savesize = savedata.length - ToxEncrypt.PASS_ENCRYPTION_EXTRA_LENGTH;
+      uint8[] decrypted_data = new uint8[savesize];
+
+      pass_decrypt (savedata, pass, decrypted_data, out err);
+      //this.password = null;
+
+      if (err != ERR_DECRYPTION.OK) {
+        switch (err) {
+          case ERR_DECRYPTION.NULL:
+            throw new ErrDecrypt.Null ("Some input data, or maybe the output pointer, was null.");
+          case ERR_DECRYPTION.INVALID_LENGTH:
+            throw new ErrDecrypt.InvalidLength ("The input data was shorter than TOX_PASS_ENCRYPTION_EXTRA_LENGTH bytes.");
+          case ERR_DECRYPTION.BAD_FORMAT:
+            throw new ErrDecrypt.BadFormat ("The input data is missing the magic number (i.e. wasn't created by this module, or is corrupted).");
+          case ERR_DECRYPTION.KEY_DERIVATION_FAILED:
+            throw new ErrDecrypt.KeyDerivationFailed ("The crypto lib was unable to derive a key from the given passphrase, which is usually a lack of memory issue. The functions accepting keys do not produce this error.");
+          case ERR_DECRYPTION.FAILED:
+            throw new ErrDecrypt.Failed ("The encrypted byte array could not be decrypted. Either the data was corrupt or the password/key was incorrect.");
+        }
+      }
+
+      //this.encrypted = false;
+      return decrypted_data;
+    }
+
+    public bool add_password (string password) {
+      try {
+        uint8[] data = this.encrypt_profile (password, null);
         FileUtils.set_data (this.profile, data);
+        this.encrypted = true;
+
+        return data != null;
+      } catch (Error e) {
+        return false;
+      }
+    }
+
+    public bool change_password (string old_password, string new_password) {
+      try {
+        uint8[] data = this.decrypt_profile (old_password);
+        uint8[] data2 = this.encrypt_profile (new_password, data);
+        this.password = new_password;
+        FileUtils.set_data (this.profile, data2);
+
+        return data2 != null;
+      } catch (Error e) {
+        return false;
+      }
+    }
+
+    public bool remove_password (string old_password) {
+      try {
+        uint8[] data = this.decrypt_profile (old_password);
+        this.password = null;
+        this.encrypted = false;
+        FileUtils.set_data (this.profile, data);
+
+        return data != null;
+      } catch (Error e) {
+        return false;
       }
     }
   }
@@ -549,6 +854,127 @@ namespace Tox {
     }
   }
 
+  public class Peer : Object {
+    private weak Tox tox;
+    public int group_num;
+    public int num;
+
+    public string name {
+      owned get {
+        uint8[] name = new uint8[ToxCore.MAX_NAME_LENGTH];
+        int size = this.tox.handle.group_peername (group_num, this.num, name);
+        if (size >= 0) {
+          name[size] = 0; // Zero terminating.
+          return (string) name;
+        }
+        return "Peer #%d".printf (this.num);
+      }
+    }
+
+    public string pubkey {
+      owned get {
+        uint8[] pubkey = new uint8[ToxCore.PUBLIC_KEY_SIZE];
+        int size = this.tox.handle.group_peer_pubkey (group_num, this.num, pubkey);
+        if (size >= 0) {
+          return Util.bin2hex (pubkey);
+        }
+        return "%d".printf (this.num);
+      }
+    }
+
+    public bool muted { get; set; default = false; }
+
+    public signal void name_changed ();
+    public signal void peer_removed ();
+
+    public Peer (Tox tox, int group_num, int num) {
+      this.tox = tox;
+      this.group_num = group_num;
+      this.num = num;
+      this.muted = false;
+
+      /*this.name = this.parent_group.get_peer_name (this.num);
+      this.pubkey = this.parent_group.get_peer_pubkey (this.num);*/
+    }
+  }
+
+  public class Group : Object {
+    public weak Tox tox;
+    public HashTable<int, Peer> peers = new HashTable<int, Peer> (direct_hash, direct_equal);
+    public int num;
+    public int id;
+
+    public string name { get; set; default = _("Untitled group"); }
+
+    public bool muted { get; set; default = false; }
+
+    public int peers_count {
+      get {
+        return this.tox.handle.group_number_peers (this.num);
+      }
+    }
+
+    public DateTime joined_time { get; set; default = new DateTime.now_local (); }
+
+    public signal void message (Peer peer, string message);
+    public signal void action (Peer peer, string action);
+    public signal void title_changed (int peer_num, string title);
+    public signal void removed ();
+    public signal void peer_count_changed ();
+    public signal void peer_added (Peer peer);
+    public signal void peer_removed (int peer_num, string peer_pubkey, string peer_name);
+    public signal void peer_name_changed (Peer peer);
+
+    public Group (Tox tox, int num) {
+      this.tox = tox;
+      this.num = num;
+
+      Rand rnd = new Rand.with_seed ((uint32)new DateTime.now_local ().hash ());
+      uint32 rnd_id = rnd.next_int ();
+      this.id = (int)rnd_id;
+      
+      this.joined_time = new DateTime.now_local ();
+    }
+
+    public void add_peer (int peer_num) {
+      Peer peer = new Peer (this.tox, this.num, peer_num);
+      this.peers[peer_num] = peer;
+      
+      if (this.peers[peer_num] != null) {
+        this.peer_added (this.peers[peer_num]);
+        this.peer_count_changed ();
+      }
+    }
+
+    public void remove_peer (int peer_num) {
+      string pubkey = this.peers[peer_num].pubkey;
+      string peer_name = this.peers[peer_num].name;
+
+      this.peers.remove (peer_num);
+      this.peer_removed (peer_num, pubkey, peer_name);
+      this.peer_count_changed ();
+    }
+    
+    public void change_peer_name (int peer_num) {
+      this.peer_name_changed (this.peers[peer_num]);
+      this.peers[peer_num].name_changed ();
+    }
+
+    public int send_message (string message) {
+      return this.tox.handle.group_message_send (this.num, message.data);
+    }
+
+    public int send_action (string action) {
+      return this.tox.handle.group_action_send (this.num, action.data);
+    }
+
+    public void set_title (string title) {
+      this.tox.handle.group_set_title (this.num, title.data);
+      this.name = title;
+      this.title_changed (-1, title);
+    }
+  }
+
   public class Friend : Object {
     private weak Tox tox;
     public uint32 num; // libtoxcore identifier
@@ -558,10 +984,11 @@ namespace Tox {
     // ByteArray is mutable
     internal HashTable<uint32, FileDownload> files_recv = new HashTable<uint32, FileDownload> (direct_hash, direct_equal);
 
-    /* We could implement this as just a get { } that goes to libtoxcore, and
+    /* We could implement this like just a get { } that goes to libtoxcore, and
      * use GLib.Object.notify_property () in the callbacks, but the name is not
      * set until we leave the callback so we'll just keep our own copy.
      */
+    public Gdk.Pixbuf? avatar_pixbuf { get; set; default = null; }
     public string name { get; set; }
     public string status_message { get; set; }
 
@@ -574,6 +1001,7 @@ namespace Tox {
     }
 
     public UserStatus status { get; private set; }
+    public UserStatus? last_status { get; set; }
     public bool connected { get; set; }
     public bool typing { get; set; }
     public bool blocked { get; set; default = false; }
@@ -593,9 +1021,30 @@ namespace Tox {
     public Friend (Tox tox, uint32 num) {
       this.tox = tox;
       this.num = num;
+      this.last_status = UserStatus.OFFLINE;
+
+      string profile_dir = Path.build_path (Path.DIR_SEPARATOR_S, Environment.get_user_config_dir (), "tox");
+      string avatars_dir = Path.build_path (Path.DIR_SEPARATOR_S, profile_dir, "avatars");
+      string avatar_path = Path.build_path (Path.DIR_SEPARATOR_S, avatars_dir, this.pubkey + ".png");
+
+      if (FileUtils.test (avatar_path, FileTest.EXISTS)) {
+        var pixbuf = new Gdk.Pixbuf.from_file_at_scale (avatar_path, 48, 48, false);
+        this.avatar_pixbuf = pixbuf;
+      } else {
+        Cairo.Surface surface = Util.identicon_for_pubkey (this.pubkey);
+        this.avatar_pixbuf = Gdk.pixbuf_get_from_surface (surface, 0, 0, 48, 48);
+      }
 
       this.notify["connected"].connect ((o, p) => update_user_status ());
       this.notify["blocked"].connect ((o, p) => update_user_status ());
+
+      this.avatar.connect ((pixbuf) => {
+        uint8[] pixels;
+        pixbuf.save_to_buffer (out pixels, "png");
+        FileUtils.set_data (avatar_path, pixels);
+
+        this.avatar_pixbuf = pixbuf;
+      });
     }
 
     public string get_uname () {
@@ -617,7 +1066,19 @@ namespace Tox {
       //debug (@" for $num: $last");
 
       DateTime time = new DateTime.from_unix_local ((int64)last);
-      return time.format((format != null) ? format : _("<b>Last online:</b>") + " %H:%M %d/%m/%Y");
+      return time.format ((format != null) ? format : _("<b>Last online:</b>") + " %H:%M %d/%m/%Y");
+    }
+
+    public bool is_presumed_dead () {
+      uint64 last = this.tox.handle.friend_get_last_online (this.num, null);
+      DateTime time = new DateTime.from_unix_local ((int64)last);
+      DateTime dead_time = time.add_months (6); // Profile presumed dead when not active for 6+ months.
+      DateTime now = new DateTime.now_local ();
+
+      if (dead_time.compare (now) == -1) {
+        return true;
+      }
+      return false;
     }
 
     public void set_user_status (ToxCore.UserStatus status) {
@@ -639,15 +1100,13 @@ namespace Tox {
     }
 
     public uint32 send_message (string message) {
-      debug (@"sending \"$message\" to friend $num");
       ERR_FRIEND_SEND_MESSAGE err;
       return tox.handle.friend_send_message (this.num, MessageType.NORMAL, message.data, out err);
     }
 
-    public void send_action (string action_message) {
-      debug (@"sending action \"$action_message\" to friend $num");
+    public uint32 send_action (string action_message) {
       ERR_FRIEND_SEND_MESSAGE err;
-      tox.handle.friend_send_message (this.num, MessageType.ACTION, action_message.data, out err);
+      return tox.handle.friend_send_message (this.num, MessageType.ACTION, action_message.data, out err);
     }
 
     public void send_avatar () {
@@ -658,7 +1117,6 @@ namespace Tox {
         uint8[] avatar_id = new uint8[ToxCore.HASH_LENGTH];
         ToxCore.Tox.hash (avatar_id, pixels);
 
-        debug (@"sending avatar to friend $num");
         ERR_FILE_SEND err;
         uint32 transfer = this.tox.handle.file_send (this.num, FileKind.AVATAR, pixels.length, avatar_id, null, out err);
         if (err != ERR_FILE_SEND.OK) {
@@ -670,12 +1128,20 @@ namespace Tox {
     }
 
     public uint32 send_file (string path) {
-      debug (@"Sending $path to friend $num");
       var file = File.new_for_path (path);
       var info = file.query_info ("standard::size", FileQueryInfoFlags.NONE);
       var id = this.tox.handle.file_send (this.num, FileKind.DATA, info.get_size (), null, file.get_basename ().data, null);
       uint8[] data;
       FileUtils.get_data (path, out data);
+      this.files_send[id] = new Bytes.take (data);
+
+      return id;
+    }
+
+    public uint32 send_image (Gdk.Pixbuf pixbuf, string name) {
+      uint8[] data;
+      pixbuf.save_to_buffer (out data, "png");
+      var id = this.tox.handle.file_send (this.num, FileKind.DATA, data.length, null, name.data, null);
       this.files_send[id] = new Bytes.take (data);
 
       return id;
@@ -695,6 +1161,13 @@ namespace Tox {
       }
 
       return retval;
+    }
+    
+    public bool invite_to_group (int group_num) {
+      if (this.tox.handle.invite_friend ((int32)this.num, group_num) != -1) {
+        return true;
+      }
+      return false;
     }
   }
 

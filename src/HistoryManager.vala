@@ -2,7 +2,7 @@ class HistoryManager {
   private static ThemeManager? _instance;
   public static ThemeManager instance {
     get {
-      if(_instance == null) {
+      if (_instance == null) {
         _instance = new ThemeManager ();
       }
       return _instance;
@@ -38,7 +38,7 @@ class HistoryManager {
       //
       // Read n bytes:
       //
-      FileInputStream @is = ios.input_stream as FileInputStream;
+      FileInputStream @is = ((FileInputStream) ios.input_stream);
 
       // Output: ``M``
       uint8 buffer[1];
@@ -68,7 +68,7 @@ class HistoryManager {
 
   public void write (string friend_pubkey, string text) {
     /*try {
-    	// Create a file that can only be accessed by the current user:
+      // Create a file that can only be accessed by the current user:
       var history_path = @"$logs_path/$friend_pubkey.log";
 
       File logs_file;
@@ -81,17 +81,17 @@ class HistoryManager {
       } else {
         debug ("Log file for this friend found, opening it...");
         logs_file = File.new_for_path (@"$logs_path/$friend_pubkey.log");
-    		ios = logs_file.open_readwrite ();
+        ios = logs_file.open_readwrite ();
       }
 
-    	size_t bytes_written;
-    	FileOutputStream os = ios.output_stream as FileOutputStream;
-    	DataOutputStream dos = new DataOutputStream (os);
-    	dos.put_string (@"$text");
+      size_t bytes_written;
+      FileOutputStream os = ios.output_stream as FileOutputStream;
+      DataOutputStream dos = new DataOutputStream (os);
+      dos.put_string (@"$text");
       dos.put_string ("\n");
-    	//dos.put_int16 (10);
+      //dos.put_int16 (10);
     } catch (Error e) {
-    	stdout.printf ("Error: %s\n", e.message);
+      stdout.printf ("Error: %s\n", e.message);
     }*/
   }
 }

@@ -42,10 +42,6 @@ GtkSwitch.trough:active {
   background: #2ECC71;
 }
 
-GtkSwitch.trough:insensitive {
-  background-image: none;
-}
-
 GtkSwitch.trough:backdrop {
   background: #E74C3C;
 }
@@ -54,8 +50,19 @@ GtkSwitch.trough:active:backdrop {
   background: #2ECC71;
 }
 
+GtkSwitch.trough:insensitive {
+  background-image: none;
+  background: @ui_darker;
+}
+
 GtkSwitch.trough:insensitive:backdrop {
   background: @ui_darker;
+}
+
+GtkSwitch.slider:insensitive {
+  background-image: none;
+  box-shadow: none;
+  background: @ui_dark;
 }
 
 GtkSwitch.slider {
@@ -64,11 +71,6 @@ GtkSwitch.slider {
   border-top-right-radius: 0px;
   border-bottom-left-radius: 2px;
   border-bottom-right-radius: 0px;
-}
-
-GtkSwitch.slider:insensitive {
-  background-image: none;
-  box-shadow: none;
 }
 
 GtkSwitch.slider:active {
@@ -206,10 +208,6 @@ RicinProfileChooser .notebook .entry {
 
 RicinProfileChooser .notebook .entry:hover {
   background-color: @ui_main;
-}
-
-GtkLabel.info-message {
-    color: #2a92c6;
 }
 
 .ricin-navigation {
@@ -479,6 +477,9 @@ GtkScrolledWindow {
 .message-list GtkLabel {
   color: @ui_text;
 }
+.message-list GtkLabel:link {
+	color: @ui_system_color;
+}
 
 .entry-principal {
 	background-image: none;
@@ -625,9 +626,18 @@ GtkScrolledWindow {
   color: @ui_text;
 }
 
-/** ENTRIES SELECTION COLOR **/
-GtkSearchEntry:selected,
-GtkEntry:selected {
+/** SELECTION COLOR **/
+.message-list .activatable:selected *,
+.message-list .activatable:selected,
+:selected:not(.friendlist-row),
+.entry:selected {
+  color: #ffffff;
   background-color: @selected_text_color;
-  color: @ui_text;
+  outline: none;
+}
+.message-list .activatable {
+  outline: none;
+}
+.message-list .info-message {
+	color: @ui_system_color;
 }

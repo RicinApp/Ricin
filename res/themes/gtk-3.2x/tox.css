@@ -1,0 +1,242 @@
+@define-color main_dark @ui_dark;
+@define-color main_ddark #292929;
+@define-color main_ddark_hover #343434;
+@define-color main_grey #949494;
+@define-color main_blue #2283d7;
+@define-color blue_primary #2a92c6;
+@define-color green_primary #2ECC71;
+@define-color white_primary #FFFFFF;
+
+@define-color text_color #e2e2e2;
+@define-color text_color_hover #aca8a8;
+@define-color text_copy #7a7a7a;
+
+@define-color gtk_box #343434;
+
+@define-color ui_green   #2ecc71;
+@define-color ui_greener #27ae60;
+
+@define-color ui_darker #171717;
+@define-color ui_dark   #222222;
+@define-color ui_main   #333333;
+@define-color ui_text   #FFFFFF;
+@define-color selected_text_color #5688F9;
+@define-color ui_system_color #2a92c6;
+@define-color selected_color @blue_primary;
+
+/** Non standard Ricin colors names, only used for this theme. */
+@define-color quote_background #444444;
+@define-color quote_text @ui_text;
+@define-color quote_plain_color @main_grey;
+@define-color swatch_principal @ui_green;
+@define-color swatch_gray #E0E0E0;
+@define-color swatch_gray_disabled #acacac;
+@define-color swatch_gray_border #ABB;
+@define-color swatch_orange #e67e22;
+
+@import url("app.css");
+
+.badge {
+  background-color: @swatch_principal;
+  color: @white_primary;
+  border-radius: 0px;
+  padding: 3px 5px;
+  font-size: 7px;
+}
+.badge-important {
+  background: @swatch_orange;
+  color: @white_primary;
+  border-radius: 0px;
+  padding: 3px 5px;
+  font-size: 7px;
+}
+
+#chatview-header,
+#settings-header {
+  background-color: @white_primary;
+  color: @ui_main;
+  border-bottom: 1px solid @swatch_gray;
+}
+#chatview-header button,
+#settings-header button {
+  background-color: @white_primary;
+  color: @swatch_principal;
+  border-bottom: 1px solid @swatch_gray;
+}
+#chatview-header,
+#chatview-header button {
+  border-bottom: 1px solid @swatch_gray_border;
+}
+
+#chatview-invite-peers {
+  background-color: @white_primary;
+  color: @ui_main;
+  border-bottom: 1px solid @swatch_gray;
+}
+
+#chatview-invite-peers entry,
+#chatview-invite-peers button {
+  background: @swatch_gray;
+  border: 1px solid @swatch_gray_border;
+  color: black;
+}
+
+#chatview-invite-peers entry:focus {
+  background: @white_primary;
+  border: 1px solid @swatch_principal;
+}
+#chatview-invite-peers entry:selected {
+  color: @white_primary;
+  background-color: @selected_color;
+  outline: none;
+}
+
+#chatview-invite-peers button:hover {
+  background: @swatch_principal;
+  border: 1px solid @swatch_principal;
+  color: @white_primary;
+}
+
+#chatview-content,
+#chatview-content RicinMessageListRow,
+#settings-content scrolledwindow  {
+  background-color: @white_primary;
+  color: black;
+}
+#chatview-content label:selected,
+#chatview-input entry:selected,
+#settings-content entry:selected {
+  background-color: @swatch_principal;
+  color: white;
+}
+
+.message-list .activatable:selected *,
+.message-list .activatable:selected,
+.message-list .activatable:selected #timestamp,
+.message-list .activatable:selected #username {
+  color: @white_primary;
+  background-color: @selected_color;
+  outline: none;
+}
+
+.message-list .activatable *,
+.message-list .activatable,
+.message-list * #timestamp,
+.message-list * #username {
+  color: black;
+}
+.quote-container {
+  border-left: 5px solid @swatch_principal;
+}
+.plain-container {
+  border-left: 5px solid @ui_main;
+}
+.message {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+#chatview-input entry {
+  color: @ui_main;
+  padding: 8px 8px;
+}
+#chatview-input * {
+  background-color: @swatch_gray;
+  color: @ui_main;
+}
+#chatview-input button * {
+  background: none;
+}
+#chatview-input button,
+#chatview-input entry {
+  border-right: 1px solid @swatch_gray_border;
+  border-top: 1px solid @swatch_gray_border;
+}
+#chatview-input button:last-child {
+  border-right: none;
+}
+#chatview-input button image {
+  background: none;
+}
+#chatview-input button:hover {
+  border-top: 1px solid @ui_darker;
+  background-color: @ui_darker;
+  color: @white_primary;
+}
+#chatview-input button:hover image {
+  color: @white_primary;
+}
+#chatview-input entry:selected {
+  background-color: @selected_color;
+  color: @white_primary;
+}
+
+#chatview-profile {
+  background-color: #F0F0F0;
+  border-left: 1px solid @swatch_gray_border;
+  color: black;
+}
+
+#chatview-profile button,
+#settings-content button,
+#settings-content entry {
+  background-color: @swatch_gray;
+  border: 1px solid @swatch_gray_border;
+  color: @ui_darker;
+}
+
+#chatview-profile button:hover,
+#chatview-header button:hover,
+#settings-header button:hover,
+#settings-content button:hover {
+  background-color: @swatch_principal;
+  color: @white_primary;
+}
+
+RicinSettingsView,
+RicinSettingsView .secondary-background {
+  background: @white_primary;
+}
+#settings-header button {
+  border-right: 1px solid @swatch_gray;
+}
+#settings-header button:last-child {
+  border-right: none;
+}
+
+.friendlist-row:selected {
+  background-color: @white_primary;
+  color: @ui_main;
+}
+
+.box-search {
+  background-color: @ui_main;
+  border-bottom: 1px solid @ui_darker;  
+}
+.box-search entry {
+  border-right: 1px solid @ui_dark;
+}
+
+#friendlist-footer button {
+  border-top: 1px solid #101010;
+  border-right: 1px solid #101010;
+}
+
+#add-friend-box {
+  border-top: 1px solid #101010;
+}
+#add-friend-box button,
+#add-friend-box entry,
+#add-friend-box textview {
+  border: 1px solid #101010;
+  background-color: @ui_dark;
+}
+#add-friend-box entry:focus {
+  border: 1px solid @swatch_principal;
+}
+#add-friend-box button:hover {
+  background-color: @swatch_principal;
+}
+#add-friend-box *:selected {
+  background-color: @selected_color;
+}

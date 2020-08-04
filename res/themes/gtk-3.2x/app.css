@@ -1,0 +1,642 @@
+/**
+* NOTE: This file isn't a file theme, it's a base theme.
+*       To make a theme please create a new file and copy the default file then
+*       do want u want. :)
+**/
+
+/** GTK reset **/
+@import url("reset.css");
+
+entry,
+entry:focus,
+combobox,
+combobox,
+button,
+button.toggle,
+image,
+switch
+{
+	border: none;
+	border-width: 0;
+	border-image: none;
+	border-style: none;
+	border-radius: 0;
+
+	box-shadow: none;
+	text-shadow: none;
+}
+
+switch {
+  font-weight: bolder;
+  font-size: small;
+  color: #fff;
+  text-shadow: 0 1px rgba(0, 0, 0, 0.5);
+	border-radius: 2px;
+}
+
+switch.trough {
+  background: #E74C3C;
+}
+
+switch.trough:active {
+  background: #2ECC71;
+}
+
+switch.trough:backdrop {
+  background: #E74C3C;
+}
+
+switch.trough:active:backdrop {
+  background: #2ECC71;
+}
+
+switch.trough:disabled {
+  background-image: none;
+  background: @ui_darker;
+}
+
+switch.trough:disabled:backdrop {
+  background: @ui_darker;
+}
+
+switch.slider:disabled {
+  background-image: none;
+  box-shadow: none;
+  background: @ui_dark;
+}
+
+switch.slider {
+  background: #C0392B;
+  border-top-left-radius: 2px;
+  border-top-right-radius: 0px;
+  border-bottom-left-radius: 2px;
+  border-bottom-right-radius: 0px;
+}
+
+switch.slider:active {
+  background-color: #27AE60;
+  border-top-left-radius: 0px;
+  border-top-right-radius: 2px;
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 2px;
+}
+
+scrollbar {
+  background: transparent;
+  border: none;
+}
+
+scrollbar.slider {
+  background: @ui_darker;
+}
+
+GtkTreeMenu,
+menu {
+  background: @ui_darker;
+  border: none;
+  border-width: 0;
+  border-image: none;
+  border-image-width: 0;
+  border-style: none;
+  border-radius: 0;
+
+  box-shadow: none;
+  text-shadow: none;
+  padding: 0;
+}
+
+menu menuItem {
+  color: @ui_text;
+}
+
+menu menuItem:hover {
+  background: @ui_main;
+  color: @ui_text;
+  border: none;
+  border-image: none;
+}
+
+notebook .tab label {
+  color: @ui_text;
+}
+
+popover {
+	background: @ui_darker;
+	border-radius: 0;
+	box-shadow: none;
+	border: none;
+}
+popover button {
+	color: @ui_text;
+}
+popover button:hover {
+	background: @ui_main;
+	color: @ui_text;
+}
+popover separator.user-infos {
+	color: @ui_darker;
+}
+
+/** CSS overrides. **/
+.quote-bar {
+  color: #2ECC71;
+  padding: 0 1px;
+}
+
+RicinProfileChooser {
+  background-color: @ui_dark;
+  color: @ui_text;
+}
+
+RicinProfileChooser notebook {
+  background-color: @ui_darker;
+}
+
+RicinProfileChooser notebook box.vertical {
+  background-color: @ui_main;
+}
+
+RicinProfileChooser notebook button {
+  border-image: none;
+  border-radius: 0;
+  border-image-width: 0;
+  border-bottom-width: 0;
+  border-left-width: 0;
+  border-right-width: 0;
+  border-top-width: 0;
+  box-shadow: none;
+  outline-width: 0;
+  text-shadow: none;
+
+  background-image: none;
+  background-color: @ui_darker;
+  color: @ui_text;
+}
+
+RicinProfileChooser notebook button:hover {
+  border-image: none;
+  border-radius: 0;
+  border-image-width: 0;
+  border-bottom-width: 0;
+  border-left-width: 0;
+  border-right-width: 0;
+  border-top-width: 0;
+  box-shadow: none;
+  outline-width: 0;
+  background-image: none;
+
+  background-color: @ui_dark;
+  color: @ui_text;
+}
+
+RicinProfileChooser notebook entry {
+  border-image: none;
+  border-radius: 0;
+  border-image-width: 0;
+  border-bottom-width: 0;
+  border-left-width: 0;
+  border-right-width: 0;
+  border-top-width: 0;
+  box-shadow: none;
+  outline-width: 0;
+  text-shadow: none;
+
+  background-image: none;
+  background-color: @ui_darker;
+  color: @ui_text;
+}
+
+RicinProfileChooser notebook entry:hover {
+  background-color: @ui_main;
+}
+
+.ricin-navigation {
+  background-color: @ui_dark;
+}
+
+stack,
+notebook,
+RicinSettingsView {
+  border-image: none;
+  border-radius: 0;
+  border-image-width: 0;
+  border-bottom-width: 0;
+  border-left-width: 0;
+  border-right-width: 0;
+  border-top-width: 0;
+  box-shadow: none;
+  outline-width: 0;
+
+  color: @ui_text;
+}
+
+RicinSettingsView {
+  background-color: @ui_darker;
+}
+
+.settings {
+  background-color: @ui_darker;
+  color: @ui_text;
+}
+
+box,
+revealer
+paned,
+viewport,
+listbox,
+RicinFriendListRow,
+RicinMainWindow,
+scrolledwindow {
+  background-image: initial;
+	background-color: transparent;
+	background: none;
+  border-image: none;
+  border-image-width: 0;
+  border-bottom-width: 0;
+  border-left-width: 0;
+  border-right-width: 0;
+  border-top-width: 0;
+  box-shadow: none;
+  outline-width: 0;
+}
+
+.box-search {
+  background-color: @ui_darker;
+}
+.box-search entry.search {
+	background-color: transparent;
+	background-image: none;
+	border: none;
+	border-image: none;
+	border-radius: 0;
+	color: @ui_text;
+}
+
+.box-search button.toggle {
+	background-color: transparent;
+	background-image: none;
+	border: none;
+	border-image: none;
+	border-radius: 0;
+	color: @ui_text;
+}
+
+.secondary-background {
+  background-color: @ui_main;
+}
+
+.secondary-background entry,
+.secondary-background button {
+  border-image: none;
+  background-image: none;
+  background-color: @ui_dark;
+}
+
+.secondary-background entry:hover,
+.secondary-background entry:active,
+.secondary-background button:hover {
+  border-image: none;
+  border-radius: 0;
+  background-image: none;
+  background-color: @ui_darker;
+}
+
+.secondary-background notebook {
+  background-color: @ui_darker;
+}
+
+.secondary-background notebook box,
+.secondary-background notebook grid {
+    padding: 0 50px;
+}
+
+.secondary-background notebook button {
+    background-color: @ui_darker;
+    background-image: none;
+    border: none;
+    border-image: none;
+    padding: 40px 0;
+    color: @ui_text;
+    /*margin: 5px 10px;*/
+}
+
+.secondary-background notebook button label {
+    background-color: transparent;
+    background: transparent;
+    background-image: none;
+}
+
+.secondary-background notebook button {
+    border: none;
+    border-width: 0;
+    border-image: none;
+}
+
+.secondary-background notebook button:hover {
+    transition: 150ms ease-in-out;
+    background-image: none;
+    background: @main_ddark_hover;
+    background-color: @main_ddark_hover;
+}
+
+.secondary-background notebook entry {
+    background: @main_dark;
+    color: @main_blue;
+}
+
+.secondary-background notebook label {
+    color: @text_color;
+    background-color: @gtk_box;
+}
+
+.secondary-background notebook {
+    border-radius: 0;
+
+    background-color: @ui_main;
+
+    -notebook-tab-overlap: 3;
+    -notebook-tab-curvature: 2;
+}
+
+notebook-buttons,
+notebook-buttons button {
+  background-color: @ui_darker;
+  color: @ui_text;
+}
+
+notebook-buttons button:hover {
+  background-color: @ui_dark;
+  color: @ui_text;
+}
+
+.friend-infos {
+  background-color: @ui_dark;
+  color: @ui_text;
+}
+.user-infos {
+  background-color: @ui_darker;
+  color: @ui_text;
+}
+
+.ricin-navigation .user-infos entry {
+  background-color: @ui_darker;
+}
+.ricin-navigation .user-infos entry:hover,
+.ricin-navigation .user-infos entry:active {
+  background-color: @ui_main;
+}
+
+button-dark {
+  border-image: none;
+  border-radius: 0;
+  border-image-width: 0;
+  border-bottom-width: 0;
+  border-left-width: 0;
+  border-right-width: 0;
+  border-top-width: 0;
+  box-shadow: none;
+  outline-width: 0;
+  text-shadow: none;
+
+  background-image: none;
+  background-color: @ui_darker;
+  color: @ui_text;
+}
+button-dark:hover {
+  border-image: none;
+  border-radius: 0;
+  border-image-width: 0;
+  border-bottom-width: 0;
+  border-left-width: 0;
+  border-right-width: 0;
+  border-top-width: 0;
+  box-shadow: none;
+  outline-width: 0;
+  background-image: none;
+
+  background-color: @ui_dark;
+  color: @ui_text;
+}
+
+button-text-fix {
+  color: @ui_text;
+}
+button-inverted:hover {
+  background-color: @ui_main;
+}
+
+entry-inverted {
+  border-image: none;
+  border-radius: 0;
+  border-image-width: 0;
+  border-bottom-width: 0;
+  border-left-width: 0;
+  border-right-width: 0;
+  border-top-width: 0;
+  box-shadow: none;
+  outline-width: 0;
+  text-shadow: none;
+
+  background-image: none;
+  background-color: @ui_darker;
+  color: @ui_text;
+}
+entry-inverted:hover {
+  background-color: @ui_main;
+}
+
+.friendlist {
+  background-color: @ui_dark;
+  color: @ui_text;
+  border-image: none;
+  border: none;
+}
+
+.friendlist-notify {
+  background-color: #1565c4;
+}
+
+.friendlist-notify button,
+.friendlist-notify .close-button {
+  border-radius: 360px;
+  background-color: white;
+  color: #1565c4;
+}
+.friendlist-notify button,
+.friendlist-notify .close-button:hover {
+  border-radius: 360px;
+  background-color: rgb(205, 209, 204);
+  color: rgb(135, 135, 135);
+}
+
+.message-list {
+  outline-width: 0;
+}
+
+.message-list label {
+  color: @ui_text;
+}
+.message-list label:link {
+	color: @ui_system_color;
+}
+
+entry-principal {
+	background-image: none;
+	border-image: none;
+
+	background-color: @ui_darker;
+	border: none;
+	border-radius: 0;
+
+  color: @ui_text;
+}
+
+entry-chat {
+	border: none;
+	border-radius: 0;
+ 	background-image: none;
+	border-image: none;
+ 	box-shadow: none;
+ 	outline-width: 0;
+	background-color: @ui_darker;
+ 	color: @ui_text;
+}
+
+.friendlist-row {
+  background-color: @ui_dark;
+  color: @ui_text;
+}
+
+.friendlist-row:active,
+.friendlist-row:selected {
+  background-color: @ui_main;
+  color: @ui_text;
+}
+
+.ricin-content {
+  background-color: @ui_main;
+}
+
+.ricin-content .message-list {
+  background-color: transparent;
+}
+
+.ricin-content .message-list .message {
+  background-color: transparent;
+}
+
+.image-desc {
+  background-color: @ui_darker;
+  color: white;
+  padding: 5px 5px 5px 5px;
+}
+
+.btn-save-image {
+  background-image: none;
+  border: none;
+  border-radius: 0;
+
+  background-color: @ui_darker;
+  color: @ui_text;
+}
+
+.btn-save-image:hover, .btn-save-image:disabled {
+  background-image: none;
+  border: none;
+  border-radius: 0;
+
+  background-color: @ui_dark;
+  color: @ui_text;
+}
+
+.progress-bg {
+  background-color: #2ecc71;
+}
+.progress-bg label {
+  color: black;
+}
+.progress-fg {
+  background-color: #27ae60;
+}
+
+/**
+* CANCELED FILE
+**/
+
+.canceled-file {
+  background-color: #c0392b;
+  color: white;
+}
+
+.canceled-file label_file_name {
+  color: white;
+}
+
+.canceled-file .btn-save-image,
+.canceled-file .btn-save-image :disabled {
+  background-color: #e74c3c;
+}
+
+/**
+* SAVED FILE
+**/
+
+.saved-file {
+  background-color: #27ae60;
+  color: white;
+}
+
+.saved-file label_file_name {
+  color: white;
+}
+
+.saved-file .btn-save-image,
+.saved-file .btn-save-image:disabled {
+  background-color: #2ecc71;
+  color: white;
+}
+
+/** Faux offline message **/
+.chatview-notify-bar {
+  background-color: #3498DB;
+}
+.chatview-notify-bar button:hover {
+  background-color: #2980B9;
+}
+
+/** Friend request widget **/
+.friend-request {
+  background-color: #2c9f42;
+  color: @ui_text;
+}
+.friend-request button { background-color: #2c9f42; }
+.friend-request button:hover {
+  background-color: #237f35;
+  color: @ui_text;
+}
+
+/** Unread messages widget. **/
+.unread-messages box {
+  background-color: @ui_greener;
+  color: @ui_text;
+}
+.unread-messages button {
+  background-color: @ui_green;
+  color: @ui_text;
+}
+
+/** SELECTION COLOR **/
+.message-list .activatable:selected *,
+.message-list .activatable:selected,
+:selected:not(.friendlist-row),
+entry:selected {
+  color: #ffffff;
+  background-color: @selected_text_color;
+  outline: none;
+}
+.message-list .activatable {
+  outline: none;
+}
+.message-list .info-message {
+	color: @ui_system_color;
+}

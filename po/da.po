@@ -1,0 +1,760 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# Nicolai Ireneo-Larsen <wonderingdane@protonmail.com>, 2016
+# Will Tange <will@brt.sexy>, 2016
+# Will Tange <will@brt.sexy>, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: Ricin\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-11-03 14:06+0100\n"
+"PO-Revision-Date: 2016-11-08 15:43+0000\n"
+"Last-Translator: SkyzohKey <SkyzohKey@users.noreply.github.com>\n"
+"Language-Team: Danish (http://www.transifex.com/ricinapp/ricin/language/da/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: da\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: src/ChatView.vala:422 src/Notification.vala:29
+msgid " is now "
+msgstr " er nu "
+
+#: src/Wrapper.vala:260
+msgid " is now known as "
+msgstr " er nu kendt som "
+
+#: res/ui/chat-view.ui:517
+msgid "**bold**"
+msgstr "**fed**"
+
+#: res/ui/chat-view.ui:506
+msgid "*bold*"
+msgstr "*fed*"
+
+#: res/ui/chat-view.ui:553
+msgid "//italic//"
+msgstr "//kursiv//"
+
+#: res/ui/chat-view.ui:542
+msgid "/italic/"
+msgstr "/kursiv/"
+
+#: res/ui/friend-list-row.ui:101
+msgid "10"
+msgstr "10"
+
+#: res/ui/friend-list-notification_unusable.ui:42
+msgid ""
+"3 unused profiles found:\n"
+"<b>Snow, Guy, Aztek</b>"
+msgstr "3 ubrugte profiler fundet:\n<b>Snow, Guy, Aztek</b>"
+
+#: res/ui/settings-view.ui:569
+msgid "9050"
+msgstr "9050"
+
+#: res/ui/chat-view.ui:293
+msgid "<b>Available Markdown tags</b>"
+msgstr "<b>Tilgængelige Markdown tag</b>"
+
+#: res/ui/settings-view.ui:897
+msgid "<b>Display friend's status changes?</b>"
+msgstr "<b>Vis venners status opdateringer?</b>"
+
+#: res/ui/settings-view.ui:655
+msgid "<b>Enable custom themes?</b>"
+msgstr "<b>Brugerdefinerede temaer?</b>"
+
+#: res/ui/group-chat-view.ui:219
+msgid "<b>Friends</b>"
+msgstr "<b>Venner</b>"
+
+#: res/ui/settings-view.ui:440
+msgid "<b>IPv6</b>"
+msgstr "<b>IPv6</b>"
+
+#: res/ui/settings-view.ui:777
+msgid "<b>Language:</b>"
+msgstr "<b>Sprog:</b>"
+
+#: src/Wrapper.vala:800
+msgid "<b>Last online:</b>"
+msgstr "<b>Sidst online:</b>"
+
+#: res/ui/chat-view.ui:1187
+msgid "<b>Last seen:</b>"
+msgstr "<b>Sidst set:</b>"
+
+#: res/ui/settings-view.ui:1146
+msgid "<b>Make the icon in taskbar to blink on new messages?</b>"
+msgstr "Skal ikon blinke ved ny besked?"
+
+#: res/ui/settings-view.ui:504
+msgid "<b>Proxy (SOCKS 5)</b>"
+msgstr "<b>Proxy (SOCKS 5)</b>"
+
+#: res/ui/settings-view.ui:1401
+msgid ""
+"<b>Ricin</b> aims to be a <i>secure, lightweight, hackable and fully-"
+"customizable</i> chat client using the awesome and open-source "
+"<b>ToxCore</b> library."
+msgstr "<b>Ricin</b> sætter sig for at være en <i>sikker, let, hackervenlig samt tilpasselig</i> chatklient, der benytter sig af det open-source <b>ToxCore</b> bibliotek."
+
+#: res/ui/settings-view.ui:1239
+msgid "<b>Send typing notifications?</b>"
+msgstr "<b>Send taste notifikationer?</b>"
+
+#: res/ui/settings-view.ui:402
+msgid "<b>UDP</b>"
+msgstr "<b>UDP</b>"
+
+#: res/ui/group-chat-view.ui:247
+msgid "<b>Unknown peers</b>"
+msgstr "<b>Ukendte peers</b>"
+
+#: res/ui/settings-view.ui:1360
+msgid "<b>Version:</b>"
+msgstr "<b>Version:</b>"
+
+#: res/ui/settings-view.ui:76
+msgid "<b>Your ToxID:</b>"
+msgstr "<b>Dit ToxID:</b>"
+
+#: res/ui/chat-view.ui:998
+msgid "<i>Friend is typing</i>"
+msgstr "<i>Ven skriver</i>"
+
+#: res/ui/chat-view.ui:455
+msgid ">quote"
+msgstr ">citat"
+
+#: res/ui/settings-view.ui:1579
+msgid "About"
+msgstr "Om"
+
+#: res/ui/main-window.ui:386
+msgid "Accept"
+msgstr "Accepter"
+
+#: res/ui/file-list-row.ui:218 res/ui/inline-file-message-list-row.ui:205
+msgid "Accept/Resume file"
+msgstr "Accepter/Forsæt filoverførsel"
+
+#: src/MainWindow.vala:715 src/MainWindow.vala:726 src/MainWindow.vala:751
+#: src/MainWindow.vala:765 res/ui/main-window.ui:486 res/ui/main-window.ui:564
+msgid "Add a friend"
+msgstr "Tilføj en ven"
+
+#: res/ui/main-window.ui:646
+msgid "Add friend"
+msgstr "Tilføj ven"
+
+#: res/ui/settings-view.ui:192
+msgid "Add password"
+msgstr "Tilføj kodeord"
+
+#: src/MainWindow.vala:190
+msgid "All friends"
+msgstr "Alle venner"
+
+#: res/ui/chat-view.ui:352
+msgid "Alt syntax"
+msgstr "Alt syntaks"
+
+#: src/MainWindow.vala:614 src/Util.vala:211
+msgid "Away"
+msgstr "Væk"
+
+#: src/ChatView.vala:733 res/ui/chat-view.ui:1241
+msgid "Block"
+msgstr "Bloker"
+
+#: src/FriendListRow.vala:94
+msgid "Block friend"
+msgstr "Bloker ven"
+
+#: src/Util.vala:205
+msgid "Blocked"
+msgstr "Blokeret"
+
+#: res/ui/chat-view.ui:492
+msgid "Bold"
+msgstr "Fed"
+
+#: src/MainWindow.vala:604 src/Util.vala:214
+msgid "Busy"
+msgstr "Optaget"
+
+#: res/ui/settings-view.ui:1179
+msgid ""
+"By enabling this option you'll receive desktop notifications <b>everytime a "
+"contact goes Online or Offline</b>. Away and Busy status won't trigger these"
+" notifications."
+msgstr "Ved at aktivere denne indstilling, vil du modtage en besked på skrivebordet <b>hver gang en kontakt kommer online eller går offline<b/>. Status som væk og optaget vil ikke give nogen besked."
+
+#: res/ui/settings-view.ui:1139
+msgid ""
+"By enabling this option, <b>everytime you get a new message and the Ricin "
+"window is not focused</b>, the Ricin's icon in your taskbar will blink, "
+"indicating unread message(s). Giving focus to Ricin will cancel this "
+"notification."
+msgstr "Ved at aktivere denne indstilling, vil ikonet blinke for at indikere ulæste beskeder, hvis Ricin er minimeret."
+
+#: res/ui/chat-view.ui:821
+msgid "Call friend"
+msgstr "Ring til ven"
+
+#: src/MainWindow.vala:121
+msgid "Can't load the profile"
+msgstr "Kan ikke hente profil"
+
+#: res/ui/main-window.ui:667
+msgid "Cancel"
+msgstr "Annuller"
+
+#: res/ui/file-list-row.ui:188 res/ui/inline-file-message-list-row.ui:175
+msgid "Cancel/pause file"
+msgstr "Annuller/sæt filoverførsel på pause"
+
+#: res/ui/settings-view.ui:105
+msgid "Change Nospam"
+msgstr "Skift Nospam"
+
+#: res/ui/settings-view.ui:209
+msgid "Change password"
+msgstr "Skift kodeord"
+
+#: res/ui/main-window.ui:91
+msgid "Change your avatar"
+msgstr "Skift profilbillede"
+
+#: res/ui/main-window.ui:137
+msgid "Change your status"
+msgstr "Skift statusmeddelelse"
+
+#: res/ui/settings-view.ui:369
+msgid ""
+"Changing Network settings will temporarily disconnect you from the Tox "
+"network"
+msgstr "Ændring af Netværksindstillingerne vil midlertidigt afbryde din forbindelse til Tox netværket"
+
+#: src/SettingsView.vala:463
+msgid ""
+"Changing your password will cause Ricin to decrypt your profile then re-"
+"encrypt it with the new password."
+msgstr "Ved at fjerne dit kodeord vil din profil, logfiler og indstillinger ikke længere være krypteret."
+
+#: src/ChatView.vala:797
+msgid "Choose a file"
+msgstr "Vælg en fil"
+
+#: src/SettingsView.vala:409
+msgid "Choose a folder where to save files"
+msgstr "Vælg en mappe hvor filer skal gemmes"
+
+#: src/ProfileChooser.vala:145
+msgid "Choose a name for the profile"
+msgstr "Vælg et navn til profilen"
+
+#: res/ui/settings-view.ui:303
+msgid "Choose directory"
+msgstr "Vælg mappe"
+
+#: res/ui/chat-view.ui:1494
+msgid "Choose smileys"
+msgstr "Vælg smileys"
+
+#: src/ChatView.vala:519
+msgid "Clear conversation"
+msgstr "Ryd samtale"
+
+#: src/SettingsView.vala:98
+msgid "Clearer theme"
+msgstr "Klart tema"
+
+#: res/ui/chat-view.ui:1392
+msgid "Close the popup"
+msgstr "Luk pop op-vinduet"
+
+#: res/ui/settings-view.ui:1054
+msgid "Compact friend list?"
+msgstr "Kompakt venneliste?"
+
+#: res/ui/password-dialog.ui:176
+msgid "Confirm new password"
+msgstr "Bekræft nyt kodeord"
+
+#: res/ui/settings-view.ui:1469
+msgid "Contributors"
+msgstr "Bidragsydere"
+
+#: res/ui/settings-view.ui:87
+msgid "Copy"
+msgstr "Kopier"
+
+#: res/ui/chat-view.ui:1281
+msgid "Copy friend's ToxID"
+msgstr "Kopier vens ToxID"
+
+#: src/ChatView.vala:505
+msgid "Copy quote in clipboard"
+msgstr "Kopier citat"
+
+#: src/ChatView.vala:499
+msgid "Copy selection in clipboard"
+msgstr "Kopier fremhævet"
+
+#: res/ui/profile-chooser-window.ui:179
+msgid "Create a profile"
+msgstr "Opret profil"
+
+#: res/ui/profile-chooser-window.ui:154
+msgid "Create this profile"
+msgstr "Opret profil"
+
+#: res/ui/password-dialog.ui:101
+msgid "Current password"
+msgstr "Nuværende kodeord"
+
+#: src/PasswordDialog.vala:123
+msgid "Current password cannot be blank."
+msgstr "Nuværende kodeord kan ikke være blank."
+
+#: src/SettingsView.vala:96
+msgid "Dark theme"
+msgstr "Mørkt tema"
+
+#: res/ui/main-window.ui:367
+msgid "Decline"
+msgstr "Afvis"
+
+#: res/ui/settings-view.ui:275
+msgid "Default save path:"
+msgstr "Standard download mappe"
+
+#: res/ui/chat-view.ui:1261
+msgid "Delete"
+msgstr "Slet"
+
+#: res/ui/friend-list-notification_unusable.ui:59
+msgid "Delete friends (3)"
+msgstr "Slet venner (3)"
+
+#: src/ChatView.vala:515
+msgid "Delete selected messages"
+msgstr "Slet valgte beskeder"
+
+#: res/ui/settings-view.ui:995
+msgid "Display typing notifications?"
+msgstr "Vis taste notifikationer?"
+
+#: res/ui/settings-view.ui:942
+msgid "Display unread messages notice?"
+msgstr "Vis meddelelse om ulæste beskeder?"
+
+#: src/SettingsView.vala:435 src/SettingsView.vala:463
+#: src/SettingsView.vala:488
+msgid "Do you want to proceed anyway?"
+msgstr "Vil du gerne fortsætte alligevel?"
+
+#: src/SettingsView.vala:462
+msgid "Edit your password"
+msgstr "Ændre dit kodeord"
+
+#: res/ui/settings-view.ui:1232
+msgid ""
+"Enabling this will cause Ricin to tell <b>the person you talk to</b> when "
+"you are typing."
+msgstr "Aktivering af denne indstilling vil få Ricin til at <b>fortælle personen du snakker med</b> at du er ved at skrive en besked."
+
+#: src/SettingsView.vala:434
+msgid "Encrypt your profile"
+msgstr "Krypter din profil"
+
+#: res/ui/profile-chooser-window.ui:107
+msgid "Enter a name for the profile"
+msgstr "Angiv et navn til profilen"
+
+#: res/ui/profile-chooser-window.ui:58 res/ui/profile-chooser-window.ui:143
+msgid "Enter your password..."
+msgstr "Skriv dit kodeord..."
+
+#: res/ui/chat-view.ui:883
+msgid "Friend's profile"
+msgstr "Vens profil"
+
+#: res/ui/settings-view.ui:339
+msgid "General"
+msgstr "Generelt"
+
+#: res/ui/settings-view.ui:1431
+msgid "GitHub"
+msgstr "GitHub"
+
+#: res/ui/group-chat-view.ui:60
+msgid "Groupchat name"
+msgstr "Gruppechat navn"
+
+#: src/MainWindow.vala:569
+#, c-format
+msgid "Hello! It's %s, let's be friends."
+msgstr "Hej! %s her, lad os være venner."
+
+#: src/InlineImageMessageListRow.vala:112
+msgid "Image saved!"
+msgstr "Billede gemt!"
+
+#: src/SettingsView.vala:435
+msgid ""
+"In order to encrypt your profile you need to specify a password. This "
+"password will be asked each time you login."
+msgstr "For at kryptere din profil skal du angive et kodeord. Du skal bruge kodeordet hver gang du starter Ricin."
+
+#: res/ui/chat-view.ui:600
+msgid "Inline code"
+msgstr "Indlejret kode"
+
+#: res/ui/settings-view.ui:1107
+msgid "Interface"
+msgstr "Grænseflade"
+
+#: res/ui/chat-view.ui:528
+msgid "Italic"
+msgstr "Kursiv"
+
+#: res/ui/group-chat-view.ui:289
+msgid "Leave"
+msgstr "Forlad"
+
+#: res/ui/settings-view.ui:1519
+msgid "License (GNU General Public License 3)"
+msgstr "Licens (GNU General Public License 3)"
+
+#: res/ui/profile-chooser-window.ui:91
+msgid "Load a profile"
+msgstr "Indlæs profil"
+
+#: res/ui/profile-chooser-window.ui:69
+msgid "Login"
+msgstr "Log på"
+
+#: src/SettingsView.vala:100
+msgid "Markdown"
+msgstr "Markdown"
+
+#: res/ui/settings-view.ui:836
+msgid "Message parsing mode:"
+msgstr "Opsplitnings-tilstand af besked"
+
+#: res/ui/group-chat-view.ui:310
+msgid "Mute"
+msgstr "Deaktiver mikrofon"
+
+#: res/ui/settings-view.ui:611
+msgid "Network"
+msgstr "Netværk"
+
+#: res/ui/password-dialog.ui:138
+msgid "New password"
+msgstr "Nyt kodeord"
+
+#: src/PasswordDialog.vala:108
+msgid "New password must be different from the older one."
+msgstr "Det nye kodeod skal være et andet end det gamle kodeord."
+
+#: src/MainWindow.vala:541 src/SettingsView.vala:373
+#: res/ui/password-dialog.ui:32
+msgid "No"
+msgstr "Nej"
+
+#: res/ui/settings-view.ui:1291
+msgid "Notifications"
+msgstr "Meddelelser"
+
+#: src/Util.vala:218
+msgid "Offline"
+msgstr "Offline"
+
+#: src/MainWindow.vala:594 src/Util.vala:208
+msgid "Online"
+msgstr "Online"
+
+#: src/MainWindow.vala:189
+msgid "Online friends"
+msgstr "Online venner"
+
+#: res/ui/password-dialog.ui:213
+msgid "Password Strength"
+msgstr "Kodeordets styrke"
+
+#: src/PasswordDialog.vala:101 src/PasswordDialog.vala:117
+#: src/PasswordDialog.vala:130
+msgid "Password cannot be blank."
+msgstr "Kodeordet kan ikke være blank."
+
+#: src/PasswordDialog.vala:104 src/PasswordDialog.vala:120
+msgid "Password confirmation cannot be blank."
+msgstr "Bekræftelse af kodeordet kan ikke være blank."
+
+#: src/PasswordDialog.vala:95 src/PasswordDialog.vala:111
+msgid "Password doesn't match confirmation."
+msgstr "Bekræftelsen af kodeordet passer ikke."
+
+#: src/PasswordDialog.vala:98 src/PasswordDialog.vala:114
+#: src/PasswordDialog.vala:127
+msgid "Password must be at least 8 characters."
+msgstr "Kodeordet skal mindst være 8 tegn."
+
+#: src/SettingsView.vala:101
+msgid "Plaintext"
+msgstr "Ren tekst"
+
+#: src/ProfileChooser.vala:101
+msgid "Please enter a password"
+msgstr "Skriv venligst et kodeord"
+
+#: src/ProfileChooser.vala:124
+msgid "Please enter a profile name."
+msgstr "Angiv et profilnavn."
+
+#: src/ProfileChooser.vala:131
+msgid "Profile name already taken."
+msgstr "Profilnavn allerede taget."
+
+#: src/MainWindow.vala:624
+msgid "Quit"
+msgstr "Luk"
+
+#: res/ui/chat-view.ui:433
+msgid "Quote"
+msgstr "Citat"
+
+#: src/ChatView.vala:509
+msgid "Quote selection"
+msgstr "Citer fremhævet"
+
+#: res/ui/settings-view.ui:731
+msgid "Reload custom theme"
+msgstr "Genindlæs brugertema"
+
+#: res/ui/settings-view.ui:226
+msgid "Remove password"
+msgstr "Fjern kodeord"
+
+#: res/ui/password-dialog.ui:62
+msgid "Remove password?"
+msgstr "Fjern kodeord?"
+
+#: src/SettingsView.vala:488
+msgid ""
+"Removing your password will unencrypt your profile, chat logs and settings."
+msgstr "Ved at fjerne dit kodeord vil din profil, logfiler og indstillinger ikke længere være krypteret."
+
+#: res/ui/password-dialog.ui:79
+msgid ""
+"Removing your password will unencrypt your profile, chat logs and settings. "
+"<b>Do you want to proceed anyway?</b>"
+msgstr "Ved at fjerne dit kodeord vil din profil, logfiler og indstillinger ikke længere være krypteret. <b>Vil du gerne fortsætte alligevel?</b>"
+
+#: res/ui/settings-view.ui:1450
+msgid "Report an issue"
+msgstr "Anmeld et problem"
+
+#: res/ui/settings-view.ui:368
+msgid "Request deletion"
+msgstr "Anmod om sletning"
+
+#: src/MainWindow.vala:698
+msgid "Restart later"
+msgstr "Genstart senere"
+
+#: src/MainWindow.vala:698
+msgid "Restart now"
+msgstr "Genstart nu"
+
+#: src/MainWindow.vala:695
+msgid "Restart required"
+msgstr "Genstart påkrævet"
+
+#: src/MainWindow.vala:774
+msgid "Ricin doesn't supports ToxDNS yet."
+msgstr "Ricin understøtter ikke ToxDNS endnu."
+
+#: src/MainWindow.vala:697
+msgid ""
+"Ricin needs to restart in order to apply settings. Do you want to restart?"
+msgstr "Ricin skal genstarte for at kunne anvende indstillinger. Vil du genstarte nu?"
+
+#: res/ui/settings-view.ui:1539
+msgid "Ricin official website"
+msgstr "Ricin's officielle webside"
+
+#: res/ui/chat-view.ui:1632
+msgid "Scroll to bottom"
+msgstr "Scroll til bunden"
+
+#: res/ui/welcome-view.ui:87
+msgid "Select a chat to start messaging."
+msgstr "Vælg et vindue for at chatte"
+
+#: src/ProfileChooser.vala:25 res/ui/profile-chooser-window.ui:23
+msgid "Select a profile"
+msgstr "Vælg en profil"
+
+#: src/MainWindow.vala:851
+msgid "Select your avatar"
+msgstr "Vælg dit profilbillede"
+
+#: res/ui/chat-view.ui:1521
+msgid "Send file"
+msgstr "Send fil"
+
+#: res/ui/chat-view.ui:1546
+msgid "Send message"
+msgstr "Send besked"
+
+#: src/MainWindow.vala:135 src/MainWindow.vala:714 res/ui/main-window.ui:506
+msgid "Settings"
+msgstr "Indstillinger"
+
+#: res/ui/settings-view.ui:1186
+msgid "Show notifications when friends status changes?"
+msgstr "Hvis en meddelelse når en ven skifter status?"
+
+#: res/ui/chat-view.ui:787
+msgid "Status message..."
+msgstr "Statusmeddelelse..."
+
+#: res/ui/chat-view.ui:636
+msgid "Striked"
+msgstr "Overstreget"
+
+#: res/ui/chat-view.ui:338
+msgid "Syntax"
+msgstr "Syntaks"
+
+#: res/ui/chat-view.ui:324
+msgid "Tag Name"
+msgstr "Tag Navn"
+
+#: src/ProfileChooser.vala:113
+msgid "The selected profile doesn't exists."
+msgstr "Den valgte profil eksisterer ikke."
+
+#: res/ui/settings-view.ui:694
+msgid "Theme:"
+msgstr "Tema:"
+
+#: res/ui/chat-view.ui:1614
+msgid "There are unread messages in this chat"
+msgstr "Der er ulæste beskeder i denne chat"
+
+#: src/MessageListRow.vala:150 src/PlainLabel.vala:22 src/QuoteLabel.vala:22
+msgid "ToxDNS is not supported yet."
+msgstr "ToxDNS er ikke understøttet endnu."
+
+#: src/MainWindow.vala:776
+msgid "ToxID can't be empty."
+msgstr "ToxID må ikke være tomt."
+
+#: src/MainWindow.vala:778
+msgid "ToxID is invalid."
+msgstr "ToxID er ugyldigt."
+
+#: res/ui/main-window.ui:589
+msgid "ToxID to add..."
+msgstr "ToxID at tilføje..."
+
+#: res/ui/main-window.ui:193
+msgid "Type to search..."
+msgstr "Skriv for at søge..."
+
+#: src/ChatView.vala:731
+msgid "Unblock"
+msgstr "Fjern blokering"
+
+#: src/FriendListRow.vala:94
+msgid "Unblock friend"
+msgstr "Fjern blokering af ven"
+
+#: res/ui/chat-view.ui:564
+msgid "Underline"
+msgstr "Understreg"
+
+#: src/SettingsView.vala:487
+msgid "Unencrypt your profile"
+msgstr "Dekrypter din profil"
+
+#: res/ui/chat-view.ui:764
+msgid "Username"
+msgstr "Brugernavn"
+
+#: res/ui/chat-view.ui:849
+msgid "Video call friend"
+msgstr "Start videoopkald med ven"
+
+#: src/SettingsView.vala:97
+msgid "White theme"
+msgstr "Hvidt tema"
+
+#: src/MainWindow.vala:541 src/SettingsView.vala:372
+#: res/ui/password-dialog.ui:19
+msgid "Yes"
+msgstr "Ja"
+
+#: res/ui/main-window.ui:267
+msgid "You got a new friend request"
+msgstr "Du har modtaget en venneanmodning"
+
+#: src/ChatView.vala:798 src/MainWindow.vala:854 src/SettingsView.vala:412
+msgid "_Cancel"
+msgstr "_Annuller"
+
+#: src/ChatView.vala:799 src/MainWindow.vala:855 src/SettingsView.vala:413
+msgid "_Open"
+msgstr "_Åben"
+
+#: res/ui/chat-view.ui:589
+msgid "__underline__"
+msgstr "__understreg__"
+
+#: res/ui/chat-view.ui:578
+msgid "_underline_"
+msgstr "_understreg_"
+
+#: res/ui/chat-view.ui:615
+msgid "`inline code`"
+msgstr "`indlejret kode`"
+
+#: src/SettingsView.vala:83
+msgid "default"
+msgstr "standard"
+
+#: src/ChatView.vala:372
+msgid "is typing"
+msgstr "skriver"
+
+#: res/ui/settings-view.ui:1607
+msgid "ricin.io (stable)"
+msgstr "ricin.io (stable)"
+
+#: src/SettingsView.vala:84
+msgid "stable"
+msgstr "stabil"
+
+#: res/ui/settings-view.ui:1610
+msgid "toxme.io"
+msgstr "toxme.io"
+
+#: res/ui/chat-view.ui:650
+msgid "~striked~"
+msgstr "~overstreget~"
+
+#: res/ui/chat-view.ui:661
+msgid "~~striked~~"
+msgstr "~~overstreget~~"

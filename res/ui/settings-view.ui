@@ -14,6 +14,7 @@
     <property name="orientation">vertical</property>
     <child>
       <object class="GtkBox" id="box_tab_buttons">
+        <property name="name">settings-header</property>
         <property name="height_request">62</property>
         <property name="visible">True</property>
         <property name="can_focus">False</property>
@@ -23,6 +24,7 @@
         </child>
         <style>
           <class name="notebook-buttons"/>
+          <class name="background"/>
         </style>
       </object>
       <packing>
@@ -33,18 +35,20 @@
     </child>
     <child>
       <object class="GtkNotebook" id="notebook_settings">
+        <property name="name">settings-content</property>
         <property name="visible">True</property>
         <property name="can_focus">True</property>
         <property name="margin_left">10</property>
         <property name="margin_right">10</property>
-        <property name="margin_top">10</property>
-        <property name="margin_bottom">10</property>
         <property name="show_tabs">False</property>
         <property name="show_border">False</property>
         <child>
           <object class="GtkScrolledWindow" id="tab_general">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
+            <property name="margin_top">10</property>
+            <property name="margin_bottom">10</property>
+            <property name="hscrollbar_policy">never</property>
             <child>
               <object class="GtkViewport" id="viewport1">
                 <property name="visible">True</property>
@@ -76,7 +80,7 @@
                                 <property name="use_markup">True</property>
                               </object>
                               <packing>
-                                <property name="expand">False</property>
+                                <property name="expand">True</property>
                                 <property name="fill">True</property>
                                 <property name="position">0</property>
                               </packing>
@@ -87,6 +91,7 @@
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">True</property>
+                                <property name="valign">start</property>
                                 <signal name="clicked" handler="copy_toxid" swapped="no"/>
                                 <style>
                                   <class name="button-dark"/>
@@ -101,7 +106,7 @@
                             </child>
                             <child>
                               <object class="GtkButton" id="button_toxid_change_nospam">
-                                <property name="label" translatable="yes">Change Nospam</property>
+                                <property name="label" translatable="yes">Change NoSpam</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">True</property>
@@ -175,24 +180,27 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkBox" id="box4">
+                      <object class="GtkBox" id="box24">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="orientation">vertical</property>
-                        <property name="spacing">5</property>
+                        <property name="spacing">10</property>
                         <child>
-                          <object class="GtkBox" id="box_tox_alias">
+                          <object class="GtkBox" id="box25">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="spacing">10</property>
-                            <property name="homogeneous">True</property>
+                            <property name="halign">center</property>
+                            <property name="spacing">5</property>
                             <child>
-                              <object class="GtkLabel" id="label_header_tox_alias">
+                              <object class="GtkButton" id="button_password_add">
+                                <property name="label" translatable="yes">Add password</property>
                                 <property name="visible">True</property>
-                                <property name="can_focus">False</property>
-                                <property name="halign">start</property>
-                                <property name="label" translatable="yes">&lt;b&gt;Your Tox alias:&lt;/b&gt;</property>
-                                <property name="use_markup">True</property>
+                                <property name="can_focus">True</property>
+                                <property name="receives_default">True</property>
+                                <signal name="clicked" handler="add_password" swapped="no"/>
+                                <style>
+                                  <class name="button-dark"/>
+                                </style>
                               </object>
                               <packing>
                                 <property name="expand">False</property>
@@ -201,9 +209,15 @@
                               </packing>
                             </child>
                             <child>
-                              <object class="GtkLabel" id="label_toxme_alias">
+                              <object class="GtkButton" id="button_password_change">
+                                <property name="label" translatable="yes">Change password</property>
                                 <property name="visible">True</property>
-                                <property name="can_focus">False</property>
+                                <property name="can_focus">True</property>
+                                <property name="receives_default">True</property>
+                                <signal name="clicked" handler="change_password" swapped="no"/>
+                                <style>
+                                  <class name="button-dark"/>
+                                </style>
                               </object>
                               <packing>
                                 <property name="expand">False</property>
@@ -212,12 +226,12 @@
                               </packing>
                             </child>
                             <child>
-                              <object class="GtkButton" id="button_toxme_copy">
-                                <property name="label" translatable="yes">Copy</property>
+                              <object class="GtkButton" id="button_password_remove">
+                                <property name="label" translatable="yes">Remove password</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">True</property>
-                                <signal name="clicked" handler="copy_toxme_alias" swapped="no"/>
+                                <signal name="clicked" handler="remove_password" swapped="no"/>
                                 <style>
                                   <class name="button-dark"/>
                                 </style>
@@ -236,90 +250,9 @@
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkGrid" id="grid1">
+                          <object class="GtkSeparator" id="separator15">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="row_spacing">5</property>
-                            <property name="column_spacing">10</property>
-                            <property name="column_homogeneous">True</property>
-                            <child>
-                              <object class="GtkLabel" id="label1">
-                                <property name="visible">True</property>
-                                <property name="can_focus">False</property>
-                                <property name="label" translatable="yes">Username</property>
-                              </object>
-                              <packing>
-                                <property name="left_attach">0</property>
-                                <property name="top_attach">0</property>
-                              </packing>
-                            </child>
-                            <child>
-                              <object class="GtkLabel" id="label2">
-                                <property name="visible">True</property>
-                                <property name="can_focus">False</property>
-                                <property name="label" translatable="yes">Biography</property>
-                              </object>
-                              <packing>
-                                <property name="left_attach">0</property>
-                                <property name="top_attach">1</property>
-                              </packing>
-                            </child>
-                            <child>
-                              <object class="GtkLabel" id="label3">
-                                <property name="visible">True</property>
-                                <property name="can_focus">False</property>
-                                <property name="label" translatable="yes">ToxMe server</property>
-                              </object>
-                              <packing>
-                                <property name="left_attach">0</property>
-                                <property name="top_attach">2</property>
-                              </packing>
-                            </child>
-                            <child>
-                              <object class="GtkEntry" id="entry1">
-                                <property name="visible">True</property>
-                                <property name="can_focus">True</property>
-                                <style>
-                                  <class name="entry-inverted"/>
-                                </style>
-                              </object>
-                              <packing>
-                                <property name="left_attach">1</property>
-                                <property name="top_attach">0</property>
-                              </packing>
-                            </child>
-                            <child>
-                              <object class="GtkEntry" id="entry2">
-                                <property name="visible">True</property>
-                                <property name="can_focus">True</property>
-                                <style>
-                                  <class name="entry-inverted"/>
-                                </style>
-                              </object>
-                              <packing>
-                                <property name="left_attach">1</property>
-                                <property name="top_attach">1</property>
-                              </packing>
-                            </child>
-                            <child>
-                              <object class="GtkComboBoxText" id="combobox_toxme_servers">
-                                <property name="width_request">250</property>
-                                <property name="visible">True</property>
-                                <property name="can_focus">False</property>
-                                <property name="opacity">0.9882352941176471</property>
-                                <property name="active">0</property>
-                                <property name="button_sensitivity">on</property>
-                                <style>
-                                  <class name="button-dark"/>
-                                  <class name="button-inverted"/>
-                                  <class name="entry-inverted"/>
-                                </style>
-                              </object>
-                              <packing>
-                                <property name="left_attach">1</property>
-                                <property name="top_attach">2</property>
-                              </packing>
-                            </child>
                           </object>
                           <packing>
                             <property name="expand">False</property>
@@ -327,84 +260,11 @@
                             <property name="position">1</property>
                           </packing>
                         </child>
-                        <child>
-                          <object class="GtkBox" id="box6">
-                            <property name="visible">True</property>
-                            <property name="can_focus">False</property>
-                            <property name="spacing">5</property>
-                            <property name="homogeneous">True</property>
-                            <child>
-                              <object class="GtkButton" id="button_toxme_register">
-                                <property name="label" translatable="yes">New Tox alias</property>
-                                <property name="visible">True</property>
-                                <property name="can_focus">True</property>
-                                <property name="receives_default">True</property>
-                                <style>
-                                  <class name="button-dark"/>
-                                </style>
-                              </object>
-                              <packing>
-                                <property name="expand">False</property>
-                                <property name="fill">True</property>
-                                <property name="position">0</property>
-                              </packing>
-                            </child>
-                            <child>
-                              <object class="GtkButton" id="button_toxme_update">
-                                <property name="label" translatable="yes">Update record</property>
-                                <property name="visible">True</property>
-                                <property name="can_focus">True</property>
-                                <property name="receives_default">True</property>
-                                <property name="image_position">top</property>
-                                <style>
-                                  <class name="button-dark"/>
-                                </style>
-                              </object>
-                              <packing>
-                                <property name="expand">False</property>
-                                <property name="fill">True</property>
-                                <property name="position">1</property>
-                              </packing>
-                            </child>
-                            <child>
-                              <object class="GtkButton" id="button_toxme_delete">
-                                <property name="label" translatable="yes">Request deletion</property>
-                                <property name="visible">True</property>
-                                <property name="can_focus">True</property>
-                                <property name="receives_default">True</property>
-                                <style>
-                                  <class name="button-dark"/>
-                                </style>
-                              </object>
-                              <packing>
-                                <property name="expand">False</property>
-                                <property name="fill">True</property>
-                                <property name="position">2</property>
-                              </packing>
-                            </child>
-                          </object>
-                          <packing>
-                            <property name="expand">False</property>
-                            <property name="fill">True</property>
-                            <property name="position">2</property>
-                          </packing>
-                        </child>
                       </object>
                       <packing>
                         <property name="expand">False</property>
                         <property name="fill">True</property>
                         <property name="position">2</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkSeparator" id="separator13">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">True</property>
-                        <property name="position">3</property>
                       </packing>
                     </child>
                     <child>
@@ -463,7 +323,7 @@
                       <packing>
                         <property name="expand">False</property>
                         <property name="fill">True</property>
-                        <property name="position">4</property>
+                        <property name="position">5</property>
                       </packing>
                     </child>
                   </object>
@@ -490,6 +350,9 @@
           <object class="GtkScrolledWindow" id="tab_network">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
+            <property name="margin_top">10</property>
+            <property name="margin_bottom">10</property>
+            <property name="hscrollbar_policy">never</property>
             <child>
               <object class="GtkViewport" id="viewport2">
                 <property name="visible">True</property>
@@ -510,7 +373,7 @@
                           <object class="GtkLabel" id="label_network_info">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="label" translatable="yes">Changing Network settings will temporarily disconnect you from the Tox network</property>
+                            <property name="label" translatable="yes">Changing network settings will temporarily disconnect you from the Tox network</property>
                             <attributes>
                               <attribute name="foreground" value="#efef29292929"/>
                               <attribute name="size" value="9000"/>
@@ -557,6 +420,7 @@
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="halign">start</property>
+                                <property name="valign">start</property>
                                 <property name="active">True</property>
                               </object>
                               <packing>
@@ -595,6 +459,7 @@
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="halign">start</property>
+                                <property name="valign">start</property>
                                 <property name="active">True</property>
                               </object>
                               <packing>
@@ -659,6 +524,7 @@
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="halign">start</property>
+                                <property name="valign">start</property>
                               </object>
                               <packing>
                                 <property name="expand">False</property>
@@ -763,6 +629,9 @@
           <object class="GtkScrolledWindow" id="tab_interface">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
+            <property name="margin_top">10</property>
+            <property name="margin_bottom">10</property>
+            <property name="hscrollbar_policy">never</property>
             <child>
               <object class="GtkViewport" id="viewport3">
                 <property name="visible">True</property>
@@ -798,6 +667,9 @@
                                     <property name="halign">start</property>
                                     <property name="label" translatable="yes">&lt;b&gt;Enable custom themes?&lt;/b&gt;</property>
                                     <property name="use_markup">True</property>
+                                    <property name="justify">fill</property>
+                                    <property name="wrap">True</property>
+                                    <property name="wrap_mode">word-char</property>
                                   </object>
                                   <packing>
                                     <property name="expand">True</property>
@@ -810,6 +682,7 @@
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
                                     <property name="halign">end</property>
+                                    <property name="valign">start</property>
                                     <property name="active">True</property>
                                   </object>
                                   <packing>
@@ -836,12 +709,15 @@
                                     <property name="can_focus">False</property>
                                     <property name="halign">start</property>
                                     <property name="label" translatable="yes">Theme:</property>
+                                    <property name="justify">fill</property>
+                                    <property name="wrap">True</property>
+                                    <property name="wrap_mode">word-char</property>
                                     <attributes>
                                       <attribute name="weight" value="bold"/>
                                     </attributes>
                                   </object>
                                   <packing>
-                                    <property name="expand">False</property>
+                                    <property name="expand">True</property>
                                     <property name="fill">True</property>
                                     <property name="position">0</property>
                                   </packing>
@@ -849,9 +725,11 @@
                                 <child>
                                   <object class="GtkComboBoxText" id="combobox_selected_theme">
                                     <property name="width_request">230</property>
+                                    <property name="height_request">30</property>
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
                                     <property name="opacity">0.9882352941176471</property>
+                                    <property name="valign">start</property>
                                     <property name="active">0</property>
                                     <property name="button_sensitivity">on</property>
                                     <style>
@@ -861,7 +739,7 @@
                                     </style>
                                   </object>
                                   <packing>
-                                    <property name="expand">True</property>
+                                    <property name="expand">False</property>
                                     <property name="fill">True</property>
                                     <property name="position">1</property>
                                   </packing>
@@ -873,6 +751,7 @@
                                     <property name="receives_default">True</property>
                                     <property name="tooltip_text" translatable="yes">Reload custom theme</property>
                                     <property name="halign">end</property>
+                                    <property name="valign">start</property>
                                     <property name="image">image1</property>
                                     <property name="always_show_image">True</property>
                                   </object>
@@ -897,17 +776,6 @@
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkSeparator" id="separator7">
-                            <property name="visible">True</property>
-                            <property name="can_focus">False</property>
-                          </object>
-                          <packing>
-                            <property name="expand">False</property>
-                            <property name="fill">True</property>
-                            <property name="position">1</property>
-                          </packing>
-                        </child>
-                        <child>
                           <object class="GtkBox" id="box17">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
@@ -919,19 +787,25 @@
                                 <property name="halign">start</property>
                                 <property name="label" translatable="yes">&lt;b&gt;Language:&lt;/b&gt;</property>
                                 <property name="use_markup">True</property>
+                                <property name="justify">fill</property>
+                                <property name="wrap">True</property>
+                                <property name="wrap_mode">word-char</property>
                               </object>
                               <packing>
-                                <property name="expand">False</property>
+                                <property name="expand">True</property>
                                 <property name="fill">True</property>
                                 <property name="position">0</property>
                               </packing>
                             </child>
                             <child>
                               <object class="GtkComboBoxText" id="combobox_languages">
-                                <property name="width_request">260</property>
+                                <property name="width_request">270</property>
+                                <property name="height_request">30</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
                                 <property name="opacity">0.9882352941176471</property>
+                                <property name="halign">end</property>
+                                <property name="valign">start</property>
                                 <property name="active">0</property>
                                 <property name="button_sensitivity">on</property>
                                 <style>
@@ -941,8 +815,8 @@
                                 </style>
                               </object>
                               <packing>
-                                <property name="expand">True</property>
-                                <property name="fill">True</property>
+                                <property name="expand">False</property>
+                                <property name="fill">False</property>
                                 <property name="position">1</property>
                               </packing>
                             </child>
@@ -950,11 +824,11 @@
                           <packing>
                             <property name="expand">True</property>
                             <property name="fill">True</property>
-                            <property name="position">2</property>
+                            <property name="position">1</property>
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkSeparator" id="separator11">
+                          <object class="GtkSeparator" id="separator10">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                           </object>
@@ -965,17 +839,22 @@
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkBox" id="box10">
+                          <object class="GtkBox" id="box6">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="spacing">10</property>
                             <child>
-                              <object class="GtkLabel" id="label_custom_themes1">
+                              <object class="GtkLabel" id="label_message_parsing_mode">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
                                 <property name="halign">start</property>
-                                <property name="label" translatable="yes">&lt;b&gt;Display friend's status changes?&lt;/b&gt;</property>
-                                <property name="use_markup">True</property>
+                                <property name="label" translatable="yes">Message parsing mode:</property>
+                                <property name="justify">fill</property>
+                                <property name="wrap">True</property>
+                                <property name="wrap_mode">word-char</property>
+                                <attributes>
+                                  <attribute name="weight" value="bold"/>
+                                </attributes>
                               </object>
                               <packing>
                                 <property name="expand">True</property>
@@ -984,11 +863,21 @@
                               </packing>
                             </child>
                             <child>
-                              <object class="GtkSwitch" id="switch_status_changes">
+                              <object class="GtkComboBoxText" id="combobox_message_parsing_mode">
+                                <property name="width_request">270</property>
+                                <property name="height_request">30</property>
                                 <property name="visible">True</property>
-                                <property name="can_focus">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="opacity">0.9882352941176471</property>
                                 <property name="halign">end</property>
-                                <property name="active">True</property>
+                                <property name="valign">start</property>
+                                <property name="active">0</property>
+                                <property name="button_sensitivity">on</property>
+                                <style>
+                                  <class name="button-dark"/>
+                                  <class name="button-inverted"/>
+                                  <class name="entry-inverted"/>
+                                </style>
                               </object>
                               <packing>
                                 <property name="expand">False</property>
@@ -1004,7 +893,7 @@
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkSeparator" id="separator12">
+                          <object class="GtkSeparator" id="separator13">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                           </object>
@@ -1012,6 +901,236 @@
                             <property name="expand">False</property>
                             <property name="fill">True</property>
                             <property name="position">5</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkBox" id="box18">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="spacing">10</property>
+                            <child>
+                              <object class="GtkLabel" id="label_emojis_conf">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="halign">start</property>
+                                <property name="label" translatable="yes">Emojis font and size:</property>
+                                <property name="justify">fill</property>
+                                <property name="wrap">True</property>
+                                <property name="wrap_mode">word-char</property>
+                                <attributes>
+                                  <attribute name="weight" value="bold"/>
+                                </attributes>
+                              </object>
+                              <packing>
+                                <property name="expand">True</property>
+                                <property name="fill">True</property>
+                                <property name="position">0</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkBox" id="box27">
+                                <property name="width_request">270</property>
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="orientation">vertical</property>
+                                <property name="spacing">5</property>
+                                <child>
+                                  <object class="GtkEntry" id="entry_emoji_font">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">True</property>
+                                    <property name="text" translatable="yes">EmojiOne</property>
+                                    <signal name="changed" handler="update_emoji_font" swapped="no"/>
+                                  </object>
+                                  <packing>
+                                    <property name="expand">False</property>
+                                    <property name="fill">True</property>
+                                    <property name="position">0</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkBox" id="box28">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="halign">end</property>
+                                    <property name="spacing">5</property>
+                                    <child>
+                                      <object class="GtkButton" id="button_emoji_size_small">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">True</property>
+                                        <property name="receives_default">True</property>
+                                        <signal name="clicked" handler="change_emoji_size_small" swapped="no"/>
+                                        <child>
+                                          <object class="GtkLabel" id="label1">
+                                            <property name="visible">True</property>
+                                            <property name="can_focus">False</property>
+                                            <property name="label">&lt;span face="EmojiOne" size="small" foreground="#e74c3c" weight="heavy"&gt;💙&lt;/span&gt;</property>
+                                            <property name="use_markup">True</property>
+                                          </object>
+                                        </child>
+                                      </object>
+                                      <packing>
+                                        <property name="expand">False</property>
+                                        <property name="fill">True</property>
+                                        <property name="position">0</property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <object class="GtkButton" id="button_emoji_size_medium">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">True</property>
+                                        <property name="receives_default">True</property>
+                                        <signal name="clicked" handler="change_emoji_size_medium" swapped="no"/>
+                                        <child>
+                                          <object class="GtkLabel" id="label2">
+                                            <property name="visible">True</property>
+                                            <property name="can_focus">False</property>
+                                            <property name="label">&lt;span face="EmojiOne" size="medium" foreground="#e74c3c" weight="heavy"&gt;💙&lt;/span&gt;</property>
+                                            <property name="use_markup">True</property>
+                                          </object>
+                                        </child>
+                                      </object>
+                                      <packing>
+                                        <property name="expand">False</property>
+                                        <property name="fill">True</property>
+                                        <property name="position">1</property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <object class="GtkButton" id="button_emoji_size_large">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">True</property>
+                                        <property name="receives_default">True</property>
+                                        <signal name="clicked" handler="change_emoji_size_large" swapped="no"/>
+                                        <child>
+                                          <object class="GtkLabel" id="label3">
+                                            <property name="visible">True</property>
+                                            <property name="can_focus">False</property>
+                                            <property name="label">&lt;span face="EmojiOne" size="large" foreground="#e74c3c" weight="heavy"&gt;💙&lt;/span&gt;</property>
+                                            <property name="use_markup">True</property>
+                                          </object>
+                                        </child>
+                                      </object>
+                                      <packing>
+                                        <property name="expand">False</property>
+                                        <property name="fill">True</property>
+                                        <property name="position">2</property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <object class="GtkButton" id="button_emoji_size_x_large">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">True</property>
+                                        <property name="receives_default">True</property>
+                                        <signal name="clicked" handler="change_emoji_size_x_large" swapped="no"/>
+                                        <child>
+                                          <object class="GtkLabel" id="label6">
+                                            <property name="visible">True</property>
+                                            <property name="can_focus">False</property>
+                                            <property name="label">&lt;span face="EmojiOne" size="x-large" foreground="#e74c3c" weight="heavy"&gt;💙&lt;/span&gt;</property>
+                                            <property name="use_markup">True</property>
+                                          </object>
+                                        </child>
+                                      </object>
+                                      <packing>
+                                        <property name="expand">False</property>
+                                        <property name="fill">True</property>
+                                        <property name="position">3</property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <object class="GtkButton" id="button_emoji_size_xx_large">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">True</property>
+                                        <property name="receives_default">True</property>
+                                        <signal name="clicked" handler="change_emoji_size_xx_large" swapped="no"/>
+                                        <child>
+                                          <object class="GtkLabel" id="label7">
+                                            <property name="visible">True</property>
+                                            <property name="can_focus">False</property>
+                                            <property name="label">&lt;span face="EmojiOne" size="xx-large" foreground="#e74c3c" weight="heavy"&gt;💙&lt;/span&gt;</property>
+                                            <property name="use_markup">True</property>
+                                          </object>
+                                        </child>
+                                      </object>
+                                      <packing>
+                                        <property name="expand">False</property>
+                                        <property name="fill">True</property>
+                                        <property name="position">4</property>
+                                      </packing>
+                                    </child>
+                                  </object>
+                                  <packing>
+                                    <property name="expand">False</property>
+                                    <property name="fill">True</property>
+                                    <property name="position">1</property>
+                                  </packing>
+                                </child>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="fill">True</property>
+                                <property name="position">1</property>
+                              </packing>
+                            </child>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">True</property>
+                            <property name="position">6</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkSeparator" id="separator7">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">True</property>
+                            <property name="position">8</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkBox" id="box10">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="spacing">10</property>
+                            <child>
+                              <object class="GtkLabel" id="label_custom_themes1">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="halign">start</property>
+                                <property name="label" translatable="yes">&lt;b&gt;Display friend's status changes?&lt;/b&gt;</property>
+                                <property name="use_markup">True</property>
+                                <property name="justify">fill</property>
+                                <property name="wrap">True</property>
+                                <property name="wrap_mode">word-char</property>
+                              </object>
+                              <packing>
+                                <property name="expand">True</property>
+                                <property name="fill">True</property>
+                                <property name="position">0</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkSwitch" id="switch_status_changes">
+                                <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                                <property name="halign">end</property>
+                                <property name="valign">start</property>
+                                <property name="active">True</property>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="fill">False</property>
+                                <property name="position">1</property>
+                              </packing>
+                            </child>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">True</property>
+                            <property name="position">8</property>
                           </packing>
                         </child>
                         <child>
@@ -1031,6 +1150,9 @@
                                     <property name="can_focus">False</property>
                                     <property name="halign">start</property>
                                     <property name="label" translatable="yes">Display unread messages notice?</property>
+                                    <property name="justify">fill</property>
+                                    <property name="wrap">True</property>
+                                    <property name="wrap_mode">word-char</property>
                                     <attributes>
                                       <attribute name="weight" value="bold"/>
                                     </attributes>
@@ -1046,6 +1168,7 @@
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
                                     <property name="halign">end</property>
+                                    <property name="valign">start</property>
                                   </object>
                                   <packing>
                                     <property name="expand">False</property>
@@ -1064,18 +1187,7 @@
                           <packing>
                             <property name="expand">False</property>
                             <property name="fill">True</property>
-                            <property name="position">6</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkSeparator" id="separator10">
-                            <property name="visible">True</property>
-                            <property name="can_focus">False</property>
-                          </object>
-                          <packing>
-                            <property name="expand">False</property>
-                            <property name="fill">True</property>
-                            <property name="position">7</property>
+                            <property name="position">10</property>
                           </packing>
                         </child>
                         <child>
@@ -1095,6 +1207,9 @@
                                     <property name="can_focus">False</property>
                                     <property name="halign">start</property>
                                     <property name="label" translatable="yes">Display typing notifications?</property>
+                                    <property name="justify">fill</property>
+                                    <property name="wrap">True</property>
+                                    <property name="wrap_mode">word-char</property>
                                     <attributes>
                                       <attribute name="weight" value="bold"/>
                                     </attributes>
@@ -1110,69 +1225,7 @@
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
                                     <property name="halign">end</property>
-                                    <property name="active">True</property>
-                                  </object>
-                                  <packing>
-                                    <property name="expand">False</property>
-                                    <property name="fill">False</property>
-                                    <property name="position">1</property>
-                                  </packing>
-                                </child>
-                              </object>
-                              <packing>
-                                <property name="expand">False</property>
-                                <property name="fill">True</property>
-                                <property name="position">0</property>
-                              </packing>
-                            </child>
-                          </object>
-                          <packing>
-                            <property name="expand">False</property>
-                            <property name="fill">True</property>
-                            <property name="position">8</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkSeparator" id="separator8">
-                            <property name="visible">True</property>
-                            <property name="can_focus">False</property>
-                          </object>
-                          <packing>
-                            <property name="expand">False</property>
-                            <property name="fill">True</property>
-                            <property name="position">9</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkBox" id="box18">
-                            <property name="visible">True</property>
-                            <property name="can_focus">False</property>
-                            <property name="orientation">vertical</property>
-                            <property name="spacing">10</property>
-                            <child>
-                              <object class="GtkBox" id="box16">
-                                <property name="visible">True</property>
-                                <property name="can_focus">False</property>
-                                <property name="spacing">10</property>
-                                <child>
-                                  <object class="GtkLabel" id="label_typing_notifications">
-                                    <property name="visible">True</property>
-                                    <property name="can_focus">False</property>
-                                    <property name="halign">start</property>
-                                    <property name="label" translatable="yes">&lt;b&gt;Send typing notifications?&lt;/b&gt;</property>
-                                    <property name="use_markup">True</property>
-                                  </object>
-                                  <packing>
-                                    <property name="expand">True</property>
-                                    <property name="fill">True</property>
-                                    <property name="position">0</property>
-                                  </packing>
-                                </child>
-                                <child>
-                                  <object class="GtkSwitch" id="switch_typing_notifications">
-                                    <property name="visible">True</property>
-                                    <property name="can_focus">True</property>
-                                    <property name="halign">end</property>
+                                    <property name="valign">start</property>
                                     <property name="active">True</property>
                                   </object>
                                   <packing>
@@ -1196,7 +1249,7 @@
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkSeparator" id="separator14">
+                          <object class="GtkSeparator" id="separator8">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                           </object>
@@ -1217,6 +1270,9 @@
                                 <property name="can_focus">False</property>
                                 <property name="halign">start</property>
                                 <property name="label" translatable="yes">Compact friend list?</property>
+                                <property name="justify">fill</property>
+                                <property name="wrap">True</property>
+                                <property name="wrap_mode">word-char</property>
                                 <attributes>
                                   <attribute name="weight" value="bold"/>
                                 </attributes>
@@ -1232,6 +1288,7 @@
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="halign">end</property>
+                                <property name="valign">start</property>
                               </object>
                               <packing>
                                 <property name="expand">False</property>
@@ -1277,9 +1334,211 @@
           </packing>
         </child>
         <child>
+          <object class="GtkScrolledWindow" id="tab_notify">
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="margin_top">10</property>
+            <property name="margin_bottom">10</property>
+            <property name="hscrollbar_policy">never</property>
+            <child>
+              <object class="GtkViewport" id="viewport5">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="shadow_type">none</property>
+                <child>
+                  <object class="GtkBox" id="box_interface1">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="orientation">vertical</property>
+                    <property name="spacing">10</property>
+                    <child>
+                      <object class="GtkBox" id="box4">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="orientation">vertical</property>
+                        <property name="spacing">10</property>
+                        <child>
+                          <object class="GtkBox" id="box26">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="tooltip_markup" translatable="yes">By enabling this option, &lt;b&gt;everytime you get a new message and the Ricin window is not focused&lt;/b&gt;, the Ricin's icon in your taskbar will blink, indicating unread message(s). Giving focus to Ricin will cancel this notification.</property>
+                            <property name="spacing">10</property>
+                            <child>
+                              <object class="GtkLabel" id="label_taskbar_notify">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="halign">start</property>
+                                <property name="label" translatable="yes">&lt;b&gt;Make the icon in taskbar to blink on new messages?&lt;/b&gt;</property>
+                                <property name="use_markup">True</property>
+                                <property name="justify">fill</property>
+                                <property name="wrap">True</property>
+                                <property name="wrap_mode">word-char</property>
+                              </object>
+                              <packing>
+                                <property name="expand">True</property>
+                                <property name="fill">True</property>
+                                <property name="position">0</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkSwitch" id="switch_taskbar_notify">
+                                <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                                <property name="halign">end</property>
+                                <property name="valign">start</property>
+                                <property name="active">True</property>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="fill">False</property>
+                                <property name="position">1</property>
+                              </packing>
+                            </child>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">True</property>
+                            <property name="position">1</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkBox" id="box36">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="tooltip_markup" translatable="yes">By enabling this option you'll receive desktop notifications &lt;b&gt;everytime a contact goes Online or Offline&lt;/b&gt;. Away and Busy status won't trigger these notifications.</property>
+                            <property name="spacing">10</property>
+                            <child>
+                              <object class="GtkLabel" id="label_show_status_change_notifications">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="halign">start</property>
+                                <property name="label" translatable="yes">Show notifications when friends status changes?</property>
+                                <property name="justify">fill</property>
+                                <property name="wrap">True</property>
+                                <property name="wrap_mode">word-char</property>
+                                <attributes>
+                                  <attribute name="weight" value="bold"/>
+                                </attributes>
+                              </object>
+                              <packing>
+                                <property name="expand">True</property>
+                                <property name="fill">True</property>
+                                <property name="position">0</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkSwitch" id="switch_show_status_change_notifications">
+                                <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                                <property name="halign">end</property>
+                                <property name="valign">start</property>
+                                <property name="active">True</property>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="fill">False</property>
+                                <property name="position">1</property>
+                              </packing>
+                            </child>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">True</property>
+                            <property name="position">2</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkSeparator" id="separator17">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">True</property>
+                            <property name="position">3</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkBox" id="box16">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="tooltip_markup" translatable="yes">Enabling this will cause Ricin to tell &lt;b&gt;the person you talk to&lt;/b&gt; when you are typing.</property>
+                            <property name="spacing">10</property>
+                            <child>
+                              <object class="GtkLabel" id="label_typing_notifications">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="halign">start</property>
+                                <property name="label" translatable="yes">&lt;b&gt;Send typing notifications?&lt;/b&gt;</property>
+                                <property name="use_markup">True</property>
+                                <property name="justify">fill</property>
+                                <property name="wrap">True</property>
+                                <property name="wrap_mode">word-char</property>
+                              </object>
+                              <packing>
+                                <property name="expand">True</property>
+                                <property name="fill">True</property>
+                                <property name="position">0</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkSwitch" id="switch_typing_notifications">
+                                <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                                <property name="halign">end</property>
+                                <property name="valign">start</property>
+                                <property name="active">True</property>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="fill">False</property>
+                                <property name="position">1</property>
+                              </packing>
+                            </child>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">True</property>
+                            <property name="position">4</property>
+                          </packing>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">4</property>
+                      </packing>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <style>
+              <class name="secondary-background"/>
+            </style>
+          </object>
+          <packing>
+            <property name="position">3</property>
+          </packing>
+        </child>
+        <child type="tab">
+          <object class="GtkLabel" id="label_tab_notify">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="label" translatable="yes">Notifications</property>
+          </object>
+          <packing>
+            <property name="position">3</property>
+            <property name="tab_fill">False</property>
+          </packing>
+        </child>
+        <child>
           <object class="GtkScrolledWindow" id="tab_about">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
+            <property name="margin_top">10</property>
+            <property name="margin_bottom">10</property>
+            <property name="hscrollbar_policy">never</property>
             <child>
               <object class="GtkViewport" id="viewport4">
                 <property name="visible">True</property>
@@ -1497,7 +1756,7 @@
                         <property name="spacing">5</property>
                         <child>
                           <object class="GtkLinkButton" id="linkbutton_license">
-                            <property name="label" translatable="yes">License (GNU General Public License 3)</property>
+                            <property name="label" translatable="yes">License (GNU General Public License 3+)</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">True</property>
@@ -1550,7 +1809,7 @@
             </style>
           </object>
           <packing>
-            <property name="position">3</property>
+            <property name="position">4</property>
           </packing>
         </child>
         <child type="tab">
@@ -1560,7 +1819,7 @@
             <property name="label" translatable="yes">About</property>
           </object>
           <packing>
-            <property name="position">3</property>
+            <property name="position">4</property>
             <property name="tab_fill">False</property>
           </packing>
         </child>
@@ -1574,9 +1833,6 @@
         <property name="position">1</property>
       </packing>
     </child>
-    <style>
-      <class name="secondary-background"/>
-    </style>
   </template>
   <object class="GtkListStore" id="liststore1">
     <columns>

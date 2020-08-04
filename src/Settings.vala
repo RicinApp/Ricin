@@ -7,11 +7,6 @@ class Settings : GLib.Object {
   /**
   * Public const members, used to read & write JSON file.
   **/
-  public const string HAS_TOXME_KEY            = "has-toxme";
-  public const string TOXME_ID_KEY             = "toxme-id";
-  public const string TOXME_SERVER_KEY         = "toxme-server";
-  public const string TOXME_BIOGRAPHY_KEY      = "toxme-biography";
-  public const string TOXME_PASSWORD_KEY       = "toxme-password";
   public const string LAST_PROFILE_KEY         = "last-profile";
   public const string NETWORK_UDP_KEY          = "network-udp";
   public const string NETWORK_IPV6_KEY         = "network-ipv6";
@@ -29,18 +24,18 @@ class Settings : GLib.Object {
   public const string CONTACTLIST_WIDTH_KEY    = "contactlist-width";
   public const string ENABLE_TRAY_KEY          = "enable-tray";
   public const string ENABLE_NOTIFY_KEY        = "enable-notify";
+  public const string ENABLE_NOTIFY_STATUS_KEY = "enable-notify-status";
   public const string ENABLE_NOTIFY_SOUNDS_KEY = "enable-notify-sounds";
+  public const string ENABLE_TASKBAR_NOTIFY_KEY = "enable-taskbar-notify";
   public const string DEFAULT_SAVE_PATH_KEY    = "default-save-path";
   public const string COMPACT_MODE_KEY         = "compact-mode";
+  public const string MESSAGE_PARSING_MODE_KEY = "message-parsing-mode";
+  public const string EMOJIS_FONT_KEY          = "emojis-font";
+  public const string EMOJIS_SIZE_KEY          = "emojis-size";
 
   /**
   * Public members, can be get/set.
   **/
-  public bool has_toxme            { get; set; }
-  public string toxme_id           { get; set; }
-  public string toxme_server       { get; set; }
-  public string toxme_biography    { get; set; }
-  public string toxme_password     { get; set; }
   public string last_profile       { get; set; }
   public bool network_udp          { get; set; }
   public bool network_ipv6         { get; set; }
@@ -58,16 +53,22 @@ class Settings : GLib.Object {
   public int contactlist_width     { get; set; }
   public bool enable_tray          { get; set; }
   public bool enable_notify        { get; set; }
+  public bool enable_notify_status { get; set; }
   public bool enable_notify_sounds { get; set; }
+  public bool enable_taskbar_notify { get; set; }
   public string default_save_path  { get; set; }
   public bool compact_mode         { get; set; }
+  public int message_parsing_mode  { get; set; default = 0; }
+  public string emojis_font        { get; set; default = "EmojiOne"; }
+  public string emojis_size        { get; set; default = "large"; }
+
 
   private static Settings? _instance;
   public static Settings instance {
     get {
       if (_instance == null) {
         string settings_file = "%s/ricin.json".printf (Tox.profile_dir ());
-        _instance = new Settings(settings_file);
+        _instance = new Settings (settings_file);
       }
       return _instance;
     }
@@ -79,6 +80,16 @@ class Settings : GLib.Object {
   public Settings (string profile) {
     debug (@"Started SettingsManager...");
     this.profile = profile;
+
+    // Check if the config file exists, else create it.
+    if (FileUtils.test (this.profile, FileTest.EXISTS) == false) {
+      File config_file = File.new_for_path (this.profile);
+      File config_sample = File.new_for_uri (@"resource:///chat/tox/ricin/ricin.sample.json");
+
+      // Create the file and make it readable only for the current user.
+      config_file.create (FileCreateFlags.PRIVATE);
+      config_sample.copy (config_file, FileCopyFlags.OVERWRITE);
+    }
 
     this.load_settings ();
     this.notify.connect ((opt, props) => {
@@ -93,13 +104,8 @@ class Settings : GLib.Object {
       parser.load_from_file (this.profile);
       node = parser.get_root ();
 
-      Settings? settings = Json.gobject_deserialize (typeof (Settings), node) as Settings;
+      Settings? settings = ((Settings) Json.gobject_deserialize (typeof (Settings), node));
       if (settings != null) {
-        this.has_toxme            = settings.has_toxme;
-        this.toxme_id             = settings.toxme_id;
-        this.toxme_server         = settings.toxme_server;
-        this.toxme_biography      = settings.toxme_biography;
-        this.toxme_password       = settings.toxme_password;
         this.last_profile         = settings.last_profile;
         this.network_udp          = settings.network_udp;
         this.network_ipv6         = settings.network_ipv6;
@@ -117,9 +123,14 @@ class Settings : GLib.Object {
         this.contactlist_width    = settings.contactlist_width;
         this.enable_tray          = settings.enable_tray;
         this.enable_notify        = settings.enable_notify;
+        this.enable_notify_status = settings.enable_notify_status;
         this.enable_notify_sounds = settings.enable_notify_sounds;
+        this.enable_taskbar_notify = settings.enable_taskbar_notify;
         this.default_save_path    = settings.default_save_path;
         this.compact_mode         = settings.compact_mode;
+        this.message_parsing_mode = settings.message_parsing_mode;
+        this.emojis_font          = settings.emojis_font;
+        this.emojis_size          = settings.emojis_size;
       }
     } catch (Error e) {
       debug (@"Error loading settings: $(e.message)");
@@ -135,13 +146,11 @@ class Settings : GLib.Object {
     File settings_file = File.new_for_path (this.profile);
 
     try {
-      DataOutputStream dos = new DataOutputStream (settings_file.replace (
-            null, false,
-            FileCreateFlags.PRIVATE | FileCreateFlags.REPLACE_DESTINATION
-          ));
+      DataOutputStream dos = new DataOutputStream (
+        settings_file.replace (null, false, FileCreateFlags.PRIVATE | FileCreateFlags.REPLACE_DESTINATION )
+      );
       generator.to_stream (dos);
 
-      //debug (@"Saving settings to $(this.profile)");
       return true;
     } catch (Error e) {
       debug (@"Error saving settings: $(e.message)");

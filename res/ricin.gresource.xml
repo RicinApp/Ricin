@@ -4,6 +4,8 @@
         <file preprocess="xml-stripblanks" compressed="true">ui/main-window.ui</file>
         <file preprocess="xml-stripblanks" compressed="true">ui/profile-chooser-window.ui</file>
         <file preprocess="xml-stripblanks" compressed="true">ui/friend-list-row.ui</file>
+        <file preprocess="xml-stripblanks" compressed="true">ui/file-list-row.ui</file>
+        <file preprocess="xml-stripblanks" compressed="true">ui/info-list-row.ui</file>
         <file preprocess="xml-stripblanks" compressed="true">ui/status-message-list-row.ui</file>
         <file preprocess="xml-stripblanks" compressed="true">ui/system-message-list-row.ui</file>
         <file preprocess="xml-stripblanks" compressed="true">ui/inline-image-message-list-row.ui</file>
@@ -11,16 +13,27 @@
         <file preprocess="xml-stripblanks" compressed="true">ui/message-list-row.ui</file>
         <file preprocess="xml-stripblanks" compressed="true">ui/quote-message-list-row.ui</file>
         <file preprocess="xml-stripblanks" compressed="true">ui/quote-label.ui</file>
+        <file preprocess="xml-stripblanks" compressed="true">ui/password-dialog.ui</file>
         <file preprocess="xml-stripblanks" compressed="true">ui/plain-label.ui</file>
         <file preprocess="xml-stripblanks" compressed="true">ui/chat-view.ui</file>
         <file preprocess="xml-stripblanks" compressed="true">ui/settings-view.ui</file>
         <file preprocess="xml-stripblanks" compressed="true">ui/welcome-view.ui</file>
-
-        <file compressed="true">themes/reset.css</file>
-        <file compressed="true">themes/app.css</file>
-        <file compressed="true">themes/dark.css</file>
-        <file compressed="true">themes/white.css</file>
-        <file compressed="true">themes/clearer.css</file>
+        <file preprocess="xml-stripblanks" compressed="true">ui/group-chat-view.ui</file>
+        <file preprocess="xml-stripblanks" compressed="true">ui/group-list-row.ui</file>
+        <!-- Gtk+ 3.1x Themes -->
+        <file compressed="true">themes/gtk-3.1x/styles.css</file>
+        <file compressed="true">themes/gtk-3.1x/app.css</file>
+        <file compressed="true">themes/gtk-3.1x/tox.css</file>
+        <file compressed="true">themes/gtk-3.1x/dark.css</file>
+        <file compressed="true">themes/gtk-3.1x/reset.css</file>
+        <file compressed="true">themes/gtk-3.1x/white.css</file>
+        <!-- Gtk+ 3.2x Themes -->
+        <file compressed="true">themes/gtk-3.2x/styles.css</file>
+        <file compressed="true">themes/gtk-3.2x/app.css</file>
+        <file compressed="true">themes/gtk-3.2x/tox.css</file>
+        <file compressed="true">themes/gtk-3.2x/dark.css</file>
+        <file compressed="true">themes/gtk-3.2x/reset.css</file>
+        <file compressed="true">themes/gtk-3.2x/white.css</file>
 
         <file compressed="true">nodes.json</file>
         <file compressed="true">ricin.sample.json</file>

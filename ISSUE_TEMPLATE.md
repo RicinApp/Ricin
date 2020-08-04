@@ -5,19 +5,22 @@
 * **GTK+ version:**  
 * **ToxCore version:**  
 * **Hardware:**  
-* **Reproducible:** _(Always / Almost Always / Sometimes / Rarely / Couldn't Reproduce)_
+* **Reproducible:**  
+
+<!-- Always / Almost Always / Sometimes / Rarely / Couldn't Reproduce -->
 
 ## Steps to reproduce:
-_Please provide detailed steps in order for us to reproduce the issue_
+<!-- Please provide detailed steps in order for us to reproduce the issue -->
+
 1.  
 2.  
 3.  
 
 ## Observed Behavior:
-_Explain what is wrong, basically describe your issue here_
+<!-- Explain what is wrong, basically describe your issue here -->
 
 ## Expected Behavior:
-_Explain what should happens instead of the issue_
+<!-- Explain what should happen instead of the issue -->
 
 ## Additional infos:
-_(links, images, etc go here)_
+<!-- Links, images, videos, etc goes here.. -->

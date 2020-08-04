@@ -1,10 +1,23 @@
 # Ricin installation guide
 
+## Table of Contents
+* [Dependencies installation](#dependencies)
+  * [Debian/Ubuntu](#debianubuntu)
+  * [ArchLinux](#archlinux)
+  * [Fedora](#fedora)
+* [Installing](#installing-ricin)
+  * [Linux](#linux)
+    * [ArchLinux](#archlinux-1)
+    * [MilisLinux](#milis-linux-milis-isletim-sistemi)
+    * [Other linux distributions](#others-linux)
+  * [Windows](#windows)
+
 ## Dependencies
 | Package name           | Notes      | Version   |
 |:-----------------------|:----------:|----------:|
 | python2 **or** python3 |  building  |           |
 | valac                  |  building  | >=0.28.1  |
+| intltool               |  building  | >=0.35.5  |
 | gtk+3                  |            | >=3.16    |
 | [libtoxcore]           |            | >=0.0.0   |
 | glib2                  |            | >=2.38    |
@@ -91,7 +104,12 @@ sudo ./waf install
 ```
 
 ### Windows
-Ricin isn't available yet on Windows, anyway this is planed.
+Ricin for Windows can be downloaded at the following URL.  
+*Please note that this is the first release of Ricin for Windows and that it may
+contains bugs, please report any of them (even the insignifiant ones) via the
+issue tracker.*
+
+* [Ricin for Windows (64 bits)](https://cdn.ricin.im/windows/ricin-0.1.1-win32_x86-64.zip)
 
 ### OSX
 Ricin isn't available yet on OSX, anyway this is also planed!

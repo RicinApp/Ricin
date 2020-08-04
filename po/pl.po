@@ -1,0 +1,730 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# Kamil Sulewski <sulewskikamil@gmail.com>, 2016
+# Łukasz Zarnowiecki <dolohow@outlook.com>, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: Ricin\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-07-02 21:20+0200\n"
+"PO-Revision-Date: 2016-07-02 20:17+0000\n"
+"Last-Translator: Kamil Sulewski <sulewskikamil@gmail.com>\n"
+"Language-Team: Polish (http://www.transifex.com/ricinapp/ricin/language/pl/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: pl\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: src/ChatView.vala:387
+msgid " is now "
+msgstr "jest dostępny"
+
+#: src/Wrapper.vala:260
+msgid " is now known as "
+msgstr "jest teraz dostępny jako"
+
+#: res/ui/chat-view.ui:517
+msgid "**bold**"
+msgstr "**pogrubienie**"
+
+#: res/ui/chat-view.ui:506
+msgid "*bold*"
+msgstr "*pogrubienie*"
+
+#: res/ui/chat-view.ui:553
+msgid "//italic//"
+msgstr "//kursywa//"
+
+#: res/ui/chat-view.ui:542
+msgid "/italic/"
+msgstr "/kursywa/"
+
+#: res/ui/friend-list-row.ui:101
+msgid "10"
+msgstr "10"
+
+#: res/ui/friend-list-notification_unusable.ui:42
+msgid ""
+"3 unused profiles found:\n"
+"<b>Snow, Guy, Aztek</b>"
+msgstr "3 znaleziono nieużywane profile:\n<b>Snow, Guy, Aztek</b>"
+
+#: res/ui/settings-view.ui:801
+msgid "9050"
+msgstr "9050"
+
+#: res/ui/chat-view.ui:293
+msgid "<b>Available Markdown tags</b>"
+msgstr "<b>Dostępne formatowanie dla tekstu</b>"
+
+#: res/ui/settings-view.ui:1065
+msgid "<b>Display friend's status changes?</b>"
+msgstr "<b>Pokazuj zmiany statusów znajomych?</b>"
+
+#: res/ui/settings-view.ui:887
+msgid "<b>Enable custom themes?</b>"
+msgstr "<b>Zezwalać na niestandardowe motywy?</b>"
+
+#: res/ui/group-chat-view.ui:219
+msgid "<b>Friends</b>"
+msgstr "<b>Znajomi</b>"
+
+#: res/ui/settings-view.ui:672
+msgid "<b>IPv6</b>"
+msgstr "<b>IPv6</b>"
+
+#: res/ui/settings-view.ui:1008
+msgid "<b>Language:</b>"
+msgstr "<b>Język:</b>"
+
+#: src/Wrapper.vala:784
+msgid "<b>Last online:</b>"
+msgstr "<b>Ostatnio dostępny:</b>"
+
+#: res/ui/chat-view.ui:1125
+msgid "<b>Last seen:</b>"
+msgstr "<b>Ostatnio widziany:</b>"
+
+#: res/ui/settings-view.ui:736
+msgid "<b>Proxy (SOCKS 5)</b>"
+msgstr "<b>Proxy (SOCKS 5)</b>"
+
+#: res/ui/settings-view.ui:1470
+msgid ""
+"<b>Ricin</b> aims to be a <i>secure, lightweight, hackable and fully-"
+"customizable</i> chat client using the awesome and open-source "
+"<b>ToxCore</b> library."
+msgstr "<b>Ricin</b> stara się być <i>bezpiecznym, lekkim, otwartym na mody  i w pełni konfigurowalnym</i> klientem chat-u używającym wspaniałej biblioteki open-source <b>ToxCore</b>."
+
+#: res/ui/settings-view.ui:1250
+msgid "<b>Send typing notifications?</b>"
+msgstr "<b>Wyślij powiadomienia o pisaniu?</b>"
+
+#: res/ui/settings-view.ui:634
+msgid "<b>UDP</b>"
+msgstr "<b>UDP</b>"
+
+#: res/ui/group-chat-view.ui:247
+msgid "<b>Unknown peers</b>"
+msgstr "<b>Nieznani użytkownicy</b>"
+
+#: res/ui/settings-view.ui:1429
+msgid "<b>Version:</b>"
+msgstr "<b>Wersja:</b>"
+
+#: res/ui/settings-view.ui:281
+msgid "<b>Your Tox alias:</b>"
+msgstr "<b>Twój pseudonim Tox:</b>"
+
+#: res/ui/settings-view.ui:75
+msgid "<b>Your ToxID:</b>"
+msgstr "<b>Twój identyfikator Tox:</b>"
+
+#: res/ui/chat-view.ui:1673
+msgid "<i>Friend is typing</i>"
+msgstr "<i>Znajomy pisze</i>"
+
+#: res/ui/chat-view.ui:455
+msgid ">quote"
+msgstr ">cytat"
+
+#: res/ui/settings-view.ui:1648
+msgid "About"
+msgstr "O"
+
+#: res/ui/main-window.ui:377
+msgid "Accept"
+msgstr "Zatwierdź"
+
+#: res/ui/inline-file-message-list-row.ui:205
+msgid "Accept/Resume file"
+msgstr "Zatwierdź/Wznów plik"
+
+#: src/MainWindow.vala:609 src/MainWindow.vala:620 src/MainWindow.vala:645
+#: src/MainWindow.vala:659 res/ui/main-window.ui:475 res/ui/main-window.ui:542
+msgid "Add a friend"
+msgstr "Dodaj znajomego"
+
+#: res/ui/main-window.ui:617
+msgid "Add friend"
+msgstr "Dodaj znajomego"
+
+#: res/ui/settings-view.ui:191
+msgid "Add password"
+msgstr "Dodaj hasło"
+
+#: src/MainWindow.vala:179
+msgid "All friends"
+msgstr "Wszyscy znajomi"
+
+#: res/ui/chat-view.ui:352
+msgid "Alt syntax"
+msgstr "Inaczej"
+
+#: src/MainWindow.vala:508 src/Util.vala:166
+msgid "Away"
+msgstr "Nieobecny"
+
+#: res/ui/settings-view.ui:347
+msgid "Biography"
+msgstr "Biografia"
+
+#: src/ChatView.vala:561 res/ui/chat-view.ui:1227
+msgid "Block"
+msgstr "Zablokuj"
+
+#: src/FriendListRow.vala:90
+msgid "Block friend"
+msgstr "Zablokuj znajomego"
+
+#: src/Util.vala:160
+msgid "Blocked"
+msgstr "Zablokowany"
+
+#: res/ui/chat-view.ui:492
+msgid "Bold"
+msgstr "Pogrubienie"
+
+#: src/MainWindow.vala:498 src/Util.vala:169
+msgid "Busy"
+msgstr "Zajęty"
+
+#: res/ui/chat-view.ui:854
+msgid "Call friend"
+msgstr "Rozmowa głosowa ze znajomym"
+
+#: src/MainWindow.vala:110
+msgid "Can't load the profile"
+msgstr "Nie można załadować profilu"
+
+#: res/ui/main-window.ui:638
+msgid "Cancel"
+msgstr "Anuluj"
+
+#: res/ui/inline-file-message-list-row.ui:175
+msgid "Cancel/pause file"
+msgstr "Anuluj/wstrzymaj plik"
+
+#: res/ui/settings-view.ui:104
+msgid "Change Nospam"
+msgstr "Blokować spam zaproszeniami"
+
+#: res/ui/settings-view.ui:208
+msgid "Change password"
+msgstr "Zmień hasło"
+
+#: res/ui/main-window.ui:87
+msgid "Change your avatar"
+msgstr "Zmień avatar"
+
+#: res/ui/main-window.ui:134
+msgid "Change your status"
+msgstr "Zmień status"
+
+#: res/ui/settings-view.ui:601
+msgid ""
+"Changing Network settings will temporarily disconnect you from the Tox "
+"network"
+msgstr "Zmiana ustawień sieciowych tymczasowo rozłączy cię z siecią Tox"
+
+#: src/SettingsView.vala:447
+msgid ""
+"Changing your password will cause Ricin to decrypt your profile then re-"
+"encrypt it with the new password."
+msgstr "Zmiana hasła zmusi program do odszyfrowania konta i późniejszego ponownego zaszyfrowania z nowym hasłem."
+
+#: src/ChatView.vala:628
+msgid "Choose a file"
+msgstr "Wybierz plik"
+
+#: src/SettingsView.vala:393
+msgid "Choose a folder where to save files"
+msgstr "Wybierz docelowy folder na pliki"
+
+#: src/ProfileChooser.vala:142
+msgid "Choose a name for the profile"
+msgstr "Wybierz nazwę profilu"
+
+#: res/ui/settings-view.ui:535
+msgid "Choose directory"
+msgstr "Wybierz folder"
+
+#: res/ui/chat-view.ui:1474
+msgid "Choose smileys"
+msgstr "Wybierz emotikon"
+
+#: src/SettingsView.vala:98
+msgid "Clearer theme"
+msgstr "Jaśniejszy motyw"
+
+#: res/ui/chat-view.ui:1373
+msgid "Close the popup"
+msgstr "Zamknij to menu"
+
+#: res/ui/settings-view.ui:1307
+msgid "Compact friend list?"
+msgstr "Zwarta lista znajomych?"
+
+#: res/ui/password-dialog.ui:176
+msgid "Confirm new password"
+msgstr "Potwierdź nowe hasło"
+
+#: res/ui/settings-view.ui:1538
+msgid "Contributors"
+msgstr "Współtwórcy"
+
+#: res/ui/settings-view.ui:86 res/ui/settings-view.ui:303
+msgid "Copy"
+msgstr "Kopiuj"
+
+#: res/ui/chat-view.ui:1267
+msgid "Copy friend's ToxID"
+msgstr "Kopiuj identyfikator Tox znajomego"
+
+#: src/ChatView.vala:433
+msgid "Copy quote in clipboard"
+msgstr "Skopiuj cytat do schowka"
+
+#: src/ChatView.vala:432
+msgid "Copy selection in clipboard"
+msgstr "Skopiuj zaznaczenie do schowka"
+
+#: res/ui/profile-chooser-window.ui:179
+msgid "Create a profile"
+msgstr "Stwórz profil"
+
+#: res/ui/profile-chooser-window.ui:154
+msgid "Create this profile"
+msgstr "Utwórz profil"
+
+#: res/ui/password-dialog.ui:101
+msgid "Current password"
+msgstr "Bieżące hasło"
+
+#: src/PasswordDialog.vala:123
+msgid "Current password cannot be blank."
+msgstr "Bieżące hasło nie może być puste"
+
+#: src/SettingsView.vala:96
+msgid "Dark theme"
+msgstr "Ciemny motyw"
+
+#: res/ui/main-window.ui:357
+msgid "Decline"
+msgstr "Odrzuć"
+
+#: res/ui/settings-view.ui:507
+msgid "Default save path:"
+msgstr "Domyślna ścieżka zapisu:"
+
+#: res/ui/chat-view.ui:1247
+msgid "Delete"
+msgstr "Usuń"
+
+#: res/ui/friend-list-notification_unusable.ui:59
+msgid "Delete friends (3)"
+msgstr "Usuń znajomych (3)"
+
+#: res/ui/settings-view.ui:1185
+msgid "Display typing notifications?"
+msgstr "Wyświetlać powiadomienia o pisaniu?"
+
+#: res/ui/settings-view.ui:1121
+msgid "Display unread messages notice?"
+msgstr "Wyświetlać ogłoszenia o nieprzeczytanych wiadomościach?"
+
+#: src/SettingsView.vala:419 src/SettingsView.vala:447
+#: src/SettingsView.vala:472
+msgid "Do you want to proceed anyway?"
+msgstr "Czy mimo to chcesz kontynuować?"
+
+#: src/SettingsView.vala:446
+msgid "Edit your password"
+msgstr "Edytuj hasło"
+
+#: src/SettingsView.vala:418
+msgid "Encrypt your profile"
+msgstr "Zaszyfruj swój profil"
+
+#: res/ui/profile-chooser-window.ui:107
+msgid "Enter a name for the profile"
+msgstr "Podaj nazwę dla profilu"
+
+#: res/ui/profile-chooser-window.ui:58 res/ui/profile-chooser-window.ui:143
+msgid "Enter your password..."
+msgstr "Podaj hasło..."
+
+#: res/ui/chat-view.ui:763
+msgid "Friend's profile"
+msgstr "Profil znajomych"
+
+#: res/ui/settings-view.ui:571
+msgid "General"
+msgstr "Ogólny"
+
+#: res/ui/settings-view.ui:1500
+msgid "GitHub"
+msgstr "GitHub"
+
+#: res/ui/group-chat-view.ui:60
+msgid "Groupchat name"
+msgstr "Nazwa chatu grupowego"
+
+#: src/MainWindow.vala:463
+#, c-format
+msgid "Hello! It's %s, let's be friends."
+msgstr "Witaj! Tu %s, bądź moim znajomym"
+
+#: src/InlineImageMessageListRow.vala:103
+msgid "Image saved!"
+msgstr "Obraz zapisany!"
+
+#: src/SettingsView.vala:419
+msgid ""
+"In order to encrypt your profile you need to specify a password. This "
+"password will be asked each time you login."
+msgstr "W celu zaszyfrowania swojego profilu musisz podać hasło. Podczas każdego logowania będziesz o nie pytany."
+
+#: res/ui/chat-view.ui:600
+msgid "Inline code"
+msgstr "Zagnieżdżony kod"
+
+#: res/ui/settings-view.ui:1360
+msgid "Interface"
+msgstr "Interfejs"
+
+#: res/ui/chat-view.ui:528
+msgid "Italic"
+msgstr "Kursywa"
+
+#: res/ui/group-chat-view.ui:289
+msgid "Leave"
+msgstr "Opuść"
+
+#: res/ui/settings-view.ui:1588
+msgid "License (GNU General Public License 3)"
+msgstr "Licencja (GNU General Public License 3)"
+
+#: res/ui/profile-chooser-window.ui:91
+msgid "Load a profile"
+msgstr "Załaduj profil"
+
+#: res/ui/profile-chooser-window.ui:69
+msgid "Login"
+msgstr "Login"
+
+#: res/ui/group-chat-view.ui:310
+msgid "Mute"
+msgstr "Wycisz"
+
+#: res/ui/settings-view.ui:843
+msgid "Network"
+msgstr "Sieć"
+
+#: res/ui/settings-view.ui:425
+msgid "New Tox alias"
+msgstr "Nowy pseudonim Tox"
+
+#: res/ui/password-dialog.ui:138
+msgid "New password"
+msgstr "Nowe hasło"
+
+#: src/PasswordDialog.vala:108
+msgid "New password must be different from the older one."
+msgstr "Nowe hasło musi się różnić od poprzedniego."
+
+#: src/MainWindow.vala:435 src/SettingsView.vala:343
+#: res/ui/password-dialog.ui:32
+msgid "No"
+msgstr "Nie"
+
+#: res/ui/chat-view.ui:1162
+msgid "Notes about the user:"
+msgstr "Uwagi na temat użytkownika:"
+
+#: src/Util.vala:173
+msgid "Offline"
+msgstr "Nieaktywny"
+
+#: src/MainWindow.vala:488 src/Util.vala:163
+msgid "Online"
+msgstr "Aktywny"
+
+#: src/MainWindow.vala:178
+msgid "Online friends"
+msgstr "Aktywni znajomi"
+
+#: res/ui/password-dialog.ui:213
+msgid "Password Strength"
+msgstr "Siła hasła"
+
+#: src/PasswordDialog.vala:101 src/PasswordDialog.vala:117
+#: src/PasswordDialog.vala:130
+msgid "Password cannot be blank."
+msgstr "Hasło nie może być puste."
+
+#: src/PasswordDialog.vala:104 src/PasswordDialog.vala:120
+msgid "Password confirmation cannot be blank."
+msgstr "Potwierdzenie hasła nie może być puste."
+
+#: src/PasswordDialog.vala:95 src/PasswordDialog.vala:111
+msgid "Password doesn't match confirmation."
+msgstr "Hasło nie przeszło sprawdzenia."
+
+#: src/PasswordDialog.vala:98 src/PasswordDialog.vala:114
+#: src/PasswordDialog.vala:127
+msgid "Password must be at least 8 characters."
+msgstr "Hasło musi posiadać co najmniej 8 znaków."
+
+#: src/ProfileChooser.vala:98
+msgid "Please enter a password"
+msgstr "Wprowadź hasło"
+
+#: src/ProfileChooser.vala:121
+msgid "Please enter a profile name."
+msgstr "Proszę o napisanie nazwy profilu."
+
+#: src/ProfileChooser.vala:128
+msgid "Profile name already taken."
+msgstr "Nazwa profilu jest zajęta."
+
+#: src/MainWindow.vala:518
+msgid "Quit"
+msgstr "Zamknij"
+
+#: res/ui/chat-view.ui:433
+msgid "Quote"
+msgstr "Cytat"
+
+#: src/ChatView.vala:434
+msgid "Quote selection"
+msgstr "Zaznaczenie cytatu"
+
+#: res/ui/settings-view.ui:962
+msgid "Reload custom theme"
+msgstr "Przeładuj niestandardowy motyw"
+
+#: res/ui/settings-view.ui:225
+msgid "Remove password"
+msgstr "Usuń hasło"
+
+#: res/ui/password-dialog.ui:62
+msgid "Remove password?"
+msgstr "Usunąć hasło?"
+
+#: src/SettingsView.vala:472
+msgid ""
+"Removing your password will unencrypt your profile, chat logs and settings."
+msgstr "Usunięcie hasła odszyfruje twoje konto, logi i ustawienia."
+
+#: res/ui/password-dialog.ui:79
+msgid ""
+"Removing your password will unencrypt your profile, chat logs and settings. "
+"<b>Do you want to proceed anyway?</b>"
+msgstr "Usunięcie hasła odszyfruje twoje konto, logi i ustawienia. <b>Czy mimo to chcesz kontynuować?</b>"
+
+#: res/ui/settings-view.ui:1519
+msgid "Report an issue"
+msgstr "Zgłoś problem"
+
+#: res/ui/settings-view.ui:458
+msgid "Request deletion"
+msgstr "Usunięcie zapytania"
+
+#: src/MainWindow.vala:592
+msgid "Restart later"
+msgstr "Uruchom ponownie później"
+
+#: src/MainWindow.vala:592
+msgid "Restart now"
+msgstr "Uruchom ponownie teraz"
+
+#: src/MainWindow.vala:589
+msgid "Restart required"
+msgstr "Wymagane ponowne uruchomienie"
+
+#: src/MainWindow.vala:668
+msgid "Ricin doesn't supports ToxDNS yet."
+msgstr "Ricin nie wspiera jeszcze ToxDNS."
+
+#: src/MainWindow.vala:591
+msgid ""
+"Ricin needs to restart in order to apply settings. Do you want to restart?"
+msgstr "Ricin musi zostać ponownie uruchomiony, aby móc zaakceptować zmiany. Chcesz uruchomić ponownie program?"
+
+#: res/ui/settings-view.ui:1608
+msgid "Ricin official website"
+msgstr "Oficjalna strona internetowa Ricin"
+
+#: res/ui/chat-view.ui:1615
+msgid "Scroll to bottom"
+msgstr "Przewiń na dół"
+
+#: res/ui/welcome-view.ui:87
+msgid "Select a chat to start messaging."
+msgstr "Wybierz chat by rozpocząć rozmowę"
+
+#: src/ProfileChooser.vala:25 res/ui/profile-chooser-window.ui:23
+msgid "Select a profile"
+msgstr "Wybierz profil"
+
+#: src/MainWindow.vala:745
+msgid "Select your avatar"
+msgstr "Wybierz avatar"
+
+#: res/ui/chat-view.ui:1502
+msgid "Send file"
+msgstr "Wyślij plik"
+
+#: res/ui/chat-view.ui:1528
+msgid "Send message"
+msgstr "Wyślij wiadomość"
+
+#: src/MainWindow.vala:124 src/MainWindow.vala:608 res/ui/main-window.ui:495
+msgid "Settings"
+msgstr "Ustawienia"
+
+#: res/ui/chat-view.ui:820
+msgid "Status message..."
+msgstr "Wiadomość własna..."
+
+#: res/ui/chat-view.ui:636
+msgid "Striked"
+msgstr "Przekreślenie"
+
+#: res/ui/chat-view.ui:338
+msgid "Syntax"
+msgstr "Pisownia"
+
+#: res/ui/chat-view.ui:324
+msgid "Tag Name"
+msgstr "Nazwa Etykiety"
+
+#: src/ProfileChooser.vala:110
+msgid "The selected profile doesn't exists."
+msgstr "Wybrany profil nie istnieje."
+
+#: res/ui/settings-view.ui:926
+msgid "Theme:"
+msgstr "Motyw:"
+
+#: res/ui/chat-view.ui:1597
+msgid "There are unread messages in this chat"
+msgstr "Chat zawiera nieodczytane wiadomości"
+
+#: src/MessageListRow.vala:102 src/PlainLabel.vala:22 src/QuoteLabel.vala:22
+msgid "ToxDNS is not supported yet."
+msgstr "ToxDNS nie jest jeszcze wspierany."
+
+#: src/MainWindow.vala:670
+msgid "ToxID can't be empty."
+msgstr "Identyfikator Tox nie może być pusty."
+
+#: src/MainWindow.vala:672
+msgid "ToxID is invalid."
+msgstr "Identyfikator Tox jest nieprawidłowy."
+
+#: res/ui/main-window.ui:563
+msgid "ToxID to add..."
+msgstr "Identyfikator Tox..."
+
+#: res/ui/settings-view.ui:358
+msgid "ToxMe server"
+msgstr "Serwer ToxMe"
+
+#: res/ui/main-window.ui:191
+msgid "Type to search..."
+msgstr "Szukaj frazy..."
+
+#: src/ChatView.vala:559
+msgid "Unblock"
+msgstr "Odblokuj"
+
+#: src/FriendListRow.vala:90
+msgid "Unblock friend"
+msgstr "Odblokuj znajomego"
+
+#: res/ui/chat-view.ui:564
+msgid "Underline"
+msgstr "Podkreślenie"
+
+#: src/SettingsView.vala:471
+msgid "Unencrypt your profile"
+msgstr "Odszyfruj konto"
+
+#: res/ui/settings-view.ui:441
+msgid "Update record"
+msgstr "Aktualizuj zapis"
+
+#: res/ui/chat-view.ui:797 res/ui/settings-view.ui:336
+msgid "Username"
+msgstr "Nazwa użytkownika"
+
+#: res/ui/chat-view.ui:882
+msgid "Video call friend"
+msgstr "Wideorozmowa ze znajomym"
+
+#: src/SettingsView.vala:97
+msgid "White theme"
+msgstr "Biały motyw"
+
+#: src/MainWindow.vala:435 src/SettingsView.vala:342
+#: res/ui/password-dialog.ui:19
+msgid "Yes"
+msgstr "Tak"
+
+#: res/ui/main-window.ui:261
+msgid "You got a new friend request"
+msgstr "Otrzymałeś nowe zaproszenie od znajomego"
+
+#: src/ChatView.vala:629 src/MainWindow.vala:748 src/SettingsView.vala:396
+msgid "_Cancel"
+msgstr "_Anuluj"
+
+#: src/ChatView.vala:630 src/MainWindow.vala:749 src/SettingsView.vala:397
+msgid "_Open"
+msgstr "_Otwórz"
+
+#: res/ui/chat-view.ui:589
+msgid "__underline__"
+msgstr "__podkreślenie__"
+
+#: res/ui/chat-view.ui:578
+msgid "_underline_"
+msgstr "_podkreślenie_"
+
+#: res/ui/chat-view.ui:615
+msgid "`inline code`"
+msgstr "`zagnieżdżony kod`"
+
+#: src/SettingsView.vala:80
+msgid "default"
+msgstr "domyślne"
+
+#: src/ChatView.vala:337
+msgid "is typing"
+msgstr "piszę"
+
+#: res/ui/settings-view.ui:1676
+msgid "ricin.io (stable)"
+msgstr "ricin.io (stabilny)"
+
+#: src/SettingsView.vala:81
+msgid "stable"
+msgstr "stabilny"
+
+#: res/ui/settings-view.ui:1679
+msgid "toxme.io"
+msgstr "toxme.io"
+
+#: res/ui/chat-view.ui:650
+msgid "~striked~"
+msgstr "~przekreślenie~"
+
+#: res/ui/chat-view.ui:661
+msgid "~~striked~~"
+msgstr "~~przekreślenie~~"

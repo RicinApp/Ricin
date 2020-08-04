@@ -65,3 +65,4 @@ script:
  - ./waf configure --prefix=/home/travis/build/RicinApp/Ricin/dist # Configure, TODO; Add tests/coverage.
  - ./waf build # Build.
  - sudo ./waf install # And finally install.
+ - bash -ex appimage.sh

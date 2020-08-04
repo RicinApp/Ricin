@@ -13,7 +13,7 @@ class Ricin.WelcomeView : Gtk.Box {
 
   [GtkCallback]
   private void show_settings () {
-    var main_window = this.get_toplevel () as MainWindow;
+    var main_window = ((MainWindow) this.get_toplevel ());
     main_window.display_settings ();
   }
 }
